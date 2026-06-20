@@ -1,0 +1,23 @@
+<!-- @dsCard group="Spacing" viewport="700x200" name="Shadows" subtitle="Warm-tinted elevation, never cold grey" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin:0; font-family: var(--font-body); background: var(--bg-page); color: var(--text-strong); padding: 30px; }
+  .row { display:flex; gap:28px; flex-wrap:wrap; }
+  .item { text-align:center; }
+  .box { width:120px; height:80px; background:#fff; border-radius: var(--radius-lg); }
+  .lab { font-size:12px; color: var(--text-muted); margin-top:14px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="lab">shadow-sm</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-md)"></div><div class="lab">shadow-md</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-lg)"></div><div class="lab">shadow-lg</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-pop)"></div><div class="lab">shadow-pop · chili glow</div></div>
+  </div>
+</body>
+</html>

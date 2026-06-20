@@ -1,0 +1,27 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# dependencies
+node_modules/
+web/node_modules/
+
+# next.js
+web/.next/
+web/out/
+web/next-env.d.ts
+
+# self-hosted media (large; lives in R2 in prod) + dev symlink
+media/
+web/public/media
+
+# scraper exports / raw data (DB is source of truth)
+main-table.json
+main-table.csv
+nepali-restaurants-au.json
+nepali-restaurants-au.csv
+
+# os / editor / logs
+.DS_Store
+*.log

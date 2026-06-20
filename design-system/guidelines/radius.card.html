@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Corner Radii" subtitle="Soft, dumpling-round corners" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin:0; font-family: var(--font-body); background: var(--bg-page); color: var(--text-strong); padding: 24px; }
+  .row { display:flex; gap:18px; flex-wrap:wrap; }
+  .item { text-align:center; }
+  .box { width:80px; height:80px; background:#fff; border:2px solid var(--marigold-500); }
+  .lab { font-size:12px; color: var(--text-muted); margin-top:8px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box" style="border-radius:var(--radius-sm)"></div><div class="lab">sm · 8</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-md)"></div><div class="lab">md · 14</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-lg)"></div><div class="lab">lg · 22</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-xl)"></div><div class="lab">xl · 32</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-pill)"></div><div class="lab">pill</div></div>
+  </div>
+</body>
+</html>

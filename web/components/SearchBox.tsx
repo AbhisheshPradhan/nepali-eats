@@ -1,0 +1,205 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { MagnifyingGlass, ArrowRight, MapPin, ForkKnife } from "@phosphor-icons/react";
+import { Button } from "@/components/ui/Button";
+import type { Suggestion } from "@/lib/queries";
+import { cn } from "@/lib/cn";
+
+const EMPTY: Suggestion = { restaurants: [], locations: [] };
+
+export function SearchBox({
+  variant = "hero",
+  placeholder = "Search a restaurant, suburb or postcode",
+  defaultValue = "",
+  onValueChange,
+  onSubmit,
+  onLocation,
+}: {
+  variant?: "hero" | "bar";
+  placeholder?: string;
+  defaultValue?: string;
+  onValueChange?: (v: string) => void;
+  onSubmit?: (v: string) => void;
+  onLocation?: (loc: { suburb: string; state: string }) => void;
+}) {
+  const router = useRouter();
+  const [value, setValue] = useState(defaultValue);
+  const [selected, setSelected] = useState<
+    | { type: "restaurant"; slug: string }
+    | { type: "location"; suburb: string; state: string }
+    | null
+  >(null);
+  const [sugg, setSugg] = useState<Suggestion>(EMPTY);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const abortRef = useRef<AbortController | null>(null);
+  const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // fetch suggestions after 3 chars (debounced)
+  useEffect(() => {
+    const q = value.trim();
+    if (q.length < 3) {
+      setSugg(EMPTY);
+      return;
+    }
+    const t = setTimeout(() => {
+      abortRef.current?.abort();
+      const ctrl = new AbortController();
+      abortRef.current = ctrl;
+      setLoading(true);
+      fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: ctrl.signal })
+        .then((r) => r.json())
+        .then((d: Suggestion) => setSugg(d))
+        .catch((e) => {
+          if (e.name !== "AbortError") setSugg(EMPTY);
+        })
+        .finally(() => setLoading(false));
+    }, 220);
+    return () => clearTimeout(t);
+  }, [value]);
+
+  // typing clears any prior selection (back to free-text)
+  const change = (v: string) => {
+    setValue(v);
+    setSelected(null);
+    setOpen(true);
+    onValueChange?.(v);
+  };
+
+  // search only runs here (Search button / Enter), acting on the current selection
+  const submit = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    setOpen(false);
+    if (selected?.type === "restaurant") {
+      router.push(`/explore?focus=${selected.slug}`);
+      return;
+    }
+    if (selected?.type === "location") {
+      if (onLocation) onLocation({ suburb: selected.suburb, state: selected.state });
+      else router.push(`/explore?suburb=${encodeURIComponent(selected.suburb)}`);
+      return;
+    }
+    if (onSubmit) onSubmit(value.trim());
+    else router.push(value.trim() ? `/explore?q=${encodeURIComponent(value.trim())}` : "/explore");
+  };
+
+  // picking an option only fills the box + remembers the choice (no search yet)
+  const pickLocation = (loc: { suburb: string; state: string }) => {
+    setValue(`${loc.suburb}, ${loc.state}`);
+    setSelected({ type: "location", suburb: loc.suburb, state: loc.state });
+    setOpen(false);
+  };
+  const pickRestaurant = (r: { slug: string; name: string }) => {
+    setValue(r.name);
+    setSelected({ type: "restaurant", slug: r.slug });
+    setOpen(false);
+  };
+
+  const hero = variant === "hero";
+  const showDropdown =
+    open &&
+    value.trim().length >= 3 &&
+    (loading || sugg.restaurants.length > 0 || sugg.locations.length > 0);
+
+  return (
+    <div className="relative w-full">
+      <form
+        onSubmit={submit}
+        className={cn(
+          "flex items-center gap-2 bg-white border-2 border-sand-400 rounded-full shadow-md focus-within:border-marigold-500",
+          hero ? "pl-5 pr-1.5 py-1.5" : "pl-4 pr-1.5 py-1 shadow-sm"
+        )}
+      >
+        <MagnifyingGlass className="text-ink-500 shrink-0" size={hero ? 22 : 18} />
+        <input
+          value={value}
+          onChange={(e) => change(e.target.value)}
+          onFocus={() => setOpen(true)}
+          onBlur={() => {
+            blurTimer.current = setTimeout(() => setOpen(false), 160);
+          }}
+          placeholder={placeholder}
+          aria-label="Search Nepali food"
+          className={cn(
+            "flex-1 bg-transparent outline-none font-body text-ink-900 min-w-0 placeholder:text-ink-500",
+            hero ? "text-[1.1rem]" : "text-base"
+          )}
+        />
+        <Button type="submit" size={hero ? "md" : "sm"} iconRight={hero ? <ArrowRight size={18} weight="bold" /> : undefined}>
+          Search
+        </Button>
+      </form>
+
+      {showDropdown && (
+        <div
+          className="absolute top-[calc(100%+6px)] left-0 right-0 bg-white rounded-lg shadow-lg border border-paper-300 overflow-hidden z-[2000] max-h-[400px] overflow-y-auto text-left"
+          onMouseDown={(e) => {
+            // keep focus so click registers before blur closes
+            e.preventDefault();
+            if (blurTimer.current) clearTimeout(blurTimer.current);
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => submit()}
+            className="flex items-center gap-2 w-full text-left bg-chili-500 text-white px-4 py-2.5 font-body font-semibold cursor-pointer"
+          >
+            <MagnifyingGlass size={16} /> Search &ldquo;{value.trim()}&rdquo;
+          </button>
+
+          {sugg.locations.length > 0 && (
+            <div className="eyebrow text-ink-500 px-4 pt-2 pb-1 bg-paper-50">Locations</div>
+          )}
+          {sugg.locations.map((l) => (
+            <button
+              type="button"
+              key={`${l.suburb}-${l.state}`}
+              onClick={() => pickLocation(l)}
+              className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 hover:bg-paper-100 cursor-pointer"
+            >
+              <MapPin className="text-chili-500 shrink-0" size={18} weight="fill" />
+              <span className="min-w-0">
+                <span className="block font-semibold text-ink-900 truncate">
+                  {l.suburb}, {l.state}
+                </span>
+                <span className="block text-[0.82rem] text-ink-500">
+                  {l.count} {l.count === 1 ? "spot" : "spots"}
+                  {l.postcode ? ` · ${l.postcode}` : ""}
+                </span>
+              </span>
+            </button>
+          ))}
+
+          {sugg.restaurants.length > 0 && (
+            <div className="eyebrow text-ink-500 px-4 pt-2 pb-1 bg-paper-50">Restaurants</div>
+          )}
+          {sugg.restaurants.map((r) => (
+            <button
+              type="button"
+              key={r.slug}
+              onClick={() => pickRestaurant(r)}
+              className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 hover:bg-paper-100 cursor-pointer"
+            >
+              <ForkKnife className="text-chili-500 shrink-0" size={18} />
+              <span className="min-w-0">
+                <span className="block font-semibold text-ink-900 truncate">{r.name}</span>
+                <span className="block text-[0.82rem] text-ink-500 truncate">
+                  {[r.suburb, r.state].filter(Boolean).join(", ")}
+                </span>
+              </span>
+            </button>
+          ))}
+
+          {!loading &&
+            sugg.restaurants.length === 0 &&
+            sugg.locations.length === 0 && (
+              <div className="px-4 py-3.5 text-ink-500">
+                No matches. Try another name or suburb.
+              </div>
+            )}
+        </div>
+      )}
+    </div>
+  );
+}

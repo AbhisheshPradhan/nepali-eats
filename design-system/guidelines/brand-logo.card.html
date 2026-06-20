@@ -1,0 +1,31 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Logo Lockup" subtitle="Momo mark + Baloo 2 wordmark" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin:0; font-family: var(--font-body); background: var(--bg-page); padding: 28px; }
+  .grid { display:flex; gap:40px; align-items:center; flex-wrap:wrap; }
+  .lockup { display:flex; align-items:center; gap:14px; }
+  .lockup img { width:58px; height:58px; }
+  .word { font-family: var(--font-display); font-weight:800; font-size:38px; letter-spacing:-.02em; }
+  .word .a { color: var(--chili-500); }
+  .word .b { color: var(--ink-900); }
+  .dark { background: var(--ink-900); border-radius: var(--radius-lg); padding:18px 22px; }
+  .dark .b { color: #fff; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="lockup">
+      <img src="../assets/logo-momo.svg" alt="">
+      <span class="word"><span class="a">Nepali</span><span class="b">Eats</span></span>
+    </div>
+    <div class="lockup dark">
+      <img src="../assets/logo-momo.svg" alt="">
+      <span class="word"><span class="a">Nepali</span><span class="b">Eats</span></span>
+    </div>
+  </div>
+</body>
+</html>

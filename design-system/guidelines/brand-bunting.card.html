@@ -1,0 +1,25 @@
+<!-- @dsCard group="Brand" viewport="700x150" name="Prayer-Flag Bunting" subtitle="Signature divider motif — pure CSS triangles" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin:0; font-family: var(--font-body); background: var(--bg-page); padding: 40px 24px; }
+  .bunting { display:flex; gap:6px; justify-content:center; }
+  .flag { width:0; height:0; border-left:18px solid transparent; border-right:18px solid transparent; border-top:30px solid; filter: drop-shadow(0 3px 3px rgba(43,26,18,.14)); }
+</style>
+</head>
+<body>
+  <div class="bunting">
+    <span class="flag" style="border-top-color:var(--flag-blue)"></span>
+    <span class="flag" style="border-top-color:var(--flag-yellow)"></span>
+    <span class="flag" style="border-top-color:var(--flag-red)"></span>
+    <span class="flag" style="border-top-color:var(--flag-green)"></span>
+    <span class="flag" style="border-top-color:var(--flag-blue)"></span>
+    <span class="flag" style="border-top-color:var(--flag-yellow)"></span>
+    <span class="flag" style="border-top-color:var(--flag-red)"></span>
+    <span class="flag" style="border-top-color:var(--flag-green)"></span>
+  </div>
+</body>
+</html>

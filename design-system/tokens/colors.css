@@ -1,0 +1,84 @@
+/* ============================================================
+   NepaliEats — Color tokens
+   A warm thali of festive colors on a cream-paper base.
+   Inspired by chili achaar, turmeric, marigold garlands,
+   coriander, and Himalayan prayer flags.
+   ============================================================ */
+
+:root {
+  /* --- Paper / neutral warm base --- */
+  --paper-50:  #FFFBF4;   /* page background, lightest */
+  --paper-100: #FFF6E9;   /* warm surface */
+  --paper-200: #FBEAD3;   /* sunken / hover surface */
+  --paper-300: #F2DCC0;   /* borders on cream */
+  --sand-400:  #E3C9A6;   /* muted dividers */
+
+  /* --- Ink / warm text neutrals --- */
+  --ink-900: #2B1A12;     /* primary text, warm near-black */
+  --ink-700: #4D3829;     /* secondary text */
+  --ink-500: #7A6453;     /* muted text / captions */
+  --ink-300: #A9968650;   /* faint */
+
+  /* --- Chili red — PRIMARY (appetite, energy) --- */
+  --chili-100: #FCE2DD;
+  --chili-300: #F39288;
+  --chili-500: #E5392B;   /* brand primary */
+  --chili-600: #D72631;   /* hover / deep */
+  --chili-700: #B01622;   /* press */
+
+  /* --- Marigold gold — SECONDARY (celebration, warmth) --- */
+  --marigold-100: #FFF0CE;
+  --marigold-300: #FBCB6B;
+  --marigold-500: #F5A623;  /* brand secondary */
+  --marigold-600: #E2900F;
+  --marigold-700: #B97200;
+
+  /* --- Himalaya teal — accent (cool counterpoint) --- */
+  --himalaya-100: #D5F0F2;
+  --himalaya-500: #1B98A8;
+  --himalaya-700: #0E6F7C;
+
+  /* --- Coriander green — accent (fresh, herby) --- */
+  --coriander-100: #DDF1DF;
+  --coriander-500: #4A9D5B;
+  --coriander-700: #2F7B40;
+
+  /* --- Prayer-flag celebratory set (decoration, tags, charts) --- */
+  --flag-blue:   #2D6FD8;
+  --flag-white:  #FFFFFF;
+  --flag-red:    #E5392B;
+  --flag-green:  #4A9D5B;
+  --flag-yellow: #F5A623;
+
+  /* ============================================================
+     Semantic aliases — use these in components
+     ============================================================ */
+  --bg-page:        var(--paper-50);
+  --bg-warm:        var(--paper-100);
+  --surface-card:   #FFFFFF;
+  --surface-sunken: var(--paper-200);
+
+  --text-strong:  var(--ink-900);
+  --text-body:    var(--ink-700);
+  --text-muted:   var(--ink-500);
+  --text-on-primary: #FFFFFF;
+
+  --brand-primary:        var(--chili-500);
+  --brand-primary-hover:  var(--chili-600);
+  --brand-primary-press:  var(--chili-700);
+  --brand-secondary:      var(--marigold-500);
+  --brand-secondary-hover:var(--marigold-600);
+
+  --border-soft:   var(--paper-300);
+  --border-strong: var(--sand-400);
+  --ring:          var(--marigold-500);
+
+  --accent-teal:  var(--himalaya-500);
+  --accent-green: var(--coriander-500);
+
+  /* status */
+  --success: var(--coriander-500);
+  --warning: var(--marigold-600);
+  --danger:  var(--chili-600);
+  --info:    var(--himalaya-500);
+}

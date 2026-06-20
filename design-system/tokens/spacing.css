@@ -1,0 +1,45 @@
+/* ============================================================
+   NepaliEats — Spacing, radius, shadow, motion tokens
+   Soft, dumpling-round corners; warm tinted shadows.
+   ============================================================ */
+
+:root {
+  /* spacing scale (4px base) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+
+  /* radii — generous, friendly */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   22px;
+  --radius-xl:   32px;
+  --radius-pill: 999px;
+
+  /* warm-tinted shadows (chili/ink mix, never cold grey) */
+  --shadow-sm:  0 1px 2px rgba(43, 26, 18, 0.08);
+  --shadow-md:  0 6px 18px rgba(43, 26, 18, 0.10);
+  --shadow-lg:  0 16px 40px rgba(43, 26, 18, 0.14);
+  --shadow-pop: 0 10px 28px rgba(229, 57, 43, 0.22); /* chili glow on hover */
+
+  /* focus ring */
+  --ring-width: 3px; /* @kind spacing */
+  --ring-color: var(--marigold-300);
+
+  /* motion — quick, slightly bouncy */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+  --dur-fast:    140ms; /* @kind other */
+  --dur-base:    220ms; /* @kind other */
+  --dur-slow:    420ms; /* @kind other */
+
+  /* layout */
+  --container:   1180px; /* @kind other */
+  --container-narrow: 760px; /* @kind other */
+}

@@ -1,0 +1,21 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NepaliEats momo mark">
+  
+  <g stroke="#F5A623" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.85">
+    <path d="M44 26c-5-5-5-11 0-16"></path>
+    <path d="M60 22c-5-5-5-11 0-16"></path>
+    <path d="M76 26c-5-5-5-11 0-16"></path>
+  </g>
+  
+  <circle cx="60" cy="74" r="38" fill="#F5A623"></circle>
+  <circle cx="60" cy="74" r="38" fill="none" stroke="#E2900F" stroke-width="3"></circle>
+  
+  <circle cx="60" cy="44" r="9" fill="#FBCB6B" stroke="#E2900F" stroke-width="3"></circle>
+  
+  <g stroke="#E2900F" stroke-width="3" stroke-linecap="round">
+    <path d="M60 52 L40 92"></path>
+    <path d="M60 52 L52 96"></path>
+    <path d="M60 52 L60 98"></path>
+    <path d="M60 52 L68 96"></path>
+    <path d="M60 52 L80 92"></path>
+  </g>
+</svg>
