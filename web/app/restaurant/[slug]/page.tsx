@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Tag } from "@/components/ui/Tag";
 import { Rating } from "@/components/ui/Rating";
 import { Button } from "@/components/ui/Button";
-import { DeleteSpotButton } from "@/components/admin/DeleteSpotButton";
+import { Avatar } from "@/components/Avatar";
 import { getRestaurantBySlug } from "@/lib/queries";
 import { mediaUrl } from "@/lib/media";
 import {
@@ -49,13 +49,14 @@ export async function generateMetadata({
   const where = [r.suburb, r.state].filter(Boolean).join(", ");
   const title = `${r.name} - Nepali ${(r.venueType || "restaurant").toLowerCase()} in ${where}`;
   const img = mediaUrl(r.primaryPhoto);
+  const blurb = r.description?.trim() || autoBlurb(r);
   return {
     title,
-    description: autoBlurb(r),
+    description: blurb,
     alternates: { canonical: `/restaurant/${r.slug}` },
     openGraph: {
       title,
-      description: autoBlurb(r),
+      description: blurb,
       images: img ? [{ url: img }] : undefined,
     },
   };
@@ -71,7 +72,11 @@ export default async function VenuePage({
   if (!r) notFound();
 
   const hero = mediaUrl(r.primaryPhoto);
-  const gallery = r.photos.slice(1, 7).map((p) => mediaUrl(p.storageKey));
+  // gallery = every photo except the hero, in saved order (admin-reorderable).
+  const gallery = r.photos
+    .filter((p) => p.storageKey !== r.primaryPhoto)
+    .slice(0, 6)
+    .map((p) => mediaUrl(p.storageKey));
   const open = isOpenNow(r.openingHours, r.state);
   const hoursToday = todayHoursLine(r.openingHours, r.state);
   const week = weekSchedule(r.openingHours, r.state);
@@ -125,9 +130,9 @@ export default async function VenuePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* hero */}
+      {/* cover photo (Facebook-style: name + logo live in the strip below) */}
       <div
-        className="h-[280px] rounded-xl relative overflow-hidden flex items-end"
+        className="h-[280px] rounded-xl relative overflow-hidden"
         style={{
           background: `linear-gradient(135deg, hsl(${hue} 80% 62%), hsl(${(hue + 40) % 360} 78% 52%))`,
         }}
@@ -139,8 +144,13 @@ export default async function VenuePage({
             <ForkKnife size={112} weight="fill" />
           </div>
         )}
-        <div className="relative w-full px-7 py-6 bg-gradient-to-t from-ink-900/70 to-transparent">
-          <div className="flex gap-2 mb-2.5">
+      </div>
+
+      {/* identity strip: logo/monogram overlapping the cover, then name + badges */}
+      <div className="flex items-end gap-4 -mt-12 px-2 sm:px-5 relative z-10">
+        <Avatar name={r.name} logoKey={r.logoKey} id={r.id} size={104} ring />
+        <div className="pb-1 min-w-0">
+          <div className="flex gap-2 mb-1.5">
             {open !== null && (
               <Badge tone={open ? "open" : "closed"} solid>
                 {open ? "Open now" : "Closed"}
@@ -150,7 +160,7 @@ export default async function VenuePage({
               {r.venueType || "Restaurant"}
             </Badge>
           </div>
-          <h1 className="font-display font-extrabold text-[2.6rem] text-white leading-tight m-0">
+          <h1 className="font-display font-extrabold text-[2.2rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
             {r.name}
           </h1>
         </div>
@@ -180,7 +190,7 @@ export default async function VenuePage({
             </div>
           )}
 
-          <p className="text-[1.18rem] leading-relaxed text-ink-700 mb-7">{autoBlurb(r)}</p>
+          <p className="text-[1.18rem] leading-relaxed text-ink-700 mb-7">{r.description?.trim() || autoBlurb(r)}</p>
 
           {/* gallery */}
           {gallery.length > 0 && (
@@ -198,12 +208,12 @@ export default async function VenuePage({
             </>
           )}
 
-          {/* menu */}
+          {/* menu — hidden for now; restore once menus are parsed/finalised.
           <h2 className="font-display font-extrabold text-[1.5rem] mb-2">The menu</h2>
           <div className="bg-white rounded-lg shadow-sm p-5 mb-8">
             {r.menuUrl ? (
               <a
-                href={r.menuUrl}
+                href={(r.menuSource === "upload" ? mediaUrl(r.menuUrl) : r.menuUrl) ?? r.menuUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-display font-bold text-chili-600 hover:text-chili-700"
@@ -216,6 +226,7 @@ export default async function VenuePage({
               </p>
             )}
           </div>
+          */}
 
           {/* reviews summary */}
           {r.rating != null && r.reviewCount != null && (
@@ -347,9 +358,6 @@ export default async function VenuePage({
               <Storefront size={18} weight="fill" /> More spots in {r.suburb}
             </Link>
           )}
-
-          {/* ⚠️ TEMPORARY ADMIN — remove/hide or gate behind an admin role before launch */}
-          <DeleteSpotButton slug={r.slug} name={r.name} />
         </aside>
       </div>
     </div>

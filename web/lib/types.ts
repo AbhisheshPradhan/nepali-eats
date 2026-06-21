@@ -50,10 +50,14 @@ export interface Restaurant {
   whatsapp: string | null;
   menuUrl: string | null;
   menuSource: string | null;
+  logoKey: string | null; // self-hosted brand logo (storage_key)
   googleMapsUrl: string | null;
   openingHours: OpeningHours | null;
   primaryPhoto: string | null; // storage_key of the hero
   isFeatured: boolean; // editorial pick — shows the Featured tab + border
+  featuredRank: number | null; // raw editorial rank (asc); null = not featured
+  markedReady: boolean; // internal: data reviewed + ready to go live / for next stage
+  description: string | null; // editorial blurb; falls back to autoBlurb when empty
 }
 
 export interface RestaurantDetail extends Restaurant {

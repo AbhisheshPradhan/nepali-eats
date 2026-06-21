@@ -14,7 +14,8 @@ const COLS = `
   r.rating, r.review_count, r.price_level, r.price_range,
   r.street, r.suburb, r.state, r.postcode, r.full_address, r.lat, r.lng,
   r.phone, r.email, r.website, r.facebook, r.instagram, r.tiktok, r.whatsapp,
-  r.menu_url, r.menu_source, r.google_maps_url, r.opening_hours,
+  r.menu_url, r.menu_source, r.logo_key, r.google_maps_url, r.opening_hours, r.featured_rank,
+  r.marked_ready, r.description,
   (r.featured_rank IS NOT NULL) AS is_featured,
   (SELECT p.storage_key FROM restaurant_photos p
      WHERE p.restaurant_id = r.id AND NOT p.removed
@@ -51,10 +52,14 @@ function mapRow(row: any): Restaurant {
     whatsapp: row.whatsapp,
     menuUrl: row.menu_url,
     menuSource: row.menu_source,
+    logoKey: row.logo_key,
     googleMapsUrl: row.google_maps_url,
     openingHours: row.opening_hours,
     primaryPhoto: row.primary_photo,
     isFeatured: !!row.is_featured,
+    featuredRank: row.featured_rank != null ? Number(row.featured_rank) : null,
+    markedReady: !!row.marked_ready,
+    description: row.description,
   };
 }
 
@@ -185,7 +190,7 @@ export async function getRestaurantBySlug(slug: string): Promise<RestaurantDetai
   const photos = await query(
     `SELECT storage_key, source, attribution, width, height, is_primary
        FROM restaurant_photos WHERE restaurant_id = $1 AND NOT removed
-       ORDER BY is_primary DESC, position ASC`,
+       ORDER BY position ASC, id ASC`,
     [(rows[0] as { id: number }).id]
   );
   const mapped: Photo[] = photos.map((p: any) => ({
@@ -207,12 +212,16 @@ export async function getCardBySlug(slug: string): Promise<Restaurant | null> {
 // ADMIN (temporary) — hard-deletes a restaurant. restaurant_photos rows cascade
 // via FK (ON DELETE CASCADE); on-disk media files under media/ are NOT removed.
 // Returns the deleted restaurant's name, or null if no row matched.
-export async function deleteRestaurantBySlug(slug: string): Promise<string | null> {
-  const rows = await query<{ name: string }>(
-    `DELETE FROM restaurants WHERE slug = $1 RETURNING name`,
+// Returns the deleted row's id + name (id lets the caller purge on-disk media),
+// or null if no row matched. restaurant_photos rows cascade via FK.
+export async function deleteRestaurantBySlug(
+  slug: string
+): Promise<{ id: number; name: string } | null> {
+  const rows = await query<{ id: number; name: string }>(
+    `DELETE FROM restaurants WHERE slug = $1 RETURNING id, name`,
     [slug]
   );
-  return rows.length ? rows[0].name : null;
+  return rows.length ? rows[0] : null;
 }
 
 export async function featured(limit = 8): Promise<Restaurant[]> {

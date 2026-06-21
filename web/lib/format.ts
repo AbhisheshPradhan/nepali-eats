@@ -54,6 +54,21 @@ export function priceString(
 	return "";
 }
 
+// 1–2 letter monogram for the logo fallback (Gmail-style avatar). Strips
+// apostrophes, punctuation and leading filler words ("The", "A") so e.g.
+// "Maya's Momo" -> "MM", "The Hungry Buddha" -> "HB".
+const FILLER = new Set(["the", "a", "an", "at", "of", "and", "to"]);
+export function initials(name: string): string {
+	const words = name
+		.replace(/['’`]/g, "")
+		.replace(/[^\p{L}\p{N} ]/gu, " ")
+		.split(/\s+/)
+		.filter((w) => w.length > 1);
+	const significant = words.filter((w) => !FILLER.has(w.toLowerCase()));
+	const pick = (significant.length ? significant : words).slice(0, 2);
+	return pick.map((w) => w[0]!.toUpperCase()).join("") || "?";
+}
+
 // Warm gradient hue for placeholder cards, stable per id.
 export function hueFromId(id: number): number {
 	// bias toward warm marigold/chili range with some variety

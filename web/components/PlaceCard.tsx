@@ -5,6 +5,7 @@ import { Clock, MapPin, MapTrifold } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { VenueIcon } from "@/components/ui/VenueIcon";
+import { Avatar } from "@/components/Avatar";
 import type { Restaurant } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
 import { isOpenNow, openStatus, hueFromId } from "@/lib/format";
@@ -25,8 +26,9 @@ export type PlaceCardData = Pick<
   | "primaryPhoto"
   | "openingHours"
 > & {
-  // optional: map-popup pins don't carry it, only full restaurant rows do
+  // optional: map-popup pins don't carry these, only full restaurant rows do
   isFeatured?: boolean;
+  logoKey?: string | null;
 };
 
 // One card, two layouts:
@@ -125,8 +127,8 @@ export function PlaceCard({
             )}
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <VenueIcon type={r.venueType} size={56} className="text-white/70" />
+          <div className="absolute inset-0 grid place-items-center">
+            <Avatar name={r.name} logoKey={r.logoKey} id={r.id} size={row ? 84 : 96} />
           </div>
         )}
 

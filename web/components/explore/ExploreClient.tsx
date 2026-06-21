@@ -116,9 +116,9 @@ export function ExploreClient({
   // we clip the rendered list to this so it always matches the visible pins.
   const [viewBbox, setViewBbox] = useState<Bbox | null>(null);
 
-  // suburb/state from the URL only SEED the view. Once the visitor pans/zooms the
-  // map (or hits "Near me"), we drop that scope and list everything in the bounds.
-  const hasFixedGeo = !!(fixed.suburb || fixed.state);
+  // The URL (suburb/state/lat-lng/focus) only SEEDS the view. Once the visitor
+  // pans/zooms the map (or hits "Near me"), we drop that scope and list
+  // everything in the bounds, relabelling the view as "in the map area".
   const [areaScoped, setAreaScoped] = useState(false);
   const areaScopedRef = useRef(false);
   const enterAreaMode = (label?: string) => {
@@ -198,10 +198,11 @@ export function ExploreClient({
   const onBounds = useCallback((b: Bbox, userMoved: boolean) => {
     bboxRef.current = b;
     setViewBbox(b); // clip the list to the visible area immediately, before refetch
-    // a real pan/zoom away from a seeded suburb → switch to map-area mode.
-    // clear the box (don't show "Map area" as text — it's not a real query); the
-    // "in the map area" context lives in the list heading below.
-    if (userMoved && hasFixedGeo) enterAreaMode("");
+    // any real pan/zoom away from the seeded view (suburb/state, a lat/lng search,
+    // "Near me", or the default camera) → switch to map-area mode. Clear the box
+    // (don't show "Map area" as text — it's not a real query); the "in the map
+    // area" context lives in the list heading below.
+    if (userMoved) enterAreaMode("");
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const delay = firstBoundsRef.current ? 0 : 400;
     firstBoundsRef.current = false;

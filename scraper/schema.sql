@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS restaurants (
   phone             TEXT,
   email             TEXT,
   website           TEXT,
+  logo_key          TEXT,                   -- self-hosted brand logo (storage_key), shown on the detail page
   facebook          TEXT,
   instagram         TEXT,
   tiktok            TEXT,
@@ -31,6 +32,8 @@ CREATE TABLE IF NOT EXISTS restaurants (
   is_nepali         BOOLEAN,                -- true=keep, false=excluded, null=review_needed
   relevance         TEXT,                   -- nepali | review_needed | indian_likely | other_cuisine | grocery_retail | other_venue | manual_excluded
   featured_rank     INT,                    -- editorial homepage pick + manual order within a state's featured list (asc, nulls last); NOT NULL = featured
+  marked_ready      BOOLEAN NOT NULL DEFAULT FALSE, -- internal: data reviewed + ready to go live / for next stage (e.g. menu parsing)
+  description       TEXT,                   -- editorial blurb; falls back to an auto-generated line when empty
   enriched_at       TIMESTAMPTZ,
   created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -45,6 +48,9 @@ CREATE INDEX IF NOT EXISTS idx_restaurants_geo      ON restaurants (lat, lng);
 -- one state, so a non-null featured_rank features it for that state's homepage
 -- list, in ascending rank order. NULL = not featured.
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS featured_rank INT;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS logo_key TEXT;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS marked_ready BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS description TEXT;
 ALTER TABLE restaurants DROP COLUMN IF EXISTS is_featured;
 CREATE INDEX IF NOT EXISTS idx_restaurants_featured ON restaurants (state) WHERE featured_rank IS NOT NULL;
 

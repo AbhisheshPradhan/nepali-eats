@@ -28,3 +28,28 @@ export async function reverseGeocodeSuburb(
     return null;
   }
 }
+
+// Reverse-geocode a coordinate to an AU state code ("NSW", "VIC", …) via Mapbox.
+// Used to re-scope the homepage featured row to the visitor's actual state once
+// they've shared their location (IP geo is the server-side default). Returns null
+// on any failure/miss so the caller can keep the IP/NSW fallback.
+export async function reverseGeocodeState(
+  lat: number,
+  lng: number,
+): Promise<string | null> {
+  if (!TOKEN) return null;
+  try {
+    const url =
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json` +
+      `?types=region&country=AU&limit=1&access_token=${TOKEN}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    // For a `region` feature the short_code ("AU-NSW") is on the feature itself.
+    const code = data.features?.[0]?.properties?.short_code as string | undefined;
+    const state = code?.split("-")[1]?.toUpperCase();
+    return state || null;
+  } catch {
+    return null;
+  }
+}

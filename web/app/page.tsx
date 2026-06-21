@@ -51,7 +51,12 @@ export default async function HomePage() {
 
       {/* FEATURED */}
       <section className="max-w-[1180px] mx-auto px-6 pt-5">
-        <FeaturedCards gems={gems} metro={metro} fallbackLoc={defaultLoc} />
+        <FeaturedCards
+          gems={gems}
+          state={state}
+          metro={metro}
+          fallbackLoc={defaultLoc}
+        />
       </section>
 
       {/* CRAVING CAROUSEL */}

@@ -6,14 +6,22 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trash } from "@phosphor-icons/react";
 
-export function DeleteSpotButton({ slug, name }: { slug: string; name: string }) {
+export function DeleteSpotButton({
+  slug,
+  name,
+  redirectTo = "/explore",
+}: {
+  slug: string;
+  name: string;
+  redirectTo?: string;
+}) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
 
   async function handleDelete() {
     if (
       !window.confirm(
-        `Delete "${name}" for good? This removes it from the directory and can't be undone.`
+        `Delete "${name}" for good? This removes it (and all its photos/menus) from the directory and can't be undone.`
       )
     ) {
       return;
@@ -27,7 +35,7 @@ export function DeleteSpotButton({ slug, name }: { slug: string; name: string })
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error || `Request failed (${res.status})`);
       }
-      router.push("/explore");
+      router.push(redirectTo);
       router.refresh();
     } catch (err) {
       window.alert(
