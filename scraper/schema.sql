@@ -30,8 +30,7 @@ CREATE TABLE IF NOT EXISTS restaurants (
   address_source    TEXT,                   -- 'google' | 'osm' | 'manual' | null
   is_nepali         BOOLEAN,                -- true=keep, false=excluded, null=review_needed
   relevance         TEXT,                   -- nepali | review_needed | indian_likely | other_cuisine | grocery_retail | other_venue | manual_excluded
-  is_featured       BOOLEAN NOT NULL DEFAULT FALSE,  -- editorial homepage pick; scoped per state in queries
-  featured_rank     INT,                    -- manual order within a state's featured list (asc, nulls last)
+  featured_rank     INT,                    -- editorial homepage pick + manual order within a state's featured list (asc, nulls last); NOT NULL = featured
   enriched_at       TIMESTAMPTZ,
   created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -42,11 +41,12 @@ CREATE INDEX IF NOT EXISTS idx_restaurants_suburb   ON restaurants (suburb);
 CREATE INDEX IF NOT EXISTS idx_restaurants_postcode ON restaurants (postcode);
 CREATE INDEX IF NOT EXISTS idx_restaurants_geo      ON restaurants (lat, lng);
 
--- Homepage featured flag (idempotent for existing DBs). A restaurant belongs to
--- one state, so flagging it features it for that state's homepage list.
-ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS is_featured BOOLEAN NOT NULL DEFAULT FALSE;
+-- Homepage featured pick (idempotent for existing DBs). A restaurant belongs to
+-- one state, so a non-null featured_rank features it for that state's homepage
+-- list, in ascending rank order. NULL = not featured.
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS featured_rank INT;
-CREATE INDEX IF NOT EXISTS idx_restaurants_featured ON restaurants (state) WHERE is_featured;
+ALTER TABLE restaurants DROP COLUMN IF EXISTS is_featured;
+CREATE INDEX IF NOT EXISTS idx_restaurants_featured ON restaurants (state) WHERE featured_rank IS NOT NULL;
 
 -- Opening hours: two-field design. `opening_hours_raw` holds the per-day strings
 -- exactly as scraped from Google ("11 am to 10:30 pm", "Closed", split shifts),

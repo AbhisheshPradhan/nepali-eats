@@ -30,6 +30,7 @@ interface ButtonProps {
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
   href?: string;
+  newTab?: boolean;
   onClick?: () => void;
   type?: "button" | "submit";
   disabled?: boolean;
@@ -46,6 +47,7 @@ export function Button({
   iconLeft,
   iconRight,
   href,
+  newTab,
   ...rest
 }: ButtonProps) {
   const cls = cn(
@@ -66,7 +68,12 @@ export function Button({
   );
   if (href) {
     return (
-      <Link href={href} className={cls} aria-label={rest["aria-label"]}>
+      <Link
+        href={href}
+        className={cls}
+        aria-label={rest["aria-label"]}
+        {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
         {inner}
       </Link>
     );

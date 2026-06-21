@@ -224,8 +224,9 @@ export async function featured(limit = 8): Promise<Restaurant[]> {
 }
 
 // Homepage featured row, scoped to the visitor's state. Prefers editorial
-// is_featured picks; if the state has none flagged, falls back to that state's
-// most popular spots so the row stays state-scoped (never nationwide).
+// picks (any restaurant with a non-null featured_rank); if the state has none,
+// falls back to that state's most popular spots so the row stays state-scoped
+// (never nationwide).
 export async function featuredByState(
   state: string | null | undefined,
   limit = 5,

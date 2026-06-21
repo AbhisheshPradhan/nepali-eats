@@ -67,7 +67,7 @@ To do (deploy):
 - [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
       Explore, `/api/*`, and the geo homepage dynamic.
 - [ ] Search Console + Bing Webmaster + GA4; submit sitemap (see SEO_LAUNCH_PLAN.md).
-- [ ] Editorial admin for `is_featured`/`featured_rank` and descriptions: small
+- [ ] Editorial admin for `featured_rank` (non-null = featured) and descriptions: small
       custom `/admin` or Neon SQL editor.
 
 ## Project layout
@@ -83,8 +83,9 @@ To do (deploy):
   `/nepali-restaurants/[state|suburb]`, `/momo`, `/tag/[tag]`, Stories, `/add-a-spot`,
   sitemap/robots/404. Photos via `mediaUrl()` → `/media` (dev symlink
   `web/public/media -> ../../media`) → R2 in prod (`NEXT_PUBLIC_MEDIA_BASE`).
-  Home **featured row is state-scoped** (IP-geo state → that state's `is_featured`
-  picks, fallback that state's popular; default NSW/Sydney 2000; heading "Where
+  Home **featured row is state-scoped** (IP-geo state → that state's featured
+  picks (rows with a non-null `featured_rank`), fallback that state's popular;
+  default NSW/Sydney 2000; heading "Where
   {metro}'s eating this week"; cards show distance from shared location or the
   state capital).
 - **Explore = map-driven, PostGIS-backed:**

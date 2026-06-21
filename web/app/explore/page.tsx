@@ -120,6 +120,19 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     autoLocate = true;
   }
 
+  // Identifies the server-resolved view (which branch above set the camera). The
+  // Explore route is the same on every search, so a suburb/restaurant pick is a
+  // SOFT navigation that re-renders the server props but does NOT remount the
+  // client. ExploreClient watches this key to re-apply the new camera/scope when
+  // it changes; same key = same view = leave the live map/filters untouched.
+  const viewKey = sp.focus
+    ? `focus:${sp.focus}`
+    : sp.lat && sp.lng
+      ? `ll:${sp.lat},${sp.lng}`
+      : sp.suburb || sp.state || sp.tag || sp.venue
+        ? `area:${sp.suburb ?? ""}|${sp.state ?? ""}|${sp.tag ?? ""}|${sp.venue ?? ""}`
+        : "default";
+
   // The list/pins/count are CLIENT-OWNED: the server can't know the visitor's
   // viewport pixel size, so any SSR list would be scoped to a guessed bbox and get
   // corrected on first paint (count flip + reorder + set change = the flicker).
@@ -141,6 +154,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       initialUserLoc={userLoc}
       defaultUserLoc={defaultUserLoc}
       autoLocate={autoLocate}
+      viewKey={viewKey}
       initialQuery={
         focused?.name ??
         (sp.suburb ? (sp.state ? `${sp.suburb}, ${sp.state}` : sp.suburb) : undefined) ??

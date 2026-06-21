@@ -251,6 +251,7 @@ export default async function VenuePage({
           <div className="bg-white rounded-lg shadow-md p-5">
             <Button
               href={directionsUrl(r)}
+              newTab
               block
               iconLeft={<NavigationArrow size={18} weight="fill" />}
               className="mb-2.5"
@@ -263,7 +264,7 @@ export default async function VenuePage({
               </Button>
             )}
             {r.website && (
-              <Button href={r.website} block variant="ghost" iconLeft={<Globe size={18} />}>
+              <Button href={r.website} newTab block variant="ghost" iconLeft={<Globe size={18} />}>
                 Visit website
               </Button>
             )}

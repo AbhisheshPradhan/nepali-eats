@@ -66,6 +66,7 @@ export function ExploreClient({
   initialUserLoc,
   defaultUserLoc,
   autoLocate = false,
+  viewKey,
   initialQuery = "",
 }: {
   fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
@@ -79,6 +80,9 @@ export function ExploreClient({
   initialUserLoc?: [number, number];
   defaultUserLoc: [number, number];
   autoLocate?: boolean;
+  // viewKey = signature of the server-resolved view; changes on a soft navigation
+  // to a new suburb/restaurant/area so the client can re-apply the new camera.
+  viewKey: string;
   // initialQuery = what the search box shows (suburb, state / focused name)
   initialQuery?: string;
 }) {
@@ -135,6 +139,9 @@ export function ExploreClient({
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const fetchRef = useRef<(reset: boolean) => void>(() => {});
+  // the view this client last applied; starts at the mount value so the resync
+  // effect is a no-op on first render and only fires on later soft navigations.
+  const appliedViewKey = useRef(viewKey);
 
   const buildParams = (page: number) => {
     const b = bboxRef.current!;
@@ -234,6 +241,27 @@ export function ExploreClient({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoLocate]);
+
+  // Searching from the Explore page navigates to /explore?suburb=… which is a SOFT
+  // navigation: the server re-renders with a new camera but React keeps this client
+  // instance, so center/zoom/scope (seeded only at mount) would otherwise go stale
+  // and the map never moves. When the server-resolved viewKey changes, re-apply the
+  // new view: recentre (MapView flyTo → onBounds refetch), re-seed the geo scope so
+  // the new suburb/state filter applies, and resync the search box.
+  useEffect(() => {
+    if (appliedViewKey.current === viewKey) return;
+    appliedViewKey.current = viewKey;
+    setCenter(initialCenter);
+    setZoom(initialZoom);
+    areaScopedRef.current = false;
+    setAreaScoped(false);
+    setSelected(focusId ?? null);
+    setBoxValue(initialQuery);
+    setBoxKey((k) => k + 1);
+    // let the post-flyTo bounds emit fetch immediately rather than debounced.
+    firstBoundsRef.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewKey]);
 
   const onSelect = useCallback((id: number | null) => {
     setSelected(id);
