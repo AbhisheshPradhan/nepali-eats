@@ -2,7 +2,7 @@ const FLAGS = ["#2d6fd8", "#f5a623", "#e5392b", "#4a9d5b"];
 
 export function Bunting({ count = 9 }: { count?: number }) {
   return (
-    <div className="flex gap-2 justify-center mb-[18px]" aria-hidden>
+    <div className="flex gap-2 justify-center mb-3" aria-hidden>
       {Array.from({ length: count }).map((_, i) => (
         <span
           key={i}

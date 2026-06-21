@@ -66,9 +66,10 @@ export interface ListOpts {
   priceLevel?: number;
   minRating?: number;
   hasPhoto?: boolean;
+  featured?: boolean;
   limit?: number;
   offset?: number;
-  orderBy?: "popular" | "rating" | "name" | "newest";
+  orderBy?: "popular" | "rating" | "name" | "newest" | "featured";
 }
 
 function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
@@ -96,6 +97,7 @@ function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
     cond.push(
       "EXISTS (SELECT 1 FROM restaurant_photos p WHERE p.restaurant_id = r.id AND NOT p.removed)"
     );
+  if (o.featured) cond.push("r.is_featured");
   return { where: cond.length ? "WHERE " + cond.join(" AND ") : "", params };
 }
 
@@ -104,6 +106,8 @@ const ORDER: Record<string, string> = {
   rating: "r.rating DESC NULLS LAST, r.review_count DESC NULLS LAST",
   name: "r.name ASC",
   newest: "r.id DESC",
+  featured:
+    "r.featured_rank ASC NULLS LAST, r.review_count DESC NULLS LAST, r.rating DESC NULLS LAST",
 };
 
 export async function listRestaurants(o: ListOpts = {}): Promise<Restaurant[]> {
@@ -123,7 +127,11 @@ export async function listRestaurants(o: ListOpts = {}): Promise<Restaurant[]> {
 export async function pinsInBounds(o: ListOpts): Promise<RestaurantPin[]> {
   const { where, params } = buildWhere(o);
   const rows = await query(
-    `SELECT r.id, r.slug, r.name, r.lat, r.lng, r.rating, r.venue_type
+    `SELECT r.id, r.slug, r.name, r.lat, r.lng, r.rating, r.review_count,
+            r.venue_type, r.price_range, r.suburb, r.state,
+            (SELECT p.storage_key FROM restaurant_photos p
+               WHERE p.restaurant_id = r.id AND NOT p.removed
+               ORDER BY p.is_primary DESC, p.position ASC LIMIT 1) AS primary_photo
        FROM restaurants r ${where} ORDER BY r.review_count DESC NULLS LAST LIMIT 3000`,
     params
   );
@@ -134,7 +142,12 @@ export async function pinsInBounds(o: ListOpts): Promise<RestaurantPin[]> {
     lat: Number(row.lat),
     lng: Number(row.lng),
     rating: row.rating != null ? Number(row.rating) : null,
+    reviewCount: row.review_count != null ? Number(row.review_count) : null,
     venueType: row.venue_type,
+    priceRange: row.price_range,
+    suburb: row.suburb,
+    state: row.state,
+    primaryPhoto: row.primary_photo,
   }));
 }
 
@@ -196,6 +209,29 @@ export async function getCardBySlug(slug: string): Promise<Restaurant | null> {
 
 export async function featured(limit = 8): Promise<Restaurant[]> {
   return listRestaurants({
+    hasPhoto: true,
+    orderBy: "popular",
+    limit,
+  });
+}
+
+// Homepage featured row, scoped to the visitor's state. Prefers editorial
+// is_featured picks; if the state has none flagged, falls back to that state's
+// most popular spots so the row stays state-scoped (never nationwide).
+export async function featuredByState(
+  state: string | null | undefined,
+  limit = 5,
+): Promise<Restaurant[]> {
+  const st = state || undefined;
+  const flagged = await listRestaurants({
+    state: st,
+    featured: true,
+    orderBy: "featured",
+    limit,
+  });
+  if (flagged.length) return flagged;
+  return listRestaurants({
+    state: st,
     hasPhoto: true,
     orderBy: "popular",
     limit,

@@ -1,149 +1,71 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet.markercluster";
-import "leaflet.markercluster/dist/MarkerCluster.css";
-import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Map, {
+  Source,
+  Layer,
+  Popup,
+  NavigationControl,
+  type MapRef,
+  type MapMouseEvent,
+  type LayerProps,
+} from "react-map-gl/mapbox";
+import type { GeoJSONSource } from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import type { RestaurantPin, Bbox } from "@/lib/types";
+import { PlaceCard } from "@/components/PlaceCard";
 
-function tileProps() {
-  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-  if (token) {
-    return {
-      url: `https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/512/{z}/{x}/{y}@2x?access_token=${token}`,
-      attribution:
-        '© <a href="https://www.mapbox.com/">Mapbox</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      tileSize: 512,
-      zoomOffset: -1,
-      maxZoom: 19,
-    };
-  }
+const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+const STYLE = "mapbox://styles/mapbox/streets-v12";
+
+const clusterLayer: LayerProps = {
+  id: "clusters",
+  type: "circle",
+  filter: ["has", "point_count"],
+  paint: {
+    "circle-color": ["step", ["get", "point_count"], "#fbcb6b", 25, "#f5a623", 100, "#e2900f"],
+    "circle-radius": ["step", ["get", "point_count"], 16, 25, 20, 100, 26],
+    "circle-stroke-width": 2,
+    "circle-stroke-color": "#fffbf4",
+  },
+};
+const clusterCountLayer: LayerProps = {
+  id: "cluster-count",
+  type: "symbol",
+  filter: ["has", "point_count"],
+  layout: {
+    "text-field": ["get", "point_count_abbreviated"],
+    "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+    "text-size": 13,
+  },
+  paint: { "text-color": "#2b1a12" },
+};
+
+function pointLayer(activeId: number): LayerProps {
   return {
-    url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-    attribution: "© OpenStreetMap · © CARTO",
-    subdomains: "abcd",
-    maxZoom: 19,
+    id: "points",
+    type: "circle",
+    filter: ["!", ["has", "point_count"]],
+    paint: {
+      "circle-color": "#e5392b",
+      "circle-radius": ["case", ["==", ["get", "id"], activeId], 18, 13],
+      "circle-stroke-width": ["case", ["==", ["get", "id"], activeId], 3, 1.5],
+      "circle-stroke-color": ["case", ["==", ["get", "id"], activeId], "#2b1a12", "#ffffff"],
+    },
   };
 }
-
-function pinIcon(p: RestaurantPin, hi: boolean) {
-  const color = (p.rating ?? 0) >= 4.7 ? "#f5a623" : "#e5392b";
-  const ring = hi ? "3px solid #2b1a12" : "2px solid #fff";
-  const scale = hi ? 1.18 : 1;
-  const label = p.rating != null ? p.rating.toFixed(1) : "";
-  return L.divIcon({
-    className: "",
-    iconSize: [34, 42],
-    iconAnchor: [17, 40],
-    tooltipAnchor: [0, -34],
-    html: `<div style="position:relative;transform:scale(${scale})">
-      <div style="width:34px;height:34px;background:${color};border:${ring};border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 10px rgba(43,26,18,.35)"></div>
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-baloo),sans-serif;font-weight:700;font-size:12px;padding-bottom:4px">${label}</div>
-    </div>`,
-  });
-}
-
-/* Build a clustered marker layer imperatively; rebuild only when pins change. */
-function MarkersLayer({
-  pins,
-  onHover,
-  onSelect,
-  markersRef,
-}: {
-  pins: RestaurantPin[];
-  onHover: (id: number | null) => void;
-  onSelect: (id: number) => void;
-  markersRef: React.MutableRefObject<Record<number, L.Marker>>;
-}) {
-  const map = useMap();
-  useEffect(() => {
-    const cluster = L.markerClusterGroup({
-      chunkedLoading: true,
-      maxClusterRadius: 50,
-      showCoverageOnHover: false,
-    });
-    const byId: Record<number, L.Marker> = {};
-    for (const p of pins) {
-      const m = L.marker([p.lat, p.lng], { icon: pinIcon(p, false) });
-      m.bindTooltip(p.name, { direction: "top", offset: [0, -34] });
-      m.on("click", () => onSelect(p.id));
-      m.on("mouseover", () => onHover(p.id));
-      m.on("mouseout", () => onHover(null));
-      cluster.addLayer(m);
-      byId[p.id] = m;
-    }
-    map.addLayer(cluster);
-    markersRef.current = byId;
-    return () => {
-      map.removeLayer(cluster);
-      markersRef.current = {};
-    };
-  }, [pins, map, onHover, onSelect, markersRef]);
-  return null;
-}
-
-/* Update only the highlighted markers (no full re-render). */
-function Highlight({
-  hoveredId,
-  selectedId,
-  pins,
-  markersRef,
-}: {
-  hoveredId: number | null;
-  selectedId: number | null;
-  pins: RestaurantPin[];
-  markersRef: React.MutableRefObject<Record<number, L.Marker>>;
-}) {
-  const prev = useRef<number[]>([]);
-  useEffect(() => {
-    for (const id of prev.current) {
-      const m = markersRef.current[id];
-      const p = pins.find((x) => x.id === id);
-      if (m && p) m.setIcon(pinIcon(p, false));
-    }
-    const active = [hoveredId, selectedId].filter((x): x is number => x != null);
-    for (const id of active) {
-      const m = markersRef.current[id];
-      const p = pins.find((x) => x.id === id);
-      if (m && p) {
-        m.setIcon(pinIcon(p, true));
-        m.setZIndexOffset(1000);
-      }
-    }
-    prev.current = active;
-  }, [hoveredId, selectedId, pins, markersRef]);
-  return null;
-}
-
-function BoundsWatcher({ onBounds }: { onBounds: (b: Bbox) => void }) {
-  const map = useMap();
-  useEffect(() => {
-    const fire = () => {
-      const b = map.getBounds();
-      onBounds({ w: b.getWest(), s: b.getSouth(), e: b.getEast(), n: b.getNorth() });
-    };
-    map.whenReady(fire);
-    map.on("moveend", fire);
-    return () => {
-      map.off("moveend", fire);
-    };
-  }, [map, onBounds]);
-  return null;
-}
-
-function Recenter({ center, zoom }: { center: [number, number]; zoom: number }) {
-  const map = useMap();
-  const first = useRef(true);
-  useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return; // initial center handled by MapContainer
-    }
-    map.flyTo(center, zoom, { duration: 0.8 });
-  }, [center, zoom, map]);
-  return null;
+function pointLabelLayer(): LayerProps {
+  return {
+    id: "point-labels",
+    type: "symbol",
+    filter: ["!", ["has", "point_count"]],
+    layout: {
+      "text-field": ["get", "ratingLabel"],
+      "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+      "text-size": 11,
+      "text-allow-overlap": true,
+    },
+    paint: { "text-color": "#ffffff" },
+  };
 }
 
 export default function MapView({
@@ -160,19 +82,163 @@ export default function MapView({
   hoveredId: number | null;
   selectedId: number | null;
   onHover: (id: number | null) => void;
-  onSelect: (id: number) => void;
+  onSelect: (id: number | null) => void;
   onBounds: (b: Bbox) => void;
   center: [number, number];
   zoom: number;
 }) {
-  const markersRef = useRef<Record<number, L.Marker>>({});
+  const mapRef = useRef<MapRef>(null);
+  const [cursor, setCursor] = useState("");
+  const [popup, setPopup] = useState<RestaurantPin | null>(null);
+  const activeId = selectedId ?? hoveredId ?? -1;
+
+  const geojson = useMemo(
+    () => ({
+      type: "FeatureCollection" as const,
+      features: pins.map((p) => ({
+        type: "Feature" as const,
+        geometry: { type: "Point" as const, coordinates: [p.lng, p.lat] },
+        properties: {
+          id: p.id,
+          rating: p.rating ?? 0,
+          ratingLabel: p.rating != null ? p.rating.toFixed(1) : "",
+        },
+      })),
+    }),
+    [pins]
+  );
+
+  const fire = (b: Bbox) => onBounds(b);
+  const emitBounds = () => {
+    const m = mapRef.current;
+    if (!m) return;
+    const b = m.getBounds();
+    if (b) fire({ w: b.getWest(), s: b.getSouth(), e: b.getEast(), n: b.getNorth() });
+  };
+
+  useEffect(() => {
+    mapRef.current?.flyTo({ center: [center[1], center[0]], zoom, duration: 800 });
+  }, [center, zoom]);
+
+  const onClick = (e: MapMouseEvent) => {
+    const f = e.features?.[0];
+    if (!f) {
+      setPopup(null);
+      onSelect(null);
+      return;
+    }
+    if (f.properties?.point_count) {
+      const clusterId = f.properties.cluster_id as number;
+      const src = mapRef.current?.getMap().getSource("restaurants") as GeoJSONSource | undefined;
+      const coords = (f.geometry as GeoJSON.Point).coordinates as [number, number];
+      src?.getClusterExpansionZoom(
+        clusterId,
+        (err: Error | null | undefined, z: number | null | undefined) => {
+          if (err || z == null) return;
+          mapRef.current?.easeTo({ center: coords, zoom: z, duration: 600 });
+        }
+      );
+      return;
+    }
+    const id = f.properties?.id as number;
+    onSelect(id);
+    const pin = pins.find((p) => p.id === id);
+    if (pin) setPopup(pin);
+  };
+
+  const onMouseMove = (e: MapMouseEvent) => {
+    const f = e.features?.[0];
+    if (f && f.layer?.id === "points") {
+      setCursor("pointer");
+      onHover(f.properties?.id as number);
+    } else if (f && f.layer?.id === "clusters") {
+      setCursor("pointer");
+      onHover(null);
+    } else {
+      setCursor("");
+      onHover(null);
+    }
+  };
+
+  if (!TOKEN) {
+    return (
+      <div className="absolute inset-0 grid place-items-center bg-paper-100 text-ink-500 p-6 text-center">
+        Set NEXT_PUBLIC_MAPBOX_TOKEN to enable the map.
+      </div>
+    );
+  }
+
   return (
-    <MapContainer center={center} zoom={zoom} scrollWheelZoom className="absolute inset-0 h-full w-full">
-      <TileLayer {...tileProps()} />
-      <BoundsWatcher onBounds={onBounds} />
-      <Recenter center={center} zoom={zoom} />
-      <MarkersLayer pins={pins} onHover={onHover} onSelect={onSelect} markersRef={markersRef} />
-      <Highlight hoveredId={hoveredId} selectedId={selectedId} pins={pins} markersRef={markersRef} />
-    </MapContainer>
+    <Map
+      ref={mapRef}
+      mapboxAccessToken={TOKEN}
+      mapStyle={STYLE}
+      initialViewState={{ longitude: center[1], latitude: center[0], zoom }}
+      style={{ position: "absolute", inset: 0 }}
+      dragRotate={false}
+      pitchWithRotate={false}
+      touchPitch={false}
+      interactiveLayerIds={["clusters", "points"]}
+      cursor={cursor}
+      onLoad={(e) => {
+        // reduce map noise: hide Mapbox POI/transit labels, keep streets + place names.
+        // NOTE: exclude our own layers ("points" contains "poi" as a substring!).
+        const map = e.target;
+        const ours = new Set(["points", "point-labels", "clusters", "cluster-count"]);
+        for (const layer of map.getStyle()?.layers ?? []) {
+          if (ours.has(layer.id)) continue;
+          if (/poi-|transit-/i.test(layer.id)) {
+            try {
+              map.setLayoutProperty(layer.id, "visibility", "none");
+            } catch {}
+          }
+        }
+        emitBounds();
+      }}
+      onMoveEnd={emitBounds}
+      onClick={onClick}
+      onMouseMove={onMouseMove}
+      onMouseLeave={() => {
+        setCursor("");
+        onHover(null);
+      }}
+      reuseMaps
+    >
+      <NavigationControl position="top-right" showCompass={false} />
+      <Source
+        id="restaurants"
+        type="geojson"
+        data={geojson}
+        cluster
+        clusterMaxZoom={14}
+        clusterRadius={50}
+      >
+        <Layer {...clusterLayer} />
+        <Layer {...clusterCountLayer} />
+        <Layer {...pointLayer(activeId)} />
+        <Layer {...pointLabelLayer()} />
+      </Source>
+
+      {popup && (
+        <Popup
+          longitude={popup.lng}
+          latitude={popup.lat}
+          offset={16}
+          closeButton={false}
+          onClose={() => {
+            setPopup(null);
+            onSelect(null);
+          }}
+          className="ne-popup"
+          maxWidth="240px"
+        >
+          <PlaceCard
+            r={{ ...popup, openingHours: null }}
+            className="w-[230px]"
+            newTab
+          />
+        </Popup>
+      )}
+    </Map>
   );
 }

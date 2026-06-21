@@ -47,7 +47,7 @@ export async function generateMetadata({
   const r = await getRestaurantBySlug(slug);
   if (!r) return { title: "Spot not found" };
   const where = [r.suburb, r.state].filter(Boolean).join(", ");
-  const title = `${r.name} — Nepali ${(r.venueType || "restaurant").toLowerCase()} in ${where}`;
+  const title = `${r.name} - Nepali ${(r.venueType || "restaurant").toLowerCase()} in ${where}`;
   const img = mediaUrl(r.primaryPhoto);
   return {
     title,
@@ -72,9 +72,9 @@ export default async function VenuePage({
 
   const hero = mediaUrl(r.primaryPhoto);
   const gallery = r.photos.slice(1, 7).map((p) => mediaUrl(p.storageKey));
-  const open = isOpenNow(r.openingHours);
-  const hoursToday = todayHoursLine(r.openingHours);
-  const week = weekSchedule(r.openingHours);
+  const open = isOpenNow(r.openingHours, r.state);
+  const hoursToday = todayHoursLine(r.openingHours, r.state);
+  const week = weekSchedule(r.openingHours, r.state);
   const price = priceString(r);
   const hue = hueFromId(r.id);
   const where = [r.suburb, r.state].filter(Boolean).join(", ");

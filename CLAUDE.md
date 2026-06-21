@@ -4,13 +4,74 @@ Directory of **Nepali restaurants in Australia**. Data is scraped from Google
 Maps, enriched with full addresses/contact details, and stored in a local
 Postgres database that will back the directory site.
 
+## Copywriting & content voice (READ BEFORE writing any user-facing text)
+
+Any time you write or edit user-facing text (hero/landing copy, CTAs, microcopy,
+empty states, 404s, meta titles/descriptions, blog posts, the restaurant blurb
+generator), you MUST:
+
+1. Invoke the **copywriting** skill (`~/.claude/skills/copywriting/`) first. For
+   editing existing copy use **copy-editing**; for blog/topic planning use
+   **content-strategy**; for SEO/meta use **seo-audit**.
+2. Apply the **human-copy standard** so nothing reads as AI-generated. The
+   copywriting skill does NOT enforce this; the source of truth is
+   `~/.claude/skills/seo-audit/references/ai-writing-detection.md`. In short:
+    - **No em dashes (—) or en dashes (–) anywhere, including titles.** Use
+      commas, colons, parentheses, or separate sentences. Hyphens in compound
+      words are fine. For page/meta `<title>` separators use a normal hyphen "-",
+      e.g. "Best momo in Australia - NepaliEats".
+    - Avoid AI-tell words (delve, leverage, seamless, robust, comprehensive,
+      pivotal, innovative, etc.), AI-tell phrases ("In today's...", "It's worth
+      noting", "Whether you're X, Y, or Z"), and empty intensifiers (very, really,
+      simply, ultimately).
+    - Read it aloud: would a human say this to a friend about food?
+      Do this automatically, without being asked. Voice = warm, human, food-obsessed;
+      specific dish names over generic "cuisine"; AU spelling. Brand tagline:
+      **"Find your momo people."**
+
+## Dev server (do NOT start it)
+Do NOT run `npm run dev` / `next dev` (or `npm start`). Abhishesh runs the dev
+server himself. To verify changes, use `npx tsc --noEmit` (typecheck) or
+`npm run build` when a full build check is needed, but never start the dev server.
+
 ## Stack
+
 - **Node 25 + Playwright** (Chromium, headless) for scraping/enrichment
 - **PostgreSQL** (local, `postgresql@17`) — database `nepali_eats`
 - **Webshare proxies** (20, rotating) in `.env` as `WEBSHARE_PROXIES`
 - `DATABASE_URL` in `.env` → `postgresql://<user>@localhost:5432/nepali_eats`
 
+## Production stack & deployment (planned, TODO)
+Chosen low-cost launch setup (about $0/mo until traffic or commercial scale):
+- **Host:** Vercel (Hobby, free). Next.js native, SSR for SEO.
+- **DB:** Neon (free). Managed Postgres with PostGIS; the raw-SQL `node-postgres`
+  layer works unchanged. Picked over Supabase for the $0 always-ready tier.
+  Tradeoff: no free Supabase Studio admin, so editing uses a small custom
+  `/admin` or Neon's SQL editor.
+- **Media:** Cloudflare R2 (free tier, free egress). Photos and menus via
+  `NEXT_PUBLIC_MEDIA_BASE`. Kept off Supabase/Neon because R2 egress is free.
+- **Edge:** Cloudflare in front (DNS, CDN cache, bot protection, www to apex).
+- First real bill is the DB (about $19 Neon paid or $25 Supabase Pro) only when
+  traffic outgrows free; Vercel Pro ($20) only if it becomes commercial.
+
+To do (deploy):
+- [ ] Neon: create project, `CREATE EXTENSION postgis`, run `scraper/schema.sql`,
+      load data; grab pooled (app) and direct (scraper/migrations) connection strings.
+- [ ] App `DATABASE_URL` → Neon **pooled** (serverless-safe); scraper and
+      migrations use the **direct** connection.
+- [ ] R2: bucket plus public domain, set `NEXT_PUBLIC_MEDIA_BASE`, upload `media/`.
+      The hostname is already whitelisted in `next.config.ts` images.
+- [ ] Vercel: import repo (project root `web/`), set env vars, deploy, custom domain.
+- [ ] Cloudflare: DNS in front of Vercel, cache rules, Super Bot Fight Mode
+      (skip Googlebot), www to apex 301.
+- [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
+      Explore, `/api/*`, and the geo homepage dynamic.
+- [ ] Search Console + Bing Webmaster + GA4; submit sitemap (see SEO_LAUNCH_PLAN.md).
+- [ ] Editorial admin for `is_featured`/`featured_rank` and descriptions: small
+      custom `/admin` or Neon SQL editor.
+
 ## Project layout
+
 - `scraper/` — all scraping/enrichment scripts (run from PROJECT ROOT, e.g.
   `node scraper/scrape.js`; they read root `.env`, write to root `media/`, and
   resolve `node_modules` at root).
@@ -22,28 +83,36 @@ Postgres database that will back the directory site.
   `/nepali-restaurants/[state|suburb]`, `/momo`, `/tag/[tag]`, Stories, `/add-a-spot`,
   sitemap/robots/404. Photos via `mediaUrl()` → `/media` (dev symlink
   `web/public/media -> ../../media`) → R2 in prod (`NEXT_PUBLIC_MEDIA_BASE`).
+  Home **featured row is state-scoped** (IP-geo state → that state's `is_featured`
+  picks, fallback that state's popular; default NSW/Sydney 2000; heading "Where
+  {metro}'s eating this week"; cards show distance from shared location or the
+  state capital).
 - **Explore = map-driven, PostGIS-backed:**
-  - `GET /api/restaurants?bbox=w,s,e,n&page&sort&tag&venue&price&rating&q` →
-    PostGIS bounds query. Page 1 returns `{items(30), total, pins(all in view)}`;
-    later pages return items only (load-more pagination).
-  - Map (Leaflet + Mapbox tiles via `NEXT_PUBLIC_MAPBOX_TOKEN`, CARTO fallback):
-    plots **all pins in the current bounds**, **clustered** (leaflet.markercluster),
-    **auto-refreshes the list on `moveend`** (debounced). Hover highlight is
-    imperative (updates one marker, not a full re-render) to avoid lag.
-  - List paginates 30 at a time; **distance labels** (Haversine) appear when the
-    user shares location ("Near me") or arrives via `?lat&lng`.
-  - Initial centre: `?focus=<slug>` (centre on a restaurant, pin it to top of list)
-    > `?lat&lng` > `?state/suburb/tag` (fit to extent) > **IP geo** state capital
-    (Vercel `x-vercel-ip-country-region`) > **Sydney 2000** (non-AU / undetected).
-  - `GET /api/search?q=` (fires after 3 chars) → restaurant-name + suburb +
-    postcode suggestions. Shared `SearchBox` (home + explore); picking an option
-    only fills the box, search runs on Enter/Search button.
-  - Auth/reviews-text/menus-stage2/distance-sort = phase 2.
+    - `GET /api/restaurants?bbox=w,s,e,n&page&sort&tag&venue&price&rating&q` →
+      PostGIS bounds query. Page 1 returns `{items(30), total, pins(all in view)}`;
+      later pages return items only (load-more pagination).
+    - Map = **Mapbox GL JS** (`react-map-gl` v8 + `NEXT_PUBLIC_MAPBOX_TOKEN`,
+      `light-v11` vector style). GeoJSON source with **native clustering**; circle
+      pins coloured by rating (marigold ≥4.7, else chili) with the rating as label.
+      Click a pin → **popup card** (photo/name/rating/price, opens detail in new
+      tab) = the mobile detail affordance; cluster click zooms in.
+      **Auto-refreshes the list on `moveend`** (debounced). Hover/selected highlight
+      via data-driven paint expressions (`activeId`), not DOM markers, so no lag.
+    - List paginates 30 at a time; **distance labels** (Haversine) appear when the
+      user shares location ("Near me") or arrives via `?lat&lng`.
+    - Initial centre: `?focus=<slug>` (centre on a restaurant, pin it to top of list)
+        > `?lat&lng` > `?state/suburb/tag` (fit to extent) > **IP geo** state capital
+        > (Vercel `x-vercel-ip-country-region`) > **Sydney 2000** (non-AU / undetected).
+    - `GET /api/search?q=` (fires after 3 chars) → restaurant-name + suburb +
+      postcode suggestions. Shared `SearchBox` (home + explore); picking an option
+      only fills the box, search runs on Enter/Search button.
+    - Auth/reviews-text/menus-stage2/distance-sort = phase 2.
 - `design-system/` — NepaliEats design system + mockup (reference for the build).
 - `media/` — self-hosted photos/menus (shared; symlinked into web/public in dev → R2 in prod).
 - root `.env`, `node_modules`, `package.json` — shared by the scraper.
 
 ## Data pipeline (run from project root, in order)
+
 1. `node scraper/scrape.js` — search Google Maps for "Nepali restaurant" across 82
    AU areas (`scraper/locations.js`), dedupe by Google feature-ID. Writes JSON/CSV.
 2. `node scraper/load-db.js` — parse + upsert JSON into `restaurants` (idempotent on
@@ -51,15 +120,26 @@ Postgres database that will back the directory site.
 3. `node scraper/enrich-db.js` — fill `full_address`/phone/website/review_count via
    place pages, **direct + 20 rotating proxies**. `scraper/run-passes.sh` loops it.
 4. `node scraper/enrich-google.js` — place pages → photos (download+WebP) + review_count
-   + rating. `node scraper/enrich-website.js` → email + socials (cfemail decode) +
-   own-site photos + menu-file discovery.
+    - rating. `node scraper/enrich-website.js` → email + socials (cfemail decode) +
+      own-site photos + menu-file discovery.
 5. `node scraper/export-db.js` — snapshot table to `main-table.json` / `.csv`.
+
+**Opening hours (recurring daily pass):** `node scraper/enrich-hours.js` (or
+`scraper/run-hours-daily.sh`). Headless Maps only exposes **today's** hours row,
+so this captures one weekday per run and accumulates the week in
+`opening_hours_raw` over ~7-9 daily runs; it rebuilds canonical `opening_hours`
+via `scraper/hours.js` and opportunistically backfills price. No photos. Guard =
+`hours_scraped_at::date < CURRENT_DATE` (re-scrapes every row once per day).
+Install the cron in `run-hours-daily.sh` to fill the week automatically. The full
+weekly table and the About panel (kid_friendly/live_music) are NOT in the
+headless payload, so the rest needs the Places API.
 
 `scraper/build-table.js` / `scraper/enrich.js` are earlier file-based versions,
 superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
 
 ## Database
-- **DB:** `nepali_eats`  •  **main table:** `restaurants`
+
+- **DB:** `nepali_eats` • **main table:** `restaurants`
 - Natural key: `google_feature_id` (`0x..:0x..`, 100% present). Also store
   `google_place_id` (`ChIJ..`, Places API key). `google_cid` was dropped (redundant).
 - Columns: slug, name, cuisine, venue_type, tags[], halal_status, rating,
@@ -78,20 +158,29 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
   level; per-item halal belongs in future `menu_items`. Currently all 'unknown'.
 - `email` + socials (facebook/instagram/tiktok/whatsapp) added 2026-06; populated
   from restaurant websites (see website-enrichment TODO). Only #857 done so far.
-- **PLANNED FILTERS (not built yet):** `kid_friendly` BOOLEAN and `live_music`
-  BOOLEAN — surface as filters in the frontend Explore page. Source: Google place
-  "About" attributes ("Good for kids", "Live music/performances") are scrapeable
-  from the place page (same render as enrich-google), or set manually/by claim.
-  Add columns + a scrape pass when implementing; default NULL/unknown.
+- **Opening hours (two-field):** `opening_hours_raw` (jsonb) holds the per-day
+  strings exactly as scraped; `opening_hours` (jsonb) holds the canonical parsed
+  shape the frontend reads: `{ "mon": [[600,1230]], "tue": [], ... }`
+  minutes-from-midnight, `[]`=closed, absent key=unknown, close>1440=past midnight.
+  `opening_hours` is rebuilt from `_raw` by `scraper/hours.js` every pass, so
+  re-parsing never needs a re-scrape. `hours_scraped_at` is the per-day-run key.
+  See `scraper/enrich-hours.js` and the "Opening hours" pipeline note below.
+- **PLANNED FILTER columns (exist, unpopulated):** `kid_friendly` BOOLEAN and
+  `live_music` BOOLEAN — for Explore filters. Source = Google place "About"
+  attributes, but the About panel is **empty in headless renders** (lite payload),
+  so there is no free scrape path. They stay NULL until a **Google Places API
+  key** (`places.get` → `goodForChildren`/`liveMusic`) backfills them.
 - Indexes: state, suburb, postcode, (lat,lng).
 
 ## ⚠️ DB is the source of truth (do NOT re-run load-db.js)
+
 The 400 non-Nepali rows were **hard-deleted** (`DELETE WHERE is_nepali IS FALSE`).
 `nepali-restaurants-au.json` still has all 1017, so re-running `load-db.js` would
 **resurrect them**. Treat Postgres as canonical; `load-db.js` was a one-time seed.
 Current table: **572 rows** (≈335 confirmed nepali + ≈237 review_needed). Category field cleaned: rating-string pollution backfilled+nulled, non-Nepali categories (Taiwanese, event venues, couriers, shops, etc.) removed.
 
 ## Status (1017 scraped → 570 in directory) — ENRICHMENT COMPLETE
+
 Final coverage: address 100%, lat/lng 100%, rating 99%, phone 95%, **photos 76%**
 (433 restaurants, 1125 files self-hosted WebP under media/photos/<id>/, linked via
 restaurant_photos), website 73%, review_count 57%, any social 42%, menu link 41%,
@@ -101,6 +190,7 @@ socials/own-site photos/menu discovery, incl. Cloudflare cfemail decode).
 Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiting design file).
 
 ## (prior) Status
+
 - ✅ Scrape complete: **1017** unique restaurants nationwide
 - ✅ Loaded into Postgres; **100% lat/lng** (map-ready)
 - ✅ Enrichment complete. Coverage: full_address 99%, lat/lng 100%, phone 95%,
@@ -114,6 +204,7 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
 - Coverage by state (foundVia): VIC, NSW, WA lead; then QLD, SA, NT, TAS, ACT
 
 ## Key learnings (don't re-discover these)
+
 - **Google stalls headless Chromium from datacenter proxies.** Proxies work fine
   for plain `curl` against Google, but Playwright+proxy hangs/times out when
   loading full pages — UNLESS you **block images/media/fonts/css**; with asset
@@ -127,6 +218,16 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
   and review counts render inconsistently — full address needs the place page.
 
 ## TODO / roadmap
+
+### Post-launch (do AFTER launch, not blocking)
+
+- [ ] **Language options / Nepali translation** — add a language switcher so the
+      site can be translated into Nepali (नेपाली). Covers UI strings, nav, and
+      ideally restaurant blurbs. Plan for i18n routing (e.g. `/ne/...`) + a
+      translation layer; English stays default.
+- [ ] **Add a Spot** (`/add-a-spot` submission flow) — post-launch feature.
+- [ ] **Login / auth** — post-launch feature (gates reviews, claims, saved spots).
+
 - [ ] Finish address enrichment to plateau (~95%+ where Google has data)
 - [ ] Backfill `review_count` + re-confirm `rating` from place pages (in progress —
       review counts render inconsistently on list cards, reliable on place pages)
@@ -163,10 +264,15 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       have storage/display licensing constraints; site photos have copyright
       considerations — confirm usage rights before storing.
 - [ ] Google reviews (deferred)
-- [ ] Opening hours + price level (deferred; available on the same place page)
+- [~] **Opening hours** — in progress via `enrich-hours.js` (today-only daily
+      pass, see pipeline). Full week accumulates over ~7-9 daily runs. Price
+      backfills opportunistically (rarely renders headless). For the full week in
+      one shot + kid_friendly/live_music, use the Places API (`regularOpeningHours`,
+      `goodForChildren`, `liveMusic`) when a key is available.
 - [ ] Menus/prices go stale — define a refresh cadence (`fetched_at` staleness)
 
 ## Conventions
+
 - Enrichment scripts are **idempotent + resumable** (drive off `WHERE ... IS NULL`).
 - Keep CSV/JSON as exports/snapshots; **Postgres is the source of truth.**
 - Respect proxy rotation + asset blocking for any new Google scraping.

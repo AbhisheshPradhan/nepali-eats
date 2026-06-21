@@ -1,6 +1,6 @@
 # NepaliEats
 
-All the Nepali food in Australia, worth the trip. A directory of Nepali
+All the Nepali food in Australia. A directory of Nepali
 restaurants, cafes, food trucks and stalls across Australia: scraped from Google
 Maps, enriched, stored in PostgreSQL, and served by a Next.js + Tailwind site
 with a map-driven explore experience.

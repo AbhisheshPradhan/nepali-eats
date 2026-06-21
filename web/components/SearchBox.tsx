@@ -15,6 +15,7 @@ export function SearchBox({
   onValueChange,
   onSubmit,
   onLocation,
+  embedded = false,
 }: {
   variant?: "hero" | "bar";
   placeholder?: string;
@@ -22,6 +23,9 @@ export function SearchBox({
   onValueChange?: (v: string) => void;
   onSubmit?: (v: string) => void;
   onLocation?: (loc: { suburb: string; state: string }) => void;
+  // embedded = the box lives on a page that already filters in place (Explore),
+  // so the empty state clears the search instead of redirecting to /explore.
+  embedded?: boolean;
 }) {
   const router = useRouter();
   const [value, setValue] = useState(defaultValue);
@@ -41,8 +45,12 @@ export function SearchBox({
     const q = value.trim();
     if (q.length < 3) {
       setSugg(EMPTY);
+      setLoading(false);
       return;
     }
+    // show loading immediately so the empty-state line doesn't flash during the
+    // debounce window before the fetch starts.
+    setLoading(true);
     const t = setTimeout(() => {
       abortRef.current?.abort();
       const ctrl = new AbortController();
@@ -97,17 +105,18 @@ export function SearchBox({
   };
 
   const hero = variant === "hero";
-  const showDropdown =
-    open &&
-    value.trim().length >= 3 &&
-    (loading || sugg.restaurants.length > 0 || sugg.locations.length > 0);
+  // show whenever there's a real query, so a no-results state still gets a
+  // dropdown (with the "explore instead" fallback), not silence.
+  const showDropdown = open && value.trim().length >= 3;
+  const noResults =
+    !loading && sugg.restaurants.length === 0 && sugg.locations.length === 0;
 
   return (
     <div className="relative w-full">
       <form
         onSubmit={submit}
         className={cn(
-          "flex items-center gap-2 bg-white border-2 border-sand-400 rounded-full shadow-md focus-within:border-marigold-500",
+          "flex items-center gap-2 bg-white border-2 border-sand-400 rounded-full shadow-md",
           hero ? "pl-5 pr-1.5 py-1.5" : "pl-4 pr-1.5 py-1 shadow-sm"
         )}
       >
@@ -122,7 +131,7 @@ export function SearchBox({
           placeholder={placeholder}
           aria-label="Search Nepali food"
           className={cn(
-            "flex-1 bg-transparent outline-none font-body text-ink-900 min-w-0 placeholder:text-ink-500",
+            "flex-1 bg-transparent outline-none focus-visible:shadow-none font-body text-ink-900 min-w-0 placeholder:text-ink-500",
             hero ? "text-[1.1rem]" : "text-base"
           )}
         />
@@ -191,13 +200,30 @@ export function SearchBox({
             </button>
           ))}
 
-          {!loading &&
-            sugg.restaurants.length === 0 &&
-            sugg.locations.length === 0 && (
-              <div className="px-4 py-3.5 text-ink-500">
-                No matches. Try another name or suburb.
-              </div>
-            )}
+          {noResults && (
+            <button
+              type="button"
+              onClick={() => {
+                if (embedded) {
+                  change(""); // already on the map; just reset the filter
+                } else {
+                  setOpen(false);
+                  router.push("/explore");
+                }
+              }}
+              className="flex items-center gap-2.5 w-full text-left px-4 py-3 hover:bg-paper-100 cursor-pointer"
+            >
+              <MapPin className="text-chili-500 shrink-0" size={18} weight="fill" />
+              <span className="min-w-0">
+                <span className="block text-ink-700">
+                  No spots match &ldquo;{value.trim()}&rdquo;.
+                </span>
+                <span className="block font-semibold text-chili-600">
+                  {embedded ? "Clear search" : "Explore the map instead →"}
+                </span>
+              </span>
+            </button>
+          )}
         </div>
       )}
     </div>

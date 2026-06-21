@@ -4,47 +4,58 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Bunting } from "@/components/Bunting";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CravingCarousel } from "@/components/CravingCarousel";
-import { PlaceCard } from "@/components/PlaceCard";
+import { FeaturedCards } from "@/components/FeaturedCards";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { featured, tagFacets, totalCount } from "@/lib/queries";
-
-export const revalidate = 3600;
+import { headers } from "next/headers";
+import { featuredByState, tagFacets } from "@/lib/queries";
+import { capitalLatLng, metroFromState, STATE_CAPITAL } from "@/lib/format";
 
 export default async function HomePage() {
-  const [gems, tags, total] = await Promise.all([
-    featured(6),
+  // Featured is state-scoped. Detect the visitor's state from IP (like Explore),
+  // defaulting to NSW / Sydney 2000 for non-AU or undetected visitors.
+  const h = await headers();
+  const detected =
+    h.get("x-vercel-ip-country") === "AU"
+      ? (h.get("x-vercel-ip-country-region") || "").toUpperCase()
+      : "";
+  const state = detected in STATE_CAPITAL ? detected : "NSW";
+
+  const [gems, tags] = await Promise.all([
+    featuredByState(state, 5),
     tagFacets(),
-    totalCount(),
   ]);
+
+  // Default "you are here" for distances = the state capital, until the visitor
+  // shares their real location.
+  const defaultLoc = capitalLatLng(state);
+  const metro = metroFromState(state);
 
   return (
     <div>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[radial-gradient(1200px_500px_at_50%_-10%,var(--color-marigold-100),var(--color-paper-50))]">
-        <div className="max-w-[760px] mx-auto px-6 pt-14 pb-10 text-center">
+      <section className="relative z-20 bg-[radial-gradient(1200px_500px_at_50%_-10%,var(--color-marigold-100),var(--color-paper-50))]">
+        <div className="max-w-[760px] mx-auto px-6 pt-7 pb-6 text-center">
           <Bunting />
           <span className="eyebrow text-chili-500">All across Australia</span>
-          <h1 className="text-[clamp(2.6rem,6vw,4.25rem)] leading-[1.02] text-ink-900 mt-3">
-            Find your
-            <br />
-            <span className="text-chili-500">momo people.</span>
+          <h1 className="text-[clamp(2.4rem,5.2vw,3.6rem)] leading-[1.02] text-ink-900 mt-2">
+            Find your <span className="text-chili-500">momo people.</span>
           </h1>
-          <p className="text-[1.25rem] text-ink-700 max-w-[560px] mx-auto mt-[18px] leading-[1.5]">
-            From hole-in-the-wall steamers to Sunday market stalls, every hidden
-            gem serving real Nepali food, gathered in one happy place.
+          <p className="text-[1.15rem] text-ink-700 max-w-[560px] mx-auto mt-2.5 leading-snug">
+            From hole-in-the-wall steamers to Sunday market stalls, real Nepali
+            food from every corner of Australia.
           </p>
           <HeroSearch />
         </div>
       </section>
 
       {/* FEATURED */}
-      <section className="max-w-[1180px] mx-auto px-6 pt-11">
+      <section className="max-w-[1180px] mx-auto px-6 pt-5">
         <div className="flex items-end justify-between mb-5 flex-wrap gap-2">
           <div>
             <span className="eyebrow text-marigold-700">Local favourites</span>
             <h2 className="text-[2.2rem] text-ink-900 mt-1">
-              This week&apos;s hidden gems
+              Where {metro}&apos;s eating this week
             </h2>
           </div>
           <Button
@@ -52,14 +63,10 @@ export default async function HomePage() {
             variant="ghost"
             iconRight={<ArrowRight size={18} />}
           >
-            See all {total} spots
+            View All
           </Button>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
-          {gems.map((r) => (
-            <PlaceCard key={r.id} r={r} />
-          ))}
-        </div>
+        <FeaturedCards gems={gems} fallbackLoc={defaultLoc} />
       </section>
 
       {/* CRAVING CAROUSEL */}
@@ -80,8 +87,8 @@ export default async function HomePage() {
             </h3>
             <p className="text-paper-200 text-[1.1rem] leading-relaxed mb-5">
               NepaliEats started as a group chat of friends swapping momo tips.
-              Now it&apos;s a map of every kitchen, cafe and truck worth the trip,
-              added by people who actually eat there.
+              Now it&apos;s a map of every Nepali kitchen, cafe and truck in
+              Australia, added by people who actually eat there.
             </p>
             <Button
               href="/stories"

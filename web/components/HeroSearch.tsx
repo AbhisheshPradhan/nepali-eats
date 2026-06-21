@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NavigationArrow } from "@phosphor-icons/react";
 import { SearchBox } from "@/components/SearchBox";
+import { storeLoc } from "@/lib/useUserLocation";
 
 export function HeroSearch() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export function HeroSearch() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
+        storeLoc(latitude, longitude);
         router.push(`/explore?lat=${latitude.toFixed(5)}&lng=${longitude.toFixed(5)}`);
       },
       () => {
@@ -28,7 +30,7 @@ export function HeroSearch() {
   };
 
   return (
-    <div className="max-w-[600px] mx-auto mt-[30px]">
+    <div className="max-w-[600px] mx-auto mt-5">
       <SearchBox variant="hero" />
       <button
         onClick={nearMe}

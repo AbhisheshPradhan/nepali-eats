@@ -12,6 +12,9 @@ const NAV = [
   { href: "/stories", label: "Stories" },
 ];
 
+// Post-launch features — flip to true to re-enable "Add a spot" + "Log in".
+const SHOW_POST_LAUNCH = false;
+
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -44,23 +47,27 @@ export function Header() {
               {n.label}
             </Link>
           ))}
-          <Button
-            href="/add-a-spot"
-            size="sm"
-            iconLeft={<Plus weight="bold" size={16} />}
-            className="ml-3"
-          >
-            Add a spot
-          </Button>
+          {SHOW_POST_LAUNCH && (
+            <Button
+              href="/add-a-spot"
+              size="sm"
+              iconLeft={<Plus weight="bold" size={16} />}
+              className="ml-3"
+            >
+              Add a spot
+            </Button>
+          )}
         </nav>
 
         <div className="flex-1" />
 
-        <div className="hidden min-[880px]:block">
-          <Button href="/add-a-spot" size="sm" variant="outline" iconLeft={<User size={16} />}>
-            Log in
-          </Button>
-        </div>
+        {SHOW_POST_LAUNCH && (
+          <div className="hidden min-[880px]:block">
+            <Button href="/add-a-spot" size="sm" variant="outline" iconLeft={<User size={16} />}>
+              Log in
+            </Button>
+          </div>
+        )}
 
         <button
           onClick={() => setOpen((o) => !o)}
@@ -97,14 +104,16 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
-            <div className="mt-1.5 flex flex-col gap-2">
-              <Button href="/add-a-spot" block iconLeft={<Plus weight="bold" size={16} />}>
-                Add a spot
-              </Button>
-              <Button href="/add-a-spot" block variant="outline" iconLeft={<User size={16} />}>
-                Log in
-              </Button>
-            </div>
+            {SHOW_POST_LAUNCH && (
+              <div className="mt-1.5 flex flex-col gap-2">
+                <Button href="/add-a-spot" block iconLeft={<Plus weight="bold" size={16} />}>
+                  Add a spot
+                </Button>
+                <Button href="/add-a-spot" block variant="outline" iconLeft={<User size={16} />}>
+                  Log in
+                </Button>
+              </div>
+            )}
           </div>
         </>
       )}

@@ -22,6 +22,10 @@ main-table.csv
 nepali-restaurants-au.json
 nepali-restaurants-au.csv
 
+# agent skills (local tooling, re-fetch via `npx skills add`; skills-lock.json is committed)
+.agents/
+.claude/skills/
+
 # os / editor / logs
 .DS_Store
 *.log

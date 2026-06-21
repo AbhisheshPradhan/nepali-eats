@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Baloo_2, Mukta } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const baloo = Baloo_2({
   variable: "--font-baloo",
@@ -23,8 +23,8 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
-    default: "NepaliEats — All the Nepali food in Australia, worth the trip",
-    template: "%s · NepaliEats",
+    default: "NepaliEats - All the Nepali food in Australia",
+    template: "%s - NepaliEats",
   },
   description:
     "Find every place to eat Nepali food across Australia: momo, Thakali dal bhat, sel roti, Newari feasts. Restaurants, cafes, food trucks and market stalls, gathered in one happy place.",
@@ -43,7 +43,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-paper-50 text-ink-900">
         <Header />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <SiteFooter />
       </body>
     </html>
   );

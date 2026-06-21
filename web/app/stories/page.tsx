@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
+import { Tag } from "@/components/ui/Tag";
 import { StoryImage } from "@/components/StoryImage";
-import { STORIES } from "@/lib/stories";
+import { STORIES, formatStoryDate } from "@/lib/stories";
 
 export const metadata: Metadata = {
   title: "Stories from the Nepali table",
@@ -27,7 +28,13 @@ export default function StoriesPage() {
         href={`/stories/${featured.slug}`}
         className="grid md:grid-cols-[1.2fr_1fr] gap-7 bg-white rounded-xl overflow-hidden shadow-md mb-10 group"
       >
-        <StoryImage hue={featured.hue} className="min-h-[240px]" iconSize={48} />
+        <StoryImage
+          hue={featured.hue}
+          src={featured.heroImage}
+          alt={featured.title}
+          className="min-h-[240px]"
+          iconSize={48}
+        />
         <div className="p-8 md:pl-0 flex flex-col justify-center">
           <div className="mb-3">
             <Badge tone="favourite" solid>
@@ -37,13 +44,22 @@ export default function StoriesPage() {
           <h2 className="text-[2rem] leading-tight text-ink-900 mb-3 group-hover:text-chili-600 transition-colors">
             {featured.title}
           </h2>
-          <p className="text-ink-700 text-[1.1rem] leading-relaxed mb-4.5">
+          <p className="text-ink-700 text-[1.1rem] leading-relaxed mb-4">
             {featured.dek}
           </p>
+          {featured.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4.5">
+              {featured.tags.map((t) => (
+                <Tag key={t} className="text-[0.8rem] px-3 py-1">
+                  {t}
+                </Tag>
+              ))}
+            </div>
+          )}
           <div className="flex items-center gap-2.5 text-ink-500 text-[0.92rem]">
             <span className="font-semibold text-ink-700">{featured.author}</span>
             <span>·</span>
-            <span>{featured.date}</span>
+            <span>{formatStoryDate(featured.date)}</span>
             <span>·</span>
             <span>{featured.readTime}</span>
           </div>
@@ -57,7 +73,13 @@ export default function StoriesPage() {
             href={`/stories/${p.slug}`}
             className="bg-white rounded-lg overflow-hidden shadow-sm flex flex-col group hover:shadow-lg hover:-translate-y-1 transition"
           >
-            <StoryImage hue={p.hue} className="h-[170px]" />
+            <StoryImage
+              hue={p.hue}
+              src={p.heroImage}
+              alt={p.title}
+              className="h-[170px]"
+              sizes="(max-width: 768px) 100vw, 360px"
+            />
             <div className="p-5 flex flex-col gap-2.5 flex-1">
               <div>
                 <Badge tone="info">{p.category}</Badge>
@@ -67,7 +89,7 @@ export default function StoriesPage() {
               </h3>
               <p className="text-ink-700 leading-snug flex-1">{p.dek}</p>
               <div className="flex items-center gap-2 text-ink-500 text-[0.85rem]">
-                <span>{p.date}</span>
+                <span>{formatStoryDate(p.date)}</span>
                 <span>·</span>
                 <span>{p.readTime}</span>
               </div>

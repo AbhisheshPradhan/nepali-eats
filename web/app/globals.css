@@ -98,6 +98,18 @@
   }
 }
 
+/* Mapbox popup: strip default chrome, use our card styling */
+.ne-popup .mapboxgl-popup-content {
+  padding: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: #fff;
+}
+.ne-popup .mapboxgl-popup-tip {
+  border-top-color: #fff;
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;

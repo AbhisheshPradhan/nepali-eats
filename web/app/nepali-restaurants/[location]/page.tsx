@@ -88,7 +88,7 @@ export default async function LocationPage({
     <ListingGrid
       eyebrow={`${r.suburb}, ${r.state}`}
       title={`Nepali restaurants in ${r.suburb}`}
-      intro={`The hidden gems and local favourites serving Nepali food in ${r.suburb}, ${r.state}. Momo, thali sets and more, worth the trip.`}
+      intro={`The kitchens, cafes and takeaways serving Nepali food in ${r.suburb}, ${r.state}. Momo, thali sets and more, all close to home.`}
       restaurants={list}
       exploreHref={`/explore?suburb=${encodeURIComponent(r.suburb)}`}
     />

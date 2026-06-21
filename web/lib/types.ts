@@ -1,3 +1,9 @@
+// Canonical opening hours: keys mon..sun, value = array of [openMin, closeMin]
+// slots in minutes-from-midnight. [] = closed, absent key = unknown, closeMin
+// > 1440 means the slot runs past midnight. Parsed server-side from Google's raw
+// strings (see scraper/hours.js); the frontend never parses time strings.
+export type OpeningHours = Record<string, [number, number][]>;
+
 export type VenueType =
   | "Restaurant"
   | "Café"
@@ -45,7 +51,7 @@ export interface Restaurant {
   menuUrl: string | null;
   menuSource: string | null;
   googleMapsUrl: string | null;
-  openingHours: Record<string, string> | null;
+  openingHours: OpeningHours | null;
   primaryPhoto: string | null; // storage_key of the hero
 }
 
@@ -65,7 +71,12 @@ export interface RestaurantPin {
   lat: number;
   lng: number;
   rating: number | null;
+  reviewCount: number | null;
   venueType: VenueType | null;
+  priceRange: string | null;
+  suburb: string | null;
+  state: string | null;
+  primaryPhoto: string | null;
 }
 
 export interface Bbox {

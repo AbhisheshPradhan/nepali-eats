@@ -4,7 +4,7 @@ import type { Bbox } from "@/lib/types";
 
 const PAGE_SIZE = 30;
 const SORT: Record<string, ListOpts["orderBy"]> = {
-  featured: "popular",
+  featured: "featured",
   rating: "rating",
   newest: "newest",
 };

@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS restaurants (
   address_source    TEXT,                   -- 'google' | 'osm' | 'manual' | null
   is_nepali         BOOLEAN,                -- true=keep, false=excluded, null=review_needed
   relevance         TEXT,                   -- nepali | review_needed | indian_likely | other_cuisine | grocery_retail | other_venue | manual_excluded
+  is_featured       BOOLEAN NOT NULL DEFAULT FALSE,  -- editorial homepage pick; scoped per state in queries
+  featured_rank     INT,                    -- manual order within a state's featured list (asc, nulls last)
   enriched_at       TIMESTAMPTZ,
   created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -39,6 +41,36 @@ CREATE INDEX IF NOT EXISTS idx_restaurants_state    ON restaurants (state);
 CREATE INDEX IF NOT EXISTS idx_restaurants_suburb   ON restaurants (suburb);
 CREATE INDEX IF NOT EXISTS idx_restaurants_postcode ON restaurants (postcode);
 CREATE INDEX IF NOT EXISTS idx_restaurants_geo      ON restaurants (lat, lng);
+
+-- Homepage featured flag (idempotent for existing DBs). A restaurant belongs to
+-- one state, so flagging it features it for that state's homepage list.
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS is_featured BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS featured_rank INT;
+CREATE INDEX IF NOT EXISTS idx_restaurants_featured ON restaurants (state) WHERE is_featured;
+
+-- Opening hours: two-field design. `opening_hours_raw` holds the per-day strings
+-- exactly as scraped from Google ("11 am to 10:30 pm", "Closed", split shifts),
+-- accumulated one weekday per daily run (headless Maps only exposes today's row).
+-- `opening_hours` holds the canonical parsed shape the frontend consumes:
+--   { "mon": [[600,1230]], "tue": [], ... }  minutes-from-midnight, [] = closed,
+-- absent key = unknown, close > 1440 means the slot runs past midnight. It is
+-- rebuilt from `_raw` on every pass, so re-parsing never needs a re-scrape.
+-- `hours_scraped_at` is the per-day-run resumability key (re-scrape once per day).
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS opening_hours_raw jsonb;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS hours_scraped_at  TIMESTAMPTZ;
+
+-- Planned Explore filters (forward-compat). No free source yet: the Google "About"
+-- panel is empty in headless renders, so these stay NULL until a Places API key
+-- backfills them. Default unknown = NULL.
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS kid_friendly BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS live_music   BOOLEAN;
+
+-- One-time migration: move any legacy messy opening_hours strings into _raw so the
+-- parser becomes the only writer of canonical opening_hours.
+UPDATE restaurants SET opening_hours_raw = opening_hours
+  WHERE opening_hours IS NOT NULL AND opening_hours_raw IS NULL
+    AND opening_hours ?| array['Monday','Tuesday','Wednesday','Thursday',
+                               'Friday','Saturday','Sunday'];  -- legacy full-day keys
 
 -- PostGIS: geometry point kept in sync with lat/lng via trigger; GiST index
 -- powers map bounds queries (geom && ST_MakeEnvelope(...)) and radius search.

@@ -51,7 +51,7 @@ export function Footer() {
           </div>
           <p className="text-paper-200 leading-relaxed m-0">
             Every plate of Nepali food in Australia, gathered with love, from
-            steamy momo windows to Sunday market stalls.
+            vibrant restaurants to food-truck queues.
           </p>
         </div>
         <div className="flex gap-12 flex-wrap">
@@ -67,9 +67,9 @@ export function Footer() {
           <Col
             title="Community"
             items={[
-              { label: "Add a spot", href: "/add-a-spot" },
+              // Post-launch: { label: "Add a spot", href: "/add-a-spot" },
               { label: "Our story", href: "/stories" },
-              { label: "For owners", href: "/add-a-spot" },
+              // Post-launch: { label: "For owners", href: "/add-a-spot" },
             ]}
           />
           <Col

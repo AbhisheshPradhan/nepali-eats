@@ -1,8 +1,7 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
-  MagnifyingGlass,
   NavigationArrow,
   Clock,
   CaretDown,
@@ -12,9 +11,11 @@ import {
   CircleNotch,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
-import { CompactRow } from "./CompactRow";
+import { PlaceCard } from "@/components/PlaceCard";
+import { SearchBox } from "@/components/SearchBox";
 import type { Restaurant, RestaurantPin, Bbox } from "@/lib/types";
 import { isOpenNow, haversineKm, formatDistance } from "@/lib/format";
+import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { cn } from "@/lib/cn";
 
 const MapView = dynamic(() => import("./MapView"), {
@@ -63,6 +64,10 @@ export function ExploreClient({
   areaLabel,
   focusId,
   initialUserLoc,
+  defaultUserLoc,
+  autoLocate = false,
+  initialQuery = "",
+  initialQ = "",
 }: {
   fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
   initialItems: Restaurant[];
@@ -73,6 +78,12 @@ export function ExploreClient({
   areaLabel: string;
   focusId?: number;
   initialUserLoc?: [number, number];
+  defaultUserLoc: [number, number];
+  autoLocate?: boolean;
+  // initialQuery = what the search box shows (suburb / focused name / q);
+  // initialQ = the active text filter, so ?q= survives the first map move.
+  initialQuery?: string;
+  initialQ?: string;
 }) {
   const [items, setItems] = useState<Restaurant[]>(initialItems);
   const [pins, setPins] = useState<RestaurantPin[]>(initialPins);
@@ -80,7 +91,11 @@ export function ExploreClient({
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState(initialQ);
+  // The search box is uncontrolled (SearchBox owns its text). To override it from
+  // "Near me", we bump boxKey to remount it with a fresh defaultValue.
+  const [boxValue, setBoxValue] = useState(initialQuery);
+  const [boxKey, setBoxKey] = useState(0);
   const [openOnly, setOpenOnly] = useState(false);
   const [price, setPrice] = useState(0);
   const [minRating, setMinRating] = useState(0);
@@ -99,7 +114,6 @@ export function ExploreClient({
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const fetchRef = useRef<(reset: boolean) => void>(() => {});
-  const firstBounds = useRef(true);
 
   const buildParams = (page: number) => {
     const b = bboxRef.current!;
@@ -147,14 +161,10 @@ export function ExploreClient({
   };
   fetchRef.current = run;
 
-  // map bounds change (auto-refresh on move; skip the very first ready event
-  // because SSR already provided that view's data)
+  // map bounds change → auto-refresh the list (debounced). The first event
+  // refetches the actual visible bounds; SSR data shows meanwhile (no flash).
   const onBounds = useCallback((b: Bbox) => {
     bboxRef.current = b;
-    if (firstBounds.current) {
-      firstBounds.current = false;
-      return;
-    }
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => fetchRef.current(true), 400);
   }, []);
@@ -167,8 +177,34 @@ export function ExploreClient({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q, price, minRating, sort]);
 
-  const onSelect = useCallback((id: number) => {
+  // Default view: if the visitor already granted location, recentre on them
+  // ("near me" by default). Otherwise keep the SSR state-capital / Sydney centre.
+  useEffect(() => {
+    if (!autoLocate || typeof navigator === "undefined" || !navigator.geolocation) return;
+    const useLoc = () =>
+      navigator.geolocation.getCurrentPosition(
+        (p) => {
+          setUserLoc([p.coords.latitude, p.coords.longitude]);
+          setCenter([p.coords.latitude, p.coords.longitude]);
+          setZoom(13);
+        },
+        () => {},
+        { timeout: 6000 }
+      );
+    if (navigator.permissions?.query) {
+      navigator.permissions
+        .query({ name: "geolocation" as PermissionName })
+        .then((res) => {
+          if (res.state === "granted") useLoc();
+        })
+        .catch(() => {});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoLocate]);
+
+  const onSelect = useCallback((id: number | null) => {
     setSelected(id);
+    if (id == null) return; // deselect (popup closed) -> shrink the pin back
     const el = document.getElementById(`row-${id}`);
     if (el && listRef.current)
       listRef.current.scrollTo({ top: el.offsetTop - 12, behavior: "smooth" });
@@ -177,38 +213,56 @@ export function ExploreClient({
   const nearMe = () => {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
-      (p) => {
-        setUserLoc([p.coords.latitude, p.coords.longitude]);
-        setCenter([p.coords.latitude, p.coords.longitude]);
+      async (p) => {
+        const lat = p.coords.latitude;
+        const lng = p.coords.longitude;
+        setUserLoc([lat, lng]);
+        setCenter([lat, lng]);
         setZoom(13);
+        setQ(""); // clear any text filter so nearby spots aren't narrowed
+        // reflect the detected suburb in the search box
+        const label = (await reverseGeocodeSuburb(lat, lng)) ?? "Near you";
+        setBoxValue(label);
+        setBoxKey((k) => k + 1);
       },
       () => {},
       { timeout: 6000 }
     );
   };
 
+  // Distance origin: the visitor's shared location if we have it, otherwise the
+  // default "you are here" = their state's capital CBD (Sydney 2000 for NSW).
+  // Independent of the map camera/focus, so the search view doesn't measure
+  // distances from the focused restaurant.
+  const distOrigin = userLoc ?? defaultUserLoc;
+
   const base = openOnly
-    ? items.filter((r) => isOpenNow(r.openingHours) !== false)
+    ? items.filter((r) => isOpenNow(r.openingHours, r.state) !== false)
     : items;
   // keep the searched (focused) restaurant pinned to the top
   const shown =
     focusId != null && base.some((r) => r.id === focusId)
       ? [...base.filter((r) => r.id === focusId), ...base.filter((r) => r.id !== focusId)]
       : base;
+  const isFocusView = focusId != null && shown[0]?.id === focusId && shown.length > 1;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-57px)]">
+    <div className="flex flex-col h-[calc(100dvh-57px)]">
       {/* top bar */}
       <div className="px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100 relative z-[1200]">
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-2 bg-white border-2 border-sand-400 rounded-full pl-4 pr-1.5 py-1 flex-[1_1_360px] max-w-[560px] focus-within:border-marigold-500">
-            <MagnifyingGlass className="text-ink-500 shrink-0" size={18} />
-            <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Search a restaurant, suburb or postcode"
-              aria-label="Search"
-              className="flex-1 bg-transparent outline-none font-body text-base text-ink-900 min-w-0 placeholder:text-ink-500"
+          <div className="flex-[1_1_360px] max-w-[560px]">
+            {/* Same component as the homepage hero. Embedded mode: free text
+                filters the list in place (onValueChange/onSubmit → q), picking a
+                suburb/restaurant recenters via navigation, and the empty state
+                clears instead of redirecting. Pre-filled with the active query. */}
+            <SearchBox
+              key={boxKey}
+              variant="bar"
+              embedded
+              defaultValue={boxValue}
+              onValueChange={setQ}
+              onSubmit={(v) => setQ(v)}
             />
           </div>
           <Button
@@ -274,7 +328,9 @@ export function ExploreClient({
         >
           <div className="flex items-center justify-between px-0.5 pb-3">
             <span className="font-display font-bold text-ink-700">
-              {total} {total === 1 ? "spot" : "spots"} {areaLabel}
+              {isFocusView
+                ? areaLabel
+                : `${total} ${total === 1 ? "spot" : "spots"} ${areaLabel}`}
             </span>
             {loading && <CircleNotch className="animate-spin text-chili-500" size={18} />}
           </div>
@@ -286,20 +342,28 @@ export function ExploreClient({
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-3">
-              {shown.map((r) => (
-                <div key={r.id} id={`row-${r.id}`}>
-                  <CompactRow
-                    r={r}
-                    hovered={hovered === r.id}
-                    selected={selected === r.id}
-                    onHover={setHovered}
-                    distance={
-                      userLoc && r.lat != null && r.lng != null
-                        ? formatDistance(haversineKm(userLoc, r.lat, r.lng))
-                        : undefined
-                    }
-                  />
-                </div>
+              {shown.map((r, i) => (
+                <Fragment key={r.id}>
+                  {isFocusView && i === 1 && (
+                    <h2 className="font-display font-bold text-ink-700 pt-2 pb-0.5">
+                      You may also like
+                    </h2>
+                  )}
+                  <div id={`row-${r.id}`}>
+                    <PlaceCard
+                      r={r}
+                      variant="row"
+                      hovered={hovered === r.id}
+                      selected={selected === r.id}
+                      onHover={setHovered}
+                      distance={
+                        r.lat != null && r.lng != null
+                          ? formatDistance(haversineKm(distOrigin, r.lat, r.lng))
+                          : undefined
+                      }
+                    />
+                  </div>
+                </Fragment>
               ))}
             </div>
           )}
