@@ -15,6 +15,7 @@ const COLS = `
   r.street, r.suburb, r.state, r.postcode, r.full_address, r.lat, r.lng,
   r.phone, r.email, r.website, r.facebook, r.instagram, r.tiktok, r.whatsapp,
   r.menu_url, r.menu_source, r.google_maps_url, r.opening_hours,
+  (r.featured_rank IS NOT NULL) AS is_featured,
   (SELECT p.storage_key FROM restaurant_photos p
      WHERE p.restaurant_id = r.id AND NOT p.removed
      ORDER BY p.is_primary DESC, p.position ASC LIMIT 1) AS primary_photo
@@ -53,6 +54,7 @@ function mapRow(row: any): Restaurant {
     googleMapsUrl: row.google_maps_url,
     openingHours: row.opening_hours,
     primaryPhoto: row.primary_photo,
+    isFeatured: !!row.is_featured,
   };
 }
 
@@ -61,7 +63,6 @@ export interface ListOpts {
   suburb?: string;
   tag?: string;
   venueType?: string;
-  q?: string;
   bbox?: Bbox;
   priceLevel?: number;
   minRating?: number;
@@ -89,15 +90,11 @@ function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
     cond.push(
       `r.geom && ST_MakeEnvelope(${p(o.bbox.w)}, ${p(o.bbox.s)}, ${p(o.bbox.e)}, ${p(o.bbox.n)}, 4326)`
     );
-  if (o.q) {
-    const like = p(`%${o.q}%`);
-    cond.push(`(r.name ILIKE ${like} OR r.suburb ILIKE ${like} OR r.postcode ILIKE ${like})`);
-  }
   if (o.hasPhoto)
     cond.push(
       "EXISTS (SELECT 1 FROM restaurant_photos p WHERE p.restaurant_id = r.id AND NOT p.removed)"
     );
-  if (o.featured) cond.push("r.is_featured");
+  if (o.featured) cond.push("r.featured_rank IS NOT NULL");
   return { where: cond.length ? "WHERE " + cond.join(" AND ") : "", params };
 }
 
@@ -207,6 +204,17 @@ export async function getCardBySlug(slug: string): Promise<Restaurant | null> {
   return rows.length ? mapRow(rows[0]) : null;
 }
 
+// ADMIN (temporary) — hard-deletes a restaurant. restaurant_photos rows cascade
+// via FK (ON DELETE CASCADE); on-disk media files under media/ are NOT removed.
+// Returns the deleted restaurant's name, or null if no row matched.
+export async function deleteRestaurantBySlug(slug: string): Promise<string | null> {
+  const rows = await query<{ name: string }>(
+    `DELETE FROM restaurants WHERE slug = $1 RETURNING name`,
+    [slug]
+  );
+  return rows.length ? rows[0].name : null;
+}
+
 export async function featured(limit = 8): Promise<Restaurant[]> {
   return listRestaurants({
     hasPhoto: true,
@@ -282,22 +290,30 @@ export interface Suggestion {
 
 // Autocomplete: match restaurant names + suburb/postcode locations.
 export async function searchSuggest(q: string): Promise<Suggestion> {
-  const like = `%${q}%`;
-  const pre = `${q}%`;
+  // "Auburn, NSW" → name part + an optional trailing state filter, so a
+  // formatted location label (what the search box fills in on pick) round-trips
+  // instead of dying on a literal substring match against a single column.
+  const ci = q.lastIndexOf(",");
+  const namePart = (ci >= 0 ? q.slice(0, ci) : q).trim();
+  const statePart = ci >= 0 ? q.slice(ci + 1).trim() : "";
+  const like = `%${namePart}%`;
+  const pre = `${namePart}%`;
+  const stateLike = statePart ? `${statePart}%` : null;
   const restaurants = await query<{ slug: string; name: string; suburb: string; state: string }>(
     `SELECT slug, name, suburb, state FROM restaurants
-      WHERE name ILIKE $1
+      WHERE name ILIKE $1 AND ($3::text IS NULL OR state ILIKE $3)
       ORDER BY (name ILIKE $2) DESC, review_count DESC NULLS LAST
       LIMIT 6`,
-    [like, pre]
+    [like, pre, stateLike]
   );
   const locations = await query<{ suburb: string; state: string; postcode: string; n: string }>(
     `SELECT suburb, state, min(postcode) postcode, count(*)::text n FROM restaurants
-      WHERE (suburb ILIKE $1 OR postcode ILIKE $1) AND suburb IS NOT NULL AND state IS NOT NULL
+      WHERE (suburb ILIKE $1 OR postcode ILIKE $1) AND ($3::text IS NULL OR state ILIKE $3)
+        AND suburb IS NOT NULL AND state IS NOT NULL
       GROUP BY suburb, state
       ORDER BY (suburb ILIKE $2) DESC, count(*) DESC
       LIMIT 5`,
-    [like, pre]
+    [like, pre, stateLike]
   );
   return {
     restaurants,

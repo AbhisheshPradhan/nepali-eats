@@ -67,7 +67,6 @@ export function ExploreClient({
   defaultUserLoc,
   autoLocate = false,
   initialQuery = "",
-  initialQ = "",
 }: {
   fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
   initialItems: Restaurant[];
@@ -80,18 +79,19 @@ export function ExploreClient({
   initialUserLoc?: [number, number];
   defaultUserLoc: [number, number];
   autoLocate?: boolean;
-  // initialQuery = what the search box shows (suburb / focused name / q);
-  // initialQ = the active text filter, so ?q= survives the first map move.
+  // initialQuery = what the search box shows (suburb, state / focused name)
   initialQuery?: string;
-  initialQ?: string;
 }) {
   const [items, setItems] = useState<Restaurant[]>(initialItems);
   const [pins, setPins] = useState<RestaurantPin[]>(initialPins);
   const [total, setTotal] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
+  // false until the client's first viewport fetch resolves. The list/pins/count
+  // are client-owned, so until then we show a loading state, not a "0 spots" /
+  // empty flash. (The focused restaurant is the one thing rendered server-side.)
+  const [hasLoaded, setHasLoaded] = useState(false);
 
-  const [q, setQ] = useState(initialQ);
   // The search box is uncontrolled (SearchBox owns its text). To override it from
   // "Near me", we bump boxKey to remount it with a fresh defaultValue.
   const [boxValue, setBoxValue] = useState(initialQuery);
@@ -107,8 +107,29 @@ export function ExploreClient({
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(initialZoom);
   const [userLoc, setUserLoc] = useState<[number, number] | null>(initialUserLoc ?? null);
+  // the map's live viewport. The fetched list can be scoped to a wider bbox than
+  // what's actually on screen (SSR seed box, or a pending zoom before refetch), so
+  // we clip the rendered list to this so it always matches the visible pins.
+  const [viewBbox, setViewBbox] = useState<Bbox | null>(null);
+
+  // suburb/state from the URL only SEED the view. Once the visitor pans/zooms the
+  // map (or hits "Near me"), we drop that scope and list everything in the bounds.
+  const hasFixedGeo = !!(fixed.suburb || fixed.state);
+  const [areaScoped, setAreaScoped] = useState(false);
+  const areaScopedRef = useRef(false);
+  const enterAreaMode = (label?: string) => {
+    if (!areaScopedRef.current) {
+      areaScopedRef.current = true;
+      setAreaScoped(true);
+    }
+    if (label !== undefined) {
+      setBoxValue(label);
+      setBoxKey((k) => k + 1);
+    }
+  };
 
   const bboxRef = useRef<Bbox | null>(null);
+  const firstBoundsRef = useRef(true); // first viewport fetch fires immediately
   const pageRef = useRef(1);
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -121,13 +142,16 @@ export function ExploreClient({
     p.set("bbox", `${b.w},${b.s},${b.e},${b.n}`);
     p.set("page", String(page));
     p.set("sort", sort);
-    if (q.trim()) p.set("q", q.trim());
     if (price) p.set("price", String(price));
     if (minRating) p.set("rating", String(minRating));
     if (fixed.tag) p.set("tag", fixed.tag);
-    if (fixed.state) p.set("state", fixed.state);
-    if (fixed.suburb) p.set("suburb", fixed.suburb);
     if (fixed.venue) p.set("venue", fixed.venue);
+    // geographic scope is seed-only: drop it the moment we're in map-area mode so
+    // the bbox is the sole geo filter (read the ref so fetch-time is authoritative).
+    if (!areaScopedRef.current) {
+      if (fixed.state) p.set("state", fixed.state);
+      if (fixed.suburb) p.set("suburb", fixed.suburb);
+    }
     return p;
   };
 
@@ -145,6 +169,7 @@ export function ExploreClient({
           setItems(data.items);
           setPins(data.pins || []);
           setTotal(data.total ?? 0);
+          setHasLoaded(true);
           pageRef.current = 1;
         } else {
           setItems((prev) => [...prev, ...data.items]);
@@ -163,19 +188,27 @@ export function ExploreClient({
 
   // map bounds change → auto-refresh the list (debounced). The first event
   // refetches the actual visible bounds; SSR data shows meanwhile (no flash).
-  const onBounds = useCallback((b: Bbox) => {
+  const onBounds = useCallback((b: Bbox, userMoved: boolean) => {
     bboxRef.current = b;
+    setViewBbox(b); // clip the list to the visible area immediately, before refetch
+    // a real pan/zoom away from a seeded suburb → switch to map-area mode.
+    // clear the box (don't show "Map area" as text — it's not a real query); the
+    // "in the map area" context lives in the list heading below.
+    if (userMoved && hasFixedGeo) enterAreaMode("");
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => fetchRef.current(true), 400);
+    const delay = firstBoundsRef.current ? 0 : 400;
+    firstBoundsRef.current = false;
+    debounceRef.current = setTimeout(() => fetchRef.current(true), delay);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // refilter when controls change (debounce text)
+  // refilter when controls change
   useEffect(() => {
     if (!bboxRef.current) return;
-    const t = setTimeout(() => fetchRef.current(true), q ? 350 : 0);
+    const t = setTimeout(() => fetchRef.current(true), 0);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q, price, minRating, sort]);
+  }, [price, minRating, sort]);
 
   // Default view: if the visitor already granted location, recentre on them
   // ("near me" by default). Otherwise keep the SSR state-capital / Sydney centre.
@@ -219,7 +252,7 @@ export function ExploreClient({
         setUserLoc([lat, lng]);
         setCenter([lat, lng]);
         setZoom(13);
-        setQ(""); // clear any text filter so nearby spots aren't narrowed
+        enterAreaMode(); // relocating: drop any seeded suburb scope, bbox takes over
         // reflect the detected suburb in the search box
         const label = (await reverseGeocodeSuburb(lat, lng)) ?? "Near you";
         setBoxValue(label);
@@ -230,21 +263,40 @@ export function ExploreClient({
     );
   };
 
+  // "View on map" from a list card: recentre + zoom in on the spot and highlight
+  // its pin. On mobile this also flips to the map view so the move is visible.
+  const viewOnMap = (r: Restaurant) => {
+    if (r.lat == null || r.lng == null) return;
+    setSelected(r.id);
+    setCenter([r.lat, r.lng]);
+    setZoom(16);
+    setViewMode("map");
+  };
+
   // Distance origin: the visitor's shared location if we have it, otherwise the
   // default "you are here" = their state's capital CBD (Sydney 2000 for NSW).
   // Independent of the map camera/focus, so the search view doesn't measure
   // distances from the focused restaurant.
   const distOrigin = userLoc ?? defaultUserLoc;
 
-  const base = openOnly
-    ? items.filter((r) => isOpenNow(r.openingHours, r.state) !== false)
-    : items;
+  // only list spots whose pin is in the current viewport (matches what's on the map)
+  const inView = (r: Restaurant) =>
+    !viewBbox ||
+    r.lat == null ||
+    r.lng == null ||
+    (r.lng >= viewBbox.w && r.lng <= viewBbox.e && r.lat >= viewBbox.s && r.lat <= viewBbox.n);
+
+  const base = items.filter(
+    (r) => inView(r) && (!openOnly || isOpenNow(r.openingHours, r.state) !== false)
+  );
   // keep the searched (focused) restaurant pinned to the top
   const shown =
     focusId != null && base.some((r) => r.id === focusId)
       ? [...base.filter((r) => r.id === focusId), ...base.filter((r) => r.id !== focusId)]
       : base;
-  const isFocusView = focusId != null && shown[0]?.id === focusId && shown.length > 1;
+  // focus view = the searched restaurant sits at the top (shown as the result).
+  // "You may also like" only renders when the viewport fetch adds more (length > 1).
+  const isFocusView = focusId != null && shown[0]?.id === focusId;
 
   return (
     <div className="flex flex-col h-[calc(100dvh-57px)]">
@@ -252,17 +304,14 @@ export function ExploreClient({
       <div className="px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100 relative z-[1200]">
         <div className="flex items-center gap-3 flex-wrap">
           <div className="flex-[1_1_360px] max-w-[560px]">
-            {/* Same component as the homepage hero. Embedded mode: free text
-                filters the list in place (onValueChange/onSubmit → q), picking a
-                suburb/restaurant recenters via navigation, and the empty state
-                clears instead of redirecting. Pre-filled with the active query. */}
+            {/* Same component as the homepage hero. Pure navigation: pick a
+                suburb (recenters, shows all its spots) or a restaurant (focus).
+                Pre-filled with the current area; empty state clears, not redirects. */}
             <SearchBox
               key={boxKey}
               variant="bar"
               embedded
               defaultValue={boxValue}
-              onValueChange={setQ}
-              onSubmit={(v) => setQ(v)}
             />
           </div>
           <Button
@@ -305,10 +354,11 @@ export function ExploreClient({
             </div>
           </label>
 
-          <label className="flex items-center gap-2">
+          {/* Price filter hidden for now (price data too sparse to be useful) */}
+          {/* <label className="flex items-center gap-2">
             <span className="font-display font-bold text-ink-700 text-[0.9rem]">Price</span>
             <Seg value={price} onChange={setPrice} options={[[0, "Any"], [1, "$"], [2, "$$"], [3, "$$$"]]} />
-          </label>
+          </label> */}
 
           <label className="flex items-center gap-2">
             <span className="font-display font-bold text-ink-700 text-[0.9rem]">Rating</span>
@@ -330,12 +380,19 @@ export function ExploreClient({
             <span className="font-display font-bold text-ink-700">
               {isFocusView
                 ? areaLabel
-                : `${total} ${total === 1 ? "spot" : "spots"} ${areaLabel}`}
+                : !hasLoaded
+                  ? "Finding spots…"
+                  : `${total} ${total === 1 ? "spot" : "spots"} ${areaScoped ? "in the map area" : areaLabel}`}
             </span>
             {loading && <CircleNotch className="animate-spin text-chili-500" size={18} />}
           </div>
 
-          {shown.length === 0 && !loading ? (
+          {shown.length === 0 && !hasLoaded ? (
+            <div className="text-center py-12 text-ink-500">
+              <CircleNotch size={28} className="mx-auto mb-2 animate-spin text-chili-500" />
+              Finding spots in view…
+            </div>
+          ) : shown.length === 0 ? (
             <div className="text-center py-12 text-ink-500">
               <CookingPot size={36} className="mx-auto mb-2" />
               No spots in view. Pan the map or zoom out.
@@ -361,6 +418,7 @@ export function ExploreClient({
                           ? formatDistance(haversineKm(distOrigin, r.lat, r.lng))
                           : undefined
                       }
+                      onViewMap={() => viewOnMap(r)}
                     />
                   </div>
                 </Fragment>

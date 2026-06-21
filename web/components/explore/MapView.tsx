@@ -11,6 +11,7 @@ import Map, {
 } from "react-map-gl/mapbox";
 import type { GeoJSONSource } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { X } from "@phosphor-icons/react";
 import type { RestaurantPin, Bbox } from "@/lib/types";
 import { PlaceCard } from "@/components/PlaceCard";
 
@@ -83,7 +84,7 @@ export default function MapView({
   selectedId: number | null;
   onHover: (id: number | null) => void;
   onSelect: (id: number | null) => void;
-  onBounds: (b: Bbox) => void;
+  onBounds: (b: Bbox, userMoved: boolean) => void;
   center: [number, number];
   zoom: number;
 }) {
@@ -91,6 +92,10 @@ export default function MapView({
   const [cursor, setCursor] = useState("");
   const [popup, setPopup] = useState<RestaurantPin | null>(null);
   const activeId = selectedId ?? hoveredId ?? -1;
+  // true once the visitor has actually panned/zoomed. Until then we (re)emit the
+  // settled bounds on every `idle` so the list scopes to the real viewport even
+  // when `onLoad` doesn't fire (reuseMaps pools the map across client navigations).
+  const userMovedRef = useRef(false);
 
   const geojson = useMemo(
     () => ({
@@ -108,12 +113,13 @@ export default function MapView({
     [pins]
   );
 
-  const fire = (b: Bbox) => onBounds(b);
-  const emitBounds = () => {
+  // userMoved = a real pan/zoom (drag/scroll), not a programmatic flyTo or the
+  // initial load. Lets the list drop its seeded suburb scope and go map-area-wide.
+  const emitBounds = (userMoved: boolean) => {
     const m = mapRef.current;
     if (!m) return;
     const b = m.getBounds();
-    if (b) fire({ w: b.getWest(), s: b.getSouth(), e: b.getEast(), n: b.getNorth() });
+    if (b) onBounds({ w: b.getWest(), s: b.getSouth(), e: b.getEast(), n: b.getNorth() }, userMoved);
   };
 
   useEffect(() => {
@@ -193,9 +199,20 @@ export default function MapView({
             } catch {}
           }
         }
-        emitBounds();
       }}
-      onMoveEnd={emitBounds}
+      // Initial bounds: emit on `idle` (fires on every mount once the map is loaded,
+      // sized and settled — including reused maps where `onLoad` never re-fires).
+      // Stops once the user takes over, so it doesn't double-fetch on interaction.
+      onIdle={() => {
+        if (!userMovedRef.current) emitBounds(false);
+      }}
+      // originalEvent is present only for user-driven moves; flyTo/easeTo omit it.
+      // (Not surfaced on react-map-gl's ViewStateChangeEvent type, but it's there.)
+      onMoveEnd={(e) => {
+        const userMoved = !!(e as { originalEvent?: unknown }).originalEvent;
+        if (userMoved) userMovedRef.current = true;
+        emitBounds(userMoved);
+      }}
       onClick={onClick}
       onMouseMove={onMouseMove}
       onMouseLeave={() => {
@@ -225,6 +242,10 @@ export default function MapView({
           latitude={popup.lat}
           offset={16}
           closeButton={false}
+          // don't let the popup self-close on map click: clicking another pin
+          // would otherwise close this one in the same click and the new card
+          // never opens. Empty-map clicks still close it via the map onClick.
+          closeOnClick={false}
           onClose={() => {
             setPopup(null);
             onSelect(null);
@@ -232,11 +253,25 @@ export default function MapView({
           className="ne-popup"
           maxWidth="240px"
         >
-          <PlaceCard
-            r={{ ...popup, openingHours: null }}
-            className="w-[230px]"
-            newTab
-          />
+          <div className="relative">
+            <button
+              type="button"
+              aria-label="Close"
+              onClick={() => {
+                setPopup(null);
+                onSelect(null);
+              }}
+              className="absolute top-2 right-2 z-10 grid h-7 w-7 place-items-center rounded-full bg-ink-900/70 text-white hover:bg-ink-900 cursor-pointer"
+            >
+              <X size={14} weight="bold" />
+            </button>
+            <PlaceCard
+              r={{ ...popup, openingHours: null }}
+              className="w-[230px]"
+              newTab
+              noHover
+            />
+          </div>
         </Popup>
       )}
     </Map>

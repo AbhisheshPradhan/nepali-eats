@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, MapPin } from "@phosphor-icons/react";
+import { Clock, MapPin, MapTrifold } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { VenueIcon } from "@/components/ui/VenueIcon";
@@ -24,7 +24,10 @@ export type PlaceCardData = Pick<
   | "state"
   | "primaryPhoto"
   | "openingHours"
->;
+> & {
+  // optional: map-popup pins don't carry it, only full restaurant rows do
+  isFeatured?: boolean;
+};
 
 // One card, two layouts:
 //   "card" — vertical (homepage featured, listings, map popup)
@@ -40,6 +43,9 @@ export function PlaceCard({
   hovered = false,
   onHover,
   newTab,
+  noHover = false,
+  hideState = false,
+  onViewMap,
 }: {
   r: PlaceCardData;
   distance?: string;
@@ -50,6 +56,13 @@ export function PlaceCard({
   hovered?: boolean;
   onHover?: (id: number | null) => void;
   newTab?: boolean;
+  // drop the lift-on-hover effect (used for the static map popup card)
+  noHover?: boolean;
+  // show only the suburb (no ", STATE"), e.g. homepage featured cards
+  hideState?: boolean;
+  // when set, renders a "View on map" button (Explore list) that centres the map
+  // on this spot instead of navigating to the detail page
+  onViewMap?: () => void;
 }) {
   const row = variant === "row";
   // Row cards always open in a new tab; other cards opt in via `newTab`.
@@ -58,10 +71,11 @@ export function PlaceCard({
   const open = isOpenNow(r.openingHours, r.state);
   const status = openStatus(r.openingHours, r.state);
   const hue = hueFromId(r.id);
-  const location = [r.suburb, r.state].filter(Boolean).join(", ");
+  const location = [r.suburb, hideState ? null : r.state].filter(Boolean).join(", ");
   const hi = hovered || selected;
+  const featured = !!r.isFeatured;
 
-  return (
+  const card = (
     <Link
       href={href ?? `/restaurant/${r.slug}`}
       {...(openNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -73,9 +87,17 @@ export function PlaceCard({
           ? cn(
               "flex flex-col sm:flex-row border-2",
               selected ? "bg-paper-100" : "bg-white",
-              hi ? "border-chili-500 shadow-md" : "border-paper-300 shadow-sm"
+              hi
+                ? "border-chili-500 shadow-md"
+                : featured
+                  ? "border-chili-500 shadow-sm"
+                  : "border-paper-300 shadow-sm"
             )
-          : "flex flex-col shadow-md hover:shadow-lg hover:-translate-y-1",
+          : cn(
+              "flex flex-col shadow-md",
+              featured && "border-2 border-chili-500",
+              !noHover && "hover:shadow-lg hover:-translate-y-1"
+            ),
         className
       )}
     >
@@ -99,7 +121,7 @@ export function PlaceCard({
             sizes="(max-width: 768px) 100vw, 360px"
             className={cn(
               "object-cover",
-              !row && "transition-transform duration-500 group-hover:scale-105"
+              !row && !noHover && "transition-transform duration-500 group-hover:scale-105"
             )}
           />
         ) : (
@@ -111,9 +133,15 @@ export function PlaceCard({
         {/* open / closed badge */}
         <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
           {open !== null ? (
-            <Badge tone={open ? "open" : "closed"} solid>
-              {open ? "Open now" : "Closed"}
-            </Badge>
+            open ? (
+              <Badge tone="open" solid>
+                Open now
+              </Badge>
+            ) : (
+              <Badge tone="neutral" solid className="bg-ink-300 text-white">
+                Closed
+              </Badge>
+            )
           ) : (
             <span />
           )}
@@ -154,21 +182,51 @@ export function PlaceCard({
             Backfill opening_hours from the Google place page (same render path
             as enrich-google.js) to light this up, e.g.
             "Open now · closes at 10pm" or "Opens 3pm tomorrow". */}
-        {status && (
+        {/* Opening-hours status line hidden for now (re-enable by dropping `false &&`) */}
+        {false && status && (
           <div
             className={cn(
               "mt-auto flex items-center gap-1.5 text-[0.95rem] font-semibold",
-              status.open ? "text-coriander-700" : "text-ink-500"
+              status?.open ? "text-coriander-700" : "text-ink-500"
             )}
           >
             <Clock
               size={16}
-              className={status.open ? "text-coriander-500" : "text-ink-500"}
+              className={status?.open ? "text-coriander-500" : "text-ink-500"}
             />
-            <span>{status.label}</span>
+            <span>{status?.label}</span>
           </div>
+        )}
+
+        {onViewMap && (
+          <button
+            type="button"
+            onClick={(e) => {
+              // sits inside the card's <Link>; don't navigate, just move the map
+              e.preventDefault();
+              e.stopPropagation();
+              onViewMap();
+            }}
+            className="mt-auto self-start inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-3 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
+          >
+            <MapTrifold size={15} weight="fill" />
+            View on map
+          </button>
         )}
       </div>
     </Link>
+  );
+
+  if (!featured) return card;
+
+  // Featured: the "tab" pokes above the card's top edge, so it lives on a
+  // relative wrapper (the card itself clips with overflow-hidden).
+  return (
+    <div className="relative">
+      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10 inline-flex items-center bg-chili-500 text-white font-body font-bold text-[0.78rem] tracking-[0.02em] px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
+        Featured
+      </span>
+      {card}
+    </div>
   );
 }

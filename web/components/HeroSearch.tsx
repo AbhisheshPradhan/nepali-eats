@@ -40,8 +40,8 @@ export function HeroSearch() {
         <NavigationArrow className="text-chili-500" weight="fill" size={18} />
         <span>
           {locating
-            ? "Finding the closest momo…"
-            : "Share your location and we'll find the closest momo"}
+            ? "Finding spots near you…"
+            : "Explore nearby restaurants"}
         </span>
       </button>
     </div>

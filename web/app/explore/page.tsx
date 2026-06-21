@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { ExploreClient } from "@/components/explore/ExploreClient";
-import {
-  listRestaurants,
-  countRestaurants,
-  pinsInBounds,
-  extentOf,
-  getCardBySlug,
-  type ListOpts,
-} from "@/lib/queries";
+import { extentOf, getCardBySlug, type ListOpts } from "@/lib/queries";
 import type { Bbox } from "@/lib/types";
 import { STATE_CENTRE, capitalLatLng } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
@@ -27,20 +20,19 @@ const SYDNEY_BBOX: Bbox = { w: 150.55, s: -34.15, e: 151.35, n: -33.55 };
 // Centre = metro midpoint (STATE_CENTRE), separate from the distance default.
 const CITY: Record<
   string,
-  { center: [number, number]; zoom: number; bbox: Bbox; label: string }
+  { center: [number, number]; zoom: number; bbox: Bbox }
 > = {
-  NSW: { center: STATE_CENTRE.NSW, zoom: 11, bbox: SYDNEY_BBOX, label: "in Sydney" },
-  VIC: { center: STATE_CENTRE.VIC, zoom: 11, bbox: { w: 144.5, s: -38.1, e: 145.4, n: -37.5 }, label: "in Melbourne" },
-  QLD: { center: STATE_CENTRE.QLD, zoom: 11, bbox: { w: 152.7, s: -27.8, e: 153.35, n: -27.1 }, label: "in Brisbane" },
-  WA: { center: STATE_CENTRE.WA, zoom: 11, bbox: { w: 115.6, s: -32.15, e: 116.1, n: -31.7 }, label: "in Perth" },
-  SA: { center: STATE_CENTRE.SA, zoom: 11, bbox: { w: 138.4, s: -35.1, e: 138.85, n: -34.7 }, label: "in Adelaide" },
-  ACT: { center: STATE_CENTRE.ACT, zoom: 11, bbox: { w: 148.9, s: -35.5, e: 149.3, n: -35.1 }, label: "in Canberra" },
-  TAS: { center: STATE_CENTRE.TAS, zoom: 11, bbox: { w: 147.0, s: -43.1, e: 147.6, n: -42.7 }, label: "in Hobart" },
-  NT: { center: STATE_CENTRE.NT, zoom: 11, bbox: { w: 130.7, s: -12.6, e: 131.05, n: -12.3 }, label: "in Darwin" },
+  NSW: { center: STATE_CENTRE.NSW, zoom: 11, bbox: SYDNEY_BBOX },
+  VIC: { center: STATE_CENTRE.VIC, zoom: 11, bbox: { w: 144.5, s: -38.1, e: 145.4, n: -37.5 } },
+  QLD: { center: STATE_CENTRE.QLD, zoom: 11, bbox: { w: 152.7, s: -27.8, e: 153.35, n: -27.1 } },
+  WA: { center: STATE_CENTRE.WA, zoom: 11, bbox: { w: 115.6, s: -32.15, e: 116.1, n: -31.7 } },
+  SA: { center: STATE_CENTRE.SA, zoom: 11, bbox: { w: 138.4, s: -35.1, e: 138.85, n: -34.7 } },
+  ACT: { center: STATE_CENTRE.ACT, zoom: 11, bbox: { w: 148.9, s: -35.5, e: 149.3, n: -35.1 } },
+  TAS: { center: STATE_CENTRE.TAS, zoom: 11, bbox: { w: 147.0, s: -43.1, e: 147.6, n: -42.7 } },
+  NT: { center: STATE_CENTRE.NT, zoom: 11, bbox: { w: 130.7, s: -12.6, e: 131.05, n: -12.3 } },
 };
 
 type SP = Promise<{
-  q?: string;
   tag?: string;
   state?: string;
   suburb?: string;
@@ -66,7 +58,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     state: sp.state,
     suburb: sp.suburb,
     venueType: sp.venue,
-    q: sp.q,
   };
 
   // Detected AU state (IP). Drives the default "you are here" distance origin
@@ -79,7 +70,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
 
   let center = SYDNEY;
   let zoom = 11;
-  let bbox = SYDNEY_BBOX;
   let areaLabel = "in this area";
   let focusId: number | undefined;
   let userLoc: [number, number] | undefined;
@@ -93,7 +83,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     const { lat, lng } = focused;
     center = [lat, lng];
     zoom = 14;
-    bbox = { w: lng - 0.07, s: lat - 0.055, e: lng + 0.07, n: lat + 0.055 };
     areaLabel = `Search result for "${focused.name}"`;
     focusId = focused.id;
   } else if (sp.lat && sp.lng) {
@@ -102,7 +91,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     center = [lat, lng];
     userLoc = [lat, lng];
     zoom = 13;
-    bbox = { w: lng - 0.08, s: lat - 0.06, e: lng + 0.08, n: lat + 0.06 };
     areaLabel = "near you";
     nearLabel = (await reverseGeocodeSuburb(lat, lng)) ?? "Near you";
   } else if (sp.tag || sp.state || sp.suburb || sp.venue) {
@@ -111,14 +99,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       center = [ext.avgLat, ext.avgLng];
       const span = Math.max(ext.maxLat - ext.minLat, ext.maxLng - ext.minLng);
       zoom = zoomForSpan(span);
-      const padLat = (ext.maxLat - ext.minLat) * 0.15 + 0.02;
-      const padLng = (ext.maxLng - ext.minLng) * 0.15 + 0.02;
-      bbox = {
-        w: ext.minLng - padLng,
-        s: ext.minLat - padLat,
-        e: ext.maxLng + padLng,
-        n: ext.maxLat + padLat,
-      };
     }
     areaLabel = sp.suburb
       ? `in ${sp.suburb}`
@@ -134,29 +114,26 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     const c = city ?? CITY.NSW;
     center = c.center;
     zoom = c.zoom;
-    bbox = c.bbox;
-    areaLabel = c.label;
+    // the IP-geo view is just a starting camera; the client lists whatever the
+    // visitor's viewport actually shows, so label it generically.
+    areaLabel = "in the map area";
     autoLocate = true;
   }
 
-  const optsWithBbox: ListOpts = { ...filters, bbox };
-  const [listed, total, pins] = await Promise.all([
-    listRestaurants({ ...optsWithBbox, limit: 30, orderBy: "popular" }),
-    countRestaurants(optsWithBbox),
-    pinsInBounds(optsWithBbox),
-  ]);
-
-  // pin the focused restaurant to the top of the list
-  const items = focused
-    ? [focused, ...listed.filter((r) => r.id !== focused.id)]
-    : listed;
+  // The list/pins/count are CLIENT-OWNED: the server can't know the visitor's
+  // viewport pixel size, so any SSR list would be scoped to a guessed bbox and get
+  // corrected on first paint (count flip + reorder + set change = the flicker).
+  // The server only sets the camera (above). The one exception is the focused
+  // restaurant — it isn't viewport-dependent, so we render it instantly as the
+  // result; "you may also like" then fills in from the real viewport client-side.
+  const items = focused ? [focused] : [];
 
   return (
     <ExploreClient
       fixed={fixed}
       initialItems={items}
-      initialPins={pins}
-      initialTotal={total}
+      initialPins={[]}
+      initialTotal={focused ? 1 : 0}
       initialCenter={center}
       initialZoom={zoom}
       areaLabel={areaLabel}
@@ -164,8 +141,12 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       initialUserLoc={userLoc}
       defaultUserLoc={defaultUserLoc}
       autoLocate={autoLocate}
-      initialQuery={focused?.name ?? sp.suburb ?? nearLabel ?? sp.q ?? ""}
-      initialQ={sp.q ?? ""}
+      initialQuery={
+        focused?.name ??
+        (sp.suburb ? (sp.state ? `${sp.suburb}, ${sp.state}` : sp.suburb) : undefined) ??
+        nearLabel ??
+        ""
+      }
     />
   );
 }

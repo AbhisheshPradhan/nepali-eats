@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ArrowLeft,
   MapPin,
   Clock,
   NavigationArrow,
@@ -22,6 +21,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Tag } from "@/components/ui/Tag";
 import { Rating } from "@/components/ui/Rating";
 import { Button } from "@/components/ui/Button";
+import { DeleteSpotButton } from "@/components/admin/DeleteSpotButton";
 import { getRestaurantBySlug } from "@/lib/queries";
 import { mediaUrl } from "@/lib/media";
 import {
@@ -124,13 +124,6 @@ export default async function VenuePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      <Link
-        href="/explore"
-        className="inline-flex items-center gap-1.5 text-ink-700 font-display font-bold mb-4 hover:text-chili-500"
-      >
-        <ArrowLeft size={18} /> Back to spots
-      </Link>
 
       {/* hero */}
       <div
@@ -353,6 +346,9 @@ export default async function VenuePage({
               <Storefront size={18} weight="fill" /> More spots in {r.suburb}
             </Link>
           )}
+
+          {/* ⚠️ TEMPORARY ADMIN — remove/hide or gate behind an admin role before launch */}
+          <DeleteSpotButton slug={r.slug} name={r.name} />
         </aside>
       </div>
     </div>

@@ -12,19 +12,13 @@ export function SearchBox({
   variant = "hero",
   placeholder = "Search a restaurant, suburb or postcode",
   defaultValue = "",
-  onValueChange,
-  onSubmit,
-  onLocation,
   embedded = false,
 }: {
   variant?: "hero" | "bar";
   placeholder?: string;
   defaultValue?: string;
-  onValueChange?: (v: string) => void;
-  onSubmit?: (v: string) => void;
-  onLocation?: (loc: { suburb: string; state: string }) => void;
-  // embedded = the box lives on a page that already filters in place (Explore),
-  // so the empty state clears the search instead of redirecting to /explore.
+  // embedded = the box lives on the Explore page, so the empty state clears the
+  // search instead of redirecting to /explore.
   embedded?: boolean;
 }) {
   const router = useRouter();
@@ -48,6 +42,12 @@ export function SearchBox({
       setLoading(false);
       return;
     }
+    // a deliberate pick already resolved intent; don't re-search its own
+    // formatted label ("Auburn, NSW") and flash a no-results state.
+    if (selected) {
+      setLoading(false);
+      return;
+    }
     // show loading immediately so the empty-state line doesn't flash during the
     // debounce window before the fetch starts.
     setLoading(true);
@@ -65,31 +65,28 @@ export function SearchBox({
         .finally(() => setLoading(false));
     }, 220);
     return () => clearTimeout(t);
-  }, [value]);
+  }, [value, selected]);
+
+  const enc = encodeURIComponent;
+  // carry the state so "Auburn, NSW" doesn't collide with Auburn VIC/SA
+  const gotoSuburb = (s: { suburb: string; state: string }) =>
+    router.push(`/explore?suburb=${enc(s.suburb)}&state=${enc(s.state)}`);
 
   // typing clears any prior selection (back to free-text)
   const change = (v: string) => {
     setValue(v);
     setSelected(null);
     setOpen(true);
-    onValueChange?.(v);
   };
 
-  // search only runs here (Search button / Enter), acting on the current selection
+  // Strict dropdown: a query is only valid once a suggestion is picked. Free text
+  // never resolves, so Enter/Search are no-ops until `selected` is set.
   const submit = (e?: React.FormEvent) => {
     e?.preventDefault();
+    if (!selected) return;
     setOpen(false);
-    if (selected?.type === "restaurant") {
-      router.push(`/explore?focus=${selected.slug}`);
-      return;
-    }
-    if (selected?.type === "location") {
-      if (onLocation) onLocation({ suburb: selected.suburb, state: selected.state });
-      else router.push(`/explore?suburb=${encodeURIComponent(selected.suburb)}`);
-      return;
-    }
-    if (onSubmit) onSubmit(value.trim());
-    else router.push(value.trim() ? `/explore?q=${encodeURIComponent(value.trim())}` : "/explore");
+    if (selected.type === "restaurant") router.push(`/explore?focus=${selected.slug}`);
+    else gotoSuburb(selected);
   };
 
   // picking an option only fills the box + remembers the choice (no search yet)
@@ -109,7 +106,7 @@ export function SearchBox({
   // dropdown (with the "explore instead" fallback), not silence.
   const showDropdown = open && value.trim().length >= 3;
   const noResults =
-    !loading && sugg.restaurants.length === 0 && sugg.locations.length === 0;
+    !loading && !selected && sugg.restaurants.length === 0 && sugg.locations.length === 0;
 
   return (
     <div className="relative w-full">
@@ -135,7 +132,12 @@ export function SearchBox({
             hero ? "text-[1.1rem]" : "text-base"
           )}
         />
-        <Button type="submit" size={hero ? "md" : "sm"} iconRight={hero ? <ArrowRight size={18} weight="bold" /> : undefined}>
+        <Button
+          type="submit"
+          size={hero ? "md" : "sm"}
+          disabled={!selected}
+          iconRight={hero ? <ArrowRight size={18} weight="bold" /> : undefined}
+        >
           Search
         </Button>
       </form>
@@ -149,14 +151,6 @@ export function SearchBox({
             if (blurTimer.current) clearTimeout(blurTimer.current);
           }}
         >
-          <button
-            type="button"
-            onClick={() => submit()}
-            className="flex items-center gap-2 w-full text-left bg-chili-500 text-white px-4 py-2.5 font-body font-semibold cursor-pointer"
-          >
-            <MagnifyingGlass size={16} /> Search &ldquo;{value.trim()}&rdquo;
-          </button>
-
           {sugg.locations.length > 0 && (
             <div className="eyebrow text-ink-500 px-4 pt-2 pb-1 bg-paper-50">Locations</div>
           )}

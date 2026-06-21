@@ -53,6 +53,7 @@ export interface Restaurant {
   googleMapsUrl: string | null;
   openingHours: OpeningHours | null;
   primaryPhoto: string | null; // storage_key of the hero
+  isFeatured: boolean; // editorial pick — shows the Featured tab + border
 }
 
 export interface RestaurantDetail extends Restaurant {

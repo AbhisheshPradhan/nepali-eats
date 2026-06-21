@@ -27,7 +27,6 @@ export async function GET(request: Request) {
     venueType: sp.get("venue") || undefined,
     state: sp.get("state") || undefined,
     suburb: sp.get("suburb") || undefined,
-    q: sp.get("q") || undefined,
     priceLevel: Number(sp.get("price")) || undefined,
     minRating: Number(sp.get("rating")) || undefined,
     orderBy: SORT[sp.get("sort") || "featured"] || "popular",

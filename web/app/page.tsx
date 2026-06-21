@@ -51,22 +51,7 @@ export default async function HomePage() {
 
       {/* FEATURED */}
       <section className="max-w-[1180px] mx-auto px-6 pt-5">
-        <div className="flex items-end justify-between mb-5 flex-wrap gap-2">
-          <div>
-            <span className="eyebrow text-marigold-700">Local favourites</span>
-            <h2 className="text-[2.2rem] text-ink-900 mt-1">
-              Where {metro}&apos;s eating this week
-            </h2>
-          </div>
-          <Button
-            href="/explore"
-            variant="ghost"
-            iconRight={<ArrowRight size={18} />}
-          >
-            View All
-          </Button>
-        </div>
-        <FeaturedCards gems={gems} fallbackLoc={defaultLoc} />
+        <FeaturedCards gems={gems} metro={metro} fallbackLoc={defaultLoc} />
       </section>
 
       {/* CRAVING CAROUSEL */}
