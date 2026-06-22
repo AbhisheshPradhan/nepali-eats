@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { blockInProd } from "@/lib/admin/guard";
+import { requireAdmin } from "@/lib/admin/guard";
 import { setNepaliStatus } from "@/lib/admin/queries";
 
 // LOCAL-ONLY. Curation decision for a restaurant: keep it in the directory
@@ -9,7 +9,7 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const blocked = blockInProd();
+  const blocked = await requireAdmin();
   if (blocked) return blocked;
 
   const { slug } = await params;

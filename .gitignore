@@ -10,7 +10,18 @@ web/node_modules/
 # next.js
 web/.next/
 web/out/
+web/build/
 web/next-env.d.ts
+web/*.tsbuildinfo
+
+# vercel
+web/.vercel
+
+# testing
+web/coverage/
+
+# certs / keys
+*.pem
 
 # self-hosted media (large; lives in R2 in prod) + dev symlink
 media/

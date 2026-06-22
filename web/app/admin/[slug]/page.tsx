@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { assertLocalAdmin } from "@/lib/admin/guard";
+import { assertAdmin } from "@/lib/admin/guard";
 import { getRestaurantBySlug } from "@/lib/queries";
 import { getPhotosForAdmin } from "@/lib/admin/queries";
 import { listMenuFiles } from "@/lib/admin/storage";
@@ -10,7 +10,7 @@ import { DeleteSpotButton } from "@/components/admin/DeleteSpotButton";
 export const metadata = { robots: { index: false, follow: false } };
 
 export default async function AdminEdit({ params }: { params: Promise<{ slug: string }> }) {
-  assertLocalAdmin();
+  await assertAdmin();
   const { slug } = await params;
   const r = await getRestaurantBySlug(slug);
   if (!r) notFound();

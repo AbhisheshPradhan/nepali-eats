@@ -1,34 +1,45 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, MapPin, MapTrifold } from "@phosphor-icons/react";
+import { Clock, Fire, MapTrifold } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { VenueIcon } from "@/components/ui/VenueIcon";
 import { Avatar } from "@/components/Avatar";
 import type { Restaurant } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
-import { isOpenNow, openStatus, hueFromId } from "@/lib/format";
+import {
+	todayHoursLine,
+	hueFromId,
+	haversineKm,
+	formatDistance,
+} from "@/lib/format";
+import { useUserLocation, type LatLng } from "@/lib/useUserLocation";
 import { cn } from "@/lib/cn";
 
 // The card only needs these fields, so both a full Restaurant and a map pin
 // (RestaurantPin + openingHours) can be passed.
 export type PlaceCardData = Pick<
-  Restaurant,
-  | "id"
-  | "slug"
-  | "name"
-  | "venueType"
-  | "rating"
-  | "reviewCount"
-  | "suburb"
-  | "state"
-  | "primaryPhoto"
-  | "openingHours"
+	Restaurant,
+	| "id"
+	| "slug"
+	| "name"
+	| "venueType"
+	| "rating"
+	| "reviewCount"
+	| "suburb"
+	| "state"
+	| "primaryPhoto"
+	| "openingHours"
+	| "lat"
+	| "lng"
 > & {
-  // optional: map-popup pins don't carry these, only full restaurant rows do
-  isFeatured?: boolean;
-  logoKey?: string | null;
+	// optional: map-popup pins don't carry these, only full restaurant rows do
+	isFeatured?: boolean;
+	popular?: boolean;
+	logoKey?: string | null;
+	priceLevel?: number | null;
+	priceRange?: string | null;
 };
 
 // One card, two layouts:
@@ -36,199 +47,243 @@ export type PlaceCardData = Pick<
 //   "row"  — horizontal (Explore list); adds hover/selected highlight + opens
 //            in a new tab. Both modes show the same details.
 export function PlaceCard({
-  r,
-  distance,
-  className,
-  href,
-  variant = "card",
-  selected = false,
-  hovered = false,
-  onHover,
-  newTab,
-  noHover = false,
-  hideState = false,
-  onViewMap,
+	r,
+	fallbackOrigin,
+	className,
+	href,
+	variant = "card",
+	selected = false,
+	hovered = false,
+	onHover,
+	newTab,
+	noHover = false,
+	hideState = false,
+	onViewMap,
 }: {
-  r: PlaceCardData;
-  distance?: string;
-  className?: string;
-  href?: string;
-  variant?: "card" | "row";
-  selected?: boolean;
-  hovered?: boolean;
-  onHover?: (id: number | null) => void;
-  newTab?: boolean;
-  // drop the lift-on-hover effect (used for the static map popup card)
-  noHover?: boolean;
-  // show only the suburb (no ", STATE"), e.g. homepage featured cards
-  hideState?: boolean;
-  // when set, renders a "View on map" button (Explore list) that centres the map
-  // on this spot instead of navigating to the detail page
-  onViewMap?: () => void;
+	r: PlaceCardData;
+	// Optional fallback reference point for distance when the visitor hasn't
+	// shared their location (home: state capital; Explore: arrival point).
+	fallbackOrigin?: LatLng;
+	className?: string;
+	href?: string;
+	variant?: "card" | "row";
+	selected?: boolean;
+	hovered?: boolean;
+	onHover?: (id: number | null) => void;
+	newTab?: boolean;
+	// drop the lift-on-hover effect (used for the static map popup card)
+	noHover?: boolean;
+	// show only the suburb (no ", STATE"), e.g. homepage featured cards
+	hideState?: boolean;
+	// when set, renders a "View on map" button (Explore list) that centres the map
+	// on this spot instead of navigating to the detail page
+	onViewMap?: () => void;
 }) {
-  const row = variant === "row";
-  // Row cards always open in a new tab; other cards opt in via `newTab`.
-  const openNewTab = newTab ?? row;
-  const img = mediaUrl(r.primaryPhoto);
-  const open = isOpenNow(r.openingHours, r.state);
-  const status = openStatus(r.openingHours, r.state);
-  const hue = hueFromId(r.id);
-  const location = [r.suburb, hideState ? null : r.state].filter(Boolean).join(", ");
-  const hi = hovered || selected;
-  const featured = !!r.isFeatured;
+	const row = variant === "row";
+	// Row cards always open in a new tab; other cards opt in via `newTab`.
+	const openNewTab = newTab ?? row;
+	// Prefer the brand logo as the card image; fall back to the hero photo.
+	const img = mediaUrl(r.logoKey) ?? mediaUrl(r.primaryPhoto);
+	const hoursToday = todayHoursLine(r.openingHours, r.state);
+	// Price as a 4-pip dollar scale: the level's signs filled, the rest muted.
+	const priceLevel = r.priceLevel ? Math.min(4, r.priceLevel) : 0;
+	const hue = hueFromId(r.id);
+	const location = [r.suburb, hideState ? null : r.state]
+		.filter(Boolean)
+		.join(", ");
+	const hi = hovered || selected;
+	const featured = !!r.isFeatured;
+	const popular = !!r.popular;
 
-  const card = (
-    <Link
-      href={href ?? `/restaurant/${r.slug}`}
-      {...(openNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      onMouseEnter={onHover ? () => onHover(r.id) : undefined}
-      onMouseLeave={onHover ? () => onHover(null) : undefined}
-      className={cn(
-        "group bg-white overflow-hidden rounded-lg transition",
-        row
-          ? cn(
-              "flex flex-col sm:flex-row border-2",
-              selected ? "bg-paper-100" : "bg-white",
-              hi
-                ? "border-chili-500 shadow-md"
-                : featured
-                  ? "border-chili-500 shadow-sm"
-                  : "border-paper-300 shadow-sm"
-            )
-          : cn(
-              "flex flex-col shadow-md",
-              featured && "border-2 border-chili-500",
-              !noHover && "hover:shadow-lg hover:-translate-y-1"
-            ),
-        className
-      )}
-    >
-      {/* image */}
-      <div
-        className={cn(
-          "relative overflow-hidden",
-          row
-            ? "w-full h-[180px] shrink-0 sm:w-[210px] sm:h-auto sm:min-h-[190px] sm:self-stretch"
-            : "aspect-[4/3]"
-        )}
-        style={{
-          background: `linear-gradient(135deg, hsl(${hue} 90% 62%), hsl(${(hue + 24) % 360} 85% 55%))`,
-        }}
-      >
-        {img ? (
-          <Image
-            src={img}
-            alt={r.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 360px"
-            className={cn(
-              "object-cover",
-              !row && !noHover && "transition-transform duration-500 group-hover:scale-105"
-            )}
-          />
-        ) : (
-          <div className="absolute inset-0 grid place-items-center">
-            <Avatar name={r.name} logoKey={r.logoKey} id={r.id} size={row ? 84 : 96} />
-          </div>
-        )}
+	// Distance is computed here (not passed in) so every PlaceCard renders the
+	// same UI. Origin = the visitor's shared location (one app-wide context, so
+	// a big grid doesn't fire N geolocation calls), else the caller's fallback.
+	const userLoc = useUserLocation();
+	const distOrigin = userLoc ?? fallbackOrigin ?? null;
+	const distance =
+		distOrigin && r.lat != null && r.lng != null
+			? formatDistance(haversineKm(distOrigin, r.lat, r.lng))
+			: undefined;
 
-        {/* open / closed badge */}
-        <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
-          {open !== null ? (
-            open ? (
-              <Badge tone="open" solid>
-                Open now
-              </Badge>
-            ) : (
-              <Badge tone="neutral" solid className="bg-ink-300 text-white">
-                Closed
-              </Badge>
-            )
-          ) : (
-            <span />
-          )}
-        </div>
+	const card = (
+		<Link
+			href={href ?? `/restaurant/${r.slug}`}
+			{...(openNewTab
+				? { target: "_blank", rel: "noopener noreferrer" }
+				: {})}
+			onMouseEnter={onHover ? () => onHover(r.id) : undefined}
+			onMouseLeave={onHover ? () => onHover(null) : undefined}
+			className={cn(
+				"group bg-white overflow-hidden rounded-lg transition",
+				row
+					? cn(
+							"flex flex-col sm:flex-row border-2",
+							selected ? "bg-paper-100" : "bg-white",
+							hi
+								? "border-chili-500 shadow-md"
+								: "border-paper-300 shadow-sm",
+						)
+					: cn(
+							"flex flex-col shadow-md",
+							!noHover && "hover:shadow-lg hover:-translate-y-1",
+						),
+				className,
+			)}
+		>
+			{/* image */}
+			<div
+				className={cn(
+					"relative overflow-hidden",
+					row
+						? "w-full h-[180px] shrink-0 sm:w-[210px] sm:h-auto sm:min-h-[190px] sm:self-stretch"
+						: "aspect-[4/3]",
+				)}
+				style={{
+					background: `linear-gradient(135deg, hsl(${hue} 90% 62%), hsl(${(hue + 24) % 360} 85% 55%))`,
+				}}
+			>
+				{img ? (
+					<Image
+						src={img}
+						alt={r.name}
+						fill
+						sizes="(max-width: 768px) 100vw, 360px"
+						className={cn(
+							"object-cover",
+							!row &&
+								!noHover &&
+								"transition-transform duration-500 group-hover:scale-105",
+						)}
+					/>
+				) : (
+					<div className="absolute inset-0 grid place-items-center">
+						<Avatar
+							name={r.name}
+							logoKey={r.logoKey}
+							id={r.id}
+							size={row ? 84 : 96}
+						/>
+					</div>
+				)}
 
-        {/* venue type chip */}
-        <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 bg-ink-900/80 text-white text-[0.78rem] font-bold px-2.5 py-1 rounded-full">
-          <VenueIcon type={r.venueType} size={13} />
-          {r.venueType || "Restaurant"}
-        </span>
-      </div>
+				{/* Featured + Popular badges, stacked top-left */}
+				{(featured || popular) && (
+					<div className="absolute top-3 left-3 right-3 flex flex-col items-start gap-2">
+						{featured && (
+							<span className="inline-flex items-center bg-ink-900 text-white font-body font-bold text-[0.78rem] tracking-[0.02em] px-3 py-1 rounded-md shadow-sm whitespace-nowrap">
+								Featured
+							</span>
+						)}
+						{popular && (
+							<Badge
+								tone="closed"
+								solid
+							>
+								<Fire
+									size={13}
+									weight="fill"
+								/>
+								Popular
+							</Badge>
+						)}
+					</div>
+				)}
 
-      {/* body */}
-      <div className="flex flex-col gap-2.5 p-4 flex-1 min-w-0">
-        <h3 className="font-display font-bold text-[18px] text-ink-900 leading-tight truncate min-w-0">
-          {r.name}
-        </h3>
+				{/* today's opening-time chip (hidden until the row has hours) */}
+				{hoursToday && (
+					<span className="absolute bottom-3 left-3 max-w-[85%] inline-flex items-center gap-1.5 bg-ink-900/80 text-white text-[0.78rem] font-bold px-2.5 py-1 rounded-full">
+						<Clock
+							size={13}
+							weight="fill"
+							className="shrink-0"
+						/>
+						<span className="truncate min-w-0">{hoursToday}</span>
+					</span>
+				)}
+			</div>
 
-        {r.rating != null && (
-          <Rating value={r.rating} count={r.reviewCount} size={16} />
-        )}
+			{/* body */}
+			<div className="flex flex-col gap-2.5 p-4 flex-1 min-w-0">
+				<h3 className="font-display font-bold text-[18px] text-ink-900 leading-tight truncate min-w-0">
+					{r.name}
+				</h3>
 
-        {location && (
-          <div className="flex items-center gap-1.5 text-ink-500 text-[0.95rem] min-w-0">
-            <MapPin className="text-chili-500 shrink-0" size={16} weight="fill" />
-            {/* Distance is the valuable bit, so pin it (shrink-0) and let the
-                suburb,state truncate instead, e.g. "Upper Mount Gra… · 4.2 km". */}
-            <span className="truncate min-w-0">{location}</span>
-            {distance && (
-              <span className="shrink-0 whitespace-nowrap">· {distance}</span>
-            )}
-          </div>
-        )}
+				{r.rating != null && (
+					<Rating
+						value={r.rating}
+						count={r.reviewCount}
+						size={16}
+					/>
+				)}
 
-        {/* Opening-hours status (replaces the old tag row).
-            TODO: opening_hours is not populated yet (hours enrichment is
-            deferred), so openStatus() returns null and this line stays hidden.
-            Backfill opening_hours from the Google place page (same render path
-            as enrich-google.js) to light this up, e.g.
-            "Open now · closes at 10pm" or "Opens 3pm tomorrow". */}
-        {/* Opening-hours status line hidden for now (re-enable by dropping `false &&`) */}
-        {false && status && (
-          <div
-            className={cn(
-              "mt-auto flex items-center gap-1.5 text-[0.95rem] font-semibold",
-              status?.open ? "text-coriander-700" : "text-ink-500"
-            )}
-          >
-            <Clock
-              size={16}
-              className={status?.open ? "text-coriander-500" : "text-ink-500"}
-            />
-            <span>{status?.label}</span>
-          </div>
-        )}
+				{/* Meta line: "$$ · Sydney · 4.2 km". Price (dollar signs) and
+            distance each show only when known; suburb truncates so distance
+            (the valuable bit) stays pinned. */}
+				{(priceLevel > 0 || location || distance) && (
+					<div className="flex items-center gap-1.5 text-ink-500 text-[0.95rem] min-w-0">
+						{priceLevel > 0 && (
+							<span className="font-semibold tracking-tight shrink-0">
+								{[1, 2, 3, 4].map((n) => (
+									<span
+										key={n}
+										className={
+											n <= priceLevel
+												? "text-ink-700"
+												: "text-ink-300"
+										}
+									>
+										$
+									</span>
+								))}
+							</span>
+						)}
+						{priceLevel > 0 && location && (
+							<span className="shrink-0">·</span>
+						)}
+						{location && (
+							<span className="truncate min-w-0">{location}</span>
+						)}
+						{distance && (
+							<span className="shrink-0 whitespace-nowrap">
+								· {distance}
+							</span>
+						)}
+					</div>
+				)}
 
-        {onViewMap && (
-          <button
-            type="button"
-            onClick={(e) => {
-              // sits inside the card's <Link>; don't navigate, just move the map
-              e.preventDefault();
-              e.stopPropagation();
-              onViewMap();
-            }}
-            className="mt-auto self-start inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-3 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
-          >
-            <MapTrifold size={15} weight="fill" />
-            View on map
-          </button>
-        )}
-      </div>
-    </Link>
-  );
+				{/* Bottom row: venue-type tag (moved down off the photo), plus the
+            Explore "View on map" action when present. */}
+				<div className="mt-auto flex items-center justify-between gap-2 pt-0.5">
+					<span className="inline-flex items-center gap-1.5 text-ink-700 text-[0.78rem] font-bold">
+						<VenueIcon
+							type={r.venueType}
+							size={13}
+						/>
+						{r.venueType || "Restaurant"}
+					</span>
 
-  if (!featured) return card;
+					{onViewMap && (
+						<button
+							type="button"
+							onClick={(e) => {
+								// sits inside the card's <Link>; don't navigate, just move the map
+								e.preventDefault();
+								e.stopPropagation();
+								onViewMap();
+							}}
+							className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-3 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
+						>
+							<MapTrifold
+								size={15}
+								weight="fill"
+							/>
+							View on map
+						</button>
+					)}
+				</div>
+			</div>
+		</Link>
+	);
 
-  // Featured: the "tab" pokes above the card's top edge, so it lives on a
-  // relative wrapper (the card itself clips with overflow-hidden).
-  return (
-    <div className="relative">
-      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10 inline-flex items-center bg-chili-500 text-white font-body font-bold text-[0.78rem] tracking-[0.02em] px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
-        Featured
-      </span>
-      {card}
-    </div>
-  );
+	return card;
 }

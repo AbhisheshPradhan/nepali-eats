@@ -99,6 +99,7 @@ export function RestaurantEditor({
   });
   const setA = (k: keyof typeof addr, v: string) => setAddr((a) => ({ ...a, [k]: v }));
 
+  const [popular, setPopular] = useState(restaurant.popular);
   const [hours, setHours] = useState(() => initHours(restaurant.openingHours));
   const [hoursPaste, setHoursPaste] = useState("");
   const [photos, setPhotos] = useState<AdminPhoto[]>(initialPhotos);
@@ -194,6 +195,7 @@ export function RestaurantEditor({
           rating: form.rating === "" ? null : form.rating,
           reviewCount: form.reviewCount === "" ? null : form.reviewCount,
           featuredRank: form.featuredRank === "" ? null : form.featuredRank,
+          popular,
           phone: form.phone,
           email: form.email,
           website: form.website,
@@ -653,6 +655,18 @@ export function RestaurantEditor({
           <div>
             <span className={label}>Featured rank (blank = not featured)</span>
             <input value={form.featuredRank} onChange={(e) => set("featuredRank", e.target.value)} type="number" className={input} />
+          </div>
+          <div>
+            <span className={label}>Popular</span>
+            <label className="flex items-center gap-2 text-sm text-ink-700 h-8.5">
+              <input
+                type="checkbox"
+                checked={popular}
+                onChange={(e) => setPopular(e.target.checked)}
+                className="h-4 w-4 accent-chili-500"
+              />
+              Show a “Popular” tag on the card
+            </label>
           </div>
           <div>
             <span className={label}>Phone</span>

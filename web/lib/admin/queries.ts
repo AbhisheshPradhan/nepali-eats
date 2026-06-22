@@ -103,8 +103,9 @@ export async function adminCards(
 ): Promise<PlaceCardData[]> {
   const { where, params } = adminWhere(opts);
   const rows = await query<Record<string, unknown>>(
-    `SELECT r.id, r.slug, r.name, r.venue_type, r.rating, r.review_count,
-            r.suburb, r.state, r.opening_hours, r.featured_rank, r.logo_key,
+    `SELECT r.id, r.slug, r.name, r.venue_type, r.rating, r.review_count, r.lat, r.lng,
+            r.price_level, r.price_range,
+            r.suburb, r.state, r.opening_hours, r.featured_rank, r.popular, r.logo_key,
             (SELECT p.storage_key FROM restaurant_photos p
                WHERE p.restaurant_id = r.id AND NOT p.removed
                ORDER BY p.is_primary DESC, p.position ASC LIMIT 1) AS primary_photo
@@ -120,11 +121,16 @@ export async function adminCards(
     venueType: (row.venue_type as PlaceCardData["venueType"]) ?? null,
     rating: row.rating != null ? Number(row.rating) : null,
     reviewCount: row.review_count != null ? Number(row.review_count) : null,
+    priceLevel: row.price_level != null ? Number(row.price_level) : null,
+    priceRange: (row.price_range as string) ?? null,
     suburb: (row.suburb as string) ?? null,
     state: (row.state as string) ?? null,
+    lat: row.lat != null ? Number(row.lat) : null,
+    lng: row.lng != null ? Number(row.lng) : null,
     primaryPhoto: (row.primary_photo as string) ?? null,
     openingHours: (row.opening_hours as PlaceCardData["openingHours"]) ?? null,
     isFeatured: row.featured_rank != null,
+    popular: !!row.popular,
     logoKey: (row.logo_key as string) ?? null,
   }));
 }
@@ -306,6 +312,7 @@ const EDITABLE: Record<string, FieldMeta> = {
   venueType: { col: "venue_type" },
   halalStatus: { col: "halal_status" },
   featuredRank: { col: "featured_rank", kind: "int" },
+  popular: { col: "popular", kind: "bool" },
   openingHours: { col: "opening_hours", kind: "json" },
   menuUrl: { col: "menu_url" },
   menuSource: { col: "menu_source" },

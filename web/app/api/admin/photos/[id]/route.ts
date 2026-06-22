@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { blockInProd } from "@/lib/admin/guard";
+import { requireAdmin } from "@/lib/admin/guard";
 import { setPrimaryPhoto, deletePhotoRow } from "@/lib/admin/queries";
 import { deleteMedia } from "@/lib/admin/storage";
 
@@ -8,7 +8,7 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const blocked = blockInProd();
+  const blocked = await requireAdmin();
   if (blocked) return blocked;
 
   const id = Number((await params).id);
@@ -24,7 +24,7 @@ export async function DELETE(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const blocked = blockInProd();
+  const blocked = await requireAdmin();
   if (blocked) return blocked;
 
   const id = Number((await params).id);

@@ -13,6 +13,7 @@ cross-links). Variables in `{braces}` come from the DB or the page query.
 ---
 
 ## A. Reusable dish lines (write once, use everywhere)
+
 Keep these consistent across the whole site. Specific, short, appetite-first.
 
 - **Momo:** Nepal's famous dumplings, steamed or fried, served with fiery achaar.
@@ -30,6 +31,7 @@ Keep these consistent across the whole site. Specific, short, appetite-first.
 ---
 
 ## B. City / state pages (`/nepali-restaurants/[state]`)
+
 Two short intro paragraphs, then the grid, then a "what to order" line and an FAQ.
 
 - **H1 (KEEP):** `Nepali restaurants in {State Name}`
@@ -39,12 +41,13 @@ Two short intro paragraphs, then the grid, then a "what to order" line and an FA
 - **Intro paragraph 2 (what to expect):**
   `Expect everything from quick momo windows to full Thakali dal bhat sets and weekend market stalls. Here is every Nepali kitchen, cafe and food truck we have found in {State Name}.`
 - **What to order block (heading + line):**
-  - Heading: `What to order in {metro}`
-  - Body: `Start with momo. Order a Thakali dal bhat set for the full spread, add gundruk if you want something sour and fermented, and finish with sel roti or sikarni.`
+    - Heading: `What to order in {metro}`
+    - Body: `Start with momo. Order a Thakali dal bhat set for the full spread, add gundruk if you want something sour and fermented, and finish with sel roti or sikarni.`
 - **Cross-links (NOTE, SEO_AUDIT §2/§6):** below the grid, link to the suburbs in
   this state and to the cuisine pages (`Momo`, `Thakali`, `Newari`, `Veg`).
 
 ## C. Suburb pages (`/nepali-restaurants/[suburb]`)
+
 - **H1 (KEEP):** `Nepali restaurants in {Suburb}`
 - **Eyebrow (KEEP):** `{Suburb}, {STATE}`
 - **Intro (CHANGE):**
@@ -54,27 +57,29 @@ Two short intro paragraphs, then the grid, then a "what to order" line and an FA
   city page and 2-3 neighbouring suburbs.
 
 ## D. Tag pages (`/tag/[tag]`)
+
 Each tag gets its own intro (2-3 sentences) plus the dish line from section A.
 Replace the current one-liners.
 
 - **Momo** (flagship, lives at `/momo`, see section E).
 - **Thakali** (`/tag/thakali`):
-  - H1: `Thakali restaurants across Australia`
-  - Intro: `The Thakali thali is Nepal's comfort food. Black dal, rice, gundruk and a spread of sides, with refills until you tap out. These are the kitchens serving it across Australia, set by set.`
+    - H1: `Thakali restaurants across Australia`
+    - Intro: `The Thakali thali is Nepal's comfort food. Black dal, rice, gundruk and a spread of sides, with refills until you tap out. These are the kitchens serving it across Australia, set by set.`
 - **Newari** (`/tag/newari`):
-  - H1: `Newari food across Australia`
-  - Intro: `Choila, bara and the samay baji spread. The Newari table is smoky, sour and built for sharing. Here is where to find it around the country.`
+    - H1: `Newari food across Australia`
+    - Intro: `Choila, bara and the samay baji spread. The Newari table is smoky, sour and built for sharing. Here is where to find it around the country.`
 - **Tibetan** (`/tag/tibetan`):
-  - H1: `Tibetan and Nepali spots across Australia`
-  - Intro: `Thukpa to warm you up, laphing to cool you down. The Tibetan-Nepali kitchens worth seeking out, all in one place.`
+    - H1: `Tibetan and Nepali spots across Australia`
+    - Intro: `Thukpa to warm you up, laphing to cool you down. The Tibetan-Nepali kitchens worth seeking out, all in one place.`
 - **Vegetarian** (`/tag/vegetarian`):
-  - H1: `Vegetarian Nepali food across Australia`
-  - Intro: `Generous veg thali, meat-free momo and plenty of gundruk. The Nepali kitchens that do vegetarian properly, gathered here.`
+    - H1: `Vegetarian Nepali food across Australia`
+    - Intro: `Generous veg thali, meat-free momo and plenty of gundruk. The Nepali kitchens that do vegetarian properly, gathered here.`
 - **Nepali-Indian** (`/tag/indian-nepali`):
-  - H1: `Nepali-Indian restaurants across Australia`
-  - Intro: `Curries, tandoor and momo under one roof. The Nepali-Indian kitchens across Australia, side by side.`
+    - H1: `Nepali-Indian restaurants across Australia`
+    - Intro: `Curries, tandoor and momo under one roof. The Nepali-Indian kitchens across Australia, side by side.`
 
 ## E. Momo page (`/momo`, flagship landing)
+
 This is your highest-volume term. Give it the most content.
 
 - **H1 (KEEP):** `Best momo in Australia`
@@ -86,6 +91,7 @@ This is your highest-volume term. Give it the most content.
 - **What to order line:** `If it is your first time, get a plate of steamed buff momo and a side of jhol to dip into.`
 
 ## F. FAQ copy (add to city, suburb, and the momo page)
+
 Three questions each, answered honestly and usefully. Supports FAQ schema and AI
 answers (SEO_AUDIT §4/§5).
 
@@ -104,12 +110,14 @@ answers (SEO_AUDIT §4/§5).
 ## G. Restaurant detail page
 
 ### G1. Blurb generator rewrite (replaces `autoBlurb`, lib/format.ts)
+
 The current blurb is one fixed sentence reused on every page, which reads as
 templated thin content (SEO_AUDIT §3). Replace it with a small generator that
 varies the sentence and only includes clauses when the data exists. This is a
 spec plus copy, not code, since you asked me not to edit code.
 
 **Rules**
+
 - Pick the opener by `hash(id) % openers.length` so pages vary.
 - Add each middle clause only when its data is present.
 - Never default to "authentic" or "hidden gem". Name dishes instead.
@@ -118,27 +126,32 @@ spec plus copy, not code, since you asked me not to edit code.
   the snippet and the on-page text are not identical.
 
 **Openers (choose one)**
+
 1. `{name} is a Nepali {venueType} in {suburb}, {state}.`
 2. `In {suburb}, {name} serves Nepali food to {state}.`
 3. `{name} brings Nepali cooking to {suburb}, {state}.`
 4. `{name} is one of {suburb}'s Nepali {venueType}s.`
 
 **Middle clauses (include when data exists)**
+
 - tags: `Known for {tag1}, {tag2} and {tag3}.` or `Come for the {tag1}.`
 - no tags: `Expect momo and Nepali home cooking.`
 - price: `Plates run {priceRange}.`
 - rating + reviews: `Locals rate it {rating} on Google across {reviewCount} reviews.`
 
 **Closers (vary)**
+
 - `Open today {todayHours}.` (when hours known)
 - `Call ahead for today's specials.`
 - `Directions, hours and contact below.`
 
 **Example outputs**
+
 - `Himalayan Hut is a Nepali restaurant in Harris Park, NSW. Known for momo, Thakali and veg-friendly plates. Locals rate it 4.6 on Google across 312 reviews.`
 - `In Footscray, Everest Kitchen serves Nepali food to Victoria. Come for the momo. Plates run $$. Call ahead for today's specials.`
 
 ### G2. Detail page microcopy
+
 - **Back link (CHANGE):** `Back to the map` (currently "Back to spots"; it links to
   `/explore`, so "the map" is clearer).
 - **Section: Photos (KEEP)**
@@ -149,14 +162,16 @@ spec plus copy, not code, since you asked me not to edit code.
 - **Read on Google (KEEP)**
 - **Sidebar CTAs (KEEP):** `Get directions`, `Call the kitchen`, `Visit website`
 - **More spots block (KEEP copy):** `More spots in {suburb}`
-  - **NOTE (SEO_AUDIT §2):** point this at `/nepali-restaurants/[suburb]`, not
-    `/explore?suburb=`. Add a sibling link to the state page.
+    - **NOTE (SEO_AUDIT §2):** point this at `/nepali-restaurants/[suburb]`, not
+      `/explore?suburb=`. Add a sibling link to the state page.
 
 ---
 
 ## What needs a template change to hold this copy
+
 The copy above assumes these new slots on the listing template (ListingGrid) and
 detail page. Flagging so the build can make room:
+
 1. Listing pages: second intro paragraph, a "what to order" block, an FAQ block,
    and a cross-links row.
 2. Detail page: a "nearby spots" mini-list, and the richer blurb generator.

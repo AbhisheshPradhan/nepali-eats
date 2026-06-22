@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { assertLocalAdmin } from "@/lib/admin/guard";
+import { assertAdmin } from "@/lib/admin/guard";
 import { adminList, adminCards, adminCoverage, type MissingFilter } from "@/lib/admin/queries";
 import { stateFacets } from "@/lib/queries";
 import { PlaceCard } from "@/components/PlaceCard";
@@ -37,7 +37,7 @@ export default async function AdminIndex({
 }: {
 	searchParams: SP;
 }) {
-	assertLocalAdmin();
+	await assertAdmin();
 	const sp = await searchParams;
 	const missing = (MISSING_OPTS as string[]).includes(sp.missing || "")
 		? (sp.missing as MissingFilter)

@@ -2,16 +2,16 @@ import { NextResponse } from "next/server";
 import { deleteRestaurantBySlug } from "@/lib/queries";
 import { updateRestaurantFields } from "@/lib/admin/queries";
 import { removeRestaurantMedia } from "@/lib/admin/storage";
-import { blockInProd } from "@/lib/admin/guard";
+import { requireAdmin } from "@/lib/admin/guard";
 
-// LOCAL-ONLY admin endpoint (404s in production via blockInProd). Edits a
+// Admin endpoint, gated by Clerk auth + ADMIN_USER_IDS allowlist (requireAdmin). Edits a
 // restaurant's fields/hours/menu link (PATCH) or deletes it + its media (DELETE).
 
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const blocked = blockInProd();
+  const blocked = await requireAdmin();
   if (blocked) return blocked;
 
   const { slug } = await params;
@@ -27,7 +27,7 @@ export async function DELETE(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const blocked = blockInProd();
+  const blocked = await requireAdmin();
   if (blocked) return blocked;
 
   const { slug } = await params;

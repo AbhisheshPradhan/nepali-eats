@@ -15,7 +15,7 @@ const COLS = `
   r.street, r.suburb, r.state, r.postcode, r.full_address, r.lat, r.lng,
   r.phone, r.email, r.website, r.facebook, r.instagram, r.tiktok, r.whatsapp,
   r.menu_url, r.menu_source, r.logo_key, r.google_maps_url, r.opening_hours, r.featured_rank,
-  r.marked_ready, r.description,
+  r.popular, r.marked_ready, r.description,
   (r.featured_rank IS NOT NULL) AS is_featured,
   (SELECT p.storage_key FROM restaurant_photos p
      WHERE p.restaurant_id = r.id AND NOT p.removed
@@ -58,6 +58,7 @@ function mapRow(row: any): Restaurant {
     primaryPhoto: row.primary_photo,
     isFeatured: !!row.is_featured,
     featuredRank: row.featured_rank != null ? Number(row.featured_rank) : null,
+    popular: !!row.popular,
     markedReady: !!row.marked_ready,
     description: row.description,
   };
@@ -73,6 +74,8 @@ export interface ListOpts {
   minRating?: number;
   hasPhoto?: boolean;
   featured?: boolean;
+  notFeatured?: boolean;
+  popular?: boolean;
   limit?: number;
   offset?: number;
   orderBy?: "popular" | "rating" | "name" | "newest" | "featured";
@@ -100,6 +103,8 @@ function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
       "EXISTS (SELECT 1 FROM restaurant_photos p WHERE p.restaurant_id = r.id AND NOT p.removed)"
     );
   if (o.featured) cond.push("r.featured_rank IS NOT NULL");
+  if (o.notFeatured) cond.push("r.featured_rank IS NULL");
+  if (o.popular) cond.push("r.popular");
   return { where: cond.length ? "WHERE " + cond.join(" AND ") : "", params };
 }
 
@@ -120,6 +125,18 @@ export async function listRestaurants(o: ListOpts = {}): Promise<Restaurant[]> {
   const rows = await query(
     `SELECT ${COLS} FROM restaurants r ${where} ORDER BY ${order} LIMIT ${limit} OFFSET ${offset}`,
     params
+  );
+  return rows.map(mapRow);
+}
+
+// Restaurants a user has saved, newest-saved first.
+export async function listSavedRestaurants(userId: string): Promise<Restaurant[]> {
+  const rows = await query(
+    `SELECT ${COLS} FROM restaurants r
+       JOIN saved_restaurants s ON s.restaurant_id = r.id
+      WHERE s.user_id = $1
+      ORDER BY s.created_at DESC`,
+    [userId],
   );
   return rows.map(mapRow);
 }
@@ -256,9 +273,38 @@ export async function featuredByState(
   });
 }
 
+// Homepage "Popular" row, scoped to the visitor's state. Strict + editorial:
+// only spots hand-flagged `popular` (the free crowd-favourite tag), and never
+// the paid Featured picks (those own the Featured row above), most-reviewed
+// first. Returns [] when the state has no flagged spots, so the section hides.
+export async function popularByState(
+  state: string | null | undefined,
+  limit = 5,
+): Promise<Restaurant[]> {
+  return listRestaurants({
+    state: state || undefined,
+    popular: true,
+    notFeatured: true,
+    orderBy: "popular",
+    limit,
+  });
+}
+
 export async function allSlugs(): Promise<string[]> {
   const rows = await query<{ slug: string }>(`SELECT slug FROM restaurants`);
   return rows.map((r) => r.slug);
+}
+
+// Indexable restaurant pages with a real last-modified date (newest of the
+// row's update/enrichment timestamps) for the sitemap.
+export async function restaurantSitemapEntries(): Promise<
+  { slug: string; lastmod: Date }[]
+> {
+  return query<{ slug: string; lastmod: Date }>(
+    `SELECT slug, GREATEST(updated_at, enriched_at, created_at) AS lastmod
+       FROM restaurants
+      WHERE is_nepali IS NOT FALSE`,
+  );
 }
 
 export async function stateFacets(): Promise<Facet[]> {

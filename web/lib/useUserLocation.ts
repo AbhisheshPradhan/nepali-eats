@@ -1,17 +1,28 @@
 "use client";
-import { useEffect, useState } from "react";
+import {
+  createContext,
+  createElement,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 export type LatLng = [number, number];
 
 const KEY = "ne:userloc";
 const TTL = 1000 * 60 * 30; // 30 min: a shared location is "fresh" for half an hour
+const EVENT = "ne:userloc-change";
 
-// Persist a shared location so other pages (home, listings) can show distances
-// without re-prompting. Call this wherever we obtain coords (e.g. the hero
-// "Share your location" button).
+// Persist a shared location AND notify the provider, so every card can show
+// distances without re-prompting. Call wherever we obtain coords (hero "Share
+// location" button, Explore "Near me", etc.).
 export function storeLoc(lat: number, lng: number) {
   try {
     localStorage.setItem(KEY, JSON.stringify({ lat, lng, t: Date.now() }));
+  } catch {}
+  try {
+    window.dispatchEvent(new CustomEvent<LatLng>(EVENT, { detail: [lat, lng] }));
   } catch {}
 }
 
@@ -27,36 +38,52 @@ function readStoredLoc(): LatLng | null {
   }
 }
 
-// Returns the visitor's location ONLY if they've already shared it (persisted
-// from a previous share, or browser permission already granted). Never prompts.
-export function useUserLocation(): LatLng | null {
+const Ctx = createContext<LatLng | null>(null);
+
+// Single source of the visitor's location for the whole app. The
+// geolocation/permission logic runs ONCE here, so a 30-card grid doesn't fire 30
+// geolocation requests; cards read the value cheaply via useUserLocation().
+// Never prompts: only uses an already-granted permission or a previously shared
+// location, and updates live when anything calls storeLoc().
+export function UserLocationProvider({ children }: { children: ReactNode }) {
   const [loc, setLoc] = useState<LatLng | null>(null);
 
   useEffect(() => {
     const stored = readStoredLoc();
     if (stored) setLoc(stored);
 
-    if (typeof navigator === "undefined" || !navigator.geolocation) return;
-    const grab = () =>
-      navigator.geolocation.getCurrentPosition(
-        (p) => {
-          const c: LatLng = [p.coords.latitude, p.coords.longitude];
-          setLoc(c);
-          storeLoc(c[0], c[1]);
-        },
-        () => {},
-        { timeout: 6000 }
-      );
+    const onChange = (e: Event) => {
+      const d = (e as CustomEvent<LatLng>).detail;
+      if (d) setLoc(d);
+    };
+    window.addEventListener(EVENT, onChange);
 
-    if (navigator.permissions?.query) {
+    if (
+      typeof navigator !== "undefined" &&
+      navigator.geolocation &&
+      navigator.permissions?.query
+    ) {
       navigator.permissions
         .query({ name: "geolocation" as PermissionName })
         .then((r) => {
-          if (r.state === "granted") grab();
+          if (r.state === "granted") {
+            navigator.geolocation.getCurrentPosition(
+              (p) => storeLoc(p.coords.latitude, p.coords.longitude),
+              () => {},
+              { timeout: 6000 },
+            );
+          }
         })
         .catch(() => {});
     }
+
+    return () => window.removeEventListener(EVENT, onChange);
   }, []);
 
-  return loc;
+  return createElement(Ctx.Provider, { value: loc }, children);
+}
+
+// Cheap context read. Returns the visitor's location only if shared/granted.
+export function useUserLocation(): LatLng | null {
+  return useContext(Ctx);
 }

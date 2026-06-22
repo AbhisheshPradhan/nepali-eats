@@ -22,6 +22,8 @@ import { Tag } from "@/components/ui/Tag";
 import { Rating } from "@/components/ui/Rating";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/Avatar";
+import { SaveButton } from "@/components/SaveButton";
+import DetailMap from "@/components/DetailMap";
 import { getRestaurantBySlug } from "@/lib/queries";
 import { mediaUrl } from "@/lib/media";
 import {
@@ -105,15 +107,10 @@ export default async function VenuePage({
     ...(r.lat && r.lng
       ? { geo: { "@type": "GeoCoordinates", latitude: r.lat, longitude: r.lng } }
       : {}),
-    ...(r.rating && r.reviewCount
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: r.rating,
-            reviewCount: r.reviewCount,
-          },
-        }
-      : {}),
+    // No aggregateRating: Google disallows self-serving review snippets on
+    // LocalBusiness/Restaurant (a page rating itself), which risks a manual
+    // action. The rating and Google review count are still shown to users
+    // below; we just don't emit them as structured data.
   };
 
   const socials = [
@@ -146,11 +143,22 @@ export default async function VenuePage({
         )}
       </div>
 
-      {/* identity strip: logo/monogram overlapping the cover, then name + badges */}
-      <div className="flex items-end gap-4 -mt-12 px-2 sm:px-5 relative z-10">
-        <Avatar name={r.name} logoKey={r.logoKey} id={r.id} size={104} ring />
+      {/* identity strip: logo overlapping the cover (when present), then name +
+          badges. With no logo we drop the circle entirely and sit the name just
+          below the cover instead of pulling it up over the photo. */}
+      <div
+        className={`flex items-end gap-4 px-2 sm:px-5 relative z-10 ${
+          r.logoKey ? "-mt-12" : "mt-4"
+        }`}
+      >
+        {r.logoKey && (
+          <Avatar name={r.name} logoKey={r.logoKey} id={r.id} size={104} ring />
+        )}
         <div className="pb-1 min-w-0">
-          <div className="flex gap-2 mb-1.5">
+          <h1 className="font-display font-extrabold text-[2.2rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
+            {r.name}
+          </h1>
+          <div className="flex gap-2 mt-2">
             {open !== null && (
               <Badge tone={open ? "open" : "closed"} solid>
                 {open ? "Open now" : "Closed"}
@@ -160,9 +168,6 @@ export default async function VenuePage({
               {r.venueType || "Restaurant"}
             </Badge>
           </div>
-          <h1 className="font-display font-extrabold text-[2.2rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
-            {r.name}
-          </h1>
         </div>
       </div>
 
@@ -178,6 +183,7 @@ export default async function VenuePage({
                 {where}
               </span>
             )}
+            <SaveButton restaurantId={String(r.id)} className="ml-auto" />
           </div>
 
           {r.tags.length > 0 && (
@@ -227,6 +233,16 @@ export default async function VenuePage({
             )}
           </div>
           */}
+
+          {/* where to find it */}
+          {r.lat != null && r.lng != null && (
+            <>
+              <h2 className="font-display font-extrabold text-[1.5rem] mb-3">Where to find it</h2>
+              <div className="relative h-80 rounded-lg overflow-hidden shadow-sm mb-8">
+                <DetailMap lat={r.lat} lng={r.lng} name={r.name} />
+              </div>
+            </>
+          )}
 
           {/* reviews summary */}
           {r.rating != null && r.reviewCount != null && (

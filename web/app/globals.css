@@ -132,3 +132,10 @@
     }
   }
 }
+
+/* Clerk UserButton dropdown: tighter row padding. Font size is bumped globally
+   via the fontSize appearance variable (app/layout.tsx). */
+.cl-userButtonPopoverActionButton {
+  padding-top: 0.6rem !important;
+  padding-bottom: 0.6rem !important;
+}

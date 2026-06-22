@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { blockInProd } from "@/lib/admin/guard";
+import { requireAdmin } from "@/lib/admin/guard";
 import { getRestaurantIdBySlug, updateRestaurantFields } from "@/lib/admin/queries";
 import { getCardBySlug } from "@/lib/queries";
 import {
@@ -19,7 +19,7 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const blocked = blockInProd();
+  const blocked = await requireAdmin();
   if (blocked) return blocked;
 
   const { slug } = await params;
@@ -56,7 +56,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const blocked = blockInProd();
+  const blocked = await requireAdmin();
   if (blocked) return blocked;
 
   const { slug } = await params;

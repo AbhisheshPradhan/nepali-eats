@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { assertLocalAdmin } from "@/lib/admin/guard";
+import { assertAdmin } from "@/lib/admin/guard";
 import { reviewQueue, reviewCounts, type ReviewMode } from "@/lib/admin/queries";
 import { ReviewClient } from "@/components/admin/ReviewClient";
 
@@ -17,7 +17,7 @@ const MODES: { key: ReviewMode; label: string; hint: string }[] = [
 const PAGE_SIZE = 60;
 
 export default async function AdminReview({ searchParams }: { searchParams: SP }) {
-  assertLocalAdmin();
+  await assertAdmin();
   const sp = await searchParams;
   const mode: ReviewMode =
     (MODES.find((m) => m.key === sp.mode)?.key as ReviewMode) ?? "review_needed";

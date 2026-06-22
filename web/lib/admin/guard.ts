@@ -1,20 +1,34 @@
+import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import { NextResponse } from "next/server";
 
-const IS_PROD = process.env.NODE_ENV === "production";
+// Admin access = authenticated via Clerk AND the Clerk user id is listed in the
+// ADMIN_USER_IDS allowlist (comma-separated). Authentication is Clerk's job;
+// authorization is ours. The edge gate in proxy.ts is the primary boundary;
+// these helpers are defense-in-depth inside the pages and route handlers.
+const ADMIN_IDS = (process.env.ADMIN_USER_IDS ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 
-// The admin surface is LOCAL-ONLY and UNAUTHENTICATED by design (pre-launch data
-// entry against local Postgres + media/). It must never be reachable in prod, so
-// every admin page and API route checks this first. Add real auth here
-// (session/role check) before ever shipping admin to production.
-
-// Pages: 404s the whole /admin subtree in production.
-export function assertLocalAdmin() {
-  if (IS_PROD) notFound();
+export async function isAdminUser(): Promise<boolean> {
+  const { userId } = await auth();
+  return !!userId && ADMIN_IDS.includes(userId);
 }
 
-// API routes: returns a 404 Response in production (call and early-return if
-// truthy), since notFound() doesn't render cleanly inside route handlers.
-export function blockInProd(): NextResponse | null {
-  return IS_PROD ? NextResponse.json({ error: "Not found" }, { status: 404 }) : null;
+// Pages: 404 the whole /admin subtree for anyone who is not an admin.
+export async function assertAdmin(): Promise<void> {
+  if (!(await isAdminUser())) notFound();
+}
+
+// API routes: call and early-return if the result is truthy.
+export async function requireAdmin(): Promise<NextResponse | null> {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (!ADMIN_IDS.includes(userId)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  return null;
 }

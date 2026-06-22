@@ -56,6 +56,7 @@ export interface Restaurant {
   primaryPhoto: string | null; // storage_key of the hero
   isFeatured: boolean; // editorial pick — shows the Featured tab + border
   featuredRank: number | null; // raw editorial rank (asc); null = not featured
+  popular: boolean; // editorial flag — shows a "Popular" tag on the card
   markedReady: boolean; // internal: data reviewed + ready to go live / for next stage
   description: string | null; // editorial blurb; falls back to autoBlurb when empty
 }
