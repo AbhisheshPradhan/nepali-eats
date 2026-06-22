@@ -66,7 +66,7 @@ To do (deploy):
       (skip Googlebot), www to apex 301.
 - [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
       Explore, `/api/*`, and the geo homepage dynamic.
-- [ ] Search Console + Bing Webmaster + GA4; submit sitemap (see SEO_LAUNCH_PLAN.md).
+- [ ] Search Console + Bing Webmaster + GA4; submit sitemap (see LAUNCH.md).
 - [ ] Editorial admin for `featured_rank` (non-null = featured) and descriptions: small
       custom `/admin` or Neon SQL editor.
 
