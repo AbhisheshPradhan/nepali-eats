@@ -1,0 +1,89 @@
+# NepaliEats — Frontend Go-Live Checklist
+
+A focused punch list for getting the frontend (the "client") ready to launch.
+The master plan lives in `LAUNCH.md`; this is the working frontend checklist.
+
+## ✅ Done
+
+- [x] Homepage + site title/description show the **550+** stat
+      (`web/app/page.tsx`, `web/app/layout.tsx`)
+
+## 📐 Photo aspect-ratio standard (DECIDED)
+
+Mirrors how UberEats/DoorDash handle photos: squarer tiles in lists, wide banners
+for heroes, everything `object-cover` center-cropped to a fixed box (no re-encoding
+of source files needed).
+
+- **Cards / tiles / thumbnails → 4:3** (`aspect-[4/3]`). Matches ~64% of our photos
+  (least cropping), food-friendly. Applies to: PlaceCard, craving tiles, story
+  list cards, gallery thumbs.
+- **Full-bleed heroes → 16:9** (`aspect-[16/9]`). Applies to: restaurant detail
+  hero, blog hero (featured + detail), OG image.
+- Always `object-cover` so any source shape conforms via crop. Reversible (display
+  box only).
+- **Cover photo (DONE):** a dedicated standalone field, like the logo. `cover_key`
+  (+ `cover_source`, `cover_attribution`) on `restaurants`, with its own `/admin`
+  upload slot, stored under `media/covers/<id>/`. Serves both the 4:3 card and the
+  16:9 hero; the read path resolves `COALESCE(cover_key, first gallery photo)` and
+  the gallery excludes the cover (no duplicate). Backfilled from each restaurant's
+  former primary photo; the redundant gallery rows were hard-deleted and the files
+  moved into `covers/`. New uploads set `cover_source='upload'`.
+
+Recommended image sizes (guidance, NOT enforced):
+
+- **Craving tile** — 4:3, **640×480** (JPG or WebP). Small homepage tiles only.
+- **Restaurant photo** — 4:3, **1600×1200** (one photo feeds the 4:3 card and the
+  16:9 hero crop; keep the subject centred). Min ~1200×900 before the hero softens.
+- **Cover/hero photo** — 16:9 framing, **~1600×900** (landscape works best).
+- These are recommendations shown as hints in `/admin`, not validated/blocked.
+  `object-cover` makes any size render; smaller just looks softer.
+
+Conformance audit:
+
+- [x] PlaceCard grid cards — already `aspect-[4/3]`
+- [x] Restaurant-detail gallery thumbs — already `aspect-[4/3]`
+- [ ] Craving tiles — set explicit `aspect-[4/3]` when real photos go in
+- [ ] Story list thumbs — switch `h-[170px]` → `aspect-[4/3]`
+- [ ] Restaurant-detail hero — switch `h-[280px]` → `aspect-[16/9]`
+- [ ] Story featured + detail hero — switch fixed height → `aspect-[16/9]`
+
+## 🎨 Brand assets (Abhishesh)
+
+- [ ] **Favicon + app icons** — replace the default Next `favicon.ico`; add
+      `app/icon.svg` and `app/apple-icon.png` (current favicon is still the Next triangle)
+- [ ] **OG image** — `app/opengraph-image.*`; then wire the `openGraph.images`
+      reference in `web/app/layout.tsx` (no link-preview card today)
+
+## 🛠 Build items
+
+- [ ] **Food images on craving tiles** — swap the single generic `Cookie` icon for
+      real DB photos per category (`web/components/CravingCarousel.tsx`).
+      momo / Newari / Tibetan / veg / Nepali-Indian have photos; Thakali keeps the
+      gradient fallback
+- [ ] **Blog hero images** — all 3 posts fall back to a fork icon; assign real
+      photos via `heroImage` (`web/lib/stories.ts`)
+- [ ] **Blog copy review** — run each post through copy-editing + the human-copy standard
+- [ ] **Blog layout/readability** — tighten the `/stories/[slug]` template typography/spacing
+- [ ] **More blog posts** — write 1–2 additional stories before launch
+- [ ] **Mobile responsive audit** — full code review of every page against
+      responsive / web-interface guidelines; fix tap targets, overflow, breakpoints, nav
+
+## 🔎 Pre-flight (before deploy)
+
+- [ ] `npx tsc --noEmit` clean
+- [ ] `npm run build` clean
+- [ ] Click through Home, Explore, a restaurant, a city/suburb, /momo, a tag, Stories
+      on a phone viewport
+
+## 🚀 Config to go live (frontend-facing parts of LAUNCH.md §3)
+
+- [ ] **Env vars on Vercel:** `DATABASE_URL` (Neon pooled), `NEXT_PUBLIC_MAPBOX_TOKEN`,
+      Clerk keys, `NEXT_PUBLIC_MEDIA_BASE` (R2), `NEXT_PUBLIC_SITE_URL`, `ADMIN_USER_IDS`
+- [ ] **Media on R2** uploaded + `NEXT_PUBLIC_MEDIA_BASE` set (else photos 404 in prod)
+- [ ] **Canonical host** decided (apex vs www) + 301 redirect
+- [ ] **Sitemap/robots** verified live; submit to Search Console + Bing; GA4 installed
+
+## ⚖️ Optional pre-launch polish (non-blocking)
+
+- [ ] ~237 visible listings are `review_needed` (may not all be Nepali) — spot-check
+- [ ] Photos at ~76% — roughly 1 in 4 listings has no image

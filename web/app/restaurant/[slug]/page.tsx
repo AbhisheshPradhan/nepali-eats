@@ -16,13 +16,16 @@ import {
   TiktokLogo,
   WhatsappLogo,
   Storefront,
+  Fire,
 } from "@phosphor-icons/react/dist/ssr";
 import { Badge } from "@/components/ui/Badge";
+import { VenueType } from "@/components/ui/VenueType";
 import { Tag } from "@/components/ui/Tag";
 import { Rating } from "@/components/ui/Rating";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/Avatar";
 import { SaveButton } from "@/components/SaveButton";
+import { EditButton } from "@/components/EditButton";
 import DetailMap from "@/components/DetailMap";
 import { getRestaurantBySlug } from "@/lib/queries";
 import { mediaUrl } from "@/lib/media";
@@ -127,9 +130,11 @@ export default async function VenuePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* cover photo (Facebook-style: name + logo live in the strip below) */}
+      {/* cover photo (Facebook-style: name + logo live in the strip below).
+          16:9 standard, height-capped so it stays cinematic on desktop without
+          pushing the name offscreen; the photo crops via object-cover. */}
       <div
-        className="h-[280px] rounded-xl relative overflow-hidden"
+        className="w-full aspect-[16/9] max-h-[440px] rounded-xl relative overflow-hidden"
         style={{
           background: `linear-gradient(135deg, hsl(${hue} 80% 62%), hsl(${(hue + 40) % 360} 78% 52%))`,
         }}
@@ -143,30 +148,40 @@ export default async function VenuePage({
         )}
       </div>
 
-      {/* identity strip: logo overlapping the cover (when present), then name +
-          badges. With no logo we drop the circle entirely and sit the name just
-          below the cover instead of pulling it up over the photo. */}
+      {/* identity strip: logo overlaps the cover (when present); the name +
+          badges sit below the cover to the right of the logo. With no logo we
+          drop the circle entirely and the name sits just below the cover. */}
       <div
-        className={`flex items-end gap-4 px-2 sm:px-5 relative z-10 ${
-          r.logoKey ? "-mt-12" : "mt-4"
+        className={`flex items-start gap-4 relative z-10 mt-4 ${
+          r.logoKey ? "px-2 sm:px-5" : ""
         }`}
       >
         {r.logoKey && (
-          <Avatar name={r.name} logoKey={r.logoKey} id={r.id} size={104} ring />
+          <div className="-mt-16 shrink-0">
+            <Avatar name={r.name} logoKey={r.logoKey} id={r.id} size={104} ring />
+          </div>
         )}
-        <div className="pb-1 min-w-0">
+        <div className="min-w-0">
           <h1 className="font-display font-extrabold text-[2.2rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
             {r.name}
           </h1>
-          <div className="flex gap-2 mt-2">
+          <div className="flex items-center gap-2.5 mt-2 flex-wrap">
             {open !== null && (
               <Badge tone={open ? "open" : "closed"} solid>
                 {open ? "Open now" : "Closed"}
               </Badge>
             )}
-            <Badge tone="neutral" solid>
-              {r.venueType || "Restaurant"}
-            </Badge>
+            {r.isFeatured && (
+              <Badge tone="neutral" solid className="bg-ink-900">
+                Featured
+              </Badge>
+            )}
+            {r.popular && (
+              <Badge tone="closed" solid>
+                <Fire size={13} weight="fill" />
+                Popular
+              </Badge>
+            )}
           </div>
         </div>
       </div>
@@ -175,6 +190,7 @@ export default async function VenuePage({
       <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] gap-9 mt-7 items-start">
         <div>
           <div className="flex items-center gap-4 flex-wrap mb-4">
+            <VenueType type={r.venueType} iconSize={15} className="text-[0.85rem]" />
             {r.rating != null && <Rating value={r.rating} count={r.reviewCount} size={22} />}
             {price && <span className="text-ink-500 font-semibold">{price}</span>}
             {where && (
@@ -183,7 +199,10 @@ export default async function VenuePage({
                 {where}
               </span>
             )}
-            <SaveButton restaurantId={String(r.id)} className="ml-auto" />
+            <div className="ml-auto flex items-center gap-4">
+              <EditButton slug={r.slug} restaurantId={String(r.id)} />
+              <SaveButton restaurantId={String(r.id)} />
+            </div>
           </div>
 
           {r.tags.length > 0 && (

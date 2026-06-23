@@ -9,7 +9,12 @@ import { PopularCards } from "@/components/PopularCards";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { headers } from "next/headers";
-import { featuredByState, popularByState, tagFacets } from "@/lib/queries";
+import {
+	featuredByState,
+	popularByState,
+	tagFacets,
+	totalCount,
+} from "@/lib/queries";
 import { capitalLatLng, metroFromState, STATE_CAPITAL } from "@/lib/format";
 
 export default async function HomePage() {
@@ -22,11 +27,16 @@ export default async function HomePage() {
 			: "";
 	const state = detected in STATE_CAPITAL ? detected : "NSW";
 
-	const [gems, popular, tags] = await Promise.all([
+	const [gems, popular, tags, total] = await Promise.all([
 		featuredByState(state, 5),
 		popularByState(state, 5),
 		tagFacets(),
+		totalCount(),
 	]);
+
+	// Round down to the nearest 50 so the headline stat stays clean and only
+	// ever climbs ("550+", then "600+"), never showing an awkward live number.
+	const countLabel = `${Math.floor(total / 50) * 50}+`;
 
 	// Default "you are here" for distances = the state capital, until the visitor
 	// shares their real location.
@@ -40,7 +50,7 @@ export default async function HomePage() {
 				<div className="max-w-[760px] mx-auto px-6 pt-7 pb-6 text-center">
 					<Bunting />
 					<span className="eyebrow text-chili-500">
-						Restaurants, Food-trucks and Caterers
+						{countLabel} restaurants, food trucks and caterers
 					</span>
 					<h1 className="text-[clamp(2.4rem,5.2vw,3.6rem)] leading-[1.02] text-ink-900 mt-2">
 						Find authentic{" "}

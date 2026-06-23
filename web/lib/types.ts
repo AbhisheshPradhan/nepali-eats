@@ -51,9 +51,12 @@ export interface Restaurant {
   menuUrl: string | null;
   menuSource: string | null;
   logoKey: string | null; // self-hosted brand logo (storage_key)
+  coverKey: string | null; // standalone cover/hero photo (storage_key), like logoKey
+  coverSource: string | null; // cover provenance: 'website' | 'google' | 'upload'
+  coverAttribution: string | null; // cover display/licensing credit
   googleMapsUrl: string | null;
   openingHours: OpeningHours | null;
-  primaryPhoto: string | null; // storage_key of the hero
+  primaryPhoto: string | null; // resolved lead photo = coverKey ?? first gallery photo
   isFeatured: boolean; // editorial pick — shows the Featured tab + border
   featuredRank: number | null; // raw editorial rank (asc); null = not featured
   popular: boolean; // editorial flag — shows a "Popular" tag on the card

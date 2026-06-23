@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Clock, Fire, MapTrifold } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
-import { VenueIcon } from "@/components/ui/VenueIcon";
+import { VenueType } from "@/components/ui/VenueType";
 import { Avatar } from "@/components/Avatar";
 import type { Restaurant } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
@@ -254,13 +254,7 @@ export function PlaceCard({
 				{/* Bottom row: venue-type tag (moved down off the photo), plus the
             Explore "View on map" action when present. */}
 				<div className="mt-auto flex items-center justify-between gap-2 pt-0.5">
-					<span className="inline-flex items-center gap-1.5 text-ink-700 text-[0.78rem] font-bold">
-						<VenueIcon
-							type={r.venueType}
-							size={13}
-						/>
-						{r.venueType || "Restaurant"}
-					</span>
+					<VenueType type={r.venueType} />
 
 					{onViewMap && (
 						<button

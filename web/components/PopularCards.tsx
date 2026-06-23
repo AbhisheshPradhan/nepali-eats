@@ -34,15 +34,25 @@ export function PopularCards({
 			signal: ctrl.signal,
 		})
 			.then((r) => r.json())
-			.then((d: { popular: Restaurant[]; state: string; metro: string }) => {
-				if (!d?.state) return;
-				// only re-render when the visitor's real state differs from what's shown
-				setView((prev) =>
-					d.state === prev.state
-						? prev
-						: { popular: d.popular, state: d.state, metro: d.metro },
-				);
-			})
+			.then(
+				(d: {
+					popular: Restaurant[];
+					state: string;
+					metro: string;
+				}) => {
+					if (!d?.state) return;
+					// only re-render when the visitor's real state differs from what's shown
+					setView((prev) =>
+						d.state === prev.state
+							? prev
+							: {
+									popular: d.popular,
+									state: d.state,
+									metro: d.metro,
+								},
+					);
+				},
+			)
 			.catch(() => {});
 		return () => ctrl.abort();
 	}, [loc?.[0], loc?.[1]]);
@@ -57,7 +67,7 @@ export function PopularCards({
 	return (
 		<section className="max-w-[1180px] mx-auto px-6 mt-10">
 			<Carousel
-				eyebrow="Popular right now"
+				eyebrow="Popular"
 				eyebrowClassName="text-chili-600"
 				title={`What ${view.metro} can't stop ordering`}
 				trackClassName="gap-4 sm:gap-5 px-2 pt-3 pb-2.5"

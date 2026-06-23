@@ -107,6 +107,8 @@ export function SearchBox({
   const showDropdown = open && value.trim().length >= 3;
   const noResults =
     !loading && !selected && sugg.restaurants.length === 0 && sugg.locations.length === 0;
+  const trimmed = value.trim();
+  const isPostcode = /^\d{4}$/.test(trimmed);
 
   return (
     <div className="relative w-full">
@@ -210,10 +212,18 @@ export function SearchBox({
               <MapPin className="text-chili-500 shrink-0" size={18} weight="fill" />
               <span className="min-w-0">
                 <span className="block text-ink-700">
-                  No spots match &ldquo;{value.trim()}&rdquo;.
+                  {isPostcode ? (
+                    <>No food spots found in {trimmed}.</>
+                  ) : (
+                    <>No spots match &ldquo;{trimmed}&rdquo;.</>
+                  )}
                 </span>
                 <span className="block font-semibold text-chili-600">
-                  {embedded ? "Clear search" : "Explore the map instead →"}
+                  {embedded
+                    ? "Clear search"
+                    : isPostcode
+                      ? "Check out a nearby suburb on the map →"
+                      : "Explore the map instead →"}
                 </span>
               </span>
             </button>

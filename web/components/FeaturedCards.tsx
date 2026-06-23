@@ -50,7 +50,7 @@ export function FeaturedCards({
 	return (
 		<div>
 			<Carousel
-				eyebrow="Local favourites"
+				eyebrow="Featured"
 				eyebrowClassName="text-marigold-700"
 				title={`Where ${view.metro}'s eating this week`}
 				trackClassName="gap-4 sm:gap-5 px-2 pt-3 pb-2.5"

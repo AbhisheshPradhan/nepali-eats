@@ -228,6 +228,12 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       translation layer; English stays default.
 - [ ] **Add a Spot** (`/add-a-spot` submission flow) — post-launch feature.
 - [ ] **Login / auth** — post-launch feature (gates reviews, claims, saved spots).
+- [ ] **Claim a restaurant** — claim portal so an owner can claim their listing
+      (verify, then `grantOwnership` → `restaurant_owners`). The detail-page Edit
+      button already shows for admins + owners (`/api/me?restaurantId` → `canEdit`),
+      but `/admin/[slug]` is still admin-gated (`proxy.ts` + `assertAdmin`). When
+      the claim portal lands, open the editor to verified owners so claiming lets
+      them edit their own spot.
 
 - [ ] Finish address enrichment to plateau (~95%+ where Google has data)
 - [ ] Backfill `review_count` + re-confirm `rating` from place pages (in progress —

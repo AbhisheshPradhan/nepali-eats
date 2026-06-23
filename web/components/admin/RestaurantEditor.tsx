@@ -109,6 +109,7 @@ export function RestaurantEditor({
   const [desc, setDesc] = useState(restaurant.description ?? "");
   const autoDesc = autoBlurb(restaurant);
   const [logo, setLogo] = useState<string | null>(restaurant.logoKey);
+  const [cover, setCover] = useState<string | null>(restaurant.coverKey);
   const [busy, setBusy] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
 
@@ -355,6 +356,34 @@ export function RestaurantEditor({
     }
   }
 
+  async function uploadCover(file: File | null) {
+    if (!file) return;
+    setBusy("cover");
+    const fd = new FormData();
+    fd.append("file", file);
+    try {
+      const data = await api(`${base}/cover`, { method: "POST", body: fd });
+      setCover(data.coverKey);
+      flash("Cover uploaded");
+      router.refresh();
+    } catch (e) {
+      fail(e);
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function removeCover() {
+    if (!confirm("Remove cover photo?")) return;
+    try {
+      await api(`${base}/cover`, { method: "DELETE" });
+      setCover(null);
+      router.refresh();
+    } catch (e) {
+      fail(e);
+    }
+  }
+
   async function uploadMenu(files: FileList | null) {
     if (!files?.length) return;
     setBusy("menu");
@@ -486,6 +515,48 @@ export function RestaurantEditor({
             onChange={(e) => uploadPhotos(e.target.files)}
           />
         </label>
+      </Section>
+
+      {/* COVER PHOTO (standalone hero, like the logo; falls back to the first
+          gallery photo when unset) */}
+      <Section title="Cover photo">
+        <div className="flex items-center gap-4">
+          <div className="relative h-[90px] w-[120px] rounded-lg overflow-hidden bg-paper-100 border border-ink-100 grid place-items-center shrink-0">
+            {cover ? (
+              <Image
+                src={mediaUrl(cover) || ""}
+                alt="cover"
+                fill
+                className="object-cover"
+                sizes="120px"
+              />
+            ) : (
+              <span className="text-ink-300 text-xs">none</span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2 text-sm">
+            <label className="inline-block">
+              <span className="bg-ink-900 text-white rounded-md px-4 py-1.5 font-display font-bold cursor-pointer hover:bg-ink-800">
+                {busy === "cover" ? "Uploading…" : cover ? "Replace cover" : "Upload cover"}
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => uploadCover(e.target.files?.[0] ?? null)}
+              />
+            </label>
+            {cover && (
+              <button onClick={removeCover} className="text-ink-400 hover:text-red-600 text-left text-xs">
+                Remove cover
+              </button>
+            )}
+            <p className="text-ink-400 text-xs">
+              The lead photo: card (4:3) + detail hero (16:9). Landscape ~1600×1200
+              works best; smaller is fine, just softer. Not shown in the gallery below.
+            </p>
+          </div>
+        </div>
       </Section>
 
       {/* LOGO */}

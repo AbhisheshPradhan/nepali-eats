@@ -30,6 +30,10 @@ export function logoKey(restaurantId: number, filename: string): string {
   return `logos/${restaurantId}/logo-${Date.now()}${safeExt(filename, ".png")}`;
 }
 
+export function coverKey(restaurantId: number, filename: string): string {
+  return `covers/${restaurantId}/cover-${Date.now()}${safeExt(filename, ".jpg")}`;
+}
+
 // Write a buffer to media/<key>, creating parent dirs. Returns the key unchanged.
 export async function saveMedia(key: string, data: Buffer): Promise<string> {
   const dest = path.join(MEDIA_ROOT, key);

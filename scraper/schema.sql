@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS restaurants (
   email             TEXT,
   website           TEXT,
   logo_key          TEXT,                   -- self-hosted brand logo (storage_key), shown on the detail page
+  cover_key         TEXT,                   -- self-hosted cover/hero photo (storage_key); standalone like logo_key. Used for the card (4:3) + detail hero (16:9), falls back to the first gallery photo.
+  cover_source      TEXT,                   -- cover provenance: 'website' | 'google' | 'upload'
+  cover_attribution TEXT,                   -- cover display/licensing credit
   facebook          TEXT,
   instagram         TEXT,
   tiktok            TEXT,
@@ -50,6 +53,12 @@ CREATE INDEX IF NOT EXISTS idx_restaurants_geo      ON restaurants (lat, lng);
 -- list, in ascending rank order. NULL = not featured.
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS featured_rank INT;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS logo_key TEXT;
+-- Standalone cover/hero photo, mirrors logo_key (own field + own admin upload slot),
+-- kept out of the gallery. cover_source/attribution preserve provenance because a
+-- cover may be a Google photo (unlike logos, which are own-site assets).
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS cover_key TEXT;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS cover_source TEXT;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS cover_attribution TEXT;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS marked_ready BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS popular BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS description TEXT;
