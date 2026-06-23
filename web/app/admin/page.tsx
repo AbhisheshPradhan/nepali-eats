@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { assertAdmin } from "@/lib/admin/guard";
-import { adminList, adminCards, adminCoverage, type MissingFilter } from "@/lib/admin/queries";
+import {
+	adminList,
+	adminCards,
+	adminCoverage,
+	type MissingFilter,
+} from "@/lib/admin/queries";
 import { stateFacets } from "@/lib/queries";
 import { PlaceCard } from "@/components/PlaceCard";
 
@@ -79,7 +84,7 @@ export default async function AdminIndex({
 	const viewHref = (v: "table" | "grid") => hrefWith({ view: v, page: 1 });
 
 	return (
-		<div className="max-w-[1100px] mx-auto px-6 py-8">
+		<div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-8">
 			<div className="flex items-baseline justify-between gap-4 mb-1">
 				<h1 className="font-display font-extrabold text-2xl text-ink-900">
 					Admin · data entry
@@ -309,8 +314,8 @@ export default async function AdminIndex({
 						<span className="text-ink-300">← Prev</span>
 					)}
 					<span className="text-ink-500">
-						{offset + 1}–{Math.min(offset + PAGE_SIZE, total)} of {total} · page{" "}
-						{page} of {lastPage}
+						{offset + 1}–{Math.min(offset + PAGE_SIZE, total)} of{" "}
+						{total} · page {page} of {lastPage}
 					</span>
 					{page < lastPage ? (
 						<Link

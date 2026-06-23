@@ -59,7 +59,7 @@ export function FeaturedCards({
 				{view.gems.map((r) => (
 					<div
 						key={r.id}
-						className="shrink-0 w-[76%] max-w-70 sm:w-[230px] snap-start"
+						className="shrink-0 w-[76%] max-w-60 sm:max-w-70 sm:w-[230px] snap-start"
 					>
 						<PlaceCard
 							r={r}

@@ -135,7 +135,7 @@ export function PlaceCard({
 				className={cn(
 					"relative overflow-hidden",
 					row
-						? "w-full h-[180px] shrink-0 sm:w-[210px] sm:h-auto sm:min-h-[190px] sm:self-stretch"
+						? "w-full aspect-[4/3] shrink-0 sm:aspect-auto sm:w-[210px] sm:h-auto sm:min-h-[190px] sm:self-stretch"
 						: "aspect-[4/3]",
 				)}
 				style={{

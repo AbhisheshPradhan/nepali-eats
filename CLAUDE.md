@@ -234,6 +234,22 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       but `/admin/[slug]` is still admin-gated (`proxy.ts` + `assertAdmin`). When
       the claim portal lands, open the editor to verified owners so claiming lets
       them edit their own spot.
+- [ ] **Cache `/api/search` responses** — autocomplete is deterministic per query
+      and data is near-static, but the route (`app/api/search/route.ts`) sends no
+      cache header and `SearchBox` does a raw `fetch` into local state, so repeat
+      queries (e.g. `?q=auburn`) refetch every time. Plan:
+      (1) add `Cache-Control` (`s-maxage` + `stale-while-revalidate`) so the
+      CDN/browser serve repeats without invoking the function — biggest win;
+      (2) **normalize the cache key** (lowercase + trim + collapse whitespace) so
+      `Auburn`/`auburn`/`auburn ` are one entry (SQL is already case-insensitive);
+      (3) optionally wrap `searchSuggest(q)` in Next 16's `'use cache'` +
+      `cacheLife`/`cacheTag` for DB protection on cold edges; cache empty/no-result
+      responses too. Skip per-instance in-memory LRU. **Invalidation:** rely on TTL
+      + deploy busts now; wire `revalidateTag('search')` into the `/admin` save once
+      owner edits get frequent (claim flow). React Query/SWR is *not* needed for
+      this — revisit a client query lib only when saved-spots/reviews land.
+      ⚠️ Next 16 caching APIs changed; confirm `'use cache'`/header syntax against
+      `node_modules/next/dist/docs/` before implementing (see `web/AGENTS.md`).
 
 - [ ] Finish address enrichment to plateau (~95%+ where Google has data)
 - [ ] Backfill `review_count` + re-confirm `rating` from place pages (in progress —

@@ -27,15 +27,27 @@ export function Carousel({
 
 	return (
 		<div>
-			<div className="flex items-end justify-between mb-[18px] gap-2">
+			<div className="flex items-end justify-between mb-3 sm:mb-4.5 gap-2">
 				<div>
-					<span className={`eyebrow ${eyebrowClassName}`}>{eyebrow}</span>
-					<h2 className="text-[2.2rem] text-ink-900 mt-1">{title}</h2>
+					<span className={`eyebrow ${eyebrowClassName}`}>
+						{eyebrow}
+					</span>
+					<h2 className="text-[1.6rem] sm:text-[2.2rem] text-ink-900 mt-1">
+						{title}
+					</h2>
 				</div>
-				<div className="flex gap-2.5 shrink-0">
+				<div className="gap-2.5 shrink-0 hidden sm:flex">
 					{[
-						{ icon: <CaretLeft size={20} />, dir: -1, label: "Previous" },
-						{ icon: <CaretRight size={20} />, dir: 1, label: "Next" },
+						{
+							icon: <CaretLeft size={20} />,
+							dir: -1,
+							label: "Previous",
+						},
+						{
+							icon: <CaretRight size={20} />,
+							dir: 1,
+							label: "Next",
+						},
 					].map((b) => (
 						<button
 							key={b.label}

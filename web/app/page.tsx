@@ -47,7 +47,7 @@ export default async function HomePage() {
 		<div>
 			{/* HERO */}
 			<section className="relative z-20 bg-[radial-gradient(1200px_500px_at_50%_-10%,var(--color-marigold-100),var(--color-paper-50))]">
-				<div className="max-w-[760px] mx-auto px-6 pt-7 pb-6 text-center">
+				<div className="max-w-[760px] mx-auto px-4 sm:px-6 pt-4 sm:pt-7 pb-4 sm:pb-6 text-center">
 					<Bunting />
 					<span className="eyebrow text-chili-500">
 						{countLabel} restaurants, food trucks and caterers
@@ -66,7 +66,7 @@ export default async function HomePage() {
 			</section>
 
 			{/* FEATURED */}
-			<section className="max-w-[1180px] mx-auto px-6 pt-5">
+			<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-4 sm:pb-6">
 				<FeaturedCards
 					gems={gems}
 					state={state}
@@ -83,12 +83,12 @@ export default async function HomePage() {
 			/>
 
 			{/* CRAVING CAROUSEL */}
-			<section className="max-w-[1180px] mx-auto px-6 mt-10">
+			<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-4 sm:pb-6">
 				<CravingCarousel tags={tags.map((t) => t.value)} />
 			</section>
 
 			{/* STORY STRIP */}
-			<section className="max-w-[1180px] mx-auto px-6 pt-14">
+			<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-14">
 				<div className="bg-ink-900 rounded-xl p-11 flex gap-8 items-center flex-wrap relative overflow-hidden">
 					<div className="flex-[1_1_320px]">
 						<Badge

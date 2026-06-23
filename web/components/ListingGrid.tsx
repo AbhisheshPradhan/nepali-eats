@@ -17,7 +17,7 @@ export function ListingGrid({
 	exploreHref?: string;
 }) {
 	return (
-		<div className="max-w-[1180px] mx-auto px-6 pt-10 pb-4">
+		<div className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-10 pb-4">
 			<div className="flex items-end justify-between flex-wrap gap-3 mb-7">
 				<div className="max-w-[680px]">
 					<span className="eyebrow text-chili-500">{eyebrow}</span>
