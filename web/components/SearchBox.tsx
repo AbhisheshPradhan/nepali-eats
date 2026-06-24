@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
 	MagnifyingGlass,
@@ -12,6 +12,11 @@ import type { Suggestion } from "@/lib/queries";
 import { cn } from "@/lib/cn";
 
 const EMPTY: Suggestion = { restaurants: [], locations: [] };
+
+// useLayoutEffect warns when run during SSR; the dropdown only ever measures on
+// the client, so fall back to useEffect on the server to keep the console clean.
+const useIsoLayoutEffect =
+	typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 export function SearchBox({
 	variant = "hero",
@@ -38,6 +43,9 @@ export function SearchBox({
 	const [loading, setLoading] = useState(false);
 	const abortRef = useRef<AbortController | null>(null);
 	const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const rootRef = useRef<HTMLDivElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
+	const [dropTop, setDropTop] = useState<number | null>(null);
 
 	// fetch suggestions after 3 chars (debounced)
 	useEffect(() => {
@@ -78,6 +86,8 @@ export function SearchBox({
 	// carry the state so "Auburn, NSW" doesn't collide with Auburn VIC/SA
 	const gotoSuburb = (s: { suburb: string; state: string }) =>
 		router.push(`/explore?suburb=${enc(s.suburb)}&state=${enc(s.state)}`);
+	const gotoRestaurant = (slug: string) =>
+		router.push(`/explore?focus=${slug}`);
 
 	// typing clears any prior selection (back to free-text)
 	const change = (v: string) => {
@@ -86,27 +96,40 @@ export function SearchBox({
 		setOpen(true);
 	};
 
-	// Strict dropdown: a query is only valid once a suggestion is picked. Free text
-	// never resolves, so Enter/Search are no-ops until `selected` is set.
+	// Enter / Search button. Priority: an explicit pick > the top live suggestion
+	// (so typing "auburn" + Enter just works) > the map. The empty/no-match case
+	// drops the user on /explore (or clears the filter when embedded there).
 	const submit = (e?: React.FormEvent) => {
 		e?.preventDefault();
-		if (!selected) return;
 		setOpen(false);
-		if (selected.type === "restaurant")
-			router.push(`/explore?focus=${selected.slug}`);
-		else gotoSuburb(selected);
+		if (selected) {
+			if (selected.type === "restaurant") gotoRestaurant(selected.slug);
+			else gotoSuburb(selected);
+			return;
+		}
+		if (value.trim().length >= 3) {
+			// dropdown lists locations first, so the top location wins, then names
+			if (sugg.locations[0]) return gotoSuburb(sugg.locations[0]);
+			if (sugg.restaurants[0])
+				return gotoRestaurant(sugg.restaurants[0].slug);
+		}
+		if (embedded) change("");
+		else router.push("/explore");
 	};
 
-	// picking an option only fills the box + remembers the choice (no search yet)
+	// picking an option resolves intent immediately (fill the box + navigate),
+	// so the user never has to click Search after choosing a row.
 	const pickLocation = (loc: { suburb: string; state: string }) => {
 		setValue(`${loc.suburb}, ${loc.state}`);
 		setSelected({ type: "location", suburb: loc.suburb, state: loc.state });
 		setOpen(false);
+		gotoSuburb(loc);
 	};
 	const pickRestaurant = (r: { slug: string; name: string }) => {
 		setValue(r.name);
 		setSelected({ type: "restaurant", slug: r.slug });
 		setOpen(false);
+		gotoRestaurant(r.slug);
 	};
 
 	const hero = variant === "hero";
@@ -121,8 +144,29 @@ export function SearchBox({
 	const trimmed = value.trim();
 	const isPostcode = /^\d{4}$/.test(trimmed);
 
+	// Anchor the dropdown to the bottom of the INPUT, not the whole form. On mobile
+	// the Search button wraps onto its own full-width line, so the form is taller
+	// than the input; pinning to the input keeps the menu directly under the field
+	// (floating over the button + page content below it).
+	useIsoLayoutEffect(() => {
+		if (!showDropdown) return;
+		const measure = () => {
+			const root = rootRef.current;
+			const input = inputRef.current;
+			if (!root || !input) return;
+			setDropTop(
+				input.getBoundingClientRect().bottom -
+					root.getBoundingClientRect().top +
+					6,
+			);
+		};
+		measure();
+		window.addEventListener("resize", measure);
+		return () => window.removeEventListener("resize", measure);
+	}, [showDropdown]);
+
 	return (
-		<div className="relative w-full">
+		<div ref={rootRef} className="relative w-full">
 			<form
 				onSubmit={submit}
 				className={cn(
@@ -137,6 +181,7 @@ export function SearchBox({
 					size={hero ? 22 : 18}
 				/>
 				<input
+					ref={inputRef}
 					value={value}
 					onChange={(e) => change(e.target.value)}
 					onFocus={() => setOpen(true)}
@@ -156,7 +201,6 @@ export function SearchBox({
 				<Button
 					type="submit"
 					size={hero ? "md" : "sm"}
-					// disabled={!selected}
 					iconRight={
 						hero ? (
 							<ArrowRight
@@ -175,7 +219,8 @@ export function SearchBox({
 
 			{showDropdown && (
 				<div
-					className="absolute top-[calc(100%+6px)] left-0 right-0 bg-white rounded-lg shadow-lg border border-paper-300 overflow-hidden z-[2000] max-h-[400px] overflow-y-auto text-left"
+					style={{ top: dropTop ?? undefined }}
+					className="absolute left-0 right-0 bg-white rounded-lg shadow-lg border border-paper-300 overflow-hidden z-[2000] max-h-[400px] overflow-y-auto text-left"
 					onMouseDown={(e) => {
 						// keep focus so click registers before blur closes
 						e.preventDefault();

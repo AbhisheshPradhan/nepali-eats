@@ -5,6 +5,7 @@ import { Clock, Fire, MapTrifold } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { VenueType } from "@/components/ui/VenueType";
+import { PriceLevel } from "@/components/ui/PriceLevel";
 import { Avatar } from "@/components/Avatar";
 import type { Restaurant } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
@@ -221,22 +222,7 @@ export function PlaceCard({
             (the valuable bit) stays pinned. */}
 				{(priceLevel > 0 || location || distance) && (
 					<div className="flex items-center gap-1.5 text-ink-500 text-[0.95rem] min-w-0">
-						{priceLevel > 0 && (
-							<span className="font-semibold tracking-tight shrink-0">
-								{[1, 2, 3, 4].map((n) => (
-									<span
-										key={n}
-										className={
-											n <= priceLevel
-												? "text-ink-700"
-												: "text-ink-300"
-										}
-									>
-										$
-									</span>
-								))}
-							</span>
-						)}
+						<PriceLevel level={priceLevel} />
 						{priceLevel > 0 && location && (
 							<span className="shrink-0">·</span>
 						)}

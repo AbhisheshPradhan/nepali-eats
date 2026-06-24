@@ -9,6 +9,16 @@ const remotePatterns = mediaBase
 
 const nextConfig: NextConfig = {
   turbopack: { root: import.meta.dirname },
+  // Phosphor's barrel re-exports ~9k icons; without this every `import { X } from
+  // "@phosphor-icons/react"` makes the bundler crawl the whole barrel on each dev
+  // compile. Not in Next's default optimizePackageImports list, so add it (both the
+  // client barrel and the /dist/ssr barrel used by RSC pages).
+  experimental: {
+    optimizePackageImports: [
+      "@phosphor-icons/react",
+      "@phosphor-icons/react/dist/ssr",
+    ],
+  },
   images: {
     remotePatterns,
     formats: ["image/webp"],

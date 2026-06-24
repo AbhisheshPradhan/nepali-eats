@@ -11,9 +11,13 @@ import { cn } from "@/lib/cn";
 export function SaveButton({
   restaurantId,
   className,
+  variant = "inline",
 }: {
   restaurantId: string;
   className?: string;
+  // "inline" = heart + text label (used in the info strip).
+  // "floating" = white circular icon-only button overlaid on the cover photo.
+  variant?: "inline" | "floating";
 }) {
   const { isSignedIn, isLoaded } = useUser();
   const { openSignIn } = useClerk();
@@ -58,6 +62,26 @@ export function SaveButton({
     } finally {
       setBusy(false);
     }
+  }
+
+  if (variant === "floating") {
+    return (
+      <button
+        type="button"
+        onClick={toggle}
+        disabled={busy}
+        aria-pressed={saved}
+        aria-label={saved ? "Remove from saved" : "Save this spot"}
+        title={saved ? "Saved" : "Save"}
+        className={cn(
+          "grid place-items-center w-10 h-10 rounded-full bg-white shadow-md ring-1 ring-black/5 transition-colors cursor-pointer hover:bg-paper-100 disabled:opacity-50 disabled:cursor-not-allowed",
+          saved ? "text-chili-500" : "text-ink-900",
+          className,
+        )}
+      >
+        <Heart size={20} weight={saved ? "fill" : "regular"} />
+      </button>
+    );
   }
 
   return (

@@ -381,65 +381,67 @@ export function ExploreClient({
 
 				{/* Filters (Open now / Sort / Rating) hidden for now. */}
 				{false && (
-				<div className="flex gap-x-5 gap-y-2.5 items-center mt-3 flex-wrap">
-					<button
-						onClick={() => setOpenOnly((o) => !o)}
-						className={cn(
-							"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-							openOnly
-								? "bg-coriander-500 border-coriander-500 text-white"
-								: "bg-white border-sand-400 text-ink-700",
-						)}
-					>
-						<Clock
-							weight="fill"
-							size={16}
-						/>
-						Open now
-					</button>
-
-					<label className="flex items-center gap-2">
-						<span className="font-display font-bold text-ink-700 text-[0.9rem]">
-							Sort
-						</span>
-						<div className="relative">
-							<select
-								value={sort}
-								onChange={(e) => setSort(e.target.value)}
-								className="appearance-none border-2 border-sand-400 rounded-full bg-white pl-3.5 pr-8 py-[5px] font-display font-bold text-[0.9rem] text-ink-900 cursor-pointer outline-none"
-							>
-								<option value="featured">Featured</option>
-								<option value="rating">Highest rated</option>
-								<option value="newest">Newest</option>
-							</select>
-							<CaretDown
-								className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-700"
-								size={14}
+					<div className="flex gap-x-5 gap-y-2.5 items-center mt-3 flex-wrap">
+						<button
+							onClick={() => setOpenOnly((o) => !o)}
+							className={cn(
+								"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+								openOnly
+									? "bg-coriander-500 border-coriander-500 text-white"
+									: "bg-white border-sand-400 text-ink-700",
+							)}
+						>
+							<Clock
+								weight="fill"
+								size={16}
 							/>
-						</div>
-					</label>
+							Open now
+						</button>
 
-					{/* Price filter hidden for now (price data too sparse to be useful) */}
-					{/* <label className="flex items-center gap-2">
+						<label className="flex items-center gap-2">
+							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
+								Sort
+							</span>
+							<div className="relative">
+								<select
+									value={sort}
+									onChange={(e) => setSort(e.target.value)}
+									className="appearance-none border-2 border-sand-400 rounded-full bg-white pl-3.5 pr-8 py-[5px] font-display font-bold text-[0.9rem] text-ink-900 cursor-pointer outline-none"
+								>
+									<option value="featured">Featured</option>
+									<option value="rating">
+										Highest rated
+									</option>
+									<option value="newest">Newest</option>
+								</select>
+								<CaretDown
+									className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-700"
+									size={14}
+								/>
+							</div>
+						</label>
+
+						{/* Price filter hidden for now (price data too sparse to be useful) */}
+						{/* <label className="flex items-center gap-2">
             <span className="font-display font-bold text-ink-700 text-[0.9rem]">Price</span>
             <Seg value={price} onChange={setPrice} options={[[0, "Any"], [1, "$"], [2, "$$"], [3, "$$$"]]} />
           </label> */}
 
-					<label className="flex items-center gap-2">
-						<span className="font-display font-bold text-ink-700 text-[0.9rem]">
-							Rating
-						</span>
-						<Seg
-							value={minRating}
-							onChange={setMinRating}
-							options={[
-								[0, "Any"],
-								[4, "★ 4.0+"],
-								[4.5, "★ 4.5+"],
-							]}
-						/>
-					</label>
-				</div>
+						<label className="flex items-center gap-2">
+							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
+								Rating
+							</span>
+							<Seg
+								value={minRating}
+								onChange={setMinRating}
+								options={[
+									[0, "Any"],
+									[4, "★ 4.0+"],
+									[4.5, "★ 4.5+"],
+								]}
+							/>
+						</label>
+					</div>
 				)}
 			</div>
 
@@ -539,6 +541,7 @@ export function ExploreClient({
 						onBounds={onBounds}
 						center={center}
 						zoom={zoom}
+						active={viewMode === "map"}
 					/>
 				</div>
 
@@ -547,7 +550,7 @@ export function ExploreClient({
 						onClick={() =>
 							setViewMode(viewMode === "map" ? "list" : "map")
 						}
-						className="inline-flex items-center gap-2 bg-ink-900 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg"
+						className="inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg"
 					>
 						{viewMode === "map" ? (
 							<Rows size={20} />

@@ -78,6 +78,7 @@ export default function MapView({
   onBounds,
   center,
   zoom,
+  active = true,
 }: {
   pins: RestaurantPin[];
   hoveredId: number | null;
@@ -87,6 +88,10 @@ export default function MapView({
   onBounds: (b: Bbox, userMoved: boolean) => void;
   center: [number, number];
   zoom: number;
+  // On mobile the map is display:none while the list is showing, so Mapbox
+  // measures a zero-size container. When it becomes visible we must resize, or
+  // the canvas keeps its old (short) height and tiles only cover part of it.
+  active?: boolean;
 }) {
   const mapRef = useRef<MapRef>(null);
   const [cursor, setCursor] = useState("");
@@ -125,6 +130,15 @@ export default function MapView({
   useEffect(() => {
     mapRef.current?.flyTo({ center: [center[1], center[0]], zoom, duration: 800 });
   }, [center, zoom]);
+
+  // When the map becomes visible (mobile list→map toggle), the container has just
+  // gone from display:none to its full height. Resize on the next frame so the
+  // canvas/tiles fill it instead of keeping the zero/short size from when hidden.
+  useEffect(() => {
+    if (!active) return;
+    const id = requestAnimationFrame(() => mapRef.current?.resize());
+    return () => cancelAnimationFrame(id);
+  }, [active]);
 
   const onClick = (e: MapMouseEvent) => {
     const f = e.features?.[0];

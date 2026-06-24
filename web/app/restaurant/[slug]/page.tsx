@@ -38,6 +38,7 @@ import {
 	directionsUrl,
 	hueFromId,
 } from "@/lib/format";
+import { PriceLevel } from "@/components/ui/PriceLevel";
 
 export const revalidate = 3600;
 
@@ -163,7 +164,7 @@ export default async function VenuePage({
 	].filter((s) => s.href);
 
 	return (
-		<div className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-5 pb-4 md:pb-4 [padding-bottom:calc(5.5rem+env(safe-area-inset-bottom))]">
+		<div className="max-w-295 mx-auto px-0 sm:px-6 pb-24 md:pb-4">
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -173,7 +174,7 @@ export default async function VenuePage({
           16:9 standard, height-capped so it stays cinematic on desktop without
           pushing the name offscreen; the photo crops via object-cover. */}
 			<div
-				className="w-full aspect-[16/9] max-h-[440px] rounded-xl relative overflow-hidden"
+				className="w-full aspect-video max-h-35 sm:max-h-55 sm:rounded-sm relative overflow-hidden"
 				style={{
 					background: `linear-gradient(135deg, hsl(${hue} 80% 62%), hsl(${(hue + 40) % 360} 78% 52%))`,
 				}}
@@ -195,18 +196,25 @@ export default async function VenuePage({
 						/>
 					</div>
 				)}
+
+				{/* Save lives top-right of the cover as a floating round button */}
+				<SaveButton
+					restaurantId={String(r.id)}
+					variant="floating"
+					className="absolute top-3 right-3 z-10"
+				/>
 			</div>
 
 			{/* identity strip: logo overlaps the cover (when present); the name +
           badges sit below the cover to the right of the logo. With no logo we
           drop the circle entirely and the name sits just below the cover. */}
 			<div
-				className={`flex items-start gap-4 relative z-10 mt-4 ${
+				className={`flex items-start gap-4 relative z-10 mt-2 sm:mt-4 px-4 sm:px-0 ${
 					r.logoKey ? "px-2 sm:px-5" : ""
 				}`}
 			>
 				{r.logoKey && (
-					<div className="-mt-16 shrink-0">
+					<div className="-mt-16 shrink-0 hidden sm:block">
 						<Avatar
 							name={r.name}
 							logoKey={r.logoKey}
@@ -220,7 +228,7 @@ export default async function VenuePage({
 					<h1 className="font-display font-extrabold text-[2.2rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
 						{r.name}
 					</h1>
-					<div className="flex items-center gap-2.5 mt-2 flex-wrap">
+					<div className="flex items-center gap-2.5 mb-2 flex-wrap">
 						{open !== null && (
 							<Badge
 								tone={open ? "open" : "closed"}
@@ -255,14 +263,15 @@ export default async function VenuePage({
 			</div>
 
 			{/* body */}
-			<div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] gap-9 items-start">
+			<div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] gap-9 items-start px-4 sm:px-0">
 				<div>
-					<div className="flex items-center gap-4 flex-wrap mb-4">
+					<div className="flex items-center gap-2 sm:gap-4 flex-wrap mb-4">
 						<VenueType
 							type={r.venueType}
 							iconSize={15}
-							className="text-[0.85rem]"
+							className="text-[1rem]"
 						/>
+						<PriceLevel level={r.priceLevel} />
 						{r.rating != null && (
 							<Rating
 								value={r.rating}
@@ -270,11 +279,12 @@ export default async function VenuePage({
 								size={22}
 							/>
 						)}
-						{price && (
+						{/* {price && (
 							<span className="text-ink-500 font-semibold">
 								{price}
 							</span>
-						)}
+						)} */}
+
 						{/* {where && (
 							<span className="text-ink-500 inline-flex items-center gap-1.5">
 								<MapPin
@@ -303,7 +313,6 @@ export default async function VenuePage({
 								slug={r.slug}
 								restaurantId={String(r.id)}
 							/>
-							<SaveButton restaurantId={String(r.id)} />
 						</div>
 					</div>
 
@@ -322,9 +331,11 @@ export default async function VenuePage({
 						</div>
 					)}
 
-					<p className="text-[1.18rem] leading-relaxed text-ink-700 mb-7">
-						{r.description?.trim()}
-					</p>
+					{r.description && (
+						<p className="text-[1.18rem] leading-relaxed text-ink-700 mb-7">
+							{r.description?.trim()}
+						</p>
+					)}
 
 					{/* gallery */}
 					{gallery.length > 0 && (
@@ -466,7 +477,7 @@ export default async function VenuePage({
 						)}
 
 						{socials.length > 0 && (
-							<div className="flex gap-2 mt-4 pt-4 border-t border-paper-300">
+							<div className="flex gap-2 sm:mt-4 pt-4 border-t border-paper-300">
 								{socials.map((s) => (
 									<a
 										key={s.label}
@@ -577,6 +588,34 @@ export default async function VenuePage({
 						</Link>
 					)}
 				</aside>
+			</div>
+
+			{/* sticky mobile action bar — phone-only (md:hidden); mirrors the
+          sidebar's primary CTAs so they stay reachable while scrolling. */}
+			<div className="md:hidden fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur border-t border-paper-300 px-3 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] flex gap-2.5">
+				{r.phone && (
+					<Button
+						href={`tel:${r.phone}`}
+						block
+						variant="outline"
+						iconLeft={<Phone size={18} />}
+					>
+						Call
+					</Button>
+				)}
+				<Button
+					href={directionsUrl(r)}
+					newTab
+					block
+					iconLeft={
+						<NavigationArrow
+							size={18}
+							weight="fill"
+						/>
+					}
+				>
+					Directions
+				</Button>
 			</div>
 		</div>
 	);
