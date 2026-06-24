@@ -163,7 +163,7 @@ export default async function VenuePage({
 	].filter((s) => s.href);
 
 	return (
-		<div className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-5 pb-4">
+		<div className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-5 pb-4 md:pb-4 [padding-bottom:calc(5.5rem+env(safe-area-inset-bottom))]">
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -255,7 +255,7 @@ export default async function VenuePage({
 			</div>
 
 			{/* body */}
-			<div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] gap-9 mt-7 items-start">
+			<div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] gap-9 items-start">
 				<div>
 					<div className="flex items-center gap-4 flex-wrap mb-4">
 						<VenueType
@@ -275,7 +275,7 @@ export default async function VenuePage({
 								{price}
 							</span>
 						)}
-						{where && (
+						{/* {where && (
 							<span className="text-ink-500 inline-flex items-center gap-1.5">
 								<MapPin
 									size={16}
@@ -283,7 +283,21 @@ export default async function VenuePage({
 								/>
 								{where}
 							</span>
+						)} */}
+
+						{r.fullAddress && (
+							<div className="flex gap-1 items-center">
+								<MapPin
+									size={20}
+									className="text-chili-500 shrink-0"
+									weight="fill"
+								/>
+								<span className="text-ink-700">
+									{r.fullAddress}
+								</span>
+							</div>
 						)}
+
 						<div className="ml-auto flex items-center gap-4">
 							<EditButton
 								slug={r.slug}
@@ -309,7 +323,7 @@ export default async function VenuePage({
 					)}
 
 					<p className="text-[1.18rem] leading-relaxed text-ink-700 mb-7">
-						{r.description?.trim() || autoBlurb(r)}
+						{r.description?.trim()}
 					</p>
 
 					{/* gallery */}
@@ -396,16 +410,16 @@ export default async function VenuePage({
 										on Google
 									</p>
 								</div>
-								{r.googleMapsUrl && (
+								{/* {r.googleMapsUrl && (
 									<a
 										href={r.googleMapsUrl}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="ml-auto font-display font-bold text-chili-600 hover:text-chili-700 text-[0.95rem]"
+										className="ml-auto font-display font-bold text-chili-600 hover:text-chili-700 text-[0.7rem]"
 									>
 										Read on Google
 									</a>
-								)}
+								)} */}
 							</div>
 						</>
 					)}
@@ -518,46 +532,36 @@ export default async function VenuePage({
 						)}
 
 						{/* facts */}
-						<div className="mt-2 pt-3 border-t border-paper-300">
-							{r.fullAddress && (
-								<div className="flex gap-3 items-center py-3 border-b border-paper-300">
-									<MapPin
-										size={20}
-										className="text-chili-500 shrink-0"
-										weight="fill"
-									/>
-									<span className="text-ink-700">
-										{r.fullAddress}
-									</span>
-								</div>
-							)}
-							{r.email && (
-								<div className="flex gap-3 items-center py-3 border-b border-paper-300">
-									<EnvelopeSimple
-										size={20}
-										className="text-chili-500 shrink-0"
-									/>
-									<a
-										href={`mailto:${r.email}`}
-										className="text-ink-700 hover:text-chili-600 break-all"
-									>
-										{r.email}
-									</a>
-								</div>
-							)}
-							{r.tags.includes("vegetarian") && (
-								<div className="flex gap-3 items-center py-3">
-									<Leaf
-										size={20}
-										className="text-coriander-500 shrink-0"
-										weight="fill"
-									/>
-									<span className="text-ink-700">
-										Vegetarian options available
-									</span>
-								</div>
-							)}
-						</div>
+						{r.email && r.tags.includes("vegetarian") && (
+							<div className="mt-2 pt-3 border-t border-paper-300">
+								{r.email && (
+									<div className="flex gap-3 items-center py-3 border-b border-paper-300">
+										<EnvelopeSimple
+											size={20}
+											className="text-chili-500 shrink-0"
+										/>
+										<a
+											href={`mailto:${r.email}`}
+											className="text-ink-700 hover:text-chili-600 break-all"
+										>
+											{r.email}
+										</a>
+									</div>
+								)}
+								{r.tags.includes("vegetarian") && (
+									<div className="flex gap-3 items-center py-3">
+										<Leaf
+											size={20}
+											className="text-coriander-500 shrink-0"
+											weight="fill"
+										/>
+										<span className="text-ink-700">
+											Vegetarian options available
+										</span>
+									</div>
+								)}
+							</div>
+						)}
 					</div>
 
 					{where && (

@@ -156,7 +156,7 @@ export function SearchBox({
 				<Button
 					type="submit"
 					size={hero ? "md" : "sm"}
-					disabled={!selected}
+					// disabled={!selected}
 					iconRight={
 						hero ? (
 							<ArrowRight

@@ -379,6 +379,8 @@ export function ExploreClient({
 					</Button>
 				</div>
 
+				{/* Filters (Open now / Sort / Rating) hidden for now. */}
+				{false && (
 				<div className="flex gap-x-5 gap-y-2.5 items-center mt-3 flex-wrap">
 					<button
 						onClick={() => setOpenOnly((o) => !o)}
@@ -438,6 +440,7 @@ export function ExploreClient({
 						/>
 					</label>
 				</div>
+				)}
 			</div>
 
 			{/* body */}

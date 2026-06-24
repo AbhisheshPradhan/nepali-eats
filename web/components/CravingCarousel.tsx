@@ -1,8 +1,5 @@
-"use client";
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Cookie } from "@phosphor-icons/react";
 import { Carousel } from "@/components/Carousel";
 
 const HUES = [18, 35, 350, 168, 4, 45, 205, 120, 28];
@@ -15,11 +12,14 @@ const LABELS: Record<string, string> = {
 	"indian-nepali": "Nepali-Indian",
 };
 
-// Each tile shows a curated category image from /public/cravings/<tag>.webp.
-// If a file is missing, it falls back to the brand gradient + icon (the gradient
-// always sits behind the image). Images crop to the 4:3 tile standard.
+// Tags with a curated tile image in /public/cravings/<tag>.jpg. Tags without an
+// image are skipped entirely (no gradient-only fallback tiles).
+const HAS_IMAGE = new Set(["momo", "newari", "tibetan", "vegetarian"]);
+
+// Each tile shows a curated category image from /public/cravings/<tag>.jpg.
+// The gradient sits behind the image while it loads. Images crop to the 4:3
+// tile standard.
 function CravingTile({ tag, hue }: { tag: string; hue: number }) {
-	const [hasImage, setHasImage] = useState(true);
 	const label = LABELS[tag] || tag;
 	const href =
 		tag === "momo" ? "/momo" : `/explore?tag=${encodeURIComponent(tag)}`;
@@ -34,21 +34,13 @@ function CravingTile({ tag, hue }: { tag: string; hue: number }) {
 					background: `linear-gradient(135deg, hsl(${hue} 78% 62%), hsl(${(hue + 32) % 360} 76% 50%))`,
 				}}
 			>
-				{hasImage ? (
-					<Image
-						src={`/cravings/${tag}.jpg`}
-						alt={label}
-						fill
-						sizes="230px"
-						className="object-cover transition-transform duration-500 group-hover:scale-105"
-						onError={() => setHasImage(false)}
-					/>
-				) : (
-					<Cookie
-						size={40}
-						weight="fill"
-					/>
-				)}
+				<Image
+					src={`/cravings/${tag}.jpg`}
+					alt={label}
+					fill
+					sizes="230px"
+					className="object-cover transition-transform duration-500 group-hover:scale-105"
+				/>
 			</div>
 			<div className="mt-2.5 font-display font-semibold text-[1.1rem] text-ink-900 capitalize">
 				{label}
@@ -58,6 +50,8 @@ function CravingTile({ tag, hue }: { tag: string; hue: number }) {
 }
 
 export function CravingCarousel({ tags }: { tags: string[] }) {
+	const withImage = tags.filter((t) => HAS_IMAGE.has(t));
+	if (withImage.length === 0) return null;
 	return (
 		<Carousel
 			eyebrow="Eat by craving"
@@ -65,7 +59,7 @@ export function CravingCarousel({ tags }: { tags: string[] }) {
 			title="What are you hungry for?"
 			trackClassName="gap-[18px] px-2 pt-1 pb-2.5"
 		>
-			{tags.map((t, i) => (
+			{withImage.map((t, i) => (
 				<CravingTile
 					key={t}
 					tag={t}

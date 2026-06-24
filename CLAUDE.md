@@ -251,6 +251,15 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       ⚠️ Next 16 caching APIs changed; confirm `'use cache'`/header syntax against
       `node_modules/next/dist/docs/` before implementing (see `web/AGENTS.md`).
 
+- [ ] **Re-enable Explore filters once data is enriched.** The Open now / Sort /
+      Rating filter row is currently **hidden** in `ExploreClient.tsx` (gated with
+      `{false && (...)}`, search for "Filters (Open now / Sort / Rating) hidden")
+      because the backing data is too thin to be useful: opening hours are only
+      partway through the daily accumulation pass (Open now misfires), price is
+      sparse, and kid_friendly/live_music need the Places API. Finish enriching
+      hours + price (+ kid_friendly/live_music via Places API) THEN flip the gate
+      back on. The filter state (`openOnly`/`sort`/`minRating`/`price`) still wires
+      into the query, so re-enabling is just removing the `{false &&}` wrapper.
 - [ ] Finish address enrichment to plateau (~95%+ where Google has data)
 - [ ] Backfill `review_count` + re-confirm `rating` from place pages (in progress —
       review counts render inconsistently on list cards, reliable on place pages)
