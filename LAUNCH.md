@@ -40,8 +40,9 @@ inventory in waves**, each page admitted to the index only when it clears a qual
 bar. The DB already tracks enrichment status, so indexation can be gated on real
 data completeness.
 
-Decided: launch with the current data (553 visible, 99% rated, 100% addressed,
-77% photos). Fix the long tail in place after launch.
+Decided: launch with the current data (522 visible, 99% rated, 100% addressed,
+77% photos; 20 permanently-closed spots auto-hidden via Google `business_status`).
+Fix the long tail in place after launch.
 
 ---
 
@@ -422,14 +423,18 @@ down and deepen content rather than pushing more URLs.
 ## Restaurant detail page
 
 Have: name, venue type, cuisine, area; full address + map + one-tap directions;
-hours + "open now"; phone/call; price; photos (76%, gate requires ≥1); rating +
-review count; website + socials.
+**live open-status badge** ("Open till 10pm / Opens today at 5pm", client-computed
+so it stays accurate on the ISR-cached page); full-week hours; phone/call; price;
+photos (76%, gate requires ≥1); rating + review count; website + socials;
+attribute flags from the Places API (vegetarian, takeout, delivery, dine-in,
+outdoor seating, groups, alcohol/cocktails, dogs, wheelchair access, parking).
 
 Add: **"Nearby / similar Nepali spots"** internal links; **last updated / freshness**
 signal; signature dishes; **menu with prices** (Stage 2, the #1 user want; unique
-content + future `Menu` schema); dine-in/takeaway/delivery + order/booking links;
-**halal status** (planned column, populate it); vegetarian / kid-friendly / live
-music / parking / accessibility / BYO (planned columns, good filters).
+content + future `Menu` schema); order/booking links; **halal status** (planned
+column, populate it); surface the attribute flags as UI badges + Explore filters
+(data is populated, UI pending). kid-friendly / live music still need a Places API
+field-mask widening on the next run.
 
 ## City / suburb / tag landing page
 

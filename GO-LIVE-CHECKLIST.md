@@ -5,8 +5,10 @@ The master plan lives in `LAUNCH.md`; this is the working frontend checklist.
 
 ## ✅ Done
 
-- [x] Homepage + site title/description show the **550+** stat
-      (`web/app/page.tsx`, `web/app/layout.tsx`)
+- [x] Homepage stat is computed live, rounded down to the nearest 50
+      (`web/app/page.tsx`); with 522 visible it now renders **500+**.
+- [x] Static `<title>`/description in `web/app/layout.tsx` now say **500+**,
+      matching the live homepage stat.
 
 ## 📐 Photo aspect-ratio standard (DECIDED)
 
@@ -49,8 +51,8 @@ Conformance audit:
 
 ## 🎨 Brand assets (Abhishesh)
 
-- [ ] **Favicon + app icons** — replace the default Next `favicon.ico`; add
-      `app/icon.svg` and `app/apple-icon.png` (current favicon is still the Next triangle)
+- [x] **App icon** — custom `app/icon.png` added (default `favicon.ico` removed).
+- [ ] **Apple touch icon** — add `app/apple-icon.png` for iOS home-screen.
 - [ ] **OG image** — `app/opengraph-image.*`; then wire the `openGraph.images`
       reference in `web/app/layout.tsx` (no link-preview card today)
 

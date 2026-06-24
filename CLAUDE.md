@@ -107,7 +107,29 @@ To do (deploy):
     - `GET /api/search?q=` (fires after 3 chars) → restaurant-name + suburb +
       postcode suggestions. Shared `SearchBox` (home + explore); picking an option
       only fills the box, search runs on Enter/Search button.
+    - **Permanently-closed spots are hidden from every public surface** (explore,
+      home, search, sitemap, facets) via `business_status IS DISTINCT FROM
+      'CLOSED_PERMANENTLY'` (`NOT_CLOSED` in `lib/queries.ts`); detail pages still
+      resolve so inbound links don't 404.
+    - **Flags filter** (`?flags=`) maps allowlisted attribute columns
+      (`vegetarian`/`takeout`/`delivery`/`dineIn`/`outdoor`/`reservable`/`groups`/
+      `dogs`/`wheelchair`, see `FLAG_COLS`) to true-only `WHERE` clauses; backend
+      plumbing is live, UI scaffolded pending design.
     - Auth/reviews-text/menus-stage2/distance-sort = phase 2.
+- **Live open-status:** `OpenStatusBadge` (client component) shows "Open till
+  10pm / Opens today at 5pm / Closed / Temporarily/Permanently closed" on the
+  detail cover and place cards. Computed in the browser (the page is ISR-cached,
+  so a server-rendered status would be stale) and re-ticks each minute.
+  `openStatus()` in `lib/format.ts` returns a domain `kind`
+  (open/closing/opening/closed) + label; the badge maps `kind` → palette tone.
+  `Badge` tones are now colour-named (`ink`/`coriander`/`marigold`/`chili`/
+  `himalaya`), not feature-named.
+- **Admin tooling:** `/admin` (Clerk-gated, `ADMIN_USER_IDS`) plus a media-triage
+  tool at `/admin/triage` (`TriageClient` + `/api/admin/triage`, mark cover/
+  reviewed). The header `AdminStateSwitcher` lets an admin preview the geo-scoped
+  home for any AU state via the `ne_admin_state` cookie (`lib/stateOverride.ts`);
+  the server honors it ONLY for admins (`resolveState()` in `lib/geo.ts`), so
+  anonymous traffic pays no auth cost.
 - `design-system/` — NepaliEats design system + mockup (reference for the build).
 - `media/` — self-hosted photos/menus (shared; symlinked into web/public in dev → R2 in prod).
 - root `.env`, `node_modules`, `package.json` — shared by the scraper.
@@ -125,41 +147,56 @@ To do (deploy):
       own-site photos + menu-file discovery.
 5. `node scraper/export-db.js` — snapshot table to `main-table.json` / `.csv`.
 
-**Opening hours (recurring daily pass):** `node scraper/enrich-hours.js` (or
-`scraper/run-hours-daily.sh`). Headless Maps only exposes **today's** hours row,
-so this captures one weekday per run and accumulates the week in
-`opening_hours_raw` over ~7-9 daily runs; it rebuilds canonical `opening_hours`
-via `scraper/hours.js` and opportunistically backfills price. No photos. Guard =
-`hours_scraped_at::date < CURRENT_DATE` (re-scrapes every row once per day).
-Install the cron in `run-hours-daily.sh` to fill the week automatically. The full
-weekly table and the About panel (kid_friendly/live_music) are NOT in the
-headless payload, so the rest needs the Places API.
+**Opening hours (headless fallback — now superseded by the Places API pass below):**
+`node scraper/enrich-hours.js` (or `scraper/run-hours-daily.sh`). Headless Maps only
+exposes **today's** hours row, so this captures one weekday per run and accumulates
+the week in `opening_hours_raw` over ~7-9 daily runs; it rebuilds canonical
+`opening_hours` via `scraper/hours.js` and opportunistically backfills price. No
+photos. Guard = `hours_scraped_at::date < CURRENT_DATE` (re-scrapes every row once
+per day). Kept as a free fallback for rows the API misses, but the **full-week
+hours now come from the Places API** (`reconcile-places.js`, see below); the About
+panel (kid_friendly/live_music) still needs a field-mask widening on the next run.
 
-**Google Places API (New) pass:** `node scraper/enrich-places.js` — one Place
-Details call per restaurant (keyed off `google_place_id`), dumps the FULL raw
-JSON into staging column `places_api_raw` (+ stamps `places_api_at`). It does NOT
-touch any canonical column; mapping into real columns is the separate, reviewable
-`reconcile-places.js` step. Direct connection, NO proxy (it's an authed API).
-Hard `MAX_CALLS=600` guard in code, stops on 429, resumable (`places_api_at IS
-NULL`), ordered featured→rating→review_count. This supersedes the headless
-`enrich-hours.js` for hours and is the source for `kid_friendly`/`live_music`/
-price/full-week hours/fresh rating+review_count.
+**Google Places API (New) pass — DONE 2026-06-25 (553 calls, free tier):**
+`node scraper/enrich-places.js` — one Place Details call per restaurant (keyed off
+`google_place_id`), dumps the FULL raw JSON into staging column `places_api_raw`
+(+ stamps `places_api_at`). It does NOT touch any canonical column; mapping into
+real columns is the separate, reviewable `reconcile-places.js` step. Direct
+connection, NO proxy (it's an authed API). Hard `MAX_CALLS=600` guard in code,
+stops on 429, resumable (`places_api_at IS NULL`), ordered
+featured→rating→review_count. All 542 rows now have `places_api_at`. This
+supersedes the headless `enrich-hours.js` for hours and is the source for the
+attribute columns / price / full-week hours / fresh rating+review_count /
+`business_status` / `editorial_summary`.
+
+**Reconcile (raw → canonical) — DONE 2026-06-25:** `node scraper/reconcile-places.js`
+(dry run by default; `--commit` to write). Reads `places_api_raw` and maps it into
+canonical columns: full-week `opening_hours` (now 474 rows, replacing the headless
+accumulation), `rating`, `review_count`, `price_level`, `business_status`, the
+attribute booleans (`serves_vegetarian`, `takeout`, `delivery`, `dine_in`,
+`outdoor_seating`, `reservable`, `good_for_groups`, `serves_alcohol`,
+`serves_cocktails`, `allows_dogs`, `wheelchair_accessible`), a friendly `parking`
+label (derived from Google `parkingOptions`), and `editorial_summary`.
+Re-derivable any time from the stored raw — no API re-call needed to re-parse.
+
+**Backfill place IDs — DONE:** `node scraper/backfill-place-ids.js` resolved the 6
+rows that had a NULL `google_place_id` via Places Text Search (suburb-verified),
+so they now flow through the API pass.
 
 > **⚠️ RE-RUN REMINDER — do this on/after 2026-07-01 (next calendar month).**
-> The first full pass (547 calls) ran 2026-06-25 and is FREE under the monthly
+> The first full pass (553 calls) ran 2026-06-25 and was FREE under the monthly
 > per-SKU free allowance (~1,000 calls, top SKU = Enterprise+Atmosphere). A second
-> 547-call run in the SAME month would tip ~94 calls over the free cap (~$2-3), so
+> 553-call run in the SAME month would tip ~100 calls over the free cap (~$2-3), so
 > WAIT until July when the allowance resets, then re-run for free. Before re-running:
 > 1. **Widen the field mask** in `enrich-places.js` to also capture (all in-tier, free):
 >    `utcOffsetMinutes` (correct open-now math across AU timezones/DST),
 >    `primaryType`, `types` (sharpen venue_type/tags), `googleMapsUri`,
 >    `formattedAddress`. (`editorialSummary` already in the mask.)
 > 2. **Reset the guard** to re-fetch everyone: `UPDATE restaurants SET places_api_at
->    = NULL, places_api_raw = NULL;` then `node scraper/enrich-places.js`.
-> 3. **Backfill the 6 rows with NULL `google_place_id`** (484 Nepali Food Mandala,
->    556 momo & chillies, 657 Langtang Lounge, 930 JOJOLAPA, 931 The Kathmandu
->    Kitchen, 966 Whyalla MoMo House): resolve each via `places:searchText`
->    (name + suburb) → store `google_place_id`, then they flow through the pass.
+>    = NULL, places_api_raw = NULL;` then `node scraper/enrich-places.js`, then
+>    `node scraper/reconcile-places.js --commit`.
+> 3. ~~Backfill the 6 rows with NULL `google_place_id`~~ — DONE via
+>    `backfill-place-ids.js`; all rows now have a `google_place_id`.
 > Do NOT request `photos` (separate per-fetch SKU = real cost) or `reviews`
 > (licensing constraints) without a deliberate decision.
 
@@ -176,7 +213,16 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
   postcode, full_address, lat, lng, **geom (PostGIS Point 4326)**, phone, email,
   website, facebook, instagram, tiktok, whatsapp, menu_url, menu_source,
   google_maps_url, source_query, address_source, is_nepali, relevance,
-  enriched_at, place_enriched_at, website_checked_at, timestamps.
+  featured_rank, popular, description, enriched_at, place_enriched_at,
+  website_checked_at, timestamps.
+- **Places API columns (added 2026-06, populated by `reconcile-places.js`):**
+  `business_status` ('OPERATIONAL'/'CLOSED_TEMPORARILY'/'CLOSED_PERMANENTLY' —
+  drives open-status + hiding closed spots), attribute booleans
+  `serves_vegetarian`, `takeout`, `delivery`, `dine_in`, `outdoor_seating`,
+  `reservable`, `good_for_groups`, `serves_alcohol`, `serves_cocktails`,
+  `allows_dogs`, `wheelchair_accessible`; `parking` (friendly label) and
+  `editorial_summary` (Google's one-line blurb, 27 rows). Staging:
+  `places_api_raw` (jsonb, full Place Details) + `places_api_at` (timestamp).
 - **PostGIS:** `geom` is auto-synced from lat/lng by trigger `trg_set_restaurant_geom`;
   GiST index `idx_restaurants_geom` powers map bounds queries
   (`geom && ST_MakeEnvelope(w,s,e,n,4326)`). Enabled via `scraper/schema.sql`.
@@ -193,12 +239,17 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
   minutes-from-midnight, `[]`=closed, absent key=unknown, close>1440=past midnight.
   `opening_hours` is rebuilt from `_raw` by `scraper/hours.js` every pass, so
   re-parsing never needs a re-scrape. `hours_scraped_at` is the per-day-run key.
-  See `scraper/enrich-hours.js` and the "Opening hours" pipeline note below.
-- **PLANNED FILTER columns (exist, unpopulated):** `kid_friendly` BOOLEAN and
-  `live_music` BOOLEAN — for Explore filters. Source = Google place "About"
-  attributes, but the About panel is **empty in headless renders** (lite payload),
-  so there is no free scrape path. They stay NULL until a **Google Places API
-  key** (`places.get` → `goodForChildren`/`liveMusic`) backfills them.
+  **As of 2026-06-25 the full-week `opening_hours` (474 rows) is supplied by the
+  Places API via `reconcile-places.js`** (`regularOpeningHours.periods`), which
+  supersedes the headless single-day accumulation. See `scraper/enrich-hours.js`
+  and the "Opening hours" pipeline note above.
+- **Filter attribute columns — now POPULATED** (Places API, see above): the
+  Explore "flags" filter is backed by `serves_vegetarian`, `takeout`, `delivery`,
+  `dine_in`, `outdoor_seating`, `reservable`, `good_for_groups`, `serves_alcohol`,
+  `serves_cocktails`, `allows_dogs`, `wheelchair_accessible`. The legacy
+  `kid_friendly`/`live_music` columns are NOT in the Places API basic field set
+  and remain NULL; Google's `goodForChildren`/`liveMusic` would need an explicit
+  field-mask addition before they fill.
 - Indexes: state, suburb, postcode, (lat,lng).
 
 ## ⚠️ DB is the source of truth (do NOT re-run load-db.js)
@@ -206,7 +257,9 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
 The 400 non-Nepali rows were **hard-deleted** (`DELETE WHERE is_nepali IS FALSE`).
 `nepali-restaurants-au.json` still has all 1017, so re-running `load-db.js` would
 **resurrect them**. Treat Postgres as canonical; `load-db.js` was a one-time seed.
-Current table: **572 rows** (≈335 confirmed nepali + ≈237 review_needed). Category field cleaned: rating-string pollution backfilled+nulled, non-Nepali categories (Taiwanese, event venues, couriers, shops, etc.) removed.
+Current table: **542 rows** (all `is_nepali IS NOT FALSE`); **522 visible** after
+hiding the 20 `business_status = 'CLOSED_PERMANENTLY'` spots from public surfaces.
+Category field cleaned: rating-string pollution backfilled+nulled, non-Nepali categories (Taiwanese, event venues, couriers, shops, etc.) removed.
 
 ## Status (1017 scraped → 570 in directory) — ENRICHMENT COMPLETE
 
@@ -296,15 +349,16 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       ⚠️ Next 16 caching APIs changed; confirm `'use cache'`/header syntax against
       `node_modules/next/dist/docs/` before implementing (see `web/AGENTS.md`).
 
-- [ ] **Re-enable Explore filters once data is enriched.** The Open now / Sort /
-      Rating filter row is currently **hidden** in `ExploreClient.tsx` (gated with
-      `{false && (...)}`, search for "Filters (Open now / Sort / Rating) hidden")
-      because the backing data is too thin to be useful: opening hours are only
-      partway through the daily accumulation pass (Open now misfires), price is
-      sparse, and kid_friendly/live_music need the Places API. Finish enriching
-      hours + price (+ kid_friendly/live_music via Places API) THEN flip the gate
-      back on. The filter state (`openOnly`/`sort`/`minRating`/`price`) still wires
-      into the query, so re-enabling is just removing the `{false &&}` wrapper.
+- [ ] **Re-enable Explore filters (data is now mostly enriched).** The Open now /
+      Sort / Rating filter row is still **hidden** in `ExploreClient.tsx` (gated
+      with `{false && (...)}`, search for "Filters (Open now / Sort / Rating)
+      hidden"). The Places API pass (2026-06-25) filled the gaps that made this
+      thin: full-week `opening_hours` (474 rows, Open now is now reliable) and the
+      attribute booleans (vegetarian/takeout/delivery/dine-in/etc.); price is still
+      sparse (136 rows). The backend `flags` filter is already wired
+      (`FLAG_COLS`/`?flags=`). Remaining work is mostly the UI: design the filter
+      surface, then remove the `{false &&}` wrapper. `openOnly`/`sort`/`minRating`/
+      `price` still wire into the query.
 - [ ] Finish address enrichment to plateau (~95%+ where Google has data)
 - [ ] Backfill `review_count` + re-confirm `rating` from place pages (in progress —
       review counts render inconsistently on list cards, reliable on place pages)
@@ -341,11 +395,12 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       have storage/display licensing constraints; site photos have copyright
       considerations — confirm usage rights before storing.
 - [ ] Google reviews (deferred)
-- [~] **Opening hours** — in progress via `enrich-hours.js` (today-only daily
-      pass, see pipeline). Full week accumulates over ~7-9 daily runs. Price
-      backfills opportunistically (rarely renders headless). For the full week in
-      one shot + kid_friendly/live_music, use the Places API (`regularOpeningHours`,
-      `goodForChildren`, `liveMusic`) when a key is available.
+- [x] **Opening hours — DONE via Places API** (`reconcile-places.js`,
+      `regularOpeningHours`): full-week `opening_hours` on 474 rows, replacing the
+      headless single-day accumulation (`enrich-hours.js`, kept as a fallback).
+      Price/rating/review_count + attribute columns + `business_status` also
+      backfilled in the same pass. `goodForChildren`/`liveMusic` still need a
+      field-mask addition (next July re-run) before `kid_friendly`/`live_music` fill.
 - [ ] Menus/prices go stale — define a refresh cadence (`fetched_at` staleness)
 
 ## Conventions

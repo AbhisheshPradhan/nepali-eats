@@ -71,7 +71,10 @@ Vercel + Cloudflare; managed Postgres (Neon/Supabase) with PostGIS; images on
 Cloudflare R2 (set `NEXT_PUBLIC_MEDIA_BASE` to the R2 domain). Keep `.env` secret.
 
 ## Status
-570 curated restaurants. Coverage: address/geo ~100%, rating 99%, phone 95%,
-photos 76%, website 73%, review_count 57%, socials 42%, email 39%.
+542 curated restaurants (522 shown; 20 permanently-closed spots hidden).
+Coverage: address/geo ~100%, rating 99%, phone 95%, photos 76%, website 73%,
+review_count 57%, socials 42%, email 39%. A Google Places API pass (2026-06-25)
+added full-week opening hours, business status, and attribute flags (vegetarian,
+takeout, delivery, dine-in, outdoor seating, wheelchair access, etc.).
 Phase 2: auth, user reviews, menu Stage-2 (parse menus → items + prices, needs
-`ANTHROPIC_API_KEY`), kid-friendly / live-music filters, distance sort.
+`ANTHROPIC_API_KEY`), surfacing the attribute filters in Explore, distance sort.
