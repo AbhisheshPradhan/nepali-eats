@@ -135,6 +135,34 @@ Install the cron in `run-hours-daily.sh` to fill the week automatically. The ful
 weekly table and the About panel (kid_friendly/live_music) are NOT in the
 headless payload, so the rest needs the Places API.
 
+**Google Places API (New) pass:** `node scraper/enrich-places.js` — one Place
+Details call per restaurant (keyed off `google_place_id`), dumps the FULL raw
+JSON into staging column `places_api_raw` (+ stamps `places_api_at`). It does NOT
+touch any canonical column; mapping into real columns is the separate, reviewable
+`reconcile-places.js` step. Direct connection, NO proxy (it's an authed API).
+Hard `MAX_CALLS=600` guard in code, stops on 429, resumable (`places_api_at IS
+NULL`), ordered featured→rating→review_count. This supersedes the headless
+`enrich-hours.js` for hours and is the source for `kid_friendly`/`live_music`/
+price/full-week hours/fresh rating+review_count.
+
+> **⚠️ RE-RUN REMINDER — do this on/after 2026-07-01 (next calendar month).**
+> The first full pass (547 calls) ran 2026-06-25 and is FREE under the monthly
+> per-SKU free allowance (~1,000 calls, top SKU = Enterprise+Atmosphere). A second
+> 547-call run in the SAME month would tip ~94 calls over the free cap (~$2-3), so
+> WAIT until July when the allowance resets, then re-run for free. Before re-running:
+> 1. **Widen the field mask** in `enrich-places.js` to also capture (all in-tier, free):
+>    `utcOffsetMinutes` (correct open-now math across AU timezones/DST),
+>    `primaryType`, `types` (sharpen venue_type/tags), `googleMapsUri`,
+>    `formattedAddress`. (`editorialSummary` already in the mask.)
+> 2. **Reset the guard** to re-fetch everyone: `UPDATE restaurants SET places_api_at
+>    = NULL, places_api_raw = NULL;` then `node scraper/enrich-places.js`.
+> 3. **Backfill the 6 rows with NULL `google_place_id`** (484 Nepali Food Mandala,
+>    556 momo & chillies, 657 Langtang Lounge, 930 JOJOLAPA, 931 The Kathmandu
+>    Kitchen, 966 Whyalla MoMo House): resolve each via `places:searchText`
+>    (name + suburb) → store `google_place_id`, then they flow through the pass.
+> Do NOT request `photos` (separate per-fetch SKU = real cost) or `reviews`
+> (licensing constraints) without a deliberate decision.
+
 `scraper/build-table.js` / `scraper/enrich.js` are earlier file-based versions,
 superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
 
@@ -226,6 +254,19 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       site can be translated into Nepali (नेपाली). Covers UI strings, nav, and
       ideally restaurant blurbs. Plan for i18n routing (e.g. `/ne/...`) + a
       translation layer; English stays default.
+- [ ] **Restaurant blurb generator** — only ~36 rows have a `description` today
+      (12 hand-written + 24 paraphrased from Google `editorial_summary`; the other
+      ~93% are blank and fall back to `autoBlurb`). Build an LLM generator (needs
+      `ANTHROPIC_API_KEY`) that writes an original 1-2 sentence blurb per restaurant
+      in brand voice into `description`. Feed it everything we have as signal: name,
+      `venue_type`, `tags[]`, `suburb`/`state`, rating, and the Google
+      `editorial_summary` as a *hint only* (do NOT republish or store its text in a
+      displayed column — licensing; treat it as one input so output is "informed by",
+      not "derived from"). Apply the human-copy standard (no em/en dashes, AU
+      spelling, no AI-tell words; copywriting skill). Skip rows already non-NULL so
+      hand-written + paraphrased blurbs are preserved. Skip the non-Nepali leaks
+      flagged by `relevance`/`is_nepali`. Make it reviewable (stage to a column or
+      dry-run file before writing `description`).
 - [ ] **Photo carousel in the place card** — the Explore Mapbox popup card
       (`.ne-popup`, see `web/components/explore/MapView.tsx`) shows a single photo;
       add a swipeable/clickable carousel through the restaurant's `restaurant_photos`

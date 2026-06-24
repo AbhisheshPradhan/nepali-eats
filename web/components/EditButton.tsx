@@ -13,10 +13,15 @@ export function EditButton({
   slug,
   restaurantId,
   className,
+  variant = "inline",
 }: {
   slug: string;
   restaurantId: string;
   className?: string;
+  // "inline" = pencil + "Edit" text label.
+  // "floating" = white circular icon-only button overlaid on the cover photo
+  // (mirrors SaveButton's floating variant so the two sit together).
+  variant?: "inline" | "floating";
 }) {
   const { isSignedIn } = useUser();
   const [canEdit, setCanEdit] = useState(false);
@@ -39,6 +44,22 @@ export function EditButton({
   }, [isSignedIn, restaurantId]);
 
   if (!canEdit) return null;
+
+  if (variant === "floating") {
+    return (
+      <Link
+        href={`/admin/${slug}`}
+        aria-label="Edit this spot"
+        title="Edit"
+        className={cn(
+          "grid place-items-center w-10 h-10 rounded-full bg-white shadow-md ring-1 ring-black/5 transition-colors text-ink-900 hover:bg-paper-100 hover:text-chili-500",
+          className,
+        )}
+      >
+        <PencilSimple size={20} />
+      </Link>
+    );
+  }
 
   return (
     <Link

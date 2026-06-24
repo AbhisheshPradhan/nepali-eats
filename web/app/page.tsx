@@ -8,24 +8,19 @@ import { FeaturedCards } from "@/components/FeaturedCards";
 import { PopularCards } from "@/components/PopularCards";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { headers } from "next/headers";
 import {
 	featuredByState,
 	popularByState,
 	tagFacets,
 	totalCount,
 } from "@/lib/queries";
-import { capitalLatLng, metroFromState, STATE_CAPITAL } from "@/lib/format";
+import { capitalLatLng, metroFromState } from "@/lib/format";
+import { resolveState } from "@/lib/geo";
 
 export default async function HomePage() {
-	// Featured is state-scoped. Detect the visitor's state from IP (like Explore),
-	// defaulting to NSW / Sydney 2000 for non-AU or undetected visitors.
-	const h = await headers();
-	const detected =
-		h.get("x-vercel-ip-country") === "AU"
-			? (h.get("x-vercel-ip-country-region") || "").toUpperCase()
-			: "";
-	const state = detected in STATE_CAPITAL ? detected : "NSW";
+	// Featured is state-scoped. Resolve the visitor's state (admin override cookie
+	// -> IP geo -> NSW fallback), same as Explore.
+	const state = await resolveState();
 
 	const [gems, popular, tags, total] = await Promise.all([
 		featuredByState(state, 5),
@@ -92,7 +87,7 @@ export default async function HomePage() {
 				<div className="bg-ink-900 rounded-xl p-11 flex gap-8 items-center flex-wrap relative overflow-hidden">
 					<div className="flex-[1_1_320px]">
 						<Badge
-							tone="favourite"
+							tone="marigold"
 							solid
 						>
 							Our story

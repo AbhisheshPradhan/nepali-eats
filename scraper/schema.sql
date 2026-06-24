@@ -76,11 +76,39 @@ CREATE INDEX IF NOT EXISTS idx_restaurants_featured ON restaurants (state) WHERE
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS opening_hours_raw jsonb;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS hours_scraped_at  TIMESTAMPTZ;
 
+-- Media triage: timestamp of the last manual photo review pass (the "Mark
+-- reviewed" action in /admin/triage). NULL = not yet triaged; lets the triage
+-- queue hide spots whose photos have already been eyeballed.
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS photos_reviewed_at TIMESTAMPTZ;
+
 -- Planned Explore filters (forward-compat). No free source yet: the Google "About"
 -- panel is empty in headless renders, so these stay NULL until a Places API key
 -- backfills them. Default unknown = NULL.
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS kid_friendly BOOLEAN;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS live_music   BOOLEAN;
+
+-- Google Places API (New) staging + reconciled attributes.
+-- `places_api_raw` holds the full Place Details JSON (one call per restaurant,
+-- see scraper/enrich-places.js); the columns below are mapped from it by the
+-- reviewable scraper/reconcile-places.js step (NULL = unknown). The headless
+-- About panel can't source these, so they stay NULL until the API pass runs.
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS places_api_raw        jsonb;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS places_api_at         TIMESTAMPTZ;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS serves_vegetarian     BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS takeout               BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS delivery              BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS dine_in               BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS outdoor_seating       BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS reservable            BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS good_for_groups       BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS serves_alcohol        BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS serves_cocktails      BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS allows_dogs           BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS wheelchair_accessible BOOLEAN;
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS editorial_summary     TEXT;
+-- Parking: friendly label derived from Google parkingOptions in reconcile
+-- ('Free parking' when any free lot/street/garage option, else 'Paid parking').
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS parking               TEXT;
 
 -- One-time migration: move any legacy messy opening_hours strings into _raw so the
 -- parser becomes the only writer of canonical opening_hours.

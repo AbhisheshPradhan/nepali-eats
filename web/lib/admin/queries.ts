@@ -438,6 +438,35 @@ export async function setPrimaryPhoto(photoId: number): Promise<void> {
   );
 }
 
+// Media of a single gallery photo, used to promote it to the standalone cover
+// (copies storage_key/source/attribution into the restaurant's cover_* fields).
+export async function getPhotoMedia(photoId: number): Promise<{
+  storageKey: string;
+  source: string | null;
+  attribution: string | null;
+  restaurantId: number;
+} | null> {
+  const rows = await query<{
+    storage_key: string;
+    source: string | null;
+    attribution: string | null;
+    restaurant_id: number;
+  }>(
+    `SELECT storage_key, source, attribution, restaurant_id
+       FROM restaurant_photos WHERE id = $1`,
+    [photoId]
+  );
+  const r = rows[0];
+  return r
+    ? {
+        storageKey: r.storage_key,
+        source: r.source,
+        attribution: r.attribution,
+        restaurantId: r.restaurant_id,
+      }
+    : null;
+}
+
 // Hard-deletes a photo row, returning its storage_key so the caller can remove
 // the file. (Admin deletes are real removals, not the scraper's soft `removed`.)
 export async function deletePhotoRow(photoId: number): Promise<string | null> {
@@ -451,4 +480,153 @@ export async function deletePhotoRow(photoId: number): Promise<string | null> {
 export async function getRestaurantIdBySlug(slug: string): Promise<number | null> {
   const rows = await query<{ id: number }>(`SELECT id FROM restaurants WHERE slug = $1`, [slug]);
   return rows[0]?.id ?? null;
+}
+
+// ---- Media triage (batch photo + menu cleanup) -----------------------------
+// Powers /admin/triage: a prioritised, keyboard-driven feed for ripping through
+// photo QA (flag junk, set primary, add) and menu uploads across many spots.
+
+export type TriageMode = "photo" | "menu";
+
+export interface TriagePhoto {
+  id: number;
+  key: string;
+  source: string | null;
+  isPrimary: boolean;
+}
+export interface TriageItem {
+  id: number;
+  slug: string;
+  name: string;
+  suburb: string | null;
+  state: string | null;
+  rating: number | null;
+  reviewCount: number | null;
+  featuredRank: number | null;
+  website: string | null;
+  googleMapsUrl: string | null;
+  menuUrl: string | null;
+  coverKey: string | null;
+  coverSource: string | null;
+  logoKey: string | null;
+  photosReviewedAt: string | null;
+  photos: TriagePhoto[];
+  menuFiles: string[];
+}
+
+export interface TriageOpts {
+  mode: TriageMode;
+  state?: string;
+  hideReviewed?: boolean;
+}
+
+// Best/most-visible spots first (mirrors scraper/enrich-places.js):
+// featured first, then rating, then review count.
+const TRIAGE_ORDER =
+  "(r.featured_rank IS NOT NULL) DESC, r.rating DESC NULLS LAST, r.review_count DESC NULLS LAST";
+
+function triageWhere(opts: TriageOpts): { where: string; params: unknown[] } {
+  const cond: string[] = [];
+  const params: unknown[] = [];
+  const p = (v: unknown) => {
+    params.push(v);
+    return `$${params.length}`;
+  };
+  if (opts.state) cond.push(`r.state = ${p(opts.state)}`);
+  if (opts.mode === "menu") cond.push(`NOT ${COVERAGE.menu}`);
+  else if (opts.hideReviewed) cond.push(`r.photos_reviewed_at IS NULL`);
+  return { where: cond.length ? "WHERE " + cond.join(" AND ") : "", params };
+}
+
+export async function triageQueue(
+  opts: TriageOpts,
+  limit = 24,
+  offset = 0
+): Promise<TriageItem[]> {
+  const { where, params } = triageWhere(opts);
+  const rows = await query<Record<string, unknown>>(
+    `SELECT r.id, r.slug, r.name, r.suburb, r.state, r.rating, r.review_count,
+            r.featured_rank, r.website, r.google_maps_url, r.menu_url,
+            r.cover_key, r.cover_source, r.logo_key,
+            r.photos_reviewed_at,
+            COALESCE(
+              json_agg(
+                json_build_object(
+                  'id', p.id, 'key', p.storage_key,
+                  'source', p.source, 'isPrimary', p.is_primary
+                )
+                ORDER BY p.is_primary DESC, p.position ASC
+              ) FILTER (WHERE p.id IS NOT NULL),
+              '[]'
+            ) AS photos
+       FROM restaurants r
+       LEFT JOIN restaurant_photos p
+         ON p.restaurant_id = r.id AND NOT p.removed
+       ${where}
+       GROUP BY r.id
+       ORDER BY ${TRIAGE_ORDER}, r.id ASC
+       LIMIT ${Math.trunc(limit)} OFFSET ${Math.trunc(offset)}`,
+    params
+  );
+
+  const items: TriageItem[] = rows.map((row) => ({
+    id: Number(row.id),
+    slug: String(row.slug),
+    name: String(row.name),
+    suburb: (row.suburb as string) ?? null,
+    state: (row.state as string) ?? null,
+    rating: row.rating != null ? Number(row.rating) : null,
+    reviewCount: row.review_count != null ? Number(row.review_count) : null,
+    featuredRank: row.featured_rank != null ? Number(row.featured_rank) : null,
+    website: (row.website as string) ?? null,
+    googleMapsUrl: (row.google_maps_url as string) ?? null,
+    menuUrl: (row.menu_url as string) ?? null,
+    coverKey: (row.cover_key as string) ?? null,
+    coverSource: (row.cover_source as string) ?? null,
+    logoKey: (row.logo_key as string) ?? null,
+    photosReviewedAt:
+      row.photos_reviewed_at != null ? String(row.photos_reviewed_at) : null,
+    photos: row.photos as TriagePhoto[],
+    menuFiles: [],
+  }));
+
+  // Menu mode shows already-uploaded files; only the page's ~24 rows hit disk.
+  if (opts.mode === "menu") {
+    const { listMenuFiles } = await import("./storage");
+    await Promise.all(
+      items.map(async (it) => {
+        it.menuFiles = await listMenuFiles(it.id);
+      })
+    );
+  }
+  return items;
+}
+
+export async function triageCounts(
+  state?: string
+): Promise<{ photo: number; menu: number }> {
+  const cond = state ? `WHERE r.state = $1` : "";
+  const params = state ? [state] : [];
+  const rows = await query<{ photo: string; menu: string }>(
+    `SELECT
+       count(*) FILTER (WHERE r.photos_reviewed_at IS NULL)::text AS photo,
+       count(*) FILTER (WHERE NOT ${COVERAGE.menu})::text AS menu
+     FROM restaurants r ${cond}`,
+    params
+  );
+  return { photo: Number(rows[0].photo), menu: Number(rows[0].menu) };
+}
+
+export async function markPhotosReviewed(slug: string): Promise<void> {
+  await query(
+    `UPDATE restaurants SET photos_reviewed_at = now(), updated_at = now() WHERE slug = $1`,
+    [slug]
+  );
+}
+
+export async function unmarkPhotosReviewed(slug: string): Promise<void> {
+  await query(
+    `UPDATE restaurants SET photos_reviewed_at = NULL, updated_at = now() WHERE slug = $1`,
+    [slug]
+  );
 }

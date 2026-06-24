@@ -1,20 +1,16 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Fire, MapTrifold, Star } from "@phosphor-icons/react";
-import { Badge } from "@/components/ui/Badge";
+import { MapTrifold } from "@phosphor-icons/react";
+import { FeaturedBadge, PopularBadge } from "@/components/ui/PlaceBadges";
 import { Rating } from "@/components/ui/Rating";
 import { VenueType } from "@/components/ui/VenueType";
 import { PriceLevel } from "@/components/ui/PriceLevel";
 import { Avatar } from "@/components/Avatar";
+import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import type { Restaurant } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
-import {
-	todayHoursLine,
-	hueFromId,
-	haversineKm,
-	formatDistance,
-} from "@/lib/format";
+import { hueFromId, haversineKm, formatDistance } from "@/lib/format";
 import { useUserLocation, type LatLng } from "@/lib/useUserLocation";
 import { cn } from "@/lib/cn";
 
@@ -41,6 +37,7 @@ export type PlaceCardData = Pick<
 	logoKey?: string | null;
 	priceLevel?: number | null;
 	priceRange?: string | null;
+	businessStatus?: string | null;
 };
 
 // One card, two layouts:
@@ -85,7 +82,6 @@ export function PlaceCard({
 	const openNewTab = newTab ?? row;
 	// Prefer the brand logo as the card image; fall back to the hero photo.
 	const img = mediaUrl(r.logoKey) ?? mediaUrl(r.primaryPhoto);
-	const hoursToday = todayHoursLine(r.openingHours, r.state);
 	// Price as a 4-pip dollar scale: the level's signs filled, the rest muted.
 	const priceLevel = r.priceLevel ? Math.min(4, r.priceLevel) : 0;
 	const hue = hueFromId(r.id);
@@ -170,45 +166,18 @@ export function PlaceCard({
 				{/* Featured + Popular badges, stacked top-left */}
 				{(featured || popular) && (
 					<div className="absolute top-3 left-3 right-3 flex flex-col items-start gap-2">
-						{featured && (
-							<Badge
-								tone="favourite"
-								solid
-							>
-								<Star
-									size={13}
-									weight="fill"
-								/>
-								Featured
-							</Badge>
-						)}
-
-						{popular && (
-							<Badge
-								tone="closed"
-								solid
-							>
-								<Fire
-									size={13}
-									weight="fill"
-								/>
-								Popular
-							</Badge>
-						)}
+						{featured && <FeaturedBadge />}
+						{popular && <PopularBadge />}
 					</div>
 				)}
 
-				{/* today's opening-time chip (hidden until the row has hours) */}
-				{hoursToday && (
-					<span className="absolute bottom-3 left-3 max-w-[85%] inline-flex items-center gap-1.5 bg-ink-900/80 text-white text-[0.78rem] font-bold px-2.5 py-1 rounded-full">
-						<Clock
-							size={13}
-							weight="fill"
-							className="shrink-0"
-						/>
-						<span className="truncate min-w-0">{hoursToday}</span>
-					</span>
-				)}
+				{/* live open/closed status (hidden until mounted / when no hours) */}
+				<OpenStatusBadge
+					openingHours={r.openingHours}
+					state={r.state}
+					businessStatus={r.businessStatus ?? null}
+					className="absolute bottom-3 left-3 max-w-[85%]"
+				/>
 			</div>
 
 			{/* body */}

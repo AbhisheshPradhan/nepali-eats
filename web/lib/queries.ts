@@ -15,7 +15,9 @@ const COLS = `
   r.street, r.suburb, r.state, r.postcode, r.full_address, r.lat, r.lng,
   r.phone, r.email, r.website, r.facebook, r.instagram, r.tiktok, r.whatsapp,
   r.menu_url, r.menu_source, r.logo_key, r.google_maps_url, r.opening_hours, r.featured_rank,
-  r.popular, r.marked_ready, r.description,
+  r.popular, r.marked_ready, r.description, r.business_status,
+  r.live_music, r.kid_friendly, r.serves_vegetarian, r.parking,
+  r.serves_alcohol, r.wheelchair_accessible,
   r.cover_key, r.cover_source, r.cover_attribution,
   (r.featured_rank IS NOT NULL) AS is_featured,
   -- Lead photo = the standalone cover, falling back to the first gallery photo
@@ -64,6 +66,7 @@ function mapRow(row: any): Restaurant {
 		coverAttribution: row.cover_attribution,
 		googleMapsUrl: row.google_maps_url,
 		openingHours: row.opening_hours,
+		businessStatus: row.business_status,
 		primaryPhoto: row.primary_photo,
 		isFeatured: !!row.is_featured,
 		featuredRank:
@@ -71,6 +74,12 @@ function mapRow(row: any): Restaurant {
 		popular: !!row.popular,
 		markedReady: !!row.marked_ready,
 		description: row.description,
+		liveMusic: row.live_music ?? null,
+		kidFriendly: row.kid_friendly ?? null,
+		servesVegetarian: row.serves_vegetarian ?? null,
+		servesAlcohol: row.serves_alcohol ?? null,
+		wheelchairAccessible: row.wheelchair_accessible ?? null,
+		parking: row.parking ?? null,
 	};
 }
 
@@ -86,13 +95,41 @@ export interface ListOpts {
 	featured?: boolean;
 	notFeatured?: boolean;
 	popular?: boolean;
+	// Boolean attribute filters (Places API columns). Pass allowlisted tokens from
+	// FLAG_COLS; each adds `AND <col>` (true-only, null/false excluded). Backend is
+	// ready; the Explore UI for these is still scaffolded/commented pending design.
+	flags?: string[];
 	limit?: number;
 	offset?: number;
 	orderBy?: "popular" | "rating" | "name" | "newest" | "featured";
 }
 
+// Allowlist mapping filter token -> boolean column. Allowlisted so a token can
+// never inject SQL and only known columns are filterable.
+const FLAG_COLS: Record<string, string> = {
+	kid: "kid_friendly",
+	music: "live_music",
+	veg: "serves_vegetarian",
+	alcohol: "serves_alcohol",
+	cocktails: "serves_cocktails",
+	takeout: "takeout",
+	delivery: "delivery",
+	dinein: "dine_in",
+	outdoor: "outdoor_seating",
+	reservable: "reservable",
+	groups: "good_for_groups",
+	dogs: "allows_dogs",
+	wheelchair: "wheelchair_accessible",
+};
+
+// Permanently-closed spots (Google business_status) are hidden from every public
+// discovery surface. IS DISTINCT FROM keeps NULL/unknown statuses and temporarily-
+// closed; only CLOSED_PERMANENTLY is excluded. Detail pages still resolve so
+// existing inbound links don't 404.
+const NOT_CLOSED = "business_status IS DISTINCT FROM 'CLOSED_PERMANENTLY'";
+
 function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
-	const cond: string[] = [];
+	const cond: string[] = [`r.${NOT_CLOSED}`];
 	const params: unknown[] = [];
 	const p = (val: unknown) => {
 		params.push(val);
@@ -115,6 +152,11 @@ function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
 	if (o.featured) cond.push("r.featured_rank IS NOT NULL");
 	if (o.notFeatured) cond.push("r.featured_rank IS NULL");
 	if (o.popular) cond.push("r.popular");
+	if (o.flags)
+		for (const f of o.flags) {
+			const col = FLAG_COLS[f];
+			if (col) cond.push(`r.${col}`); // boolean column: true-only match
+		}
 	return { where: cond.length ? "WHERE " + cond.join(" AND ") : "", params };
 }
 
@@ -326,14 +368,14 @@ export async function restaurantSitemapEntries(): Promise<
 	return query<{ slug: string; lastmod: Date }>(
 		`SELECT slug, GREATEST(updated_at, enriched_at, created_at) AS lastmod
        FROM restaurants
-      WHERE is_nepali IS NOT FALSE`,
+      WHERE is_nepali IS NOT FALSE AND ${NOT_CLOSED}`,
 	);
 }
 
 export async function stateFacets(): Promise<Facet[]> {
 	const rows = await query<{ value: string; count: string }>(
 		`SELECT state AS value, count(*)::text AS count FROM restaurants
-      WHERE state IS NOT NULL GROUP BY state ORDER BY count(*) DESC`,
+      WHERE state IS NOT NULL AND ${NOT_CLOSED} GROUP BY state ORDER BY count(*) DESC`,
 	);
 	return rows.map((r) => ({ value: r.value, count: Number(r.count) }));
 }
@@ -343,7 +385,7 @@ export async function suburbFacets(
 ): Promise<(Facet & { state: string })[]> {
 	const rows = await query<{ value: string; state: string; count: string }>(
 		`SELECT suburb AS value, state, count(*)::text AS count FROM restaurants
-      WHERE suburb IS NOT NULL AND state IS NOT NULL
+      WHERE suburb IS NOT NULL AND state IS NOT NULL AND ${NOT_CLOSED}
       ${state ? "AND state = $1" : ""}
       GROUP BY suburb, state ORDER BY count(*) DESC`,
 		state ? [state] : [],
@@ -359,6 +401,7 @@ export async function tagFacets(): Promise<Facet[]> {
 	const rows = await query<{ value: string; count: string }>(
 		`SELECT t AS value, count(*)::text AS count
        FROM restaurants, unnest(tags) AS t
+      WHERE ${NOT_CLOSED}
       GROUP BY t ORDER BY count(*) DESC`,
 	);
 	return rows.map((r) => ({ value: r.value, count: Number(r.count) }));
@@ -401,7 +444,7 @@ export async function searchSuggest(q: string): Promise<Suggestion> {
 		state: string;
 	}>(
 		`SELECT slug, name, suburb, state FROM restaurants
-      WHERE name ILIKE $1 AND ($3::text IS NULL OR state ILIKE $3)
+      WHERE name ILIKE $1 AND ($3::text IS NULL OR state ILIKE $3) AND ${NOT_CLOSED}
       ORDER BY (name ILIKE $2) DESC, review_count DESC NULLS LAST
       LIMIT 6`,
 		[like, pre, stateLike],

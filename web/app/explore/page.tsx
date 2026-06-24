@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { ExploreClient } from "@/components/explore/ExploreClient";
 import { extentOf, getCardBySlug, type ListOpts } from "@/lib/queries";
 import type { Bbox } from "@/lib/types";
 import { STATE_CENTRE, capitalLatLng } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
+import { resolveState } from "@/lib/geo";
 
 export const metadata: Metadata = {
   title: "Explore Nepali food near you",
@@ -60,12 +60,10 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     venueType: sp.venue,
   };
 
-  // Detected AU state (IP). Drives the default "you are here" distance origin
-  // (capital CBD), regardless of which view the map opens in.
-  const h = await headers();
-  const country = h.get("x-vercel-ip-country") || "";
-  const region = (h.get("x-vercel-ip-country-region") || "").toUpperCase();
-  const ipState = country === "AU" && region in STATE_CENTRE ? region : "NSW";
+  // Resolved AU state (admin override cookie -> IP geo -> NSW). Drives the
+  // default "you are here" distance origin (capital CBD) and the default map
+  // camera, regardless of which view the map opens in.
+  const ipState = await resolveState();
   const defaultUserLoc = capitalLatLng(ipState);
 
   let center = SYDNEY;
@@ -110,10 +108,9 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
           ? `for ${sp.tag}`
           : "in this area";
   } else {
-    // no explicit location: open the map on the visitor's AU state metro centre
-    // (IP geo), falling back to Sydney for non-AU visitors or when geo is off.
-    const city = country === "AU" ? CITY[region] : undefined;
-    const c = city ?? CITY.NSW;
+    // no explicit location: open the map on the resolved AU state metro centre
+    // (admin override or IP geo), falling back to Sydney when undetected.
+    const c = CITY[ipState] ?? CITY.NSW;
     center = c.center;
     zoom = c.zoom;
     // the IP-geo view is just a starting camera; the client lists whatever the

@@ -29,6 +29,9 @@ export async function GET(request: Request) {
     suburb: sp.get("suburb") || undefined,
     priceLevel: Number(sp.get("price")) || undefined,
     minRating: Number(sp.get("rating")) || undefined,
+    // Boolean attribute filters: ?flags=veg,alcohol,kid (allowlisted in queries.ts).
+    // Backend is live; the Explore UI for these is still scaffolded/commented.
+    flags: (sp.get("flags") || "").split(",").map((s) => s.trim()).filter(Boolean),
     orderBy: SORT[sp.get("sort") || "featured"] || "popular",
   };
 

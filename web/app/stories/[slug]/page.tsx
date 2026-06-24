@@ -110,7 +110,7 @@ export default async function StoryPage({
 			</Link>
 			<div className="mb-3.5">
 				<Badge
-					tone="favourite"
+					tone="marigold"
 					solid
 				>
 					{s.category}

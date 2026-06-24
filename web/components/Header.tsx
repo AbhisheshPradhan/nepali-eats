@@ -12,6 +12,7 @@ import {
 } from "@phosphor-icons/react";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { AppUserButton } from "@/components/AppUserButton";
+import { AdminStateSwitcher } from "@/components/AdminStateSwitcher";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -119,14 +120,17 @@ export function Header() {
 
 					<div className="hidden min-[880px]:flex items-center gap-3">
 						{isAdmin && (
-							<Button
-								href="/admin"
-								size="sm"
-								variant="outline"
-								iconLeft={<ShieldCheck size={16} />}
-							>
-								Admin
-							</Button>
+							<>
+								<AdminStateSwitcher />
+								<Button
+									href="/admin"
+									size="sm"
+									variant="outline"
+									iconLeft={<ShieldCheck size={16} />}
+								>
+									Admin
+								</Button>
+							</>
 						)}
 						{isSignedIn ? (
 							<AppUserButton />
@@ -241,14 +245,17 @@ export function Header() {
 					{/* Account section, pinned to the bottom */}
 					<div className="mt-auto pt-10">
 						{isAdmin && (
-							<Link
-								href="/admin"
-								onClick={() => setOpen(false)}
-								className="mb-3 inline-flex w-full items-center gap-2 rounded-xl text-chili-500 font-display font-bold text-[1.1rem] px-4 py-3.5 bg-chili-100/60 hover:bg-chili-100"
-							>
-								<ShieldCheck size={20} />
-								Admin
-							</Link>
+							<div className="mb-3 flex flex-col gap-3">
+								<AdminStateSwitcher variant="mobile" />
+								<Link
+									href="/admin"
+									onClick={() => setOpen(false)}
+									className="inline-flex w-full items-center gap-2 rounded-xl text-chili-500 font-display font-bold text-[1.1rem] px-4 py-3.5 bg-chili-100/60 hover:bg-chili-100"
+								>
+									<ShieldCheck size={20} />
+									Admin
+								</Link>
+							</div>
 						)}
 						{isSignedIn ? (
 							<div className="border-t border-paper-300 pt-4 flex flex-col gap-0.5">

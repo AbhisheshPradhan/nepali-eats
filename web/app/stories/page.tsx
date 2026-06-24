@@ -39,7 +39,7 @@ export default function StoriesPage() {
 				<div className="p-8 md:pl-0 flex flex-col justify-center">
 					<div className="mb-3">
 						<Badge
-							tone="favourite"
+							tone="marigold"
 							solid
 						>
 							{featured.category}
@@ -91,7 +91,7 @@ export default function StoriesPage() {
 						/>
 						<div className="p-5 flex flex-col gap-2.5 flex-1">
 							<div>
-								<Badge tone="info">{p.category}</Badge>
+								<Badge tone="himalaya">{p.category}</Badge>
 							</div>
 							<h3 className="font-display font-bold text-[1.3rem] leading-tight text-ink-900">
 								{p.title}

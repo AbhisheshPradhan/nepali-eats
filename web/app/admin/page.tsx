@@ -90,6 +90,18 @@ export default async function AdminIndex({
 					Admin · data entry
 				</h1>
 				<div className="flex items-center gap-3 text-sm">
+					<Link
+						href="/admin/triage"
+						className="text-chili-600 hover:underline font-display font-bold"
+					>
+						Triage
+					</Link>
+					<Link
+						href="/admin/review"
+						className="text-chili-600 hover:underline font-display font-bold"
+					>
+						Review
+					</Link>
 					<div className="inline-flex rounded-md border border-ink-200 overflow-hidden">
 						<Link
 							href={viewHref("table")}

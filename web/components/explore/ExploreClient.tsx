@@ -155,6 +155,11 @@ export function ExploreClient({
 		p.set("sort", sort);
 		if (price) p.set("price", String(price));
 		if (minRating) p.set("rating", String(minRating));
+		// New attribute filters (UI scaffolded/commented below, pending design). When
+		// wired, hold the selected flag tokens in state and append them here, e.g.:
+		//   if (flags.length) p.set("flags", flags.join(","));
+		// Tokens: veg, alcohol, cocktails, kid, music, takeout, delivery, dinein,
+		// outdoor, reservable, groups, dogs, wheelchair (see FLAG_COLS in queries.ts).
 		if (fixed.tag) p.set("tag", fixed.tag);
 		if (fixed.venue) p.set("venue", fixed.venue);
 		// geographic scope is seed-only: drop it the moment we're in map-area mode so
@@ -441,6 +446,42 @@ export function ExploreClient({
 								]}
 							/>
 						</label>
+
+						{/*
+						  NEW ATTRIBUTE FILTERS — scaffolded, pending UI design.
+						  Backend is live (queries.ts FLAG_COLS + ?flags= param). To enable:
+						  hold selected tokens in state and append them in buildParams (see note
+						  there). Example chips for the data we now have from the Places API:
+
+						  {([
+						    ["veg", "Vegetarian"],
+						    ["alcohol", "Licensed"],
+						    ["cocktails", "Cocktails"],
+						    ["kid", "Kid-friendly"],
+						    ["music", "Live music"],
+						    ["takeout", "Takeaway"],
+						    ["delivery", "Delivery"],
+						    ["dinein", "Dine-in"],
+						    ["outdoor", "Outdoor seating"],
+						    ["reservable", "Reservable"],
+						    ["groups", "Good for groups"],
+						    ["dogs", "Dog-friendly"],
+						    ["wheelchair", "Wheelchair access"],
+						  ] as const).map(([token, label]) => (
+						    <button
+						      key={token}
+						      onClick={() => toggleFlag(token)}
+						      className={cn(
+						        "inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+						        flags.includes(token)
+						          ? "bg-coriander-500 border-coriander-500 text-white"
+						          : "bg-white border-sand-400 text-ink-700",
+						      )}
+						    >
+						      {label}
+						    </button>
+						  ))}
+						*/}
 					</div>
 				)}
 			</div>

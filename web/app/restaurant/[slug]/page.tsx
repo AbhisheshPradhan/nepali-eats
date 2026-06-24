@@ -16,9 +16,13 @@ import {
 	TiktokLogo,
 	WhatsappLogo,
 	Storefront,
-	Fire,
+	MusicNotes,
+	Baby,
+	Car,
+	Wine,
+	Wheelchair,
 } from "@phosphor-icons/react/dist/ssr";
-import { Badge } from "@/components/ui/Badge";
+import { FeaturedBadge, PopularBadge } from "@/components/ui/PlaceBadges";
 import { VenueType } from "@/components/ui/VenueType";
 import { Tag } from "@/components/ui/Tag";
 import { Rating } from "@/components/ui/Rating";
@@ -26,6 +30,7 @@ import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/Avatar";
 import { SaveButton } from "@/components/SaveButton";
 import { EditButton } from "@/components/EditButton";
+import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import DetailMap from "@/components/DetailMap";
 import { getRestaurantBySlug } from "@/lib/queries";
 import { mediaUrl } from "@/lib/media";
@@ -89,6 +94,49 @@ export default async function VenuePage({
 	const price = priceString(r);
 	const hue = hueFromId(r.id);
 	const where = [r.suburb, r.state].filter(Boolean).join(", ");
+
+	// "Good to know" facts from the Google Places reconcile pass. Only render a
+	// row when the attribute is known and true (NULL = unknown stays hidden). Veg
+	// falls back to the name-derived tag when the API didn't report it.
+	const facts: { icon: React.ReactNode; label: string }[] = [];
+	if (r.servesVegetarian === true || r.tags.includes("vegetarian"))
+		facts.push({
+			icon: (
+				<Leaf
+					size={20}
+					weight="fill"
+					className="text-coriander-500 shrink-0"
+				/>
+			),
+			label: "Vegetarian options",
+		});
+	if (r.kidFriendly === true)
+		facts.push({
+			icon: <Baby size={20} className="text-chili-500 shrink-0" />,
+			label: "Good for kids",
+		});
+	if (r.liveMusic === true)
+		facts.push({
+			icon: <MusicNotes size={20} className="text-chili-500 shrink-0" />,
+			label: "Live music",
+		});
+	if (r.parking)
+		facts.push({
+			icon: <Car size={20} className="text-chili-500 shrink-0" />,
+			label: r.parking,
+		});
+	if (r.servesAlcohol === true)
+		facts.push({
+			icon: <Wine size={20} className="text-chili-500 shrink-0" />,
+			label: "Serves alcohol",
+		});
+	if (r.wheelchairAccessible === true)
+		facts.push({
+			icon: (
+				<Wheelchair size={20} className="text-chili-500 shrink-0" />
+			),
+			label: "Wheelchair accessible",
+		});
 
 	const jsonLd = {
 		"@context": "https://schema.org",
@@ -163,6 +211,31 @@ export default async function VenuePage({
 		},
 	].filter((s) => s.href);
 
+	// Single icon-only contact row: socials, then website (second-last), email last.
+	const contactLinks = [
+		...socials.map((s) => ({ ...s, newTab: true })),
+		...(r.website
+			? [
+					{
+						href: r.website,
+						label: "Website",
+						icon: <Globe size={20} />,
+						newTab: true,
+					},
+				]
+			: []),
+		...(r.email
+			? [
+					{
+						href: `mailto:${r.email}`,
+						label: "Email",
+						icon: <EnvelopeSimple size={20} />,
+						newTab: false,
+					},
+				]
+			: []),
+	];
+
 	return (
 		<div className="max-w-295 mx-auto px-0 sm:px-6 pb-24 md:pb-4">
 			<script
@@ -197,12 +270,20 @@ export default async function VenuePage({
 					</div>
 				)}
 
-				{/* Save lives top-right of the cover as a floating round button */}
-				<SaveButton
-					restaurantId={String(r.id)}
-					variant="floating"
-					className="absolute top-3 right-3 z-10"
-				/>
+				{/* Edit (admins/owners only) + Save float top-right of the cover,
+				    Edit to the left of the favourite. EditButton renders nothing for
+				    visitors without edit rights, so Save sits alone for everyone else. */}
+				<div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+					<EditButton
+						slug={r.slug}
+						restaurantId={String(r.id)}
+						variant="floating"
+					/>
+					<SaveButton
+						restaurantId={String(r.id)}
+						variant="floating"
+					/>
+				</div>
 			</div>
 
 			{/* identity strip: logo overlaps the cover (when present); the name +
@@ -229,35 +310,13 @@ export default async function VenuePage({
 						{r.name}
 					</h1>
 					<div className="flex items-center gap-2.5 mb-2 flex-wrap">
-						{open !== null && (
-							<Badge
-								tone={open ? "open" : "closed"}
-								solid
-							>
-								{open ? "Open now" : "Closed"}
-							</Badge>
-						)}
-						{r.isFeatured && (
-							<Badge
-								tone="neutral"
-								solid
-								className="bg-ink-900"
-							>
-								Featured
-							</Badge>
-						)}
-						{r.popular && (
-							<Badge
-								tone="closed"
-								solid
-							>
-								<Fire
-									size={13}
-									weight="fill"
-								/>
-								Popular
-							</Badge>
-						)}
+						<OpenStatusBadge
+							openingHours={r.openingHours}
+							state={r.state}
+							businessStatus={r.businessStatus}
+						/>
+						{r.isFeatured && <FeaturedBadge />}
+						{r.popular && <PopularBadge />}
 					</div>
 				</div>
 			</div>
@@ -272,6 +331,11 @@ export default async function VenuePage({
 							className="text-[1rem]"
 						/>
 						<PriceLevel level={r.priceLevel} />
+						{r.priceRange && (
+							<span className="text-ink-500 font-semibold">
+								{r.priceRange}
+							</span>
+						)}
 						{r.rating != null && (
 							<Rating
 								value={r.rating}
@@ -307,13 +371,6 @@ export default async function VenuePage({
 								</span>
 							</div>
 						)}
-
-						<div className="ml-auto flex items-center gap-4">
-							<EditButton
-								slug={r.slug}
-								restaurantId={String(r.id)}
-							/>
-						</div>
 					</div>
 
 					{r.tags.length > 0 && (
@@ -459,38 +516,9 @@ export default async function VenuePage({
 								block
 								variant="outline"
 								iconLeft={<Phone size={18} />}
-								className="mb-2.5"
 							>
 								Call the kitchen
 							</Button>
-						)}
-						{r.website && (
-							<Button
-								href={r.website}
-								newTab
-								block
-								variant="ghost"
-								iconLeft={<Globe size={18} />}
-							>
-								Visit website
-							</Button>
-						)}
-
-						{socials.length > 0 && (
-							<div className="flex gap-2 sm:mt-4 pt-4 border-t border-paper-300">
-								{socials.map((s) => (
-									<a
-										key={s.label}
-										href={s.href!}
-										target="_blank"
-										rel="noopener noreferrer"
-										aria-label={s.label}
-										className="w-10 h-10 rounded-full grid place-items-center bg-paper-100 text-ink-700 hover:bg-chili-100 hover:text-chili-600 transition-colors"
-									>
-										{s.icon}
-									</a>
-								))}
-							</div>
 						)}
 
 						{/* hours */}
@@ -542,35 +570,45 @@ export default async function VenuePage({
 							</div>
 						)}
 
-						{/* facts */}
-						{r.email && r.tags.includes("vegetarian") && (
-							<div className="mt-2 pt-3 border-t border-paper-300">
-								{r.email && (
-									<div className="flex gap-3 items-center py-3 border-b border-paper-300">
-										<EnvelopeSimple
-											size={20}
-											className="text-chili-500 shrink-0"
-										/>
-										<a
-											href={`mailto:${r.email}`}
-											className="text-ink-700 hover:text-chili-600 break-all"
-										>
-											{r.email}
-										</a>
-									</div>
-								)}
-								{r.tags.includes("vegetarian") && (
-									<div className="flex gap-3 items-center py-3">
-										<Leaf
-											size={20}
-											className="text-coriander-500 shrink-0"
-											weight="fill"
-										/>
+						{/* Good to know — facts reconciled from the Google Places
+						    pass (see reconcile-places.js). Each row is independently
+						    gated; only true/known attributes show. */}
+						{facts.length > 0 && (
+							<div className="mt-4 pt-4 border-t border-paper-300">
+								{facts.map((f, i) => (
+									<div
+										key={i}
+										className="flex gap-3 items-center py-3"
+									>
+										{f.icon}
 										<span className="text-ink-700">
-											Vegetarian options available
+											{f.label}
 										</span>
 									</div>
-								)}
+								))}
+							</div>
+						)}
+
+						{/* contact: website, socials, email as one icon-only row */}
+						{contactLinks.length > 0 && (
+							<div className="mt-4 pt-4 border-t border-paper-300 flex gap-2 flex-wrap justify-center">
+								{contactLinks.map((c) => (
+									<a
+										key={c.label}
+										href={c.href!}
+										{...(c.newTab
+											? {
+													target: "_blank",
+													rel: "noopener noreferrer",
+												}
+											: {})}
+										aria-label={c.label}
+										title={c.label}
+										className="w-10 h-10 rounded-full grid place-items-center bg-paper-100 text-ink-700 hover:bg-chili-100 hover:text-chili-600 transition-colors"
+									>
+										{c.icon}
+									</a>
+								))}
 							</div>
 						)}
 					</div>

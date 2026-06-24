@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { readStateOverride } from "@/lib/stateOverride";
 
 export type LatLng = [number, number];
 
@@ -49,6 +50,15 @@ export function UserLocationProvider({ children }: { children: ReactNode }) {
   const [loc, setLoc] = useState<LatLng | null>(null);
 
   useEffect(() => {
+    // Admin state-preview: simulate a fresh visitor in the previewed state with
+    // NO shared location, so featured/popular/distances reflect that state and
+    // aren't overwritten by the admin's real/stored location. Ignore stored loc,
+    // geolocation, and storeLoc events until the override is cleared.
+    if (readStateOverride()) {
+      setLoc(null);
+      return;
+    }
+
     const stored = readStoredLoc();
     if (stored) setLoc(stored);
 

@@ -40,7 +40,10 @@ function zonedNow(
 	}).formatToParts(now);
 	const wd = parts.find((p) => p.type === "weekday")?.value ?? "Sun";
 	let hr = parseInt(parts.find((p) => p.type === "hour")?.value ?? "0", 10);
-	const mn = parseInt(parts.find((p) => p.type === "minute")?.value ?? "0", 10);
+	const mn = parseInt(
+		parts.find((p) => p.type === "minute")?.value ?? "0",
+		10,
+	);
 	if (hr === 24) hr = 0; // some runtimes emit "24" at midnight
 	const day = DAY_ABBR.indexOf(wd);
 	return { day: day < 0 ? 0 : day, min: hr * 60 + mn };
@@ -119,36 +122,52 @@ export function todayHoursLine(
 	return slots.length ? fmtSlots(slots) : "Closed";
 }
 
-// Open/closed status with the next transition. Examples:
-//   { open: true,  label: "Open now · closes at 10pm" }
-//   { open: false, label: "Opens 3pm tomorrow" }   (or "Opens 9am Mon" / "Opens 3pm")
-// Returns null when there's no hours data so the card can hide the line.
+// Live open/closed status with the next transition, for the detail/card badge.
+// `kind` is the domain state (NOT a colour — the badge maps it to one): "open",
+// "closing" (open, closing soon), "opening" (closed now, opens later), "closed"
+// (no upcoming hours). Examples:
+//   { kind: "open",    label: "Open till 10pm" }
+//   { kind: "closing", label: "Closes 10pm" }            (open, <60 min to close)
+//   { kind: "opening", label: "Opens today at 5pm" }
+//   { kind: "opening", label: "Opens tomorrow at 9am" }
+//   { kind: "opening", label: "Opens Tue at 11am" }
+// Returns null when there's no hours data so the badge can hide.
+const CLOSING_SOON_MIN = 60;
 export function openStatus(
 	openingHours: OpeningHours | null,
 	state: string | null,
 	now = new Date(),
-): { open: boolean; label: string } | null {
+): { kind: "open" | "closing" | "opening" | "closed"; label: string } | null {
 	if (!openingHours) return null;
 	const { day, min } = zonedNow(state, now);
 
 	// Open right now? -> show this slot's closing time (yesterday's spillover first).
+	const openUntil = (c: number) => {
+		const minsLeft = (c > 1440 ? c - 1440 : c) - min;
+		return minsLeft <= CLOSING_SOON_MIN
+			? { kind: "closing" as const, label: `Closes ${fmtTime(c)}` }
+			: { kind: "open" as const, label: `Open till ${fmtTime(c)}` };
+	};
 	for (const [, c] of openingHours[CANON[(day + 6) % 7]] ?? [])
-		if (c > 1440 && min < c - 1440)
-			return { open: true, label: `Open now · closes at ${fmtTime(c)}` };
+		if (c > 1440 && min < c - 1440) return openUntil(c);
 	for (const [o, c] of openingHours[CANON[day]] ?? [])
-		if (min >= o && min < Math.min(c, 1440))
-			return { open: true, label: `Open now · closes at ${fmtTime(c)}` };
+		if (min >= o && min < Math.min(c, 1440)) return openUntil(c);
 
 	// Otherwise find the next opening within the coming week.
 	for (let i = 0; i < 8; i++) {
 		const d = (day + i) % 7;
 		for (const [open] of openingHours[CANON[d]] ?? []) {
 			if (i === 0 && min >= open) continue; // already past this opening today
-			const when = i === 0 ? "" : i === 1 ? " tomorrow" : ` ${DAY_ABBR[d]}`;
-			return { open: false, label: `Opens ${fmtTime(open)}${when}` };
+			const when =
+				i === 0
+					? "today at"
+					: i === 1
+						? "tomorrow at"
+						: `${DAY_ABBR[d]} at`;
+			return { kind: "opening", label: `Opens ${when} ${fmtTime(open)}` };
 		}
 	}
-	return { open: false, label: "Closed" };
+	return { kind: "closed", label: "Closed" };
 }
 
 export function weekSchedule(
@@ -162,7 +181,12 @@ export function weekSchedule(
 		const slots = openingHours[CANON[i]];
 		return {
 			day: DAY_FULL[i],
-			range: slots === undefined ? "—" : slots.length ? fmtSlots(slots) : "Closed",
+			range:
+				slots === undefined
+					? "—"
+					: slots.length
+						? fmtSlots(slots)
+						: "Closed",
 			today: i === todayIdx,
 		};
 	});

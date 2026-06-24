@@ -54,12 +54,20 @@ export default async function AdminReview({
 				<h1 className="font-display font-extrabold text-2xl text-ink-900">
 					Admin · review
 				</h1>
-				<Link
-					href="/admin"
-					className="text-sm text-chili-600 hover:underline"
-				>
-					← Coverage table
-				</Link>
+				<div className="flex items-center gap-3 text-sm">
+					<Link
+						href="/admin/triage"
+						className="text-chili-600 hover:underline"
+					>
+						Triage
+					</Link>
+					<Link
+						href="/admin"
+						className="text-chili-600 hover:underline"
+					>
+						← Coverage table
+					</Link>
+				</div>
 			</div>
 			<p className="text-ink-500 text-sm mb-5">
 				Visual pass for false positives and photo QA. Keep / exclude is
