@@ -226,6 +226,10 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       site can be translated into Nepali (नेपाली). Covers UI strings, nav, and
       ideally restaurant blurbs. Plan for i18n routing (e.g. `/ne/...`) + a
       translation layer; English stays default.
+- [ ] **Photo carousel in the place card** — the Explore Mapbox popup card
+      (`.ne-popup`, see `web/components/explore/MapView.tsx`) shows a single photo;
+      add a swipeable/clickable carousel through the restaurant's `restaurant_photos`
+      so users can flick through multiple shots without opening the detail page.
 - [ ] **Add a Spot** (`/add-a-spot` submission flow) — post-launch feature.
 - [ ] **Login / auth** — post-launch feature (gates reviews, claims, saved spots).
 - [ ] **Claim a restaurant** — claim portal so an owner can claim their listing

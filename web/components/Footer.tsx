@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 const FLAGS = [
 	"bg-flag-blue",
@@ -34,7 +33,11 @@ function Col({
 	);
 }
 
-export function Footer() {
+export function Footer({
+	clearMobileActionBar = false,
+}: {
+	clearMobileActionBar?: boolean;
+}) {
 	return (
 		<footer className="bg-ink-900 text-white mt-16">
 			<div
@@ -50,13 +53,7 @@ export function Footer() {
 			</div>
 			<div className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-12 pb-9 flex gap-12 flex-wrap">
 				<div className="max-w-[320px]">
-					<div className="flex items-center gap-2.5 mb-3">
-						<Image
-							src="/logo-momo.svg"
-							alt=""
-							width={36}
-							height={36}
-						/>
+					<div className="mb-3">
 						<span className="font-display font-extrabold text-[1.35rem]">
 							<span className="text-marigold-500">Nepali</span>
 							<span className="text-white">Eats</span>
@@ -98,9 +95,21 @@ export function Footer() {
 					/>
 				</div>
 			</div>
-			<div className="border-t border-white/10 py-[18px] px-4 sm:px-6 text-center text-paper-200 text-[0.85rem]">
-				Made with love for Nepali food in Australia · © 2026 NepaliEats
-			</div>
+			<div
+				className={`border-t border-white/10 pt-[18px] px-4 sm:px-6 text-center text-paper-200 text-[0.85rem] ${
+					clearMobileActionBar
+						? "pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-[18px]"
+						: "pb-[18px]"
+				}`}
+			>
+				Made with love for Nepali food in Australia · © 2026 NepaliEats ·{" "}
+					<Link
+						href="/disclaimer"
+						className="hover:text-white transition-colors"
+					>
+						Disclaimer
+					</Link>
+				</div>
 		</footer>
 	);
 }

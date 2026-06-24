@@ -144,3 +144,51 @@
 	padding-top: 0.6rem !important;
 	padding-bottom: 0.6rem !important;
 }
+
+/* ============================================================
+   Clerk sign-in / sign-up modal — match the NepaliEats brand.
+   Appearance config lives in app/layout.tsx; these rules win the
+   specificity fights Clerk's internal CSS otherwise takes.
+   ============================================================ */
+
+/* Backdrop: warm dark wash instead of cold grey. */
+.cl-modalBackdrop {
+	background: rgba(43, 26, 18, 0.55) !important;
+}
+
+/* Card surface: cream paper, warm-tinted shadow, soft paper border. */
+.cl-card,
+.cl-cardBox {
+	background: var(--color-paper-50) !important;
+	border: 1px solid var(--color-paper-200) !important;
+	border-radius: var(--radius-lg) !important;
+	box-shadow: var(--shadow-lg) !important;
+}
+
+/* The "Secured by Clerk" / dev-mode footer strip: warm paper, not grey. */
+.cl-footer {
+	background: var(--color-paper-100) !important;
+	border-top: 1px solid var(--color-paper-200) !important;
+}
+
+/* Close button: round, warm hover. */
+.cl-modalCloseButton {
+	color: var(--color-ink-500) !important;
+	border-radius: 999px !important;
+}
+.cl-modalCloseButton:hover {
+	color: var(--color-ink-900) !important;
+	background: var(--color-paper-100) !important;
+}
+
+/* Primary CTA: brand-red pop shadow. */
+.cl-formButtonPrimary {
+	box-shadow: var(--shadow-pop) !important;
+}
+
+/* Inputs: dumpling-round with paper border, chili focus ring. */
+.cl-formFieldInput:focus,
+.cl-formFieldInput:focus-visible {
+	box-shadow: 0 0 0 3px var(--color-chili-100) !important;
+	border-color: var(--color-chili-300) !important;
+}

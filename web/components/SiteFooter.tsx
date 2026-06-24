@@ -7,5 +7,7 @@ import { Footer } from "./Footer";
 export function SiteFooter() {
   const pathname = usePathname();
   if (pathname.startsWith("/explore")) return null;
-  return <Footer />;
+  // Restaurant detail pages render a phone-only fixed action bar; pad the
+  // footer so its disclaimer links clear it on mobile.
+  return <Footer clearMobileActionBar={pathname.startsWith("/restaurant/")} />;
 }

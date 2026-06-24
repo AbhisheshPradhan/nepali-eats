@@ -30,31 +30,31 @@ export function PopularCards({
 	useEffect(() => {
 		if (!loc) return;
 		const ctrl = new AbortController();
-		fetch(`/api/popular?lat=${loc[0]}&lng=${loc[1]}`, {
-			signal: ctrl.signal,
-		})
-			.then((r) => r.json())
-			.then(
-				(d: {
-					popular: Restaurant[];
-					state: string;
-					metro: string;
-				}) => {
-					if (!d?.state) return;
-					// only re-render when the visitor's real state differs from what's shown
-					setView((prev) =>
-						d.state === prev.state
-							? prev
-							: {
-									popular: d.popular,
-									state: d.state,
-									metro: d.metro,
-								},
-					);
-				},
-			)
-			.catch(() => {});
-		return () => ctrl.abort();
+		(async () => {
+			try {
+				const r = await fetch(`/api/popular?lat=${loc[0]}&lng=${loc[1]}`, {
+					signal: ctrl.signal,
+				});
+				const d: { popular: Restaurant[]; state: string; metro: string } =
+					await r.json();
+				if (!d?.state) return;
+				// only re-render when the visitor's real state differs from what's shown
+				setView((prev) =>
+					d.state === prev.state
+						? prev
+						: {
+								popular: d.popular,
+								state: d.state,
+								metro: d.metro,
+							},
+				);
+			} catch (err) {
+				if ((err as Error)?.name !== "AbortError") {
+					// network/parse error: keep the SSR'd view, nothing to do
+				}
+			}
+		})();
+		return () => ctrl.abort(new DOMException("unmounted", "AbortError"));
 	}, [loc?.[0], loc?.[1]]);
 
 	// Nothing flagged for this state → no section at all.

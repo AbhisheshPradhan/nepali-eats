@@ -225,7 +225,7 @@ export default async function VenuePage({
 					</div>
 				)}
 				<div className="min-w-0">
-					<h1 className="font-display font-extrabold text-[2.2rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
+					<h1 className="font-display font-extrabold text-[1.4rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
 						{r.name}
 					</h1>
 					<div className="flex items-center gap-2.5 mb-2 flex-wrap">

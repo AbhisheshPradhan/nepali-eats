@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Fire, MapTrifold } from "@phosphor-icons/react";
+import { Clock, Fire, MapTrifold, Star } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
 import { VenueType } from "@/components/ui/VenueType";
@@ -171,10 +171,18 @@ export function PlaceCard({
 				{(featured || popular) && (
 					<div className="absolute top-3 left-3 right-3 flex flex-col items-start gap-2">
 						{featured && (
-							<span className="inline-flex items-center bg-ink-900 text-white font-body font-bold text-[0.78rem] tracking-[0.02em] px-3 py-1 rounded-md shadow-sm whitespace-nowrap">
+							<Badge
+								tone="favourite"
+								solid
+							>
+								<Star
+									size={13}
+									weight="fill"
+								/>
 								Featured
-							</span>
+							</Badge>
 						)}
+
 						{popular && (
 							<Badge
 								tone="closed"

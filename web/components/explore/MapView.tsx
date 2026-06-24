@@ -131,6 +131,23 @@ export default function MapView({
     mapRef.current?.flyTo({ center: [center[1], center[0]], zoom, duration: 800 });
   }, [center, zoom]);
 
+  // Auto-open the popup for the selected spot (a focus search, or "View on map")
+  // as if its pin had been clicked. On a focus search the pin isn't in `pins` at
+  // mount, so we wait for it to arrive, then open once. `lastAutoSelect` keeps it
+  // from reopening on every refetch/pan or after the user closes it manually.
+  const lastAutoSelect = useRef<number | null>(null);
+  useEffect(() => {
+    if (selectedId == null) {
+      lastAutoSelect.current = null;
+      return;
+    }
+    if (selectedId === lastAutoSelect.current) return;
+    const pin = pins.find((p) => p.id === selectedId);
+    if (!pin) return; // not loaded into view yet; reopen when it arrives
+    lastAutoSelect.current = selectedId;
+    setPopup(pin);
+  }, [selectedId, pins]);
+
   // When the map becomes visible (mobile list→map toggle), the container has just
   // gone from display:none to its full height. Resize on the next frame so the
   // canvas/tiles fill it instead of keeping the zero/short size from when hidden.

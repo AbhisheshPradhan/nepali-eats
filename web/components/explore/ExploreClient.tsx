@@ -484,7 +484,17 @@ export function ExploreClient({
 								size={36}
 								className="mx-auto mb-2"
 							/>
-							No spots in view. Pan the map or zoom out.
+							<p>
+								No spots in this area. Open the map to find
+								some nearby.
+							</p>
+							<button
+								onClick={() => setViewMode("map")}
+								className="md:hidden mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
+							>
+								<MapTrifold size={20} />
+								Open map
+							</button>
 						</div>
 					) : (
 						<div className="grid grid-cols-1 gap-3">
@@ -545,7 +555,14 @@ export function ExploreClient({
 					/>
 				</div>
 
-				<div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden">
+				{/* Hide the floating toggle while the list is empty — the empty
+				    state shows its own "Open map" button right under the copy. */}
+				<div
+					className={cn(
+						"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
+						viewMode === "list" && hasLoaded && shown.length === 0 && "hidden",
+					)}
+				>
 					<button
 						onClick={() =>
 							setViewMode(viewMode === "map" ? "list" : "map")

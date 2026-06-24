@@ -82,7 +82,9 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   if (focused && focused.lat != null && focused.lng != null) {
     const { lat, lng } = focused;
     center = [lat, lng];
-    zoom = 14;
+    // past clusterMaxZoom (14) so the searched spot shows as its own pin,
+    // centred, instead of being swallowed into a cluster in dense areas.
+    zoom = 16;
     areaLabel = `Search result for "${focused.name}"`;
     focusId = focused.id;
   } else if (sp.lat && sp.lng) {

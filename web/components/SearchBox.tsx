@@ -46,6 +46,8 @@ export function SearchBox({
 	const rootRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [dropTop, setDropTop] = useState<number | null>(null);
+	// index of the keyboard-highlighted option in the flattened list (-1 = none)
+	const [activeIndex, setActiveIndex] = useState(-1);
 
 	// fetch suggestions after 3 chars (debounced)
 	useEffect(() => {
@@ -94,6 +96,7 @@ export function SearchBox({
 		setValue(v);
 		setSelected(null);
 		setOpen(true);
+		setActiveIndex(-1); // typing resets the keyboard highlight
 	};
 
 	// Enter / Search button. Priority: an explicit pick > the top live suggestion
@@ -144,6 +147,64 @@ export function SearchBox({
 	const trimmed = value.trim();
 	const isPostcode = /^\d{4}$/.test(trimmed);
 
+	// Flattened, in-render-order list of options the arrow keys walk through:
+	// locations, then restaurants, then the no-results fallback row. The index of
+	// each item here is its keyboard position (and aria-activedescendant target).
+	type Opt =
+		| { kind: "location"; loc: (typeof sugg.locations)[number] }
+		| { kind: "restaurant"; r: (typeof sugg.restaurants)[number] }
+		| { kind: "noResults" };
+	const flatOptions: Opt[] = [
+		...sugg.locations.map((loc) => ({ kind: "location", loc }) as const),
+		...sugg.restaurants.map((r) => ({ kind: "restaurant", r }) as const),
+		...(noResults ? [{ kind: "noResults" } as const] : []),
+	];
+
+	const pickOption = (opt: Opt) => {
+		if (opt.kind === "location") pickLocation(opt.loc);
+		else if (opt.kind === "restaurant") pickRestaurant(opt.r);
+		else if (embedded) change(""); // no-results row: clear the filter in place
+		else {
+			setOpen(false);
+			router.push("/explore");
+		}
+	};
+
+	const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "ArrowDown") {
+			if (!showDropdown) return setOpen(true);
+			if (flatOptions.length === 0) return;
+			e.preventDefault();
+			setActiveIndex((i) => Math.min(i + 1, flatOptions.length - 1));
+		} else if (e.key === "ArrowUp") {
+			if (!showDropdown || flatOptions.length === 0) return;
+			e.preventDefault();
+			setActiveIndex((i) => Math.max(i - 1, 0));
+		} else if (e.key === "Enter") {
+			// a highlighted option wins over the form's default submit
+			if (showDropdown && flatOptions[activeIndex]) {
+				e.preventDefault();
+				pickOption(flatOptions[activeIndex]);
+			}
+		} else if (e.key === "Escape") {
+			setOpen(false);
+			setActiveIndex(-1);
+		}
+	};
+
+	// keep the highlight in range as results change (and clear it when they do)
+	useEffect(() => {
+		setActiveIndex(-1);
+	}, [sugg]);
+
+	// scroll the highlighted row into view inside the (scrollable) dropdown
+	useEffect(() => {
+		if (activeIndex < 0) return;
+		rootRef.current
+			?.querySelector(`[data-opt-index="${activeIndex}"]`)
+			?.scrollIntoView({ block: "nearest" });
+	}, [activeIndex]);
+
 	// Anchor the dropdown to the bottom of the INPUT, not the whole form. On mobile
 	// the Search button wraps onto its own full-width line, so the form is taller
 	// than the input; pinning to the input keeps the menu directly under the field
@@ -192,7 +253,17 @@ export function SearchBox({
 						);
 					}}
 					placeholder={placeholder}
-					aria-label="Search Nepali food"
+					onKeyDown={onKeyDown}
+						aria-label="Search Nepali food"
+						role="combobox"
+						aria-expanded={showDropdown}
+						aria-controls="searchbox-listbox"
+						aria-autocomplete="list"
+						aria-activedescendant={
+							showDropdown && activeIndex >= 0
+								? `searchbox-opt-${activeIndex}`
+								: undefined
+						}
 					className={cn(
 						"flex-1 bg-transparent outline-none focus-visible:shadow-none font-body text-ink-900 min-w-0 placeholder:text-ink-500",
 						hero ? "text-[1.1rem] py-2.5" : "text-base",
@@ -200,6 +271,8 @@ export function SearchBox({
 				/>
 				<Button
 					type="submit"
+					// gated: only a real pick from the dropdown enables Search
+					disabled={!selected}
 					size={hero ? "md" : "sm"}
 					iconRight={
 						hero ? (
@@ -217,8 +290,10 @@ export function SearchBox({
 				</Button>
 			</form>
 
-			{showDropdown && (
+			{showDropdown && (loading || flatOptions.length > 0) && (
 				<div
+					id="searchbox-listbox"
+					role="listbox"
 					style={{ top: dropTop ?? undefined }}
 					className="absolute left-0 right-0 bg-white rounded-lg shadow-lg border border-paper-300 overflow-hidden z-[2000] max-h-[400px] overflow-y-auto text-left"
 					onMouseDown={(e) => {
@@ -227,17 +302,34 @@ export function SearchBox({
 						if (blurTimer.current) clearTimeout(blurTimer.current);
 					}}
 				>
+					{loading && flatOptions.length === 0 && (
+						<div className="flex items-center gap-2.5 px-4 py-3 text-ink-500">
+							<MagnifyingGlass
+								className="shrink-0 animate-pulse"
+								size={18}
+							/>
+							<span>Searching…</span>
+						</div>
+					)}
 					{sugg.locations.length > 0 && (
 						<div className="eyebrow text-ink-500 px-4 pt-2 pb-1 bg-paper-50">
 							Locations
 						</div>
 					)}
-					{sugg.locations.map((l) => (
+					{sugg.locations.map((l, i) => (
 						<button
 							type="button"
 							key={`${l.suburb}-${l.state}`}
+							id={`searchbox-opt-${i}`}
+							role="option"
+							aria-selected={activeIndex === i}
+							data-opt-index={i}
+							onMouseMove={() => setActiveIndex(i)}
 							onClick={() => pickLocation(l)}
-							className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 hover:bg-paper-100 cursor-pointer"
+							className={cn(
+								"flex items-center gap-2.5 w-full text-left px-4 py-2.5 cursor-pointer",
+								activeIndex === i ? "bg-paper-100" : "hover:bg-paper-100",
+							)}
 						>
 							<MapPin
 								className="text-chili-500 shrink-0"
@@ -261,12 +353,22 @@ export function SearchBox({
 							Restaurants
 						</div>
 					)}
-					{sugg.restaurants.map((r) => (
+					{sugg.restaurants.map((r, i) => {
+						const idx = sugg.locations.length + i;
+						return (
 						<button
 							type="button"
 							key={r.slug}
+							id={`searchbox-opt-${idx}`}
+							role="option"
+							aria-selected={activeIndex === idx}
+							data-opt-index={idx}
+							onMouseMove={() => setActiveIndex(idx)}
 							onClick={() => pickRestaurant(r)}
-							className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 hover:bg-paper-100 cursor-pointer"
+							className={cn(
+								"flex items-center gap-2.5 w-full text-left px-4 py-2.5 cursor-pointer",
+								activeIndex === idx ? "bg-paper-100" : "hover:bg-paper-100",
+							)}
 						>
 							<ForkKnife
 								className="text-chili-500 shrink-0"
@@ -283,11 +385,27 @@ export function SearchBox({
 								</span>
 							</span>
 						</button>
-					))}
+						);
+					})}
 
 					{noResults && (
 						<button
 							type="button"
+							id={`searchbox-opt-${sugg.locations.length + sugg.restaurants.length}`}
+							role="option"
+							aria-selected={
+								activeIndex ===
+								sugg.locations.length + sugg.restaurants.length
+							}
+							data-opt-index={
+								sugg.locations.length + sugg.restaurants.length
+							}
+							onMouseMove={() =>
+								setActiveIndex(
+									sugg.locations.length +
+										sugg.restaurants.length,
+								)
+							}
 							onClick={() => {
 								if (embedded) {
 									change(""); // already on the map; just reset the filter
@@ -296,7 +414,13 @@ export function SearchBox({
 									router.push("/explore");
 								}
 							}}
-							className="flex items-center gap-2.5 w-full text-left px-4 py-3 hover:bg-paper-100 cursor-pointer"
+							className={cn(
+								"flex items-center gap-2.5 w-full text-left px-4 py-3 cursor-pointer",
+								activeIndex ===
+									sugg.locations.length + sugg.restaurants.length
+									? "bg-paper-100"
+									: "hover:bg-paper-100",
+							)}
 						>
 							<MapPin
 								className="text-chili-500 shrink-0"
