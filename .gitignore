@@ -40,3 +40,6 @@ nepali-restaurants-au.csv
 # os / editor / logs
 .DS_Store
 *.log
+
+# Neon/Postgres dumps (data snapshots)
+backups/

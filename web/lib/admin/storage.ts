@@ -1,17 +1,74 @@
-import { mkdir, writeFile, unlink, rm, rmdir, readdir, copyFile } from "node:fs/promises";
 import path from "node:path";
+import {
+  S3Client,
+  PutObjectCommand,
+  CopyObjectCommand,
+  DeleteObjectCommand,
+  DeleteObjectsCommand,
+  ListObjectsV2Command,
+} from "@aws-sdk/client-s3";
 
-// Local media store for the admin uploader. Files live under the shared project
-// `media/` dir (same tree the scraper writes + the dev symlink web/public/media
-// serves), keyed exactly like scraped photos so mediaUrl() resolves them in dev
-// and R2 in prod. This is the ONE seam to swap for R2 later: replace the fs
-// writes with an S3 PutObject and keep the same storage_key contract.
-const MEDIA_ROOT = path.resolve(process.cwd(), "..", "media");
+// Media store for the admin uploader: Cloudflare R2 (S3 API). Keys are identical
+// to the scraper's (photos/<id>/..., covers/<id>/..., logos/<id>/..., menus/<id>/...)
+// so mediaUrl() resolves the same object whether read from the local dev symlink
+// or R2 in prod. R2 + Neon are the source of truth; these are the write-path ops.
+//
+// Server-side only (never NEXT_PUBLIC): R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY,
+// R2_S3_API (or R2_ACCOUNT_ID), R2_BUCKET. Set them in web/.env* and on Vercel.
+
+const BUCKET = process.env.R2_BUCKET || "";
+
+// Endpoint must be the bare account host (no bucket path). Cloudflare shows the
+// S3 API as ".../<bucket>", so strip any path; the bucket is passed per-command.
+function endpoint(): string {
+  const api = process.env.R2_S3_API;
+  if (api) return api.replace(/^(https?:\/\/[^/]+).*$/, "$1");
+  const acct = process.env.R2_ACCOUNT_ID;
+  if (acct) return `https://${acct}.r2.cloudflarestorage.com`;
+  return "";
+}
+
+let _s3: S3Client | null = null;
+function s3(): S3Client {
+  if (_s3) return _s3;
+  const ep = endpoint();
+  const accessKeyId = process.env.R2_ACCESS_KEY_ID || "";
+  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY || "";
+  if (!ep || !BUCKET || !accessKeyId || !secretAccessKey) {
+    throw new Error(
+      "R2 not configured: set R2_S3_API (or R2_ACCOUNT_ID), R2_BUCKET, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY",
+    );
+  }
+  _s3 = new S3Client({
+    region: "auto", // R2 ignores region but the SDK requires one
+    endpoint: ep,
+    credentials: { accessKeyId, secretAccessKey },
+  });
+  return _s3;
+}
+
+// Map an extension to a Content-Type so R2 serves the object correctly (R2 won't
+// sniff it from bytes). Mirrors the types present in media/.
+const MIME: Record<string, string> = {
+  ".webp": "image/webp",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".avif": "image/avif",
+  ".svg": "image/svg+xml",
+  ".gif": "image/gif",
+  ".pdf": "application/pdf",
+};
+function contentType(key: string): string {
+  return MIME[path.extname(key).toLowerCase()] || "application/octet-stream";
+}
 
 function safeExt(filename: string, fallback: string): string {
   const ext = path.extname(filename).toLowerCase().replace(/[^.a-z0-9]/g, "");
   return ext || fallback;
 }
+
+// --- key builders (unchanged contract: <category>/<id>/<name>.<ext>) ----------
 
 // Build a collision-free storage_key. `up-<ts>` avoids clobbering the scraper's
 // numeric keys (photos/<id>/0.webp). e.g. photos/123/up-1718900000000.jpg
@@ -20,7 +77,7 @@ export function photoKey(restaurantId: number, filename: string): string {
 }
 
 // A short random suffix keeps keys unique when several files are uploaded in the
-// same millisecond (multi-file menu upload), so none clobber each other on disk.
+// same millisecond (multi-file menu upload), so none clobber each other.
 export function menuKey(restaurantId: number, filename: string): string {
   const rand = Math.random().toString(36).slice(2, 6);
   return `menus/${restaurantId}/menu-${Date.now()}-${rand}${safeExt(filename, ".pdf")}`;
@@ -34,45 +91,63 @@ export function coverKey(restaurantId: number, filename: string): string {
   return `covers/${restaurantId}/cover-${Date.now()}${safeExt(filename, ".jpg")}`;
 }
 
-// Write a buffer to media/<key>, creating parent dirs. Returns the key unchanged.
+// --- R2 object ops (same signatures as the old fs versions) -------------------
+
+// Upload a buffer to <key> (Content-Type from extension). Returns the key.
 export async function saveMedia(key: string, data: Buffer): Promise<string> {
-  const dest = path.join(MEDIA_ROOT, key);
-  await mkdir(path.dirname(dest), { recursive: true });
-  await writeFile(dest, data);
+  await s3().send(
+    new PutObjectCommand({
+      Bucket: BUCKET,
+      Key: key,
+      Body: data,
+      ContentType: contentType(key),
+    }),
+  );
   return key;
 }
 
-// Copy media/<srcKey> -> media/<destKey>, creating parent dirs. Used when
-// promoting a gallery photo (or cover) into the cover/logo folder so the new
-// role owns its own file and survives deletion of the source photo. Returns the
-// dest key unchanged.
+// Server-side copy <srcKey> -> <destKey>. Used when promoting a gallery photo (or
+// cover) into the cover/logo folder so the new role owns its own object and
+// survives deletion of the source. Returns the dest key.
 export async function copyMedia(srcKey: string, destKey: string): Promise<string> {
-  const dest = path.join(MEDIA_ROOT, destKey);
-  await mkdir(path.dirname(dest), { recursive: true });
-  await copyFile(path.join(MEDIA_ROOT, srcKey), dest);
+  await s3().send(
+    new CopyObjectCommand({
+      Bucket: BUCKET,
+      // CopySource must be "<bucket>/<key>", URL-encoded.
+      CopySource: encodeURI(`${BUCKET}/${srcKey}`),
+      Key: destKey,
+      ContentType: contentType(destKey),
+      MetadataDirective: "REPLACE",
+    }),
+  );
   return destKey;
 }
 
-// List every on-disk menu file for a restaurant: the per-restaurant folder
-// (menus/<id>/menu-*.ext) plus any legacy flat file (menus/<id>.<ext>). Returns
-// storage keys, folder files first, sorted. We read the filesystem rather than a
-// DB table since uploaded menus are just stored for a later parsing pass.
-export async function listMenuFiles(restaurantId: number): Promise<string[]> {
+// List every object key under a prefix, following pagination.
+async function listKeys(prefix: string): Promise<string[]> {
   const keys: string[] = [];
-  try {
-    const files = await readdir(path.join(MEDIA_ROOT, "menus", String(restaurantId)));
-    for (const f of files.sort()) keys.push(`menus/${restaurantId}/${f}`);
-  } catch {
-    /* no per-restaurant folder */
-  }
-  try {
-    const flat = new RegExp(`^${restaurantId}\\.[a-z0-9]+$`, "i");
-    const entries = await readdir(path.join(MEDIA_ROOT, "menus"));
-    for (const e of entries) if (flat.test(e)) keys.push(`menus/${e}`);
-  } catch {
-    /* no menus dir */
-  }
+  let token: string | undefined;
+  do {
+    const res = await s3().send(
+      new ListObjectsV2Command({ Bucket: BUCKET, Prefix: prefix, ContinuationToken: token }),
+    );
+    for (const o of res.Contents ?? []) if (o.Key) keys.push(o.Key);
+    token = res.IsTruncated ? res.NextContinuationToken : undefined;
+  } while (token);
   return keys;
+}
+
+// Every menu file for a restaurant: the per-restaurant folder (menus/<id>/menu-*)
+// plus any legacy flat file (menus/<id>.<ext>). Returns storage keys, folder
+// files first, sorted. We list R2 rather than a DB table since uploaded menus are
+// just stored for a later parsing pass.
+export async function listMenuFiles(restaurantId: number): Promise<string[]> {
+  const folder = (await listKeys(`menus/${restaurantId}/`)).sort();
+  // Flat legacy files share the `menus/<id>` prefix but must match exactly
+  // menus/<id>.<ext> (not menus/<id>0/...), so filter by regex.
+  const flat = new RegExp(`^menus/${restaurantId}\\.[a-z0-9]+$`, "i");
+  const legacy = (await listKeys(`menus/${restaurantId}.`)).filter((k) => flat.test(k)).sort();
+  return [...folder, ...legacy];
 }
 
 // True if a storage key is one of this restaurant's menu files (guards deletes
@@ -84,50 +159,37 @@ export function isOwnMenuKey(restaurantId: number, key: string): boolean {
   );
 }
 
-// Best-effort delete; ignores a missing file so callers stay idempotent. Also
-// removes the parent dir if it's now empty (rmdir only succeeds when empty), so
-// per-photo/logo/menu deletes don't leave behind empty <id>/ folders.
+// Best-effort delete; a missing object is not an error, so callers stay idempotent.
 export async function deleteMedia(key: string): Promise<void> {
-  const full = path.join(MEDIA_ROOT, key);
-  try {
-    await unlink(full);
-  } catch {
-    /* already gone */
-  }
-  try {
-    await rmdir(path.dirname(full));
-  } catch {
-    /* dir not empty or missing */
+  if (!key) return;
+  await s3().send(new DeleteObjectCommand({ Bucket: BUCKET, Key: key }));
+}
+
+// Delete up to 1000 keys per DeleteObjects call.
+async function deleteKeys(keys: string[]): Promise<void> {
+  for (let i = 0; i < keys.length; i += 1000) {
+    const batch = keys.slice(i, i + 1000);
+    if (!batch.length) continue;
+    await s3().send(
+      new DeleteObjectsCommand({
+        Bucket: BUCKET,
+        Delete: { Objects: batch.map((Key) => ({ Key })), Quiet: true },
+      }),
+    );
   }
 }
 
-// Remove ALL on-disk media for a restaurant so files don't outlive the deleted
-// row (restaurant_photos rows cascade in the DB, but the files on disk would
-// not). Sweeps BOTH layouts in each category: the per-restaurant folder
-// (<cat>/<id>/...) and any legacy flat file (<cat>/<id>.<ext>). Keyed by id, so
-// it also catches stray files not tracked in any table.
+// Remove ALL R2 media for a restaurant so objects don't outlive the deleted row
+// (restaurant_photos rows cascade in the DB, but R2 objects would not). Sweeps
+// every category (incl. covers, which the old fs version missed) in BOTH layouts:
+// the per-restaurant folder (<cat>/<id>/...) and legacy flat files (<cat>/<id>.<ext>).
 export async function removeRestaurantMedia(restaurantId: number): Promise<void> {
-  const cats = ["photos", "menus", "logos"];
-  const jobs: Promise<unknown>[] = [];
+  const cats = ["photos", "menus", "logos", "covers"];
+  const all: string[] = [];
   for (const cat of cats) {
-    // per-restaurant folder
-    jobs.push(rm(path.join(MEDIA_ROOT, cat, String(restaurantId)), { recursive: true, force: true }));
-    // legacy flat files <cat>/<id>.<ext>
-    jobs.push(
-      (async () => {
-        const flat = new RegExp(`^${restaurantId}\\.[a-z0-9]+$`, "i");
-        try {
-          const entries = await readdir(path.join(MEDIA_ROOT, cat));
-          await Promise.all(
-            entries
-              .filter((e) => flat.test(e))
-              .map((e) => rm(path.join(MEDIA_ROOT, cat, e), { force: true }))
-          );
-        } catch {
-          /* category dir missing */
-        }
-      })()
-    );
+    all.push(...(await listKeys(`${cat}/${restaurantId}/`)));
+    const flat = new RegExp(`^${cat}/${restaurantId}\\.[a-z0-9]+$`, "i");
+    all.push(...(await listKeys(`${cat}/${restaurantId}.`)).filter((k) => flat.test(k)));
   }
-  await Promise.all(jobs);
+  await deleteKeys(all);
 }
