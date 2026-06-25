@@ -5,6 +5,8 @@ restaurants, cafes, food trucks and stalls across Australia: scraped from Google
 Maps, enriched, stored in PostgreSQL, and served by a Next.js + Tailwind site
 with a map-driven explore experience.
 
+**Live (test):** https://nepali-eats.vercel.app/
+
 ## Repo layout
 
 | Path | What |
@@ -17,7 +19,7 @@ with a map-driven explore experience.
 | `CLAUDE.md` | Working notes / architecture decisions |
 
 ## Prerequisites
-- Node 20+ (built on 25), PostgreSQL 17 with **PostGIS**, `psql`.
+- Node 20+ (built on 25), PostgreSQL 17/18 with **PostGIS**, `psql`.
 - `.env` at repo root (shared by the scraper):
   ```
   DATABASE_URL=postgresql://<user>@localhost:5432/nepali_eats
@@ -59,22 +61,37 @@ npm run dev                                  # http://localhost:3000
 ### Explore (map) architecture
 - `GET /api/restaurants?bbox=…&page&filters` runs a **PostGIS bounds query**:
   page 1 returns 30 list items + total + **all pins in view**; later pages add 30.
-- Leaflet map (Mapbox tiles) with **clustered** pins, **auto-refresh on map move**,
-  and **distance labels** when the visitor shares location.
+- **Mapbox GL JS** (`react-map-gl`, `light-v11`) with native **clustered** pins,
+  **auto-refresh on map move**, and **distance labels** when the visitor shares
+  location. Flat mercator projection, camera caged to Australia.
 - Default centre: searched restaurant → user geolocation → filtered extent →
   **IP-geo state capital** → Sydney (non-AU / undetected).
 - `GET /api/search?q=` (after 3 chars) powers the shared autocomplete (restaurant
   name + suburb + postcode); selecting fills the box, search runs on Enter/Search.
 
-## Deploy (planned)
-Vercel + Cloudflare; managed Postgres (Neon/Supabase) with PostGIS; images on
-Cloudflare R2 (set `NEXT_PUBLIC_MEDIA_BASE` to the R2 domain). Keep `.env` secret.
+## Deploy (live)
+Hosted on **Vercel** (project root `web/`, region `syd1`) with **Neon** Postgres
+(+ PostGIS) and **Cloudflare R2** for media. Neon + R2 are the source of truth.
+
+- **App `DATABASE_URL`** → Neon **pooled** (serverless-safe). Scraper/migrations
+  use the Neon **direct** string.
+- **Media** served from R2 via `NEXT_PUBLIC_MEDIA_BASE`; admin uploads write to R2
+  over the S3 API (`web/lib/admin/storage.ts`). Object keys equal the DB
+  `storage_key`/`logo_key`/`cover_key`, so the same keys resolve in dev and prod.
+- Set the app + R2 + Clerk env vars in Vercel; keep all `.env` files secret.
+
+Operational scripts (run from repo root):
+```bash
+scraper/migrate-to-neon.sh        # one-shot local Postgres -> Neon (PostGIS, verify)
+scraper/upload-media-r2.sh        # sync media/ -> R2 (S3 API, auto Content-Type)
+scraper/backup.sh [db|media|all]  # point-in-time Neon dump + media tarball -> backups/
+```
 
 ## Status
-542 curated restaurants (522 shown; 20 permanently-closed spots hidden).
-Coverage: address/geo ~100%, rating 99%, phone 95%, photos 76%, website 73%,
-review_count 57%, socials 42%, email 39%. A Google Places API pass (2026-06-25)
-added full-week opening hours, business status, and attribute flags (vegetarian,
+469 curated restaurants (450 shown; 19 permanently-closed spots hidden), 144 with
+photos (768 files self-hosted on R2). A Google Places API pass (2026-06-25) added
+full-week opening hours, business status, and attribute flags (vegetarian,
 takeout, delivery, dine-in, outdoor seating, wheelchair access, etc.).
-Phase 2: auth, user reviews, menu Stage-2 (parse menus → items + prices, needs
-`ANTHROPIC_API_KEY`), surfacing the attribute filters in Explore, distance sort.
+Phase 2: auth/user accounts, saved spots + reviews, menu Stage-2 (parse menus →
+items + prices, needs `ANTHROPIC_API_KEY`), surfacing the attribute filters in
+Explore, distance sort.
