@@ -133,6 +133,9 @@ export function todayHoursLine(
 //   { kind: "opening", label: "Opens Tue at 11am" }
 // Returns null when there's no hours data so the badge can hide.
 const CLOSING_SOON_MIN = 60;
+// Only surface the closing time ("Open till 10pm") when it's within this window;
+// further out we just say "Open Now" (a far-off close time reads as noise).
+const OPEN_TILL_MIN = 180;
 export function openStatus(
 	openingHours: OpeningHours | null,
 	state: string | null,
@@ -142,16 +145,20 @@ export function openStatus(
 	const { day, min } = zonedNow(state, now);
 
 	// Open right now? -> show this slot's closing time (yesterday's spillover first).
-	const openUntil = (c: number) => {
-		const minsLeft = (c > 1440 ? c - 1440 : c) - min;
-		return minsLeft <= CLOSING_SOON_MIN
-			? { kind: "closing" as const, label: `Closes ${fmtTime(c)}` }
-			: { kind: "open" as const, label: `Open till ${fmtTime(c)}` };
+	// `minsLeft` is supplied by the caller because the two branches measure `min`
+	// against a different midnight: yesterday's spillover compares `min` (after
+	// midnight) to a close that ran past midnight, the same-day slot does not.
+	const openUntil = (c: number, minsLeft: number) => {
+		if (minsLeft <= CLOSING_SOON_MIN)
+			return { kind: "closing" as const, label: `Closes ${fmtTime(c)}` };
+		return minsLeft <= OPEN_TILL_MIN
+			? { kind: "open" as const, label: `Open till ${fmtTime(c)}` }
+			: { kind: "open" as const, label: `Open · until ${fmtTime(c)}` };
 	};
 	for (const [, c] of openingHours[CANON[(day + 6) % 7]] ?? [])
-		if (c > 1440 && min < c - 1440) return openUntil(c);
+		if (c > 1440 && min < c - 1440) return openUntil(c, c - 1440 - min);
 	for (const [o, c] of openingHours[CANON[day]] ?? [])
-		if (min >= o && min < Math.min(c, 1440)) return openUntil(c);
+		if (min >= o && min < Math.min(c, 1440)) return openUntil(c, c - min);
 
 	// Otherwise find the next opening within the coming week.
 	for (let i = 0; i < 8; i++) {

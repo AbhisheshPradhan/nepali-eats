@@ -112,28 +112,51 @@ export default async function VenuePage({
 		});
 	if (r.kidFriendly === true)
 		facts.push({
-			icon: <Baby size={20} className="text-chili-500 shrink-0" />,
+			icon: (
+				<Baby
+					size={20}
+					className="text-chili-500 shrink-0"
+				/>
+			),
 			label: "Good for kids",
 		});
 	if (r.liveMusic === true)
 		facts.push({
-			icon: <MusicNotes size={20} className="text-chili-500 shrink-0" />,
+			icon: (
+				<MusicNotes
+					size={20}
+					className="text-chili-500 shrink-0"
+				/>
+			),
 			label: "Live music",
 		});
 	if (r.parking)
 		facts.push({
-			icon: <Car size={20} className="text-chili-500 shrink-0" />,
+			icon: (
+				<Car
+					size={20}
+					className="text-chili-500 shrink-0"
+				/>
+			),
 			label: r.parking,
 		});
 	if (r.servesAlcohol === true)
 		facts.push({
-			icon: <Wine size={20} className="text-chili-500 shrink-0" />,
+			icon: (
+				<Wine
+					size={20}
+					className="text-chili-500 shrink-0"
+				/>
+			),
 			label: "Serves alcohol",
 		});
 	if (r.wheelchairAccessible === true)
 		facts.push({
 			icon: (
-				<Wheelchair size={20} className="text-chili-500 shrink-0" />
+				<Wheelchair
+					size={20}
+					className="text-chili-500 shrink-0"
+				/>
 			),
 			label: "Wheelchair accessible",
 		});
@@ -306,15 +329,10 @@ export default async function VenuePage({
 					</div>
 				)}
 				<div className="min-w-0">
-					<h1 className="font-display font-extrabold text-[1.4rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 truncate">
+					<h1 className="font-display font-extrabold text-[1.5rem] sm:text-[2.6rem] text-ink-900 leading-tight m-0 mb-2 truncate">
 						{r.name}
 					</h1>
 					<div className="flex items-center gap-2.5 mb-2 flex-wrap">
-						<OpenStatusBadge
-							openingHours={r.openingHours}
-							state={r.state}
-							businessStatus={r.businessStatus}
-						/>
 						{r.isFeatured && <FeaturedBadge />}
 						{r.popular && <PopularBadge />}
 					</div>
@@ -325,17 +343,6 @@ export default async function VenuePage({
 			<div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] gap-9 items-start px-4 sm:px-0">
 				<div>
 					<div className="flex items-center gap-2 sm:gap-4 flex-wrap mb-4">
-						<VenueType
-							type={r.venueType}
-							iconSize={15}
-							className="text-[1rem]"
-						/>
-						<PriceLevel level={r.priceLevel} />
-						{r.priceRange && (
-							<span className="text-ink-500 font-semibold">
-								{r.priceRange}
-							</span>
-						)}
 						{r.rating != null && (
 							<Rating
 								value={r.rating}
@@ -343,6 +350,13 @@ export default async function VenuePage({
 								size={22}
 							/>
 						)}
+						<PriceLevel level={r.priceLevel} />
+						<VenueType
+							type={r.venueType}
+							iconSize={15}
+							className="text-[1rem]"
+						/>
+
 						{/* {price && (
 							<span className="text-ink-500 font-semibold">
 								{price}
@@ -524,25 +538,11 @@ export default async function VenuePage({
 						{/* hours */}
 						{week && (
 							<div className="mt-4 pt-4 border-t border-paper-300">
-								<div className="flex items-center gap-2 mb-3">
-									<Clock
-										size={20}
-										className={
-											open
-												? "text-coriander-500"
-												: "text-ink-500"
-										}
-									/>
-									<span
-										className={`font-display font-bold ${open ? "text-coriander-700" : "text-ink-700"}`}
-									>
-										{open
-											? "Open now"
-											: hoursToday
-												? `Today: ${hoursToday}`
-												: "Hours vary"}
-									</span>
-								</div>
+								<OpenStatusBadge
+									openingHours={r.openingHours}
+									state={r.state}
+									businessStatus={r.businessStatus}
+								/>
 								{week.map((d) => (
 									<div
 										key={d.day}

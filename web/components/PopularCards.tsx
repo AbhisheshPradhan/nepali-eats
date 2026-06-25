@@ -32,11 +32,17 @@ export function PopularCards({
 		const ctrl = new AbortController();
 		(async () => {
 			try {
-				const r = await fetch(`/api/popular?lat=${loc[0]}&lng=${loc[1]}`, {
-					signal: ctrl.signal,
-				});
-				const d: { popular: Restaurant[]; state: string; metro: string } =
-					await r.json();
+				const r = await fetch(
+					`/api/popular?lat=${loc[0]}&lng=${loc[1]}`,
+					{
+						signal: ctrl.signal,
+					},
+				);
+				const d: {
+					popular: Restaurant[];
+					state: string;
+					metro: string;
+				} = await r.json();
 				if (!d?.state) return;
 				// only re-render when the visitor's real state differs from what's shown
 				setView((prev) =>
@@ -65,7 +71,7 @@ export function PopularCards({
 	const fallbackLoc = capitalLatLng(view.state);
 
 	return (
-		<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-4 sm:pb-6">
+		<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-6">
 			<Carousel
 				eyebrow="Popular"
 				eyebrowClassName="text-chili-600"

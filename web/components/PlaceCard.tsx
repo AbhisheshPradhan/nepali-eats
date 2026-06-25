@@ -171,13 +171,6 @@ export function PlaceCard({
 					</div>
 				)}
 
-				{/* live open/closed status (hidden until mounted / when no hours) */}
-				<OpenStatusBadge
-					openingHours={r.openingHours}
-					state={r.state}
-					businessStatus={r.businessStatus ?? null}
-					className="absolute bottom-3 left-3 max-w-[85%]"
-				/>
 			</div>
 
 			{/* body */}
@@ -238,6 +231,15 @@ export function PlaceCard({
 						</button>
 					)}
 				</div>
+
+				{/* live open/closed status (hidden until mounted / when no hours) */}
+				<OpenStatusBadge
+					openingHours={r.openingHours}
+					state={r.state}
+					businessStatus={r.businessStatus ?? null}
+					size="sm"
+					className="self-start max-w-full"
+				/>
 			</div>
 		</Link>
 	);

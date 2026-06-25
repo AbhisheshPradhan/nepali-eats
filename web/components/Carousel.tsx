@@ -32,7 +32,7 @@ export function Carousel({
 					<span className={`eyebrow ${eyebrowClassName}`}>
 						{eyebrow}
 					</span>
-					<h2 className="text-[1.6rem] sm:text-[2.2rem] text-ink-900 mt-1">
+					<h2 className="text-[1.4rem] sm:text-[2.2rem] text-ink-900 mt-1">
 						{title}
 					</h2>
 				</div>

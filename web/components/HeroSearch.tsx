@@ -32,7 +32,7 @@ export function HeroSearch() {
 	};
 
 	return (
-		<div className="max-w-[600px] mx-auto mt-5">
+		<div className="max-w-[600px] mx-auto mt-5 mb-2">
 			<SearchBox variant="hero" />
 			<button
 				onClick={nearMe}
