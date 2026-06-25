@@ -252,6 +252,17 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
   field-mask addition before they fill.
 - Indexes: state, suburb, postcode, (lat,lng).
 
+## ⚠️ Schema changes are SHARED with prod — deploy code with them
+
+Dev and prod (Vercel) point `DATABASE_URL` at the **same Neon database**. So any
+**schema change** (e.g. `ALTER TABLE ... DROP/ADD/RENAME COLUMN`, type changes)
+takes effect for the **currently-deployed** site the instant you run it. If the
+deployed code still references a dropped/renamed column, prod (and your local
+`.next`) start erroring (`column ... does not exist`). Rule: whenever you migrate
+the DB, **ship the matching code change to prod (push to `main` → Vercel)** in the
+same go — don't leave the deployed app out of sync with the schema. Locally,
+restart `next dev` / clear `.next` so the stale compiled query is rebuilt.
+
 ## ⚠️ DB is the source of truth (do NOT re-run load-db.js)
 
 The 400 non-Nepali rows were **hard-deleted** (`DELETE WHERE is_nepali IS FALSE`).
