@@ -94,6 +94,7 @@ export interface RestaurantPin {
   suburb: string | null;
   state: string | null;
   primaryPhoto: string | null;
+  businessStatus: string | null; // so the popup card can show "Temporarily closed"
 }
 
 export interface Bbox {

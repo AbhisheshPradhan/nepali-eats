@@ -1,4 +1,4 @@
-import { mkdir, writeFile, unlink, rm, rmdir, readdir } from "node:fs/promises";
+import { mkdir, writeFile, unlink, rm, rmdir, readdir, copyFile } from "node:fs/promises";
 import path from "node:path";
 
 // Local media store for the admin uploader. Files live under the shared project
@@ -40,6 +40,17 @@ export async function saveMedia(key: string, data: Buffer): Promise<string> {
   await mkdir(path.dirname(dest), { recursive: true });
   await writeFile(dest, data);
   return key;
+}
+
+// Copy media/<srcKey> -> media/<destKey>, creating parent dirs. Used when
+// promoting a gallery photo (or cover) into the cover/logo folder so the new
+// role owns its own file and survives deletion of the source photo. Returns the
+// dest key unchanged.
+export async function copyMedia(srcKey: string, destKey: string): Promise<string> {
+  const dest = path.join(MEDIA_ROOT, destKey);
+  await mkdir(path.dirname(dest), { recursive: true });
+  await copyFile(path.join(MEDIA_ROOT, srcKey), dest);
+  return destKey;
 }
 
 // List every on-disk menu file for a restaurant: the per-restaurant folder

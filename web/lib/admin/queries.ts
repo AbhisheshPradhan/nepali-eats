@@ -477,6 +477,17 @@ export async function deletePhotoRow(photoId: number): Promise<string | null> {
   return rows[0]?.storage_key ?? null;
 }
 
+// Current cover_key for a restaurant (by id). Used to guard photo deletes: a
+// promoted cover points cover_key at a gallery photo's file, so deleting that
+// photo's file would orphan the cover.
+export async function getCoverKeyById(restaurantId: number): Promise<string | null> {
+  const rows = await query<{ cover_key: string | null }>(
+    `SELECT cover_key FROM restaurants WHERE id = $1`,
+    [restaurantId]
+  );
+  return rows[0]?.cover_key ?? null;
+}
+
 export async function getRestaurantIdBySlug(slug: string): Promise<number | null> {
   const rows = await query<{ id: number }>(`SELECT id FROM restaurants WHERE slug = $1`, [slug]);
   return rows[0]?.id ?? null;
@@ -500,6 +511,7 @@ export interface TriageItem {
   name: string;
   suburb: string | null;
   state: string | null;
+  venueType: string | null;
   rating: number | null;
   reviewCount: number | null;
   featuredRank: number | null;
@@ -514,10 +526,16 @@ export interface TriageItem {
   menuFiles: string[];
 }
 
+// Reviewed filter (photo mode): pending = not-yet-reviewed only (default),
+// all = both, only = reviewed only.
+export type ReviewedFilter = "pending" | "all" | "only";
+
 export interface TriageOpts {
   mode: TriageMode;
   state?: string;
-  hideReviewed?: boolean;
+  reviewed?: ReviewedFilter;
+  // Hide spots that have no media at all (no cover, no logo, no gallery photos).
+  hideNoMedia?: boolean;
 }
 
 // Best/most-visible spots first (mirrors scraper/enrich-places.js):
@@ -533,8 +551,21 @@ function triageWhere(opts: TriageOpts): { where: string; params: unknown[] } {
     return `$${params.length}`;
   };
   if (opts.state) cond.push(`r.state = ${p(opts.state)}`);
-  if (opts.mode === "menu") cond.push(`NOT ${COVERAGE.menu}`);
-  else if (opts.hideReviewed) cond.push(`r.photos_reviewed_at IS NULL`);
+  if (opts.mode === "menu") {
+    cond.push(`NOT ${COVERAGE.menu}`);
+  } else if (opts.reviewed === "only") {
+    cond.push(`r.photos_reviewed_at IS NOT NULL`);
+  } else if (opts.reviewed !== "all") {
+    // default "pending": not yet reviewed
+    cond.push(`r.photos_reviewed_at IS NULL`);
+  }
+  if (opts.hideNoMedia) {
+    cond.push(
+      `(r.cover_key IS NOT NULL OR r.logo_key IS NOT NULL
+        OR EXISTS (SELECT 1 FROM restaurant_photos p2
+                   WHERE p2.restaurant_id = r.id AND NOT p2.removed))`
+    );
+  }
   return { where: cond.length ? "WHERE " + cond.join(" AND ") : "", params };
 }
 
@@ -545,7 +576,8 @@ export async function triageQueue(
 ): Promise<TriageItem[]> {
   const { where, params } = triageWhere(opts);
   const rows = await query<Record<string, unknown>>(
-    `SELECT r.id, r.slug, r.name, r.suburb, r.state, r.rating, r.review_count,
+    `SELECT r.id, r.slug, r.name, r.suburb, r.state, r.venue_type,
+            r.rating, r.review_count,
             r.featured_rank, r.website, r.google_maps_url, r.menu_url,
             r.cover_key, r.cover_source, r.logo_key,
             r.photos_reviewed_at,
@@ -575,6 +607,7 @@ export async function triageQueue(
     name: String(row.name),
     suburb: (row.suburb as string) ?? null,
     state: (row.state as string) ?? null,
+    venueType: (row.venue_type as string) ?? null,
     rating: row.rating != null ? Number(row.rating) : null,
     reviewCount: row.review_count != null ? Number(row.review_count) : null,
     featuredRank: row.featured_rank != null ? Number(row.featured_rank) : null,

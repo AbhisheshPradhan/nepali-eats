@@ -13,10 +13,6 @@ dotenv.config();
 const COMMIT = process.argv.includes("--commit");
 
 const DAY = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]; // Google: 0=Sun..6=Sat
-const PRICE_LEVEL = {
-  PRICE_LEVEL_INEXPENSIVE: 1, PRICE_LEVEL_MODERATE: 2,
-  PRICE_LEVEL_EXPENSIVE: 3, PRICE_LEVEL_VERY_EXPENSIVE: 4,
-};
 
 // regularOpeningHours.periods -> canonical { mon:[[600,1230]], tue:[], ... }
 // minutes-from-midnight, []=closed, close>1440 = past midnight, absent = unknown.
@@ -44,6 +40,23 @@ const priceRangeText = (raw) => {
   if (!pr?.startPrice?.units) return null;
   const s = pr.startPrice.units, e = pr.endPrice?.units;
   return e ? `$${s}-${e}` : `$${s}+`;
+};
+
+// price_level is OUR field — Google (New Places API) only gives a per-person
+// priceRange, not the old $/$$/$$$ enum. We derive the 1-4 level the UI renders
+// ($ dots) from the range's START price (the lower bound). Thresholds calibrated
+// against rows where Google also happened to carry a legacy priceLevel:
+//   <20 -> 1 ($), >=20 -> 2 ($$), >=40 -> 3 ($$$), >=60 -> 4 ($$$$).
+// null when there's no startPrice (then COALESCE keeps any existing level).
+const priceLevelFromRange = (raw) => {
+  const start = raw?.priceRange?.startPrice?.units;
+  if (start == null) return null;
+  const s = Number(start);
+  if (Number.isNaN(s)) return null;
+  if (s >= 60) return 4;
+  if (s >= 40) return 3;
+  if (s >= 20) return 2;
+  return 1;
 };
 
 // boolean helper: undefined stays null (unknown), true/false pass through.
@@ -82,7 +95,7 @@ function mapRow(raw) {
     opening_hours: buildHours(raw),
     rating: raw.rating ?? null,
     review_count: raw.userRatingCount ?? null,
-    price_level: PRICE_LEVEL[raw.priceLevel] ?? null,
+    price_level: priceLevelFromRange(raw),
     price_range: priceRangeText(raw),
     kid_friendly: b(raw.goodForChildren),
     live_music: b(raw.liveMusic),

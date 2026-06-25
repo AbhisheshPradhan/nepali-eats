@@ -53,6 +53,10 @@ export function FeaturedCards({
 		return () => ctrl.abort(new DOMException("unmounted", "AbortError"));
 	}, [loc?.[0], loc?.[1]]);
 
+	// No genuine featured picks for this state -> hide the whole section
+	// (mirrors PopularCards) instead of rendering an empty/filler row.
+	if (!view.gems.length) return null;
+
 	return (
 		<div>
 			<Carousel

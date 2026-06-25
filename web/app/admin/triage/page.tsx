@@ -1,12 +1,28 @@
 import Link from "next/link";
 import { assertAdmin } from "@/lib/admin/guard";
-import { triageQueue, triageCounts, type TriageMode } from "@/lib/admin/queries";
+import {
+	triageQueue,
+	triageCounts,
+	type TriageMode,
+	type ReviewedFilter,
+} from "@/lib/admin/queries";
 import { stateFacets } from "@/lib/queries";
 import { TriageClient } from "@/components/admin/TriageClient";
 
 export const metadata = { robots: { index: false, follow: false } };
 
-type SP = Promise<{ mode?: string; state?: string; hideReviewed?: string }>;
+type SP = Promise<{
+	mode?: string;
+	state?: string;
+	reviewed?: string;
+	media?: string;
+}>;
+
+const REVIEWED_FILTERS: { key: ReviewedFilter; label: string }[] = [
+	{ key: "pending", label: "Unreviewed" },
+	{ key: "all", label: "All" },
+	{ key: "only", label: "Reviewed only" },
+];
 
 const PAGE_SIZE = 24;
 
@@ -24,27 +40,32 @@ export default async function AdminTriage({
 	const sp = await searchParams;
 	const mode: TriageMode = sp.mode === "menu" ? "menu" : "photo";
 	const state = sp.state || undefined;
-	const hideReviewed = sp.hideReviewed !== "0";
+	const reviewed: ReviewedFilter =
+		sp.reviewed === "all" ? "all" : sp.reviewed === "only" ? "only" : "pending";
+	const hideNoMedia = sp.media === "with";
 
 	const [items, counts, states] = await Promise.all([
-		triageQueue({ mode, state, hideReviewed }, PAGE_SIZE),
+		triageQueue({ mode, state, reviewed, hideNoMedia }, PAGE_SIZE),
 		triageCounts(state),
 		stateFacets(),
 	]);
 
-	// Preserve filters when switching mode / state / reviewed toggle.
+	// Preserve filters when switching mode / state / reviewed / media.
 	const hrefWith = (over: {
 		mode?: TriageMode;
 		state?: string | null;
-		hideReviewed?: boolean;
+		reviewed?: ReviewedFilter;
+		hideNoMedia?: boolean;
 	}) => {
 		const qs = new URLSearchParams();
 		const m = over.mode ?? mode;
 		if (m !== "photo") qs.set("mode", m);
 		const s = over.state !== undefined ? over.state : state;
 		if (s) qs.set("state", s);
-		const hr = over.hideReviewed ?? hideReviewed;
-		if (!hr) qs.set("hideReviewed", "0");
+		const rv = over.reviewed ?? reviewed;
+		if (rv !== "pending") qs.set("reviewed", rv);
+		const nm = over.hideNoMedia ?? hideNoMedia;
+		if (nm) qs.set("media", "with");
 		const q = qs.toString();
 		return q ? `/admin/triage?${q}` : "/admin/triage";
 	};
@@ -126,25 +147,45 @@ export default async function AdminTriage({
 					))}
 				</div>
 				{mode === "photo" && (
-					<Link
-						href={hrefWith({ hideReviewed: !hideReviewed })}
-						className={`rounded-md px-2.5 py-1 font-display font-bold border ${
-							hideReviewed
-								? "bg-emerald-50 text-emerald-700 border-emerald-200"
-								: "text-ink-600 border-ink-200 hover:bg-paper-100"
-						}`}
-					>
-						{hideReviewed ? "Hiding reviewed" : "Showing reviewed"}
-					</Link>
+					<div className="flex gap-1.5">
+						{REVIEWED_FILTERS.map((f) => {
+							const active = reviewed === f.key;
+							return (
+								<Link
+									key={f.key}
+									href={hrefWith({ reviewed: f.key })}
+									className={`rounded-md px-2.5 py-1 font-display font-bold border ${
+										active
+											? "bg-emerald-600 text-white border-emerald-600"
+											: "text-ink-600 border-ink-200 hover:bg-paper-100"
+									}`}
+								>
+									{f.label}
+								</Link>
+							);
+						})}
+					</div>
 				)}
+				<Link
+					href={hrefWith({ hideNoMedia: !hideNoMedia })}
+					title="Hide spots with no cover, logo, or photos"
+					className={`rounded-md px-2.5 py-1 font-display font-bold border ${
+						hideNoMedia
+							? "bg-marigold-500 text-ink-900 border-marigold-500"
+							: "text-ink-600 border-ink-200 hover:bg-paper-100"
+					}`}
+				>
+					{hideNoMedia ? "Hiding no-media" : "Hide no-media"}
+				</Link>
 			</div>
 
 			<TriageClient
-				key={`${mode}-${state ?? "all"}-${hideReviewed ? 1 : 0}`}
+				key={`${mode}-${state ?? "all"}-${reviewed}-${hideNoMedia ? 1 : 0}`}
 				initialItems={items}
 				mode={mode}
 				state={state ?? null}
-				hideReviewed={hideReviewed}
+				reviewed={reviewed}
+				hideNoMedia={hideNoMedia}
 				pageSize={PAGE_SIZE}
 			/>
 		</div>

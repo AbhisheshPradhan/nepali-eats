@@ -535,15 +535,19 @@ export default async function VenuePage({
 							</Button>
 						)}
 
-						{/* hours */}
-						{week && (
+						{/* hours + open/closed status. Render whenever we have a week of
+						    hours OR the spot is temporarily/permanently closed (a
+						    business-level fact worth showing even without hours data). */}
+						{(week ||
+							r.businessStatus === "CLOSED_TEMPORARILY" ||
+							r.businessStatus === "CLOSED_PERMANENTLY") && (
 							<div className="mt-4 pt-4 border-t border-paper-300">
 								<OpenStatusBadge
 									openingHours={r.openingHours}
 									state={r.state}
 									businessStatus={r.businessStatus}
 								/>
-								{week.map((d) => (
+								{week?.map((d) => (
 									<div
 										key={d.day}
 										className={`flex justify-between py-1.5 text-[0.95rem] ${

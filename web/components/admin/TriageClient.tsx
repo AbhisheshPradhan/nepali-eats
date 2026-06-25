@@ -19,14 +19,27 @@ import {
 	UploadSimple,
 	Check,
 	FilePdf,
+	Stamp,
 } from "@phosphor-icons/react";
 import { mediaUrl } from "@/lib/media";
 import type {
 	TriageItem,
 	TriagePhoto,
 	TriageMode,
+	ReviewedFilter,
 	AdminPhoto,
 } from "@/lib/admin/queries";
+import type { VenueType } from "@/lib/types";
+
+const VENUE_TYPES: VenueType[] = [
+	"Restaurant",
+	"Café",
+	"Takeaway",
+	"Food Truck",
+	"Caterer",
+	"Dessert",
+	"Bar",
+];
 
 async function api(url: string, opts: RequestInit) {
 	const res = await fetch(url, opts);
@@ -60,13 +73,15 @@ export function TriageClient({
 	initialItems,
 	mode,
 	state,
-	hideReviewed,
+	reviewed,
+	hideNoMedia,
 	pageSize,
 }: {
 	initialItems: TriageItem[];
 	mode: TriageMode;
 	state: string | null;
-	hideReviewed: boolean;
+	reviewed: ReviewedFilter;
+	hideNoMedia: boolean;
 	pageSize: number;
 }) {
 	const [list, setList] = useState<TriageItem[]>(initialItems);
@@ -98,15 +113,23 @@ export function TriageClient({
 			if (!ids.length) return;
 			setBusy(item.id);
 			try {
-				await Promise.all(
-					ids.map((id) =>
-						api(`/api/admin/photos/${id}`, { method: "DELETE" })
-					)
+				const results = await Promise.all(
+					ids.map(async (id) => {
+						const r = (await api(`/api/admin/photos/${id}`, {
+							method: "DELETE",
+						})) as { keptAsCover?: boolean };
+						return { id, kept: !!r.keptAsCover };
+					})
+				);
+				// Photos kept (the current cover can't be deleted out from under
+				// itself) stay in the strip; everything else is gone.
+				const removed = new Set(
+					results.filter((r) => !r.kept).map((r) => r.id)
 				);
 				setList((l) =>
 					l.map((it) =>
 						it.id === item.id
-							? { ...it, photos: it.photos.filter((p) => !ids.includes(p.id)) }
+							? { ...it, photos: it.photos.filter((p) => !removed.has(p.id)) }
 							: it
 					)
 				);
@@ -116,6 +139,9 @@ export function TriageClient({
 					return n;
 				});
 				setFocusPhoto(0);
+				if (results.some((r) => r.kept)) {
+					toast("Kept the cover photo. Change the cover first to delete it.");
+				}
 			} catch (err) {
 				toast(err instanceof Error ? err.message : "Delete failed");
 			} finally {
@@ -148,6 +174,92 @@ export function TriageClient({
 			}
 		},
 		[toast, patchItem]
+	);
+
+	// Promote a gallery photo to the brand logo. The server copies the file into
+	// logos/ and (unless the photo is also the cover) deletes the now-duplicate
+	// gallery photo, returning its id so we can drop it from the strip.
+	const setLogoFromPhoto = useCallback(
+		async (item: TriageItem, photoId: number) => {
+			setBusy(item.id);
+			try {
+				const res = (await api(`/api/admin/restaurants/${item.slug}/logo`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ fromPhotoId: photoId }),
+				})) as { logoKey: string; deletedPhotoId: number | null };
+				setList((l) =>
+					l.map((it) =>
+						it.id === item.id
+							? {
+									...it,
+									logoKey: res.logoKey,
+									photos:
+										res.deletedPhotoId != null
+											? it.photos.filter((p) => p.id !== res.deletedPhotoId)
+											: it.photos,
+								}
+							: it
+					)
+				);
+				if (res.deletedPhotoId != null) {
+					setFlagged((f) => {
+						if (!f.has(res.deletedPhotoId!)) return f;
+						const n = new Set(f);
+						n.delete(res.deletedPhotoId!);
+						return n;
+					});
+				}
+			} catch (err) {
+				toast(err instanceof Error ? err.message : "Could not set logo");
+			} finally {
+				setBusy(null);
+			}
+		},
+		[toast]
+	);
+
+	// Promote the current cover to the brand logo.
+	const setLogoFromCover = useCallback(
+		async (item: TriageItem) => {
+			if (!item.coverKey) return;
+			setBusy(item.id);
+			try {
+				const res = (await api(`/api/admin/restaurants/${item.slug}/logo`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ fromKey: item.coverKey }),
+				})) as { logoKey: string };
+				patchItem(item.id, { logoKey: res.logoKey });
+			} catch (err) {
+				toast(err instanceof Error ? err.message : "Could not set logo");
+			} finally {
+				setBusy(null);
+			}
+		},
+		[toast, patchItem]
+	);
+
+	// Delete the whole restaurant (row + its on-disk media) and drop it from view.
+	const deleteRestaurant = useCallback(
+		async (item: TriageItem) => {
+			if (
+				!window.confirm(
+					`Delete "${item.name}" and all its photos/menus? This can't be undone.`
+				)
+			)
+				return;
+			setBusy(item.id);
+			try {
+				await api(`/api/admin/restaurants/${item.slug}`, { method: "DELETE" });
+				setList((l) => l.filter((it) => it.id !== item.id));
+			} catch (err) {
+				toast(err instanceof Error ? err.message : "Delete failed");
+			} finally {
+				setBusy(null);
+			}
+		},
+		[toast]
 	);
 
 	// Upload a fresh cover or logo (multipart). slot picks the route + field.
@@ -194,6 +306,25 @@ export function TriageClient({
 		[toast, patchItem]
 	);
 
+	// Update venue_type from the header dropdown (optimistic; reverts on failure).
+	const setVenueType = useCallback(
+		async (item: TriageItem, venueType: string) => {
+			const prev = item.venueType;
+			patchItem(item.id, { venueType: venueType || null });
+			try {
+				await api(`/api/admin/restaurants/${item.slug}`, {
+					method: "PATCH",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ venueType }),
+				});
+			} catch (err) {
+				patchItem(item.id, { venueType: prev });
+				toast(err instanceof Error ? err.message : "Could not update venue type");
+			}
+		},
+		[toast, patchItem]
+	);
+
 	const addPhotos = useCallback(
 		async (item: TriageItem, files: FileList | File[]) => {
 			const imgs = Array.from(files).filter((f) => f.type.startsWith("image/"));
@@ -231,7 +362,7 @@ export function TriageClient({
 				await api(`/api/admin/restaurants/${item.slug}/reviewed`, {
 					method: "POST",
 				});
-				if (hideReviewed) {
+				if (reviewed === "pending") {
 					setList((l) => l.filter((it) => it.id !== item.id));
 				} else {
 					setList((l) =>
@@ -249,7 +380,7 @@ export function TriageClient({
 				setBusy(null);
 			}
 		},
-		[hideReviewed, toast]
+		[reviewed, toast]
 	);
 
 	const uploadMenu = useCallback(
@@ -327,7 +458,8 @@ export function TriageClient({
 			const qs = new URLSearchParams();
 			if (mode !== "photo") qs.set("mode", mode);
 			if (state) qs.set("state", state);
-			if (!hideReviewed) qs.set("hideReviewed", "0");
+			if (reviewed !== "pending") qs.set("reviewed", reviewed);
+			if (hideNoMedia) qs.set("media", "with");
 			qs.set("page", String(page + 1));
 			const res = (await api(`/api/admin/triage?${qs}`, { method: "GET" })) as {
 				items: TriageItem[];
@@ -344,7 +476,7 @@ export function TriageClient({
 		} finally {
 			setLoadingMore(false);
 		}
-	}, [loadingMore, hasMore, mode, state, hideReviewed, page]);
+	}, [loadingMore, hasMore, mode, state, reviewed, hideNoMedia, page]);
 
 	// Infinite scroll sentinel.
 	useEffect(() => {
@@ -470,10 +602,14 @@ export function TriageClient({
 						onToggleFlag={toggleFlag}
 						onDeleteFlagged={() => deleteFlaggedFor(item)}
 						onSetCover={(pid) => setCoverFromPhoto(item, pid)}
+						onSetLogo={(pid) => setLogoFromPhoto(item, pid)}
+						onSetLogoFromCover={() => setLogoFromCover(item)}
 						onUploadBrand={(slot, file) => uploadBrand(item, slot, file)}
 						onClearBrand={(slot) => clearBrand(item, slot)}
 						onAddPhotos={(files) => addPhotos(item, files)}
 						onMarkReviewed={() => markReviewed(item)}
+						onDeleteRestaurant={() => deleteRestaurant(item)}
+						onSetVenueType={(v) => setVenueType(item, v)}
 					/>
 				) : (
 					<MenuCard
@@ -487,6 +623,8 @@ export function TriageClient({
 						onFocus={() => setFocusCard(idx)}
 						onUpload={(files) => uploadMenu(item, files)}
 						onDeleteFile={(key) => deleteMenuFile(item, key)}
+						onDeleteRestaurant={() => deleteRestaurant(item)}
+						onSetVenueType={(v) => setVenueType(item, v)}
 					/>
 				)
 			)}
@@ -543,7 +681,15 @@ function Kbd({ children }: { children: React.ReactNode }) {
 	);
 }
 
-function CardHeader({ item }: { item: TriageItem }) {
+function CardHeader({
+	item,
+	onDelete,
+	onSetVenueType,
+}: {
+	item: TriageItem;
+	onDelete: () => void;
+	onSetVenueType: (v: string) => void;
+}) {
 	const where = [item.suburb, item.state].filter(Boolean).join(", ");
 	return (
 		<div className="flex items-start justify-between gap-3">
@@ -562,8 +708,35 @@ function CardHeader({ item }: { item: TriageItem }) {
 						? ` · ★ ${item.rating}${item.reviewCount != null ? ` (${item.reviewCount})` : ""}`
 						: ""}
 				</p>
+				<select
+					value={item.venueType ?? ""}
+					onChange={(e) => onSetVenueType(e.target.value)}
+					title="Venue type"
+					className="mt-1.5 rounded-md border border-ink-200 bg-white px-2 py-1 text-xs font-display font-bold text-ink-700 hover:border-chili-300 focus:border-chili-400 focus:outline-none"
+				>
+					<option value="">Venue type…</option>
+					{VENUE_TYPES.map((v) => (
+						<option key={v} value={v}>
+							{v}
+						</option>
+					))}
+				</select>
 			</div>
 			<div className="flex shrink-0 items-center gap-2 text-xs">
+				<Link
+					href={`/restaurant/${item.slug}`}
+					target="_blank"
+					className="text-ink-500 hover:text-chili-600 inline-flex items-center gap-0.5 font-medium"
+				>
+					View <ArrowSquareOut size={12} />
+				</Link>
+				<button
+					type="button"
+					onClick={onDelete}
+					className="text-chili-600 hover:underline font-medium"
+				>
+					Delete
+				</button>
 				<Link
 					href={`/admin/${item.slug}`}
 					target="_blank"
@@ -606,6 +779,7 @@ function MediaSlot({
 	aspectClass,
 	onUpload,
 	onClear,
+	onPromoteToLogo,
 }: {
 	label: string;
 	imageKey: string | null;
@@ -613,6 +787,7 @@ function MediaSlot({
 	aspectClass: string;
 	onUpload: (file: File) => void;
 	onClear: () => void;
+	onPromoteToLogo?: () => void;
 }) {
 	const fileInput = useRef<HTMLInputElement | null>(null);
 	const [dragging, setDragging] = useState(false);
@@ -666,6 +841,19 @@ function MediaSlot({
 						>
 							<UploadSimple size={13} />
 						</button>
+						{onPromoteToLogo && (
+							<button
+								type="button"
+								onClick={(e) => {
+									e.stopPropagation();
+									onPromoteToLogo();
+								}}
+								title="Use as logo"
+								className="absolute bottom-1 left-1 grid h-6 w-6 place-items-center rounded-full bg-ink-900/60 text-white hover:bg-chili-600"
+							>
+								<Stamp size={13} />
+							</button>
+						)}
 						<button
 							type="button"
 							onClick={(e) => {
@@ -710,10 +898,14 @@ function PhotoCard({
 	onToggleFlag,
 	onDeleteFlagged,
 	onSetCover,
+	onSetLogo,
+	onSetLogoFromCover,
 	onUploadBrand,
 	onClearBrand,
 	onAddPhotos,
 	onMarkReviewed,
+	onDeleteRestaurant,
+	onSetVenueType,
 }: {
 	ref: (el: HTMLDivElement | null) => void;
 	item: TriageItem;
@@ -725,10 +917,14 @@ function PhotoCard({
 	onToggleFlag: (id: number) => void;
 	onDeleteFlagged: () => void;
 	onSetCover: (id: number) => void;
+	onSetLogo: (id: number) => void;
+	onSetLogoFromCover: () => void;
 	onUploadBrand: (slot: "cover" | "logo", file: File) => void;
 	onClearBrand: (slot: "cover" | "logo") => void;
 	onAddPhotos: (files: FileList | File[]) => void;
 	onMarkReviewed: () => void;
+	onDeleteRestaurant: () => void;
+	onSetVenueType: (v: string) => void;
 }) {
 	const fileInput = useRef<HTMLInputElement | null>(null);
 	const [dragging, setDragging] = useState(false);
@@ -748,39 +944,45 @@ function PhotoCard({
 				focused ? "border-chili-400 ring-2 ring-chili-200" : "border-ink-100"
 			} ${busy ? "opacity-60 pointer-events-none" : ""}`}
 		>
-			<CardHeader item={item} />
+			<CardHeader
+				item={item}
+				onDelete={onDeleteRestaurant}
+				onSetVenueType={onSetVenueType}
+			/>
 
 			<div className="mt-3 flex gap-3">
-				{/* cover + logo rail: the standalone hero (card + detail) and brand mark */}
-				<div className="flex shrink-0 flex-col gap-2">
-					<MediaSlot
-						label="Cover"
-						imageKey={item.coverKey}
-						sizeClass="w-40"
-						aspectClass="aspect-[4/3]"
-						onUpload={(f) => onUploadBrand("cover", f)}
-						onClear={() => onClearBrand("cover")}
-					/>
+				{/* cover + logo rail: brand mark on the left, the standalone hero on the right */}
+				<div className="flex shrink-0 items-start gap-2">
 					<MediaSlot
 						label="Logo"
 						imageKey={item.logoKey}
-						sizeClass="w-20"
+						sizeClass="w-28"
 						aspectClass="aspect-square"
 						onUpload={(f) => onUploadBrand("logo", f)}
 						onClear={() => onClearBrand("logo")}
 					/>
+					<MediaSlot
+						label="Cover"
+						imageKey={item.coverKey}
+						sizeClass="w-52"
+						aspectClass="aspect-[4/3]"
+						onUpload={(f) => onUploadBrand("cover", f)}
+						onClear={() => onClearBrand("cover")}
+						onPromoteToLogo={item.coverKey ? onSetLogoFromCover : undefined}
+					/>
 				</div>
 
 				{/* photo strip */}
-				<div className="flex min-w-0 flex-1 gap-2 overflow-x-auto pb-1">
+				<div className="flex min-w-0 flex-1 items-start gap-2 overflow-x-auto pb-1">
 				{item.photos.map((p, pi) => {
 					const isFlagged = flagged.has(p.id);
 					const isCursor = focused && pi === focusPhoto;
 					const isCover = !!item.coverKey && p.key === item.coverKey;
+					const isLogo = !!item.logoKey && p.key === item.logoKey;
 					return (
 						<div
 							key={p.id}
-							className={`relative shrink-0 w-32 aspect-square rounded-md overflow-hidden bg-paper-200 group ${
+							className={`relative shrink-0 w-52 aspect-[4/3] rounded-md overflow-hidden bg-paper-200 group ${
 								isCursor ? "ring-2 ring-chili-500" : ""
 							}`}
 						>
@@ -814,6 +1016,18 @@ function PhotoCard({
 							</button>
 							<button
 								type="button"
+								onClick={() => onSetLogo(p.id)}
+								title={isLogo ? "Current logo" : "Set as logo"}
+								className={`absolute bottom-1 right-1 h-6 w-6 grid place-items-center rounded-full ${
+									isLogo
+										? "bg-marigold-500 text-ink-900"
+										: "bg-ink-900/60 text-white opacity-0 group-hover:opacity-100"
+								}`}
+							>
+								<Stamp size={13} weight={isLogo ? "fill" : "regular"} />
+							</button>
+							<button
+								type="button"
 								onClick={() => onToggleFlag(p.id)}
 								title="Flag for delete (x)"
 								className={`absolute top-1 right-1 h-6 w-6 grid place-items-center rounded-full transition ${
@@ -838,7 +1052,7 @@ function PhotoCard({
 					}}
 					onDragLeave={() => setDragging(false)}
 					onDrop={onDrop}
-					className={`shrink-0 w-32 aspect-square rounded-md border-2 border-dashed grid place-items-center text-ink-400 ${
+					className={`shrink-0 w-52 aspect-[4/3] rounded-md border-2 border-dashed grid place-items-center text-ink-400 ${
 						dragging
 							? "border-chili-400 bg-chili-50 text-chili-600"
 							: "border-ink-200 hover:border-chili-300"
@@ -896,6 +1110,8 @@ function MenuCard({
 	onFocus,
 	onUpload,
 	onDeleteFile,
+	onDeleteRestaurant,
+	onSetVenueType,
 }: {
 	ref: (el: HTMLDivElement | null) => void;
 	item: TriageItem;
@@ -904,6 +1120,8 @@ function MenuCard({
 	onFocus: () => void;
 	onUpload: (files: FileList | File[]) => void;
 	onDeleteFile: (key: string) => void;
+	onDeleteRestaurant: () => void;
+	onSetVenueType: (v: string) => void;
 }) {
 	const fileInput = useRef<HTMLInputElement | null>(null);
 	const [dragging, setDragging] = useState(false);
@@ -923,7 +1141,11 @@ function MenuCard({
 				focused ? "border-chili-400 ring-2 ring-chili-200" : "border-ink-100"
 			} ${busy ? "opacity-60 pointer-events-none" : ""}`}
 		>
-			<CardHeader item={item} />
+			<CardHeader
+				item={item}
+				onDelete={onDeleteRestaurant}
+				onSetVenueType={onSetVenueType}
+			/>
 
 			<div className="mt-3 flex flex-col sm:flex-row gap-3">
 				<button

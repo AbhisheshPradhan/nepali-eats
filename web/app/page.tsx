@@ -60,15 +60,17 @@ export default async function HomePage() {
 				</div>
 			</section>
 
-			{/* FEATURED */}
-			<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-6">
-				<FeaturedCards
-					gems={gems}
-					state={state}
-					metro={metro}
-					fallbackLoc={defaultLoc}
-				/>
-			</section>
+			{/* FEATURED (self-hides when the visitor's state has no featured picks) */}
+			{gems.length > 0 && (
+				<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-6">
+					<FeaturedCards
+						gems={gems}
+						state={state}
+						metro={metro}
+						fallbackLoc={defaultLoc}
+					/>
+				</section>
+			)}
 
 			{/* POPULAR (self-hides when the visitor's state has no flagged spots) */}
 			<PopularCards

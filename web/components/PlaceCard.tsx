@@ -40,24 +40,9 @@ export type PlaceCardData = Pick<
 	businessStatus?: string | null;
 };
 
-// One card, two layouts:
-//   "card" — vertical (homepage featured, listings, map popup)
-//   "row"  — horizontal (Explore list); adds hover/selected highlight + opens
-//            in a new tab. Both modes show the same details.
-export function PlaceCard({
-	r,
-	fallbackOrigin,
-	className,
-	href,
-	variant = "card",
-	selected = false,
-	hovered = false,
-	onHover,
-	newTab,
-	noHover = false,
-	hideState = false,
-	onViewMap,
-}: {
+// The full prop contract, exported so UI-Playground mockups can be typed as
+// drop-in replacements for PlaceCard (same props in, swap the body out).
+export type PlaceCardProps = {
 	r: PlaceCardData;
 	// Optional fallback reference point for distance when the visitor hasn't
 	// shared their location (home: state capital; Explore: arrival point).
@@ -76,7 +61,26 @@ export function PlaceCard({
 	// when set, renders a "View on map" button (Explore list) that centres the map
 	// on this spot instead of navigating to the detail page
 	onViewMap?: () => void;
-}) {
+};
+
+// One card, two layouts:
+//   "card" — vertical (homepage featured, listings, map popup)
+//   "row"  — horizontal (Explore list); adds hover/selected highlight + opens
+//            in a new tab. Both modes show the same details.
+export function PlaceCard({
+	r,
+	fallbackOrigin,
+	className,
+	href,
+	variant = "card",
+	selected = false,
+	hovered = false,
+	onHover,
+	newTab,
+	noHover = false,
+	hideState = false,
+	onViewMap,
+}: PlaceCardProps) {
 	const row = variant === "row";
 	// Row cards always open in a new tab; other cards opt in via `newTab`.
 	const openNewTab = newTab ?? row;
@@ -170,7 +174,6 @@ export function PlaceCard({
 						{popular && <PopularBadge />}
 					</div>
 				)}
-
 			</div>
 
 			{/* body */}
@@ -207,10 +210,21 @@ export function PlaceCard({
 					</div>
 				)}
 
-				{/* Bottom row: venue-type tag (moved down off the photo), plus the
-            Explore "View on map" action when present. */}
-				<div className="mt-auto flex items-center justify-between gap-2 pt-0.5">
+				{/* venue-type tag (moved down off the photo) */}
+				<div className="mt-auto flex items-center gap-2 pt-0.5">
 					<VenueType type={r.venueType} />
+				</div>
+
+				{/* Bottom row: live open/closed status (hidden until mounted / when no
+            hours), plus the Explore "View on map" action pinned to the right. */}
+				<div className="flex items-center justify-between gap-2 min-w-0">
+					<OpenStatusBadge
+						openingHours={r.openingHours}
+						state={r.state}
+						businessStatus={r.businessStatus ?? null}
+						size="sm"
+						className="min-w-0 max-w-full"
+					/>
 
 					{onViewMap && (
 						<button
@@ -221,7 +235,7 @@ export function PlaceCard({
 								e.stopPropagation();
 								onViewMap();
 							}}
-							className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-3 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
+							className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-2 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
 						>
 							<MapTrifold
 								size={15}
@@ -231,15 +245,6 @@ export function PlaceCard({
 						</button>
 					)}
 				</div>
-
-				{/* live open/closed status (hidden until mounted / when no hours) */}
-				<OpenStatusBadge
-					openingHours={r.openingHours}
-					state={r.state}
-					businessStatus={r.businessStatus ?? null}
-					size="sm"
-					className="self-start max-w-full"
-				/>
 			</div>
 		</Link>
 	);

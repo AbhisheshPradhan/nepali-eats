@@ -102,6 +102,10 @@ export interface ListOpts {
 	limit?: number;
 	offset?: number;
 	orderBy?: "popular" | "rating" | "name" | "newest" | "featured";
+	// When true, sink photoless spots to the bottom: rows with a card image
+	// (logo, cover, or any gallery photo) sort ahead of those without, before the
+	// chosen `orderBy` applies within each group. Used by the Explore default view.
+	photosFirst?: boolean;
 }
 
 // Allowlist mapping filter token -> boolean column. Allowlisted so a token can
@@ -169,9 +173,16 @@ const ORDER: Record<string, string> = {
 		"r.featured_rank ASC NULLS LAST, r.review_count DESC NULLS LAST, r.rating DESC NULLS LAST",
 };
 
+// Leading ORDER key that pushes photoless spots to the bottom. Mirrors the card's
+// image source (logo -> cover -> first gallery photo); the alias `primary_photo`
+// can't be reused inside an ORDER expression, so the test is inlined.
+const HAS_IMAGE_DESC =
+	"(r.logo_key IS NOT NULL OR r.cover_key IS NOT NULL OR EXISTS (SELECT 1 FROM restaurant_photos p WHERE p.restaurant_id = r.id AND NOT p.removed)) DESC";
+
 export async function listRestaurants(o: ListOpts = {}): Promise<Restaurant[]> {
 	const { where, params } = buildWhere(o);
-	const order = ORDER[o.orderBy || "popular"];
+	const sort = ORDER[o.orderBy || "popular"];
+	const order = o.photosFirst ? `${HAS_IMAGE_DESC}, ${sort}` : sort;
 	const limit = o.limit ?? 60;
 	const offset = o.offset ?? 0;
 	const rows = await query(
@@ -201,7 +212,7 @@ export async function pinsInBounds(o: ListOpts): Promise<RestaurantPin[]> {
 	const { where, params } = buildWhere(o);
 	const rows = await query(
 		`SELECT r.id, r.slug, r.name, r.lat, r.lng, r.rating, r.review_count,
-            r.venue_type, r.price_range, r.suburb, r.state,
+            r.venue_type, r.price_range, r.suburb, r.state, r.business_status,
             COALESCE(
               r.cover_key,
               (SELECT p.storage_key FROM restaurant_photos p
@@ -224,6 +235,7 @@ export async function pinsInBounds(o: ListOpts): Promise<RestaurantPin[]> {
 		suburb: row.suburb,
 		state: row.state,
 		primaryPhoto: row.primary_photo,
+		businessStatus: row.business_status,
 	}));
 }
 
@@ -314,26 +326,18 @@ export async function featured(limit = 8): Promise<Restaurant[]> {
 	});
 }
 
-// Homepage featured row, scoped to the visitor's state. Prefers editorial
-// picks (any restaurant with a non-null featured_rank); if the state has none,
-// falls back to that state's most popular spots so the row stays state-scoped
-// (never nationwide).
+// Homepage featured row, scoped to the visitor's state. Editorial picks only
+// (restaurants with a non-null featured_rank). Returns [] when the state has no
+// featured picks, so the Featured section self-hides rather than showing
+// look-alike filler.
 export async function featuredByState(
 	state: string | null | undefined,
 	limit = 5,
 ): Promise<Restaurant[]> {
-	const st = state || undefined;
-	const flagged = await listRestaurants({
-		state: st,
+	return listRestaurants({
+		state: state || undefined,
 		featured: true,
 		orderBy: "featured",
-		limit,
-	});
-	if (flagged.length) return flagged;
-	return listRestaurants({
-		state: st,
-		hasPhoto: true,
-		orderBy: "popular",
 		limit,
 	});
 }

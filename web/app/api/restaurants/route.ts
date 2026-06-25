@@ -33,6 +33,9 @@ export async function GET(request: Request) {
     // Backend is live; the Explore UI for these is still scaffolded/commented.
     flags: (sp.get("flags") || "").split(",").map((s) => s.trim()).filter(Boolean),
     orderBy: SORT[sp.get("sort") || "featured"] || "popular",
+    // Default (Featured) view only: float spots with a photo above photoless ones.
+    // Explicit Rating/Newest sorts stay pure so a top pick isn't buried for lacking a photo.
+    photosFirst: !sp.get("sort") || sp.get("sort") === "featured",
   };
 
   const items = await listRestaurants({
