@@ -15,7 +15,7 @@ const COLS = `
   r.street, r.suburb, r.state, r.postcode, r.full_address, r.lat, r.lng,
   r.phone, r.email, r.website, r.facebook, r.instagram, r.tiktok, r.whatsapp,
   r.menu_url, r.menu_source, r.logo_key, r.google_maps_url, r.opening_hours, r.featured_rank,
-  r.popular, r.marked_ready, r.description, r.business_status,
+  r.popular, r.description, r.business_status,
   r.live_music, r.kid_friendly, r.serves_vegetarian, r.parking,
   r.serves_alcohol, r.wheelchair_accessible,
   r.cover_key, r.cover_source, r.cover_attribution,
@@ -72,7 +72,6 @@ function mapRow(row: any): Restaurant {
 		featuredRank:
 			row.featured_rank != null ? Number(row.featured_rank) : null,
 		popular: !!row.popular,
-		markedReady: !!row.marked_ready,
 		description: row.description,
 		liveMusic: row.live_music ?? null,
 		kidFriendly: row.kid_friendly ?? null,

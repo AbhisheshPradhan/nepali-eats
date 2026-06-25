@@ -5,8 +5,48 @@ import {
   deletePhotoRow,
   getPhotoMedia,
   getCoverKeyById,
+  replacePhotoFile,
+  setCoverKeyById,
 } from "@/lib/admin/queries";
-import { deleteMedia } from "@/lib/admin/storage";
+import { saveMedia, deleteMedia, photoKey } from "@/lib/admin/storage";
+
+// PUT (multipart, field "file") -> replace this photo's file with a re-cropped
+// version. Writes a fresh key, repoints the row, follows the cover if it pointed
+// at the old file, then deletes the old file. Returns the new storage key.
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const blocked = await requireAdmin();
+  if (blocked) return blocked;
+
+  const id = Number((await params).id);
+  if (!Number.isFinite(id)) return NextResponse.json({ error: "Bad id" }, { status: 400 });
+
+  const photo = await getPhotoMedia(id);
+  if (!photo) return NextResponse.json({ error: "Photo not found" }, { status: 404 });
+
+  const form = await request.formData();
+  const file = form.get("file");
+  if (!(file instanceof File) || !file.type.startsWith("image/")) {
+    return NextResponse.json({ error: "Image file required" }, { status: 400 });
+  }
+
+  const buf = Buffer.from(await file.arrayBuffer());
+  const newKey = await saveMedia(photoKey(photo.restaurantId, file.name), buf);
+  const res = await replacePhotoFile(id, newKey);
+  if (!res) {
+    await deleteMedia(newKey);
+    return NextResponse.json({ error: "Photo not found" }, { status: 404 });
+  }
+  // Keep the cover following the re-crop if it pointed at this photo's file.
+  if ((await getCoverKeyById(res.restaurantId)) === res.oldKey) {
+    await setCoverKeyById(res.restaurantId, newKey);
+  }
+  if (res.oldKey && res.oldKey !== newKey) await deleteMedia(res.oldKey);
+
+  return NextResponse.json({ ok: true, storageKey: newKey });
+}
 
 // PATCH { primary: true } -> make this photo the restaurant's primary.
 export async function PATCH(

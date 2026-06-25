@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS restaurants (
   relevance         TEXT,                   -- nepali | review_needed | indian_likely | other_cuisine | grocery_retail | other_venue | manual_excluded
   featured_rank     INT,                    -- editorial homepage pick + manual order within a state's featured list (asc, nulls last); NOT NULL = featured
   popular           BOOLEAN NOT NULL DEFAULT FALSE, -- editorial "Popular" flag; true shows a Popular tag on the card
-  marked_ready      BOOLEAN NOT NULL DEFAULT FALSE, -- internal: data reviewed + ready to go live / for next stage (e.g. menu parsing)
   description       TEXT,                   -- editorial blurb; falls back to an auto-generated line when empty
   enriched_at       TIMESTAMPTZ,
   created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -59,7 +58,6 @@ ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS logo_key TEXT;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS cover_key TEXT;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS cover_source TEXT;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS cover_attribution TEXT;
-ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS marked_ready BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS popular BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS description TEXT;
 ALTER TABLE restaurants DROP COLUMN IF EXISTS is_featured;

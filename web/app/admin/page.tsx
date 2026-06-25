@@ -242,9 +242,6 @@ export default async function AdminIndex({
 									Contactable
 								</th>
 								<th className="px-3 py-2 font-semibold text-center">
-									Ready
-								</th>
-								<th className="px-3 py-2 font-semibold text-center">
 									★
 								</th>
 							</tr>
@@ -285,13 +282,6 @@ export default async function AdminIndex({
 									</td>
 									<td className="px-3 py-2 text-center">
 										<Dot on={r.contactable} />
-									</td>
-									<td className="px-3 py-2 text-center">
-										{r.markedReady ? (
-											<span title="Marked ready">✅</span>
-										) : (
-											""
-										)}
 									</td>
 									<td className="px-3 py-2 text-center text-ink-500">
 										{r.featuredRank ?? ""}

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { mediaUrl } from "@/lib/media";
 import { parsePastedHours } from "@/lib/admin/parseHours";
+import { CropModal } from "./CropModal";
 import { autoBlurb } from "@/lib/format";
 import type { RestaurantDetail, OpeningHours, VenueType } from "@/lib/types";
 import type { AdminPhoto } from "@/lib/admin/queries";
@@ -105,36 +106,34 @@ export function RestaurantEditor({
   const [photos, setPhotos] = useState<AdminPhoto[]>(initialPhotos);
   const [menuFiles, setMenuFiles] = useState<string[]>(initialMenuFiles);
   const [menuUrl, setMenuUrl] = useState<string | null>(restaurant.menuUrl);
-  const [markedReady, setMarkedReady] = useState(restaurant.markedReady);
   const [desc, setDesc] = useState(restaurant.description ?? "");
   const autoDesc = autoBlurb(restaurant);
   const [logo, setLogo] = useState<string | null>(restaurant.logoKey);
   const [cover, setCover] = useState<string | null>(restaurant.coverKey);
   const [busy, setBusy] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
+  // Active crop dialog (cover crop-on-upload + gallery re-frame). `revoke` clears
+  // the object URL for local-file sources once the dialog closes.
+  const [cropper, setCropper] = useState<{
+    src: string;
+    aspect: number;
+    title: string;
+    revoke?: string;
+    onConfirm: (blob: Blob) => Promise<void>;
+  } | null>(null);
+
+  function closeCrop() {
+    setCropper((c) => {
+      if (c?.revoke) URL.revokeObjectURL(c.revoke);
+      return null;
+    });
+  }
 
   const flash = (msg: string) => {
     setNote(msg);
     setTimeout(() => setNote(null), 2500);
   };
   const fail = (e: unknown) => alert(e instanceof Error ? e.message : "Something went wrong");
-
-  // Internal "ready" flag — saves immediately on toggle.
-  async function toggleReady(next: boolean) {
-    setMarkedReady(next); // optimistic
-    try {
-      await api(base, {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ markedReady: next }),
-      });
-      flash(next ? "Marked ready" : "Marked not ready");
-      router.refresh();
-    } catch (e) {
-      setMarkedReady(!next); // revert
-      fail(e);
-    }
-  }
 
   async function saveDescription() {
     setBusy("description");
@@ -356,21 +355,63 @@ export function RestaurantEditor({
     }
   }
 
-  async function uploadCover(file: File | null) {
+  // Cover is shown at 16:9 (detail hero) and 4:3 (card); we crop to 16:9 so the
+  // dominant hero frames cleanly and the card just trims the sides.
+  function openCoverCrop(file: File | null) {
     if (!file) return;
-    setBusy("cover");
-    const fd = new FormData();
-    fd.append("file", file);
-    try {
-      const data = await api(`${base}/cover`, { method: "POST", body: fd });
-      setCover(data.coverKey);
-      flash("Cover uploaded");
-      router.refresh();
-    } catch (e) {
-      fail(e);
-    } finally {
-      setBusy(null);
-    }
+    const url = URL.createObjectURL(file);
+    setCropper({
+      src: url,
+      aspect: 16 / 9,
+      title: "Crop cover photo (16:9)",
+      revoke: url,
+      onConfirm: async (blob) => {
+        setBusy("cover");
+        const fd = new FormData();
+        fd.append("file", blob, "cover.jpg");
+        try {
+          const data = await api(`${base}/cover`, { method: "POST", body: fd });
+          setCover(data.coverKey);
+          closeCrop();
+          flash("Cover uploaded");
+          router.refresh();
+        } catch (e) {
+          fail(e);
+        } finally {
+          setBusy(null);
+        }
+      },
+    });
+  }
+
+  // Re-frame an existing gallery photo to 4:3 (the ratio every card/gallery
+  // surface uses). Writes a new file server-side and points the row at it.
+  function reframePhoto(p: AdminPhoto) {
+    const src = mediaUrl(p.storageKey);
+    if (!src) return;
+    setCropper({
+      src,
+      aspect: 4 / 3,
+      title: "Re-frame photo (4:3)",
+      onConfirm: async (blob) => {
+        setBusy("photos");
+        const fd = new FormData();
+        fd.append("file", blob, "photo.jpg");
+        try {
+          const data = await api(`/api/admin/photos/${p.id}`, { method: "PUT", body: fd });
+          setPhotos((ps) =>
+            ps.map((q) => (q.id === p.id ? { ...q, storageKey: data.storageKey } : q))
+          );
+          closeCrop();
+          flash("Photo re-framed");
+          router.refresh();
+        } catch (e) {
+          fail(e);
+        } finally {
+          setBusy(null);
+        }
+      },
+    });
   }
 
   async function removeCover() {
@@ -435,23 +476,15 @@ export function RestaurantEditor({
         </div>
       )}
 
-      {/* READY FLAG (internal) — top of the editor, saves on toggle */}
-      <label
-        className={`flex items-center gap-3 rounded-lg border-2 px-4 py-3 cursor-pointer select-none transition-colors ${
-          markedReady ? "border-emerald-400 bg-emerald-50" : "border-ink-200 bg-white"
-        }`}
-      >
-        <input
-          type="checkbox"
-          checked={markedReady}
-          onChange={(e) => toggleReady(e.target.checked)}
-          className="h-5 w-5 accent-emerald-600"
+      {cropper && (
+        <CropModal
+          src={cropper.src}
+          aspect={cropper.aspect}
+          title={cropper.title}
+          onCancel={closeCrop}
+          onConfirm={cropper.onConfirm}
         />
-        <span className="font-display font-bold text-ink-900">Mark as ready</span>
-        <span className="text-ink-500 text-sm">
-          Data reviewed and ready to go live / for the next stage (e.g. menu parsing).
-        </span>
-      </label>
+      )}
 
       {/* PHOTOS */}
       <Section title="Photos">
@@ -488,7 +521,10 @@ export function RestaurantEditor({
                     ▶
                   </button>
                 </div>
-                <div className="flex gap-2 mt-1 text-xs justify-center">
+                <div className="flex flex-wrap gap-2 mt-1 text-xs justify-center">
+                  <button onClick={() => reframePhoto(p)} className="text-ink-600 hover:underline">
+                    Re-frame
+                  </button>
                   {!p.isPrimary && (
                     <button onClick={() => makePrimary(p.id)} className="text-chili-600 hover:underline">
                       Make primary
@@ -543,7 +579,10 @@ export function RestaurantEditor({
                 type="file"
                 accept="image/*"
                 className="hidden"
-                onChange={(e) => uploadCover(e.target.files?.[0] ?? null)}
+                onChange={(e) => {
+                  openCoverCrop(e.target.files?.[0] ?? null);
+                  e.target.value = ""; // allow re-selecting the same file
+                }}
               />
             </label>
             {cover && (
@@ -552,8 +591,9 @@ export function RestaurantEditor({
               </button>
             )}
             <p className="text-ink-400 text-xs">
-              The lead photo: card (4:3) + detail hero (16:9). Landscape ~1600×1200
-              works best; smaller is fine, just softer. Not shown in the gallery below.
+              The lead photo: detail hero (16:9) + card (4:3). You crop it to 16:9 on
+              upload; the card trims the sides. Landscape ~1600×1200 works best;
+              smaller is fine, just softer. Not shown in the gallery below.
             </p>
           </div>
         </div>

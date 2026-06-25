@@ -16,7 +16,6 @@ export interface AdminRow {
   state: string | null;
   reviewCount: number | null;
   featuredRank: number | null;
-  markedReady: boolean;
   hasPhoto: boolean;
   hasHours: boolean;
   hasPrice: boolean;
@@ -66,14 +65,13 @@ export async function adminList(
 
   const rows = await query<Record<string, unknown>>(
     `SELECT r.id, r.slug, r.name, r.suburb, r.state, r.review_count, r.featured_rank,
-            r.marked_ready,
             ${COVERAGE.photo} AS has_photo,
             ${COVERAGE.hours} AS has_hours,
             ${COVERAGE.price} AS has_price,
             ${COVERAGE.menu} AS has_menu,
             ${COVERAGE.contact} AS contactable
        FROM restaurants r ${where}
-      ORDER BY r.marked_ready ASC, r.state ASC, r.review_count DESC NULLS LAST
+      ORDER BY r.state ASC, r.review_count DESC NULLS LAST
       LIMIT ${Math.trunc(limit)} OFFSET ${Math.trunc(offset)}`,
     params
   );
@@ -85,7 +83,6 @@ export async function adminList(
     state: (row.state as string) ?? null,
     reviewCount: row.review_count != null ? Number(row.review_count) : null,
     featuredRank: row.featured_rank != null ? Number(row.featured_rank) : null,
-    markedReady: !!row.marked_ready,
     hasPhoto: !!row.has_photo,
     hasHours: !!row.has_hours,
     hasPrice: !!row.has_price,
@@ -110,7 +107,7 @@ export async function adminCards(
                WHERE p.restaurant_id = r.id AND NOT p.removed
                ORDER BY p.is_primary DESC, p.position ASC LIMIT 1) AS primary_photo
        FROM restaurants r ${where}
-      ORDER BY r.marked_ready ASC, r.state ASC, r.review_count DESC NULLS LAST
+      ORDER BY r.state ASC, r.review_count DESC NULLS LAST
       LIMIT ${Math.trunc(limit)} OFFSET ${Math.trunc(offset)}`,
     params
   );
@@ -296,7 +293,6 @@ export async function setNepaliStatus(
 
 type FieldMeta = { col: string; kind?: "int" | "float" | "json" | "array" | "bool" };
 const EDITABLE: Record<string, FieldMeta> = {
-  markedReady: { col: "marked_ready", kind: "bool" },
   name: { col: "name" },
   description: { col: "description" },
   fullAddress: { col: "full_address" },
@@ -491,6 +487,34 @@ export async function getCoverKeyById(restaurantId: number): Promise<string | nu
 export async function getRestaurantIdBySlug(slug: string): Promise<number | null> {
   const rows = await query<{ id: number }>(`SELECT id FROM restaurants WHERE slug = $1`, [slug]);
   return rows[0]?.id ?? null;
+}
+
+// Point an existing photo row at a NEW storage_key after a re-crop wrote a fresh
+// file. Returns the previous key (to delete) + the restaurant id (to repoint a
+// cover that referenced it). A new key avoids CDN cache staleness from
+// overwriting the same object.
+export async function replacePhotoFile(
+  photoId: number,
+  newKey: string
+): Promise<{ oldKey: string; restaurantId: number } | null> {
+  const rows = await query<{ old_key: string; restaurant_id: number }>(
+    `WITH old AS (SELECT storage_key FROM restaurant_photos WHERE id = $1)
+     UPDATE restaurant_photos SET storage_key = $2
+      WHERE id = $1
+     RETURNING (SELECT storage_key FROM old) AS old_key, restaurant_id`,
+    [photoId, newKey]
+  );
+  const r = rows[0];
+  return r ? { oldKey: r.old_key, restaurantId: r.restaurant_id } : null;
+}
+
+// Set a restaurant's cover_key by id (used to keep the cover following a re-crop
+// of the gallery photo it points at).
+export async function setCoverKeyById(restaurantId: number, key: string): Promise<void> {
+  await query(
+    `UPDATE restaurants SET cover_key = $2, updated_at = now() WHERE id = $1`,
+    [restaurantId, key]
+  );
 }
 
 // ---- Media triage (batch photo + menu cleanup) -----------------------------
