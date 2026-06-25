@@ -5,7 +5,7 @@ restaurants, cafes, food trucks and stalls across Australia: scraped from Google
 Maps, enriched, stored in PostgreSQL, and served by a Next.js + Tailwind site
 with a map-driven explore experience.
 
-**Live (test):** https://nepali-eats.vercel.app/
+**Live (test):** <a href="https://nepali-eats.vercel.app/" target="_blank" rel="noopener noreferrer">nepali-eats.vercel.app</a>
 
 ## Repo layout
 
