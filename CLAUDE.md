@@ -335,6 +335,23 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       (`.ne-popup`, see `web/components/explore/MapView.tsx`) shows a single photo;
       add a swipeable/clickable carousel through the restaurant's `restaurant_photos`
       so users can flick through multiple shots without opening the detail page.
+- [ ] **Momo Route / momo crawl** — let foodies string several momo spots into a
+      route (momo-hopping, the way people do bar/café crawls): an ordered set of
+      stops shown on the Explore map with walking distance/time between them and a
+      shareable URL. The format is proven (food crawls, Eater/Infatuation "maps,"
+      Google Maps Lists) and on-brand ("Find your momo people"), with strong SEO
+      ("momo crawl <city>", "best momo route in <suburb>"). **Build editorial-first,
+      UGC later:** start with admin-curated trails per city/suburb (e.g. "5 momo
+      stops walking distance in Harris Park") so it ships value and SEO on day one
+      and reuses what we have (PostGIS to order stops + compute leg distance/time,
+      the Explore map to render). Add a user "build your own route" tool only after
+      auth lands (UGC route-builders have a cold-start problem: low creation rates,
+      need accounts + seeded content to not feel empty). **Caveat:** crawling only
+      works where momo spots cluster, check which suburbs have 3+ momo places close
+      together (PostGIS proximity) before designing the walking UX; spread-out
+      spots become a drive, not a crawl. Likely a `routes` + `route_stops` table
+      (slug, title, city/suburb, ordered restaurant_id stops, author) plus
+      `/momo/route/[slug]` pages.
 - [ ] **Add a Spot** (`/add-a-spot` submission flow) — post-launch feature.
 - [ ] **Login / auth** — post-launch feature (gates reviews, claims, saved spots).
 - [ ] **Claim a restaurant** — claim portal so an owner can claim their listing
