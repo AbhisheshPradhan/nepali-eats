@@ -212,6 +212,14 @@ export default function MapView({
       mapStyle={STYLE}
       initialViewState={{ longitude: center[1], latitude: center[0], zoom }}
       style={{ position: "absolute", inset: 0 }}
+      // Flat map (no 3D globe at low zoom) — it's a single-country directory.
+      projection="mercator"
+      // Australia-only cage: camera can't pan outside the continent, and minZoom
+      // keeps the most-zoomed-out view filled with AU (no ocean/Indonesia sliver).
+      // Bounds padded past the data extent so no edge listing (Perth/Hobart/Cairns)
+      // is clipped. [[W,S],[E,N]].
+      maxBounds={[[110, -45], [156, -9]]}
+      minZoom={3}
       dragRotate={false}
       pitchWithRotate={false}
       touchPitch={false}
