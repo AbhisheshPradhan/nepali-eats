@@ -79,10 +79,11 @@ Conformance audit:
 
 ## 🚀 Config to go live (frontend-facing parts of LAUNCH.md §3)
 
-- [ ] **Env vars on Vercel:** `DATABASE_URL` (Neon pooled), `NEXT_PUBLIC_MAPBOX_TOKEN`,
-      Clerk keys, `NEXT_PUBLIC_MEDIA_BASE` (R2), `NEXT_PUBLIC_SITE_URL`, `ADMIN_USER_IDS`
-- [ ] **Media on R2** uploaded + `NEXT_PUBLIC_MEDIA_BASE` set (else photos 404 in prod)
-- [ ] **Canonical host** decided (apex vs www) + 301 redirect
+- [x] **Env vars on Vercel:** `DATABASE_URL` (Neon), `NEXT_PUBLIC_MAPBOX_TOKEN`,
+      Clerk keys, `NEXT_PUBLIC_MEDIA_BASE` (R2), `ADMIN_USER_IDS` set. ⚠️
+      `NEXT_PUBLIC_SITE_URL` still `localhost` — set it when the custom domain lands.
+- [x] **Media on R2** uploaded + `NEXT_PUBLIC_MEDIA_BASE` set (public reads serve 200)
+- [ ] **Canonical host** decided (apex vs www) + 301 redirect (still on `.vercel.app`)
 - [ ] **Sitemap/robots** verified live; submit to Search Console + Bing; GA4 installed
 
 ## ⚖️ Optional pre-launch polish (non-blocking)

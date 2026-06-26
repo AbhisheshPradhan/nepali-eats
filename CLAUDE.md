@@ -37,11 +37,16 @@ server himself. To verify changes, use `npx tsc --noEmit` (typecheck) or
 ## Stack
 
 - **Node 25 + Playwright** (Chromium, headless) for scraping/enrichment
-- **PostgreSQL** (local, `postgresql@17`) — database `nepali_eats`
+- **PostgreSQL** — now hosted on **Neon** (with PostGIS). Dev and prod share the
+  SAME Neon DB (see "Schema changes are SHARED with prod" below). The old local
+  `postgresql@17` / `nepali_eats` DB is retired.
 - **Webshare proxies** (20, rotating) in `.env` as `WEBSHARE_PROXIES`
-- `DATABASE_URL` in `.env` → `postgresql://<user>@localhost:5432/nepali_eats`
+- `DATABASE_URL` in `.env` → the Neon connection string (`...neon.tech/neondb`).
 
-## Production stack & deployment (planned, TODO)
+## Production stack & deployment (LIVE — core stack deployed)
+The site is live at **nepali-eats.vercel.app** (Vercel test domain). Neon DB,
+Vercel, and R2 media are all up and serving; remaining work is the custom domain,
+Cloudflare edge, and the SEO consoles (see checklist below).
 Chosen low-cost launch setup (about $0/mo until traffic or commercial scale):
 - **Host:** Vercel (Hobby, free). Next.js native, SSR for SEO.
 - **DB:** Neon (free). Managed Postgres with PostGIS; the raw-SQL `node-postgres`
@@ -54,14 +59,17 @@ Chosen low-cost launch setup (about $0/mo until traffic or commercial scale):
 - First real bill is the DB (about $19 Neon paid or $25 Supabase Pro) only when
   traffic outgrows free; Vercel Pro ($20) only if it becomes commercial.
 
-To do (deploy):
-- [ ] Neon: create project, `CREATE EXTENSION postgis`, run `scraper/schema.sql`,
-      load data; grab pooled (app) and direct (scraper/migrations) connection strings.
-- [ ] App `DATABASE_URL` → Neon **pooled** (serverless-safe); scraper and
-      migrations use the **direct** connection.
-- [ ] R2: bucket plus public domain, set `NEXT_PUBLIC_MEDIA_BASE`, upload `media/`.
-      The hostname is already whitelisted in `next.config.ts` images.
-- [ ] Vercel: import repo (project root `web/`), set env vars, deploy, custom domain.
+Deploy status:
+- [x] Neon: project created, PostGIS enabled, schema + data loaded. `DATABASE_URL`
+      points at Neon (dev AND prod share it — see "Schema changes are SHARED" below).
+- [x] App `DATABASE_URL` → Neon. (Scraper/migrations use the direct connection.)
+- [x] R2: bucket `nepalieats-media` live, `media/` synced via
+      `scraper/upload-media-r2.sh`, `NEXT_PUBLIC_MEDIA_BASE` set
+      (`pub-6334a35f40da4f7fb1e3f948b1e0dbc1.r2.dev`). Public reads serve 200.
+- [x] Vercel: repo imported (root `web/`), env vars set, deployed to
+      **nepali-eats.vercel.app**. Custom domain still TODO.
+- [ ] Custom domain (still on the `.vercel.app` test URL; `NEXT_PUBLIC_SITE_URL`
+      still `localhost`, update it when the real domain lands so canonicals are right).
 - [ ] Cloudflare: DNS in front of Vercel, cache rules, Super Bot Fight Mode
       (skip Googlebot), www to apex 301.
 - [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
@@ -154,8 +162,9 @@ the week in `opening_hours_raw` over ~7-9 daily runs; it rebuilds canonical
 `opening_hours` via `scraper/hours.js` and opportunistically backfills price. No
 photos. Guard = `hours_scraped_at::date < CURRENT_DATE` (re-scrapes every row once
 per day). Kept as a free fallback for rows the API misses, but the **full-week
-hours now come from the Places API** (`reconcile-places.js`, see below); the About
-panel (kid_friendly/live_music) still needs a field-mask widening on the next run.
+hours now come from the Places API** (`reconcile-places.js`, see below). The About
+panel attributes `kid_friendly` (381 rows, 377 true) and `live_music` (365 rows,
+57 true) are now POPULATED from the Places API pass.
 
 **Google Places API (New) pass — DONE 2026-06-25 (553 calls, free tier):**
 `node scraper/enrich-places.js` — one Place Details call per restaurant (keyed off
@@ -246,10 +255,9 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
 - **Filter attribute columns — now POPULATED** (Places API, see above): the
   Explore "flags" filter is backed by `serves_vegetarian`, `takeout`, `delivery`,
   `dine_in`, `outdoor_seating`, `reservable`, `good_for_groups`, `serves_alcohol`,
-  `serves_cocktails`, `allows_dogs`, `wheelchair_accessible`. The legacy
-  `kid_friendly`/`live_music` columns are NOT in the Places API basic field set
-  and remain NULL; Google's `goodForChildren`/`liveMusic` would need an explicit
-  field-mask addition before they fill.
+  `serves_cocktails`, `allows_dogs`, `wheelchair_accessible`. `kid_friendly`
+  (381 rows, 377 true) and `live_music` (365 rows, 57 true) are ALSO populated
+  from the same Places API pass (Google's `goodForChildren`/`liveMusic`).
 - Indexes: state, suburb, postcode, (lat,lng).
 
 ## ⚠️ Schema changes are SHARED with prod — deploy code with them
@@ -352,6 +360,45 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       spots become a drive, not a crawl. Likely a `routes` + `route_stops` table
       (slug, title, city/suburb, ordered restaurant_id stops, author) plus
       `/momo/route/[slug]` pages.
+- [ ] **DISCOVERY: Event booking / Festivals promotion / lead CRM** — monetization
+      discovery piece, NOT yet scoped to build. Three related-but-distinct surfaces that share
+      data but monetize differently; this entry captures the thinking so it isn't lost.
+    - **(A) Catering / private-event enquiries** (birthdays, bhoj, office orders) —
+      diner → restaurant lead-gen. Highest-intent, highest-value transaction in the
+      space and the clearest gap vs Google Maps (Maps can't do "momo + mains for 30
+      in Harris Park next Sat"). Money = restaurants pay to *receive* leads
+      (subscription or pay-per-lead) and/or featured "verified caterer" placement
+      (reuses `featured_rank`). NOT diner-pays. Hard part is supply-side cold-start:
+      we have no relationship/monitored channel with any restaurant (email 39%, phone
+      95% but scraped ≠ a pipeline). v0 = concierge: form routes to admin, we broker
+      manually by phone, to validate demand before building owner plumbing.
+    - **(B) Festival & community events** = a PUBLIC "what's on" layer (Dashain,
+      Tihar/Deusi-Bhailo, Holi, Teej, Losar, Nepali New Year, Buddha Jayanti, momo
+      comps, live-music nights). Different shape from A (one-to-many, time-bound,
+      public). Strongest SEO gap in the diaspora online (event info today is buried in
+      FB groups/WhatsApp, unindexed) → recurring SEASONAL traffic spikes per festival.
+      Primarily an audience/traffic play that makes A + the whole directory stickier
+      ("the Nepali food + culture hub for AU"), not a strong direct revenue line:
+      monetize via promoted/featured events + festival-season sponsorship inventory;
+      ticketing cut is high-build and fights Eventbrite/Humanitix, skip early. Open
+      scope call: restaurant-only vs community-wide (temples, associations host the
+      best events) — leaning community-wide = bigger, more defensible surface but
+      drifts from "restaurant directory". Same editorial-first → UGC-later pattern as
+      momo routes: admin-curate per city first (no auth needed), add submissions later.
+      ⚠️ Real cost is editorial freshness, not the build — a stale calendar is worse
+      than none.
+    - **(C) Lead CRM** — once A/B run, both need somewhere to land/track: an
+      `enquiries` table (restaurant_id FK, contact, party size, date, event_type,
+      message, status, created_at) + an `events` table (title, type, restaurant_id
+      NULLABLE so community orgs qualify, datetime, suburb/state, geom, ticket_url,
+      description, status). Owner-facing enquiry management basically needs the
+      claim/auth flow already deferred below, so A's real launch rides on auth; B can
+      ship editorial-only without it.
+    - **Recommended sequence:** launch directory → B editorial-curated (audience +
+      warms restaurant relationships, no auth) → A concierge on the warmed
+      restaurants → monetize both via `featured_rank` once traffic exists (sells
+      hardest in festival season). **Validate both sides MANUALLY before writing
+      matchmaking code — first dollar is a phone call, not a feature.**
 - [ ] **Add a Spot** (`/add-a-spot` submission flow) — post-launch feature.
 - [ ] **Login / auth** — post-launch feature (gates reviews, claims, saved spots).
 - [ ] **Claim a restaurant** — claim portal so an owner can claim their listing
@@ -427,8 +474,8 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       `regularOpeningHours`): full-week `opening_hours` on 474 rows, replacing the
       headless single-day accumulation (`enrich-hours.js`, kept as a fallback).
       Price/rating/review_count + attribute columns + `business_status` also
-      backfilled in the same pass. `goodForChildren`/`liveMusic` still need a
-      field-mask addition (next July re-run) before `kid_friendly`/`live_music` fill.
+      backfilled in the same pass, including `kid_friendly` (377 true) and
+      `live_music` (57 true) from Google's `goodForChildren`/`liveMusic`.
 - [ ] Menus/prices go stale — define a refresh cadence (`fetched_at` staleness)
 
 ## Conventions

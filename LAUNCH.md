@@ -99,18 +99,16 @@ Nothing goes live for crawling until these are true. Detail/why is in §4 (SEO),
 
 ## Infra / external (Abhishesh; can run in parallel with the code work)
 
-- [ ] **Neon:** create project, `CREATE EXTENSION postgis`, run `scraper/schema.sql`,
-      load data. Grab the **pooled** URL (app) and the **direct** URL
-      (scraper/migrations).
-- [ ] **App env:** `DATABASE_URL` → Neon **pooled** (serverless-safe). Scraper +
-      migrations use the **direct** connection.
-- [ ] **R2:** bucket + public domain, upload `media/`, set `NEXT_PUBLIC_MEDIA_BASE`.
-      Photos 404 in prod until this is done (today they're a local symlink).
+- [x] **Neon:** project created, PostGIS enabled, schema + data loaded.
+      `DATABASE_URL` points at Neon (dev + prod share the same DB).
+- [x] **App env:** `DATABASE_URL` → Neon. Scraper + migrations use the direct connection.
+- [x] **R2:** bucket `nepalieats-media` live, `media/` synced via
+      `scraper/upload-media-r2.sh`, `NEXT_PUBLIC_MEDIA_BASE` set. Public reads serve 200.
       Hostname already whitelisted in `next.config.ts`.
-- [ ] **Vercel:** import repo (project root `web/`), set env vars (`DATABASE_URL`,
-      `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_MAPBOX_TOKEN`, `NEXT_PUBLIC_MEDIA_BASE`,
-      `CLERK_SECRET_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `ADMIN_USER_IDS`),
-      deploy, attach custom domain.
+- [x] **Vercel:** repo imported (root `web/`), env vars set, deployed to
+      **nepali-eats.vercel.app**. Custom domain still to attach.
+- [ ] **Custom domain** + set `NEXT_PUBLIC_SITE_URL` to it (still `localhost` today,
+      so canonicals are wrong until this lands).
 - [ ] **Cloudflare:** DNS in front of Vercel, cache rules, Super Bot Fight Mode
       (skip Googlebot), www → apex 301.
 - [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
