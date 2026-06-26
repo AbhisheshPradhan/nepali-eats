@@ -35,6 +35,19 @@ there are unsaved changes. No delete button in the drawer (stays on `/admin`).
   the drawer (auth + admin gated, like all `/api/admin/*`).
 - `app/api/admin/restaurants/[slug]/route.ts` — PATCH now `revalidatePath`s the
   detail page.
+- `app/api/admin/media/route.ts` — same-origin admin media proxy
+  (`GET ?key=…` → `getMedia()` in `lib/admin/storage.ts`). Re-framing an existing
+  photo/cover loads through this, NOT the cross-origin R2 public URL, so the
+  canvas export isn't CORS-blocked ("Couldn't load the image"). Reuses the
+  server-side `R2_*` creds; no new env.
+
+**Refinements (later pass):**
+- Menu tab: uploaded files are clickable view links with an "On page" badge; the
+  menu_url helper explains it holds an external link OR an uploaded file's key.
+- Photos tab: logo moved to the top (with a "desktop view only" hint), shorter
+  cover preview, larger gallery thumbnails.
+- Cover gained a re-frame **Crop** button (16:9) alongside upload, sharing one
+  `uploadCoverBlob` and the media proxy.
 
 `components/edit/EditableText.tsx` is the (now unused) in-place prototype, kept
 for reference / a possible future in-place layer.

@@ -138,6 +138,27 @@ Deploy status:
   home for any AU state via the `ne_admin_state` cookie (`lib/stateOverride.ts`);
   the server honors it ONLY for admins (`resolveState()` in `lib/geo.ts`), so
   anonymous traffic pays no auth cost.
+- **Inline restaurant editor (edit from the detail page):** admins/owners get an
+  "Edit Details" toggle on `/restaurant/[slug]` that opens a slide-over drawer
+  (`components/edit/RestaurantEditPanel.tsx`, shadcn Sheet) instead of routing to
+  the older `/admin/[slug]` form (`RestaurantEditor.tsx`, still there). Three tabs:
+  **General** (every batched field + hours behind ONE Save = a single PATCH to
+  `/api/admin/restaurants/[slug]`), **Photos** (cover, gallery, logo — instant
+  uploads), **Menu** (menu-file uploads — instant; uploaded files are viewable
+  links). Drawer media loads via `GET /api/admin/restaurants/[slug]/editor`
+  (photos + menu files). Gated like all `/api/admin/*` (proxy.ts Clerk +
+  `ADMIN_USER_IDS`, re-checked by `requireAdmin`). See `web/EDIT_RESTAURANT_PLAN.md`.
+- **Image cropping is client-side + destructive.** `CropModal` (react-easy-crop)
+  draws the chosen region to a `<canvas>` and exports a JPEG blob; the cover (16:9)
+  and gallery photos (4:3) each have an upload-crop AND a re-frame Crop button. The
+  crop is baked into a new file and the outside pixels are dropped (gallery
+  originals survive only when a cover points at a `photos/…` key). Re-framing an
+  EXISTING photo loads it through `GET /api/admin/media?key=…`
+  (`getMedia()` in `lib/admin/storage.ts`), a **same-origin admin proxy** that
+  streams the R2 object server-side — the public `NEXT_PUBLIC_MEDIA_BASE` R2 domain
+  is cross-origin with no CORS headers, so a direct `<img crossOrigin>` + canvas
+  export is blocked ("Couldn't load the image"). The proxy reuses the existing
+  server-side `R2_*` creds; no new env vars.
 - `design-system/` — NepaliEats design system + mockup (reference for the build).
 - `media/` — self-hosted photos/menus (shared; symlinked into web/public in dev → R2 in prod).
 - root `.env`, `node_modules`, `package.json` — shared by the scraper.
