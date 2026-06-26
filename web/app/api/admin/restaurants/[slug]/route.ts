@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { deleteRestaurantBySlug } from "@/lib/queries";
 import { updateRestaurantFields } from "@/lib/admin/queries";
 import { removeRestaurantMedia } from "@/lib/admin/storage";
@@ -20,6 +21,9 @@ export async function PATCH(
   if (!updated) {
     return NextResponse.json({ error: "Not found or no valid fields" }, { status: 404 });
   }
+  // Bust the ISR cache for this restaurant's public detail page so an inline
+  // edit shows up for visitors (the editor also calls router.refresh()).
+  revalidatePath(`/restaurant/${slug}`);
   return NextResponse.json({ ok: true, restaurant: updated });
 }
 

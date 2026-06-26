@@ -2,6 +2,7 @@ import path from "node:path";
 import {
   S3Client,
   PutObjectCommand,
+  GetObjectCommand,
   CopyObjectCommand,
   DeleteObjectCommand,
   DeleteObjectsCommand,
@@ -104,6 +105,23 @@ export async function saveMedia(key: string, data: Buffer): Promise<string> {
     }),
   );
   return key;
+}
+
+// Read an object back from R2 (server-side, no browser CORS). Used by the admin
+// media proxy so the cropper can load an existing photo same-origin instead of
+// hitting the cross-origin R2 public domain (which sends no CORS headers, so a
+// direct <img crossOrigin> load + canvas export is blocked). Returns null if missing.
+export async function getMedia(
+  key: string,
+): Promise<{ body: Buffer; contentType: string } | null> {
+  try {
+    const res = await s3().send(new GetObjectCommand({ Bucket: BUCKET, Key: key }));
+    if (!res.Body) return null;
+    const bytes = await res.Body.transformToByteArray();
+    return { body: Buffer.from(bytes), contentType: res.ContentType || contentType(key) };
+  } catch {
+    return null;
+  }
 }
 
 // Server-side copy <srcKey> -> <destKey>. Used when promoting a gallery photo (or

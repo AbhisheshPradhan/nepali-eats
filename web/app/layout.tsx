@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { SiteFooter } from "@/components/SiteFooter";
 import { UserLocationProvider } from "@/lib/useUserLocation";
+import { Toaster } from "@/components/shadcn/sonner";
 
 // NepaliEats brand theme for all Clerk UI (the sign-in/up modal, UserButton).
 const clerkAppearance = {
@@ -94,6 +95,7 @@ export default function RootLayout({
 						<Header />
 						<main className="flex-1">{children}</main>
 						<SiteFooter />
+						<Toaster theme="light" position="bottom-right" />
 					</UserLocationProvider>
 				</ClerkProvider>
 			</body>
