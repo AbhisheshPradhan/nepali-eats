@@ -343,6 +343,18 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
 
 ### Post-launch (do AFTER launch, not blocking)
 
+- [ ] **Non-destructive cropping (nice to have)** — today the admin editor crop is
+      destructive: `CropModal` bakes the chosen region into a new file and the old
+      one is deleted (see "Image cropping is client-side + destructive" above), so
+      you can't un-crop, repeated crops soften JPEG quality, and one aspect ratio is
+      baked per image. Not worth it now (crops are infrequent admin actions, storage
+      is trivial, new keys cache-bust cleanly). Revisit IF the claim flow lands and
+      owners start re-framing their own photos a lot, OR we need multiple aspect
+      ratios from one source. Preferred approach when we do: keep the original +
+      store a normalized crop rect and crop on the fly via **Cloudflare Image
+      Resizing** (`/cdn-cgi/image/…`, same provider as R2) so it's lossless and
+      multi-aspect with NO extra storage (avoids the ~2x cost of storing a second
+      cropped file). Then every display surface builds the transformed URL.
 - [ ] **Language options / Nepali translation** — add a language switcher so the
       site can be translated into Nepali (नेपाली). Covers UI strings, nav, and
       ideally restaurant blurbs. Plan for i18n routing (e.g. `/ne/...`) + a
