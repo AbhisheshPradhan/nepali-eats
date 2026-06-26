@@ -182,8 +182,10 @@ export async function listRestaurants(o: ListOpts = {}): Promise<Restaurant[]> {
 	const { where, params } = buildWhere(o);
 	const sort = ORDER[o.orderBy || "popular"];
 	const order = o.photosFirst ? `${HAS_IMAGE_DESC}, ${sort}` : sort;
-	const limit = o.limit ?? 60;
-	const offset = o.offset ?? 0;
+	// limit/offset are interpolated (not bound), so coerce to integers to keep
+	// them un-injectable even if a caller ever passes a non-numeric value.
+	const limit = Math.trunc(o.limit ?? 60);
+	const offset = Math.trunc(o.offset ?? 0);
 	const rows = await query(
 		`SELECT ${COLS} FROM restaurants r ${where} ORDER BY ${order} LIMIT ${limit} OFFSET ${offset}`,
 		params,

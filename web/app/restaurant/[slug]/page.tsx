@@ -267,9 +267,13 @@ export default async function VenuePage({
 			restaurantId={String(r.id)}
 		>
 			<div className="max-w-295 mx-auto px-0 sm:px-6 pb-24 md:pb-4">
+				{/* Escape `<` so a name/description containing `</script>` can't break
+				    out of the JSON-LD block (JSON.stringify does not escape it). */}
 				<script
 					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+					}}
 				/>
 
 				{/* cover photo (Facebook-style: name + logo live in the strip below).

@@ -86,6 +86,18 @@ Conformance audit:
 - [ ] **Canonical host** decided (apex vs www) + 301 redirect (still on `.vercel.app`)
 - [ ] **Sitemap/robots** verified live; submit to Search Console + Bing; GA4 installed
 
+## 🔒 Security (before public launch)
+
+- [ ] **Rate-limit the public, unauthenticated DB routes** — `/api/search` and
+      `/api/restaurants` are open and each fire Postgres queries (the latter runs
+      up to 3 incl. a 3000-row PostGIS pin scan), with no throttle anywhere. That's
+      a cheap DoS / Neon-cost amplification vector. Cloudflare bot protection +
+      rate rules in front cover most of it, BUT the `.vercel.app` URL bypasses
+      Cloudflare entirely, so either (a) confirm Cloudflare rate rules are live and
+      the apex is the only reachable host, or (b) add an app-level limiter
+      (e.g. Upstash ratelimit) on those two routes. Do before the custom domain
+      goes public.
+
 ## ⚖️ Optional pre-launch polish (non-blocking)
 
 - [ ] ~237 visible listings are `review_needed` (may not all be Nepali) — spot-check

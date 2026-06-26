@@ -440,6 +440,15 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       but `/admin/[slug]` is still admin-gated (`proxy.ts` + `assertAdmin`). When
       the claim portal lands, open the editor to verified owners so claiming lets
       them edit their own spot.
+      ⚠️ **Client/server authz mismatch to resolve in this work:** the detail-page
+      edit UI is revealed when `canEdit = admin OR owner` (`EditModeProvider` →
+      `/api/me?restaurantId`), but the actual write routes
+      (`/api/admin/restaurants/[slug]/*`) are still `requireAdmin()` (admin ONLY).
+      So once claims land, a verified owner will see the full edit panel and every
+      save will 403. It fails CLOSED (server denies, so no security hole today),
+      but the two authz definitions have already drifted. When opening the editor
+      to owners, widen the write routes from `requireAdmin()` to an admin-or-owner
+      check (reuse `isOwnerOf`) so the server matches what the client reveals.
 - [ ] **Cache `/api/search` responses** — autocomplete is deterministic per query
       and data is near-static, but the route (`app/api/search/route.ts`) sends no
       cache header and `SearchBox` does a raw `fetch` into local state, so repeat

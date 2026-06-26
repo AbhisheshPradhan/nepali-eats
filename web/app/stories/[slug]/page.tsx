@@ -98,9 +98,13 @@ export default async function StoryPage({
 
 	return (
 		<div className="max-w-[760px] mx-auto px-4 sm:px-6 pt-6">
+			{/* Escape `<` so any field containing `</script>` can't break out of the
+			    JSON-LD block (JSON.stringify does not escape it). */}
 			<script
 				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+				}}
 			/>
 			<Link
 				href="/stories"
