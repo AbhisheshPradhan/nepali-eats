@@ -34,6 +34,12 @@ Do NOT run `npm run dev` / `next dev` (or `npm start`). Abhishesh runs the dev
 server himself. To verify changes, use `npx tsc --noEmit` (typecheck) or
 `npm run build` when a full build check is needed, but never start the dev server.
 
+## Git (do NOT commit or push unless told)
+NEVER `git commit` or `git push` until Abhishesh explicitly says to (e.g. "commit",
+"commit and push"). Make the changes, verify (typecheck/build), and leave the working
+tree for review — even when a task feels finished, wait for the explicit go. Approval
+is per-request: a "commit" on one change does NOT carry over to later changes.
+
 ## Stack
 
 - **Node 25 + Playwright** (Chromium, headless) for scraping/enrichment
