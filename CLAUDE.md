@@ -194,7 +194,7 @@ panel attributes `kid_friendly` (381 rows, 377 true) and `live_music` (365 rows,
 real columns is the separate, reviewable `reconcile-places.js` step. Direct
 connection, NO proxy (it's an authed API). Hard `MAX_CALLS=600` guard in code,
 stops on 429, resumable (`places_api_at IS NULL`), ordered
-featured→rating→review_count. All 542 rows now have `places_api_at`. This
+featured→rating→review_count. All rows now have `places_api_at`. This
 supersedes the headless `enrich-hours.js` for hours and is the source for the
 attribute columns / price / full-week hours / fresh rating+review_count /
 `business_status` / `editorial_summary`.
@@ -327,11 +327,11 @@ contract are in `MENU-PLAN.md`; read it before doing menu work.
 The 400 non-Nepali rows were **hard-deleted** (`DELETE WHERE is_nepali IS FALSE`).
 `nepali-restaurants-au.json` still has all 1017, so re-running `load-db.js` would
 **resurrect them**. Treat Postgres as canonical; `load-db.js` was a one-time seed.
-Current table: **542 rows** (all `is_nepali IS NOT FALSE`); **522 visible** after
-hiding the 20 `business_status = 'CLOSED_PERMANENTLY'` spots from public surfaces.
+Current table (as of 2026-06-30): **467 rows** (all `is_nepali IS NOT FALSE`); **448
+visible** after hiding the 19 `business_status = 'CLOSED_PERMANENTLY'` spots from public surfaces.
 Category field cleaned: rating-string pollution backfilled+nulled, non-Nepali categories (Taiwanese, event venues, couriers, shops, etc.) removed.
 
-## Status (1017 scraped → 570 in directory) — ENRICHMENT COMPLETE
+## Status (1017 scraped → 467 in directory) — ENRICHMENT COMPLETE
 
 Final coverage: address 100%, lat/lng 100%, rating 99%, phone 95%, **photos 76%**
 (433 restaurants, 1125 files self-hosted WebP under media/photos/<id>/, linked via
