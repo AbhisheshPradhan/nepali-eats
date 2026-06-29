@@ -501,6 +501,23 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       structured + prices) → restaurant own-site via LLM extraction → Google
       (weak for structured menus). Promote `section` to a `menu_sections` table
       if menus get richer.
+    - **⚠️ DESIGN CONSTRAINT — the menu tables are a SHARED canonical schema,
+      not directory-only.** They are intended to also back **FoodHub** (not live
+      yet): a **QR-menu / in-restaurant ordering app** sold as an upsell to the
+      restaurants already in this directory. So design the menu schema
+      product-neutral: keep menu **content** (categories, items, priced
+      **variants**, dish taxonomy, dietary flags, descriptions) **normalized and
+      SQL-queryable** so it serves BOTH the directory (display + dish/price/diet
+      filtering, dish landing pages) AND FoodHub (rendering orderable items).
+      Keep **transactional/ordering** concerns (availability toggles, modifier
+      GROUPS with select rules, carts, orders, payments) OUT of the shared core —
+      those are FoodHub-specific and layer on later, referencing the shared menu.
+      Notably this means NOT using FoodHub's old `modifiers Json` shortcut for
+      variants (it kills the directory's column-level filtering); variants live in
+      a normalized table both products read. Full design + decisions live in
+      `MENU-PLAN.md`. Source of truth for now is this Neon DB; whether FoodHub
+      reads it directly or the menu tables split into a shared service is a later
+      call (decide when FoodHub is built).
 - [ ] **Website enrichment** → scrape each restaurant's `website` (451/617 have one)
       for `email` + socials (facebook/instagram/tiktok/whatsapp). Build
       `enrich-website.js` (fetch homepage + /contact, regex tel:/mailto:/social

@@ -1,0 +1,146 @@
+{
+  "slug": "sample-menu",
+  "source": "admin",
+  "price_source": "ubereats",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo Nepalese Dumpling",
+      "items": [
+        { "name": "Steamed Momo", "description": "Nepalese dumplings served with tomato chutney. Chicken or vegetable.", "tags": ["steamed-momo"],
+          "variants": [ { "label": "Chicken", "price": 17.00, "protein": "chicken" }, { "label": "Vegetable", "price": 17.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Spicy Momo", "description": "Steamed. Chicken or vegetable.", "spice_level": 3, "tags": ["steamed-momo"],
+          "variants": [ { "label": "Chicken", "price": 18.00, "protein": "chicken" }, { "label": "Vegetable", "price": 18.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jhol Momo", "description": "Momo in tomato soup. Chicken or vegetable.", "tags": ["jhol-momo"],
+          "variants": [ { "label": "Chicken", "price": 19.00, "protein": "chicken" }, { "label": "Vegetable", "price": 19.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Momo", "description": "Chicken or vegetable.", "tags": ["fried-momo"],
+          "variants": [ { "label": "Chicken", "price": 19.00, "protein": "chicken" }, { "label": "Vegetable", "price": 19.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Kothey Momo", "description": "Slightly pan fried. Chicken or vegetable.", "tags": ["kothey-momo"],
+          "variants": [ { "label": "Chicken", "price": 19.00, "protein": "chicken" }, { "label": "Vegetable", "price": 19.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Sandheko Momo", "description": "Marination of diced onion, tomato and Nepalese herbs. Chicken or vegetable.", "tags": ["sandheko-momo"],
+          "variants": [ { "label": "Chicken", "price": 19.00, "protein": "chicken" }, { "label": "Vegetable", "price": 19.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Kathmandu Momo", "description": "Momo in Kathmandu street style sauce. Chicken or vegetable.", "tags": ["momo"],
+          "variants": [ { "label": "Chicken", "price": 19.00, "protein": "chicken" }, { "label": "Vegetable", "price": 19.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Momo Platter", "description": "Twenty eight pieces. Steamed, fried, kothey and sandheko.", "tags": ["momo"],
+          "variants": [ { "label": null, "price": 52.00 } ] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "description": "Noodle and mixed vegetables in Tibetan style creamy soup.", "tags": ["thukpa"],
+          "variants": [
+            { "label": "Vegetable", "price": 17.00, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+            { "label": "Egg", "price": 18.00, "protein": "egg" },
+            { "label": "Goat", "price": 19.00, "protein": "goat" },
+            { "label": "Lamb", "price": 19.00, "protein": "lamb" },
+            { "label": "Buff", "price": 21.00, "protein": "buff" },
+            { "label": "Mixed", "price": 20.00 }
+          ] }
+      ]
+    },
+    {
+      "name": "Chow Mein",
+      "items": [
+        { "name": "Chow Mein", "description": "Nepalese style wok fried noodle in soya.", "tags": ["chowmein"],
+          "variants": [
+            { "label": "Vegetable", "price": 17.00, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+            { "label": "Egg", "price": 18.00, "protein": "egg" },
+            { "label": "Goat", "price": 19.00, "protein": "goat" },
+            { "label": "Lamb", "price": 19.00, "protein": "lamb" },
+            { "label": "Buff", "price": 21.00, "protein": "buff" }
+          ] }
+      ]
+    },
+    {
+      "name": "Non Veg Curry",
+      "items": [
+        { "name": "Curry (Nepalese Style)", "description": "Diced meat cooked with a combination of Nepalese spices.", "tags": ["curry"],
+          "variants": [
+            { "label": "Chicken", "price": 24.00, "protein": "chicken" },
+            { "label": "Goat", "price": 25.00, "protein": "goat" },
+            { "label": "Lamb", "price": 25.00, "protein": "lamb" }
+          ] },
+        { "name": "Butter Chicken", "description": "Chicken tikka cooked in creamy red tomato sauce.", "tags": ["curry", "butter-chicken"],
+          "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] },
+        { "name": "King Prawn Curry", "description": "King prawn cooked in onion gravy with spices.", "tags": ["curry"],
+          "variants": [ { "label": null, "price": 31.00, "protein": "prawn" } ] }
+      ]
+    },
+    {
+      "name": "Biryani",
+      "items": [
+        { "name": "Biryani", "description": "Saffron rice flavoured with aromatic spices, served with raita.", "tags": ["biryani"],
+          "variants": [
+            { "label": "Vegetable", "price": 23.00, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 23.00, "protein": "chicken" },
+            { "label": "Goat", "price": 23.00, "protein": "goat" },
+            { "label": "Lamb", "price": 23.00, "protein": "lamb" }
+          ] }
+      ]
+    },
+    {
+      "name": "Non Veg Starters",
+      "items": [
+        { "name": "Sekuwa", "description": "Skewer. Marinated in ginger, garlic and Nepalese spices, roasted on clay oven.", "tags": ["sekuwa"],
+          "variants": [
+            { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+            { "label": "Lamb", "price": 19.00, "protein": "lamb" },
+            { "label": "Goat", "price": 19.00, "protein": "goat" },
+            { "label": "Buff", "price": 20.00, "protein": "buff" }
+          ] },
+        { "name": "Chhoila", "description": "Charcoal grilled marinated diced fillets tossed in chopped ginger garlic.", "tags": ["choila"],
+          "variants": [
+            { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+            { "label": "Lamb", "price": 19.00, "protein": "lamb" },
+            { "label": "Goat", "price": 19.00, "protein": "goat" },
+            { "label": "Buff", "price": 20.00, "protein": "buff" }
+          ] },
+        { "name": "Taas", "description": "Overnight marinated diced goat in garlic, ginger and spice, roasted on a thick iron pan.", "tags": ["taas"],
+          "variants": [ { "label": null, "price": 19.00, "protein": "goat" } ] },
+        { "name": "Seekh Kebab", "description": "Minced lamb infused with spices and herbs on a skewer.", "tags": ["seekh-kebab"],
+          "variants": [ { "label": null, "price": 17.00, "protein": "lamb" } ] },
+        { "name": "Chicken Tikka Sizzler", "description": "Clay oven boneless chicken fillets marinated overnight in tandoori spices.", "tags": ["tikka", "sizzler"],
+          "variants": [ { "label": "Half", "price": 18.00, "protein": "chicken" }, { "label": "Full", "price": 32.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Veg Starters",
+      "items": [
+        { "name": "Veg Samosa", "description": "Spiced boiled potato, veg pastry and deep fried.", "is_vegetarian": true, "tags": ["samosa"],
+          "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] },
+        { "name": "Samosa Chaat", "description": "Samosa topped with chickpeas, chopped onions, yoghurt and sauces.", "is_vegetarian": true, "tags": ["samosa", "chaat"],
+          "variants": [ { "label": null, "price": 17.00, "protein": "veg" } ] },
+        { "name": "Aalu Achar", "description": "Nepalese style potato salad. Boiled potato, carrot, cucumber, lemon juice.", "is_vegetarian": true, "tags": ["sandheko"],
+          "variants": [ { "label": null, "price": 14.00, "protein": "veg" } ] },
+        { "name": "Mix Veg Pakoda", "description": "A marinated mixture of onion, chickpeas, flour, herbs and spices, deep fried.", "is_vegetarian": true, "tags": ["pakora"],
+          "variants": [ { "label": null, "price": 15.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Naan, Roti and Rice",
+      "items": [
+        { "name": "Plain Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.00, "protein": "veg" } ] },
+        { "name": "Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] },
+        { "name": "Plain Roti", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.00, "protein": "veg" } ] },
+        { "name": "Plain Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Beverages",
+      "items": [
+        { "name": "Lassi", "description": "Mango, plain, salted or sweet.", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Soft Drink", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Rasmalai", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.00 } ] },
+        { "name": "Gulab Jamun with Yoghurt", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.00 } ] }
+      ]
+    }
+  ]
+}
