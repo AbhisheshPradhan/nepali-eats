@@ -6,6 +6,8 @@ import type {
 	Photo,
 	RestaurantPin,
 	Bbox,
+	MenuCategory,
+	MenuItem,
 } from "./types";
 
 // Base column list + the hero photo via a correlated subquery.
@@ -294,6 +296,50 @@ export async function getRestaurantBySlug(
 		isPrimary: p.is_primary,
 	}));
 	return { ...base, photos: mapped };
+}
+
+// Full menu (categories -> items -> variants) for ONE restaurant. Detail-page only —
+// deliberately NOT joined into card/pin/explore queries (those stay lean). Returns
+// categories ordered by position, each with its visible items + priced variants;
+// empty categories are dropped.
+export async function getRestaurantMenu(
+	restaurantId: number,
+): Promise<MenuCategory[]> {
+	const rows = await query(
+		`SELECT mc.id, mc.name, mc.description,
+       coalesce((
+         SELECT json_agg(json_build_object(
+           'id', mi.id, 'name', mi.name, 'description', mi.description,
+           'isVegetarian', mi.is_vegetarian, 'spiceLevel', mi.spice_level,
+           'variants', coalesce((
+             SELECT json_agg(json_build_object(
+               'label', v.label, 'price', v.price, 'currency', v.currency,
+               'isVegetarian', v.is_vegetarian
+             ) ORDER BY v.position, v.id)
+             FROM menu_item_variants v WHERE v.item_id = mi.id
+           ), '[]'::json)
+         ) ORDER BY mi.position, mi.id)
+         FROM menu_items mi WHERE mi.category_id = mc.id AND NOT mi.is_hidden
+       ), '[]'::json) AS items
+     FROM menu_categories mc
+     WHERE mc.restaurant_id = $1
+     ORDER BY mc.position, mc.id`,
+		[restaurantId],
+	);
+	return rows
+		.map((r: any) => ({
+			id: r.id as number,
+			name: r.name as string,
+			description: r.description as string | null,
+			items: (r.items as MenuItem[]).map((it) => ({
+				...it,
+				variants: it.variants.map((v) => ({
+					...v,
+					price: v.price == null ? null : Number(v.price),
+				})),
+			})),
+		}))
+		.filter((c: MenuCategory) => c.items.length > 0);
 }
 
 export async function getCardBySlug(slug: string): Promise<Restaurant | null> {

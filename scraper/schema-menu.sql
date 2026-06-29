@@ -124,6 +124,12 @@ CREATE TABLE IF NOT EXISTS menu_item_photos (
 );
 CREATE INDEX IF NOT EXISTS idx_menu_item_photos_item ON menu_item_photos(menu_item_id, position);
 
+-- NOTE: source menu files (the actual menu image(s)/PDF we transcribe FROM, for the
+-- "view official menu" feature) are NOT a table here. They're uploaded via the admin
+-- editor's Menu tab → R2 `menus/<id>/`, and read back with listMenuFiles() (no DB
+-- table, to avoid drift with the R2-listing the editor already uses). Add a table
+-- later only if display needs ordering/captions/querying R2-listing can't provide.
+
 -- 7. Per-restaurant menu facets (rebuilt by the seeder on every parse).
 --    NOTE: restaurants.tags (existing column) is REUSED as the coarse (dish +
 --    style) tag rollup — the seeder unions menu-derived tags into it, keeping the

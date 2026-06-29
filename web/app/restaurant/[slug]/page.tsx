@@ -34,7 +34,8 @@ import { EditToggle } from "@/components/edit/EditToggle";
 import { EditPanelMount } from "@/components/edit/EditPanelMount";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import DetailMap from "@/components/DetailMap";
-import { getRestaurantBySlug } from "@/lib/queries";
+import { getRestaurantBySlug, getRestaurantMenu } from "@/lib/queries";
+import { RestaurantMenu } from "@/components/RestaurantMenu";
 import { mediaUrl } from "@/lib/media";
 import {
 	priceString,
@@ -83,6 +84,7 @@ export default async function VenuePage({
 	const { slug } = await params;
 	const r = await getRestaurantBySlug(slug);
 	if (!r) notFound();
+	const menu = await getRestaurantMenu(r.id);
 
 	const hero = mediaUrl(r.primaryPhoto);
 	// gallery = every photo except the hero, in saved order (admin-reorderable).
@@ -441,25 +443,8 @@ export default async function VenuePage({
 							</>
 						)}
 
-						{/* menu — hidden for now; restore once menus are parsed/finalised.
-          <h2 className="font-display font-extrabold text-[1.5rem] mb-2">The menu</h2>
-          <div className="bg-white rounded-lg shadow-sm p-5 mb-8">
-            {r.menuUrl ? (
-              <a
-                href={(r.menuSource === "upload" ? mediaUrl(r.menuUrl) : r.menuUrl) ?? r.menuUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-display font-bold text-chili-600 hover:text-chili-700"
-              >
-                <ForkKnife size={20} weight="fill" /> See the full menu
-              </a>
-            ) : (
-              <p className="text-ink-500 m-0">
-                The full menu is coming soon. Call ahead for today&apos;s specials.
-              </p>
-            )}
-          </div>
-          */}
+						{/* menu — renders only when items have been seeded for this restaurant */}
+						<RestaurantMenu menu={menu} />
 
 						{/* where to find it */}
 						{r.lat != null && r.lng != null && (

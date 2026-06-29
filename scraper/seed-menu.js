@@ -15,6 +15,7 @@
 import fs from "fs";
 import pg from "pg";
 import dotenv from "dotenv";
+import { DISH_CATEGORIES } from "../web/lib/menu/taxonomy.ts";
 dotenv.config();
 
 const { Pool } = pg;
@@ -29,11 +30,16 @@ const menu = JSON.parse(fs.readFileSync(file, "utf8"));
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 async function main() {
-  const tax = await pool.query("select id, slug, kind, parent_id from dish_categories");
+  const tax = await pool.query("select id, slug, kind, parent_id, is_featured from dish_categories");
   const bySlug = new Map(tax.rows.map((r) => [r.slug, r]));
   const byId = new Map(tax.rows.map((r) => [r.id, r]));
+  // dish slug -> cuisine style slug (taxonomy.ts is the source). A styled dish adds its
+  // cuisine tag wherever it appears (thukpa -> tibetan), so it rolls up to the cuisine.
+  const styleOf = new Map(
+    DISH_CATEGORIES.filter((c) => c.style).map((c) => [c.slug, c.style]),
+  );
 
-  // leaf tag(s) -> {leaf + all ancestors}
+  // leaf tag(s) -> {leaf + all ancestors + cuisine style}
   const withAncestors = (slugs) => {
     const out = new Set();
     for (const s of slugs) {
@@ -42,6 +48,10 @@ async function main() {
         out.add(n.slug);
         n = n.parent_id ? byId.get(n.parent_id) : null;
       }
+    }
+    for (const s of [...out]) {
+      const st = styleOf.get(s);
+      if (st) out.add(st);
     }
     return out;
   };
@@ -77,8 +87,11 @@ async function main() {
       }
       tagLinks += tagset.size;
       for (const s of tagset) {
-        const k = bySlug.get(s).kind;
-        if (k === "dish" || k === "style") coarse.add(s);
+        const node = bySlug.get(s);
+        // Coarse restaurant rollup = ALL styles + only HEADLINE dishes (is_featured).
+        // The long tail of dishes stays at item level (menu_item_tags) for search; it
+        // would over-stuff restaurants.tags / the displayed chips.
+        if (node.kind === "style" || node.is_featured) coarse.add(s);
       }
       previewRows.push(`  ${it.name}  [${[...tagset].join(", ")}]  (${variants.length} variant${variants.length > 1 ? "s" : ""})`);
     }
@@ -143,10 +156,13 @@ async function main() {
       }
     }
     await client.query(
+      // Replace tags with the coarse rollup (NOT union): the menu is the authoritative
+      // source of specialties for a seeded restaurant, and union can't shrink, which is
+      // what over-stuffed the tags. Non-seeded restaurants keep their name-derived tags.
       `update restaurants set price_min=$2, price_max=$3, menu_item_count=$4, menu_parsed_at=now(),
-         tags = array(select distinct unnest(coalesce(tags,'{}'::text[]) || $5::text[]))
+         tags = $5::text[]
        where id=$1`,
-      [rid, priceMin, priceMax, itemCount, [...coarse]],
+      [rid, priceMin, priceMax, itemCount, [...coarse].sort()],
     );
     await client.query("COMMIT");
     console.log("committed.");

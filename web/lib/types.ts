@@ -75,6 +75,28 @@ export interface RestaurantDetail extends Restaurant {
   photos: Photo[];
 }
 
+// Menu (detail page only — not fetched for cards / pins / explore).
+export interface MenuVariant {
+  label: string | null; // null = single price
+  price: number | null; // null = market price / illegible
+  currency: string;
+  isVegetarian: boolean | null;
+}
+export interface MenuItem {
+  id: number;
+  name: string;
+  description: string | null;
+  isVegetarian: boolean | null;
+  spiceLevel: number | null;
+  variants: MenuVariant[];
+}
+export interface MenuCategory {
+  id: number;
+  name: string;
+  description: string | null;
+  items: MenuItem[];
+}
+
 export interface Facet {
   value: string;
   count: number;

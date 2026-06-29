@@ -30,27 +30,30 @@ export interface DishCategory {
   kind: DishKind;
   parent?: string; // parent slug (momo subtree only)
   synonyms?: string[]; // printed variants that resolve to this slug
-  featured?: boolean;
+  featured?: boolean; // headline dish — stands alone as a restaurant tag
+  style?: string; // cuisine this dish belongs to (style slug); the seeder adds this
+  //                 style tag wherever the dish appears, so the dish rolls up to its
+  //                 cuisine instead of being its own restaurant tag (thukpa -> tibetan).
 }
 
 export const DISH_CATEGORIES: DishCategory[] = [
   // --- Dishes (flat, top-level) ---------------------------------------------
   { slug: "momo", kind: "dish", name: "Momo", synonyms: ["momos", "dumpling", "dumplings", "mo:mo"], featured: true },
   { slug: "chowmein", kind: "dish", name: "Chow mein", synonyms: ["chow mein", "chowmin", "chow min", "noodles"] },
-  { slug: "thukpa", kind: "dish", name: "Thukpa", synonyms: ["thukpa noodle soup"] },
-  { slug: "sekuwa", kind: "dish", name: "Sekuwa", synonyms: ["sekuwa bbq", "grill"] },
-  { slug: "sukuti", kind: "dish", name: "Sukuti", synonyms: ["sukuti sandeko"] },
-  { slug: "chatamari", kind: "dish", name: "Chatamari", synonyms: ["newari pizza", "chatamari pizza"] },
-  { slug: "bara", kind: "dish", name: "Bara", synonyms: ["wo", "woh", "bara newari"] },
+  { slug: "thukpa", kind: "dish", name: "Thukpa", synonyms: ["thukpa noodle soup"], style: "tibetan" },
+  { slug: "sekuwa", kind: "dish", name: "Sekuwa", synonyms: ["sekuwa bbq", "grill"], featured: true },
+  { slug: "sukuti", kind: "dish", name: "Sukuti", synonyms: ["sukuti sandeko"], style: "newari" },
+  { slug: "chatamari", kind: "dish", name: "Chatamari", synonyms: ["newari pizza", "chatamari pizza"], style: "newari" },
+  { slug: "bara", kind: "dish", name: "Bara", synonyms: ["wo", "woh", "bara newari"], style: "newari" },
   { slug: "sel-roti", kind: "dish", name: "Sel roti", synonyms: ["selroti", "sel"] },
-  { slug: "dal-bhat", kind: "dish", name: "Dal bhat", synonyms: ["daal bhat", "dal bhat tarkari", "khana set"] },
+  { slug: "dal-bhat", kind: "dish", name: "Dal bhat", synonyms: ["daal bhat", "dal bhat tarkari", "khana set"], featured: true },
   { slug: "thali", kind: "dish", name: "Thali / set", synonyms: ["thali set", "set menu", "platter"] },
   { slug: "curry", kind: "dish", name: "Curry", synonyms: ["curries", "tarkari"] },
   { slug: "biryani", kind: "dish", name: "Biryani", synonyms: ["biriyani", "briyani"] },
   { slug: "fried-rice", kind: "dish", name: "Fried rice", synonyms: ["friedrice"] },
   { slug: "samosa", kind: "dish", name: "Samosa", synonyms: ["singara", "samocha"] },
   { slug: "pakora", kind: "dish", name: "Pakora", synonyms: ["pakoda", "bhaji", "fritter"] },
-  { slug: "choila", kind: "dish", name: "Choila", synonyms: ["chhoila", "choyla", "chwela"] },
+  { slug: "choila", kind: "dish", name: "Choila", synonyms: ["chhoila", "choyla", "chwela"], style: "newari" },
   { slug: "sandheko", kind: "dish", name: "Sandheko", synonyms: ["sadeko", "sandeko", "aloo sandheko", "bhatmas sandheko", "wai wai sandheko"] },
   { slug: "chaat", kind: "dish", name: "Chaat", synonyms: ["chat", "chatpate", "chatpati", "samosa chat", "papdi chaat"] },
   // Indo-Chinese "chilli" dishes (Chicken Chilli, Paneer Chilli, Chilli Chips) —
@@ -58,7 +61,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   // chilli-momo (which stays under the momo subtree).
   { slug: "chilli", kind: "dish", name: "Chilli", synonyms: ["chili", "chilly", "chilli chicken", "chicken chilli", "paneer chilli", "chilli chips"] },
   { slug: "soup", kind: "dish", name: "Soup" },
-  { slug: "taas", kind: "dish", name: "Taas", synonyms: ["tas", "thakali taas"] },
+  { slug: "taas", kind: "dish", name: "Taas", synonyms: ["tas", "thakali taas"], style: "thakali" },
   { slug: "seekh-kebab", kind: "dish", name: "Seekh Kebab", synonyms: ["seekh kabab", "sheek kebab", "kebab"] },
   { slug: "tikka", kind: "dish", name: "Tikka", synonyms: ["chicken tikka", "tikka sizzler"] },
   { slug: "tandoori", kind: "dish", name: "Tandoori", synonyms: ["tandoor", "tandoori sizzler"] },
@@ -66,6 +69,18 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "butter-chicken", kind: "dish", name: "Butter Chicken", synonyms: ["butter chk"] },
   { slug: "naan", kind: "dish", name: "Naan", synonyms: ["garlic naan", "cheese naan", "butter naan"] },
   { slug: "roti", kind: "dish", name: "Roti", synonyms: ["chapati", "tandoori roti"] },
+  { slug: "pani-puri", kind: "dish", name: "Pani Puri", synonyms: ["golgappa", "gol gappa", "puchka", "panipuri"], style: "indian-nepali" },
+  { slug: "laphing", kind: "dish", name: "Laphing", synonyms: ["laping", "lhaping", "laphing dry", "laphing jhol"], style: "tibetan" },
+  { slug: "khaja", kind: "dish", name: "Khaja Set", synonyms: ["khaja", "newari khaja", "khaja set", "samay baji"] },
+  { slug: "bhutan", kind: "dish", name: "Bhutan", synonyms: ["bhutuwa", "bhuttan", "goat bhutan"] },
+  { slug: "sausage", kind: "dish", name: "Sausage", synonyms: ["masala sausage", "chicken sausage"] },
+  { slug: "shavale", kind: "dish", name: "Shavale", synonyms: ["shapale", "sha phaley", "shyabhale", "shabhale"], style: "tibetan" },
+  { slug: "keema-noodle", kind: "dish", name: "Keema Noodle", synonyms: ["keema", "kheema noodle"] },
+  { slug: "yomari", kind: "dish", name: "Yomari", synonyms: ["yamari", "yomari punhi"], style: "newari" },
+  { slug: "lollipop", kind: "dish", name: "Lollipop", synonyms: ["chicken lollipop", "lolipop", "drums of heaven", "chilli lollipop"] },
+  // timur (Sichuan pepper) is a flavour that defines many dishes (timur chicken, timur
+  // wings, timur chutney); kept as a searchable dish-level tag since people search "timur".
+  { slug: "timur", kind: "dish", name: "Timur", synonyms: ["timmur", "timmuri", "timbur", "sichuan pepper", "szechuan pepper"] },
   { slug: "dessert", kind: "dish", name: "Dessert", synonyms: ["sweets", "mithai", "juju dhau"] },
   { slug: "drinks", kind: "dish", name: "Drinks", synonyms: ["beverages", "chiya", "lassi"] },
 
