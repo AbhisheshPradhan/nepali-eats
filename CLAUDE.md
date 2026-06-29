@@ -292,6 +292,36 @@ the DB, **ship the matching code change to prod (push to `main` → Vercel)** in
 same go — don't leave the deployed app out of sync with the schema. Locally,
 restart `next dev` / clear `.next` so the stale compiled query is rebuilt.
 
+## Menus (schema LIVE on Neon; seeding in progress) — design lives in MENU-PLAN.md
+
+The shared canonical menu schema is BUILT and applied to Neon (it also backs FoodHub
+later). **Don't redesign it — seed into it.** Full design + locked decisions + the JSON
+contract are in `MENU-PLAN.md`; read it before doing menu work.
+
+- **Schema** (`scraper/schema-menu.sql`, applied): `dish_categories` (controlled
+  hierarchical tag vocab + `search_aliases`), `menu_categories` → `menu_items` →
+  `menu_item_variants` (priced), `menu_item_tags` (M2M), `menu_item_photos` (deferred).
+  `restaurants` gained `price_min/max`, `menu_item_count`, `menu_parsed_at`. Item
+  provenance: `menu_items.source` (admin/owner_upload/llm_extracted) + `is_hidden`.
+- **Taxonomy / controlled vocab:** `web/lib/menu/taxonomy.ts` is the single source of
+  truth (50 tags) → seeded to `dish_categories` by `node scraper/seed-taxonomy.ts`
+  (idempotent). Model: dish-level default; **momo** has a preparation subtree; **protein
+  is a CROSS-CUTTING facet** (chicken/goat/buff/veg…) tagged alongside the dish, NOT
+  per-dish compounds. A dish not in the vocab → add a row to `taxonomy.ts` + re-run
+  `seed-taxonomy.ts` (the menu seeder HARD-ERRORS on unknown slugs by design).
+- **Seeding (one restaurant at a time, manual):** transcribe the menu (image/PDF) into
+  `scraper/menu-data/<slug>.json` (the JSON contract — see MENU-PLAN.md +
+  `scraper/menu-data/sample-menu.json`), then `node scraper/seed-menu.js <slug>`
+  (dry-run) → add `--commit` to write. The seeder consolidates protein-only items into
+  variants, materialises tag ancestors, unions variant proteins, and rebuilds
+  `restaurants.tags` + price/count facets in one transaction. Seed popular restaurants
+  first (richest menus grow the vocab fastest).
+- **Menu item descriptions are transcribed VERBATIM** from the menu (not generated), so
+  the copywriting/human-copy standard does NOT apply to them (it still applies to the
+  separate restaurant blurb generator).
+- **Nothing in the deployed web app reads these tables yet** (no frontend menu render /
+  dish search), so menu schema changes stay low-risk until that ships.
+
 ## ⚠️ DB is the source of truth (do NOT re-run load-db.js)
 
 The 400 non-Nepali rows were **hard-deleted** (`DELETE WHERE is_nepali IS FALSE`).
@@ -494,7 +524,12 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       via the `relevance` column.
 - [ ] Classify `website` links → add `website_type` (`own_site` | `aggregator` |
       `ordering` | `social`) so menu sourcing can route per restaurant
-- [ ] **Menu scraping** → new `menu_items` table
+- [~] **Menu scraping** → menu tables. **SCHEMA + taxonomy + seeders are now BUILT
+      and live on Neon** (see the "Menus" section above + `MENU-PLAN.md`); the actual
+      shape superseded the single-table sketch below. Remaining: seed restaurants one
+      menu at a time, then build the frontend (detail-page menu render + dish search +
+      dish×city SEO pages). Historical sketch of the original idea:
+      new `menu_items` table
       (restaurant_id FK, section, name, description, price, currency, photo_url,
       is_vegetarian, spice_level, source, source_url, position, fetched_at).
       Source priority: ordering platforms (Menulog/Uber Eats/DoorDash/order.store,
