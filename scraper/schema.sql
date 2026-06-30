@@ -107,6 +107,10 @@ ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS editorial_summary     TEXT;
 -- Parking: friendly label derived from Google parkingOptions in reconcile
 -- ('Free parking' when any free lot/street/garage option, else 'Paid parking').
 ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS parking               TEXT;
+-- Catering: editorial/owner flag (NOT from the Places API). Distinct from
+-- good_for_groups (dining in as a large table) — catering = caters off-site events.
+-- Null = unknown; set true from a menu/site that advertises catering.
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS catering              BOOLEAN;
 
 -- One-time migration: move any legacy messy opening_hours strings into _raw so the
 -- parser becomes the only writer of canonical opening_hours.

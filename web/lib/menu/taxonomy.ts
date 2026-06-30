@@ -78,6 +78,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "keema-noodle", kind: "dish", name: "Keema Noodle", synonyms: ["keema", "kheema noodle"] },
   { slug: "yomari", kind: "dish", name: "Yomari", synonyms: ["yamari", "yomari punhi"], style: "newari" },
   { slug: "lollipop", kind: "dish", name: "Lollipop", synonyms: ["chicken lollipop", "lolipop", "drums of heaven", "chilli lollipop"] },
+  { slug: "wings", kind: "dish", name: "Wings", synonyms: ["chicken wings", "buffalo wings", "jumbo wings", "wings chilli", "chilli wings"] },
   // timur (Sichuan pepper) is a flavour that defines many dishes (timur chicken, timur
   // wings, timur chutney); kept as a searchable dish-level tag since people search "timur".
   { slug: "timur", kind: "dish", name: "Timur", synonyms: ["timmur", "timmuri", "timbur", "sichuan pepper", "szechuan pepper"] },

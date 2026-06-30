@@ -396,7 +396,7 @@ export default async function VenuePage({
 						</div>
 
 						{r.tags.length > 0 && (
-							<div className="flex gap-2 flex-wrap mb-5">
+							<div className="flex gap-2 flex-wrap mb-2">
 								{[...r.tags].sort().map((c) => (
 									<span
 										key={c}

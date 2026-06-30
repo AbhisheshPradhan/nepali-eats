@@ -35,7 +35,7 @@
     {
       "name": "Specials",
       "items": [
-        { "name": "Daarlagdo Wings", "description": "Marinated wings with levels of spicy (medium / spicy / hot).", "tags": [], "variants": [ { "label": null, "price": 19.00, "protein": "chicken" } ] },
+        { "name": "Daarlagdo Wings", "description": "Marinated wings with levels of spicy (medium / spicy / hot).", "tags": ["wings"], "variants": [ { "label": null, "price": 19.00, "protein": "chicken" } ] },
         { "name": "Timmuri Chicken", "description": "Crispy chicken with garlic and Szechuan.", "tags": ["timur"], "variants": [ { "label": null, "price": 18.50, "protein": "chicken" } ] },
         { "name": "Chicken Lollipop", "description": "Deep fried sesame marinated chicken lolly.", "tags": ["lollipop"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
         { "name": "Pokhareli Thicheko Aalu", "description": "Lightly smashed potato with home-made spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 15.50, "protein": "veg" } ] },

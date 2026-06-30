@@ -89,6 +89,11 @@ export interface MenuItem {
   isVegetarian: boolean | null;
   spiceLevel: number | null;
   variants: MenuVariant[];
+  // Optional, populated later (data not in the DB yet). The card already renders
+  // them when present: a thumbnail (menu_item_photos) and a review summary.
+  photoUrl?: string | null;
+  ratingPct?: number | null; // e.g. 92 → "92%"
+  reviewCount?: number | null;
 }
 export interface MenuCategory {
   id: number;

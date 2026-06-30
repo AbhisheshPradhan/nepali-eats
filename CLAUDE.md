@@ -259,6 +259,11 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
   `allows_dogs`, `wheelchair_accessible`; `parking` (friendly label) and
   `editorial_summary` (Google's one-line blurb, 27 rows). Staging:
   `places_api_raw` (jsonb, full Place Details) + `places_api_at` (timestamp).
+- **`catering` (boolean, editorial — NOT from Places, added 2026-07):** does the spot
+  cater off-site events. Distinct from `good_for_groups` (a large table dining in).
+  Null = unknown; set true when a menu/site advertises catering (e.g. Kathmandu Momo).
+  No code reads it yet (additive, safe); wire into display/filters when the
+  catering/events feature lands.
 - **PostGIS:** `geom` is auto-synced from lat/lng by trigger `trg_set_restaurant_geom`;
   GiST index `idx_restaurants_geom` powers map bounds queries
   (`geom && ST_MakeEnvelope(w,s,e,n,4326)`). Enabled via `scraper/schema.sql`.
@@ -321,7 +326,11 @@ contract are in `MENU-PLAN.md`; read it before doing menu work.
   (dry-run) → add `--commit` to write. The seeder consolidates protein-only items into
   variants, materialises tag ancestors, unions variant proteins, and rebuilds
   `restaurants.tags` + price/count facets in one transaction. Seed popular restaurants
-  first (richest menus grow the vocab fastest).
+  first (richest menus grow the vocab fastest). **Seeded so far:** `kathmandu-momo-surfers-paradise`
+  (168), `heshela-newa-khaja-ghar-{rockdale-rockdale,hurstville-hurstville}` (91 each — same
+  menu seeded to both branches), `falcha-town-hall-sydney` (53). Bar/drinks ARE transcribed
+  (tagged `drinks`, item-level only so they don't roll up to `restaurants.tags`); catering
+  flyers are skipped (set the `catering` flag instead — Kathmandu + both Heshela are true).
 - **Menu item descriptions are transcribed VERBATIM** from the menu (not generated), so
   the copywriting/human-copy standard does NOT apply to them (it still applies to the
   separate restaurant blurb generator).
