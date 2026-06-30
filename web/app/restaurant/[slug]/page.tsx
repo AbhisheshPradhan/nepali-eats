@@ -24,7 +24,6 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { FeaturedBadge, PopularBadge } from "@/components/ui/PlaceBadges";
 import { VenueType } from "@/components/ui/VenueType";
-import { Tag } from "@/components/ui/Tag";
 import { Rating } from "@/components/ui/Rating";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/Avatar";
@@ -45,6 +44,7 @@ import {
 	autoBlurb,
 	directionsUrl,
 	hueFromId,
+	tagLabel,
 } from "@/lib/format";
 import { PriceLevel } from "@/components/ui/PriceLevel";
 
@@ -397,24 +397,24 @@ export default async function VenuePage({
 
 						{r.tags.length > 0 && (
 							<div className="flex gap-2 flex-wrap mb-5">
-								{r.tags.map((c) => (
-									<Tag
+								{[...r.tags].sort().map((c) => (
+									<span
 										key={c}
-										className="capitalize"
+										className="inline-flex items-center font-body font-semibold text-[0.8rem] text-ink-700 bg-paper-200 px-2.5 py-1 rounded-md"
 									>
-										{c === "indian-nepali"
-											? "Nepali-Indian"
-											: c}
-									</Tag>
+										{tagLabel(c)}
+									</span>
 								))}
 							</div>
 						)}
 
+						{/* description hidden for now —
 						{r.description && (
 							<p className="text-[1.18rem] leading-relaxed text-ink-700 mb-7">
 								{r.description?.trim()}
 							</p>
 						)}
+						*/}
 
 						{/* gallery */}
 						{gallery.length > 0 && (

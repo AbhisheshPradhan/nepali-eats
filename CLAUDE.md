@@ -264,7 +264,7 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
   (`geom && ST_MakeEnvelope(w,s,e,n,4326)`). Enabled via `scraper/schema.sql`.
 - Taxonomy: old Google `category` was dropped (meaningless — all are Nepalese).
   `venue_type` (Restaurant/Café/Takeaway/Food Truck/Caterer/Dessert/Bar) +
-  `tags[]` (momo, thakali, newari, tibetan, vegetarian, indian-nepali) derived
+  `tags[]` (momo, thakali, newari, tibetan, vegetarian, nepali-indian) derived
   from name. `halal_status` (certified/options/not_halal/unknown) — restaurant
   level; per-item halal belongs in future `menu_items`. Currently all 'unknown'.
 - `email` + socials (facebook/instagram/tiktok/whatsapp) added 2026-06; populated

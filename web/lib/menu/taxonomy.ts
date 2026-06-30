@@ -69,7 +69,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "butter-chicken", kind: "dish", name: "Butter Chicken", synonyms: ["butter chk"] },
   { slug: "naan", kind: "dish", name: "Naan", synonyms: ["garlic naan", "cheese naan", "butter naan"] },
   { slug: "roti", kind: "dish", name: "Roti", synonyms: ["chapati", "tandoori roti"] },
-  { slug: "pani-puri", kind: "dish", name: "Pani Puri", synonyms: ["golgappa", "gol gappa", "puchka", "panipuri"], style: "indian-nepali" },
+  { slug: "pani-puri", kind: "dish", name: "Pani Puri", synonyms: ["golgappa", "gol gappa", "puchka", "panipuri"], style: "nepali-indian" },
   { slug: "laphing", kind: "dish", name: "Laphing", synonyms: ["laping", "lhaping", "laphing dry", "laphing jhol"], style: "tibetan" },
   { slug: "khaja", kind: "dish", name: "Khaja Set", synonyms: ["khaja", "newari khaja", "khaja set", "samay baji"] },
   { slug: "bhutan", kind: "dish", name: "Bhutan", synonyms: ["bhutuwa", "bhuttan", "goat bhutan"] },
@@ -88,7 +88,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "newari", kind: "style", name: "Newari", synonyms: ["newa", "newar"] },
   { slug: "thakali", kind: "style", name: "Thakali", synonyms: ["thakali set"] },
   { slug: "tibetan", kind: "style", name: "Tibetan", synonyms: ["tibet"] },
-  { slug: "indian-nepali", kind: "style", name: "Indian-Nepali", synonyms: ["indo-nepali", "indian nepalese"] },
+  { slug: "nepali-indian", kind: "style", name: "Nepali-Indian", synonyms: ["indian-nepali", "indo-nepali", "indian nepalese"] },
 
   // --- Momo preparation subtree (momo-specific prep styles) -----------------
   // Preparation (from the item name). NOTE: fried and kothey are DISTINCT — real

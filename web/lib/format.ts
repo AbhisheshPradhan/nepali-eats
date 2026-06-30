@@ -49,6 +49,19 @@ function zonedNow(
 	return { day: day < 0 ? 0 : day, min: hr * 60 + mn };
 }
 
+// Display label for a tag/dish slug. Slugs are kebab-case; most become Title Case
+// with spaces ("dal-bhat" -> "Dal Bhat"). A few have a custom or compound label.
+const TAG_LABELS: Record<string, string> = {
+	"nepali-indian": "Nepali-Indian",
+	vegetarian: "Veg-friendly",
+};
+export function tagLabel(slug: string): string {
+	return (
+		TAG_LABELS[slug] ??
+		slug.replace(/-/g, " ").replace(/\b\w/g, (m) => m.toUpperCase())
+	);
+}
+
 export function priceString(
 	r: Pick<Restaurant, "priceLevel" | "priceRange">,
 ): string {
@@ -291,7 +304,9 @@ export function autoBlurb(r: {
 	const foods =
 		r.tags.length > 0
 			? r.tags
-					.map((t) => (t === "indian-nepali" ? "Nepali-Indian" : t))
+					.map((t) =>
+						t === "nepali-indian" ? "Nepali-Indian" : t.replace(/-/g, " "),
+					)
 					.slice(0, 3)
 					.join(", ")
 			: "momo and Nepali home cooking";

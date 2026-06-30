@@ -1,16 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Carousel } from "@/components/Carousel";
+import { tagLabel } from "@/lib/format";
 
 const HUES = [18, 35, 350, 168, 4, 45, 205, 120, 28];
-const LABELS: Record<string, string> = {
-	momo: "Momo",
-	newari: "Newari",
-	thakali: "Thakali",
-	tibetan: "Tibetan",
-	vegetarian: "Veg-friendly",
-	"indian-nepali": "Nepali-Indian",
-};
 
 // Tags with a curated tile image in /public/cravings/<tag>.jpg. Tags without an
 // image are skipped entirely (no gradient-only fallback tiles).
@@ -20,7 +13,7 @@ const HAS_IMAGE = new Set(["momo", "newari", "tibetan", "vegetarian"]);
 // The gradient sits behind the image while it loads. Images crop to the 4:3
 // tile standard.
 function CravingTile({ tag, hue }: { tag: string; hue: number }) {
-	const label = LABELS[tag] || tag;
+	const label = tagLabel(tag);
 	const href =
 		tag === "momo" ? "/momo" : `/explore?tag=${encodeURIComponent(tag)}`;
 	return (

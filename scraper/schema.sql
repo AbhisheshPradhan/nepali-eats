@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS restaurants (
   name              TEXT NOT NULL,
   cuisine           TEXT NOT NULL DEFAULT 'Nepalese',
   venue_type        TEXT,                   -- Restaurant | Café | Takeaway | Food Truck | Caterer | Dessert | Bar
-  tags              TEXT[],                 -- specialty: momo, thakali, newari, tibetan, vegetarian, indian-nepali
+  tags              TEXT[],                 -- specialty: momo, thakali, newari, tibetan, vegetarian, nepali-indian
   halal_status      TEXT NOT NULL DEFAULT 'unknown', -- certified | options | not_halal | unknown
   rating            NUMERIC(2,1),
   review_count      INTEGER,
