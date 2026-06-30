@@ -13,9 +13,8 @@ export function Input({
   return (
     <div
       className={cn(
-        "flex items-center gap-2.5 bg-white border-2 border-sand-400 rounded-full px-4 h-[46px] transition-shadow transition-colors",
-        "focus-within:border-marigold-500 focus-within:shadow-[0_0_0_3px_var(--color-marigold-300)]",
-        wrapClassName
+        "input-group flex items-center gap-2.5 bg-white border-2 border-sand-400 rounded-full px-4 h-[46px] transition-shadow transition-colors",
+        wrapClassName,
       )}
     >
       {iconLeft && (

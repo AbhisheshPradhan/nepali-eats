@@ -231,7 +231,7 @@ export function SearchBox({
 			<form
 				onSubmit={submit}
 				className={cn(
-					"flex items-center gap-2 bg-white border-2 border-sand-400 rounded-4xl sm:rounded-full shadow-md",
+					"input-group flex items-center gap-2 bg-white border-2 border-sand-400 rounded-4xl sm:rounded-full shadow-md",
 					hero
 						? "flex-wrap pl-2 sm:pl-5 pr-2 py-2"
 						: "pl-4 pr-1.5 py-1 shadow-sm",
