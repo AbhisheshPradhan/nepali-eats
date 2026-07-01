@@ -1,0 +1,46 @@
+{
+  "slug": "magic-momo-kafe-west-footscray",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo (Dumplings)",
+      "items": [
+        { "name": "Steam Momo", "tags": ["steamed-momo"], "variants": [ { "label": null, "price": 16.95 } ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [ { "label": null, "price": 17.95 } ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [ { "label": null, "price": 17.50 } ] },
+        { "name": "Chilli Momo", "tags": ["chilli-momo"], "variants": [ { "label": null, "price": 18.50 } ] }
+      ]
+    },
+    {
+      "name": "Special Momo",
+      "items": [
+        { "name": "Buff Momo", "tags": ["momo"], "variants": [ { "label": null, "price": 18.50, "protein": "buff" } ] },
+        { "name": "Sekuwa Mo:Mo", "description": "momo marinated with spices and flame grilled", "tags": ["momo"], "variants": [ { "label": null, "price": 18.95 } ] },
+        { "name": "Gravy Mo:Mo", "description": "Creamy gravy momo", "tags": ["momo"], "variants": [ { "label": null, "price": 18.95 } ] },
+        { "name": "Dressing Mo:Mo", "description": "Dressing with sauces", "tags": ["momo"], "variants": [ { "label": null, "price": 18.95 } ] },
+        { "name": "Jhaneko Mo:Mo", "description": "cumin, chilli and garlic roasted in ghee poured on the jhol momo", "tags": ["jhol-momo"], "variants": [ { "label": null, "price": 18.95 } ] },
+        { "name": "Sadheko Mo:Mo", "description": "marinated with spices, vegetables and puffed rice with tangy and spicy flavor", "tags": ["sandheko-momo"], "variants": [ { "label": null, "price": 17.95 } ] },
+        { "name": "Crunchy Mo:Mo", "description": "tossed with bread crumbs and deep fried", "tags": ["fried-momo"], "variants": [ { "label": null, "price": 18.95 } ] }
+      ]
+    },
+    {
+      "name": "Chiura Set",
+      "items": [
+        { "name": "Veg Chiura Set", "description": "Marinated spicy potatoes served with beaten rice, soybean and sauce", "is_vegetarian": true, "tags": ["khaja"], "variants": [ { "label": null, "price": 18.95, "protein": "veg" } ] },
+        { "name": "Chicken Choila Set", "description": "Marinated spicy chicken served with beaten rice, soybean and sauce", "tags": ["choila", "khaja"], "variants": [ { "label": null, "price": 19.95, "protein": "chicken" } ] },
+        { "name": "Lamb Choila Set", "description": "Marinated spicy lamb served with beaten rice, soybean and sauce", "tags": ["choila", "khaja"], "variants": [ { "label": null, "price": 20.95, "protein": "lamb" } ] },
+        { "name": "Newari Set", "description": "A complete set of Newari cuisine consisting of beaten rice, soybean, choila, alu achar, bara, anda, bodi, saag", "tags": ["khaja", "newari"], "variants": [ { "label": null, "price": 26.95 } ] }
+      ]
+    },
+    {
+      "name": "Momo Platter",
+      "items": [
+        { "name": "Magic Momo Platter", "description": "Set of steam momo, fried momo and chilli momo", "tags": ["momo"], "variants": [ { "label": null, "price": 28.50 } ] },
+        { "name": "Momo Platter Option 1", "description": "Set of Steam momo, Fried Momo, Chilli Momo, Sandheko Momo", "tags": ["momo"], "variants": [ { "label": null, "price": 32.99 } ] },
+        { "name": "Momo Platter Option 2", "description": "Set of Steam Momo, Fried Momo, Chilli Momo, Sandheko Momo, Kothey Momo", "tags": ["momo"], "variants": [ { "label": null, "price": 34.50 } ] }
+      ]
+    }
+  ]
+}

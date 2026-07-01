@@ -1,0 +1,1786 @@
+{
+  "slug": "tapari-momo-granville",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Chaat",
+      "items": [
+        {
+          "name": "Panipuri (10 Pcs)",
+          "description": "Hollow puris with spicy tangy water",
+          "is_vegetarian": true,
+          "tags": [
+            "pani-puri"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Dahipuri (6 Pcs)",
+          "description": "Panipuri topped with yogurt and chutney",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Papdi Chaat",
+          "description": "Crunchy base with tangy, sweet toppings",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aloo Nimki",
+          "description": "Spiced potato snack with a crunch",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aloo Chop (4 Pcs)",
+          "description": "Deep-fried spiced potato patties",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Dry Chatpate",
+          "description": "Flavorful dry Nepali street chat",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Gilo Chatpate",
+          "description": "Spicy, tangy, and super addictive",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Wai Wai Shadeko",
+          "description": "Nepali-style instant noodles tossed spicy",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Samosa Chat",
+          "description": "Samosa served with chatpate toppings",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa",
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aloo Tikki Chat",
+          "description": "Potato patties with chutneys and spice",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Starters",
+      "items": [
+        {
+          "name": "Dry Laphing",
+          "description": "Cold mung bean noodles tossed with spicy chilli oil, soy sauce, vinegar, peanuts, spicy chips, and fresh garnishes.",
+          "is_vegetarian": true,
+          "tags": [
+            "laphing"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Jhol Laphing",
+          "description": "Cold slippery noodles in a hot, spicy, and tangy broth with chilli oil, soy sauce, vinegar, garlic, and fresh garnishes.",
+          "is_vegetarian": true,
+          "tags": [
+            "laphing"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chicken Lollipop (4 Pcs)",
+          "description": "Crispy fried chicken wings tossed with spices, served with dipping sauce.",
+          "tags": [
+            "lollipop"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Sausage (3 Pcs)",
+          "description": "Spicy Nepali-style sausage bites served with tangy achar.",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Choila",
+      "items": [
+        {
+          "name": "Chicken Choila",
+          "description": "Smoky grilled chicken chunks mixed with onion, green chilli, and special Nepali spices.",
+          "tags": [
+            "choila"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Choila Set",
+          "description": "Spicy smoky grilled chicken chunks with onion, green chilli, and special spices, served with traditional rice, fresh salad, and dipping sauce.",
+          "tags": [
+            "choila",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Soyabeans Choila",
+          "description": "Spicy smoky grilled soyabeans marinated in traditional Nepali spices, mixed with onion, green chilli, fresh herbs, and tangy sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "choila"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Soyabeans Choila Set",
+          "description": "Spicy smoky grilled soyabeans marinated in traditional Nepali spices, mixed with onion, green chilli, fresh herbs, and tangy sauce, served with traditional rice and sides.",
+          "is_vegetarian": true,
+          "tags": [
+            "choila",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Goat Bhutan",
+          "description": "Spiced stir-fried goat tripe with onion, green chilli, and Nepali seasonings.",
+          "tags": [
+            "bhutan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.0,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Goat Bhutan Set",
+          "description": "Spicy goat bhutan served with puffed rice, aloo achar, marinated fried vegetables, salad, and soyabeans for a wholesome set meal.",
+          "tags": [
+            "bhutan",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.0,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Keema Noodles",
+      "items": [
+        {
+          "name": "Chicken Keema Noodles",
+          "description": "Noodles tossed with spiced minced chicken, onion, and soy sauce, served with a flavorful spicy sauce.",
+          "tags": [
+            "keema-noodle"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken & Egg Keema Noodles",
+          "description": "Noodles tossed with spiced minced chicken, scrambled egg, onion, and soy sauce, served with a flavorful spicy sauce.",
+          "tags": [
+            "keema-noodle"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.0,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chilli Momo",
+      "items": [
+        {
+          "name": "Chilli Momo Chicken Dry",
+          "description": "Chicken dumplings with onion, capsicum, and green onion, marinated in Tapari-style spices, served dry with flavorful dipping sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Momo Mutton Dry",
+          "description": "Mutton dumplings with onion, capsicum, and green onion, tossed in Tapari-style spices, served dry with a spicy tangy sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Momo Veg Dry",
+          "description": "Vegetable dumplings with cabbage, cauliflower, onion, paneer, and capsicum, tossed in Tapari-style spices, served dry with tangy dipping sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Veg Momo",
+      "items": [
+        {
+          "name": "Veg Steam Momo",
+          "description": "Soft vegetable dumplings with cabbage, cauliflower, onion, paneer, and green onion, steamed to perfection with Tapari-style spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Jhol Momo",
+          "description": "Vegetable dumplings with cabbage, cauliflower, onion, paneer, and green onion, simmered in a spicy Tapari-style broth with fresh herbs.",
+          "is_vegetarian": true,
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Fry Momo",
+          "description": "Crispy pan-fried vegetable dumplings with cabbage, cauliflower, onion, paneer, and green onion, marinated in Tapari-style spices, served with tangy dipping sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Shadeko Momo",
+          "description": "Cabbage, cauliflower, onion, paneer, and green onion dumplings marinated in Tapari-style spices, tossed spicy and served flavorful.",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Kurkure Veg Momo",
+          "description": "Crispy fried vegetable momos filled with spiced vegetables, served with zesty Schezwan sauce for an irresistible crunch and flavor.",
+          "is_vegetarian": true,
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chicken Momo",
+      "items": [
+        {
+          "name": "Chicken Steam Momo",
+          "description": "Tender chicken wings with onion and green onion, marinated in Tapari-style masala, steamed to perfection.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Jhol Momo",
+          "description": "Tender chicken dumplings with onion and green onion, simmered in aromatic Tapari-style spices, served in a flavorful broth.",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Fry Momo",
+          "description": "Crispy pan-fried chicken dumplings with onion and green onion, marinated in Tapari-style spices, served with tangy dipping sauce.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Shadeko Momo",
+          "description": "Chicken dumplings with onion and green onion, marinated in Tapari-style spices, tossed spicy, and served with fresh herbs.",
+          "tags": [
+            "sandheko-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Kurkure Chicken Momo",
+          "description": "Crispy fried momos filled with spicy minced chicken, served with zesty Schezwan sauce for an irresistible crunch and flavor.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mutton Momo",
+      "items": [
+        {
+          "name": "Mutton Steam Momo",
+          "description": "Tender mutton dumplings with onion and green onion, steamed to perfection with Tapari-style spices.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Mutton Jhol Momo",
+          "description": "Mutton dumplings with onion and green onion, simmered in a spicy Tapari-style broth with aromatic herbs.",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Mutton Fry Momo",
+          "description": "Crispy pan-fried mutton dumplings with onion and green onion, marinated in Tapari-style spices, served with tangy dipping sauce.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Mutton Shadeko Momo",
+          "description": "Mutton dumplings with onion and green onion, tossed in Tapari-style spicy marinade with fresh herbs.",
+          "tags": [
+            "sandheko-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Kurkure Mutton Momo",
+          "description": "Crispy fried mutton momos filled with spicy minced mutton, served with zesty Schezwan sauce for an irresistible crunch and flavor.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Platters",
+      "items": [
+        {
+          "name": "Regular Platter (24 Pcs) - Veg",
+          "description": "A delicious assortment of freshly steamed vegetable momos, served with spicy Schezwan and tangy chutneys. Perfect for Momo lovers!",
+          "is_vegetarian": true,
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 35.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Regular Platter (24 Pcs) - Chicken",
+          "description": "A delicious assortment of freshly steamed chicken momos, served with spicy Schezwan and tangy chutneys. Perfect for Momo lovers!",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 35.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Regular Platter (24 Pcs) - Mutton",
+          "description": "A delicious assortment of freshly steamed mutton momos, served with spicy Schezwan and tangy chutneys. Perfect for Momo lovers!",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 35.0,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thakali Set",
+      "items": [
+        {
+          "name": "Chicken Thakali Set",
+          "description": "Spicy chicken curry served with rice, daal, saag, tomato achar, salad, seasonal vegetables, papad, bhatamas sadeko, aloo achar, and a sweet Gulab Jamun for a complete Nepali meal.",
+          "tags": [
+            "thali",
+            "thakali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mutton Thakali Set",
+          "description": "Rich mutton curry served with rice, daal, saag, tomato achar, salad, seasonal vegetables, papad, bhatamas sadeko, aloo achar, and a sweet Gulab Jamun for a wholesome Nepali feast.",
+          "tags": [
+            "thali",
+            "thakali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.0,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Veg Thakali Set",
+          "description": "Flavorful vegetable curry served with rice, daal, saag, tomato achar, salad, seasonal vegetables, papad, bhatamas sadeko, aloo achar, and a sweet Gulab Jamun for a satisfying meal.",
+          "is_vegetarian": true,
+          "tags": [
+            "thali",
+            "thakali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Manchurian",
+      "items": [
+        {
+          "name": "Chicken Manchurain Dry",
+          "description": "Tender chicken pieces tossed with onion, capsicum, and green chilli in Tapari-style spicy, tangy sauce, garnished with fresh herbs.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Manchurain Gravy",
+          "description": "Tender chicken pieces with onion, capsicum, and green chilli in Tapari-style spicy, tangy gravy with aromatic spices and vegetables.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Manchurain Dry",
+          "description": "Crispy paneer cubes tossed with onion, capsicum, and green chilli in Tapari-style spicy, tangy sauce with vibrant vegetables.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Manchurain Gravy",
+          "description": "Crispy paneer cubes with onion, capsicum, and green chilli in Tapari-style spicy, tangy gravy with aromatic vegetables.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Gobi Manchurain Dry",
+          "description": "Crispy cauliflower tossed with onion, capsicum, and green chilli in Tapari-style spicy, tangy sauce, garnished with fresh herbs.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Gobi Manchurain Gravy",
+          "description": "Crispy cauliflower with onion, capsicum, and green chilli in Tapari-style spicy, tangy gravy, served hot and flavorful.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Manchurain Dry",
+          "description": "Mixed vegetables with onion, capsicum, and green chilli tossed in Tapari-style dry Manchurian sauce, garnished with fresh herbs.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Manchurain Gravy",
+          "description": "Mixed vegetables with onion, capsicum, and green chilli in Tapari-style spicy, tangy Manchurian gravy, served hot and flavorful.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chilli",
+      "items": [
+        {
+          "name": "Chicken 65",
+          "description": "Crispy, spicy and busting with flavor perfectly fried withchicken tossed with curry leaves and chilli",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chilli Dry",
+          "description": "Tender chicken pieces stir-fried with onions, capsicum, green chilli, and Tapari-style spices for a bold, savory flavor.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Chilli Dry",
+          "description": "Soft paneer cubes stir-fried with onions, capsicum, green chilli, and Tapari-style spices for a spicy, flavorful dish.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Gobi Chilli Dry",
+          "description": "Crispy cauliflower stir-fried with onions, capsicum, green chilli, and Tapari-style spices for a tasty, spicy bite.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Mushroom Chilli Dry",
+          "description": "Sautéed mushrooms with onions, capsicum, green chilli, and Tapari-style spices for a savory, spicy flavor.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        {
+          "name": "Chicken Chowmein",
+          "description": "Noodles stir-fried with chicken, onion, capsicum, cabbage, and Tapari-style spices for a flavorful dish.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Egg Chowmein",
+          "description": "Noodles stir-fried with scrambled egg, vegetables, and Tapari-style spices for a satisfying meal.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Veg Chowmein",
+          "description": "Noodles stir-fried with mixed vegetables, tossed in savory sauces with Tapari-style spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Tapari Style Veg Chowmein",
+          "description": "Noodles stir-fried with fresh vegetables, mushroom, paneer, and Tapari-style spices for a tasty Nepali-style treat.",
+          "is_vegetarian": true,
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chicken & Egg Mix Chowmein",
+          "description": "Noodles stir-fried with chicken, scrambled egg, vegetables, and Tapari-style spices for a hearty, flavorful dish.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.0,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        {
+          "name": "Chicken Fried Rice",
+          "description": "Fried rice with chicken, carrot, green peas, corn, and Tapari-style spices for a flavorful dish.",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Egg Fried Rice",
+          "description": "Fried rice with scrambled egg, carrot, green peas, corn, and Tapari-style spices.",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Veg Fried Rice",
+          "description": "Fried rice with mixed vegetables, carrot, green peas, corn, and Tapari-style spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Tapari Style Veg Fried Rice",
+          "description": "Flavorful Tapari-style fried rice with mixed vegetables, mushroom, paneer, and aromatic spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chicken & Egg Fried Rice",
+          "description": "Fried rice with chicken, scrambled egg, carrot, green peas, corn, and Tapari-style spices.",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.0,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        {
+          "name": "Chicken Thukpa",
+          "description": "Tender chicken pieces with noodles, vegetables, and aromatic Tapari-style spices, served in a hot, flavorful broth.",
+          "tags": [
+            "thukpa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Veg Thukpa",
+          "description": "Mixed vegetables with noodles, flavored with Tapari-style spices, served in a hot and savory broth.",
+          "is_vegetarian": true,
+          "tags": [
+            "thukpa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        {
+          "name": "Rasmalai (2 Pcs)",
+          "description": "Soft cheese balls in sweet milk",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.0
+            }
+          ]
+        },
+        {
+          "name": "Gulab Jamun (2 Pcs)",
+          "description": "Deep-fried sweet syrup balls",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.0
+            }
+          ]
+        },
+        {
+          "name": "Pista Kulfi",
+          "description": "Creamy pistachio ice cream",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Khoya Kulfi",
+          "description": "Rich milk-based ice cream",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Paan Ice Cream",
+          "description": "Sweet betel-flavored ice cream",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Tutti Fruit Ice Cream",
+          "description": "Colorful fruit-flavored ice cream",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        {
+          "name": "Chips",
+          "description": "Crispy golden fries",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chips and Nuggets",
+          "description": "Fries with chicken nuggets",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        {
+          "name": "Mango Lassi",
+          "description": "Sweet mango yogurt drink",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Salted Lassi",
+          "description": "Refreshing lightly salted yogurt drink",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Masala Lemonade",
+          "description": "Tangy lemonade with spice twist",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.0
+            }
+          ]
+        },
+        {
+          "name": "Coke Classic",
+          "description": "Classic cola",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Coke Zero (No Sugar)",
+          "description": "Classic cola without sugar",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Pepsi",
+          "description": "Smooth, refreshing cola with a sweet, balanced flavor",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Fanta",
+          "description": "Fruity orange soda",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Sprite",
+          "description": "Refreshing lemon-lime soda",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Mountain Dew",
+          "description": "Bold, crisp citrus soda. Refreshing kick.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Beer",
+      "items": [
+        {
+          "name": "Asahi",
+          "description": "Japanese premium beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Mustang",
+          "description": "Nepali craft beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Barahsinghe",
+          "description": "Nepali beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Kingfisher",
+          "description": "Indian premium lager",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Arna",
+          "description": "Nepali beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Cruiser (Watermelon)",
+          "description": "Refreshing watermelon flavored beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Cruiser (Pineapple)",
+          "description": "Tropical pineapple flavored beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Nepal Ice",
+          "description": "Nepali ice beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Corona",
+          "description": "Mexican premium lager",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Tuborg",
+          "description": "Danish premium beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Soju",
+      "items": [
+        {
+          "name": "Soju (Lychee)",
+          "description": "Korean spirit with lychee flavor",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        },
+        {
+          "name": "Soju (Peach)",
+          "description": "Korean spirit with peach flavor",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cocktails",
+      "items": [
+        {
+          "name": "Espresso Martini",
+          "description": "Vodka, coffee liqueur & espresso for a rich, bold taste",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        },
+        {
+          "name": "Mojito",
+          "description": "Classic refreshing mix of rum, mint, lime & soda",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0
+            }
+          ]
+        },
+        {
+          "name": "Spicy Tommy's Margarita",
+          "description": "A hot twist on the classic with chili & lime",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        },
+        {
+          "name": "Long Island Iced Tea",
+          "description": "Strong blend of spirits & cola",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mocktails",
+      "items": [
+        {
+          "name": "Long Island Peach Tea",
+          "description": "Peach iced tea with island-style flavor",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Sunrise",
+          "description": "Refreshing tropical blend",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Weiss Bar Martini",
+          "description": "Light, fruity & alcohol-free",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Pink Lemonade",
+          "description": "Classic sweet & tangy lemonade",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Masala Lemonade",
+          "description": "Spiced twist on the traditional lemonade",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spirits",
+      "items": [
+        {
+          "name": "Black Label",
+          "description": "Premium scotch whisky",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Chivas 12 Year",
+          "description": "Aged scotch whisky",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Jameson",
+          "description": "Irish whiskey",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Chivas 18 Year",
+          "description": "Premium aged scotch whisky",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        },
+        {
+          "name": "Blue Label",
+          "description": "Ultra-premium scotch whisky",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.0
+            }
+          ]
+        },
+        {
+          "name": "Old Durbar",
+          "description": "Nepali whisky",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Khukri Rum",
+          "description": "Nepali premium rum",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.0
+            }
+          ]
+        },
+        {
+          "name": "Belvedere Vodka",
+          "description": "Premium Polish vodka",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.0
+            }
+          ]
+        },
+        {
+          "name": "Section 72 Vodka",
+          "description": "Premium vodka",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

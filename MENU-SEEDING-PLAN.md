@@ -45,8 +45,11 @@ only where a spot has no own menu.
 - **Dirty data:** ~25 `menu_url`s are junk (CSS files, `http://menu/`, a logo PDF) — skip.
   A few "own-page" links are homepages/`#menu` anchors; may need to find the real menu page.
 - **Aggregator prices are marked up** — prefer a restaurant's own/print menu where both exist.
-- **Branches share menus** (Falcha ×3, Aagaman ×3, Momo Central ×3, Little Magic Momo ×2,
-  Khukuri ×2, both Heshela done) — transcribe once, seed to each branch slug.
+- **⚠️ Do NOT assume branches share a menu.** Each branch of a chain (Falcha, Aagaman,
+  Momo Central, Little Magic Momo, Khukuri, etc.) has its OWN menu and prices — confirmed
+  by the owner. Transcribe every branch from ITS OWN menu source; never reuse one branch's
+  JSON for another. (Little Magic Momo and both Heshela were each seeded from their own
+  branch menus, not by reuse.)
 - **Catering flag** — set `catering = true` when a menu/site advertises catering.
 - **SKIPPED (catering-only, no prices):** `everest-function-centre-rockdale` — its
   `menu_url` PDF is a function-centre catering menu (ENTREE/MAIN/DESSERT bubble
@@ -60,9 +63,9 @@ only where a spot has no own menu.
 
 Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-progress.js --write`. `📁local` = file under `media/menus/`.
 
-**Progress: 23 / 146 seeded (16%)** · refreshed 2026-07-01
+**Progress: 42 / 147 seeded (29%)** · refreshed 2026-07-01
 
-### A. PDF menus — start here — 20/25 done
+### A. PDF menus — start here — 24/25 done
 - [x] **Falcha Town Hall** (Sydney, NSW) · 2853 rev · ✓ 53 items
     https://falcha.com.au/wp-content/uploads/2026/04/Falcha_Townhall_Menu_Nov2025.pdf
 - [x] **Funky Momo** (Victoria Park, WA) · 1406 rev · ✓ 89 items
@@ -77,7 +80,7 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://elektrafitzroy.com.au/wp-content/uploads/2022/11/Elektra-menu-2023.pdf
 - [x] **The Saffron House** (Blackburn South, VIC) · 531 rev · ✓ 94 items
     https://www.thesaffronhouse.com.au/s/HimalayanBelt_J42140_A4_Menus_SaffronHouseTakeawayAug
-- [ ] **Indus Indian &Nepalese Restaurant Gold** (Surfers Paradise, QLD) · 522 rev · 📁local
+- [x] **Indus Indian &Nepalese Restaurant Gold** (Surfers Paradise, QLD) · 522 rev · ✓ 82 items
     https://indusrestaurant.com.au/storage/app/public/branch_images/1765795615-5289.pdf
 - [x] **Little Magic Momo** (Osborne Park, WA) · 521 rev · ✓ 51 items
     https://littlemagicmomo.com.au/wp-content/uploads/2026/03/little-magic-momo-menu-V.4.pdf
@@ -95,17 +98,17 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     http://www.everesttandoori.com.au/images/menu/everest-tandoori-menu.pdf
 - [x] **Lahana Restaurant and Bar** (Hurstville, NSW) · 317 rev · ✓ 158 items
     http://lahanahurstville.com.au/wp-content/uploads/2024/03/Lahana_menu.pdf
-- [ ] **Lababdar** (Ryde, NSW) · 282 rev · 📁local
+- [x] **Lababdar** (Ryde, NSW) · 282 rev · ✓ 111 items
     http://lababdar.com.au/wp-content/uploads/2025/11/Lababdar-New-Menu-Nov-2025_Compressed.pd
 - [x] **Himalayan Tandoor & Curry House** (Bellerive, TAS) · 266 rev · ✓ 79 items
     https://www.himalayantandoorandcurryhouse.com.au/images/dineinmenu.pdf
 - [x] **Kathmandu Cuisine** (Hobart, TAS) · 265 rev · ✓ 24 items
     http://kathmanducuisine.com.au/ktm-cusine-menu-01-converted.pdf
-- [ ] **Little Nepal Nepalese Restaurant** (Currambine, WA) · 227 rev · 📁local
+- [x] **Little Nepal Nepalese Restaurant** (Currambine, WA) · 227 rev · ✓ 96 items
     http://littlenepalrestaurant.com.au/wp-content/uploads/2017/12/Little_Nepal_Take_AWay.pdf
 - [x] **Tasty momo Nepalese Restaurant** (Cloverdale, WA) · 140 rev · ✓ 66 items
     https://tastymomo.com.au/wp-content/uploads/2026/01/TASTY-MOMO-MENU-Cloverdale-V.6.pdf
-- [ ] **Street Eats Mt Hawthorn** (Scarborough, WA) · 106 rev
+- [x] **Street Eats Mt Hawthorn** (Scarborough, WA) · 106 rev · ✓ 82 items
     https://assets.cdn.filesafe.space/fBmNTES4lOqZJFIgBQJs/media/69fd9642a3dd25aa2a87ebde.pdf
 - [x] **Himalayan BBQ** (Greenway, ACT) · 103 rev · ✓ 29 items
     https://img1.wsimg.com/blobby/go/a4c3634e-3b7b-4194-9e8a-f28ec52cb11a/HIMALAYAN%20BBQ%20(A
@@ -114,28 +117,28 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
 - [x] **Tusa Canberra** (Barton, ACT) · 19 rev · ✓ 19 items
     https://tusanepal.com/wp-content/uploads/2026/06/Tusa-Canberra.pdf
 
-### B. Own-site pages — 0/82 done
-- [ ] **The Momos Hub Townhall** (Sydney, NSW) · 3689 rev · 📁local
+### B. Own-site pages — 15/83 done
+- [x] **The Momos Hub Townhall** (Sydney, NSW) · 3689 rev · ✓ 47 items
     menus/17/menu-1782054769586-3g5g.webp
-- [ ] **Chilli Everest** (Melbourne, VIC) · 2249 rev
+- [x] **Chilli Everest** (Melbourne, VIC) · 2249 rev · ✓ 49 items
     https://chillieverest.com.au/menu/
-- [ ] **Momo Central Little Collins St** (Melbourne, VIC) · 1998 rev
+- [x] **Momo Central Little Collins St** (Melbourne, VIC) · 1998 rev · ✓ 27 items
     https://momocentral.com.au/menus/
-- [ ] **Lakeside Gurkhas** (Kingston, ACT) · 1953 rev
+- [x] **Lakeside Gurkhas** (Kingston, ACT) · 1953 rev · ✓ 195 items
     http://lakesidegurkhas.com.au/menu
-- [ ] **Magic Momo Kafe West Footscray** (West Footscray, VIC) · 1299 rev
+- [x] **Magic Momo Kafe West Footscray** (West Footscray, VIC) · 1299 rev · ✓ 18 items
     https://magicmomokafe.com.au/menu/
-- [ ] **SPICE MIX- Indian, Nepalese & Halal Re** (Brunswick East, VIC) · 1015 rev
+- [x] **SPICE MIX- Indian, Nepalese & Halal Re** (Brunswick East, VIC) · 1015 rev · ✓ 178 items
     https://spicemixrestaurant.com/menu
 - [ ] **Mul Chowk Kitchen Sydney** (Campsie, NSW) · 995 rev
     https://mccatering.com.au/menu
-- [ ] **MoMo Planet** (Victoria Park, WA) · 968 rev
+- [x] **MoMo Planet** (Victoria Park, WA) · 968 rev · ✓ 121 items
     http://www.momoplanetperth.com/menu.html
 - [ ] **Khukuri Restaurant Adelaide** (Adelaide, SA) · 929 rev
     https://khukurirestaurant.com.au/menu/khukuri-adelaide
-- [ ] **Tapari Momo** (Granville, NSW) · 869 rev
+- [x] **Tapari Momo** (Granville, NSW) · 869 rev · ✓ 118 items
     https://taparimomo.com.au/menu
-- [ ] **Falcha Rockdale** (Rockdale, NSW) · 867 rev
+- [x] **Falcha Rockdale** (Rockdale, NSW) · 867 rev · ✓ 53 items
     https://falcha.com.au/menu-rockdale/
 - [ ] **The Hungry Buddha | Nepalese & Indian ** (Belconnen, ACT) · 813 rev
     https://thehungrybuddha.com.au/menu-1
@@ -149,17 +152,17 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://www.thesavourydiningns.com/#Menu
 - [ ] **Aagaman Indian Nepalese Restaurant: Me** (Melbourne, VIC) · 723 rev
     https://aagamanrestaurant.com.au/menu.html
-- [ ] **Timur Indian & Nepalese Restaurant** (Parramatta, NSW) · 709 rev
+- [x] **Timur Indian & Nepalese Restaurant** (Parramatta, NSW) · 709 rev · ✓ 150 items
     https://timurindiannepalese.yumbojumbo.com.au/menu
 - [ ] **Tinkune Momo & Sekuwa House** (Sunshine, VIC) · 698 rev
     http://tinkune.com.au/menu
-- [ ] **Flavours of Nepal** (Granville, NSW) · 685 rev
+- [x] **Flavours of Nepal** (Granville, NSW) · 685 rev · ✓ 132 items
     https://flavoursofnepal.yumbojumbo.com.au/menu
 - [ ] **Momo Central Bourke street** (Melbourne, VIC) · 671 rev
     https://momocentral.com.au/menus/
 - [ ] **Ribs Lane Subiaco** (Subiaco, WA) · 655 rev
     https://www.ribslane.com.au/menu
-- [ ] **Kathmandu Newa Chhe'n** (Paddington, QLD) · 612 rev
+- [x] **Kathmandu Newa Chhe'n** (Paddington, QLD) · 612 rev · ✓ 87 items
     http://www.kathmandunewa.com.au/menu
 - [ ] **Momo Station** (Melbourne, VIC) · 586 rev
     https://momostation.com.au/menu-2/
@@ -171,7 +174,7 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     http://hamronepalikitchen.com/menu
 - [ ] **Everest BBQ** (Rockdale, NSW) · 497 rev
     https://everestbbq.yumbojumbo.com.au/menu
-- [ ] **Falcha Penshurst** (Penshurst, NSW) · 462 rev
+- [x] **Falcha Penshurst** (Penshurst, NSW) · 462 rev · ✓ 53 items
     https://falcha.com.au/menu-penshurst/
 - [ ] **Kalapani Nepalese Restaurant Town hall** (Sydney, NSW) · 438 rev
     https://kalapaninepalesecbd.yumbojumbo.com.au/menu
@@ -213,16 +216,18 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://himalayanrestaurant.com.au/menu
 - [ ] **Base Camp** (Northcote, VIC) · 260 rev
     http://www.basecamprestaurant.com.au/menu
-- [ ] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev
-    https://thecafetalk.com.au/our-menu/
 - [ ] **Deurali Restaurant** (Salisbury, SA) · 247 rev
     https://deurali.com.au/our-menus/
+- [ ] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev
+    https://thecafetalk.com.au/our-menu/
 - [ ] **The momos** (Hornsby, NSW) · 240 rev
     https://themomos-hornsby.yumbojumbo.com.au/menu
 - [ ] **Gurkha's Fusion** (Maroochydore, QLD) · 237 rev
     https://gurkhasfusion.com.au/menu/
 - [ ] **Kantipur Indian Nepalese Restaurant & ** (Caulfield North, VIC) · 218 rev
     https://tapnorder.online/
+- [x] **JHEER HOUSE | Gyros/Souvlaki/Kebab/Bur** (Rockdale, NSW) · 204 rev · ✓ 49 items
+    https://jheerhouse.com.au/order-now/
 - [ ] **Nepal House Restaurant** (Greenacres, SA) · 196 rev
     https://ordereats.com.au/menu-nepal-house-restaurant#menu
 - [ ] **Food House Nepal** (Dee Why, NSW) · 195 rev
@@ -245,7 +250,7 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://tibetan-peace-restaurant.grubbio.com/menu
 - [ ] **ChiyaHub** (Kogarah, NSW) · 148 rev
     https://www.chiyahub.com/menu
-- [ ] **Falcha Wollongong** (Wollongong, NSW) · 132 rev
+- [x] **Falcha Wollongong** (Wollongong, NSW) · 132 rev · ✓ 53 items
     https://falcha.com.au/menu-wollogong/
 - [ ] **Khaja** (Villawood, NSW) · 122 rev
     https://khaja.com.au/menu/

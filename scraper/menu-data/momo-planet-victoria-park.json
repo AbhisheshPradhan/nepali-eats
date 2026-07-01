@@ -1,0 +1,1733 @@
+{
+  "slug": "momo-planet-victoria-park",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starters",
+      "items": [
+        {
+          "name": "Veg Pakora",
+          "description": "Homemade Mixed Vegetables, Battered with Chickpea Flour and Spices, Deep Fried and Served with Grilled Tomato Chutney. (Veg, Gf)",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Sel Roti",
+          "description": "Nepalese Style Sticky Rice Flour Donut (2) Served With Vegetable Curry And Pickle",
+          "is_vegetarian": true,
+          "tags": [
+            "sel-roti"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Dhai Puri",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Laphing (Dry or Wet)",
+          "description": "Thin Flour Crepe Stuffed With Waiwai, Garlic, Herbs, Chili Paste Served With Red Pepper Chili, Coriander, Sesame, Spring Onion, Soya, Chili Oil. (Veg, Vegan, DF)",
+          "is_vegetarian": true,
+          "tags": [
+            "laphing"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Manchurian",
+          "description": "Sweet, Savory, and Chilly Garlic Spiced Semidried Delicious Gravy with Onion, Capsicum, and Coriander. (Veg, Vegan, DF)",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chatpate",
+          "description": "Savory (Chat version) Dish Made with Puffed Rice, Veggies, Chili, Lemon Juice, Chickpea Crisps & Nuts (Veg, Vegan, Df)",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Wai Wai Sadheko",
+          "description": "Nepalese Famous Crispy Noodle Spiced Up with Herbs, Veggies, Cucumber, Chilly, Coriander, and Spices  (Veg, Vegan)",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Puri Tarkari",
+          "description": "Deep Fried Flat Wheat Bread Served with the Potato and Peas Curry & Side Pickle (Veg)",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Sukuti Chatpate",
+          "description": "Savory (Chat version) Dish Made with Puffed Rice, Veggies, Chili, Lemon Juice, Chickpea Crisps & Nuts in Addition with Buffalo Jerky (Veg, Gf)",
+          "tags": [
+            "sukuti",
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Panipuri",
+          "description": "Crispy Puffed Flour Balls; Balls with Spiced Potato Fillings and Savory, Herbed, Tamarind-Based Water Dip .(Veg,Vegan,Df )",
+          "is_vegetarian": true,
+          "tags": [
+            "pani-puri"
+          ],
+          "variants": [
+            {
+              "label": "8 pcs",
+              "price": 12.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Sausage",
+          "description": "Fried Chicken Sausages with Spiced Potato Wedges and Tomato Dip. (GF)",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": "2 pcs",
+              "price": 15.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Malai Chicken",
+          "description": "Tender Chicken Pieces Cooked with Garlic, Cream, Cheese and Herbs. (GF)",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Bites",
+          "description": "Crispy Fried Chicken Bites Dusted with House Spice, Fried Onion, Cilantros and Side Sichuan Pepper (Timur) Aioli",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Wings",
+          "description": "Crispy Wings Served with Our Own House Spicy Peri Peri Marinade & Salad, Spiced Potato Wedges with Sichuan Pepper (Timur) Aioli. (Ask for Mild, Medium, or Hot) (GF)",
+          "tags": [
+            "wings"
+          ],
+          "variants": [
+            {
+              "label": "4 pcs",
+              "price": 18.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Pork Belly",
+          "description": "Charred Grilled Spice Marinaded Pork Belly, Served with Tomato Relish and Spiced House Potato Wedges. (GF)",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Chilly",
+          "description": "Stir Fry Cottage Cheese with Onion and Capsicum on Chili Sauce, Soy, Spices. (Veg, DF, GF)",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13.5,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Chana Aloo",
+          "description": "Chickpea and Potato Curry Mixed with Homemade Spices",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Mustang Aloo",
+          "description": "Double Cooked Potato, Coated with Spice, Herbs, Sesame and Peanuts (Can be Mild). (Veg, Vegan, DF, GF)",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Samosa Chat / Samosa Tarkari",
+          "description": "Lightly Crushed Somasas with Tamarind, Yoghurt, Curried Peas Crisps, Herbs and Veggies. More Likely Sweet, Tangy and Savory Taste. (Samosa Tarkari is Two Samosas Served with Pea Curry and Pickle on Side) (Veg, DF)",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa",
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Thupka",
+          "description": "Golden Delicious Veg or Non Veg Bone Broth with Vegetables, Spices, Herbs, Choice of Your Meat & Thin Soft Noodle . (Veg, DF)",
+          "tags": [
+            "thukpa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0
+            }
+          ]
+        },
+        {
+          "name": "Squid",
+          "description": "Deep Fried Chickpea Battered Squid Tossed with Garlic, Fried Onion, Herbs and Chilly Pepper Seasoning. (GF)",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        },
+        {
+          "name": "Chips",
+          "description": "Delicious Chips",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Khaja Set",
+      "items": [
+        {
+          "name": "Buff Sukuti",
+          "description": "Here it is with each starting alphabet capitalized and the rest in lowercase:  Pan-Fried House Made Buffalo Jerky Tossed with Onion, Tomatoes, Cilantro and Light Spices, Served with Furandana (Crispy Flat Rice) and Side Potato and Vegetables Pickle. (GF)",
+          "tags": [
+            "sukuti",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.5,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Vhutan Set",
+          "description": "Pan-Fried Goat's Tripe and Other Internal Organs with Shallot, Onions, Tomatoes, Garlic & Spices Served with Furandana and Mix Vegetables Pickle (GF)",
+          "tags": [
+            "bhutan",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Choila",
+          "description": "Charred Chicken Thigh Fillet, Marinated with Garlic, Ginger, Lemon, Chilly and Spices Served with Flat Rice (Chiura) and Side Potato and Vegetables Pickle. (GF)",
+          "tags": [
+            "choila",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Sekuwa (Goat/ Pork)",
+          "description": "Char Grilled Choice of Your Meat Skewers (Boneless), Marinated with Lemon, Ginger, Garlic and Light Spices, Served with Furandana and Side Potato and Vegetables Pickle (GF)",
+          "tags": [
+            "sekuwa",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.5
+            }
+          ]
+        },
+        {
+          "name": "Newari Khaja Set",
+          "description": "Newari Style Lunch Set Which Comes with Barra (Lentil Pancake), Egg, Pea Curry Soup, Flat Rice, Pickles, Chicken Choila and Fried Fish (GF). Ask for Veg Options",
+          "tags": [
+            "khaja",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        {
+          "name": "Chilly Garlic Momo",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar). We Have Different Choices for You Like Fried Momo, Chilly Momo (Pan-Fried with Onion, Capsicum and Medium or Mild Chili Sauce According to Your Liking), Jhol (Soup) Momo, Sadheko Momo (Steamed Then Marinated with Spicy or Mild Sauce) and Bhatti Momo (Steamed and Cooked with Warm Curried Bone Broth with Meat Pieces)",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0
+            }
+          ]
+        },
+        {
+          "name": "Ema Datshi Momo",
+          "description": "Delicious Ema Datshi Momo",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28.0
+            }
+          ]
+        },
+        {
+          "name": "Mixed Momo Platter",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 32.0
+            }
+          ]
+        },
+        {
+          "name": "Butter Chicken/Veg Momo",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar). We Have Different Choices for You Like Fried Momo, Chilly Momo (Pan-Fried with Onion, Capsicum and Medium or Mild Chili Sauce According to Your Liking), Jhol (Soup) Momo, Sadheko Momo (Steamed Then Marinated with Spicy or Mild Sauce) and Bhatti Momo (Steamed and Cooked with Warm Curried Bone Broth with Meat Pieces)",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.5
+            }
+          ]
+        },
+        {
+          "name": "Vegetarian Momo",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar)",
+          "is_vegetarian": true,
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "10 pcs",
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Momo Platter",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar)",
+          "is_vegetarian": true,
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "16 pcs",
+              "price": 25.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Cheese and Chilly Momo",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar)",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": "10 pcs",
+              "price": 14.0,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Cheese Momo Platter",
+          "description": "It is served with grilled tomato relish (golbheda ko achar)",
+          "is_vegetarian": true,
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "16 pcs",
+              "price": 25.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chicken Momo",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar)",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "10 pcs",
+              "price": 15.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Momo Platter",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar)",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "16 pcs",
+              "price": 26.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Buffalo Momo",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar)",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "10 pcs",
+              "price": 17.0,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Buff Momo Platter",
+          "description": "It Is Served with Grilled Tomato Relish (Golbheda Ko Achar)",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "16 pcs",
+              "price": 29.0,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chow Mein",
+      "items": [
+        {
+          "name": "Veg Chowmein",
+          "description": "Stir-Fried Noodles with Soy Sauce, Herbs, Vegetables, Some Secrets and Spices to Your Liking. It Can Be Served Mild, Medium or Hot",
+          "is_vegetarian": true,
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Paneer Chowmwein",
+          "description": "Stir-Fried Noodles with Soy Sauce, Herbs, Vegetables, Some Secrets and Spices to Your Liking. It Can Be Served Mild, Medium or Hot",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.5,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Chowmein",
+          "description": "Stir-Fried Noodles with Soy Sauce, Herbs, Vegetables, Some Secrets and Spices to Your Liking. It Can Be Served Mild, Medium or Hot",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.5,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chowmwein",
+          "description": "Stir-Fried Noodles with Soy Sauce, Herbs, Vegetables, Some Secrets and Spices to Your Liking. It Can Be Served Mild, Medium or Hot",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Egg Chowmwein",
+          "description": "Stir-Fried Noodles with Soy Sauce, Herbs, Vegetables, Some Secrets and Spices to Your Liking. It Can Be Served Mild, Medium or Hot",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Pork Chowmwein",
+          "description": "Stir-Fried Noodles with Soy Sauce, Herbs, Vegetables, Some Secrets and Spices to Your Liking. It Can Be Served Mild, Medium or Hot",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.5,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Buff Chowmwein",
+          "description": "Stir-Fried Noodles with Soy Sauce, Herbs, Vegetables, Some Secrets and Spices to Your Liking. It Can Be Served Mild, Medium or Hot",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.5,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        {
+          "name": "Veg Fried Rice",
+          "description": "Wok Tossed Special Aromatic Basmati Rice with Mix Veggies, Herbs, Spices and Sauces with Choice of Your Meat or Vegetables (All Fried Rice Is Gluten Free and Can Be Vegan)",
+          "is_vegetarian": true,
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Mixed Fried Rice",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.0
+            }
+          ]
+        },
+        {
+          "name": "Buff Fried Rice",
+          "description": "Wok Tossed Special Aromatic Basmati Rice with Mix Veggies, Herbs, Spices and Sauces with Choice of Your Meat or Vegetables (All Fried Rice Is Gluten Free )",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.0,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Fried Rice",
+          "description": "Wok Tossed Special Aromatic Basmati Rice with Mix Veggies, Herbs, Spices and Sauces with Choice of Your Meat or Vegetables (All Fried Rice Is Gluten Free and Can Be Vegan)",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.0,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Egg Fried Rice",
+          "description": "Wok Tossed Special Aromatic Basmati Rice with Mix Veggies, Herbs, Spices and Sauces with Choice of Your Meat or Vegetables (All Fried Rice Is Gluten Free )",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.0,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Fried Rice",
+          "description": "Wok Tossed Special Aromatic Basmati Rice with Mix Veggies, Herbs, Spices and Sauces with Choice of Your Meat or Vegetables (All Fried Rice Is Gluten Free )",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Pork Fried Rice",
+          "description": "Wok Tossed Special Aromatic Basmati Rice with Mix Veggies, Herbs, Spices and Sauces with Choice of Your Meat or Vegetables (All Fried Rice Is Gluten Free )",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Fried Rice",
+          "description": "Wok Tossed Special Aromatic Basmati Rice with Mix Veggies, Herbs, Spices and Sauces with Choice of Your Meat or Vegetables (All Fried Rice Is Gluten Free )",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.5,
+              "protein": "paneer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thali & Curries",
+      "items": [
+        {
+          "name": "Veg Thali",
+          "description": "This Meal Consists of Various Small Tasting Items Like Pea Curry, Spiced Potato, Two Kinds of Pickle, Black Lentil, Sauteed Spinach, Sweet Yoghurt, Papadum, Rice or Roti, Ghee and Choice of Your Curry. (Veg, GF)",
+          "is_vegetarian": true,
+          "tags": [
+            "thali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Goat Thali",
+          "description": "This Meal Consists of Various Small Tasting Items Like Pea Curry, Spiced Potato, Two Kinds of Pickle, Black Lentil, Sauteed Spinach, Sweet Yoghurt, Papadum, Rice or Roti, Ghee and Choice of Your Curry. (Veg, GF)",
+          "tags": [
+            "thali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29.5,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Thali",
+          "description": "This Meal Consists of Various Small Tasting Items Like Pea Curry, Spiced Potato, Two Kinds of Pickle, Black Lentil, Sauteed Spinach, Sweet Yoghurt, Papadum, Rice or Roti, Ghee and Choice of Your Curry. (Veg, GF)",
+          "tags": [
+            "thali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Pork Thali",
+          "description": "This Meal Consists of Various Small Tasting Items Like Pea Curry, Spiced Potato, Two Kinds of Pickle, Black Lentil, Sauteed Spinach, Sweet Yoghurt, Papadum, Rice or Roti, Ghee and Choice of Your Curry. (Veg, GF)",
+          "tags": [
+            "thali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29.5,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Pork Curry",
+          "description": "All Our Curries Can Be Mild, Medium or Hot. All Our Curry Is Gluten Free and Comes with Rice or Roti on Side and Papadum",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.0,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Goat Curry",
+          "description": "All Our Curries Can Be Mild, Medium or Hot. All Our Curry Is Gluten Free and Comes with Rice or Roti on Side and Papadum",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.5,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Curry",
+          "description": "All Our Curries Can Be Mild, Medium or Hot. All Our Curry Is Gluten Free and Comes with Rice or Roti on Side and Papadum",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Matar Paneer",
+          "description": "All Our Curries Can Be Mild, Medium or Hot. All Our Curry Is Gluten Free and Comes with Rice or Roti on Side and Papadum",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.5,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Curry",
+          "description": "All Our Curries Can Be Mild, Medium or Hot. All Our Curry Is Gluten Free and Comes with Rice or Roti on Side and Papadum",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26.5,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        {
+          "name": "Kids Nuggets and Chips",
+          "description": "Delicious Kids Nuggets and Chips",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chowmein",
+          "description": "Chicken / Veg Options",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Steam Momo (6 Pcs)",
+          "description": "Chicken / Veg Options",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "6 pcs",
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Fried Rice",
+          "description": "Chicken / Veg Options",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        {
+          "name": "Khuwa",
+          "description": "Sweet Traditional Ricotta Cheese, Salted Caramel, Rice Cracker",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.5
+            }
+          ]
+        },
+        {
+          "name": "Kheer (Rice Pudding)",
+          "description": "Aromatic Rice Pudding With Nuts",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "Gulab Jamun",
+          "description": "Mango Jelly, Nata De Coco, Whipped Sweet Yoghurt",
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Smoothies",
+      "items": [
+        {
+          "name": "Wild Berries",
+          "description": "Mix Berries, Yoghurt, Lime and Honey",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.5
+            }
+          ]
+        },
+        {
+          "name": "Mangolicious",
+          "description": "Mango, Yoghurt, Mix Berries, Vanilla Ice Cream",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.0
+            }
+          ]
+        },
+        {
+          "name": "Ice Cold Coffee",
+          "description": "Delicious Ice Cold Coffee",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Non-Alcoholic Drinks",
+      "items": [
+        {
+          "name": "Water Bottle (600ML)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "600ml",
+              "price": 3.5
+            }
+          ]
+        },
+        {
+          "name": "Traditional Nepalese Milk Tea (CHIYA)",
+          "description": "Tea",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.0
+            }
+          ]
+        },
+        {
+          "name": "Peach Lemon Tea",
+          "description": "Delicious Peach Lemon Tea",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Ice Lemon Tea",
+          "description": "Tea",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Herbal Teas",
+          "description": "Peppermint & Chamomile (Cup)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "cup",
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Coke (375ML)",
+          "description": "Soft Drink - Can",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "375 ml",
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Fanta (375ML)",
+          "description": "Soft Drink - Can",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "375 ml",
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Lemonade (375ML)",
+          "description": "Soft Drink - Can",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "375 ml",
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Sprite (375Ml)",
+          "description": "Soft Drink - Can",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "375 ml",
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Lemon Lime Bitters",
+          "description": "Soft Drink",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.0
+            }
+          ]
+        },
+        {
+          "name": "Ginger Beer",
+          "description": "Beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.5
+            }
+          ]
+        },
+        {
+          "name": "Red Bull 250ML",
+          "description": "Energy Drink",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "250 ml",
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Plain Lassi",
+          "description": "Lassi",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Mango Lassi",
+          "description": "Delicious Mango Lassi",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Strawberry Lassi",
+          "description": "Delicious Strawberry Lassi",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Apple Juice",
+          "description": "Juice",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Orange Juice",
+          "description": "Juice",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Coconut Water",
+          "description": "Coconut water",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        },
+        {
+          "name": "Flavoured Soju",
+          "description": "Bottle",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5
+            }
+          ]
+        },
+        {
+          "name": "Lemon Soda",
+          "description": "Tangy Lemon Soda",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Alcohol",
+      "items": [
+        {
+          "name": "Druk 11000",
+          "description": "Butanese Beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "550 ml",
+              "price": 13.0
+            }
+          ]
+        },
+        {
+          "name": "Pale Ale Tower",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 60.0
+            }
+          ]
+        },
+        {
+          "name": "Tiger Tower",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 60.0
+            }
+          ]
+        },
+        {
+          "name": "Whiskey",
+          "description": "Spirits",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "Stella Tower",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 66.0
+            }
+          ]
+        },
+        {
+          "name": "Tap Beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "tiger",
+              "price": 11.5
+            },
+            {
+              "label": "kingfisher",
+              "price": 11.0
+            },
+            {
+              "label": "monteith's pale ale",
+              "price": 11.0
+            }
+          ]
+        },
+        {
+          "name": "Gin",
+          "description": "Spirits",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "Vodka",
+          "description": "Spirits",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "Rum",
+          "description": "Spirits",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "Scotch",
+          "description": "Spirits",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "Bourbon",
+          "description": "Spirits",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "All Available Bottled Beers",
+          "description": "Ask for Available Beers",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.5
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Beers",
+          "description": "Beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.5
+            }
+          ]
+        },
+        {
+          "name": "Chyang",
+          "description": "Rice Wine",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "bowl",
+              "price": 8.0
+            }
+          ]
+        },
+        {
+          "name": "Tequila Shots",
+          "description": "Tequila Shots",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.0
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Whiskey",
+          "description": "Alcohol",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Vodka",
+          "description": "Alcohol",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Rum",
+          "description": "Alcohol",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cocktails",
+      "items": [
+        {
+          "name": "Aperol Spritz",
+          "description": "Aperol, Prosecco, Soda",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5
+            }
+          ]
+        },
+        {
+          "name": "Sangria",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5
+            }
+          ]
+        },
+        {
+          "name": "Classic Mojito",
+          "description": "White Rum, Lime, Mint, Sugar Syrup, Soda Water",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5
+            }
+          ]
+        },
+        {
+          "name": "Mango & Jalapeno Margarita",
+          "description": "Tequila, Mango Puree, Jalapeno, Lime Juice, Triple Sec",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5
+            }
+          ]
+        },
+        {
+          "name": "Vodka Sunrise",
+          "description": "Vodka, Orange Juice, Grenadine",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5
+            }
+          ]
+        },
+        {
+          "name": "Tequila Sunrise",
+          "description": "Vodka, Orange Juice, Grenadine",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5
+            }
+          ]
+        },
+        {
+          "name": "Spiced Rum Punch",
+          "description": "Rum, Orange Juice, Pineapple Juice, Grenadine, Bitter",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mocktails",
+      "items": [
+        {
+          "name": "Virgin Mojito",
+          "description": "Fresh Lime, Sugar Syrup, Mint Leaves, Soda Water",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5
+            }
+          ]
+        },
+        {
+          "name": "Shampagne",
+          "description": "Apple juice, Ginger Beer, Lemon",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5
+            }
+          ]
+        },
+        {
+          "name": "No Tequila Sunrise",
+          "description": "Orange juice, Grenadine",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

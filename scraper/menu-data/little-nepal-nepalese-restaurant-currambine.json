@@ -1,0 +1,184 @@
+{
+  "slug": "little-nepal-nepalese-restaurant-currambine",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Appetizers - Vegetarian",
+      "items": [
+        { "name": "Pakora", "description": "The mixture of different vegetables and chickpea batter, deep fried and served with homemade tomato sauce.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 9.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Samosa (2 pcs.)", "description": "Homemade pastry with the stuffing of boiled potatoes and peas and blended spices served with the dipping of sweet and sour tamrind sauce.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bhatmas Sadeko", "description": "Fried soyabeans mixed with fresh ginger, garlic, onions ,tomatoes, chillies coriander, olive oil and lemon juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Aloo Sadeko", "description": "Boiled potatoes mixed with fresh ginger, garlic, onions, coriander and lemon juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Chilli", "description": "Fried diced cottage cheese cooked with capsicum , onions and tomatoes in chilli and tomato sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 18.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Paneer Pakoda (5 pcs.)", "description": "Cottage cheese dipped in chickpea batter , deep fried and served with sweet and sour tamrind sauce.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 14.00, "protein": "paneer", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Appetizers - Non-Vegetarian",
+      "items": [
+        { "name": "Meat Samosa (2 pcs.)", "description": "Homemade pastry with the stuffing of lamb mince meat, peas and blended spices served with sweet and sour tamrind sauce.", "tags": ["samosa"], "variants": [ { "label": null, "price": 7.00, "protein": "lamb" } ] },
+        { "name": "Momo", "description": "Chicken mince meat mixed with garlic ginger paste, coriander, onions and spices wrapped in homemade pastry and steamed. Served with homemade tomato chutney.", "tags": ["steamed-momo"], "variants": [ { "label": "6 Pcs", "price": 7.00, "protein": "chicken" }, { "label": "10 Pcs", "price": 13.00, "protein": "chicken" } ] },
+        { "name": "Chilli Momo", "description": "The homemade deepfried dumplings, cooked with the capsicum, tomatoes and onions with hot chilli and tomato sauce.", "tags": ["chilli-momo"], "variants": [ { "label": null, "price": 17.00, "protein": "chicken" } ] },
+        { "name": "Fry Momo", "description": "Boiled potatoes mixed with fresh ginger, garlic, onions, coriander and lemon juice.", "tags": ["fried-momo"], "variants": [ { "label": null, "price": 14.00, "protein": "chicken" } ] },
+        { "name": "Chilli Chicken", "description": "Fried crispy chicken pieces cooked with capsicum, onions and tomatoes in chilli and tomato sauce.", "tags": ["chilli"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Chicken Drums", "description": "Chicken wings marinated in spices, deep fried in the oil served with the homemade tomato sauce.", "tags": ["wings"], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] },
+        { "name": "Chilli Prawns", "description": "Fresh prawns cooked in the sweet tomato and hot sauce with freshly added capsicums, tomatoes and onions with the finishing of freshly chopped coriander.", "tags": ["chilli"], "variants": [ { "label": null, "price": 21.00, "protein": "prawn" } ] },
+        { "name": "Prawn Sadeko", "description": "Chargrilled prawns mixed with fresh ginger, garlic, mustard and olive oil with the refreshing lime juice served with salad on the base.", "tags": ["sandheko"], "variants": [ { "label": null, "price": 21.00, "protein": "prawn" } ] },
+        { "name": "Lamb Choila", "description": "Charcoal cooked smokey lamb pieces mixed with fresh garlic ginger, coriander, spring onions, and lemon juice with the olive oil.", "tags": ["choila"], "variants": [ { "label": null, "price": 20.00, "protein": "lamb" } ] },
+        { "name": "Chicken Pakoda", "description": "Tender chicken pieces dipped in chickpea batter and deepfried served with the homemade mint sauce.", "tags": ["pakora"], "variants": [ { "label": null, "price": 11.00, "protein": "chicken" } ] },
+        { "name": "Lil's Mixed Platter", "description": "Unique combination of both vegetarian and non vegetarian items of starters including aloo sadeko, veg samosa, chicken pakoda and chicken drums.", "tags": [], "variants": [ { "label": null, "price": 19.00 } ] }
+      ]
+    },
+    {
+      "name": "Lil's Sizzling",
+      "items": [
+        { "name": "Tandoori Chicken", "description": "Chicken meat with bone marinated overnight in yogurt ginger garlic paste and other spices , cooked in charcoal and served with mint sauce. Done as full and half chicken.", "tags": ["tandoori"], "variants": [ { "label": "Half", "price": 13.00, "protein": "chicken" }, { "label": "Full", "price": 24.00, "protein": "chicken" } ] },
+        { "name": "Chicken Tikka", "description": "Boneless chicken meat marinated overnight in yogurt, ginger garlic paste and many more spices and cooked in the charcoal served with the mint sauce.", "tags": ["tikka"], "variants": [ { "label": null, "price": 19.00, "protein": "chicken" } ] },
+        { "name": "BBQ Chicken", "description": "Chicken fillets marinated overnight with cumin , coriander powder and other mountainous spices in olive oil, Cooked in charcoal and served with the charcoal.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 19.00, "protein": "chicken" } ] },
+        { "name": "Seekh Kebab", "description": "Lamb mince meat mixed with fresh chopped coriander, ginger garlic paste mixed with different spices rolled over in the seekh stick and slow cooked in the charcoal.", "tags": ["seekh-kebab"], "variants": [ { "label": null, "price": 17.00, "protein": "lamb" } ] },
+        { "name": "Tandoori Prawn", "description": "Fresh prawns marinated overnight in yogurt, ginger garlic and spices, chargrilled and served with the homemade tomato chutney.", "tags": ["tandoori"], "variants": [ { "label": null, "price": 21.00, "protein": "prawn" } ] },
+        { "name": "Lamb Sekuwa", "description": "Overnight marinated diced lamb meat in spices and ginger garlic paste cooked in the charcoal and served with the homemade tomato chutney.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 20.00, "protein": "lamb" } ] },
+        { "name": "Mixed Meat Sizzler", "description": "Mixture of all chargrilled meats on a sizzling plate with minty sauce on side. It includes tandoori chicken, chicken tikka, seekh kebab and prawns.", "tags": ["sizzler"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Panner tikka (Vegetarian)", "description": "Cottage cheese, capsicum and onion marinated in homemade ginger garlic paste with yogurt and spices served with the mint sauce on side.", "is_vegetarian": true, "tags": ["tikka"], "variants": [ { "label": null, "price": 20.00, "protein": "paneer", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Vegetable Ko Parikar",
+      "items": [
+        { "name": "Aloo Cauli Curry", "description": "Boiled potatoes and cauliflower cooked slowly in curry sauce with the perfect mixture of the spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Saag Paneer", "description": "Fried cottage cheese cubes cooked with the freshly grinded spinach and cream.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 17.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Mixed Vegetables Curry", "description": "Seasonal vegetables cooked in flavored onion and tomato sauce with mixed spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mixed Vegetables Korma", "description": "Seasonal vegetables cooked with an aromatic thick cream sauce and cashew nuts in the traditional Nepalese style.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Makhani", "description": "Diced cottage cheese cooked in rich creamy tomato sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 17.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Tarka Daal", "description": "Yellow lentils cooked with fresh onion and tomato.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mushroom Curry", "description": "Mushrooms cooked in medium spiced curry sauce and Nepalese spices with the mixture of fresh chopped coriander.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bombay Aloo", "description": "Boiled potatoes cooked in the fresh tomato based sauce with cumin seeds.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Matar Paneer", "description": "Cottage cheese and peas cooked together with fresh tomato, garlic topped with cream.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 15.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Aloo Matar", "description": "Boiled potatoes cooked with peas in tangy tomato sauce and refreshing chopped corianders and onions.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 15.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Lil's Chicken Varieties",
+      "items": [
+        { "name": "Butter Chicken", "description": "Charcoal made chicken fillets cooked in creamy tomato sauce in Nepalese style.", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Korma", "description": "Tender chicken fillets cooked in rich creamy cashew sauce in Nepalese style.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Tikka Masala", "description": "Charcoal made chicken cooked with fresh red peppers and onions in butter sauce with Nepalese spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Rogan Josh", "description": "Chicken fillets cooked in onion tomato gravy sauce flavoured with fresh chopped corianders.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Vindaloo", "description": "Chicken meat and potatoes cooked in hot vindaloo sauce and vinegar with touch of Nepalese spices. Made medium to exta hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Saag Chicken", "description": "Tender chicken cooked in freshly grinded spinach with touch of cream.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Pepper Chicken", "description": "Crispy chicken fillets cooked with green pepper and onions in homemade black pepper sauce.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Mango Chicken", "description": "Chicken fillets cooked in mango pulp topped with cream.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Dhansak", "description": "Chicken and lentils cooked together in sweet and sour made medium to hot spicy.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Madras", "description": "Chicken pieces cooked with mustard seed and curry leaves in rich coconut cream cooked medium spiced.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Jalfrezi", "description": "Charcoal cooked chicken pieces cooked with onion and capsicum in medium spiced curry sauce with the touch of Nepalese spices made medium to hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Lil's Chicken Curry", "description": "Nepalese style made curry, Chef's special, cooked in secret chef's recipe.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Lil's Lamb Varieties",
+      "items": [
+        { "name": "Lamb Dhansak", "description": "Lamb and lentils cooked together in sweet and sour made medium to hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "lamb" } ] },
+        { "name": "Lamb Korma", "description": "Tender lamb pieces cooked in rich creamy cashew sauce in Nepalese style.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "lamb" } ] },
+        { "name": "Saag Lamb", "description": "Lamb cooked in freshly grinded spinach and touch of cream.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "lamb" } ] },
+        { "name": "Lamb Jalfrezi", "description": "Charcoal made lamb pieces cooked with red peppers and onion in medium spiced curry sauce with touch of Neplease spices, made medium to hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "lamb" } ] },
+        { "name": "Lamb Rogan Josh", "description": "Lamb pieces cooked in onion tomato gravy sauce flavoured with fresh chopped coriander.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "lamb" } ] },
+        { "name": "Lamb Madras", "description": "Tender lamb pieces cooked with mustard seed and curry leaves in rich coconut cream made medium spiced.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "lamb" } ] },
+        { "name": "Lamb Vindaloo", "description": "Lamb meat and potatoes cooked in hot vindaloo sauce and vinegar made medium to extra hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Lil's Beef Varieties",
+      "items": [
+        { "name": "Saag Beef", "description": "Beef meat cooked in freshly grinded spinach with cream.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "beef" } ] },
+        { "name": "Beef Korma", "description": "Tender beef pieces cooked in rich creamy cashew sauce in Neplease style.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "beef" } ] },
+        { "name": "Beef Madras", "description": "Beef meat cooked with mustard seed and curry leaves in rich coconut cream made medium spiced.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "beef" } ] },
+        { "name": "Beef Vindaloo", "description": "Beef meat and potatoes cooked in hot vindaloo sauce and vinegar.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.00, "protein": "beef" } ] },
+        { "name": "Beef Rogan Josh", "description": "Beef pieces cooked with fresh spices and garnished with tomatoes, onion and coriander.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "beef" } ] }
+      ]
+    },
+    {
+      "name": "Lil's Fish and Prawn",
+      "items": [
+        { "name": "Fish Curry", "description": "Fresh snapper cooked in curry sauce with fresh onion, tomatoes and chopped coriander.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "fish" } ] },
+        { "name": "Fish Vindaloo", "description": "Snapper and potatoes cooked in hot vindaloo sauce with vinegar made medium to extra hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "fish" } ] },
+        { "name": "Saag Prawn", "description": "Prawn cooked in freshly grinded spinach with cream.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "prawn" } ] },
+        { "name": "Prawn Vindaloo", "description": "Prawns and potatoes cooked in hot vindaloo sauce and vinegar with a bliss of mountain spices made medium to extra hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "prawn" } ] },
+        { "name": "Prawns Curry", "description": "Prawn cooked in curry sauce with fresh onion and tomato topped with chopped coriander.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "prawn" } ] },
+        { "name": "Prawn Masala", "description": "Prawns cooked in tomato and onion sauce gravy with fresh sliced red pepper and onion.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "prawn" } ] },
+        { "name": "Prawn Madras", "description": "Prawns cooked with mustard seed and curry leaves in rich coconut cream made medium spiced.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "prawn" } ] },
+        { "name": "Prawn Korma", "description": "Prawn cooked in rich creamy cashew sauce in Neplease style.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "prawn" } ] },
+        { "name": "Prawn Makhani", "description": "Prawns cooked in rich creamy tomato sauce with added cream on the top.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.00, "protein": "prawn" } ] }
+      ]
+    },
+    {
+      "name": "Lil's Goat",
+      "items": [
+        { "name": "Lil's Special Goat", "description": "Chef's recommended, bone goat tender meat cooked in tangy curry sauce mixed with fresh ginger and Nepalese spices with the perfect finishing of fresh coriander.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.00, "protein": "goat" } ] }
+      ]
+    },
+    {
+      "name": "Rice",
+      "items": [
+        { "name": "Plain Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Saffron Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jeera Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Fried Rice", "tags": ["fried-rice"], "variants": [ { "label": null, "price": 11.50, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Biryani",
+      "items": [
+        { "name": "Biryani", "description": "Saffron rice and meat cooked with the curry sauce together served with Raita.", "tags": ["biryani"], "variants": [ { "label": "Chicken", "price": 15.50, "protein": "chicken" }, { "label": "Lamb", "price": 16.00, "protein": "lamb" }, { "label": "Vegetable", "price": 17.00, "protein": "veg", "is_vegetarian": true }, { "label": "Goat", "price": 15.50, "protein": "goat" }, { "label": "Prawn", "price": 18.50, "protein": "prawn" } ] }
+      ]
+    },
+    {
+      "name": "Bread",
+      "items": [
+        { "name": "Plain Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 4.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Cheese Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Keema Naan", "tags": ["naan"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Peshwari Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Roti", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 4.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Cheese & Spinach Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Salad",
+      "items": [
+        { "name": "Raita", "description": "Yogurt made with chopped onions, cucumbers, carrots and added sugar", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mixed Salad", "description": "Finley cut cucumber, onion, carrot, tomatoes mixed with olive oil and refreshing lemon juice.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Lil's Special Salad", "description": "Oval cut cucumber tomato onion served with fine dressing of homemade sauce and ingredients.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Chips", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mango Chutney", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mint Chutney", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Tamaring Chutney", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Papadums", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Kid's Menu",
+      "items": [
+        { "name": "Fish and Chips", "tags": [], "variants": [ { "label": null, "price": 14.00, "protein": "fish" } ] },
+        { "name": "Butter Chicken with Rice", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": 9.00, "protein": "chicken" } ] },
+        { "name": "Chicken Korma with Rice", "tags": ["curry"], "variants": [ { "label": null, "price": 9.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Mango Kulfi", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pistachio Kulfi", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Gulab Jamun", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Ras Malai", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    }
+  ]
+}
