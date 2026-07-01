@@ -44,7 +44,13 @@ only where a spot has no own menu.
 
 - **Dirty data:** ~25 `menu_url`s are junk (CSS files, `http://menu/`, a logo PDF) — skip.
   A few "own-page" links are homepages/`#menu` anchors; may need to find the real menu page.
-- **Aggregator prices are marked up** — prefer a restaurant's own/print menu where both exist.
+- **⛔ RESTAURANT'S OWN MENU ONLY — never seed from an online ordering/delivery platform.**
+  Platform menus (marked-up prices, subset of items, platform-only combos) are NOT the real
+  restaurant menu. This excludes aggregators (Uber Eats, DoorDash, Menulog, Deliveroo,
+  HungryPanda, order.store) AND third-party ordering/menu hosts (`yumbojumbo`, `tuckerfox`,
+  `tapnorder`, `grubbio`, `ordereats`, `bopple`, `mryum`). Use only the restaurant's own
+  website (its own domain) PDF/menu page, or physical-menu photos. If the only source is a
+  platform, SKIP the restaurant rather than seed wrong data.
 - **⚠️ Do NOT assume branches share a menu.** Each branch of a chain (Falcha, Aagaman,
   Momo Central, Little Magic Momo, Khukuri, etc.) has its OWN menu and prices — confirmed
   by the owner. Transcribe every branch from ITS OWN menu source; never reuse one branch's

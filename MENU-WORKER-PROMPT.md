@@ -21,7 +21,16 @@ run this in parallel on the SAME repo, so follow the coordination + safety rules
    **Use the real `id` for the local file `media/menus/<id>.pdf`** (NOT the review count).
 
 ## Do the menu
-5. **Fetch the source:** if `media/menus/<id>.pdf` exists use it, else download `menu_url`.
+5. **Fetch the source — RESTAURANT'S OWN MENU ONLY.**
+   - **⛔ NEVER transcribe from an online ordering / delivery platform.** Those menus are
+     NOT the real restaurant menu (marked-up prices, subset of items, platform-only combos).
+     This excludes aggregators (Uber Eats, DoorDash, Menulog, Deliveroo, HungryPanda,
+     order.store) AND third-party ordering/menu hosts (**yumbojumbo, tuckerfox, tapnorder,
+     grubbio, ordereats, bopple, mryum, tuckerfox**, any `*.<platform>.com/menu`). Only use
+     the restaurant's **own website** (its own domain) PDF/menu page, or physical-menu photos.
+   - If `media/menus/<id>.pdf` exists use it; else use `menu_url` **only if it's the
+     restaurant's own domain**. If the only source is an ordering platform, **SKIP** the
+     restaurant (leave the `.claims` lock, note it) — do not seed marked-up data.
    - PDF → `pdftoppm -jpeg -r 140 <file> <out>/p` then **Read** each page image.
    - Dense/tri-fold → render at `-r 300` and crop panels with pdftoppm `-x -y -W -H`.
    - Own-site page (no PDF) → render with Playwright (`web/node_modules/playwright`), grab
