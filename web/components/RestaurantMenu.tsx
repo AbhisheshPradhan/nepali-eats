@@ -9,6 +9,17 @@ const fmtPrice = (price: number | null, currency = "AUD"): string =>
     ? ""
     : new Intl.NumberFormat("en-AU", { style: "currency", currency }).format(price);
 
+// Variant rendering style.
+//  "auto"  = split per variant — short labels group into a pill cluster, long labels
+//            each get a full-width row below the pills (default; real behaviour).
+//  "pills" = force every variant into the rounded chips.
+//  "rows"  = force every variant into list rows (label wraps, price in a right column).
+// "pills"/"rows" are kept only for eyeballing one layout; "auto" is the real behaviour.
+const VARIANT_LAYOUT: "auto" | "rows" | "pills" = "auto";
+// In "auto" mode, a variant renders as a row when its label exceeds this many characters
+// (short size/protein labels sit well under it; sentence-like descriptions blow past it).
+const VARIANT_ROW_THRESHOLD = 24;
+
 // Detail-page menu: a sticky toolbar (heading + search + category jump-nav) over the
 // rendered sections. Filtering is client-side (the menu is already loaded).
 export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
@@ -193,6 +204,25 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
                   const minPrice = priced.length
                     ? Math.min(...priced.map((v) => v.price as number))
                     : null;
+                  // Variant layout, split PER VARIANT: short labels group into a pill
+                  // cluster, long ones each get a full-width row below (grouped, so
+                  // rows always follow pills rather than interleaving). Pure cases fall
+                  // out of this: all-short → only pills, all-long (e.g. packs) → only
+                  // rows. "pills"/"rows" force one bucket for eyeballing.
+                  const isLongLabel = (v: MenuVariant) =>
+                    (v.label?.length ?? 0) > VARIANT_ROW_THRESHOLD;
+                  const pillVariants =
+                    VARIANT_LAYOUT === "rows"
+                      ? []
+                      : VARIANT_LAYOUT === "pills"
+                        ? priced
+                        : priced.filter((v) => !isLongLabel(v));
+                  const rowVariants =
+                    VARIANT_LAYOUT === "pills"
+                      ? []
+                      : VARIANT_LAYOUT === "rows"
+                        ? priced
+                        : priced.filter((v) => isLongLabel(v));
                   return (
                     <li
                       key={item.id}
@@ -235,9 +265,9 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
                               {item.description}
                             </p>
                           ) : null}
-                          {!single ? (
+                          {!single && pillVariants.length > 0 ? (
                             <div className="mt-2.5 flex flex-wrap gap-2">
-                              {priced.map((v: MenuVariant, i: number) => (
+                              {pillVariants.map((v: MenuVariant, i: number) => (
                                 <span
                                   key={i}
                                   className="inline-flex items-center gap-1.5 rounded-full border border-sand-400 px-2.5 py-1 text-[0.82rem] whitespace-nowrap"
@@ -249,6 +279,23 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
                                     {fmtPrice(v.price, currency)}
                                   </span>
                                 </span>
+                              ))}
+                            </div>
+                          ) : null}
+                          {!single && rowVariants.length > 0 ? (
+                            <div className="mt-2.5 divide-y divide-paper-300 border-y border-paper-300">
+                              {rowVariants.map((v: MenuVariant, i: number) => (
+                                <div
+                                  key={i}
+                                  className="flex items-baseline gap-3 py-1.5 text-[0.82rem]"
+                                >
+                                  <span className="flex-1 min-w-0 text-ink-700 leading-snug">
+                                    {v.label ?? ""}
+                                  </span>
+                                  <span className="shrink-0 font-semibold text-chili-500 tabular-nums">
+                                    {fmtPrice(v.price, currency)}
+                                  </span>
+                                </div>
                               ))}
                             </div>
                           ) : null}

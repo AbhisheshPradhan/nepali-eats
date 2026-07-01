@@ -144,6 +144,17 @@ Himalayan Kitchen  ★4.7 · Harris Park · 1.2km
    `menu_items.is_hidden` (pull a bad item without deleting; NOT a tombstone — removal is
    a real DELETE on reseed). `menu_item_variants.currency` defaults `AUD`. UGC moderation
    (`pending`) and sold-out are NOT here — they land later (see FoodHub note).
+9. **Variant display layout** (detail-page menu render, `web/components/RestaurantMenu.tsx`):
+   a multi-variant item splits its variants **per variant by label length**. Short labels
+   (≤ `VARIANT_ROW_THRESHOLD`, currently 24 chars — size/protein like "Chicken", "Large (6)")
+   group into a **pill cluster**; long labels (sentence-like, e.g. Jheer House souvlaki packs
+   or Chowmien's "Mixed (Buff & Chicken with egg)") each get a **full-width row** (label wraps
+   left, price right-aligned) rendered **below** the pills. Grouping is intentional — rows
+   always follow pills, they never interleave, so variant order isn't preserved within an item
+   (acceptable: variants are alternatives, not steps). Pure cases fall out of the same rule
+   (all-short → pills only; all-long → rows only). Computed server-side at render (static data,
+   no client measurement). `VARIANT_LAYOUT = "pills" | "rows"` forces one bucket for eyeballing;
+   `"auto"` is the shipped behaviour.
 
 ## FoodHub compatibility (shared schema — keep the line)
 
