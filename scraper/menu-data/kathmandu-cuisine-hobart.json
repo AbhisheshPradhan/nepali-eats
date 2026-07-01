@@ -1,0 +1,52 @@
+{
+  "slug": "kathmandu-cuisine-hobart",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree",
+      "items": [
+        { "name": "Mo:Mo:", "description": "Steamed dumplings served with tomato and cashew chutney (6 pieces)", "tags": ["steamed-momo"], "variants": [ { "label": "Chicken", "price": 12.00, "protein": "chicken" }, { "label": "Pork", "price": 14.00, "protein": "pork" }, { "label": "Veg", "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Wings", "description": "Crispy fried chicken wings tossed in Nepalese spices with garlic yoghurt sauce", "tags": ["wings"], "variants": [ { "label": null, "price": 14.00, "protein": "chicken" } ] },
+        { "name": "Sausage Sticks", "description": "Nepalese style chicken sausages rubbed with spice blend with mild or hot sauce", "tags": ["sausage"], "variants": [ { "label": null, "price": 13.00, "protein": "chicken" } ] },
+        { "name": "Corn Ribs", "description": "chargrilled corn ribs tossed in spice blend, garlic yoghurt sauce", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] },
+        { "name": "Chicken Chilli", "description": "Marinated chicken, capsicum, onion, tomato chilli and soy sauce", "tags": ["chilli"], "variants": [ { "label": null, "price": 16.00, "protein": "chicken" } ] },
+        { "name": "Skewers", "description": "Grilled chicken or lamb skewers with tomato and sichuan pepper sauce", "tags": ["sekuwa"], "variants": [ { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Lamb", "price": 15.00, "protein": "lamb" } ] },
+        { "name": "Chatpate", "description": "Puffed rice, boiled potato, red onion, tomato, cucumber, green chili, coriander, lemon juice, mustard oil, spice blend", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Mustang Aloo", "description": "Boiled potatoes, jimbu (Himalayan herb), garlic, ginger, chili, fenugreek seeds, turmeric, mustard oil, coriander", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Main",
+      "items": [
+        { "name": "Corn & Sesame Thukpa", "description": "Egg noodles, sweet corn, toasted sesame, cabbage, black chickpeas, garlic, soy, spring onion. add chicken $4", "tags": ["thukpa"], "variants": [ { "label": null, "price": 18.00, "protein": "veg" } ] },
+        { "name": "Thakali Set", "description": "Steamed rice, black lentil soup, sauteed greens, pickle, tomato chutney and ghee. add chicken curry $6, add goat curry $8", "is_vegetarian": true, "tags": ["dal-bhat", "thakali"], "variants": [ { "label": null, "price": 19.00, "protein": "veg" } ] },
+        { "name": "Steam Mo:Mo:", "description": "Steamed dumplings served tomato and cashew chutney", "tags": ["steamed-momo"], "variants": [ { "label": "Chicken", "price": 20.00, "protein": "chicken" }, { "label": "Pork", "price": 22.00, "protein": "pork" }, { "label": "Veg", "price": 18.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jhol Mo:Mo:", "description": "Steamed dumplings, spicy and sour tomato and sesame broth", "tags": ["jhol-momo"], "variants": [ { "label": "Chicken", "price": 21.00, "protein": "chicken" }, { "label": "Pork", "price": 23.00, "protein": "pork" }, { "label": "Veg", "price": 19.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Chowmein", "description": "Stir-fried noodles with marinated chicken, cabbage, carrot, onion, garlic, soy sauce and sesame oil", "tags": ["chowmein"], "variants": [ { "label": null, "price": 17.00, "protein": "chicken" } ] },
+        { "name": "Goat Curry", "description": "Goat meat (bone-in), onion, garlic, ginger, tomato, garam masala, mustard oil, fenugreek, cinnamon", "tags": ["curry"], "variants": [ { "label": null, "price": 19.00, "protein": "goat" } ] },
+        { "name": "Paneer Curry", "description": "Paneer, capsicum, onion, tomato, garlic, ginger, soy, green chilli", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 18.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chicken Curry", "description": "Chicken thigh fillets, onion, ginger, tomato, garam masala, mustard oil, turmeric, cumin, coriander", "tags": ["curry"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Sukuti Set", "description": "Pan-fried dried lamb, mustang aloo, tomato chutney, sauteed greens, fried marinated whole egg", "tags": ["sukuti"], "variants": [ { "label": null, "price": 23.00, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Plain Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.00, "protein": "veg" } ] },
+        { "name": "Steamed Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Jeera Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Fries", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Kesar Rasmalai", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.00, "protein": "veg" } ] },
+        { "name": "Gajar Ko Halwa", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.00, "protein": "veg" } ] }
+      ]
+    }
+  ]
+}

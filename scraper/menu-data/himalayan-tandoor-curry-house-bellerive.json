@@ -1,0 +1,152 @@
+{
+  "slug": "himalayan-tandoor-curry-house-bellerive",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entrees",
+      "items": [
+        { "name": "Vegetable Samosa (2 pieces)", "description": "Puff pastry filled with potatoes, peas and herbs and spices. Served with mint sauce.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 8.90, "protein": "veg" } ] },
+        { "name": "Onion Bhaji", "description": "Onion rings blended with chickpea flour, herbs and spices, and deep fried. Served with mint sauce", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 8.90, "protein": "veg" } ] },
+        { "name": "Vegetable Pakora (3 pieces)", "description": "Vegetables mixed with herbs and spices, then coated in chickpea flour and deep fried. Served with mint sauce.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 7.90, "protein": "veg" } ] },
+        { "name": "Crumbed Fried Prawns (6 pieces)", "description": "Served with coconut and mango sauce.", "tags": [], "variants": [ { "label": null, "price": 13.90, "protein": "prawn" } ] },
+        { "name": "Tandoori Chicken", "description": "All-time favourite chicken marinated with specially selected herbs and spices, skewered and freshly roasted in the Tandoor.", "tags": ["tandoori"], "variants": [ { "label": "Entree", "price": 15.90, "protein": "chicken" }, { "label": "Main", "price": 26.90, "protein": "chicken" } ] },
+        { "name": "Seekh Kebab", "description": "Lamb mince marinated overnight with aromatic spices and slowly roasted in the Tandoor oven.", "tags": ["seekh-kebab"], "variants": [ { "label": "Entree", "price": 12.90, "protein": "lamb" }, { "label": "Main", "price": 19.90, "protein": "lamb" } ] },
+        { "name": "Chicken Tikka", "description": "Boneless chicken marinated overnight in yoghurt and the chef's secret seasoning, then roasted in the Tandoor. Served with mint sauce", "tags": ["tikka"], "variants": [ { "label": "Entree", "price": 12.90, "protein": "chicken" }, { "label": "Main", "price": 19.90, "protein": "chicken" } ] },
+        { "name": "Lamb Cutlets (4 pieces)", "description": "Marinated with yoghurt and specially selected herbs and spices overnight. Then slow cooked in the Tandoor.", "tags": [], "variants": [ { "label": null, "price": 23.90, "protein": "lamb" } ] },
+        { "name": "Himalayan Mixed Platter", "description": "Marinated with yoghurt and specially selected herbs and spices overnight. Then slow cooked in the Tandoor, quarter Tandoori Chicken, two pieces Lamb Cutlet, two pieces Fried Prawn and two pieces Seekh Kebab, served with mint sauce.", "tags": ["tandoori"], "variants": [ { "label": null, "price": 29.90 } ] }
+      ]
+    },
+    {
+      "name": "Main Course - Chicken",
+      "items": [
+        { "name": "Butter Chicken", "description": "Succulent boneless chicken marinated with yoghurt, spices, cashew nut gravy and fresh cream. Then slow cooked in the Tandoor. \"All-time favourite\".", "tags": ["curry", "butter-chicken"], "variants": [ { "label": null, "price": 23.90, "protein": "chicken" } ] },
+        { "name": "Indian Butter Chicken", "description": "Boneless chicken marinated overnight in Indian herbs and spices with yoghurt, then slow cooking in the Tandoor oven and served with fresh tomato and cashew nut sauce.", "tags": ["curry", "butter-chicken"], "variants": [ { "label": null, "price": 25.90, "protein": "chicken" } ] },
+        { "name": "Chicken Tikka Masala", "description": "Tandoori roasted chicken Tikka made with fresh onion, tomatoes and capsicum, cooked in the chef's special gravy and tomato sauce.", "tags": ["curry", "tikka"], "variants": [ { "label": null, "price": 23.90, "protein": "chicken" } ] },
+        { "name": "Chicken Korma", "description": "Chicken cooked in creamy cashew nut sauce with a touch of onion and tomato.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "chicken" } ] },
+        { "name": "Mango Chicken", "description": "Chicken cooked in an onion and tomato gravy, blended with mango pulp to give it a tropical taste.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "chicken" } ] },
+        { "name": "Chicken Vindaloo", "description": "Chicken served with traditional Goa curry paste with fresh ginger, garlic and pepper.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "chicken" } ] },
+        { "name": "Chicken Curry", "description": "Tender boneless chicken cooked with special traditional curry sauce.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Lamb & Goat",
+      "items": [
+        { "name": "Lamb Rogan Josh", "description": "Traditional lamb cooked with Kashmiri herbs and spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 26.90, "protein": "lamb" } ] },
+        { "name": "Goat Curry", "description": "Traditional goat cooked with Kashmiri herbs and spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 26.90, "protein": "goat" } ] },
+        { "name": "Lamb/Goat Korma", "description": "Lamb cubes served in a creamy cashew nut sauce with a touch of onion and tomato.", "tags": ["curry"], "variants": [ { "label": "Lamb", "price": 26.90, "protein": "lamb" }, { "label": "Goat", "price": 26.90, "protein": "goat" } ] },
+        { "name": "Saag Lamb/Goat", "description": "Lamb served with pureed spinach with aromatic spices and the chef's special gravy.", "tags": ["curry"], "variants": [ { "label": "Lamb", "price": 26.90, "protein": "lamb" }, { "label": "Goat", "price": 26.90, "protein": "goat" } ] },
+        { "name": "Lamb/Goat Madras", "description": "Lamb served with coconut milk, spices and hot pepper curry sauce.", "tags": ["curry"], "variants": [ { "label": "Lamb", "price": 26.90, "protein": "lamb" }, { "label": "Goat", "price": 26.90, "protein": "goat" } ] },
+        { "name": "Balti Lamb/Goat", "description": "Lamb cubes cooked with coconut milk, fresh onion, tomatoes and capsicum and cooked in the chef's special gravy.", "tags": ["curry"], "variants": [ { "label": "Lamb", "price": 26.90, "protein": "lamb" }, { "label": "Goat", "price": 26.90, "protein": "goat" } ] },
+        { "name": "Lamb Vindaloo", "description": "Lamb cubes served with traditional Goa curry paste with fresh ginger, garlic and pepper.", "tags": ["curry"], "variants": [ { "label": null, "price": 26.90, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Beef",
+      "items": [
+        { "name": "Beef Korma", "description": "Beef served in a creamy cashew nut sauce with a touch of onion and tomato.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "beef" } ] },
+        { "name": "Bhuna Beef Masala", "description": "Beef made with fresh onion, tomatoes and capsicum and cooked in the chef's special gravy.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "beef" } ] },
+        { "name": "Bombay Beef", "description": "Beef made with the chef's special curry with fresh potatoes, onion, coconut, mint and a dash of lemon.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "beef" } ] },
+        { "name": "Beef Madras", "description": "Beef served with coconut milk, spices and hot pepper curry sauce.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "beef" } ] },
+        { "name": "Beef Vindaloo", "description": "Beef served with traditional Goa curry paste with fresh ginger, garlic and pepper.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "beef" } ] }
+      ]
+    },
+    {
+      "name": "Seafood (Prawn or Fish)",
+      "items": [
+        { "name": "Malabar Curry", "description": "Prawn or fish cooked with exotic spices in a rich coconut sauce.", "tags": ["curry"], "variants": [ { "label": "Prawn", "price": 26.90, "protein": "prawn" }, { "label": "Fish", "price": 26.90, "protein": "fish" } ] },
+        { "name": "Tikka Masala (Prawn or Fish)", "description": "Prawn or fish cooked with the chef's special sauce.", "tags": ["curry"], "variants": [ { "label": "Prawn", "price": 26.90, "protein": "prawn" }, { "label": "Fish", "price": 26.90, "protein": "fish" } ] },
+        { "name": "Goan Curry", "description": "Prawn or fish cooked with coconut milk, tomato and hot pepper sauce.", "tags": ["curry"], "variants": [ { "label": "Prawn", "price": 26.90, "protein": "prawn" }, { "label": "Fish", "price": 26.90, "protein": "fish" } ] },
+        { "name": "Chilli Curry", "description": "Prawn or fish cooked with coconut, selected spices, dash of soy sauce, finished with curry leaves.", "tags": ["curry"], "variants": [ { "label": "Prawn", "price": 26.90, "protein": "prawn" }, { "label": "Fish", "price": 26.90, "protein": "fish" } ] }
+      ]
+    },
+    {
+      "name": "Vegetable",
+      "items": [
+        { "name": "Vegetable Korma", "description": "Fresh seasonal vegetables cooked with a creamy cashew and almond sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Daal Makhni (Black Lentils)", "description": "Black lentils slow cooked overnight, cooked with special spices, cream and tomato sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Daal Fry (Yellow Lentils)", "description": "Lentils simmered with onion, ginger, garlic and tomato.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Malai Kofta", "description": "Potato and cottage cheese (paneer) balls served in a creamy cashew nut and tomato gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "paneer" } ] },
+        { "name": "Saag Paneer", "description": "Spinach cooked with cottage cheese cubes in a tomato and onion gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "paneer" } ] },
+        { "name": "Kadai Paneer", "description": "Cubes of cottage cheese cooked with tomato and onion gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "paneer" } ] },
+        { "name": "Pumpkin Masala", "description": "Diced pumpkin cooked with onion, capsicum, tomato and spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Vegetable Vindaloo", "description": "Vegetables served with traditional Goa curry paste with fresh ginger, garlic and pepper.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Chana Masala", "description": "Chickpea cooked with the chef's special spices and sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Mutter Paneer", "description": "Green peas cooked with cottage cheese cubes and served in a tomato and onion sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "paneer" } ] },
+        { "name": "Saag Aloo", "description": "Green spinach cooked with potatoes and served in tomato and onion gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Thali",
+      "items": [
+        { "name": "Himalayan Vegetable Thali", "description": "Pakora, three vegetable curries, naan, rice, papadam and raita.", "is_vegetarian": true, "tags": ["thali"], "variants": [ { "label": null, "price": 29.90, "protein": "veg" } ] },
+        { "name": "Himalayan Beef Thali", "description": "Chicken Tikka, vegetable curry, chicken curry, beef curry, naan, rice, papadam and raita.", "tags": ["thali"], "variants": [ { "label": null, "price": 31.90, "protein": "beef" } ] },
+        { "name": "Himalayan Lamb Thali", "description": "Chicken Tikka, vegetable curry, chicken curry, lamb curry, naan, rice, papadam and raita.", "tags": ["thali"], "variants": [ { "label": null, "price": 32.90, "protein": "lamb" } ] },
+        { "name": "Himalayan Seafood Thali", "description": "Any three seafood curries with one piece of fried prawn, naan, rice, papadam and riata.", "tags": ["thali"], "variants": [ { "label": null, "price": 33.90 } ] }
+      ]
+    },
+    {
+      "name": "Biryani",
+      "items": [
+        { "name": "Vegetable Biryani", "description": "Basmati rice cooked with selected herbs and spices. Served with raita.", "is_vegetarian": true, "tags": ["biryani"], "variants": [ { "label": "Small", "price": 14.90, "protein": "veg" }, { "label": "Large", "price": 17.90, "protein": "veg" } ] },
+        { "name": "Chicken Biryani", "description": "Basmati rice cooked with selected herbs and spices. Served with raita.", "tags": ["biryani"], "variants": [ { "label": "Small", "price": 16.90, "protein": "chicken" }, { "label": "Large", "price": 19.90, "protein": "chicken" } ] },
+        { "name": "Lamb Biryani", "description": "Basmati rice cooked with selected herbs and spices. Served with raita.", "tags": ["biryani"], "variants": [ { "label": "Small", "price": 17.90, "protein": "lamb" }, { "label": "Large", "price": 20.90, "protein": "lamb" } ] },
+        { "name": "Prawn Biryani", "description": "Basmati rice cooked with selected herbs and spices. Served with raita.", "tags": ["biryani"], "variants": [ { "label": "Small", "price": 17.90, "protein": "prawn" }, { "label": "Large", "price": 20.90, "protein": "prawn" } ] },
+        { "name": "Beef Biryani", "description": "Basmati rice cooked with selected herbs and spices. Served with raita.", "tags": ["biryani"], "variants": [ { "label": "Small", "price": 16.90, "protein": "beef" }, { "label": "Large", "price": 19.90, "protein": "beef" } ] }
+      ]
+    },
+    {
+      "name": "Pulao",
+      "items": [
+        { "name": "Kashmiri Pulao", "description": "Basmati rice cooked with nuts and dried fruit.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] },
+        { "name": "Pea Pulao", "description": "Basmati rice cooked with green peas.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] },
+        { "name": "Vegetable Pulao", "description": "Basmati rice cooked with vegetables.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Tandoori Bread",
+      "items": [
+        { "name": "Plain Naan", "description": "Traditional white flour naan.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 4.90, "protein": "veg" } ] },
+        { "name": "Butter Naan", "description": "Three layered butter white flour bread.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.50, "protein": "veg" } ] },
+        { "name": "Garlic Naan", "description": "White flour bread with fresh garlic and butter.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.50, "protein": "veg" } ] },
+        { "name": "Cheese Naan", "description": "Plain flour bread with cheese.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.50, "protein": "veg" } ] },
+        { "name": "Garlic & Cheese Naan", "description": "Plain flour bread baked with cheese and fresh garlic", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.90, "protein": "veg" } ] },
+        { "name": "Kashmiri Naan", "description": "Bread baked with coconut cream, dried fruit and cream.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.90, "protein": "veg" } ] },
+        { "name": "Masala Kulcha", "description": "Bread stuffed with potato, tossed in selected spices and freshly baked in the Tandoor.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.90, "protein": "veg" } ] },
+        { "name": "Keema Naan", "description": "Aromatic minced lamb stuffed bread, baked in a Tandoor oven.", "tags": ["naan"], "variants": [ { "label": null, "price": 6.90, "protein": "lamb" } ] },
+        { "name": "Roti", "description": "Traditional wholemeal flour bread.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 4.50, "protein": "veg" } ] },
+        { "name": "Butter Roti", "description": "Traditional wholemeal flour bread infused with butter.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.00, "protein": "veg" } ] },
+        { "name": "Garlic Roti", "description": "Traditional wholemeal flour bread infused with garlic.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.50, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Condiments",
+      "items": [
+        { "name": "Garden Salad", "description": "Onion, cucumber, tomato and carrot.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] },
+        { "name": "Raita", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.90, "protein": "veg" } ] },
+        { "name": "Papadam (4 pieces)", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.90, "protein": "veg" } ] },
+        { "name": "Mixed Pickle", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.90, "protein": "veg" } ] },
+        { "name": "Sweet Mango Chutney", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Fish & Chips - Chips",
+      "items": [
+        { "name": "Chunky Chips", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.90, "protein": "veg" } ] },
+        { "name": "Hash Browns (4 pieces)", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Fish & Chips - Fish (Beer Battered)",
+      "items": [
+        { "name": "Flake (Beer Battered)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Fish only", "price": 11.90, "protein": "fish" }, { "label": "With chips", "price": 17.90, "protein": "fish" } ] },
+        { "name": "Flathead (Beer Battered)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Fish only", "price": 12.90, "protein": "fish" }, { "label": "With chips", "price": 18.90, "protein": "fish" } ] },
+        { "name": "Crumbed Squid Rings (6)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Squid only", "price": 14.90 }, { "label": "With chips", "price": 20.90 } ] },
+        { "name": "Prawn Cutlet (6)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Prawn only", "price": 12.90, "protein": "prawn" }, { "label": "With chips", "price": 17.90, "protein": "prawn" } ] },
+        { "name": "Kids Meal (Fish)", "description": "Two beer battered flathead strips and chips, served with lemon and tartare sauce.", "tags": [], "variants": [ { "label": null, "price": 14.90, "protein": "fish" } ] },
+        { "name": "Kids Meal (Nuggets)", "description": "6 chicken nuggets and chips, served with lemon and ketchup.", "tags": [], "variants": [ { "label": null, "price": 14.90, "protein": "chicken" } ] }
+      ]
+    }
+  ]
+}

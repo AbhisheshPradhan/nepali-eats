@@ -1,0 +1,147 @@
+{
+  "slug": "himalayan-bbq-greenway",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree",
+      "items": [
+        { "name": "Aalu Nimki", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11, "protein": "veg" } ] },
+        { "name": "Pyaji (3 pcs)", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 8.5, "protein": "veg" } ] },
+        { "name": "Aalu Chop (3 pcs)", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 8.5, "protein": "veg" } ] },
+        { "name": "Piro Aalu", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11, "protein": "veg" } ] },
+        { "name": "Thicheko Aalu", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10, "protein": "veg" } ] },
+        { "name": "Sadheko Vatmas", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 8, "protein": "veg" } ] },
+        { "name": "Sausage (3 pcs)", "tags": ["sausage"], "variants": [ { "label": null, "price": 12 } ] }
+      ]
+    },
+    {
+      "name": "Sekuwa",
+      "items": [
+        { "name": "Sekuwa", "description": "Per skewer or set. Set served with chiura, mula ko achar, aalu ko achar, sadheko vatmas, lemon wedge & sauce.", "tags": ["sekuwa"], "variants": [
+          { "label": "Pork (per skewer)", "price": 4, "protein": "pork" },
+          { "label": "Pork (set)", "price": 24, "protein": "pork" },
+          { "label": "Chicken (per skewer)", "price": 3.5, "protein": "chicken" },
+          { "label": "Chicken (set)", "price": 23.5, "protein": "chicken" },
+          { "label": "Lamb (per skewer)", "price": 4.5, "protein": "lamb" },
+          { "label": "Lamb (set)", "price": 24.5, "protein": "lamb" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Add chana $1.", "tags": ["chowmein"], "variants": [
+          { "label": "Pork", "price": 18, "protein": "pork" },
+          { "label": "Chicken", "price": 17, "protein": "chicken" },
+          { "label": "Lamb", "price": 18, "protein": "lamb" },
+          { "label": "Veg", "price": 16, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Choila",
+      "items": [
+        { "name": "Choila", "description": "Per plate or set. Set served with chiura, tama ko achar, chana, lemon wedge & sauce.", "tags": ["choila"], "variants": [
+          { "label": "Buff (per plate)", "price": 21, "protein": "buff" },
+          { "label": "Buff (set)", "price": 26, "protein": "buff" },
+          { "label": "Chicken (per plate)", "price": 18, "protein": "chicken" },
+          { "label": "Chicken (set)", "price": 23, "protein": "chicken" }
+        ] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "tags": ["thukpa"], "variants": [
+          { "label": "Pork", "price": 19.5, "protein": "pork" },
+          { "label": "Chicken", "price": 18.5, "protein": "chicken" },
+          { "label": "Lamb", "price": 19.5, "protein": "lamb" },
+          { "label": "Veg", "price": 16, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Sukuti",
+      "items": [
+        { "name": "Sukuti", "description": "Per plate or set. Set served with furandana, mula ko achar, aalu ko achar, lemon wedge & sauce.", "tags": ["sukuti"], "variants": [
+          { "label": "Buff (per plate)", "price": 21, "protein": "buff" },
+          { "label": "Buff (set)", "price": 26, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Keema Noodles",
+      "items": [
+        { "name": "Keema Noodles", "tags": ["keema-noodle"], "variants": [ { "label": "Chicken", "price": 18, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Mo:Mo",
+      "items": [
+        { "name": "Steam Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Buff", "price": 17, "protein": "buff" },
+          { "label": "Chicken", "price": 15, "protein": "chicken" },
+          { "label": "Veg", "price": 15, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Buff", "price": 17, "protein": "buff" },
+          { "label": "Chicken", "price": 15, "protein": "chicken" },
+          { "label": "Veg", "price": 15, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Chilli Momo", "tags": ["chilli-momo"], "variants": [
+          { "label": "Buff", "price": 19, "protein": "buff" },
+          { "label": "Chicken", "price": 17, "protein": "chicken" },
+          { "label": "Veg", "price": 17, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Buff", "price": 19, "protein": "buff" },
+          { "label": "Chicken", "price": 17, "protein": "chicken" },
+          { "label": "Veg", "price": 17, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Platter",
+      "items": [
+        { "name": "Momo Platter", "description": "7 steam, 7 fried, 7 chilli momo & sauce.", "tags": ["momo"], "variants": [
+          { "label": "Buff", "price": 35, "protein": "buff" },
+          { "label": "Chicken", "price": 33, "protein": "chicken" },
+          { "label": "Veg", "price": 33, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Kids",
+      "items": [
+        { "name": "Beer Batter Chips", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 8, "protein": "veg" } ] },
+        { "name": "Nuggets & Chips", "tags": [], "variants": [ { "label": null, "price": 11, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Chiura", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4, "protein": "veg" } ] },
+        { "name": "Furandana", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4, "protein": "veg" } ] },
+        { "name": "Plain Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Pickles",
+      "items": [
+        { "name": "Tama Ko Achar", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.5, "protein": "veg" } ] },
+        { "name": "Mula Ko Achar", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.5, "protein": "veg" } ] },
+        { "name": "Aalu Ko Achar", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7, "protein": "veg" } ] },
+        { "name": "Chilli Timur", "is_vegetarian": true, "tags": ["timur"], "variants": [ { "label": null, "price": 1, "protein": "veg" } ] },
+        { "name": "Mo:Mo Ko Achar", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Deserts",
+      "items": [
+        { "name": "Rasmalai", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 6, "protein": "veg" } ] }
+      ]
+    }
+  ]
+}

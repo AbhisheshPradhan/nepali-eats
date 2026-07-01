@@ -60,9 +60,9 @@ only where a spot has no own menu.
 
 Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-progress.js --write`. `📁local` = file under `media/menus/`.
 
-**Progress: 18 / 146 seeded (12%)** · refreshed 2026-07-01
+**Progress: 23 / 146 seeded (16%)** · refreshed 2026-07-01
 
-### A. PDF menus — start here — 15/25 done
+### A. PDF menus — start here — 20/25 done
 - [x] **Falcha Town Hall** (Sydney, NSW) · 2853 rev · ✓ 53 items
     https://falcha.com.au/wp-content/uploads/2026/04/Falcha_Townhall_Menu_Nov2025.pdf
 - [x] **Funky Momo** (Victoria Park, WA) · 1406 rev · ✓ 89 items
@@ -93,13 +93,13 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://www.laltin.com.au/_files/ugd/fe3d47_3538932b699e42aba270a3e4ec8deebe.pdf
 - [ ] **Everest Function Centre** (Rockdale, NSW) · 329 rev · 📁local
     http://www.everesttandoori.com.au/images/menu/everest-tandoori-menu.pdf
-- [ ] **Lahana Restaurant and Bar** (Hurstville, NSW) · 317 rev · 📁local
+- [x] **Lahana Restaurant and Bar** (Hurstville, NSW) · 317 rev · ✓ 158 items
     http://lahanahurstville.com.au/wp-content/uploads/2024/03/Lahana_menu.pdf
 - [ ] **Lababdar** (Ryde, NSW) · 282 rev · 📁local
     http://lababdar.com.au/wp-content/uploads/2025/11/Lababdar-New-Menu-Nov-2025_Compressed.pd
-- [ ] **Himalayan Tandoor & Curry House** (Bellerive, TAS) · 266 rev · 📁local
+- [x] **Himalayan Tandoor & Curry House** (Bellerive, TAS) · 266 rev · ✓ 79 items
     https://www.himalayantandoorandcurryhouse.com.au/images/dineinmenu.pdf
-- [ ] **Kathmandu Cuisine** (Hobart, TAS) · 265 rev · 📁local
+- [x] **Kathmandu Cuisine** (Hobart, TAS) · 265 rev · ✓ 24 items
     http://kathmanducuisine.com.au/ktm-cusine-menu-01-converted.pdf
 - [ ] **Little Nepal Nepalese Restaurant** (Currambine, WA) · 227 rev · 📁local
     http://littlenepalrestaurant.com.au/wp-content/uploads/2017/12/Little_Nepal_Take_AWay.pdf
@@ -107,11 +107,11 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://tastymomo.com.au/wp-content/uploads/2026/01/TASTY-MOMO-MENU-Cloverdale-V.6.pdf
 - [ ] **Street Eats Mt Hawthorn** (Scarborough, WA) · 106 rev
     https://assets.cdn.filesafe.space/fBmNTES4lOqZJFIgBQJs/media/69fd9642a3dd25aa2a87ebde.pdf
-- [ ] **Himalayan BBQ** (Greenway, ACT) · 103 rev · 📁local
+- [x] **Himalayan BBQ** (Greenway, ACT) · 103 rev · ✓ 29 items
     https://img1.wsimg.com/blobby/go/a4c3634e-3b7b-4194-9e8a-f28ec52cb11a/HIMALAYAN%20BBQ%20(A
 - [x] **Indus Indian and Nepalese Restaurant- ** (Ipswich, QLD) · 80 rev · ✓ 85 items
     https://indusrestaurant.com.au/storage/app/public/branch_images/1766108179-8190.pdf
-- [ ] **Tusa Canberra** (Barton, ACT) · 19 rev · 📁local
+- [x] **Tusa Canberra** (Barton, ACT) · 19 rev · ✓ 19 items
     https://tusanepal.com/wp-content/uploads/2026/06/Tusa-Canberra.pdf
 
 ### B. Own-site pages — 0/82 done

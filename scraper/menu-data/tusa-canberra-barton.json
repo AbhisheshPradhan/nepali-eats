@@ -1,0 +1,66 @@
+{
+  "slug": "tusa-canberra-barton",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Small Plates",
+      "items": [
+        { "name": "Beef Kachila & Toasted Rice Cracker", "description": "Marinated lean beef with herbs & spices", "tags": [],
+          "variants": [ { "label": null, "price": 16.00, "protein": "beef" } ] },
+        { "name": "Batuk Chukhauni", "description": "Crispy fried lentil with seasonal vegetables and yoghurt", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Goat Thenduk", "description": "Hearty Himalayan soup with seasonal root vegetables & flour dough", "tags": ["soup"],
+          "variants": [ { "label": null, "price": 18.00, "protein": "goat" } ] },
+        { "name": "Chicken Sekuwa", "description": "BBQed spiced chicken thigh with seasonal salad", "tags": ["sekuwa"],
+          "variants": [ { "label": null, "price": 16.00, "protein": "chicken" } ] },
+        { "name": "Crispy Quail", "description": "Buttermilk marinated crispy quail with spiced tomato sauce", "tags": [],
+          "variants": [ { "label": null, "price": 18.00 } ] }
+      ]
+    },
+    {
+      "name": "Large Plates",
+      "items": [
+        { "name": "Chicken Saag", "description": "Lightly marinated chicken breast with seasonal greens", "tags": [],
+          "variants": [ { "label": null, "price": 26.00, "protein": "chicken" } ] },
+        { "name": "Slow Cooked Lamb Ribs", "description": "Braised lamb ribs with marinated cabbage and linseed", "tags": [],
+          "variants": [ { "label": null, "price": 28.00, "protein": "lamb" } ] },
+        { "name": "BBQed Pork Ribs", "description": "Blend of spices and a salad of rocket/watercress", "tags": [],
+          "variants": [ { "label": null, "price": 26.00, "protein": "pork" } ] },
+        { "name": "Crispy Spiced Lamb Loin", "description": "A sauce of fresh onion/garlic/tomato and lime", "tags": [],
+          "variants": [ { "label": null, "price": 28.00, "protein": "lamb" } ] },
+        { "name": "Seasonal Fish of the Day", "description": "Cherry tomato, spiced fish broth, mustard and dill", "tags": [],
+          "variants": [ { "label": null, "price": 28.00, "protein": "fish" } ] },
+        { "name": "Oven Roasted Cauliflower", "description": "Potato puree, chips & lemon mustard sauce", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 24.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Seasonal Green Salad", "description": "Buttermilk dressing & spiced soybean", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Potato Chokha", "description": "Marinated mashed potato with onion, garlic and mustard oil", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Roasted Sweet Potato", "description": "Brunt butter, spices", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Hand Cut Chips", "description": "Sichuan pepper salt", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Stinging Nettle Cake", "description": "Jaggery, fruit layer & cream", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 14.00 } ] },
+        { "name": "Warm Apple & Rhubarb Crumble", "description": "Vanilla ice-cream & syrup", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 14.00 } ] },
+        { "name": "Buckwheat Lemon Tart", "description": "Myer lemon, vanilla cream", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 14.00 } ] },
+        { "name": "Selection of Ice-cream", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 12.00 } ] }
+      ]
+    }
+  ]
+}
