@@ -1,0 +1,99 @@
+{
+  "slug": "namaste-nepalese-restaurant-parkside",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Khaja (Entrée)",
+      "items": [
+        { "name": "Momo", "description": "Choice of Chicken or Vegetable dumplings served with homemade tomato sauce. Vegan option available.", "tags": ["steamed-momo"], "variants": [ { "label": "Chicken", "price": 12.9, "protein": "chicken" }, { "label": "Vegetable", "price": 12.9, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Tareko Machha", "description": "Fish pieces marinated in traditional Nepalese herbs. Served with mint-yoghurt sauce. Dairy Free option available.", "tags": ["pakora"], "variants": [ { "label": null, "price": 16.9, "protein": "fish" } ] },
+        { "name": "Prawn Tempura", "description": "Prawns marinated in a lightly spiced batter. Served with mint-yoghurt sauce. Dairy Free option available.", "tags": ["pakora"], "variants": [ { "label": null, "price": 16.9, "protein": "prawn" } ] },
+        { "name": "Samosa", "description": "Homemade lightly spiced vegetables filled in a triangle pastry. Served with a mint-yoghurt sauce. Vegan option available.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 12.5, "protein": "veg" } ] },
+        { "name": "Sekewa", "description": "Tender pieces of chicken fillet marinated in roasted cumin and szechwan. Served with mint-yoghurt sauce.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 12.5, "protein": "chicken" } ] },
+        { "name": "Phulaura", "description": "Traditional crispy patties prepared from black lentils and mixed vegetables. Served with a mint-yoghurt sauce. Vegan option available.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 11.9, "protein": "veg" } ] },
+        { "name": "Mismaas (Mixed Entrée)", "description": "An assortment with one of each of the above entrees.", "tags": ["khaja"], "variants": [ { "label": null, "price": 18.5 } ] },
+        { "name": "Haku Choila", "description": "Typical Newari cuisine from Kathmandu, offering flavoursome boneless lamb with a side of crispy rice and tomato achar.", "tags": ["choila", "newari"], "variants": [ { "label": null, "price": 15.9, "protein": "lamb" } ] },
+        { "name": "Roti Dip Platter", "description": "Freshly baked herbed bread served with an assortment of complementing dips.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 11.5, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Nepalese Chulo Specials (Clay Oven Specialities)",
+      "items": [
+        { "name": "Badami Sekewa (Almond Chicken)", "description": "Tender juicy pieces of chicken fillet lightly marinated in a creamy yoghurt sauce. Served with fresh salad & mint-yoghurt sauce.", "tags": ["sekuwa", "tandoori"], "variants": [ { "label": null, "price": 26.5, "protein": "chicken" } ] },
+        { "name": "Sekewa Main", "description": "Tender pieces of chicken fillet marinated in roasted cumin and szechwan. Served with mint-yoghurt sauce.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 23.5, "protein": "chicken" } ] },
+        { "name": "Poleko Khasi (Lamb Ribs)", "description": "Our signature juicy lamb ribs served with stir fried potatoes and fresh salad.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 32.9, "protein": "lamb" } ] },
+        { "name": "Chulo ko Machha", "description": "Tender pieces of Barramundi fillet lightly marinated in yoghurt and lemon juice. Served with fresh salad and mint-yoghurt sauce.", "tags": ["tandoori"], "variants": [ { "label": null, "price": 29.9, "protein": "fish" } ] },
+        { "name": "Nepali Chulo Platter", "description": "An assortment of our finest clay oven dishes. Served with sautéed mushrooms, fresh salad and mint-yoghurt sauce.", "tags": ["tandoori"], "variants": [ { "label": null, "price": 31.9 } ] }
+      ]
+    },
+    {
+      "name": "Masu (Meat)",
+      "items": [
+        { "name": "Khasiko Masu (Goat or Lamb Curry)", "description": "Traditionally spiced slow cooked curry with your choice of tender boneless lamb or goat enriched with cinnamon and bay leaves.", "tags": ["curry"], "variants": [ { "label": "Goat", "price": 26.9, "protein": "goat" }, { "label": "Lamb", "price": 26.9, "protein": "lamb" } ] },
+        { "name": "Sekewa Ko Leddoor (Butter Chicken)", "description": "Juicy chicken fillets from the clay oven simmered in a creamy tomato sauce, enriched with fenugreek and almond powder.", "tags": ["curry", "butter-chicken"], "variants": [ { "label": null, "price": 24.9, "protein": "chicken" } ] },
+        { "name": "Kukhura ko Masu (Mild Chicken Curry)", "description": "Traditional country style chicken curry prepared in aromatic spices, enriched with ground almonds.", "tags": ["curry"], "variants": [ { "label": null, "price": 24.9, "protein": "chicken" } ] },
+        { "name": "Bhuteko Masu", "description": "Dry roasted lamb full of strong authentic flavours marinated in our chef's own special recipe.", "tags": ["curry"], "variants": [ { "label": null, "price": 27.9, "protein": "lamb" } ] },
+        { "name": "Piro Kukhura (Chilli Chicken)", "description": "Lightly battered chicken cubes pan-fried in a sweet and spicy tangy sauce with capsicum and onion. Gluten free option available.", "spice_level": 3, "tags": ["chilli"], "variants": [ { "label": null, "price": 24.9, "protein": "chicken" } ] },
+        { "name": "Piro Dehrai Tarkari (Hot Vindaloo Curry)", "description": "A hot favourite for the spice lovers. Your choice of meat (Goat/Chicken/Lamb) infused with a special homemade spicy onion and tomato paste.", "spice_level": 5, "tags": ["curry"], "variants": [ { "label": "Goat", "price": 27.9, "protein": "goat" }, { "label": "Chicken", "price": 27.9, "protein": "chicken" }, { "label": "Lamb", "price": 27.9, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Sumundra Khana (Seafood)",
+      "items": [
+        { "name": "Machha Tarkari (Fish Curry)", "description": "Aromatic barramundi curry delicately cooked in a creamy onion, tomato and coconut milk sauce.", "tags": ["curry"], "variants": [ { "label": null, "price": 27.9, "protein": "fish" } ] },
+        { "name": "Piro Jhingey (Chilli Prawn)", "description": "Prawns pan-fried with capsicum and onion, flavoured with a tangy chilli sauce. Gluten Free option available.", "spice_level": 3, "tags": ["chilli"], "variants": [ { "label": null, "price": 27.9, "protein": "prawn" } ] },
+        { "name": "Jhingey ko Tarkari (Prawn Curry)", "description": "Rich prawn curry cooked with capsicum in a creamy onion, tomato and coconut milk sauce.", "tags": ["curry"], "variants": [ { "label": null, "price": 27.9, "protein": "prawn" } ] }
+      ]
+    },
+    {
+      "name": "Shakahari (Vegetarian)",
+      "items": [
+        { "name": "Chaw ko Tarkari", "description": "Diced button mushrooms with capsicum, tomato and onion in a homemade masala flavoured with fenugreek and traditional spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.5, "protein": "veg" } ] },
+        { "name": "Paneer Ko Tarkari", "description": "A rich dish of cottage cheese with capsicum and onion in a tomato based sauce, enriched with traditional spices and a dash of cream.", "is_vegetarian": true, "tags": ["curry", "paneer"], "variants": [ { "label": null, "price": 22.5, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Palak Paneer", "description": "Cottage cheese in a lightly spiced sauce folded through pureed spinach. Vegan option available.", "is_vegetarian": true, "tags": ["curry", "paneer"], "variants": [ { "label": null, "price": 22.5, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Misayako Tarkari", "description": "Seasonal vegetables tossed in a pan with traditional herbs and spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 19.9, "protein": "veg" } ] },
+        { "name": "Kwati", "description": "Traditional Newari dish of nine different sprouted beans cooked in a tomato and onion base.", "is_vegetarian": true, "tags": ["curry", "newari"], "variants": [ { "label": null, "price": 18.9, "protein": "veg" } ] },
+        { "name": "Buteko Bhanta", "description": "Sweet ripe eggplant stir fried with onion, potato and capsicum enriched with ground mustard and fennel seeds.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 19.9, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Accompaniments",
+      "items": [
+        { "name": "Pharsi ko Tarkari", "description": "Smashed pumpkin flavoured with mustard seeds and fenugreek.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.5, "protein": "veg" } ] },
+        { "name": "Rayoko Saag", "description": "Our signature stir-fried mustard leaves flavoured with garlic, chilli and mustard seeds. Vegan option available.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 13.5, "protein": "veg" } ] },
+        { "name": "Jhaneko Daal", "description": "Yellow and black lentils cooked in traditional style with authentic herbs.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.5, "protein": "veg" } ] },
+        { "name": "Buteko Arloo", "description": "Stir fried potatoes flavoured with fennel, fenugreek, cumin and mustard seed.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.5, "protein": "veg" } ] },
+        { "name": "Hariyo Salad", "description": "Fresh garden salad prepared from tomatoes, lettuce, cucumber, carrot and capsicum, enriched with special homemade dressing.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7.0, "protein": "veg" } ] },
+        { "name": "Golbhedako Achar", "description": "Roasted tomato and garlic relish flavoured with coriander.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.5, "protein": "veg" } ] },
+        { "name": "Sweet Mango Chutney", "description": "Sweet and tangy mango pickle.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.5, "protein": "veg" } ] },
+        { "name": "Dahima (Nepalese Raita)", "description": "Refreshing yoghurt flavoured with roasted cumin, sugar and cucumber.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7.5, "protein": "veg" } ] },
+        { "name": "Bhuteko Bhaat", "description": "Fried rice infused with peas, cashew nuts, raisins, green beans, carrot & red onion. Vegan and Nut Free option available.", "is_vegetarian": true, "tags": ["fried-rice"], "variants": [ { "label": null, "price": 8.5, "protein": "veg" } ] },
+        { "name": "Bhaat", "description": "Fresh steamed Basmati rice.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.5, "protein": "veg" } ] },
+        { "name": "Pappadams", "description": "Served with mint-yoghurt sauce. Vegan option available.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.0, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Roti (Bread)",
+      "items": [
+        { "name": "Roti", "description": "Freshly baked leavened bread cooked in the clay oven.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 4.5, "protein": "veg" } ] },
+        { "name": "Roti Lasun", "description": "Freshly baked garlic bread cooked in the clay oven.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.0, "protein": "veg" } ] },
+        { "name": "Roti Cheese", "description": "Freshly baked bread from the clay oven stuffed with premium cheese.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.5, "protein": "veg" } ] },
+        { "name": "Roti Keema", "description": "Freshly baked bread from the clay oven stuffed with lean lamb mince.", "tags": ["roti"], "variants": [ { "label": null, "price": 6.0, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Guliyo (Desserts)",
+      "items": [
+        { "name": "Namaste Ice cream", "description": "Chef's special homemade ice cream made from pistachio nuts and flavoured with mango & cardamom.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 12.5 } ] },
+        { "name": "Bailey's Ice cream", "description": "Rich Bailey's ice cream with crushed chocolate almonds throughout. Topped with a shot of Bailey's Irish Cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": "With Liqueur", "price": 12.5 }, { "label": "Without Liqueur", "price": 8.5 } ] },
+        { "name": "Strawberry Ice cream", "description": "Deliciously smooth strawberry ice cream topped with a shot of Cointreau.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": "With Liqueur", "price": 12.5 }, { "label": "Without Liqueur", "price": 8.5 } ] },
+        { "name": "Laal Mohaan", "description": "Honey balls prepared from milk powder flavoured with cardamom, rose water and topped with grated coconut.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 9.9 } ] },
+        { "name": "Vanilla Bean Ice cream", "description": "Creamy vanilla bean ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.5 } ] },
+        { "name": "Vanilla Coconut Ice cream", "description": "Smooth vanilla ice cream with a hint of coconut flavour.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.5 } ] },
+        { "name": "Affogato", "description": "Vanilla bean ice cream served with a shot of espresso coffee. Add a liqueur of your choice (Bailey's, Frangelico, Kahlua, Tia Maria).", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": "Standard", "price": 12.5 }, { "label": "With Liqueur", "price": 16.9 } ] }
+      ]
+    }
+  ]
+}

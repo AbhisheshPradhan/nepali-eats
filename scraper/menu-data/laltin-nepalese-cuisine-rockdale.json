@@ -1,0 +1,117 @@
+{
+  "slug": "laltin-nepalese-cuisine-rockdale",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Laltin Street Food",
+      "items": [
+        { "name": "Pani – Puri (8pcs)", "description": "Hollow Puri (a deep-fried crisp flatbread), served with flavoured water, tamarind chutney, chilli powder, chaat masala, potato mash and onion.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] },
+        { "name": "Poleko Makai (3pcs)", "description": "Classic Street food of Nepal. Grilled corn served with homemade spicy sauce.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.50, "protein": "veg" } ] },
+        { "name": "Chaat", "description": "Delicious crispy fried-dough wafers, potatoes and peas topped with chickpea curry, tamarind, yogurt sauce and garnished with pomegranate seeds and fresh herbs.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": "Samosa", "price": 13.90, "protein": "veg" }, { "label": "Aalu Nimki", "price": 13.90, "protein": "veg" } ] },
+        { "name": "Chau Chau Chatpate (Wai Wai)", "description": "Crispy fried noodles tossed with veggies, and spices.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 13.50, "protein": "veg" } ] },
+        { "name": "Fried Chicken Sausage", "description": "Most popular street food in Nepal, Served with spicy tomato sauce.", "tags": ["sausage"], "variants": [ { "label": "2pcs", "price": 8.90, "protein": "chicken" }, { "label": "4pcs", "price": 15.90, "protein": "chicken" } ] },
+        { "name": "Goat Bhutan", "description": "Goat offal stir-fried in a mix of Himalayan herbs and spices, served with salad.", "tags": ["bhutan"], "variants": [ { "label": null, "price": 17.90, "protein": "goat" } ] },
+        { "name": "Choila", "description": "Meat/ Veg marinated with Himalayan herbs, green chillies, spring onion, ginger, garlic, lime and mustard oil. Served with tomato salad.", "tags": ["choila"], "variants": [ { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 16.90, "protein": "chicken" } ] },
+        { "name": "Chilli", "description": "Choice of protein/vegetable tossed with capsicum and onion in our special tomato based hot sauce.", "tags": ["chilli"], "variants": [ { "label": "Aalu Chips", "price": 13.90, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 16.90, "protein": "paneer", "is_vegetarian": true }, { "label": "Sausage (chicken)", "price": 17.90, "protein": "chicken" }, { "label": "Chicken", "price": 17.90, "protein": "chicken" } ] },
+        { "name": "Tareko Machha (Fried Fish) (6pcs)", "description": "Fish fillet marinated with Himalayan spices and herbs, deep fried and served with sauce and pickled onion.", "tags": [], "variants": [ { "label": null, "price": 18.90, "protein": "fish" } ] },
+        { "name": "Chicken Lollipops (6pcs)", "description": "Chicken wings coated in a spicy batter and deep fried, served with green chutney and pickled onion.", "tags": ["lollipop"], "variants": [ { "label": null, "price": 17.50, "protein": "chicken" } ] },
+        { "name": "Maas ko Bara", "description": "Black lentil patties with fresh ginger and Himalayan salt, shallow fried as a crispy fritter served with house made green chutney and pickled onion and tomato salsa.", "tags": ["bara"], "variants": [ { "label": "Plain", "price": 9.00, "protein": "veg", "is_vegetarian": true }, { "label": "Veg", "price": 9.50, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 10.50, "protein": "egg" }, { "label": "Chicken", "price": 11.50, "protein": "chicken" }, { "label": "Mixed", "price": 13.50 } ] },
+        { "name": "Sekuwa", "description": "Meat/veg marinated with special homemade spices and herbs cooked in Tandoor oven, served with green and red tomato salad and green chutney.", "tags": ["sekuwa"], "variants": [ { "label": "Chicken", "price": 17.50, "protein": "chicken" }, { "label": "Lamb", "price": 18.50, "protein": "lamb" } ] },
+        { "name": "Sukuti (Dried lamb meat)", "description": "Dried meat sautéed with onion, chillies, tomatoes and seasoned with dash of Himalayan spices.", "tags": ["sukuti"], "variants": [ { "label": null, "price": 19.90, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Thukpa & Chowmein",
+      "items": [
+        { "name": "Thukpa", "description": "A hot and spicy egg noodle soup with aromatic herbs and spices.", "tags": ["thukpa"], "variants": [ { "label": "Veg", "price": 16.90, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 17.90, "protein": "egg" }, { "label": "Chicken", "price": 18.90, "protein": "chicken" }, { "label": "Sukuti", "price": 19.90 }, { "label": "Mix (egg & chicken)", "price": 19.90 } ] },
+        { "name": "Chowmein", "description": "Stir-fried egg noodles with fresh mix of vegetables and touch of spices and herbs.", "tags": ["chowmein"], "variants": [ { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 16.90, "protein": "egg" }, { "label": "Chicken", "price": 17.90, "protein": "chicken" }, { "label": "Sukuti", "price": 18.90 }, { "label": "Mix (egg & chicken)", "price": 18.90 } ] }
+      ]
+    },
+    {
+      "name": "MO:MO",
+      "items": [
+        { "name": "Steamed Momo", "description": "Dumplings filled with minced meat or vegetables, a stable blend of herbs and spices. Served with special Nepalese chutney. (10pcs)", "tags": ["steamed-momo"], "variants": [ { "label": "Chicken", "price": 16.90, "protein": "chicken" }, { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chilli Momo", "description": "Dumplings filled with minced meat or vegetables, a stable blend of herbs and spices. Served with special Nepalese chutney. (10pcs)", "tags": ["chilli-momo"], "variants": [ { "label": "Chicken", "price": 18.90, "protein": "chicken" }, { "label": "Veg", "price": 17.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Kothe Momo", "description": "Dumplings filled with minced meat or vegetables, a stable blend of herbs and spices. Served with special Nepalese chutney. (10pcs)", "tags": ["kothey-momo"], "variants": [ { "label": "Chicken", "price": 17.90, "protein": "chicken" }, { "label": "Veg", "price": 16.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Momo", "description": "Dumplings filled with minced meat or vegetables, a stable blend of herbs and spices. Served with special Nepalese chutney. (10pcs)", "tags": ["fried-momo"], "variants": [ { "label": "Chicken", "price": 17.90, "protein": "chicken" }, { "label": "Veg", "price": 16.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jhol Momo", "description": "Dumplings filled with minced meat or vegetables, a stable blend of herbs and spices. Served with special Nepalese chutney. (10pcs)", "tags": ["jhol-momo"], "variants": [ { "label": "Chicken", "price": 18.90, "protein": "chicken" }, { "label": "Veg", "price": 17.90, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Set and Platter",
+      "items": [
+        { "name": "Choila Set", "description": "Choila served with beaten rice flakes, bhatmas sadeko, spicy potato salad (aalu ko achar) and green salad.", "tags": ["choila", "khaja"], "variants": [ { "label": "Veg", "price": 18.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 19.90, "protein": "chicken" } ] },
+        { "name": "Sekuwa Set", "description": "Sekuwa served with beaten rice flakes, bhatmas sadeko, spicy potato salad (aalu ko achar) and green salad.", "tags": ["sekuwa", "khaja"], "variants": [ { "label": "Chicken", "price": 19.90, "protein": "chicken" }, { "label": "Lamb", "price": 20.90, "protein": "lamb" } ] },
+        { "name": "Goat Bhutan Set", "description": "Bhuttan served with beaten rice flakes, bhatmas sadeko, spicy potato salad (aalu ko achar) and green salad.", "tags": ["bhutan", "khaja"], "variants": [ { "label": null, "price": 21.90, "protein": "goat" } ] },
+        { "name": "Laltin Family MOMO Platter (20 pieces)", "description": "Consists of Steamed MOMO, Chilli MOMO, Kothe MOMO and Fried MOMO.", "tags": ["momo"], "variants": [ { "label": "Veg", "price": 34.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 36.90, "protein": "chicken" } ] },
+        { "name": "Nepali Street Food Platter", "description": "Aalu ko Achar (Spicy potato salad), Corn Lollipop (Poleko Makai), Lamb Sekuwa, Steamed Momo, Fried sausage, Chutney, and Tomato Salad.", "tags": ["khaja"], "variants": [ { "label": null, "price": 25.90 } ] },
+        { "name": "Khaja Set", "description": "Curry potatoes, black eyed beans and bamboo shoot (Aalu Tama Bodi), spicy potato salad (aalu ko achar), beaten rice flakes (chiura), spicy soybean (bhatmas sadeko), black lentil patties (maas ko bara) and spicy marinated Veg or Meat Choila.", "tags": ["khaja"], "variants": [ { "label": "Veg", "price": 20.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 23.90, "protein": "chicken" } ] },
+        { "name": "MOMO Platter (12 pieces)", "description": "Consists of Steamed MOMO, Chilli MOMO and Kothe MOMO.", "tags": ["momo"], "variants": [ { "label": "Veg", "price": 20.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 21.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Small Plates",
+      "items": [
+        { "name": "Aalu Chips", "description": "Deep-fried potato chips sautéed with dry herbs and spices.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.90, "protein": "veg" } ] },
+        { "name": "Aalu Ko Achar (served cold)", "description": "Boiled Potatoes mixed in sesame paste, vegetables infused with spices and garnished with herbs.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] },
+        { "name": "Chana Chatpat (salad)", "description": "Chickpeas combined with fresh vegetables, seasoned with Himalayan black salt, topping with Aalu bhaji.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 13.50, "protein": "veg" } ] },
+        { "name": "Bhatmas Sadheko", "description": "Fried soybeans mixed with fresh garlic, ginger and onions, and a touch of mustard oil.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Curries",
+      "items": [
+        { "name": "Aalu Tama Bodi", "description": "Potatoes, Bamboo shoot and black-eyed beans curry, garnished with fresh herbs.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Maas ko Daal / Chana ko Daal", "description": "Black lentils / Chickpeas cooked with Himalayan herbs and mild spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Kukhura ko Massu (Nepali style chicken curry)", "description": "Chicken (bone in) curry made with tomatoes, onion, ginger, and garlic base.", "tags": ["curry"], "variants": [ { "label": null, "price": 18.90, "protein": "chicken" } ] },
+        { "name": "Khasi ko Maasu (Goat Curry)", "description": "Village style Goat meat cooked in a rich blend of spices, garlic, and ginger.", "tags": ["curry"], "variants": [ { "label": null, "price": 19.90, "protein": "goat" } ] },
+        { "name": "Local Kukhura ko Massu (Village style Curry)", "description": "Traditional village style, farm fresh free range chicken curry (bone in) with ginger, garlic, and fresh herbs.", "tags": ["curry"], "variants": [ { "label": null, "price": 19.90, "protein": "chicken" } ] },
+        { "name": "Butter Chicken", "description": "Tender Chicken cooked in a rich blend of spices and thick tomato base gravy with dry herbs.", "tags": ["curry", "butter-chicken"], "variants": [ { "label": null, "price": 19.90, "protein": "chicken" } ] },
+        { "name": "Fish Curry", "description": "Traditional Nepali village style fish curry cooked with an infusion of spices, fresh herbs, garlic, and ginger.", "tags": ["curry"], "variants": [ { "label": null, "price": 19.90, "protein": "fish" } ] },
+        { "name": "Palak Panner", "description": "Spinach mixed with curry, garam masala, fresh ginger, and Cottage Cheese.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 18.90, "protein": "paneer" } ] }
+      ]
+    },
+    {
+      "name": "Rice and Bread",
+      "items": [
+        { "name": "Bhuteko Bhaat", "description": "Nepali style fried rice mixed with fresh vegetables, herbs, and choice of protein.", "tags": ["fried-rice"], "variants": [ { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 16.90, "protein": "egg" }, { "label": "Chicken", "price": 17.90, "protein": "chicken" }, { "label": "Mix (veg, egg & chicken)", "price": 18.90 } ] },
+        { "name": "Biryani", "description": "Rice infused with a rich blend of spices and mixed with Veg/Protein.", "tags": ["biryani"], "variants": [ { "label": "Veg", "price": 18.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 19.90, "protein": "chicken" }, { "label": "Goat", "price": 21.90, "protein": "goat" } ] },
+        { "name": "Naan", "description": "Soft flat bread baked in Tandoor Oven.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": "Plain", "price": 4.50, "protein": "veg" }, { "label": "Butter", "price": 5.00, "protein": "veg" }, { "label": "Garlic", "price": 4.90, "protein": "veg" }, { "label": "Cheese", "price": 5.50, "protein": "veg" }, { "label": "Mix (Garlic & Cheese)", "price": 6.00, "protein": "veg" } ] },
+        { "name": "Bhaat", "description": "Steamed Jasmine Rice.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.50, "protein": "veg" } ] },
+        { "name": "Faparko Roti", "description": "Buckwheat flour bread.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 4.50, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Laltin Special Dishes (Khana)",
+      "items": [
+        { "name": "Thakali Thali Set", "description": "Traditional Nepali Thali (plate) consists of lentil soup (Dal), vegetable curry, meat curry, sautéed spinach, radish pickles, house made yoghurt, chutney, and rice.", "tags": ["thali", "dal-bhat", "thakali"], "variants": [ { "label": "Veg", "price": 25.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 26.50, "protein": "chicken" }, { "label": "Goat", "price": 27.50, "protein": "goat" }, { "label": "Fish", "price": 27.90, "protein": "fish" } ] },
+        { "name": "Dhedo Thali Set", "description": "Traditional Nepali Thali (plate) consists of lentil soup (Dal), vegetable curry, meat curry, sautéed spinach, radish pickles, house made yoghurt, chutney, and sticky soft, cooked dough. (Buckwheat flour)", "tags": ["thali", "dal-bhat"], "variants": [ { "label": "Veg", "price": 26.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 27.50, "protein": "chicken" }, { "label": "Goat", "price": 28.50, "protein": "goat" }, { "label": "Fish", "price": 28.90, "protein": "fish" } ] },
+        { "name": "Faparko Roti Set", "description": "Traditional Nepali Thali (plate) consists of lentil soup (Dal), vegetable curry, meat curry, sautéed spinach, radish pickles, house made yoghurt, chutney, and roti (Buckwheat flour bread).", "tags": ["thali", "dal-bhat", "roti"], "variants": [ { "label": "Veg", "price": 26.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 27.50, "protein": "chicken" }, { "label": "Goat", "price": 28.50, "protein": "goat" }, { "label": "Fish", "price": 28.90, "protein": "fish" } ] }
+      ]
+    },
+    {
+      "name": "Laltin Special Salads",
+      "items": [
+        { "name": "Green Salad", "description": "Nepali style fresh vegetable salad. Cucumber, Carrot, Radish, Tomato and Onion cut into wedges and lightly seasoned with chat masala.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.90, "protein": "veg" } ] },
+        { "name": "Chicken Corn Salad", "description": "Shredded spiced roasted chicken mixed with Grilled Corn kernel, chiffonade cabbage dressed with zesty salad dressing.", "tags": [], "variants": [ { "label": null, "price": 12.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Sweets",
+      "items": [
+        { "name": "Gulab Jamun", "description": "Fried balls of dough made from milk solids and semolina, soaked in an aromatic syrup served with yoghurt and sweet angel hair crispy pastry.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 9.50 } ] },
+        { "name": "Pistachio, honey & cardamom kulfi", "description": "Ice cream made with milk, sugar, nuts, cardamoms, served with sweet angel hair crispy pastry.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 10.50 } ] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Chicken Nuggets", "tags": [], "variants": [ { "label": null, "price": 8.00, "protein": "chicken" } ] },
+        { "name": "Hot Chips", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] },
+        { "name": "Hot chips, Nuggets, and a drink", "tags": [], "variants": [ { "label": null, "price": 12.00 } ] }
+      ]
+    }
+  ]
+}

@@ -43,3 +43,4 @@ nepali-restaurants-au.csv
 
 # Neon/Postgres dumps (data snapshots)
 backups/
+scraper/menu-data/.claims/

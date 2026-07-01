@@ -1,0 +1,85 @@
+{
+  "slug": "elektra-himalayan-alchemy-house",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "All Day Menu",
+      "items": [
+        { "name": "Mandala Pancake", "description": "Green lentil pancakes, hummus, spiced chickpeas, tomato, avocado, mushroom, coconut yoghurt.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 21.50, "protein": "veg" } ] },
+        { "name": "Crushed Avo-mole", "description": "Sweet and chilli corn, smashed avocado, poached eggs, sundried tomatoes, vegan feta, pomegranate, chives on gluten-free bread. Vegan option with Himalayan spiced scrambled tofu.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 22.00, "protein": "veg" } ] },
+        { "name": "Swayambhu Portobello", "description": "Spiced portobello mushroom, vegan cream ricotta, cherry tomatoes, grilled red pepper, olives, kale, quinoa. Add poached egg $3.5.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 23.00, "protein": "veg" } ] },
+        { "name": "Sherpa Chilli Scramble", "description": "Scrambled egg with sauteed lamb, bocconcini, cherry tomatoes, red onion, chives, red chilli on Turkish bread. Vegetarian option with mushroom.", "tags": [], "variants": [ { "label": null, "price": 24.00, "protein": "lamb" } ] },
+        { "name": "Da Bomb", "description": "Poached eggs on sourdough, crispy bacon, avocado smash, roasted tomatoes, mushrooms, smoky beans, house-made cherry vegan holi, hollandaise. Add spiced sausage +4.", "tags": [], "variants": [ { "label": null, "price": 21.50 } ] },
+        { "name": "Everest Benedict", "description": "Himalayan grilled chicken, crispy bacon, poached eggs, sauteed spinach and sriracha hollandaise on rice crepe.", "tags": [], "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] },
+        { "name": "Himalayan Tacos (3 tacos)", "description": "Pulled pork tacos with corn salsa, green beans, fire roasted tomatoes, vegan cheese, grilled pineapple, sriracha mayo on roti. Vegan option with spiced tofu.", "tags": [], "variants": [ { "label": null, "price": 23.00, "protein": "pork" } ] },
+        { "name": "Momos (10 pcs)", "description": "Spiced Himalayan dumplings with spicy sesame tomato chutney.", "tags": ["steamed-momo"], "variants": [ { "label": "Vegan", "price": 21.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 21.50, "protein": "chicken" } ] },
+        { "name": "Basecamp Fried Rice", "description": "Brown fried rice, fried egg, spicy sausage, corn, peas, spinach, carrot, onion, zucchini. Vegan option with spiced tofu.", "tags": ["fried-rice"], "variants": [ { "label": null, "price": 21.50 } ] },
+        { "name": "Gurkhali Fritters", "description": "Marinated eggplant & zucchini, crispy baked carrot chips, avocado, heirloom tomatoes, pomegranate seeds, spring onion, pickled vegetables, coconut yogurt dukkah.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 22.50, "protein": "veg" } ] },
+        { "name": "Himalayan Fish & Green", "description": "Grilled barramundi, kale, broccoli, avocado with peanut dukkah.", "tags": [], "variants": [ { "label": null, "price": 28.00, "protein": "fish" } ] },
+        { "name": "Kathmandu Goat Burger", "description": "Slow braised goat meat, mozzarella, fried egg, cucumber, sriracha aioli, crunchy slaw with spiced fries.", "tags": [], "variants": [ { "label": null, "price": 27.00, "protein": "goat" } ] },
+        { "name": "Annapurna Salad", "description": "Grilled chicken, spicy broccoli, avocado, romanova, cherry tomatoes, seeded mustard, kale, house-made spicy vinaigrette. Vegetarian option with halloumi.", "tags": [], "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] },
+        { "name": "Buddha Burger", "description": "House-made traditional red lentil cauliflower patties, avocado, cajun spiced yoghurt, jalapenos, roasted capsicum, spinach, spiced sweet potato fries.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 24.00, "protein": "veg" } ] },
+        { "name": "Nepalese Chicken / Goat Curry", "description": "Tender braised chicken or goat and tomato gravy, ginger strips cooked in Himalayan spices and herbs, served with rice and dal. Vegan option with chickpea/eggplant.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": 23.90, "protein": "chicken" }, { "label": "Goat", "price": 23.90, "protein": "goat" } ] },
+        { "name": "Eggs on Toast", "description": "Poached, fried or scrambled.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 13.00, "protein": "egg" } ] },
+        { "name": "Grilled Piggo", "description": "Sourdough / wholegrain / Turkish / gluten-free / fruit toast with jam, peanut butter or Vegemite.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 13.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Something Sweet",
+      "items": [
+        { "name": "Sunshine Pudding", "description": "Overnight soaked oats, mango and turmeric puree, granola, chia seeds, coconut milk, fresh strawberries, lime & orange squash.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 17.00, "protein": "veg" } ] },
+        { "name": "Namaste Porridge", "description": "Black rice and quinoa porridge, coconut milk, rhubarb, pear, roasted coconut, pomegranate, almond, papaya.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 19.50, "protein": "veg" } ] },
+        { "name": "Chocolate Stacktacular", "description": "Cacao chocolate pancakes, house-made raspberry coulis, coconut cream, chocolate soil, fresh strawberries, vegan chocolate ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 22.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "For Sharing",
+      "items": [
+        { "name": "Okra Fries", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 13.50, "protein": "veg" } ] },
+        { "name": "Cauliflower Wings", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 13.50, "protein": "veg" } ] },
+        { "name": "Spiced Chips / Sweet Potato Fries", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Smoothies & Shakes",
+      "items": [
+        { "name": "Brew Mochaccino", "description": "Macadamia milk, cold brewed coffee, cacao powder, banana, peanut butter.", "tags": ["drinks"], "variants": [ { "label": null, "price": 12.00 } ] },
+        { "name": "Berrynana", "description": "Mix berries, banana, coconut milk, coconut yogurt.", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.00 } ] },
+        { "name": "Green Smoothie", "description": "Baby spinach, apple, coconut milk, coconut water, basil, coconut yogurt.", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.00 } ] },
+        { "name": "Mango Smoothie", "description": "Mango, turmeric, soy milk, coconut yogurt, agave syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 12.00 } ] },
+        { "name": "Milkshake", "description": "Red velvet / Oreo / chocolate.", "tags": ["drinks"], "variants": [ { "label": null, "price": 8.50 } ] },
+        { "name": "Freshly Squeezed Juice", "description": "Orange / apple / lemon / ginger / pineapple / beetroot / carrot (choice of 3).", "tags": ["drinks"], "variants": [ { "label": null, "price": 9.50 } ] }
+      ]
+    },
+    {
+      "name": "Himalayan Sticky Chai",
+      "items": [
+        { "name": "Hot Himalayan Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Dirty Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Turmeric Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Matcha Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Dark Chocolate Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Himalayan Iced Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 7.50 } ] },
+        { "name": "Turmeric Iced Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 7.50 } ] },
+        { "name": "Matcha Iced Chai", "tags": ["drinks"], "variants": [ { "label": null, "price": 7.50 } ] }
+      ]
+    },
+    {
+      "name": "Coffee & Tea",
+      "items": [
+        { "name": "Black Coffee", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "White Coffee", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.20 } ] },
+        { "name": "Turmeric Latte", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Matcha Latte", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Affogato", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.50 } ] },
+        { "name": "Organic Dark Hot Chocolate", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Mocha", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Iced Latte", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.70 } ] },
+        { "name": "Iced Long Black", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Tea", "description": "English breakfast / earl grey / peppermint / lemongrass & ginger / green.", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] }
+      ]
+    }
+  ]
+}

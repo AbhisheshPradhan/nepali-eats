@@ -48,6 +48,10 @@ only where a spot has no own menu.
 - **Branches share menus** (Falcha ×3, Aagaman ×3, Momo Central ×3, Little Magic Momo ×2,
   Khukuri ×2, both Heshela done) — transcribe once, seed to each branch slug.
 - **Catering flag** — set `catering = true` when a menu/site advertises catering.
+- **SKIPPED (catering-only, no prices):** `everest-function-centre-rockdale` — its
+  `menu_url` PDF is a function-centre catering menu (ENTREE/MAIN/DESSERT bubble
+  diagrams, no prices, DJ/Mandap/Fireworks). Per the "skip catering flyers" rule it
+  was not seeded; `catering=true` set instead. Don't re-attempt as a priced menu.
 - **`source = "admin"`**, `price_source` = `print`/`website` per where it came from.
 
 ---
@@ -56,9 +60,9 @@ only where a spot has no own menu.
 
 Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-progress.js --write`. `📁local` = file under `media/menus/`.
 
-**Progress: 11 / 146 seeded (8%)** · refreshed 2026-07-01
+**Progress: 18 / 146 seeded (12%)** · refreshed 2026-07-01
 
-### A. PDF menus — start here — 8/25 done
+### A. PDF menus — start here — 15/25 done
 - [x] **Falcha Town Hall** (Sydney, NSW) · 2853 rev · ✓ 53 items
     https://falcha.com.au/wp-content/uploads/2026/04/Falcha_Townhall_Menu_Nov2025.pdf
 - [x] **Funky Momo** (Victoria Park, WA) · 1406 rev · ✓ 89 items
@@ -74,18 +78,18 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
 - [x] **The Saffron House** (Blackburn South, VIC) · 531 rev · ✓ 94 items
     https://www.thesaffronhouse.com.au/s/HimalayanBelt_J42140_A4_Menus_SaffronHouseTakeawayAug
 - [ ] **Indus Indian &Nepalese Restaurant Gold** (Surfers Paradise, QLD) · 522 rev · 📁local
-    https://indusrestaurant.com.au/storage/app/public/branch_images/1765272561-1608.pdf
-- [ ] **Little Magic Momo** (Osborne Park, WA) · 521 rev · 📁local
+    https://indusrestaurant.com.au/storage/app/public/branch_images/1765795615-5289.pdf
+- [x] **Little Magic Momo** (Osborne Park, WA) · 521 rev · ✓ 51 items
     https://littlemagicmomo.com.au/wp-content/uploads/2026/03/little-magic-momo-menu-V.4.pdf
-- [ ] **Spring Hill Kitchen** (Spring Hill, QLD) · 516 rev · 📁local
+- [x] **Spring Hill Kitchen** (Spring Hill, QLD) · 516 rev · ✓ 43 items
     http://springhillkitchen.com.au/wp-content/uploads/2023/12/spring-hill-Menu.pdf
-- [ ] **Baar Pipaal - Restaurant & Bar** (Glenroy, VIC) · 493 rev · 📁local
+- [x] **Baar Pipaal - Restaurant & Bar** (Glenroy, VIC) · 493 rev · ✓ 46 items
     https://baarpipaal.com.au/wp-content/uploads/2024/07/menu-07-2024-updated.pdf
-- [ ] **Little Magic Momo wembley** (Wembley, WA) · 404 rev · 📁local
+- [x] **Little Magic Momo wembley** (Wembley, WA) · 404 rev · ✓ 51 items
     https://littlemagicmomo.com.au/wp-content/uploads/2026/03/little-magic-momo-menu-V.4.pdf
-- [ ] **Namaste Nepalese Restaurant** (Parkside, SA) · 384 rev · 📁local
+- [x] **Namaste Nepalese Restaurant** (Parkside, SA) · 384 rev · ✓ 51 items
     https://namasterestaurant.com.au/wp-content/uploads/2022/09/Namaste-Food-Menu-August-2022.
-- [ ] **Laltin Nepalese Cuisine** (Rockdale, NSW) · 367 rev · 📁local
+- [x] **Laltin Nepalese Cuisine** (Rockdale, NSW) · 367 rev · ✓ 54 items
     https://www.laltin.com.au/_files/ugd/fe3d47_3538932b699e42aba270a3e4ec8deebe.pdf
 - [ ] **Everest Function Centre** (Rockdale, NSW) · 329 rev · 📁local
     http://www.everesttandoori.com.au/images/menu/everest-tandoori-menu.pdf
@@ -105,8 +109,8 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://assets.cdn.filesafe.space/fBmNTES4lOqZJFIgBQJs/media/69fd9642a3dd25aa2a87ebde.pdf
 - [ ] **Himalayan BBQ** (Greenway, ACT) · 103 rev · 📁local
     https://img1.wsimg.com/blobby/go/a4c3634e-3b7b-4194-9e8a-f28ec52cb11a/HIMALAYAN%20BBQ%20(A
-- [ ] **Indus Indian and Nepalese Restaurant- ** (Ipswich, QLD) · 80 rev · 📁local
-    https://www.indusrestaurant.com.au/storage/app/public/branch_images/1765272561-1608.pdf
+- [x] **Indus Indian and Nepalese Restaurant- ** (Ipswich, QLD) · 80 rev · ✓ 85 items
+    https://indusrestaurant.com.au/storage/app/public/branch_images/1766108179-8190.pdf
 - [ ] **Tusa Canberra** (Barton, ACT) · 19 rev · 📁local
     https://tusanepal.com/wp-content/uploads/2026/06/Tusa-Canberra.pdf
 
@@ -209,10 +213,10 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://himalayanrestaurant.com.au/menu
 - [ ] **Base Camp** (Northcote, VIC) · 260 rev
     http://www.basecamprestaurant.com.au/menu
-- [ ] **Deurali Restaurant** (Salisbury, SA) · 247 rev
-    https://deurali.com.au/our-menus/
 - [ ] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev
     https://thecafetalk.com.au/our-menu/
+- [ ] **Deurali Restaurant** (Salisbury, SA) · 247 rev
+    https://deurali.com.au/our-menus/
 - [ ] **The momos** (Hornsby, NSW) · 240 rev
     https://themomos-hornsby.yumbojumbo.com.au/menu
 - [ ] **Gurkha's Fusion** (Maroochydore, QLD) · 237 rev

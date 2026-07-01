@@ -1,0 +1,1436 @@
+{
+  "slug": "indus-indian-and-nepalese-restaurant-ipswich-ipswich",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Mo:Mo (Nepalese Dumplings)",
+      "items": [
+        {
+          "name": "Steamed Momo (10 pcs)",
+          "description": "Nepalese style dumplings wrapped in flour dough and steamed, served with tomato & sesame seeds dip.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 18.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Plain Fried Momo (10 pcs)",
+          "description": "Nepalese style dumplings wrapped in flour dough and fried, served with tomato & sesame seeds dip.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 18.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Momo (C-Momo)",
+          "description": "Steamed dumplings marinated then pan tossed with chilli sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 17.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Sadeko Momo",
+          "description": "Steamed dumplings marinated with lemon juice, fresh onion, tomatoes and Himalayan spices.",
+          "tags": [
+            "sandheko-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 17.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Jhol Momo",
+          "description": "Steamed dumplings in a seasoned tomato gravy with spicy sesame seeds and soya bean.",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 17.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Sekuwa Momo (Skewer)",
+          "description": "Dumplings marinated in Himalayan spices, grilled in the tandoor oven and served on a skewer stick.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 17.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Jumbo Momo Share Platter",
+          "description": "Served with 4 pcs each of C-momo, jhol momo, fried momo, steamed momo and sadeko momo.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 32.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 35.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 38.9,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chow Mein",
+      "items": [
+        {
+          "name": "Veg & Paneer Chowmein",
+          "is_vegetarian": true,
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Egg Chowmein",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.9,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chowmein",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Buff Chowmein",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Mixed Chow Mein (Chicken + Buff + Egg)",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nepalese & Indo-Chinese Mains",
+      "items": [
+        {
+          "name": "Paneer Chilli Garlic",
+          "description": "Home made paneer cooked with garlic, cream and chilli soy sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Manchurian",
+          "description": "Mixed vegetable balls seasoned with coriander, celery, sauteed ginger and garlic and soy sauce.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Chicken",
+          "description": "Battered chicken sauteed then finished with red chilli, onion, capsicum and soy sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Manchurian",
+          "description": "Boneless chicken seasoned with coriander, celery, sauteed ginger and garlic and chilli soy sauce.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Fish Curry",
+          "description": "Boneless barramundi fish fillet cooked in Nepalese spice and herbs.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Goat Curry with Bone",
+          "description": "Goat marinated in herbs & spices, flavoured with black pepper & shallow fried.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Curry with Bone",
+          "description": "Chicken marinated in herbs & spices, flavoured with timur (Sichuan pepper), fenugreek seeds & shallow fried.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nepalese & Indo-Chinese Entree",
+      "items": [
+        {
+          "name": "Pani Puri (10 pcs)",
+          "description": "Crispy hollow fried dough balls stuffed with diced potato, onion, peas and chickpeas with spicy tangy water.",
+          "is_vegetarian": true,
+          "tags": [
+            "pani-puri"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Sausage (2)",
+          "description": "Deep fried sausage with spicy pickle, a popular street food in Nepal.",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Crispy Chicken Wings (5 pcs)",
+          "description": "Chicken wings marinated in chef's special spices, batter coated and deep fried, served with tomato and sesame seeds dip.",
+          "tags": [
+            "wings"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken 65",
+          "description": "Succulent chicken breast lightly sauteed with coconut, mustard seed and finished with fresh herb.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Buff Chilli",
+          "description": "Pan fried buff on rich tomato chilli sauce with onion, capsicum and sliced Nepalese spices.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Goat Sekuwa",
+          "description": "Goat meat marinated and roasted on a charcoal wood fire. Garnished with chopped onion, ginger, and coriander.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Newari Khaja Set",
+          "description": "Choila (chicken/buff/goat), fried chicken giblets, sadeko masla ko achaar, bhatmas sadeko, masala fried chiura, salad and green crackers.",
+          "tags": [
+            "khaja",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 25.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 25.9,
+              "protein": "buff"
+            },
+            {
+              "label": "Goat",
+              "price": 25.9,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sadeko",
+      "items": [
+        {
+          "name": "Sadeko",
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 16.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Goat",
+              "price": 16.9,
+              "protein": "goat"
+            },
+            {
+              "label": "Buff",
+              "price": 16.9,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jhaneko Sekuwa (Dine In)",
+      "items": [
+        {
+          "name": "Jhaneko Sekuwa",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 18.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Goat",
+              "price": 18.9,
+              "protein": "goat"
+            },
+            {
+              "label": "Buff",
+              "price": 18.9,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Indian Entree",
+      "items": [
+        {
+          "name": "Bowl of Fries",
+          "description": "Prickly seasoned potato, crunchy beer battered fries served with tomato sauce.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Pea & Potato Samosa (2 pcs)",
+          "description": "Served with date & tamarind chutney.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Veg Pakora (6 pcs)",
+          "description": "Vegan vegetable pakoras fried to crispy golden-brown, served with date and tamarind chutney.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka (4 pcs)",
+          "description": "Tender chicken pieces flavoured with yogurt and spices, cooked in a traditional clay tandoor oven.",
+          "tags": [
+            "tikka"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Amritsar Tandoori Chicken",
+          "description": "Skewered chicken marinated in traditional yoghurt, spices and grilled in tandoori oven.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": "Half",
+              "price": 15.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Full",
+              "price": 22.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Indus Mix Platter for Four",
+          "description": "Veg pakora, vegetable samosa, chicken tikka (x4 pcs each).",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Indian Signature Curries",
+      "items": [
+        {
+          "name": "Indian Signature Curry",
+          "description": "Choice of sauce: Korahi (dry), Rogan Josh (dry), Saag (spinach), Korma (creamy cashew), Vindaloo (hot & spicy), or Madras (South Indian coconut). Mild / medium / hot.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 22.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Lamb",
+              "price": 23.9,
+              "protein": "lamb"
+            },
+            {
+              "label": "Beef",
+              "price": 22.9,
+              "protein": "beef"
+            },
+            {
+              "label": "Mixed Veg",
+              "price": 21.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Indus Chef's Special",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "description": "Diced chicken breast cooked in creamy tomato, ginger, almond and cashew sauce.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "description": "Chicken breast cooked in tomato, ginger & creamy sauce with diced onion, capsicum & herbs.",
+          "tags": [
+            "curry",
+            "tikka"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Murg Methi Chaman",
+          "description": "Chicken dish combined with fenugreek & a touch of greens gravy.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Aloo Gosht",
+          "description": "Classic lamb & potato curry, tender lamb with succulent potatoes in a rich and fragrant sauce.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Cashew with Black Spice",
+          "description": "Thick, nutty lamb curry cooked with green onion, garlic and roasted spice & pepper, shallow fried.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Seafood Lovers",
+      "items": [
+        {
+          "name": "Barra Fish / Prawn Goan",
+          "description": "A fish/prawn curry, delicacy of Southern India, prepared with tomato, onion, fresh herbs, coconut and curry leaves.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Fish",
+              "price": 23.9,
+              "protein": "fish"
+            },
+            {
+              "label": "Prawn",
+              "price": 23.9,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Barra Fish / Tiger Prawn Vindaloo",
+          "description": "Hot & spicy sauce made with red chillies and cumin.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Fish",
+              "price": 23.9,
+              "protein": "fish"
+            },
+            {
+              "label": "Prawn",
+              "price": 23.9,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Tiger Prawn Butter",
+          "description": "Prawn cooked with a delicious blend of balti spices, tomatoes, chillies, garlic, onions and capsicum.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Fish / Prawn Methi Malai",
+          "description": "Almond & cashew nut gravy cooked with fenugreek & mild spices.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Fish",
+              "price": 23.9,
+              "protein": "fish"
+            },
+            {
+              "label": "Prawn",
+              "price": 23.9,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vegetable / Vegan Curry",
+      "items": [
+        {
+          "name": "Paneer Butter Masala",
+          "description": "Cottage cheese cubes in a rich tomato, almond & creamy ginger sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Palak Paneer",
+          "description": "Cottage cheese cubes in a spinach & aromatic spices curry.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Paneer Kadhai",
+          "description": "Cottage cheese cooked in a rich onion & tomato sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Bombay Aloo",
+          "description": "Potato cubes & peas pan fried with ginger, garlic & spices in a tomato onion sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Mix Veg Curry",
+          "description": "Seasonal vegetables, carrot, potato, garden peas and beans in a special curry.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chana Masala (Chola)",
+          "description": "Chickpeas with garam masala, onion, tomatoes, coriander, ginger and chilli sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Mutter Paneer",
+          "description": "Home-made cottage cheese cooked with green peas in a tomato and onion-based sauce spiced with garam masala.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Eggplant and Potato Curry",
+          "description": "A rich & spicy eggplant, potato curry with aromatic spices, curry leaves, onions and tomato.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Favourite Lentils",
+      "items": [
+        {
+          "name": "Tadka Dahl",
+          "description": "Traditional tempered dahl with garlic, chillies, onions, tomatoes, curry leaves & mustard seeds.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Black Lentil and Kidney Beans",
+          "description": "Black lentil and kidney beans prepared with tempered fresh ginger, garlic, tomato and coriander.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Dahl Makhani",
+          "description": "Dahl cooked in a rich tomato, almond & creamy ginger sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.9,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hyderabadi Dum Biryani",
+      "items": [
+        {
+          "name": "Hyderabadi Dum Biryani",
+          "description": "Traditional mix, garnished with fried onions & served with raita. Chicken and goat biryani are with bone. Please allow 20 minutes.",
+          "tags": [
+            "biryani"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 23.9,
+              "protein": "chicken"
+            },
+            {
+              "label": "Lamb",
+              "price": 23.9,
+              "protein": "lamb"
+            },
+            {
+              "label": "Goat",
+              "price": 23.9,
+              "protein": "goat"
+            },
+            {
+              "label": "Veg & Paneer",
+              "price": 23.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rice",
+      "items": [
+        {
+          "name": "Steam Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 2.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Saffron Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Coconut Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Egg Fried Rice",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.9,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Veg & Paneer Fried Rice",
+          "is_vegetarian": true,
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken & Egg Fried Rice",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Buff Fried Rice",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.9,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Naan Breads",
+      "items": [
+        {
+          "name": "Roti",
+          "description": "Wholemeal tandoori bread.",
+          "is_vegetarian": true,
+          "tags": [
+            "roti"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Plain Naan (without Butter)",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Plain Naan (with Butter)",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Cheese and Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Potato Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Tasty Cheese Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Peshwari Naan (dry fruits & nuts)",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Spinach & Cheese Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken & Cheese Naan",
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chilli, Cheese and Capsicum Naan (CCC)",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.9,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Accompaniments",
+      "items": [
+        {
+          "name": "Cucumber & Yoghurt Raita",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Mango Chutney",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Pappadums (4)",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Green Salad",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.9,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        {
+          "name": "Mango Kulfi",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Gulab Jamun (4 pcs)",
+          "description": "Deep fried dumpling in sugar syrup.",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.5,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        {
+          "name": "Chicken Nuggets & Chips",
+          "description": "Includes a cold soft drink or juice.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Butter Chicken with Rice",
+          "description": "Includes a cold soft drink or juice.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Krema with Rice",
+          "description": "Includes a cold soft drink or juice.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Chicken or Veg Noodles",
+          "description": "Includes a cold soft drink or juice.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9
+            }
+          ]
+        },
+        {
+          "name": "Paneer Makhani with Rice",
+          "description": "Includes a cold soft drink or juice.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

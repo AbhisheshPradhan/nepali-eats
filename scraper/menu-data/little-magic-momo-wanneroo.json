@@ -1,0 +1,143 @@
+{
+  "slug": "little-magic-momo-wanneroo",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Mo:Mo",
+      "items": [
+        { "name": "Steamed Momo", "tags": ["steamed-momo"], "variants": [ { "label": "Cheese / Paneer (veg)", "price": 15.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Buff", "price": 16.00, "protein": "buff" }, { "label": "Pork", "price": 16.00, "protein": "pork" } ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [ { "label": "Cheese / Paneer (veg)", "price": 17.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 17.00, "protein": "chicken" }, { "label": "Buff", "price": 18.00, "protein": "buff" }, { "label": "Pork", "price": 18.00, "protein": "pork" } ] },
+        { "name": "Hot Soup Momo", "tags": ["momo"], "variants": [ { "label": "Cheese / Paneer (veg)", "price": 17.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 17.00, "protein": "chicken" }, { "label": "Buff", "price": 18.00, "protein": "buff" }, { "label": "Pork", "price": 18.00, "protein": "pork" } ] },
+        { "name": "Sadaeko Momo", "tags": ["sandheko-momo"], "variants": [ { "label": "Cheese / Paneer (veg)", "price": 17.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 17.00, "protein": "chicken" }, { "label": "Buff", "price": 18.00, "protein": "buff" }, { "label": "Pork", "price": 18.00, "protein": "pork" } ] },
+        { "name": "Pan Fried Momo", "tags": ["kothey-momo"], "variants": [ { "label": "Cheese / Paneer (veg)", "price": 17.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 17.00, "protein": "chicken" }, { "label": "Buff", "price": 18.00, "protein": "buff" }, { "label": "Pork", "price": 18.00, "protein": "pork" } ] },
+        { "name": "Chilli Momo", "tags": ["chilli-momo"], "variants": [ { "label": "Cheese / Paneer (veg)", "price": 18.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 18.00, "protein": "chicken" }, { "label": "Buff", "price": 20.00, "protein": "buff" }, { "label": "Pork", "price": 20.00, "protein": "pork" } ] }
+      ]
+    },
+    {
+      "name": "Veg Entree",
+      "items": [
+        { "name": "Veg Samosa (2 pcs)", "description": "Homemade pastry filled with spiced potato, green peas and exotic spices, fried crisp, served with tomato chutney.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 9.00, "protein": "veg" } ] },
+        { "name": "Crispy Potato Bites", "description": "Deep-fried battered potato served with tomato chutney.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Aloo Sadaeko", "description": "Potato seasoned with homemade Nepali sauce and spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Chatpatey", "description": "Puffed rice mixed with boiled potato, peas, chillies, fresh coriander and spices.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Spicy Potato", "description": "Roasted potatoes sauteed with chilli garlic and Nepali spices.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] },
+        { "name": "Pani Puri (10 pcs)", "description": "Crispy hollow balls with spiced potato, onion filling, served with sour and spice flavoured water.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] },
+        { "name": "Wai-Wai Sadaeko", "description": "Nepali noodles mixed with boiled potato, peas, chillies and fresh coriander with spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] },
+        { "name": "Crispy Paneer Bites", "description": "Battered and deep-fried marinated cottage cheese served with tomato chutney.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Bhatmas Sadaeko (Fried Soybeans)", "description": "Crunchy soybeans seasoned with ginger, coriander, onions and chillies.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Non-Veg Entree",
+      "items": [
+        { "name": "Chicken Sausage (3 pcs)", "description": "Deep-fried sausage served with tomato chutney and chilli sauce.", "tags": ["sausage"], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] },
+        { "name": "Chicken Lollipop (5 pcs)", "description": "Battered and fried marinated chicken lollipops served with homemade chutney and chilli sauce.", "tags": ["lollipop"], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] },
+        { "name": "Shabhale (2 pcs)", "description": "Deep-fried spiced chicken mince wrapped in pastry served with homemade chutney and chilli spice.", "tags": ["shavale"], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] },
+        { "name": "Crispy Chicken Bites", "description": "Juicy chunks of chicken marinated with Nepalese spices.", "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Veg Khaja Set",
+      "items": [
+        { "name": "Veg Khaja Set", "description": "Platter served with fried beaten rice, Nepali mixed pickles, aloo sadaeko with selroti, samosa and potato pea curry.", "is_vegetarian": true, "tags": ["khaja", "newari"], "variants": [ { "label": null, "price": 19.00, "protein": "veg" } ] },
+        { "name": "Samosa Pea Curry", "description": "2 crispy and flavorful samosas served with potato pea curry, Nepali mixed pickles, fried beaten rice, bhatmas sadaeko and aloo sadaeko.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 19.00, "protein": "veg" } ] },
+        { "name": "Selroti Set", "description": "2 homemade selroti served with potato pea curry, Nepali mixed pickles, fried beaten rice, bhatmas sadaeko and aloo sadaeko.", "is_vegetarian": true, "tags": ["sel-roti"], "variants": [ { "label": null, "price": 19.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Non-Veg Khaja Set",
+      "items": [
+        { "name": "Chicken Choila Set", "description": "Spicy marinated grilled chicken choila served with beaten rice, Nepali mixed pickles, bhatmas sadaeko and aloo sadaeko.", "tags": ["choila"], "variants": [ { "label": null, "price": 22.00, "protein": "chicken" } ] },
+        { "name": "Chicken Khaja Set", "description": "Platter served with fried beaten rice, Nepali mixed pickles, aloo sadaeko, chicken choila, 1 piece of selroti and bhatmas sadaeko.", "tags": ["khaja", "newari"], "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] },
+        { "name": "Mutton (Goat) Sekuwa Set", "description": "Marinated grilled goat boneless served with beaten rice, Nepali mixed pickles and aloo sadaeko.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 26.00, "protein": "goat" } ] },
+        { "name": "Pork Sekuwa Set", "description": "Roasted boneless marinated pork served with beaten rice, Nepali mixed pickles and aloo sadaeko.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 26.00, "protein": "pork" } ] }
+      ]
+    },
+    {
+      "name": "Chilli",
+      "items": [
+        { "name": "Paneer Chilli", "description": "Sauteed with a homemade chilli sauce, fresh vegetables and your choice of filling.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 18.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chicken Chilli", "tags": ["chilli"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Stir-fried noodles with cabbage, carrots, bell peppers, green peas, herbs and spices, and your choice of meat.", "tags": ["chowmein"], "variants": [ { "label": "Veg", "price": 16.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Stir-fried rice with mixed vegetables, egg and your choice of meat.", "tags": ["fried-rice"], "variants": [ { "label": "Veg", "price": 16.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "description": "A comforting noodle soup loaded with mixed vegetables, paneer or meat, seasoned with Nepali spices.", "tags": ["thukpa"], "variants": [ { "label": "Paneer", "price": 16.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 18.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Nepali Thali Set",
+      "items": [
+        { "name": "Nepali Thali Set", "description": "A traditional Nepali platter: steamed rice, lentil soup, vegetable curry, sauteed greens, crispy papad, pickles, sweet dessert and your choice of curry.", "tags": ["dal-bhat"], "variants": [ { "label": "Mix Veg Paneer", "price": 24.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken Curry", "price": 26.00, "protein": "chicken" }, { "label": "Goat Curry", "price": 26.00, "protein": "goat" }, { "label": "Pork Curry", "price": 28.00, "protein": "pork" } ] }
+      ]
+    },
+    {
+      "name": "Authentic Nepalese Curry",
+      "items": [
+        { "name": "Nepalese Curry", "description": "A flavourful curry made with a blend of traditional Nepalese spices and your choice of meat, vegetables or paneer.", "tags": ["curry"], "variants": [ { "label": "Mix Veg Paneer", "price": 20.00, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 22.00, "protein": "chicken" }, { "label": "Goat", "price": 25.00, "protein": "goat" }, { "label": "Pork", "price": 25.00, "protein": "pork" } ] }
+      ]
+    },
+    {
+      "name": "Extra",
+      "items": [
+        { "name": "Plain Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Momo Pickle", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.00, "protein": "veg" } ] },
+        { "name": "Beaten Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Selroti", "is_vegetarian": true, "tags": ["sel-roti"], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Gulab Jamun (2 pcs)", "description": "Deep-fried reduced milk dumplings soaked in sugar syrup, flavoured with cardamom, and yogurt.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 7.00, "protein": "veg" } ] },
+        { "name": "Rasgulla (2 pcs)", "description": "Soft and spongy cottage cheese balls soaked in sugar syrup, a classic sweet with yogurt.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 7.00, "protein": "veg" } ] },
+        { "name": "Kulfi", "description": "Traditional Nepalese frozen dessert similar to ice cream, flavoured with cardamom and pistachios.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 7.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "items": [
+        { "name": "Soda", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Red Bull", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Tonic Water", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Solo / Lemonade", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Lemon Lime Bitter", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Juices (Orange / Mango / Apple)", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Coke / Fanta / Sprite", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] }
+      ]
+    },
+    {
+      "name": "Cold Drinks",
+      "items": [
+        { "name": "Sweet Lassi", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Iced Coffee", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Flavored Iced Tea (Peach / Lemon / Mango)", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] }
+      ]
+    },
+    {
+      "name": "Hot Drinks",
+      "items": [
+        { "name": "Nepali (Masala) Tea", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Black Coffee", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Hot Lemon with Ginger & Honey", "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Mc Tea", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] }
+      ]
+    }
+  ]
+}

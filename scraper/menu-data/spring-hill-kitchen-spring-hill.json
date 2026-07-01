@@ -1,0 +1,86 @@
+{
+  "slug": "spring-hill-kitchen-spring-hill",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Nepalese Momos (Dumplings)",
+      "items": [
+        { "name": "Steam Momo (10 pcs)", "description": "Served with 2 dipping sauces.", "tags": ["steamed-momo"], "variants": [ { "label": "Vegetables", "price": 12.80, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 13.30, "protein": "chicken" }, { "label": "Pork", "price": 14.30, "protein": "pork" }, { "label": "Buff", "price": 14.80, "protein": "buff" }, { "label": "Beef", "price": 14.80, "protein": "beef" } ] },
+        { "name": "Pan Fried Momo (10 pcs)", "tags": ["kothey-momo"], "variants": [ { "label": "Vegetables", "price": 14.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Pork", "price": 16.00, "protein": "pork" }, { "label": "Buff", "price": 16.50, "protein": "buff" }, { "label": "Beef", "price": 16.50, "protein": "beef" } ] },
+        { "name": "Deep Fried Momo (10 pcs)", "tags": ["fried-momo"], "variants": [ { "label": "Vegetables", "price": 14.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 14.50, "protein": "chicken" }, { "label": "Pork", "price": 15.50, "protein": "pork" }, { "label": "Buff", "price": 16.00, "protein": "buff" }, { "label": "Beef", "price": 16.00, "protein": "beef" } ] },
+        { "name": "Jhol Momo (10 pcs)", "description": "Steamed dumplings served with peanuts, tomatoes and sesame herbs based cold soup. A combination of hot steamed momo & cold soup.", "tags": ["jhol-momo"], "variants": [ { "label": "Vegetables", "price": 15.80, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 16.30, "protein": "chicken" }, { "label": "Pork", "price": 17.30, "protein": "pork" }, { "label": "Buff", "price": 17.80, "protein": "buff" }, { "label": "Beef", "price": 17.80, "protein": "beef" } ] },
+        { "name": "Chilli Momo (C-Momo) (10 pcs)", "description": "Momo pan-fried with capsicum, onion, tomatoes wedges and coriander topping. Normally served sweet and spicy.", "tags": ["chilli-momo"], "variants": [ { "label": "Vegetables", "price": 17.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.00, "protein": "chicken" }, { "label": "Pork", "price": 19.00, "protein": "pork" }, { "label": "Buff", "price": 19.50, "protein": "buff" }, { "label": "Beef", "price": 19.50, "protein": "beef" } ] }
+      ]
+    },
+    {
+      "name": "Share Dishes",
+      "items": [
+        { "name": "Mixed Entree", "description": "1 chicken pan fried momo (6 pcs), 2 popular spring roll (veg), 5 chicken chilli, 4 pieces skewered chicken with chips, lollypop sauce.", "tags": [], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Special Platter for 2-3 Person", "description": "B.C.F.C half XL & chips, 1 chicken pan fried momo (10 pcs), popular spring roll (veg), chicken chilli lollypop, dipping sauce, 3-side fillet.", "tags": [], "variants": [ { "label": null, "price": 46.00 } ] },
+        { "name": "Value Pack", "description": "1 Everest chicken curry with rice, 1 Nepalese-style sekuwa chicken with rice, 3 chicken pan fried momo (6 pcs), popular spring roll (veg), garlic chicken, dipping sauce.", "tags": [], "variants": [ { "label": null, "price": 52.00 } ] }
+      ]
+    },
+    {
+      "name": "Entree",
+      "items": [
+        { "name": "Momo (Dumplings) 6 pcs", "description": "Six pieces of momos steamed or deep-fried, served with mild & spicy sauce.", "tags": ["momo"], "variants": [ { "label": "Vegetables", "price": 8.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 8.00, "protein": "chicken" }, { "label": "Beef", "price": 8.00, "protein": "beef" } ] },
+        { "name": "Popular Spring Roll (Veg)", "description": "Filling vegetables & herbs, serve 3 roll with dipping sauce.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Handmade Noodle Spring Roll", "description": "Special filling chow mein noodles, handmade crispy, serve 2 roll / 4 pieces with dipping sauce.", "tags": [], "variants": [ { "label": "Veg", "price": 12.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 13.00, "protein": "chicken" } ] },
+        { "name": "Chicken Skewer with Chips", "description": "Marinated chicken served 2 skewers with a bowl of chips and dipping sauce.", "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] },
+        { "name": "MT Everest Soup", "description": "Momo dumplings, diced tomatoes, onion, spring onion, and coriander topping.", "tags": ["momo"], "variants": [ { "label": "5 pcs", "price": 12.00 }, { "label": "Veg (10 pcs)", "price": 17.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken (10 pcs)", "price": 17.00, "protein": "chicken" } ] },
+        { "name": "Laphing", "description": "A demanding & popular dish from Nepal, India and Bhutan. Filling with garlic, peanuts, dry noodles, shrewan paper. Served dry or jhol with coriander topping.", "is_vegetarian": true, "tags": ["laphing"], "variants": [ { "label": "Dry", "price": 11.00, "protein": "veg", "is_vegetarian": true }, { "label": "Jhol", "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Nepali Style Sausages", "description": "Sausage skewers seasoned with Nepalese herbs, served with special sausage sauce.", "tags": ["sausage"], "variants": [ { "label": "1 pc", "price": 7.00 }, { "label": "2 pcs", "price": 12.00 } ] },
+        { "name": "Wai Wai Sadeko", "description": "Dry noodles and boiled potatoes mixed with lemon, diced tomatoes, onion, and coriander. Spicy or non spicy.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] },
+        { "name": "Chana Chatpate", "description": "Puff rice, dry noodles, and boiled potatoes mixed with lemon, diced tomatoes, onion, and coriander. Spicy or non spicy.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] },
+        { "name": "Chips Chilli", "description": "Bowl of chips, onion, capsicum, tomatoes wedges & coriander, or seasonal vegetables. Spicy sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Popular Main Course",
+      "items": [
+        { "name": "Chowmein (Wok Fry Noodles)", "description": "Noodles, onion, cabbage, carrots or seasonal vegetables, served with hot & mild momo sauce. Large portion.", "tags": ["chowmein"], "variants": [ { "label": "Vegetables", "price": 18.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 21.00, "protein": "chicken" }, { "label": "Egg", "price": 21.00, "protein": "egg" }, { "label": "Pork", "price": 22.00, "protein": "pork" }, { "label": "Buff", "price": 23.00, "protein": "buff" }, { "label": "Beef", "price": 23.00, "protein": "beef" }, { "label": "Prawn", "price": 25.00, "protein": "prawn" }, { "label": "Mixed (Chicken+pork+buff)", "price": 25.00 } ] },
+        { "name": "Authentic Nepali Fried Rice", "description": "Rice, onion, cabbage, carrots or seasonal vegetables, served with hot & mild momo sauce. Large portion.", "tags": ["fried-rice"], "variants": [ { "label": "Vegetables", "price": 17.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 20.00, "protein": "chicken" }, { "label": "Egg", "price": 20.00, "protein": "egg" }, { "label": "Pork", "price": 21.00, "protein": "pork" }, { "label": "Buff", "price": 22.00, "protein": "buff" }, { "label": "Beef", "price": 22.00, "protein": "beef" }, { "label": "Prawn", "price": 24.00, "protein": "prawn" }, { "label": "Mixed (Chicken+pork+buff)", "price": 24.00 } ] },
+        { "name": "Himalayan Thukpa (Noodle Soup)", "description": "Noodles, momos, onion, cabbage, carrots or seasonal vegetables. Large portion.", "tags": ["thukpa"], "variants": [ { "label": "Vegetables", "price": 18.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 21.00, "protein": "chicken" }, { "label": "Egg", "price": 21.00, "protein": "egg" }, { "label": "Pork", "price": 23.00, "protein": "pork" }, { "label": "Buff", "price": 25.00, "protein": "buff" }, { "label": "Beef", "price": 25.00, "protein": "beef" }, { "label": "Prawn", "price": 25.00, "protein": "prawn" }, { "label": "Mixed (Chicken+pork+buff)", "price": 25.00 } ] },
+        { "name": "Everest Curry with Rice", "description": "Marinated chicken or pork, onion, capsicum, tomatoes, coriander or seasonal vegetables, served with a bowl of rice.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": 22.00, "protein": "chicken" }, { "label": "Pork", "price": 23.00, "protein": "pork" }, { "label": "Mixed (Chicken+pork)", "price": 24.00 } ] },
+        { "name": "Nepal Style Stay Chicken (Sekuwa) with Rice", "description": "Half kg pre-marinated chicken Maryland pieces (sekuwa), tomatoes wedges, capsicum, onion, pak choy, served with bowl of rice.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 25.00, "protein": "chicken" } ] },
+        { "name": "Chilli Chicken with Rice or Roti", "description": "Marinated chicken, onion, capsicum, tomatoes wedges & coriander, or seasonal vegetables, served with a bowl of rice.", "tags": ["chilli"], "variants": [ { "label": null, "price": 22.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "House Special",
+      "items": [
+        { "name": "Wok Fried Alu with Roti", "description": "Potatoes wok-fried with onion, capsicum, tomatoes, or seasonal vegetables. Served with paratha bread.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 17.00, "protein": "veg" } ] },
+        { "name": "B.C.F.C - Half KG & Chips", "description": "Half kg boneless crunchy chicken Maryland pieces, a bowl of chips, dipping sauce.", "tags": [], "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] },
+        { "name": "C.F.C.W & Chips (Crunchy Fried Chicken Wings)", "description": "Crunchy deep-fried chicken middle wings and mini drumstick, a bowl of chips & dipping sauce.", "tags": ["wings"], "variants": [ { "label": "8 pieces", "price": 21.00, "protein": "chicken" }, { "label": "16 pieces", "price": 34.00, "protein": "chicken" } ] },
+        { "name": "Pork Belly with Rice", "description": "Pork belly, capsicum, onion and tomato wedges or seasonal vegetables served with rice.", "tags": [], "variants": [ { "label": null, "price": 25.00, "protein": "pork" } ] },
+        { "name": "Nepalese Chicken Chopsuey", "description": "Chicken, crunchy deep-fried noodles, sliced cabbage, carrots, onion, spring onion, garlic, and 2 eggs on the top.", "tags": [], "variants": [ { "label": null, "price": 26.00, "protein": "chicken" } ] },
+        { "name": "Wok Fried Sukuti with Rice or Puff Rice", "description": "Dry crunchy meats, capsicum, onion, tomato wedges or seasonal vegetables and Nepalese herbs served with hot & mild momo sauce.", "tags": ["sukuti"], "variants": [ { "label": null, "price": 25.00, "protein": "buff" } ] },
+        { "name": "Special Keema Noodles / Nepali Spaghetti", "description": "Fried chicken minced, boiled noodles, capsicum, garlic, onion, pak choy, soy sauce, peanut, sesame seeds, chili paste, vinegar and Szechuan pepper.", "tags": ["keema-noodle"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Nepali Tea & Dessert",
+      "items": [
+        { "name": "Everest Milk Tea", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Himalayan Green Tea Pot (Zero Sugar)", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Dhudbari (Rasmalai)", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Lal Mohan (Gulab Jamun)", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Jerry (Jalebi)", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "items": [
+        { "name": "Water 600ml", "tags": ["drinks"], "variants": [ { "label": null, "price": 3.00 } ] },
+        { "name": "Soft Drink (375ml)", "tags": ["drinks"], "variants": [ { "label": null, "price": 3.50 } ] },
+        { "name": "Nepali Red Bull (250ml)", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Badam Drink (Almond)", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Ginger Beer", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Lipton Iced Tea", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Coconut Water", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] }
+      ]
+    }
+  ]
+}
