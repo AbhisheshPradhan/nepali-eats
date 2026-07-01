@@ -96,6 +96,18 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "makai", kind: "dish", name: "Makai (Corn)", synonyms: ["makkai", "poleko makai", "grilled corn", "corn"] },
   { slug: "fried-fish", kind: "dish", name: "Fried Fish", synonyms: ["tareko machha", "fish fry", "machha fry"] },
   { slug: "fokso", kind: "dish", name: "Fokso", synonyms: ["foksa", "lungs", "fokso fry"], style: "newari" },
+  { slug: "chicken-65", kind: "dish", name: "Chicken 65", synonyms: ["chicken sixty five", "sixty five 65"] },
+  { slug: "manchurian", kind: "dish", name: "Manchurian", synonyms: ["manchuria", "munchurian", "gobi manchurian"] },
+  { slug: "dal", kind: "dish", name: "Dal", synonyms: ["daal", "dahl", "lentils", "tadka dal", "dal tadka", "dal makhani", "jhaneko daal"] },
+  { slug: "gundruk", kind: "dish", name: "Gundruk", synonyms: ["gundruk bhatmas"] },
+  { slug: "dhido", kind: "dish", name: "Dhido", synonyms: ["dhindo", "dhido ko thali"] },
+  { slug: "rajma", kind: "dish", name: "Rajma", synonyms: ["kidney bean curry"] },
+  { slug: "nimki", kind: "dish", name: "Nimki", synonyms: ["aloo nimki", "aalu nimki"] },
+  { slug: "puri", kind: "dish", name: "Puri", synonyms: ["poori", "puri tarkari", "aloo puri"] },
+  { slug: "chaap", kind: "dish", name: "Soya Chaap", synonyms: ["soya chaap", "soybean chaap", "malai chaap"] },
+  { slug: "kofta", kind: "dish", name: "Kofta", synonyms: ["malai kofta", "aloo kofta", "kofta balls"] },
+  { slug: "spring-roll", kind: "dish", name: "Spring Roll", synonyms: ["spring rolls", "veg spring roll"] },
+  { slug: "tibetan-bread", kind: "dish", name: "Tibetan Bread", synonyms: ["balep", "tibetan flatbread"], style: "tibetan" },
 
   // --- Styles (flat, top-level) ---------------------------------------------
   { slug: "newari", kind: "style", name: "Newari", synonyms: ["newa", "newar"] },
@@ -115,6 +127,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "chilli-momo", kind: "preparation", parent: "momo", name: "Chilli Momo (C-Momo)", synonyms: ["c-momo", "c momo", "chili momo", "chilly momo"] },
   { slug: "poleko-momo", kind: "preparation", parent: "momo", name: "Poleko Momo", synonyms: ["poleko momo", "grilled momo"] },
   { slug: "choila-momo", kind: "preparation", parent: "momo", name: "Choila Momo", synonyms: ["choyla momo", "chhoila momo"] },
+  { slug: "tapari-momo", kind: "preparation", parent: "momo", name: "Tapari Momo", synonyms: ["tapari momo", "tapari"] },
   // (protein is NOT a momo child — see the cross-cutting protein facet below)
 
   // --- Protein: cross-cutting facet (NOT children of any dish) ---------------

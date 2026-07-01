@@ -58,6 +58,9 @@ The main window batches these into taxonomy.ts + re-runs seed-taxonomy, then res
 - kofta (dish, veg/meat balls) — Spice Mix (Malai Kofta) — tagged [curry] fallback
 - pulao / pilaf (dish, flavoured rice) — Spice Mix (Peas/Kashmiri/Lemon/Coconut Pulao) [dup of Himalayan Tandoor pulao need] — currently tagged []
   (Spice Mix "Munchurian", "Sixty Five 65" → manchurian/chicken-65 already logged; raita/papadum/green-salad sides tagged [])
+- spring-roll (dish) — Kathmandu Newa Chhe'n (Spring Roll) — currently tagged []
+- tibetan-bread (dish, fried Tibetan flatbread / balep) — Kathmandu Newa Chhe'n (Tibetan Bread) — currently tagged []
+  (Kathmandu Newa: used now-live saag on Churpi Saag & fried-fish on Tareko Macha; kofta (Kofta Balls/Aloo Kofta) already logged)
 
 ## RESOLVED 2026-07-01 (batched by coordinator)
 ADDED to vocab (usable now): dosa, pulao, saag, chopsuey, kati-roll, thenthuk,
@@ -68,3 +71,11 @@ wrap, tacos, nachos, salad, chips.
 BACKFILL (retag+reseed at end): Laltin(makai,fried-fish), Himalayan Tandoor(pulao,
 fried-fish), Lahana(kati-roll,fokso,chopsuey,poleko/choila-momo), Tusa(kachila,saag,
 chokha,thenthuk,batuk), Lababdar(dosa,crab,scallop,calamari).
+
+## RESOLVED round 2 (2026-07-01)
+ADDED: chicken-65, manchurian, dal, gundruk, dhido, rajma, nimki, puri, chaap,
+kofta, spring-roll, tibetan-bread, tapari-momo. SKIPPED (not Nep/Ind/Tib): bao,
+pizza, poke-bowl, quesadilla, enchilada, gravy/dressing/crunchy-momo (→ map to
+jhol/fried at reseed). Backfill queue extends: +Indus GC(chicken-65,manchurian,dal),
+Momos Hub(gundruk,dhido,rajma), Chilli Everest(manchurian,tapari-momo,nimki,puri),
+Spice Mix(chaap,kofta,pulao,manchurian,chicken-65), Kathmandu Newa(spring-roll,tibetan-bread,kofta), Street Eats(fusion, skip Western).
