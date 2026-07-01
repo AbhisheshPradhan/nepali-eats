@@ -1,0 +1,117 @@
+{
+  "slug": "chomolungma-nepalese-cuisine-griffith",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Khaja (Starters)",
+      "items": [
+        { "name": "Steam Momo", "description": "Nepalese style dumplings filled with mince, vegetables and spices, served with Nepalese style tomato and sesame chutney.", "tags": ["steamed-momo"], "variants": [ { "label": "Veg", "price": 16.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 16.90, "protein": "chicken" }, { "label": "Pork", "price": 16.90, "protein": "pork" } ] },
+        { "name": "Kothey Momo", "tags": ["kothey-momo"], "variants": [ { "label": "Veg", "price": 18.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.90, "protein": "chicken" }, { "label": "Pork", "price": 18.90, "protein": "pork" } ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [ { "label": "Veg", "price": 18.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.90, "protein": "chicken" }, { "label": "Pork", "price": 18.90, "protein": "pork" } ] },
+        { "name": "Chau Chau (Chowmein)", "description": "Nepalese style stir fried noodles with ginger, garlic and fresh vegetables garnished with fresh coriander.", "tags": ["chowmein"], "variants": [ { "label": "Veg", "price": 21.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 21.90, "protein": "chicken" }, { "label": "Pork", "price": 21.90, "protein": "pork" }, { "label": "Lamb", "price": 21.90, "protein": "lamb" }, { "label": "Beef", "price": 21.90, "protein": "beef" }, { "label": "King Prawn", "price": 22.90, "protein": "prawn" } ] },
+        { "name": "Thukpa (Noodle Soup)", "description": "Nepalese style noodle soup with ginger, garlic and fresh vegetables garnished with fresh coriander.", "tags": ["thukpa"], "variants": [ { "label": "Veg", "price": 20.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 20.90, "protein": "chicken" }, { "label": "Pork", "price": 20.90, "protein": "pork" }, { "label": "Lamb", "price": 20.90, "protein": "lamb" }, { "label": "Beef", "price": 20.90, "protein": "beef" }, { "label": "King Prawn", "price": 21.90, "protein": "prawn" } ] },
+        { "name": "Sekuwa", "description": "Marinated in traditional Nepalese spices and grilled, served with puffed rice.", "tags": ["sekuwa"], "variants": [ { "label": "Chicken", "price": 16.90, "protein": "chicken" }, { "label": "Pork", "price": 16.90, "protein": "pork" }, { "label": "Lamb", "price": 16.90, "protein": "lamb" }, { "label": "Beef", "price": 16.90, "protein": "beef" } ] },
+        { "name": "Choyela", "description": "Saute with ginger, garlic, chilly, mustard oil and red onions, served with puffed rice.", "tags": ["choila"], "variants": [ { "label": "Chicken", "price": 17.90, "protein": "chicken" }, { "label": "Pork", "price": 17.90, "protein": "pork" }, { "label": "Lamb", "price": 17.90, "protein": "lamb" }, { "label": "Beef", "price": 17.90, "protein": "beef" } ] },
+        { "name": "Khaja Set", "description": "Choice of 3 pcs momo (chicken, pork, veg), choila (select meat), badam sadeko, aachar, tomato and sesame chutney.", "tags": ["khaja", "newari"], "variants": [ { "label": "Chicken", "price": 23.90, "protein": "chicken" }, { "label": "Pork", "price": 23.90, "protein": "pork" }, { "label": "Lamb", "price": 23.90, "protein": "lamb" }, { "label": "Beef", "price": 23.90, "protein": "beef" } ] },
+        { "name": "Egg Pakora", "description": "Deep fried in a batter (chickpeas flour) served with tomato and sesame chutney.", "tags": ["pakora"], "variants": [ { "label": null, "price": 13.90, "protein": "egg" } ] },
+        { "name": "Prawn Pakora", "tags": ["pakora"], "variants": [ { "label": null, "price": 15.90, "protein": "prawn" } ] },
+        { "name": "Chicken (Boneless) Fry", "tags": ["pakora"], "variants": [ { "label": null, "price": 13.90, "protein": "chicken" } ] },
+        { "name": "Mix Vegetable Pakora", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 13.90, "protein": "veg" } ] },
+        { "name": "Baramundi Pakora", "tags": ["pakora"], "variants": [ { "label": null, "price": 14.90, "protein": "fish" } ] }
+      ]
+    },
+    {
+      "name": "Thali",
+      "items": [
+        { "name": "Thali", "description": "Choice of curry served with white rice, red dal (lentils), saag (sauteed spinach), and Chomolungma chutney.", "tags": ["dal-bhat"], "variants": [ { "label": "Mix Vegetable", "price": 24.90, "protein": "veg", "is_vegetarian": true }, { "label": "Diced Beef", "price": 24.90, "protein": "beef" }, { "label": "Diced Lamb", "price": 25.90, "protein": "lamb" }, { "label": "Chicken (Boneless)", "price": 24.90, "protein": "chicken" }, { "label": "Pork Belly", "price": 24.90, "protein": "pork" }, { "label": "Goat with bones", "price": 25.90, "protein": "goat" }, { "label": "King Prawn", "price": 26.90, "protein": "prawn" }, { "label": "Barramundi Fish", "price": 26.90, "protein": "fish" }, { "label": "Paneer", "price": 25.90, "protein": "paneer", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Curry",
+      "items": [
+        { "name": "Himalayan Sauce", "description": "Special gravy cooked in Himalayan spices, ginger, garlic, onions and tomatoes. Mild / medium / hot.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": 22.90, "protein": "chicken" }, { "label": "Pork Belly", "price": 22.90, "protein": "pork" }, { "label": "Beef", "price": 22.90, "protein": "beef" }, { "label": "Lamb", "price": 23.90, "protein": "lamb" }, { "label": "Chicken with eggs", "price": 23.90, "protein": "chicken" }, { "label": "Goat with bones", "price": 23.90, "protein": "goat" }, { "label": "Lamb with potatoes", "price": 24.90, "protein": "lamb" } ] },
+        { "name": "Vindaloo Sauce", "description": "Special gravy cooked in spices, ginger, garlic, onions and tomatoes with a hint of sourness. Mild / medium / hot.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": 23.90, "protein": "chicken" }, { "label": "Pork Belly", "price": 23.90, "protein": "pork" }, { "label": "Beef", "price": 23.90, "protein": "beef" }, { "label": "Lamb", "price": 24.90, "protein": "lamb" }, { "label": "Chicken with eggs", "price": 24.90, "protein": "chicken" }, { "label": "Goat with bones", "price": 24.90, "protein": "goat" }, { "label": "Lamb with potatoes", "price": 25.90, "protein": "lamb" } ] },
+        { "name": "Saag (Spinach)", "description": "Creamy sauce cooked with spinach and spices. Mild / medium / hot.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": 24.90, "protein": "chicken" }, { "label": "Pork Belly", "price": 24.90, "protein": "pork" }, { "label": "Beef", "price": 24.90, "protein": "beef" }, { "label": "Lamb", "price": 25.90, "protein": "lamb" }, { "label": "Paneer", "price": 25.90, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Nariwal (Coconut)", "description": "Creamy sauce cooked with coconut milk and spices. Mild / medium / hot.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": 23.90, "protein": "chicken" }, { "label": "Chicken with Eggs", "price": 24.90, "protein": "chicken" }, { "label": "Beef", "price": 23.90, "protein": "beef" }, { "label": "Lamb", "price": 24.90, "protein": "lamb" }, { "label": "Paneer", "price": 24.90, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Green Beans", "description": "Cooked with tomatoes, onions, ginger, garlic and spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Aloo Cauli", "description": "Potato and cauliflower cooked in gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Chomolungma Tarkari", "description": "Mixed vegetable cooked in gravy topped with creamy sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "veg" } ] },
+        { "name": "Paneer Matar", "description": "Cottage cheese cooked with peas topped with creamy sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Aloo Matar", "description": "Potatoes and peas cooked in coconut milk.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.90, "protein": "veg" } ] },
+        { "name": "Egg Curry", "description": "Boiled eggs cooked with tomatoes, ginger, garlic and special spices gravy.", "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "egg" } ] },
+        { "name": "Eggplant Curry", "description": "Fried eggplant sauteed in garlic with capsicum, tomatoes, onion and chef's special spices gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.90, "protein": "veg" } ] },
+        { "name": "Mango Chicken", "description": "Cooked in mango sauce and mango slices. Mild / medium / hot.", "tags": ["curry"], "variants": [ { "label": null, "price": 24.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Seafood",
+      "items": [
+        { "name": "Prawn", "description": "Cooked with Himalayan gravy. Mild / medium / hot.", "tags": ["curry"], "variants": [ { "label": "Himalayan", "price": 24.90, "protein": "prawn" }, { "label": "Saag", "price": 25.90, "protein": "prawn" }, { "label": "Coconut", "price": 25.90, "protein": "prawn" }, { "label": "Vindaloo", "price": 25.90, "protein": "prawn" } ] },
+        { "name": "Fish", "description": "Cooked with Himalayan gravy. Mild / medium / hot.", "tags": ["curry"], "variants": [ { "label": "Himalayan", "price": 23.90, "protein": "fish" }, { "label": "Saag", "price": 24.90, "protein": "fish" }, { "label": "Coconut", "price": 24.90, "protein": "fish" }, { "label": "Vindaloo", "price": 24.90, "protein": "fish" } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Steamed Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.50, "protein": "veg" } ] },
+        { "name": "Roti", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 3.50, "protein": "veg" } ] },
+        { "name": "Papadum (4 pcs)", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.00, "protein": "veg" } ] },
+        { "name": "Mango Pickle", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.00, "protein": "veg" } ] },
+        { "name": "Sweet Mango Chutney", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.00, "protein": "veg" } ] },
+        { "name": "Chomolungma Chutney", "description": "Diced cucumbers, carrots, boiled potatoes, green peas mixed in a sesame paste.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5.00, "protein": "veg" } ] },
+        { "name": "Red Dal Tadka", "description": "Tempered with cumin, red onion and tomatoes.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.90, "protein": "veg" } ] },
+        { "name": "Badam Sadeko", "description": "Roasted peanuts mixed with tomatoes, cucumbers, carrots, and fresh herbs.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.90, "protein": "veg" } ] },
+        { "name": "Chickpea Salad", "description": "Chickpeas mixed with puffed rice, lime juice, chopped onions and green herbs.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] },
+        { "name": "Fresh Garden Salad", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] },
+        { "name": "Wai Wai Sadeko", "description": "Nepali instant noodle mixed with diced cucumber, carrots, onion, and lime juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Lunch Menu (with Rice)",
+      "items": [
+        { "name": "Lunch (with Rice)", "tags": [], "variants": [ { "label": "Goat", "price": 15.90, "protein": "goat" }, { "label": "Paneer", "price": 15.90, "protein": "paneer", "is_vegetarian": true }, { "label": "Prawn", "price": 15.90, "protein": "prawn" }, { "label": "Fish", "price": 15.90, "protein": "fish" }, { "label": "Lamb", "price": 15.90, "protein": "lamb" }, { "label": "Beef", "price": 14.90, "protein": "beef" }, { "label": "Chicken", "price": 14.90, "protein": "chicken" }, { "label": "Mix Vegetables", "price": 14.90, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Banquets",
+      "items": [
+        { "name": "Banquet Menu 1", "description": "Minimum 3 people. Entree: momo (3 pcs), sekuwa/choyela, papadum. Mains: chicken Himalayan, lamb saag, beef vindaloo, mix vegetables, Chomolungma chutney, rice & roti. Chomolungma tea.", "tags": [], "variants": [ { "label": "per person", "price": 35.90 } ] },
+        { "name": "Banquet Menu 2", "description": "Minimum 3 people. Entree: momo (3 pcs), sekuwa/choyela, papadum. Mains: chicken Himalayan, lamb saag, beef vindaloo, mix vegetables, Chomolungma chutney, rice & roti. Dessert: gulab jamun with ice cream, Chomolungma tea.", "tags": [], "variants": [ { "label": "per person", "price": 38.90 } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Gulab Jamun (2 pcs)", "description": "Warm deep fried milk dumplings soaked in a sugar syrup.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 7.90, "protein": "veg" } ] },
+        { "name": "Hot Millet Pancake", "description": "Millet pancakes served with choc, banana, and mixed berry sauce.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 13.90, "protein": "veg" } ] },
+        { "name": "Ice Cream", "description": "Toppings choc / mango / berries.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 7.50, "protein": "veg" } ] },
+        { "name": "Gulab Jamun with Ice Cream", "description": "Gulab jamun (2 pcs) served with ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 9.90, "protein": "veg" } ] },
+        { "name": "Plain Yoghurt", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 6.90, "protein": "veg" } ] },
+        { "name": "Kulfi", "description": "Frozen dessert made from thickened milk with shredded coconut and mango pulp.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 6.90, "protein": "veg" } ] },
+        { "name": "Fried Ice Cream", "description": "Battered with eggs and mixed with coconut then deep fried.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 6.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Soda Water / Sparkling Water", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Lemon Lime Bitter", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Juices (Apple / Orange)", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Coconut Water", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.90 } ] },
+        { "name": "Soft Drinks (Fanta / Sprite / Coke)", "tags": ["drinks"], "variants": [ { "label": null, "price": 3.50 } ] }
+      ]
+    },
+    {
+      "name": "Coffee & Tea",
+      "items": [
+        { "name": "Coffee", "description": "Cappuccino / flat white / latte / long black / short.", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50 } ] },
+        { "name": "Tea (English / Green)", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Chomolungma Tea", "description": "Special masala tea with cardamoms, ginger and milk with sugar.", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Hot Milk", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] }
+      ]
+    }
+  ]
+}
