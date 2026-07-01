@@ -17,27 +17,34 @@ run this in parallel on the SAME repo, so follow the coordination + safety rules
    - exit 0 → you own it, proceed.
    - non-zero (already exists) → another window has it; try the next restaurant.
    - a lock dir older than ~90 min is stale; you may `rm -rf` it and re-claim.
-4. Get its `id` + `menu_url` from the DB: query `restaurants WHERE slug=$1`.
-   **Use the real `id` for the local file `media/menus/<id>.pdf`** (NOT the review count).
+4. Get its `id`, `menu_url` AND `website` from the DB: `SELECT id, menu_url, website FROM
+   restaurants WHERE slug=$1`. **Use the real `id` for the local file `media/menus/<id>.pdf`**
+   (NOT the review count).
 
 ## Do the menu
-5. **Fetch the source — RESTAURANT'S OWN MENU ONLY.**
-   - **⛔ NEVER transcribe from an online ordering / delivery platform.** Those menus are
-     NOT the real restaurant menu (marked-up prices, subset of items, platform-only combos).
-     This excludes aggregators (Uber Eats, DoorDash, Menulog, Deliveroo, HungryPanda,
-     order.store) AND third-party ordering/menu hosts (**yumbojumbo, tuckerfox, tapnorder,
-     grubbio, ordereats, bopple, mryum, tuckerfox**, any `*.<platform>.com/menu`). Only use
-     the restaurant's **own website** (its own domain) PDF/menu page, or physical-menu photos.
-   - If `media/menus/<id>.pdf` exists use it; else use `menu_url` **only if it's the
-     restaurant's own domain**. If the only source is an ordering platform, **SKIP** the
-     restaurant (leave the `.claims` lock, note it) — do not seed marked-up data.
-   - PDF → `pdftoppm -jpeg -r 140 <file> <out>/p` then **Read** each page image.
-   - Dense/tri-fold → render at `-r 300` and crop panels with pdftoppm `-x -y -W -H`.
-   - Own-site page (no PDF) → render with Playwright (`web/node_modules/playwright`), grab
-     menu images or HTML text. Skip junk `menu_url`s (CSS files, `http://menu/`, logos).
+5. **Fetch the source — the RESTAURANT'S OWN WEBSITE menu only.** Decide the source in this order:
+   1. If `media/menus/<id>.pdf` exists and isn't a placeholder/logo → use it.
+   2. Else if `menu_url` is on the **restaurant's own domain** (matches `website`, not a
+      platform) → use it.
+   3. Else → **go to the restaurant's `website`** and look for its menu (a `/menu` page, a
+      linked menu PDF, or menu images). Render with Playwright (`web/node_modules/playwright`)
+      if the page is JS-rendered; grab the menu PDF/images/HTML text there.
+   4. If you still can't find an own-website menu → **SKIP** the restaurant (leave the
+      `.claims` lock, note it in `MENU-TAXONOMY-TODO.md`). Do not seed.
+   - **⛔ IGNORE all online ordering / delivery platform menus & URLs entirely.** Their menus
+     are NOT the real restaurant menu (marked-up prices, subset, platform-only combos):
+     aggregators (Uber Eats, DoorDash, Menulog, Deliveroo, HungryPanda, order.store) AND
+     third-party ordering/menu hosts (**yumbojumbo, tuckerfox, tapnorder, grubbio, ordereats,
+     bopple, mryum**, any `*.<platform>.com/menu`). If `menu_url` is one of these, disregard it
+     and use `website` per step 5.3. Never seed from these even to "fill gaps".
+   - PDF → `pdftoppm -jpeg -r 140 <file> <out>/p` then **Read** each page image. Dense/tri-fold
+     → render at `-r 300` and crop panels with pdftoppm `-x -y -W -H`. Skip junk `menu_url`s
+     (CSS files, `http://menu/`, logos).
    - **⚠️ Verify the branch.** Multi-branch chains often have DIFFERENT menus/prices per
-     location. Check the address printed on the menu matches this restaurant's suburb. If
-     the `menu_url` is a placeholder/sample or wrong branch, find the right file or skip.
+     location. Check the address printed on the menu matches this restaurant's suburb. If the
+     source is a placeholder/sample or wrong branch, find the right file or skip.
+   - When you find the real menu, `UPDATE restaurants SET menu_url=<real own-site url>` so the
+     record points at the correct source (not the platform link).
 6. **Transcribe** to `scraper/menu-data/<slug>.json` per the contract:
    - Preparation = separate items; size/protein = variants; consolidate protein-only items.
    - Momo grids: one item per prep, protein as variants. "Choice of X/Y/Z" → variants.
