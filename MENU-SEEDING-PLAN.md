@@ -56,12 +56,12 @@ only where a spot has no own menu.
 
 Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-progress.js --write`. `📁local` = file under `media/menus/`.
 
-**Progress: 4 / 147 seeded (3%)** · refreshed 2026-06-30
+**Progress: 5 / 147 seeded (3%)** · refreshed 2026-07-01
 
-### A. PDF menus — start here — 1/26 done
+### A. PDF menus — start here — 2/26 done
 - [x] **Falcha Town Hall** (Sydney, NSW) · 2853 rev · ✓ 53 items
     https://falcha.com.au/wp-content/uploads/2026/04/Falcha_Townhall_Menu_Nov2025.pdf
-- [ ] **Funky Momo** (Victoria Park, WA) · 1406 rev · 📁local
+- [x] **Funky Momo** (Victoria Park, WA) · 1406 rev · ✓ 89 items
     http://funkymomo.com.au/wp-content/uploads/2023/03/Food-Menu-funky-final.pdf
 - [ ] **Hungry Birds Burnie** (Burnie, TAS) · 833 rev
     https://hungrybirds.com.au/s/Hungry-Birds-Restuarant_Menu.pdf
@@ -211,10 +211,10 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://himalayanrestaurant.com.au/menu
 - [ ] **Base Camp** (Northcote, VIC) · 260 rev
     http://www.basecamprestaurant.com.au/menu
-- [ ] **Deurali Restaurant** (Salisbury, SA) · 247 rev
-    https://deurali.com.au/our-menus/
 - [ ] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev
     https://thecafetalk.com.au/our-menu/
+- [ ] **Deurali Restaurant** (Salisbury, SA) · 247 rev
+    https://deurali.com.au/our-menus/
 - [ ] **The momos** (Hornsby, NSW) · 240 rev
     https://themomos-hornsby.yumbojumbo.com.au/menu
 - [ ] **Gurkha's Fusion** (Maroochydore, QLD) · 237 rev
