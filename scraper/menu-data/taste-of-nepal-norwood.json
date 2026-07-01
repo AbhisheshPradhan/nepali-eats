@@ -1,0 +1,109 @@
+{
+  "slug": "taste-of-nepal-norwood",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Banquets",
+      "items": [
+        { "name": "Mini Banquet (for 2 only)", "description": "Recommended for first-time couples. Mixed entree: chicken dumplings, charcoal clay oven chicken, crispy beetroot patties. Mains: slow cooked lamb, butter chicken. Sides: eggplant, fragrant basmati rice, freshly baked roti.", "tags": [], "variants": [ { "label": "per person", "price": 42.90 } ] },
+        { "name": "Chef's Banquet", "description": "Minimum 4 people. Mixed entree: chicken dumplings, crispy beetroot patties, clay oven Portobello mushrooms, tareko machha. Mains (choice of 4): charcoal clay oven pork cutlets or clay oven chicken, clay oven vegetables, barramundi curry, goat on the bone, butter chicken, seasonal mix vegetables. Sides + dessert.", "tags": [], "variants": [ { "label": "per person", "price": 55.90 } ] },
+        { "name": "Himalayan Banquet", "description": "Minimum 4 people. Mixed entree: chicken dumplings, charcoal clay oven chicken, white-eyed bean patties, crispy beetroot patties. Mains: butter chicken, king prawns, slow cooked lamb. Sides included.", "tags": [], "variants": [ { "label": "per person", "price": 45.90 } ] },
+        { "name": "Vegetarian Banquet", "description": "Minimum 4 people. Vegan option available. Mixed entree: vegetarian dumplings, crispy beetroot patties, clay oven Portobello mushrooms, white-eyed bean & spinach patties. Mains: clay oven vegetables, chef's special eggplant curry, nine-bean lentils with bok choy. Sides included.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "per person", "price": 44.90 } ] }
+      ]
+    },
+    {
+      "name": "Entree",
+      "items": [
+        { "name": "Momo (6 pcs)", "description": "Popular steamed chicken or vegetable dumplings with tomato achar.", "tags": ["steamed-momo"], "variants": [ { "label": "Chicken", "price": 12.50, "protein": "chicken" }, { "label": "Vegetable", "price": 12.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Phulaura", "description": "White-eyed beans, spinach, spring onion patties with minted yogurt. Vegan option available.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.90, "protein": "veg" } ] },
+        { "name": "Sekuwa", "description": "Chicken thigh fillet marinated in roasted cumin, szechwan & cooked in the charcoal clay oven.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 14.50, "protein": "chicken" } ] },
+        { "name": "Chef's King Prawns", "description": "Chef's special prawn lightly spiced with tamarind sauce, salt & pepper.", "tags": [], "variants": [ { "label": null, "price": 16.90, "protein": "prawn" } ] },
+        { "name": "Tareko Machha", "description": "Chef's special fried barramundi spiced with lemon juice, curry leaf powder, Nepalese spices.", "tags": [], "variants": [ { "label": null, "price": 16.90, "protein": "fish" } ] },
+        { "name": "Samosha", "description": "Home made pastry triangles stuffed with curried potatoes & peas with minted yogurt.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Beetroot Patties", "description": "A popular street gem with an Aussie twist, prepared from beetroot, cheese & spring onion.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.90, "protein": "veg" } ] },
+        { "name": "Clay-oven Mushroom", "description": "Portobello mushroom marinated in ground mustard & spices served with edamame beans.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 14.90, "protein": "veg" } ] },
+        { "name": "Vegetarians Rejoice", "description": "A great combination of momo, beetroot patty, phulaura, clay-oven mushroom with tomato achar & minted yogurt. Vegan option available.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "For one", "price": 15.90, "protein": "veg", "is_vegetarian": true }, { "label": "For two", "price": 26.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Taste of Nepal Platter", "description": "A great combination of sekuwa, chicken momo, beetroot patty, phulaura with tomato achar & minted yoghurt.", "tags": [], "variants": [ { "label": "For one", "price": 16.50 }, { "label": "For two", "price": 28.90 } ] },
+        { "name": "Herb Roti Platter", "description": "A trio of chef's special dips served with freshly baked herb bread. Vegan option available.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 11.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Clay Oven Specialities",
+      "items": [
+        { "name": "Pork Cutlets", "description": "Delicious pork cutlets cooked in chef's special marinade & served with tamarind sauce.", "tags": ["tandoori"], "variants": [ { "label": null, "price": 30.00, "protein": "pork" } ] },
+        { "name": "Poleko Khasi", "description": "Signature juicy lamb cutlets served with minted yoghurt, baby potatoes & roasted capsicum.", "tags": ["tandoori"], "variants": [ { "label": null, "price": 35.00, "protein": "goat" } ] },
+        { "name": "Sekuwa (as a main)", "description": "Chicken thigh fillet marinated in cumin & szechwan served with baby potatoes & roasted capsicum.", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 29.00, "protein": "chicken" } ] },
+        { "name": "Clay Oven Barra", "description": "Lightly marinated barramundi fillet delicately cooked & served with citrus sauce & fresh herbs.", "tags": ["tandoori"], "variants": [ { "label": null, "price": 33.00, "protein": "fish" } ] }
+      ]
+    },
+    {
+      "name": "Masu (Meat)",
+      "items": [
+        { "name": "Goat on the Bone", "description": "Exquisite village style slow cooked goat with fenugreek, cinnamon, nutmeg, bay leaves, ginger & garlic.", "tags": ["curry"], "variants": [ { "label": null, "price": 25.00, "protein": "goat" } ] },
+        { "name": "Lamb Curry", "description": "Exquisite village style slow cooked curry of lamb enriched with cardamom, cinnamon, coriander & bay leaves.", "tags": ["curry"], "variants": [ { "label": null, "price": 25.00, "protein": "lamb" } ] },
+        { "name": "Butter Chicken", "description": "Boneless chicken smoked in clay oven & then simmered in a sauce of tomato, garlic, star anise & szechwan pepper.", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": 26.00, "protein": "chicken" } ] },
+        { "name": "Kukhura Ko Masu", "description": "Chef Nil's special traditional country style chicken curry prepared in aromatic Nepali spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] },
+        { "name": "Wild Buffalo Special", "description": "Wild water buffalo loin cubes slow braised & then stir-fried with seasonal vegetables & home ground spices.", "tags": [], "variants": [ { "label": null, "price": 31.00, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Machha Khana (Seafood)",
+      "items": [
+        { "name": "Machha Tarkari", "description": "Aromatic barramundi curry delicately cooked in a sauce of onion, tomatoes, coconut milk & special house spice blend.", "tags": ["curry"], "variants": [ { "label": null, "price": 28.00, "protein": "fish" } ] },
+        { "name": "Piro Jhingey", "description": "King prawns, pan-fried with vegetables, flavored with lemon juice & a hint of chilli.", "tags": [], "variants": [ { "label": null, "price": 30.00, "protein": "prawn" } ] },
+        { "name": "Jhingey Ko Tarkari", "description": "Chef Nil's popular king prawn dish cooked in a sauce of coconut milk, ginger & fresh curry leaves.", "tags": ["curry"], "variants": [ { "label": null, "price": 30.00, "protein": "prawn" } ] }
+      ]
+    },
+    {
+      "name": "Sakahari Bhojan (Vegetarian)",
+      "items": [
+        { "name": "Chef's Special Eggplant", "description": "Chef Nil's signature oven roasted eggplant dish slow cooked in a sauce of tomato, onion & garlic topped with home-made yoghurt and herbs. Vegan option available.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 24.00, "protein": "veg" } ] },
+        { "name": "Clay Oven Vegetables", "description": "Halloumi cheese, broccoli, beetroot, portobello mushroom cooked in clay oven & served on a bed of baby spinach. Vegan option available.", "is_vegetarian": true, "tags": ["tandoori"], "variants": [ { "label": null, "price": 30.00, "protein": "veg" } ] },
+        { "name": "Misayako Tarkari", "description": "Seasonal vegetables tossed in a pan with home ground spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 24.00, "protein": "veg" } ] },
+        { "name": "Laukako Tarkari", "description": "Chef Nil's special spiced long melon dumplings cooked in a creamy sauce of tomato, ginger, garlic & onion. Vegan option available.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 22.00, "protein": "veg" } ] },
+        { "name": "Kwati", "description": "A goodness of nine different beans cooked with tomato, onion, garlic, ginger & bok choy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 24.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Pulau Rice", "description": "An aged long-grain rice, topped with candied onion, green peas, toasted cumin seeds, slivered almonds.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.00, "protein": "veg" } ] },
+        { "name": "Steamed Basmati Rice", "description": "Fragrant basmati rice.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] },
+        { "name": "Saag", "description": "Stir-fried seasonal spinach, olive oil, chilli & cumin seed.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Bhuteko Vunta", "description": "Eggplant cooked with onion, capsicum & enriched with round mustard & fennel seeds.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.00, "protein": "veg" } ] },
+        { "name": "Jhaneko Daal", "description": "Lentils cooked in traditional style with Himalayan herb Jimbu.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.00, "protein": "veg" } ] },
+        { "name": "Garden Salad", "description": "Salad prepared from cherry tomatoes, baby spinach & strawberries enriched with Nepali style lemon & olive oil dressing.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg" } ] },
+        { "name": "Dahima (Yoghurt Salad)", "description": "A real refresher, salad made with roasted cumin, mint, cucumber & homemade yoghurt.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7.00, "protein": "veg" } ] },
+        { "name": "Pappadams", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 4.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Roti (Freshly Baked Bread)",
+      "items": [
+        { "name": "Roti", "description": "Freshly baked plain bread.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.00, "protein": "veg" } ] },
+        { "name": "Garlic Roti", "description": "Freshly baked garlic bread.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.50, "protein": "veg" } ] },
+        { "name": "Cheese Roti", "description": "Bread stuffed with cheese, garlic, onion & coriander.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] },
+        { "name": "Roti Basket (min 4 people)", "description": "A combination of the breads above.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 13.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Add On",
+      "items": [
+        { "name": "Mango Chutney", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.00, "protein": "veg" } ] },
+        { "name": "Chilly Pickle", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.00, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Butter Chicken and Rice", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Butter Chicken and Cheese Roti", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Nuggets and Chips", "tags": [], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Cheese Roti", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": 5.50, "protein": "veg" } ] },
+        { "name": "Ice Cream (Chocolate / Vanilla)", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] }
+      ]
+    }
+  ]
+}

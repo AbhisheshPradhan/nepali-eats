@@ -56,17 +56,17 @@ only where a spot has no own menu.
 
 Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-progress.js --write`. `📁local` = file under `media/menus/`.
 
-**Progress: 7 / 146 seeded (5%)** · refreshed 2026-07-01
+**Progress: 8 / 146 seeded (5%)** · refreshed 2026-07-01
 
-### A. PDF menus — start here — 4/25 done
+### A. PDF menus — start here — 5/25 done
 - [x] **Falcha Town Hall** (Sydney, NSW) · 2853 rev · ✓ 53 items
     https://falcha.com.au/wp-content/uploads/2026/04/Falcha_Townhall_Menu_Nov2025.pdf
 - [x] **Funky Momo** (Victoria Park, WA) · 1406 rev · ✓ 89 items
     http://funkymomo.com.au/wp-content/uploads/2023/03/Food-Menu-funky-final.pdf
 - [x] **Tasty Momo Restaurant Nepalese & India** (Dianella, WA) · 723 rev · ✓ 90 items
     https://tastymomo.com.au/wp-content/uploads/2026/01/TASTY-MOMO-MENU-Cloverdale-V.6.pdf
-- [ ] **Taste of Nepal** (Norwood, SA) · 697 rev · 📁local
-    https://www.tasteofnepal.com.au/uploads/tonmenu/1731924120_6812_TasteofNepal_Drinks_Menu.p
+- [x] **Taste of Nepal** (Norwood, SA) · 697 rev · ✓ 51 items
+    https://www.tasteofnepal.com.au/uploads/tonmenu/1734847921_6989_TON%20New%20%20Dine%20In%2
 - [ ] **Chomolungma Nepalese Cuisine** (Griffith, ACT) · 642 rev · 📁local
     https://chomolungmacuisine.com.au/wp-content/uploads/2024/03/White-Minimal-Restaurant-Food
 - [ ] **Elektra - Himalayan Alchemy House** (Fitzroy, VIC) · 549 rev · 📁local
