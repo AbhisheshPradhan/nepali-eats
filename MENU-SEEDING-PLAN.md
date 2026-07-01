@@ -56,9 +56,9 @@ only where a spot has no own menu.
 
 Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-progress.js --write`. `📁local` = file under `media/menus/`.
 
-**Progress: 9 / 146 seeded (6%)** · refreshed 2026-07-01
+**Progress: 11 / 146 seeded (8%)** · refreshed 2026-07-01
 
-### A. PDF menus — start here — 6/25 done
+### A. PDF menus — start here — 8/25 done
 - [x] **Falcha Town Hall** (Sydney, NSW) · 2853 rev · ✓ 53 items
     https://falcha.com.au/wp-content/uploads/2026/04/Falcha_Townhall_Menu_Nov2025.pdf
 - [x] **Funky Momo** (Victoria Park, WA) · 1406 rev · ✓ 89 items
@@ -69,9 +69,9 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://www.tasteofnepal.com.au/uploads/tonmenu/1734847921_6989_TON%20New%20%20Dine%20In%2
 - [x] **Chomolungma Nepalese Cuisine** (Griffith, ACT) · 642 rev · ✓ 59 items
     https://chomolungmacuisine.com.au/wp-content/uploads/2024/03/White-Minimal-Restaurant-Food
-- [ ] **Elektra - Himalayan Alchemy House** (Fitzroy, VIC) · 549 rev · 📁local
+- [x] **Elektra - Himalayan Alchemy House** (Fitzroy, VIC) · 549 rev · ✓ 47 items
     https://elektrafitzroy.com.au/wp-content/uploads/2022/11/Elektra-menu-2023.pdf
-- [ ] **The Saffron House** (Blackburn South, VIC) · 531 rev · 📁local
+- [x] **The Saffron House** (Blackburn South, VIC) · 531 rev · ✓ 94 items
     https://www.thesaffronhouse.com.au/s/HimalayanBelt_J42140_A4_Menus_SaffronHouseTakeawayAug
 - [ ] **Indus Indian &Nepalese Restaurant Gold** (Surfers Paradise, QLD) · 522 rev · 📁local
     https://indusrestaurant.com.au/storage/app/public/branch_images/1765272561-1608.pdf
@@ -209,10 +209,10 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://himalayanrestaurant.com.au/menu
 - [ ] **Base Camp** (Northcote, VIC) · 260 rev
     http://www.basecamprestaurant.com.au/menu
-- [ ] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev
-    https://thecafetalk.com.au/our-menu/
 - [ ] **Deurali Restaurant** (Salisbury, SA) · 247 rev
     https://deurali.com.au/our-menus/
+- [ ] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev
+    https://thecafetalk.com.au/our-menu/
 - [ ] **The momos** (Hornsby, NSW) · 240 rev
     https://themomos-hornsby.yumbojumbo.com.au/menu
 - [ ] **Gurkha's Fusion** (Maroochydore, QLD) · 237 rev

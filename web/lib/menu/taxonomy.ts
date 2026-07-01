@@ -115,6 +115,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "goat", kind: "protein", name: "Goat", synonyms: ["mutton", "khasi", "khasi ko masu"] },
   { slug: "buff", kind: "protein", name: "Buff", synonyms: ["buffalo", "rango", "rango ko masu"] },
   { slug: "beef", kind: "protein", name: "Beef", synonyms: ["cow"] },
+  { slug: "duck", kind: "protein", name: "Duck", synonyms: ["haans"] },
   { slug: "pork", kind: "protein", name: "Pork", synonyms: ["bangur", "sungur"] },
   { slug: "fish", kind: "protein", name: "Fish", synonyms: ["machha"] },
   { slug: "prawn", kind: "protein", name: "Prawn", synonyms: ["shrimp", "jhinge", "king prawn"] },
