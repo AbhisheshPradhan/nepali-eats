@@ -3,6 +3,7 @@
 //
 //   node scraper/seed-menu.js <slug>            # dry-run: validate tags + preview
 //   node scraper/seed-menu.js <slug> --commit   # apply in one transaction
+//   node scraper/seed-menu.js --list-tags       # print the controlled vocab (no DB)
 //
 // Behaviour:
 //  - HARD-ERRORS on any tag/protein slug not in dish_categories (the controlled-vocab
@@ -19,10 +20,30 @@ import { DISH_CATEGORIES } from "../web/lib/menu/taxonomy.ts";
 dotenv.config();
 
 const { Pool } = pg;
+
+// Print the controlled vocab grouped by kind — the ONLY slugs a menu JSON may use.
+// So a worker can list valid tags without reading web/lib/menu/taxonomy.ts (cheaper),
+// and the hard-error path can show what's allowed. No DB needed.
+function printTaxonomy() {
+  const kinds = ["dish", "style", "preparation", "protein"];
+  for (const k of kinds) {
+    const slugs = DISH_CATEGORIES.filter((c) => c.kind === k).map((c) => c.slug);
+    console.log(`${k} (${slugs.length}): ${slugs.join(", ")}`);
+  }
+  console.log(
+    "\nprotein goes on variant.protein (not tags); momo preparation tags roll up to momo.",
+  );
+}
+
+if (process.argv.includes("--list-tags")) {
+  printTaxonomy();
+  process.exit(0);
+}
+
 const slug = process.argv[2];
 const commit = process.argv.includes("--commit");
 if (!slug) {
-  console.error("usage: node scraper/seed-menu.js <slug> [--commit]");
+  console.error("usage: node scraper/seed-menu.js <slug> [--commit] | --list-tags");
   process.exit(1);
 }
 const file = `scraper/menu-data/${slug}.json`;
@@ -66,7 +87,11 @@ async function main() {
   if (unknown.size) {
     console.error(`HARD ERROR: ${unknown.size} tag/protein slug(s) not in dish_categories:`);
     console.error("  " + [...unknown].sort().join(", "));
-    console.error("Add them to web/lib/menu/taxonomy.ts, run `node scraper/seed-taxonomy.ts`, then retry.");
+    console.error("\nValid slugs (use ONLY these; map your dish to the closest, or log a");
+    console.error("genuinely-new one to MENU-TAXONOMY-TODO.md and tag [] for now):");
+    printTaxonomy();
+    console.error("\nTo add a new one deliberately: edit web/lib/menu/taxonomy.ts, run");
+    console.error("`node scraper/seed-taxonomy.ts`, then retry.");
     process.exit(1);
   }
 

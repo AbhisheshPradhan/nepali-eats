@@ -1,0 +1,99 @@
+{
+  "slug": "deurali-restaurant-salisbury",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starter & Snacks",
+      "items": [
+        { "name": "Chatpate", "description": null, "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 8.80, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bhatmaas Chiura", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 8.80, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Aalu Nimki", "description": null, "is_vegetarian": true, "tags": ["nimki"], "variants": [ { "label": null, "price": 11.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Salad", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pani Puri", "description": null, "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 12.10, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pappadum", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chiwda", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Momo Souce", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 1.10, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Channa Moter", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Omelette", "description": null, "tags": [], "variants": [ { "label": null, "price": 5.50, "protein": "egg" } ] },
+        { "name": "Egg", "description": null, "tags": [], "variants": [ { "label": null, "price": 2.20, "protein": "egg" } ] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo", "description": null, "tags": ["steamed-momo"], "variants": [ { "label": "Chicken", "price": 15.40, "protein": "chicken" }, { "label": "Pork", "price": 15.40, "protein": "pork" } ] },
+        { "name": "Fried Momo", "description": null, "tags": ["fried-momo"], "variants": [ { "label": "Chicken", "price": 17.60, "protein": "chicken" }, { "label": "Pork", "price": 17.60, "protein": "pork" } ] },
+        { "name": "Chilli Momo (C-Momo)", "description": null, "tags": ["chilli-momo"], "variants": [ { "label": "Chicken", "price": 22.00, "protein": "chicken" }, { "label": "Pork", "price": 24.20, "protein": "pork" } ] },
+        { "name": "Fried Chilli Momo (Fried C-Momo)", "description": null, "tags": ["chilli-momo"], "variants": [ { "label": "Chicken", "price": 24.20, "protein": "chicken" }, { "label": "Pork", "price": 25.30, "protein": "pork" } ] },
+        { "name": "Momo With Soup", "description": null, "tags": ["jhol-momo"], "variants": [ { "label": "Chicken", "price": 17.60, "protein": "chicken" }, { "label": "Pork", "price": 17.60, "protein": "pork" } ] }
+      ]
+    },
+    {
+      "name": "Chowmein & Noodles",
+      "items": [
+        { "name": "Plain Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": "Pork", "price": 14.30, "protein": "pork" }, { "label": "Chicken", "price": 14.30, "protein": "chicken" } ] },
+        { "name": "Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": "Pork", "price": 15.40, "protein": "pork" }, { "label": "Chicken", "price": 15.40, "protein": "chicken" }, { "label": "Buff", "price": 18.70, "protein": "buff" } ] },
+        { "name": "Pork & Chicken Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": null, "price": 18.70 } ] },
+        { "name": "Combo Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": null, "price": 25.30 } ] },
+        { "name": "Thukpa", "description": null, "tags": ["thukpa"], "variants": [ { "label": "Pork", "price": 17.60, "protein": "pork" }, { "label": "Chicken", "price": 16.50, "protein": "chicken" }, { "label": "Buff", "price": 18.70, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Main Dishes",
+      "items": [
+        { "name": "Sukuti", "description": null, "tags": ["sukuti"], "variants": [ { "label": "Pork", "price": 29.70, "protein": "pork" }, { "label": "Chicken", "price": 24.20, "protein": "chicken" }, { "label": "Buff", "price": 33.00, "protein": "buff" } ] },
+        { "name": "Curry", "description": null, "tags": ["curry"], "variants": [ { "label": "Pork", "price": 18.70, "protein": "pork" }, { "label": "Chicken", "price": 18.70, "protein": "chicken" }, { "label": "Goat", "price": 19.80, "protein": "goat" } ] },
+        { "name": "Biryani", "description": null, "tags": ["biryani"], "variants": [ { "label": "Chicken", "price": 18.70, "protein": "chicken" }, { "label": "Goat", "price": 20.90, "protein": "goat" } ] },
+        { "name": "Fried Rice", "description": null, "tags": ["fried-rice"], "variants": [ { "label": "Pork", "price": 14.30, "protein": "pork" }, { "label": "Chicken", "price": 14.30, "protein": "chicken" }, { "label": "Egg", "price": 14.30, "protein": "egg" }, { "label": "Chicken, Egg", "price": 18.70, "protein": "chicken" }, { "label": "Pork, Egg", "price": 18.70, "protein": "pork" }, { "label": "Pork, Chicken", "price": 19.80 }, { "label": "Pork, Chicken / Eggs", "price": 22.00 } ] },
+        { "name": "Thali", "description": null, "tags": ["thali"], "variants": [ { "label": "Pork", "price": 28.60, "protein": "pork" }, { "label": "Chicken", "price": 27.50, "protein": "chicken" }, { "label": "Goat", "price": 29.70, "protein": "goat" } ] },
+        { "name": "Dhido", "description": null, "tags": ["dhido"], "variants": [ { "label": "Pork", "price": 31.90, "protein": "pork" }, { "label": "Chicken", "price": 30.80, "protein": "chicken" }, { "label": "Goat", "price": 33.00, "protein": "goat" } ] },
+        { "name": "Khaja Set", "description": null, "tags": ["khaja"], "variants": [ { "label": "Chicken", "price": 24.20, "protein": "chicken" }, { "label": "Buff", "price": 39.60, "protein": "buff" } ] },
+        { "name": "Chicken Chilli", "description": null, "tags": ["chilli"], "variants": [ { "label": null, "price": 17.60, "protein": "chicken" } ] },
+        { "name": "Plain Rice", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 6.60, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Vegetarian Dishes",
+      "items": [
+        { "name": "Veg Plain Chowmein", "description": null, "is_vegetarian": true, "tags": ["chowmein"], "variants": [ { "label": null, "price": 12.10, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Chowmein", "description": null, "is_vegetarian": true, "tags": ["chowmein"], "variants": [ { "label": null, "price": 13.20, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Egg Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": null, "price": 14.30, "protein": "egg" } ] },
+        { "name": "Veg Thukpa", "description": null, "is_vegetarian": true, "tags": ["thukpa"], "variants": [ { "label": null, "price": 15.40, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Momo", "description": null, "is_vegetarian": true, "tags": ["steamed-momo"], "variants": [ { "label": null, "price": 14.30, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Soup Momo", "description": null, "is_vegetarian": true, "tags": ["jhol-momo"], "variants": [ { "label": null, "price": 15.40, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Chilli Momo", "description": null, "is_vegetarian": true, "tags": ["chilli-momo"], "variants": [ { "label": null, "price": 19.80, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Fried Momo", "description": null, "is_vegetarian": true, "tags": ["fried-momo"], "variants": [ { "label": null, "price": 15.40, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Veg Chilli Momo", "description": null, "is_vegetarian": true, "tags": ["chilli-momo"], "variants": [ { "label": null, "price": 20.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Fried Rice", "description": null, "is_vegetarian": true, "tags": ["fried-rice"], "variants": [ { "label": null, "price": 13.20, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Matar", "description": null, "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 17.60, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Dal Makhani", "description": null, "is_vegetarian": true, "tags": ["dal"], "variants": [ { "label": null, "price": 14.30, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Thali", "description": null, "is_vegetarian": true, "tags": ["thali"], "variants": [ { "label": null, "price": 25.30, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Dhido", "description": null, "is_vegetarian": true, "tags": ["dhido"], "variants": [ { "label": null, "price": 29.70, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Beverages",
+      "items": [
+        { "name": "Bottle", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "Can", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.85 } ] },
+        { "name": "Red Bull", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "Coconut Water", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "Aloe", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "250ml Red Bull / V", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.85 } ] },
+        { "name": "Lipton", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "Nippys Drink", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "375ml Nippys", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.40 } ] },
+        { "name": "250ml Nippys", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.85 } ] },
+        { "name": "Bundaberg", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "Ribena", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "500ml Nippys", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "Water (Pump)", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.95 } ] },
+        { "name": "Water", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.85 } ] },
+        { "name": "Maximus", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 6.60 } ] },
+        { "name": "Milk Tea", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.40 } ] }
+      ]
+    }
+  ]
+}

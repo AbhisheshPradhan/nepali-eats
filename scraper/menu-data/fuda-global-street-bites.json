@@ -1,0 +1,184 @@
+{
+  "slug": "fuda-global-street-bites",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Nepalese Dumplings — Entrées (6 pieces)",
+      "description": "Handcrafted Himalayan dumplings, prepared fresh daily with traditional techniques.",
+      "items": [
+        { "name": "Steamed Momo", "description": "Traditional steamed dumplings.", "tags": ["steamed-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 12.90, "protein": "chicken" },
+            { "label": "Paneer", "price": 13.90, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 14.90, "protein": "buff" },
+            { "label": "Vegan", "price": 14.90, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Fried Momo", "description": "Pan-fried until golden crispy.", "tags": ["fried-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 13.90, "protein": "chicken" },
+            { "label": "Paneer", "price": 14.90, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 15.90, "protein": "buff" },
+            { "label": "Vegan", "price": 15.90, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Chilli Momo", "description": "Tossed in spicy chilli sauce.", "spice_level": 3, "tags": ["chilli-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 14.90, "protein": "chicken" },
+            { "label": "Paneer", "price": 15.90, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 16.90, "protein": "buff" },
+            { "label": "Vegan", "price": 16.90, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Jhol Momo", "description": "Served in flavorful soup.", "tags": ["jhol-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 13.90, "protein": "chicken" },
+            { "label": "Paneer", "price": 14.90, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 15.90, "protein": "buff" },
+            { "label": "Vegan", "price": 15.90, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Sadeko Momo", "description": "Spiced & marinated cold.", "tags": ["sandheko-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 13.90, "protein": "chicken" },
+            { "label": "Paneer", "price": 14.90, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 15.90, "protein": "buff" },
+            { "label": "Vegan", "price": 15.90, "protein": "veg", "is_vegetarian": true }
+          ] }
+      ]
+    },
+    {
+      "name": "Nepalese Dumplings — Mains (10 pieces)",
+      "items": [
+        { "name": "Steamed Momo", "description": "Traditional steamed dumplings.", "tags": ["steamed-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 18, "protein": "chicken" },
+            { "label": "Paneer", "price": 19, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 20, "protein": "buff" },
+            { "label": "Vegan", "price": 18, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Fried Momo", "description": "Pan-fried until golden crispy.", "tags": ["fried-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 19, "protein": "chicken" },
+            { "label": "Paneer", "price": 20, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 21, "protein": "buff" },
+            { "label": "Vegan", "price": 19, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Chilli Momo", "description": "Tossed in spicy chilli sauce.", "spice_level": 3, "tags": ["chilli-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 20, "protein": "chicken" },
+            { "label": "Paneer", "price": 21, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 22, "protein": "buff" },
+            { "label": "Vegan", "price": 20, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Jhol Momo", "description": "Served in flavorful soup.", "tags": ["jhol-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 19, "protein": "chicken" },
+            { "label": "Paneer", "price": 20, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 21, "protein": "buff" },
+            { "label": "Vegan", "price": 19, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Sadeko Momo", "description": "Spiced & marinated cold.", "tags": ["sandheko-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 19, "protein": "chicken" },
+            { "label": "Paneer", "price": 20, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Buff", "price": 21, "protein": "buff" },
+            { "label": "Vegan", "price": 19, "protein": "veg", "is_vegetarian": true }
+          ] }
+      ]
+    },
+    {
+      "name": "Special Momo",
+      "items": [
+        { "name": "Chocolate Momo", "description": "2 pieces - Dessert dumpling.", "is_vegetarian": true, "tags": ["momo", "dessert"],
+          "variants": [ { "label": null, "price": 4.99 } ] },
+        { "name": "Platter Momo", "description": "12 pieces - Perfect for sharing.", "tags": ["momo"],
+          "variants": [ { "label": null, "price": 27.99 } ] },
+        { "name": "Lhaphing", "description": "Traditional Tibetan noodle dish.", "tags": ["laphing"],
+          "variants": [ { "label": "Dry", "price": 10 }, { "label": "Jhol", "price": 12 } ] }
+      ]
+    },
+    {
+      "name": "Turkish Kebabs — Entrées",
+      "description": "100% Halal Certified. All meat options sourced from halal certified suppliers only.",
+      "items": [
+        { "name": "Hummus", "description": "Creamy hummus served with warm pita bread.", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 9 } ] },
+        { "name": "Tzatziki", "description": "Greek-style yogurt dip with cucumber & garlic, served with warm pita bread.", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 9 } ] },
+        { "name": "Carrot Dip", "description": "Greek yoghurt, carrot, garlic, olive oil, dill, walnuts served with pita bread.", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 9 } ] },
+        { "name": "Trio Dip", "description": "Tzatziki, hummus and garlic dip.", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 19 } ] },
+        { "name": "Spinach and Feta Spring Roll", "description": "Crispy spring roll with spinach and feta cheese.", "is_vegetarian": true, "tags": ["spring-roll"],
+          "variants": [ { "label": null, "price": 5.99, "protein": "veg" } ] },
+        { "name": "Lamb Spring Roll", "description": "Crispy spring roll with seasoned lamb.", "tags": ["spring-roll"],
+          "variants": [ { "label": null, "price": 6.99, "protein": "lamb" } ] },
+        { "name": "Chicken Spring Roll", "description": "Crispy spring roll with seasoned chicken.", "tags": ["spring-roll"],
+          "variants": [ { "label": null, "price": 6.99, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Turkish Kebabs — Wraps",
+      "items": [
+        { "name": "Chicken Shish Wrap", "description": "Pita bread, grilled/steak chicken, lettuce, tomato, onion, lemon dressing, sumac, tzatziki or garlic sauce.", "tags": [],
+          "variants": [ { "label": null, "price": 18.99, "protein": "chicken" } ] },
+        { "name": "Chicken Doner Wrap", "description": "Warm pita bread filled with chicken doner, salad and your choice sauce.", "tags": [],
+          "variants": [ { "label": null, "price": 17.99, "protein": "chicken" } ] },
+        { "name": "Kofta Wrap", "description": "Pita bread, grilled/steak Kofta, lettuce, tomato, onion, lemon dressing, sumac, tzatziki or garlic sauce.", "tags": [],
+          "variants": [ { "label": null, "price": 18.99 } ] },
+        { "name": "Lamb Doner Wrap", "description": "Warm pita bread filled with thin-sliced lamb doner, salad and your choice of sauce.", "tags": [],
+          "variants": [ { "label": null, "price": 18.99, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Turkish Kebabs — Mains",
+      "items": [
+        { "name": "Chicken Shish", "description": "Chicken steak or grilled skewer served with salad and pilaf rice.", "tags": [],
+          "variants": [ { "label": null, "price": 21.99, "protein": "chicken" } ] },
+        { "name": "Chicken Kebab", "description": "Served with chicken doner, warm pita bread and Sacha sauce.", "tags": [],
+          "variants": [ { "label": null, "price": 21.99, "protein": "chicken" } ] },
+        { "name": "Chicken Donar Main", "description": "Thin-sliced Chicken Doner served with pilaf rice and tzatziki.", "tags": [],
+          "variants": [ { "label": null, "price": 22.99, "protein": "chicken" } ] },
+        { "name": "Lamb Doner Main", "description": "Thin-sliced lamb Doner served with pilaf rice and tzatziki.", "tags": [],
+          "variants": [ { "label": null, "price": 22.99, "protein": "lamb" } ] },
+        { "name": "Lamb Kebab", "description": "Lamb Doner topped with warm pita bread, Sacha sauce and yogurt.", "tags": [],
+          "variants": [ { "label": null, "price": 22.99, "protein": "lamb" } ] },
+        { "name": "Kofta", "description": "Grilled Kofta skewer served with salad and pilaf rice.", "tags": [],
+          "variants": [ { "label": null, "price": 22.99 } ] },
+        { "name": "Mixed Grill", "description": "Chicken, lamb and kofta skewers, chicken and lamb doner kebab with tzatziki & hummus sauce served with pilaf rice.", "tags": [],
+          "variants": [ { "label": null, "price": 28.99 } ] },
+        { "name": "Lamb Shish", "description": "Lamb shish, pilaf rice, salad served with tzatziki & hummus.", "tags": [],
+          "variants": [ { "label": null, "price": 22.99, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Bubble Tea & Coffee",
+      "description": "Premium Asian beverages. Regular 500ml / Large 700ml; customizable sweetness, ice and toppings.",
+      "items": [
+        { "name": "Pearl Milk Tea - Classic", "description": "Black tea with pearls.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Brown Sugar \"Tiger\" Latte", "description": "With pearls, no tea.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Taro Milk Tea", "description": "With pearls.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Matcha Latte", "description": "With pearls.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Mango Green Tea + Passionfruit Pop", "description": "Refreshing fruit tea.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Thai Milk Tea", "description": "With pearls.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Hokkaido Caramel Oolong", "description": "With pearls.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Yuzu Green Tea Fizz", "description": "Aloe optional.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Lychee Rose Oolong", "description": "With lychee jelly.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Calamansi Lime Black Tea", "description": "With nata de coco.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Passionfruit Pineapple Green", "description": "With passionfruit pop.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] },
+        { "name": "Mango Pomelo Sago", "description": "No tea, mango + sago.", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": "Regular", "price": 7.90 }, { "label": "Large", "price": 9.40 } ] }
+      ]
+    }
+  ]
+}

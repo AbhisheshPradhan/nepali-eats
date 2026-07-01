@@ -44,3 +44,7 @@ nepali-restaurants-au.csv
 # Neon/Postgres dumps (data snapshots)
 backups/
 scraper/menu-data/.claims/
+
+# menu-fetch.js scratch (downloaded PDFs / rasterized pages) + ad-hoc scratch scripts
+scraper/.menu-tmp/
+scraper/_tmp*.mjs

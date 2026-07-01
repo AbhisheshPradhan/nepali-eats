@@ -1,0 +1,110 @@
+{
+  "slug": "old-durbar-nepalese-indian-restaurant-in-flinders-melbourne",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree - Vegetarian",
+      "items": [
+        { "name": "Samosa (2 pcs)", "description": "Spicy potatoes and green peas in homemade pastry served with chutney.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 9.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Chili", "description": "Chunks of fried cottage cheese marinated & cooked in a spicy sauce.", "is_vegetarian": true, "tags": ["paneer", "chilli"], "variants": [ { "label": null, "price": 17.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Alu Ko Achar", "description": "Boiled potatoes, cucumber and carrots marinated with fresh lemon, chopped green chili and spices (served cold).", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 8.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bhatamas Sandheko", "description": "Roasted soybeans marinated with spices and garnished with coriander leaves", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 11.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chau-Chau Sandheko (V)", "description": "Crispy Wai-Wai noodles marinated with spices and garnished with coriander leaves.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chatpatt", "description": "Puffed rice marinated with spices and garnished with coriander leaves.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chips Chili", "description": "Deep-fried potato chips marinated in a spicy sauce with capsicums and tomatoes.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 14.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pani Puri (8 pcs)", "description": "Crispy hollow dough balls filled with tangy and spicy chutney.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 11.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Pakora (4 pcs)", "description": "Sliced onion and chicken dipped in chickpea flour and deep fried (served with mint chutney).", "tags": ["pakora"], "variants": [ { "label": null, "price": 12.95, "protein": "chicken" } ] },
+        { "name": "Pakora Veg", "description": "Sliced onion and vegetables dipped in chickpea flour and deep fried (served with mint chutney).", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 11.95, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Entree - Non Vegetarian",
+      "items": [
+        { "name": "Chili Chicken", "description": "Marinated diced chicken tossed in a spicy sauce.", "tags": ["chilli"], "variants": [ { "label": null, "price": 17.95, "protein": "chicken" } ] },
+        { "name": "Sausage Chilli", "description": "Grilled marinated chicken sausage tossed in a spicy sauce.", "tags": ["sausage", "chilli"], "variants": [ { "label": null, "price": 16.95, "protein": "chicken" } ] },
+        { "name": "Buff chili", "description": "Grilled marinated buff meat tossed in a spicy sauce.", "tags": ["chilli"], "variants": [ { "label": null, "price": 17.95, "protein": "buff" } ] },
+        { "name": "Sausage Fry", "description": "Grilled chicken sausage tossed in Nepali spices.", "tags": ["sausage"], "variants": [ { "label": null, "price": 14.95, "protein": "chicken" } ] },
+        { "name": "Chicken Lollipop (4pcs)", "description": "Deep-fried chicken lollipops marinated with Nepalese spices, served with tomato sauce.", "tags": ["lollipop"], "variants": [ { "label": null, "price": 15.95, "protein": "chicken" } ] },
+        { "name": "Khasi ko Bhutan", "description": "Boiled then pan-fried goat/lamb meat (stomach, intestine, liver) with Nepali spices.", "tags": ["bhutan"], "variants": [ { "label": null, "price": 18.95, "protein": "goat" } ] },
+        { "name": "Choyla", "description": "Tandoor oven-cooked boneless goat/chicken/buff pieces marinated with Himalayan herbs and spices (served cold).", "tags": ["choila"], "variants": [ { "label": "Chicken", "price": 15.95, "protein": "chicken" }, { "label": "Goat", "price": 17.95, "protein": "goat" }, { "label": "Buff", "price": 18.95, "protein": "buff" } ] },
+        { "name": "Sekuwa", "description": "Tender boneless chicken/goat pieces marinated in our Chef's special spice and barbequed.", "tags": ["sekuwa"], "variants": [ { "label": "Chicken", "price": 15.95, "protein": "chicken" }, { "label": "Goat", "price": 17.95, "protein": "goat" } ] }
+      ]
+    },
+    {
+      "name": "Nepali Khaja Set",
+      "items": [
+        { "name": "Sekuwa Set", "description": "Tender boneless goat/chicken pieces marinated in our Chef's special spice and barbequed. Served with beaten rice, soybeans, tomato chutney, green salad and Alu ko Achar.", "tags": ["sekuwa", "khaja"], "variants": [ { "label": "Chicken", "price": 17.95, "protein": "chicken" }, { "label": "Goat", "price": 19.95, "protein": "goat" } ] },
+        { "name": "Choyla Set", "description": "Tandoor oven-cooked boneless chicken/lamb/buff pieces marinated with Himalayan herbs and spices, served cold with beaten rice, soybeans, tomato chutney, green salad and Alu ko Achar.", "tags": ["choila", "khaja"], "variants": [ { "label": "Chicken", "price": 19.95, "protein": "chicken" }, { "label": "Goat", "price": 19.95, "protein": "goat" }, { "label": "Buff", "price": 20.95, "protein": "buff" } ] },
+        { "name": "Veg Choyla Set", "description": "Vegetarian nuggets boiled & marinated with Himalayan herbs and spices, served cold with beaten rice, soybeans, tomato chutney, green salad and Alu Ko Achar.", "is_vegetarian": true, "tags": ["choila", "khaja"], "variants": [ { "label": null, "price": 17.95, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Noodles stir-fried with julienned vegetables and Nepali spices, garnished with coriander leaves.", "tags": ["chowmein"], "variants": [ { "label": "Veg", "price": 16.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.95, "protein": "chicken" }, { "label": "Buff", "price": 17.95, "protein": "buff" }, { "label": "Mixed", "price": 19.95 } ] },
+        { "name": "Chicken Keema Noodles", "tags": ["keema-noodle"], "variants": [ { "label": null, "price": 21.95, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Buffet",
+      "items": [
+        { "name": "Buffet (All you can eat)", "description": "Time: 11:30 am to 2:30 pm. Rice, Goat curry, Chicken curry, Mix veg curry, Paneer curry, Daal, Salad, Tomato Chutney, Papad.", "tags": [], "variants": [ { "label": null, "price": 24.95 } ] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Chips and Nuggets", "tags": [], "variants": [ { "label": null, "price": 8.00 } ] },
+        { "name": "Chicken Momo (6 pcs)", "tags": ["steamed-momo"], "variants": [ { "label": null, "price": 8.00, "protein": "chicken" } ] },
+        { "name": "Daal with Rice", "is_vegetarian": true, "tags": ["dal"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Momos",
+      "items": [
+        { "name": "Steamed Momo (10pcs)", "description": "Typical Nepali dumplings made of spiced filling wrapped in dough, steamed or fried and served with our special homemade chutney.", "tags": ["steamed-momo"], "variants": [ { "label": "Veg", "price": 15.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 16.95, "protein": "chicken" }, { "label": "Buff", "price": 18.95, "protein": "buff" } ] },
+        { "name": "Jhol Momo (10pcs)", "description": "Typical Nepali dumplings made of spiced filling wrapped in dough, served in a hot and spicy tomato sesame flavoured soup (chutney).", "tags": ["jhol-momo"], "variants": [ { "label": "Veg", "price": 15.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 16.95, "protein": "chicken" }, { "label": "Buff", "price": 18.95, "protein": "buff" } ] },
+        { "name": "Fried Momo (10pcs)", "tags": ["fried-momo"], "variants": [ { "label": "Veg", "price": 15.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 16.95, "protein": "chicken" }, { "label": "Buff", "price": 18.95, "protein": "buff" } ] },
+        { "name": "Chilli Momo (10pcs)", "description": "Deep-fried and tossed with diced capsicums, onions, herbs in spicy tomato sauce.", "tags": ["chilli-momo"], "variants": [ { "label": "Veg", "price": 16.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.95, "protein": "chicken" }, { "label": "Buff", "price": 19.95, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Rice stir-fried with vegetables and Nepali spices.", "tags": ["fried-rice"], "variants": [ { "label": "Veg", "price": 16.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.95, "protein": "chicken" }, { "label": "Buff", "price": 17.95, "protein": "buff" }, { "label": "Mixed", "price": 19.95 } ] }
+      ]
+    },
+    {
+      "name": "Speciality Curries",
+      "items": [
+        { "name": "Dhal Tadka", "description": "Yellow lentils slow-cooked with Nepali spices.", "is_vegetarian": true, "tags": ["dal"], "variants": [ { "label": null, "price": 15.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mixed Veg Curry", "description": "Seasonal fresh vegetables cooked in traditional Nepali style.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 17.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Curry", "description": "Bone-in chicken slow cooked according to traditional Nepali recipe.", "tags": ["curry"], "variants": [ { "label": null, "price": 19.95, "protein": "chicken" } ] },
+        { "name": "Goat Curry", "description": "Bone-in goat meat slowly cooked according to traditional Nepali recipe.", "tags": ["curry"], "variants": [ { "label": null, "price": 20.95, "protein": "goat" } ] }
+      ]
+    },
+    {
+      "name": "Nepali Thali Set",
+      "items": [
+        { "name": "Nepali Thali", "description": "A typical Nepali thali set with rice, dhal, 3 serve of curry (veg or meat depending), pickle (achar), saag, Alu ko Achar, tomato chutney, papad, green salad and yoghurt.", "tags": ["thali", "dal-bhat"], "variants": [ { "label": "Veg", "price": 22.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 23.95, "protein": "chicken" }, { "label": "Goat", "price": 24.95, "protein": "goat" } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Steamed Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chiura (Beaten Rice)", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.95, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Gulab Jamun", "description": "Sweet deep-fried dough balls rested in a spiced sugar syrup.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 6.95 } ] },
+        { "name": "Pista Kulfi", "description": "Creamy spiced pistachio-flavoured dense ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 7.95 } ] },
+        { "name": "Mango Kulfi", "description": "Creamy spiced mango-flavoured dense ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 7.95 } ] }
+      ]
+    }
+  ]
+}

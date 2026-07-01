@@ -1,0 +1,73 @@
+{
+  "slug": "sambandha-restaurant-auburn",
+  "source": "admin",
+  "price_source": "own_site",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Curry and Rice Special",
+      "items": [
+        { "name": "Butter Chicken Rice", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": 13.50, "protein": "chicken" } ] },
+        { "name": "Goat Curry Rice", "tags": ["curry"], "variants": [ { "label": null, "price": 12.50, "protein": "goat" } ] },
+        { "name": "Chicken Curry Rice", "tags": ["curry"], "variants": [ { "label": null, "price": 11.50, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Skewers",
+      "items": [
+        { "name": "Chicken Skewers", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 19.99, "protein": "chicken" } ] },
+        { "name": "Lamb Skewers", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 20.99, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Buff Momo", "tags": ["steamed-momo"], "variants": [ { "label": null, "price": 16.00, "protein": "buff" } ] },
+        { "name": "Buff Fried Momo", "tags": ["fried-momo"], "variants": [ { "label": null, "price": 17.99, "protein": "buff" } ] },
+        { "name": "Buff C Momo", "tags": ["chilli-momo"], "variants": [ { "label": null, "price": 18.50, "protein": "buff" } ] },
+        { "name": "Buff Fried C Momo", "tags": ["chilli-momo", "fried-momo"], "variants": [ { "label": null, "price": 18.50, "protein": "buff" } ] },
+        { "name": "Buff Sadeko Momo", "tags": ["sandheko-momo"], "variants": [ { "label": null, "price": 18.50, "protein": "buff" } ] },
+        { "name": "Buff Soup Momo", "tags": ["jhol-momo"], "variants": [ { "label": null, "price": 18.00, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Entrees",
+      "items": [
+        { "name": "Bhatmas Sadheko", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Aloo Tama Bodi", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 11.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bhuttan", "tags": ["bhutan"], "variants": [ { "label": null, "price": 18.50 } ] },
+        { "name": "Buff Sukuti Set", "tags": ["sukuti", "khaja"], "variants": [ { "label": null, "price": 32.00, "protein": "buff" } ] },
+        { "name": "Channa Chatpate", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chatamari", "tags": ["chatamari"], "variants": [ { "label": null, "price": 15.50 } ] },
+        { "name": "Jhinge Maccha", "tags": [], "variants": [ { "label": null, "price": 13.50, "protein": "prawn" } ] },
+        { "name": "Pyaj Ko Pakoda", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 12.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Thali", "tags": ["thali"], "variants": [ { "label": null, "price": 28.99, "protein": "chicken" } ] },
+        { "name": "Buff Dumpling Platter", "tags": ["momo"], "variants": [ { "label": null, "price": 46.99, "protein": "buff" } ] },
+        { "name": "Buff Dumpling Platter Half", "tags": ["momo"], "variants": [ { "label": null, "price": 26.00, "protein": "buff" } ] },
+        { "name": "Goat Sukuti Set", "tags": ["sukuti", "khaja"], "variants": [ { "label": null, "price": 32.00, "protein": "goat" } ] }
+      ]
+    },
+    {
+      "name": "Desserts and Drinks",
+      "items": [
+        { "name": "Thickshake", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.90, "is_vegetarian": true } ] },
+        { "name": "Varities Laasi", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.50, "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Chefs Special (Lunch and Dinner Special)",
+      "items": [
+        { "name": "Goat Sukuti Set", "tags": ["sukuti", "khaja"], "variants": [ { "label": null, "price": 21.50, "protein": "goat" } ] },
+        { "name": "Chatamari", "tags": ["chatamari"], "variants": [ { "label": null, "price": 15.99 } ] },
+        { "name": "Buff Sukuti Set", "tags": ["sukuti", "khaja"], "variants": [ { "label": null, "price": 21.50, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Extra",
+      "items": [
+        { "name": "Momo Achar", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 1.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chilli Paste", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 1.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    }
+  ]
+}

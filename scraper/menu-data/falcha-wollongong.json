@@ -1,0 +1,61 @@
+{
+  "slug": "falcha-wollongong",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree to Share",
+      "items": [
+        { "name": "Chatpate", "description": "A version of chaat, made with puffed rice, Wai-Wai noodles, fresh coriander, tomato, onion, potato, lemon, fresh chilli & spices.", "tags": ["chaat"], "is_vegetarian": true, "variants": [ { "label": null, "price": 14.00, "protein": "veg" } ] },
+        { "name": "Pani Puri", "description": "A deep-fried crisp flatbread, filled with a mixture of flavoured water, mashed potato and herbs.", "tags": ["pani-puri"], "is_vegetarian": true, "variants": [ { "label": null, "price": 14.00, "protein": "veg" } ] },
+        { "name": "Goat Bhutan", "description": "Stir fried goat tripe with onion, garlic, and tomato and side of bitten rice.", "tags": ["bhutan"], "variants": [ { "label": null, "price": 19.00, "protein": "goat" } ] },
+        { "name": "Chicken Masala Sausage", "tags": ["sausage"], "variants": [ { "label": "2pcs", "price": 10.50, "protein": "chicken" }, { "label": "4pcs", "price": 17.50, "protein": "chicken" } ] },
+        { "name": "Shavale", "description": "Deeply fried home-made pastry dough, filled with chicken mince.", "tags": ["shavale"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Jhaneko Sekuwa", "description": "Grilled and stir-fried meat/veg with Himalayan spices.", "tags": ["sekuwa"], "variants": [ { "label": "Chicken", "price": 19.00, "protein": "chicken" }, { "label": "Veg", "price": 19.00, "protein": "veg", "is_vegetarian": true }, { "label": "Buff", "price": 19.00, "protein": "buff" }, { "label": "Pork", "price": 19.00, "protein": "pork" } ] },
+        { "name": "Laphing", "description": "A spicy and savory cold noodle dish made from white wheat flour.", "tags": ["laphing"], "is_vegetarian": true, "variants": [ { "label": "Dry", "price": 15.00, "protein": "veg" }, { "label": "Jhol", "price": 16.00, "protein": "veg" } ] },
+        { "name": "Chicken Choila", "description": "Spiced & chargrilled meat with home-made spices.", "tags": ["choila"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Chicken / Veg / Buff Chilli", "description": "Tossed on Szechuan chilli sauce with diced onion capsicum and tomato.", "tags": ["chilli"], "variants": [ { "label": "Chicken", "price": 18.00, "protein": "chicken" }, { "label": "Veg", "price": 18.00, "protein": "veg", "is_vegetarian": true }, { "label": "Buff", "price": 19.00, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Specials",
+      "items": [
+        { "name": "Daarlagdo Wings", "description": "Marinated wings with levels of spicy (medium | spicy | hot).", "tags": ["wings"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Timmuri Chicken", "description": "Crispy chicken with garlic and szechuan.", "tags": ["timur"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Pokhareli Thicheko Aalu", "description": "Lightly smashed potato with home-made spices.", "tags": [], "is_vegetarian": true, "variants": [ { "label": null, "price": 16.00, "protein": "veg" } ] },
+        { "name": "Keema Noodle", "description": "Flat noodles served with topped with a chicken mince flavour with timur (sichuan), garlic & soy.", "tags": ["keema-noodle"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Mo:Mo Mania",
+      "items": [
+        { "name": "Steam Momo", "description": "10 pcs dumplings.", "tags": ["steamed-momo"], "variants": [ { "label": "Veg", "price": 16.50, "protein": "veg", "is_vegetarian": true }, { "label": "Buff", "price": 18.00, "protein": "buff" }, { "label": "Chicken", "price": 17.00, "protein": "chicken" } ] },
+        { "name": "Jhol Momo", "description": "10 pcs dumplings.", "tags": ["jhol-momo"], "variants": [ { "label": "Veg", "price": 17.50, "protein": "veg", "is_vegetarian": true }, { "label": "Buff", "price": 19.00, "protein": "buff" }, { "label": "Chicken", "price": 18.00, "protein": "chicken" } ] },
+        { "name": "C. Momo", "description": "Chilli momo. 10 pcs dumplings.", "tags": ["chilli-momo"], "variants": [ { "label": "Veg", "price": 17.50, "protein": "veg", "is_vegetarian": true }, { "label": "Buff", "price": 19.00, "protein": "buff" }, { "label": "Chicken", "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Fried Momo", "description": "10 pcs dumplings.", "tags": ["fried-momo"], "variants": [ { "label": "Veg", "price": 17.50, "protein": "veg", "is_vegetarian": true }, { "label": "Buff", "price": 19.00, "protein": "buff" }, { "label": "Chicken", "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Sadheko Momo", "description": "10 pcs dumplings.", "tags": ["sandheko-momo"], "variants": [ { "label": "Veg", "price": 17.50, "protein": "veg", "is_vegetarian": true }, { "label": "Buff", "price": 19.00, "protein": "buff" }, { "label": "Chicken", "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Mo:Mo Platter", "description": "Steam 4pcs, fried 4pcs, chilly 4pcs, sadheko 4pcs.", "tags": ["momo"], "variants": [ { "label": null, "price": 35.00 } ] }
+      ]
+    },
+    {
+      "name": "Chowmein & Fried Rice",
+      "items": [
+        { "name": "Chowmein", "description": "Stir fried egg noodles with nepalese spices. Extra egg +$2.", "tags": ["chowmein"], "variants": [ { "label": "Veg", "price": 17.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.50, "protein": "chicken" }, { "label": "Buff", "price": 18.50, "protein": "buff" }, { "label": "Mixed (chicken, buff & sausage)", "price": 19.50 } ] },
+        { "name": "Fried Rice", "description": "Homestyle stir fried rice with nepali spices. Extra egg +$2.", "tags": ["fried-rice"], "variants": [ { "label": "Veg", "price": 17.50, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.50, "protein": "chicken" }, { "label": "Buff", "price": 18.50, "protein": "buff" }, { "label": "Mixed (chicken, buff & sausage)", "price": 19.50 } ] }
+      ]
+    },
+    {
+      "name": "Khana Set",
+      "items": [
+        { "name": "Khana Set", "description": "Boiled rice, choice of curry, lentil (daal), spinach (saag) with a side of white radish pickle (mula ko achar), karela (bitter gourd) and mixed pickles, assorted with yogurt/gulab jamun, papadum and ghee (optional).", "tags": ["dal-bhat"], "variants": [ { "label": "Goat", "price": 26.50, "protein": "goat" }, { "label": "Chicken", "price": 25.50, "protein": "chicken" }, { "label": "Veg", "price": 25.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Sets",
+      "items": [
+        { "name": "Jhaneko Sekuwa Set", "description": "Choice of meat/paneer, peanut sadheko, bhuja, aloo achaar, mula achaar, boiled egg, and salads.", "tags": ["sekuwa"], "variants": [ { "label": "Chicken", "price": 25.00, "protein": "chicken" }, { "label": "Buff", "price": 25.00, "protein": "buff" }, { "label": "Pork", "price": 25.00, "protein": "pork" }, { "label": "Veg", "price": 25.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    }
+  ]
+}

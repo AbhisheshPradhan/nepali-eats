@@ -1,0 +1,159 @@
+{
+  "slug": "rolling-flavors-subiaco",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starter",
+      "items": [
+        { "name": "Chips Chilly", "description": "Potato chips mixed with gravy of tomato, capsicum, garlic, onion and ketchup", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Yomari (2 pcs)", "description": "Traditional Newari dish made with rice flour filled with molasses", "is_vegetarian": true, "tags": ["yomari", "newari"], "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Choila", "description": "Spicy and tangy marinated chicken grilled to perfection with chilly, garlic and mustard oil", "spice_level": 2, "tags": ["choila", "newari"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Bara (2 pcs)", "description": "Traditional Newari lentil pancake, lentil, ginger, cooked with mustard oil", "is_vegetarian": true, "tags": ["bara", "newari"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chatpate", "description": "Mixture of Puff rice, onion, tomato, coriander, wai-wai, peanut, papad, mint & lemon juice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Chilli", "description": "Deep fried paneer mixed with gravy of tomato, capsicum, garlic, onion and ketchup", "is_vegetarian": true, "tags": ["paneer", "chilli"], "variants": [ { "label": null, "price": 16.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Wai-wai Sadheko", "description": "Nepali noodles mix with onion, tomato, coriander, peanuts with lemon juice", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Kids meal", "description": "Nuggets, chips, noodles", "tags": [], "variants": [ { "label": null, "price": 12.00 } ] },
+        { "name": "Chicken Sausage (3 pcs)", "description": "Grilled chicken sausage served with a tangy sauce.", "tags": ["sausage"], "variants": [ { "label": null, "price": 10.00, "protein": "chicken" } ] },
+        { "name": "Chicken Chilli", "description": "A spicy Indo-Chinese dish made with crispy fried chicken tossed in a fiery sauce.", "spice_level": 3, "tags": ["chilli"], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] },
+        { "name": "Lentile Spanish Soup", "description": "A hearty and flavorful lentil soup with a Spanish twist.", "is_vegetarian": true, "tags": ["soup"], "variants": [ { "label": null, "price": 16.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "French Fries", "description": "Crispy, golden French fries, salted to perfection.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Green Salad", "description": "A fresh mix of seasonal greens with a light dressing.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Hummus, meat/chicken and bread", "description": "Creamy hummus served with your choice of grilled meat or chicken, and fresh bread.", "tags": [], "variants": [ { "label": null, "price": 15.00 } ] },
+        { "name": "Hummus and Bread", "description": "A simple and delicious serving of creamy hummus with fresh bread.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Cauliflower", "description": "Lightly battered and fried cauliflower florets, a perfect appetizer.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Raita", "description": "A refreshing yogurt-based dip with cucumber and spices.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Main Course",
+      "items": [
+        { "name": "Chicken Thali Set", "description": "Nepali platter consisting of steam plain rice, lentil soup, vegetables curry, papadam, flavoured pickles, sweet dessert and Chicken Curry", "tags": ["thali", "dal-bhat"], "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] },
+        { "name": "Vegetarian Thali Set", "description": "Nepali platter consisting of steam plain rice, lentil soup, vegetables curry, papadam, flavoured pickles, sweet dessert and veg Curry", "is_vegetarian": true, "tags": ["thali", "dal-bhat"], "variants": [ { "label": null, "price": 20.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Set", "tags": [], "variants": [ { "label": "Chicken", "price": 24.00, "protein": "chicken" }, { "label": "Vegetarian", "price": 20.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Boudhali Keema Noodles",
+      "items": [
+        { "name": "Vegetarian Noodles", "description": "Stir-fried noodles with a mix of fresh vegetables and savory spices.", "is_vegetarian": true, "tags": ["keema-noodle"], "variants": [ { "label": null, "price": 20.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Keema Noodles", "description": "Stir-fried noodles with minced chicken, vegetables and aromatic spices.", "tags": ["keema-noodle"], "variants": [ { "label": null, "price": 22.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo", "description": "MOMO is a dumpling made with plain flour and water and filled with either chicken or vegetables, served with homemade sauce.", "tags": ["steamed-momo"], "variants": [ { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Veg", "price": 14.00, "protein": "veg", "is_vegetarian": true }, { "label": "Potato", "price": 17.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Kothey Momo", "description": "Pan-fried momo dumpling filled with either chicken or vegetables, served with homemade sauce.", "tags": ["kothey-momo"], "variants": [ { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Veg", "price": 15.00, "protein": "veg", "is_vegetarian": true }, { "label": "Potato", "price": 15.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Momo", "description": "Deep-fried momo dumpling filled with either chicken or vegetables, served with homemade sauce.", "tags": ["fried-momo"], "variants": [ { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Veg", "price": 16.00, "protein": "veg", "is_vegetarian": true }, { "label": "Potato", "price": 18.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chilly Momo", "description": "Momo tossed in a spicy chilly sauce, filled with either chicken or vegetables.", "tags": ["chilli-momo"], "variants": [ { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Veg", "price": 16.00, "protein": "veg", "is_vegetarian": true }, { "label": "Potato", "price": 18.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jhool Momo", "description": "Momo served in a spiced tomato soup, filled with either chicken or vegetables.", "tags": ["jhol-momo"], "variants": [ { "label": "Chicken", "price": 16.00, "protein": "chicken" }, { "label": "Veg", "price": 15.00, "protein": "veg", "is_vegetarian": true }, { "label": "Potato", "price": 17.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Rolls and Wraps",
+      "items": [
+        { "name": "Chicken Chilly Roll", "tags": ["kati-roll", "chilli"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Panner Roll", "is_vegetarian": true, "tags": ["kati-roll", "paneer"], "variants": [ { "label": null, "price": 17.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Sausage Roll", "tags": ["sausage"], "variants": [ { "label": null, "price": 14.00 } ] },
+        { "name": "Chicken Kebab Wrap", "tags": [], "variants": [ { "label": null, "price": 13.00, "protein": "chicken" } ] },
+        { "name": "Chicken Cheese Kebab Wrap", "tags": [], "variants": [ { "label": null, "price": 14.00, "protein": "chicken" } ] },
+        { "name": "Chicken Spicy kebab Wrap", "tags": [], "variants": [ { "label": null, "price": 13.00, "protein": "chicken" } ] },
+        { "name": "Meat Kebab Wrap", "tags": [], "variants": [ { "label": null, "price": 15.00 } ] },
+        { "name": "Meat Cheese kebab Wrap", "tags": [], "variants": [ { "label": null, "price": 15.00 } ] },
+        { "name": "Meat Spicy Kebab Wrap", "tags": [], "variants": [ { "label": null, "price": 15.00 } ] },
+        { "name": "Falafel Wrap", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 13.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Stir-fried rice mixed with other ingredients with choice of veg and non-veg.", "tags": ["fried-rice"], "variants": [ { "label": "Vegetarian", "price": 12.00, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 13.00, "protein": "egg" }, { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Chicken Sausage", "price": 15.00, "protein": "chicken" }, { "label": "Mixed", "price": 17.00 } ] }
+      ]
+    },
+    {
+      "name": "Thenthuk",
+      "items": [
+        { "name": "Thenthuk", "description": "Hand-pulled dough noodle soup with choice of vegetarian and non-veg.", "tags": ["thenthuk"], "variants": [ { "label": "Vegetarian", "price": 14.00, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Chicken Sausage", "price": 15.00, "protein": "chicken" }, { "label": "Egg", "price": 15.00, "protein": "egg" }, { "label": "Mix", "price": 17.00 } ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Stir-fried noodles with spices with choice of veg and non-veg.", "tags": ["chowmein"], "variants": [ { "label": "Vegetarian", "price": 12.00, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 13.00, "protein": "egg" }, { "label": "Chicken", "price": 15.00, "protein": "chicken" }, { "label": "Chicken Sausage", "price": 15.00, "protein": "chicken" }, { "label": "Mixed", "price": 17.00 } ] }
+      ]
+    },
+    {
+      "name": "Box Plate",
+      "items": [
+        { "name": "Chicken Box Plate with Chips", "tags": [], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Chicken Box Plate with Flavor's Rice", "tags": [], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Chicken Chilly Plate with Chips/Rice", "tags": ["chilli"], "variants": [ { "label": null, "price": 18.00, "protein": "chicken" } ] },
+        { "name": "Meat Plate with Chips", "tags": [], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Meat Plate with Flavor's Rice", "tags": [], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Chips Chilly Plate with Rice", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 18.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Chilly Plate with Chips/Rice", "is_vegetarian": true, "tags": ["paneer", "chilli"], "variants": [ { "label": null, "price": 20.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Sausage Chilly Plate with Chips/Rice", "tags": ["sausage", "chilli"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Family Meal",
+      "items": [
+        { "name": "Flavor's Rice with Chicken", "tags": ["pulao"], "variants": [ { "label": null, "price": 25.00, "protein": "chicken" } ] },
+        { "name": "Family Nepali Thalii", "description": "1 kg of chicken, Big bowl of rice, Dal, curries and Pickle, 5 pieces of sweets, 5 pieces of papadam", "tags": ["thali", "dal-bhat"], "variants": [ { "label": null, "price": 110.00, "protein": "chicken" } ] },
+        { "name": "Family Kebab Plate", "description": "6 wraps of kebab, garlic sauce, salad, large chips; rice", "tags": [], "variants": [ { "label": "Chicken", "price": 100.00, "protein": "chicken" }, { "label": "Meat", "price": 120.00 }, { "label": "Mix", "price": 130.00 } ] }
+      ]
+    },
+    {
+      "name": "Meals",
+      "items": [
+        { "name": "Chicken Chilly Roll meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": ["kati-roll", "chilli"], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Panner Roll Meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "is_vegetarian": true, "tags": ["kati-roll", "paneer"], "variants": [ { "label": null, "price": 25.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Kebab Meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": [], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Chicken Cheese Kebab meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": [], "variants": [ { "label": null, "price": 22.00, "protein": "chicken" } ] },
+        { "name": "Chicken Spicy kebab meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": [], "variants": [ { "label": null, "price": 20.00, "protein": "chicken" } ] },
+        { "name": "Meat Kebab meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": [], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Meat Cheese kebab meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": [], "variants": [ { "label": null, "price": 25.00 } ] },
+        { "name": "Meat Spicy Kebab meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": [], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Sausage Roll meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "tags": ["sausage"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Falafel wrap meal", "description": "Roll or wraps with choice of Rice or Chips served with Salad, Pickel and Sauce", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 18.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Family Flavor's Chicken", "description": "2 whole Chicken, Rice, side of salads, Pickels, and sauce", "tags": [], "variants": [ { "label": null, "price": 120.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Extra",
+      "items": [
+        { "name": "Plain rice", "description": "Simple steamed white rice served as a perfect side dish.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Flavor's rice", "description": "Aromatic rice cooked with special herbs and spices for enhanced flavor.", "is_vegetarian": true, "tags": ["pulao"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Goat curry", "description": "Tender goat meat cooked in rich, spicy curry sauce with traditional spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 15.00, "protein": "goat" } ] },
+        { "name": "Chicken curry", "description": "Juicy chicken pieces simmered in flavorful curry with aromatic spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Masala Tea", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Black Tea", "tags": ["drinks"], "variants": [ { "label": null, "price": 3.50 } ] },
+        { "name": "Smoothies", "description": "Mango/Banana/Avocardo/strawberry", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 10.00 } ] },
+        { "name": "Lemonade", "description": "plain / Mint", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 10.00 } ] },
+        { "name": "Mojito", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 10.00 } ] },
+        { "name": "Lassi", "description": "Banana/mango/Avocardo/strawberry", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 10.00 } ] },
+        { "name": "Milk Shake", "description": "Banana/mango/Avocardo/strawberry", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 10.00 } ] },
+        { "name": "Can Soft Drink", "tags": ["drinks"], "variants": [ { "label": null, "price": 4.00 } ] },
+        { "name": "Bootles (600ml) Soft Drinks", "tags": ["drinks"], "variants": [ { "label": null, "price": 5.50 } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Gulab Jamun", "description": "Soft, spongy milk-solids balls soaked in a fragrant rose-flavored syrup.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.00 } ] },
+        { "name": "Rasbary", "description": "Sweet, spongy cottage cheese dumplings soaked in creamy, sweetened milk.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.00 } ] },
+        { "name": "Yomari (2pics)", "description": "A traditional Newari dish made of rice flour dough filled with sweet molasses and sesame seeds.", "is_vegetarian": true, "tags": ["yomari", "dessert", "newari"], "variants": [ { "label": null, "price": 10.00 } ] },
+        { "name": "Kenafeh served with ice cream", "description": "A Middle Eastern pastry made with thin noodle-like pastry soaked in sweet, sugar-based syrup, served with ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 15.00 } ] },
+        { "name": "Cake", "description": "A slice of our decadent cake, ask for today's flavor.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Ice Cream", "description": "A scoop of rich and creamy ice cream, available in various flavors.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 8.00 } ] }
+      ]
+    }
+  ]
+}

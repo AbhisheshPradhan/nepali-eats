@@ -14,12 +14,15 @@ stay out of the core. See CLAUDE.md "DESIGN CONSTRAINT".
 
 Agent-parsed, script-seeded. No LLM API, no parse UI, **no file storage**.
 
-1. You hand me a menu (file / screenshot) in-session **and the restaurant slug**.
-2. I transcribe it to `scraper/menu-data/<slug>.json`, mapping each item to the
-   controlled dish tags.
+1. `node scraper/menu-fetch.js <slug>` acquires the own-site menu cheaply: `pdftotext`
+   first (prints TEXT for text-layer PDFs, rasterizes only image-only scans), ignores
+   ordering-platform urls, warns on multi-column layouts, grabs server-rendered HTML.
+2. I transcribe what it prints to `scraper/menu-data/<slug>.json`, mapping each item to the
+   controlled dish tags (valid slugs via `node scraper/seed-menu.js --list-tags`), and still
+   do the judgement pass (price-typo sanity, schema fit).
 3. A deterministic, idempotent seeder writes the rows + rebuilds the rollups.
 
-One restaurant at a time — you're the queue.
+One restaurant at a time — you're the queue. Full worker flow: `MENU-WORKER-CHEATSHEET.md`.
 
 ## The model
 

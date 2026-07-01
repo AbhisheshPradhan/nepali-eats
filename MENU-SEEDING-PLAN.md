@@ -63,19 +63,36 @@ only where a spot has no own menu.
   was not seeded; `catering=true` set instead. Don't re-attempt as a priced menu.
 - **`source = "admin"`**, `price_source` = `print`/`website` per where it came from.
 
+### ⚠️ Prices to confirm with the owner
+
+- **Flavours of Nepal (`flavours-of-nepal-granville`, id 116) — 6 momos.** The physical
+  menu we seeded from had NO momo section, so the momos were taken from the yumbojumbo
+  site (an ordering platform we otherwise ignore) and rounded to whole dollars. The names
+  are trustworthy; the **prices are unconfirmed** because a cross-check of shared items
+  showed yumbojumbo runs a few cents/dollars off the real menu (e.g. Chhoila $17 vs $18,
+  Goat Curry $22.99 vs $23, Laphing $9.99 vs $10/$12). Momos seeded (yumbojumbo → rounded):
+  Steam $12.50→**$13**, Kothey $13.90→**$14**, Fried $13.90→**$14**, Chilli $15.90→**$16**,
+  Sadeko $15.90→**$16**, Jhol $14.99→**$15**. **Confirm these 6 prices (and whether protein
+  options exist) with the owner, then correct the JSON + reseed.** Everything else on 116 is
+  from the real printed menu.
+
 ---
 
 ## Checklist
 
 Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-progress.js --write`. `📁local` = file under `media/menus/`.
 
-**Progress: 42 / 147 seeded (29%)** · refreshed 2026-07-01
+**Progress: 75 / 147 seeded (51%)** · refreshed 2026-07-02
 
-### A. PDF menus — start here — 24/25 done
+### A. PDF menus — start here — 26/27 done
+- [x] **Kathmandu Momo** (Surfers Paradise, QLD) · 3795 rev · ✓ 170 items
+    https://kathmandumomo.com.au/wp-content/uploads/2026/06/kathmandu-momo-FOODDRINK-regular-m
 - [x] **Falcha Town Hall** (Sydney, NSW) · 2853 rev · ✓ 53 items
     https://falcha.com.au/wp-content/uploads/2026/04/Falcha_Townhall_Menu_Nov2025.pdf
 - [x] **Funky Momo** (Victoria Park, WA) · 1406 rev · ✓ 89 items
     http://funkymomo.com.au/wp-content/uploads/2023/03/Food-Menu-funky-final.pdf
+- [x] **Galli Galli Nepalese Indian** (Sydney, NSW) · 1166 rev · ✓ 50 items
+    https://galligalli.com.au/wp-content/uploads/2025/06/Galli-Galli-Menu.pdf
 - [x] **Tasty Momo Restaurant Nepalese & India** (Dianella, WA) · 723 rev · ✓ 90 items
     https://tastymomo.com.au/wp-content/uploads/2026/01/TASTY-MOMO-MENU-Cloverdale-V.6.pdf
 - [x] **Taste of Nepal** (Norwood, SA) · 697 rev · ✓ 51 items
@@ -123,112 +140,122 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
 - [x] **Tusa Canberra** (Barton, ACT) · 19 rev · ✓ 19 items
     https://tusanepal.com/wp-content/uploads/2026/06/Tusa-Canberra.pdf
 
-### B. Own-site pages — 15/83 done
+### B. Own-site pages — 49/88 done
 - [x] **The Momos Hub Townhall** (Sydney, NSW) · 3689 rev · ✓ 47 items
     menus/17/menu-1782054769586-3g5g.webp
+- [x] **Chulho - Harris Park** (Harris Park, NSW) · 2448 rev · ✓ 132 items
+    https://www.chulho.com.au/menu
+- [x] **Heshela Newa Khaja Ghar Rockdale** (Rockdale, NSW) · 2357 rev · ✓ 95 items
+    https://restaurant.heshela.com.au/table-menu/
 - [x] **Chilli Everest** (Melbourne, VIC) · 2249 rev · ✓ 49 items
     https://chillieverest.com.au/menu/
 - [x] **Momo Central Little Collins St** (Melbourne, VIC) · 1998 rev · ✓ 27 items
     https://momocentral.com.au/menus/
 - [x] **Lakeside Gurkhas** (Kingston, ACT) · 1953 rev · ✓ 195 items
     http://lakesidegurkhas.com.au/menu
+- [x] **Khukuri Nepali Restaurant** (Campsie, NSW) · 1442 rev · ✓ 87 items
+    https://khukurirestaurant.com.au/menu/khukuri-campsie
 - [x] **Magic Momo Kafe West Footscray** (West Footscray, VIC) · 1299 rev · ✓ 18 items
     https://magicmomokafe.com.au/menu/
+- [x] **Old Durbar Nepalese & Indian Restauran** (Melbourne, VIC) · 1279 rev · ✓ 42 items
+    https://old-durbar.com.au/our-cuisines/
+- [x] **Sambandha Restaurant** (Auburn, NSW) · 1215 rev · ✓ 30 items
+    https://sambandharestaurant.shop/menu
 - [x] **SPICE MIX- Indian, Nepalese & Halal Re** (Brunswick East, VIC) · 1015 rev · ✓ 178 items
     https://spicemixrestaurant.com/menu
 - [ ] **Mul Chowk Kitchen Sydney** (Campsie, NSW) · 995 rev
     https://mccatering.com.au/menu
 - [x] **MoMo Planet** (Victoria Park, WA) · 968 rev · ✓ 121 items
     http://www.momoplanetperth.com/menu.html
-- [ ] **Khukuri Restaurant Adelaide** (Adelaide, SA) · 929 rev
+- [x] **Khukuri Restaurant Adelaide** (Adelaide, SA) · 929 rev · ✓ 87 items
     https://khukurirestaurant.com.au/menu/khukuri-adelaide
+- [x] **Maicha - Nepalese Restaurant** (Burwood, NSW) · 905 rev · ✓ 74 items
+    https://maicharestaurant.com.au/menu/
+- [x] **Old Durbar Nepalese & Indian Restauran** (Brunswick, VIC) · 887 rev · ✓ 97 items
+    https://old-durbar.com.au/our-cuisines/
 - [x] **Tapari Momo** (Granville, NSW) · 869 rev · ✓ 118 items
     https://taparimomo.com.au/menu
-- [x] **Falcha Rockdale** (Rockdale, NSW) · 867 rev · ✓ 53 items
+- [x] **Falcha Rockdale** (Rockdale, NSW) · 867 rev · ✓ 101 items
     https://falcha.com.au/menu-rockdale/
-- [ ] **The Hungry Buddha | Nepalese & Indian ** (Belconnen, ACT) · 813 rev
+- [x] **The Hungry Buddha | Nepalese & Indian ** (Belconnen, ACT) · 813 rev · ✓ 93 items
     https://thehungrybuddha.com.au/menu-1
 - [ ] **Momo Central Brunswick** (Brunswick, VIC) · 787 rev
     https://momocentralbrunswick.shop/menu
-- [ ] **Aagaman Indian Nepalese Restaurant: Po** (Port Melbourne, VIC) · 756 rev
+- [x] **Aagaman Indian Nepalese Restaurant: Po** (Port Melbourne, VIC) · 756 rev · ✓ 74 items
     https://aagamanrestaurant.com.au/menu.html
+- [x] **Chulho Town Hall** (Sydney, NSW) · 743 rev · ✓ 132 items
+    https://www.chulho.com.au/menu
 - [ ] **Indus Curry Express - Authentic Indian** (Geebung, QLD) · 735 rev
     https://induscurryexpress.com/menus
 - [ ] **The Savoury Dining & Bar North Strathf** (North Strathfield, NSW) · 728 rev
     https://www.thesavourydiningns.com/#Menu
-- [ ] **Aagaman Indian Nepalese Restaurant: Me** (Melbourne, VIC) · 723 rev
+- [x] **Aagaman Indian Nepalese Restaurant: Me** (Melbourne, VIC) · 723 rev · ✓ 76 items
     https://aagamanrestaurant.com.au/menu.html
-- [x] **Timur Indian & Nepalese Restaurant** (Parramatta, NSW) · 709 rev · ✓ 150 items
-    https://timurindiannepalese.yumbojumbo.com.au/menu
-- [ ] **Tinkune Momo & Sekuwa House** (Sunshine, VIC) · 698 rev
-    http://tinkune.com.au/menu
-- [x] **Flavours of Nepal** (Granville, NSW) · 685 rev · ✓ 132 items
-    https://flavoursofnepal.yumbojumbo.com.au/menu
-- [ ] **Momo Central Bourke street** (Melbourne, VIC) · 671 rev
+- [x] **Tinkune Momo & Sekuwa House** (Sunshine, VIC) · 698 rev · ✓ 49 items
+    http://tinkune.com.au/order-now
+- [x] **Momo Central Bourke street** (Melbourne, VIC) · 671 rev · ✓ 27 items
     https://momocentral.com.au/menus/
 - [ ] **Ribs Lane Subiaco** (Subiaco, WA) · 655 rev
     https://www.ribslane.com.au/menu
+- [x] **Heshela Newa Khaja Ghar Hurstville** (Hurstville, NSW) · 655 rev · ✓ 95 items
+    https://restaurant.heshela.com.au/table-menu/
 - [x] **Kathmandu Newa Chhe'n** (Paddington, QLD) · 612 rev · ✓ 87 items
     http://www.kathmandunewa.com.au/menu
-- [ ] **Momo Station** (Melbourne, VIC) · 586 rev
+- [x] **Momo Station** (Melbourne, VIC) · 586 rev · ✓ 65 items
     https://momostation.com.au/menu-2/
 - [ ] **Spice Town** (Inglewood, WA) · 537 rev
     https://spicetown.tuckerfox.com.au/menu
-- [ ] **Ayla Bar & Restaurant** (Melbourne, VIC) · 531 rev
+- [x] **Ayla Bar & Restaurant** (Melbourne, VIC) · 531 rev · ✓ 45 items
     https://aylamelbourne.com/menu/
-- [ ] **HAMRO NEPALI KITCHEN** (Karawara, WA) · 507 rev
+- [x] **HAMRO NEPALI KITCHEN** (Karawara, WA) · 507 rev · ✓ 59 items
     http://hamronepalikitchen.com/menu
 - [ ] **Everest BBQ** (Rockdale, NSW) · 497 rev
     https://everestbbq.yumbojumbo.com.au/menu
-- [x] **Falcha Penshurst** (Penshurst, NSW) · 462 rev · ✓ 53 items
+- [x] **Falcha Penshurst** (Penshurst, NSW) · 462 rev · ✓ 139 items
     https://falcha.com.au/menu-penshurst/
 - [ ] **Kalapani Nepalese Restaurant Town hall** (Sydney, NSW) · 438 rev
     https://kalapaninepalesecbd.yumbojumbo.com.au/menu
 - [ ] **PANS ON FIRE** (Werribee, VIC) · 415 rev
     https://pansonfire.yumbojumbo.com.au/menu
-- [ ] **Momo Ghar Oii Oii Oii** (Hoppers Crossing, VIC) · 413 rev
+- [x] **Momo Ghar Oii Oii Oii** (Hoppers Crossing, VIC) · 413 rev · ✓ 53 items
     https://www.momoghar.com.au/home#menu
 - [ ] **De Bhatti** (Mount Lawley, WA) · 409 rev
     https://bhatti.com.au/menus/
-- [ ] **Himali Gurkha Nepalese Restaurant** (Ardross, WA) · 404 rev
+- [x] **Old Durbar Nepalese & Indian Restauran** (Nunawading, VIC) · 406 rev · ✓ 116 items
+    https://old-durbar.com.au/our-cuisines/
+- [x] **Himali Gurkha Nepalese Restaurant** (Ardross, WA) · 404 rev · ✓ 59 items
     https://himaligurkha.com/menu/
-- [ ] **Lankan Railway Cafe** (Mortdale, NSW) · 375 rev
-    https://lankanrailwaycafemortdale.com.au/menu.html
-- [ ] **Rolling Flavors** (Subiaco, WA) · 370 rev
+- [x] **Rolling Flavors** (Subiaco, WA) · 370 rev · ✓ 81 items
     https://www.rollingflavors.com.au/menu
-- [ ] **Namaste Kitchen** (South Perth, WA) · 365 rev
+- [x] **Namaste Kitchen** (South Perth, WA) · 365 rev · ✓ 138 items
     https://namastekitchen.com.au/our-menus/
-- [ ] **Lah Bros Windsor | Modern Nepalese Res** (Windsor, VIC) · 352 rev
-    http://lahbros.com.au/menu
+- [x] **Lah Bros Windsor | Modern Nepalese Res** (Windsor, VIC) · 352 rev · ✓ 44 items
+    https://www.lahbros.com.au/eat
 - [ ] **Crimson and Blue** (Millswood, SA) · 351 rev
     https://crimsonandblue.com.au/our-menu/
 - [ ] **Nepal Dining Room** (Malvern East, VIC) · 348 rev
     https://tapnorder.online/
-- [ ] **Everest Eatery - Indian & Nepalese Cui** (Hobart, TAS) · 346 rev
+- [x] **Everest Eatery - Indian & Nepalese Cui** (Hobart, TAS) · 346 rev · ✓ 55 items
     http://everesteatery.com.au/our-menu/
-- [ ] **YUVI KITCHEN** (Burnie, TAS) · 320 rev
-    https://www.yuvikitchen.com/#menu
-- [ ] **Tastish** (Dandenong, VIC) · 299 rev
-    http://menu.tastish.com.au/
 - [ ] **Downtown MoMo** (Parramatta, NSW) · 298 rev
     https://downtownmomo.yumbojumbo.com.au/menu
-- [ ] **Khukuri Restaurant Melbourne** (Melbourne, VIC) · 287 rev
-    https://khukurirestaurant.com.au/menu/khukuri-adelaide
-- [ ] **Real Mountain Nepalese and Indian Rest** (Glen Forrest, WA) · 276 rev
+- [x] **Khukuri Restaurant Melbourne** (Melbourne, VIC) · 287 rev · ✓ 87 items
+    https://khukurirestaurant.com.au/menu/khukuri-melbourne
+- [x] **Real Mountain Nepalese and Indian Rest** (Glen Forrest, WA) · 276 rev · ✓ 96 items
     https://www.realmountainglenforrest.com.au/menu
-- [ ] **Mt.Everest Indian And Nepalese Restaur** (Hunters Hill, NSW) · 275 rev
+- [x] **Mt.Everest Indian And Nepalese Restaur** (Hunters Hill, NSW) · 275 rev · ✓ 92 items
     https://mounteverestrestaurant.com.au/menu.php
-- [ ] **Himalayan Nepalese Restaurant and Cafe** (Mosman Park, WA) · 272 rev
+- [x] **Himalayan Nepalese Restaurant and Cafe** (Mosman Park, WA) · 272 rev · ✓ 64 items
     https://himalayanrestaurant.com.au/menu
-- [ ] **Base Camp** (Northcote, VIC) · 260 rev
+- [x] **Base Camp** (Northcote, VIC) · 260 rev · ✓ 68 items
     http://www.basecamprestaurant.com.au/menu
-- [ ] **Deurali Restaurant** (Salisbury, SA) · 247 rev
-    https://deurali.com.au/our-menus/
-- [ ] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev
+- [x] **Cafe Talk Nepalese Restaurant - Hornsb** (Hornsby, NSW) · 247 rev · ✓ 59 items
     https://thecafetalk.com.au/our-menu/
+- [x] **Deurali Restaurant** (Salisbury, SA) · 247 rev · ✓ 61 items
+    https://deurali.com.au/our-menus/
 - [ ] **The momos** (Hornsby, NSW) · 240 rev
     https://themomos-hornsby.yumbojumbo.com.au/menu
-- [ ] **Gurkha's Fusion** (Maroochydore, QLD) · 237 rev
+- [x] **Gurkha's Fusion** (Maroochydore, QLD) · 237 rev · ✓ 60 items
     https://gurkhasfusion.com.au/menu/
 - [ ] **Kantipur Indian Nepalese Restaurant & ** (Caulfield North, VIC) · 218 rev
     https://tapnorder.online/
@@ -240,7 +267,7 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://siteassets.parastorage.com/pages/pages/thunderbolt?appDefinitionIdToSiteRevision=%
 - [ ] **The Hungry Hiker Indian & Nepali Resta** (Tecoma, VIC) · 194 rev
     https://www.thehungryhiker.com.au/menu.html
-- [ ] **Shasa Momo** (Granville, NSW) · 190 rev
+- [x] **Shasa Momo** (Granville, NSW) · 190 rev · ✓ 34 items
     https://shasamomo.com.au/menu/
 - [ ] **Third Eye Windsor** (South Windsor, NSW) · 188 rev
     https://thirdeyewindsor.com.au/home-catering-menu
@@ -256,13 +283,13 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     https://tibetan-peace-restaurant.grubbio.com/menu
 - [ ] **ChiyaHub** (Kogarah, NSW) · 148 rev
     https://www.chiyahub.com/menu
-- [x] **Falcha Wollongong** (Wollongong, NSW) · 132 rev · ✓ 53 items
+- [x] **Falcha Wollongong** (Wollongong, NSW) · 132 rev · ✓ 23 items
     https://falcha.com.au/menu-wollogong/
 - [ ] **Khaja** (Villawood, NSW) · 122 rev
     https://khaja.com.au/menu/
 - [ ] **FEWA KITCHEN** (Chippendale, NSW) · 112 rev
     https://fewakitchen.wordpress.com/home/menu/
-- [ ] **Aagaman Indian Nepalese Restaurant: Ro** (Rosanna, VIC) · 109 rev
+- [x] **Aagaman Indian Nepalese Restaurant: Ro** (Rosanna, VIC) · 109 rev · ✓ 76 items
     https://aagamanrestaurant.com.au/menu.html
 - [ ] **FÜDA : GLOBAL STREET BITES** (Darwin City, NT) · 106 rev
     https://www.fuda.com.au/menu
@@ -274,7 +301,7 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
     http://www.tresrestaurant.com.au/menu
 - [ ] **The Nepalese Corner ( Restaurant & Caf** (Coburg, VIC) · 82 rev
     https://thenepalesecorner.com.au/our-menu
-- [ ] **Raato Ghar** (Granville, NSW) · 79 rev
+- [x] **Raato Ghar** (Granville, NSW) · 79 rev · ✓ 58 items
     https://raatoghar.com/menus/
 - [ ] **Newari kitchen** (Seven Hills, NSW) · 72 rev
     https://newarikitchen.com.au/menus/
@@ -291,31 +318,17 @@ Source of truth = DB (`menu_item_count`); regenerate with `node scraper/menu-pro
 - [ ] **Himalayan Nepalese Restaurant & Cafe** (Mosman Park, WA) · 0 rev
     https://www.himalayanrestaurant.com.au/menu
 
-### C. Aggregators — last resort (bot-walled, marked-up prices) — 3/39 done
-- [x] **Kathmandu Momo** (Surfers Paradise, QLD) · 3795 rev · ✓ 168 items
-    https://www.ubereats.com/au/store/kathmandu-mo%3Amo%3A-house-%26-bar/fFtHeF8aRFyJQJOIREb52
-- [ ] **Chulho - Harris Park** (Harris Park, NSW) · 2448 rev
-    https://www.ubereats.com/au/store/chulho-%40-town/6YPCVe8UQXucuDZKNS76QQ?diningMode=DELIVE
-- [x] **Heshela Newa Khaja Ghar Rockdale** (Rockdale, NSW) · 2357 rev · ✓ 91 items
-    https://www.ubereats.com/au/store/heshela-newa-khaja-ghar-rockdale/LCK3YaR_SWKUB4-ro8av1w?
-- [ ] **Galli Galli Nepalese Indian** (Sydney, NSW) · 1166 rev
-    https://www.ubereats.com/au/store/galligalli
-- [ ] **Maicha - Nepalese Restaurant** (Burwood, NSW) · 905 rev
-    https://www.doordash.com/store/maicha-nepalese-restaurant-burwood-36077847/83682877/?event
+### C. Aggregators — last resort (bot-walled, marked-up prices) — 0/32 done
 - [ ] **8848 Momo House Forest Lake** (Forest Lake, QLD) · 856 rev
     https://www.ubereats.com/au/store/8848-momo-house/rliCQvp6TzCIIayqWvWblw
 - [ ] **8848 Momo House** (Fortitude Valley, QLD) · 777 rev
     https://www.ubereats.com/au/store/8848-momo-house/rliCQvp6TzCIIayqWvWblw
 - [ ] **8848 Momo House Goldcoast** (Surfers Paradise, QLD) · 761 rev
     https://www.ubereats.com/au/store/8848-momo-house/rliCQvp6TzCIIayqWvWblw
-- [ ] **Chulho Town Hall** (Sydney, NSW) · 743 rev
-    https://www.ubereats.com/au/store/chulho-%40-town/6YPCVe8UQXucuDZKNS76QQ?diningMode=DELIVE
 - [ ] **Jery Solti rockdale** (Rockdale, NSW) · 703 rev
     https://www.ubereats.com/au/store/jerysolti-rockdale/9TirmmRsRAyIqMClBxO66Q?srsltid=AfmBOo
 - [ ] **8848 Momo House Maroochydore (Sunshine** (Maroochydore, QLD) · 682 rev
     https://www.ubereats.com/au/store/8848-momo-house/rliCQvp6TzCIIayqWvWblw
-- [x] **Heshela Newa Khaja Ghar Hurstville** (Hurstville, NSW) · 655 rev · ✓ 91 items
-    https://www.ubereats.com/au/store/heshela-newa-khaja-ghar-rockdale/LCK3YaR_SWKUB4-ro8av1w?
 - [ ] **8848 Momo House Mount Gravatt** (Upper Mount Gravatt, QLD) · 638 rev
     https://www.ubereats.com/au/store/8848-momo-house/rliCQvp6TzCIIayqWvWblw
 - [ ] **8848 Momo House Melbourne** (Melbourne, VIC) · 626 rev

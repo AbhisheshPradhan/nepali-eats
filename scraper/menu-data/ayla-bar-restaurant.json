@@ -1,0 +1,139 @@
+{
+  "slug": "ayla-bar-restaurant",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "_note": "Own-site menu images (aylamelbourne.com dinner-menu, Sept 2025). Seeded the full DINNER menu (canonical) + Drinks from the express-lunch page (dinner menu carries no drinks; bar/cocktail menu is separate). Express-lunch food items skipped as duplicates at lunch prices.",
+  "categories": [
+    {
+      "name": "Starters (Veg & Vegan)",
+      "items": [
+        { "name": "Ayla Loaded Fries", "description": "Crispy fries with melted Mexican shredded cheese, salsa, tangy smashed avocado and drizzle of sour cream. (Add grilled chicken +$5)", "tags": [],
+          "variants": [ { "label": null, "price": 17.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chatpatay (Noodle Snack)", "description": "Crispy instant noodles mixed with zesty Nepali spices, creating a crunchy and savory street-style snack", "tags": [],
+          "variants": [ { "label": null, "price": 15.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Soybean & Peanut Salad", "description": "Roasted soybeans and peanuts tossed with fresh onions, tomatoes, chilies, and herbs. Refreshing and healthy!", "tags": [],
+          "variants": [ { "label": null, "price": 15.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chilli Chips", "description": "Crispy chips caramelized in sweet Nepali chili sauce with diced onions and capsicum.", "tags": [],
+          "variants": [ { "label": null, "price": 15.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Chilli", "description": "Fried Cottage cheese caramelised with nepali sweet chilli sauce and mix veggies.", "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 17.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chips", "description": "Crispy fried chips with Aioli/chipotle mayo.", "tags": [],
+          "variants": [ { "label": null, "price": 12.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mustang Timur Aalu", "description": "Spiced potato wedges tossed in Himalayan Sichuan pepper and aromatic herbs.", "tags": ["timur"],
+          "variants": [ { "label": null, "price": 17.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mushroom Choila (Cold Salad)", "description": "Fried marinated cup mushroom mixed with blend of Himalayan spices, red onion, cilantro, spring onion.", "tags": ["choila"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Starters (Non-Veg)",
+      "items": [
+        { "name": "Chicken Sausage", "description": "Perfectly fried chicken sausages served with authentic Nepali dipping sauces and Sriracha.", "tags": ["sausage"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "chicken" } ] },
+        { "name": "Crispy Fish", "description": "Lightly battered whitebait fish fried to golden perfection.", "tags": ["fried-fish"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "fish" } ] },
+        { "name": "Chicken Lollipop", "description": "Crispy fried chicken drummettes served with a spicy house sauce.", "tags": ["lollipop"],
+          "variants": [ { "label": null, "price": 19.99, "protein": "chicken" } ] },
+        { "name": "Buffalo Sukuti (Jerky) Salad", "description": "Buffalo jerky tossed in spiced gravy with authentic Nepali herbs.", "tags": ["sukuti"],
+          "variants": [ { "label": null, "price": 21.99, "protein": "buff" } ] },
+        { "name": "Pork Sekuwa (Chargrilled Pork)", "description": "Chargrilled pork belly marinated in bold Nepali spices.", "tags": ["sekuwa"],
+          "variants": [ { "label": null, "price": 23.99, "protein": "pork" } ] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Nuggets & Chips", "description": "", "tags": [],
+          "variants": [ { "label": null, "price": 12.99, "protein": "chicken" } ] },
+        { "name": "Chicken Chow Mein", "description": "", "tags": ["chowmein"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "chicken" } ] },
+        { "name": "Chicken Sausage", "description": "", "tags": ["sausage"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "chicken" } ] },
+        { "name": "Chicken Fried Rice", "description": "", "tags": ["fried-rice"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "chicken" } ] },
+        { "name": "Mozzarella Sticks", "description": "", "tags": [],
+          "variants": [ { "label": null, "price": 12.99, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Momo (Nepalese Dumplings)",
+      "items": [
+        { "name": "Steamed Momo", "description": "", "tags": ["steamed-momo"],
+          "variants": [ { "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Buff", "price": 20.99, "protein": "buff" }, { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Momo", "description": "", "tags": ["fried-momo"],
+          "variants": [ { "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Buff", "price": 20.99, "protein": "buff" }, { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jhol Momo", "description": "Momo served in a spiced soup.", "tags": ["jhol-momo"],
+          "variants": [ { "label": "Chicken", "price": 19.99, "protein": "chicken" }, { "label": "Buff", "price": 21.99, "protein": "buff" }, { "label": "Veg", "price": 19.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chilli Momo", "description": "", "tags": ["chilli-momo"],
+          "variants": [ { "label": "Chicken", "price": 20.99, "protein": "chicken" }, { "label": "Buff", "price": 21.99, "protein": "buff" }, { "label": "Veg", "price": 20.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Goat Jhol Momo (Ayla's Popular)", "description": "Choice of Momo Served with Goat bone soup perfectly balanced with kick of sichuan pepper and broth.", "tags": ["jhol-momo"],
+          "variants": [ { "label": "Buff", "price": 25.00, "protein": "buff" }, { "label": "Chicken", "price": 23.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Ayla Specials",
+      "items": [
+        { "name": "Bhutan Dinner Set", "description": "Flavourful Goat tripe, lungs stir-fry served with beaten rice, soybean peanut salad, pickles, and green salad.", "tags": ["bhutan"],
+          "variants": [ { "label": null, "price": 24.99, "protein": "goat" } ] },
+        { "name": "Pork Skewers (Chargrilled Pork) Dinner Set", "description": "Chargrilled pork sekuwa served with beaten rice, soybean peanut salad, pickles, and green salad.", "tags": ["sekuwa"],
+          "variants": [ { "label": null, "price": 25.99, "protein": "pork" } ] },
+        { "name": "Buffalo Sukuti (Jerky) Dinner Set", "description": "Buffalo jerky served with beaten rice soybean peanut salad, pickles, and green salad.", "tags": ["sukuti"],
+          "variants": [ { "label": null, "price": 24.99, "protein": "buff" } ] },
+        { "name": "Chowmein (Nepalese Fried Noodles)", "description": "Stir-fried noodles with garlic, ginger, veggies, and spices.", "tags": ["chowmein"],
+          "variants": [ { "label": "Vegetable", "price": 19.99, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 22.00, "protein": "chicken" }, { "label": "Egg", "price": 22.00, "protein": "egg" }, { "label": "Buff", "price": 23.00, "protein": "buff" }, { "label": "Mix", "price": 24.00 } ] },
+        { "name": "Ayla Platter Set (Perfect for 2 to Share)", "description": "An exquisite spread with sausage sadheko (salad), Bhutan, pork skewers, buff Sukuti, crispy fish and green salads.", "tags": [],
+          "variants": [ { "label": null, "price": 34.99 } ] },
+        { "name": "Nepali Fusion Tacos", "description": "A playful fusion of Nepali and Mexican flavors—mozzarella, salsa, jalapeno, and traditional sauces.", "tags": [],
+          "variants": [ { "label": "Pork Skewers", "price": 20.99, "protein": "pork" }, { "label": "Grilled Chicken", "price": 20.99, "protein": "chicken" }, { "label": "Mushroom Choila (Vegan)", "price": 20.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Dharanay Thukpa (Tibetan Noodle Soup)", "description": "Traditional noodle soup infused with bold spices and fresh herbs.", "tags": ["thukpa"],
+          "variants": [ { "label": "Pork", "price": 23.99, "protein": "pork" }, { "label": "Chicken", "price": 23.99, "protein": "chicken" }, { "label": "Veg", "price": 23.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Curry Rice Bowl", "description": "Wok fried Basmati rice, mixed veggies, soysauce, cilantro, spring onion, chilli oil and blend of Nepalese spices.", "tags": ["fried-rice"],
+          "variants": [ { "label": "Goat", "price": 22.33, "protein": "goat" }, { "label": "Chicken", "price": 22.33, "protein": "chicken" }, { "label": "Paneer", "price": 22.33, "protein": "paneer", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Ayla Favourites",
+      "items": [
+        { "name": "Crispy Chicken Burger", "description": "Ayla special marinated and crumbled chicken patty, iceberg lettuce, jalapeño, chipotle mayo, aioli, tomato and side of chips.", "tags": [],
+          "variants": [ { "label": null, "price": 22.99, "protein": "chicken" } ] },
+        { "name": "Veg Burger", "description": "Veg patty, pickled cucumber, chipotle mayo, tomato, onion and side of chips.", "tags": [],
+          "variants": [ { "label": null, "price": 19.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Parma", "description": "Crumbled chicken schnitzel topped with Napoli sauce, Mexican shredded cheese, ham, side of chips and green salad.", "tags": [],
+          "variants": [ { "label": null, "price": 23.99, "protein": "chicken" } ] },
+        { "name": "Chicken Schnitzel", "description": "Crumbled chicken schnitzel with a side of chips and green salad. Choice of sauce: Aioli / Chipotle mayo", "tags": [],
+          "variants": [ { "label": null, "price": 21.99, "protein": "chicken" } ] },
+        { "name": "Fried Calamari", "description": "Fried calamari served with spicy mayonnaise.", "tags": [],
+          "variants": [ { "label": null, "price": 17.99, "protein": "calamari" } ] },
+        { "name": "Buffalo Wings (6 pcs)", "description": "Crumbled wings tossed with buffalo sauce and side of blue cheese.", "tags": ["wings"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Juju Dhau (King of Yoghurt)", "description": "A creamy traditional buffalo milk yoghurt delicately flavored with cardamom.", "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Lal Mohan & Yoghurt", "description": "Fried dough balls in sweet syrup paired with chilled yoghurt.", "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 9.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chaku Ice Cream with Kitkat", "description": "A fusion dessert of Nepali chaku (molasses) ice cream topped with KitKat crumble.", "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 12.99, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Mango Lassi / Plain Lassi", "description": "Refreshing yogurt-based drinks.", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 6.99 } ] },
+        { "name": "Chiya (Nepalese Milk Tea)", "description": "Traditional sweet milk tea.", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 5.99 } ] },
+        { "name": "Soft Drink Cans", "description": "Assorted soft drinks.", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 5.99 } ] },
+        { "name": "Pot of House Beer", "description": "Refreshing draught beer.", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 7.99 } ] },
+        { "name": "Glass of House Wine (Red/White)", "description": "Classic house pour wine selection.", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 8.99 } ] }
+      ]
+    }
+  ]
+}

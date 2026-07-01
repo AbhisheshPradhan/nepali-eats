@@ -1,0 +1,113 @@
+{
+  "slug": "galli-galli-nepalese-indian-sydney",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "To Share",
+      "items": [
+        { "name": "French Fries", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.90, "protein": "veg" } ] },
+        { "name": "Sweet Potato Fries", "description": "Deep fried fries, aioli & sweet chilli sauce.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.90, "protein": "veg" } ] },
+        { "name": "Spring Roll", "description": "Veg spring roll with sweet chilli sauce.", "is_vegetarian": true, "tags": ["spring-roll"], "variants": [ { "label": null, "price": 15.90, "protein": "veg" } ] },
+        { "name": "Salt & Pepper Squid", "description": "Crispy squid, aioli, chilli, salt & lemon.", "tags": [], "variants": [ { "label": null, "price": 20.90, "protein": "calamari" } ] },
+        { "name": "Prawn Tempura", "description": "Tiger prawns, veg tempura, lemon & soy mirin.", "tags": [], "variants": [ { "label": null, "price": 20.90, "protein": "prawn" } ] },
+        { "name": "Cheesy Chips Chilli", "description": "Chips, melted cheese & chilli sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Korean Cheesy Corn", "description": "Crispy baby corn, garlic mayo & melted cheese.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Mustang Aalu (House Special)", "description": "Potato slices, szechuan pepper, roasted chilli, garlic, aromatic herbs & buckwheat pancake topping.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Aloo Achar", "description": "Traditional Nepali Potatoes Salads Tempered with Sesame Seeds.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Veg Pakoda (6pcs)", "description": "Crispy veg fritters, chickpeas flour, mint & yoghurt sauce.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Shya Phalle (2pcs)", "description": "Tibetan puff pastry, chicken mince, green chutney & chilli oil.", "tags": ["shavale"], "variants": [ { "label": null, "price": 16.90, "protein": "chicken" } ] },
+        { "name": "Pani Puri Shots (8pcs)", "description": "Mini puri stuffed with spicy mash & mint tamarind flavoured water on side.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 16.90, "protein": "veg" } ] },
+        { "name": "Galli's Sausage (3pcs)", "description": "Fried chicken sausage (szechuan hot and tomato chutney).", "tags": ["sausage"], "variants": [ { "label": null, "price": 14.90, "protein": "chicken" } ] },
+        { "name": "Wai Wai Sadheko", "description": "Hot & spicy crunchy noodles, peanuts, onions & fresh coriander.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 14.90, "protein": "veg" } ] },
+        { "name": "Crispy Sweet Corn", "description": "Sauteed baby sweet corn & diced capsicum mix spices.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 14.90, "protein": "veg" } ] },
+        { "name": "Malekhu Ko Machha (Fried Fish)", "description": "Deep fried marinated in nepalese spices served with spicy sauce.", "tags": ["fried-fish"], "variants": [ { "label": null, "price": 19.90, "protein": "fish" } ] }
+      ]
+    },
+    {
+      "name": "Legendary Momos",
+      "items": [
+        { "name": "Steamed Momo (10 pcs)", "description": "Steamed with momo chutney.", "tags": ["steamed-momo"], "variants": [ { "label": "Veggie", "price": 15.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 16.90, "protein": "chicken" } ] },
+        { "name": "Chilli Momo (10 pcs)", "description": "With hot chilli sauce, capsicum, onion.", "tags": ["chilli-momo"], "variants": [ { "label": "Veggie", "price": 16.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.90, "protein": "chicken" } ] },
+        { "name": "Sadheko Momo (10 pcs)", "description": "Tossed in herb and spices, roasted sesame seeds.", "tags": ["sandheko-momo"], "variants": [ { "label": "Veggie", "price": 16.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.90, "protein": "chicken" } ] },
+        { "name": "Jhol Momo (10 pcs)", "description": "Peanuts & sesame soup served cold.", "tags": ["jhol-momo"], "variants": [ { "label": "Veggie", "price": 16.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.90, "protein": "chicken" } ] },
+        { "name": "Fried Momo (10 pcs)", "tags": ["fried-momo"], "variants": [ { "label": "Veggie", "price": 16.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.90, "protein": "chicken" } ] },
+        { "name": "Tandoori Momo (8 pcs)", "description": "Coated in tandoori paste and grilled, yogurt sauce.", "tags": ["momo", "tandoori"], "variants": [ { "label": "Veggie", "price": 17.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.90, "protein": "chicken" } ] },
+        { "name": "Momo Platter (16 pcs)", "description": "Combination of steam / chilli & fried / sadheko.", "tags": ["momo"], "variants": [ { "label": "Veggie", "price": 32.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 35.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Crispy Chicken Flavours",
+      "items": [
+        { "name": "Original Wings", "description": "Crispy wings with chilli mayo & kimchi.", "tags": ["wings"], "variants": [ { "label": null, "price": 19.90, "protein": "chicken" } ] },
+        { "name": "Chicken 65", "description": "Indie flavoured, crispy boneless, yoghurt, garam masala & fried onion.", "tags": ["chicken-65"], "variants": [ { "label": null, "price": 19.90, "protein": "chicken" } ] },
+        { "name": "Chilli Chicken", "description": "Nepalese style, onions, capsicum, hot chilli sauce.", "tags": ["chilli"], "variants": [ { "label": null, "price": 20.90, "protein": "chicken" } ] },
+        { "name": "Devil Wings", "description": "Fried chicken wings with house chilli & garlic sauce.", "tags": ["wings"], "variants": [ { "label": null, "price": 20.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Char-Grill",
+      "items": [
+        { "name": "Lamb and Cumin", "description": "Mongolian style juicy lamb cubes, green capsicum, onions with cumin, ginger & szechuan chilli.", "tags": [], "variants": [ { "label": null, "price": 24.90, "protein": "lamb" } ] },
+        { "name": "Chicken Choyla", "description": "Hot & spicy chicken cubes marinated in mustard oil, garlic, lemon juice & coriander (served cold).", "tags": ["choila"], "variants": [ { "label": null, "price": 20.90, "protein": "chicken" } ] },
+        { "name": "Pork Belly Slice", "description": "Thinly sliced pork belly infused in black salt, chilli & mix spices.", "tags": [], "variants": [ { "label": null, "price": 22.90, "protein": "pork" } ] },
+        { "name": "Bhuttan", "description": "Fried Goat innards with spices.", "tags": ["bhutan"], "variants": [ { "label": null, "price": 20.90, "protein": "goat" } ] },
+        { "name": "Masala Pangraa", "description": "Nepal's favourite, chicken gizzards, chilli, garlic, ginger & spices.", "tags": [], "variants": [ { "label": null, "price": 22.90, "protein": "chicken" } ] },
+        { "name": "Tawa Sukuti", "description": "Marinated lamb jerky, onions, fresh chilli, szechuan pepper & mix spices.", "tags": ["sukuti"], "variants": [ { "label": null, "price": 24.90, "protein": "lamb" } ] }
+      ]
+    },
+    {
+      "name": "Roll & Pizza",
+      "items": [
+        { "name": "Galli Roll", "description": "Napolitana sauce, 2 cheese, olives, bell pepper & jalapeno.", "tags": [], "variants": [ { "label": "Veg", "price": 24.90, "protein": "veg", "is_vegetarian": true }, { "label": "Grilled Chicken", "price": 25.90, "protein": "chicken" } ] },
+        { "name": "Tandoori Pizza", "description": "Chicken tikka, jalapeno, tandoori yoghurt, onions & chilli mayo.", "tags": [], "variants": [ { "label": null, "price": 25.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Noodles",
+      "items": [
+        { "name": "Chowmein Noodles", "description": "Stir fried noodles with mix veggies.", "tags": ["chowmein"], "variants": [ { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.90, "protein": "chicken" } ] },
+        { "name": "Keema Noodles", "description": "Chicken mince, noodles, Bok choy & chilli oil with house sauce.", "tags": ["keema-noodle"], "variants": [ { "label": null, "price": 20.90, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Salad / Sittan",
+      "items": [
+        { "name": "Kakro Salad", "description": "Cucumber dices, Green chilli paste & Carrot salads.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.90, "protein": "veg" } ] },
+        { "name": "Bhatmas Sadeko", "description": "Soyabeans deep fried and tossed with Mustard oil, Onions and Chillies.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.90, "protein": "veg" } ] },
+        { "name": "Peanut Sadheko", "description": "Peanuts Tossed with Mustard Oil, Onions and Chillies.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Galli Platters",
+      "items": [
+        { "name": "Meat Platter", "description": "Devil wings-2pcs, Chicken Choyala, Lamb and Cumin, Bhuttan, Furandana, Salad, Tomato Chutney.", "tags": [], "variants": [ { "label": null, "price": 35.90 } ] },
+        { "name": "Khaja Set", "description": "Traditional Nepali Platter Featuring: Furandana, Aloo achar, Choyala, Bhuttan, Bhatmas Sadako, Fish -1 pc, Tomato chutney, Salad.", "tags": ["khaja"], "variants": [ { "label": null, "price": 33.90 } ] }
+      ]
+    },
+    {
+      "name": "New Items",
+      "items": [
+        { "name": "Skewers", "description": "Deep Fried and Seasoned with Homemade Spices and Chili Oil, Served with Chili Sauce.", "tags": [], "variants": [ { "label": "Lamb (4)", "price": 20.90, "protein": "lamb" }, { "label": "Pork (4)", "price": 19.90, "protein": "pork" } ] },
+        { "name": "Sausage Chilli", "description": "Fried Sausage with Onions, Capsicum and Hot Chili Sauce.", "tags": ["chilli", "sausage"], "variants": [ { "label": null, "price": 20.90, "protein": "chicken" } ] },
+        { "name": "Galli Laphing", "description": "Spicy Cold Flour Noodles Dish with Chilli.", "is_vegetarian": true, "tags": ["laphing"], "variants": [ { "label": null, "price": 14.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Add On",
+      "items": [
+        { "name": "Kimchi", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.90, "protein": "veg" } ] },
+        { "name": "Chiura / Furandana", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.90, "protein": "veg" } ] },
+        { "name": "Additional Dips", "description": "Momo achar, hot sauce, ketchup, mayonnaise.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 1.90, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Choco Brownie", "description": "Choco sauce, ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] },
+        { "name": "Gulab Jamun", "description": "Sweet warm delight.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 12.90, "protein": "veg" } ] }
+      ]
+    }
+  ]
+}

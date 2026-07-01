@@ -1,0 +1,72 @@
+{
+  "slug": "shasa-momo-granville",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "MoMo (Featured / Best Sellers)",
+      "items": [
+        { "name": "Chicken Steam momo", "description": null, "tags": ["steamed-momo"], "variants": [ { "label": null, "price": 12.00, "protein": "chicken" } ] },
+        { "name": "Chicken Deep Fried Momo", "description": null, "tags": ["fried-momo"], "variants": [ { "label": null, "price": 13.00, "protein": "chicken" } ] },
+        { "name": "Chicken Chilly Momo", "description": "Fried momo mixed with tomato ketchup, hot sauce, capsicum, onion & secret sauce", "tags": ["chilli-momo"], "variants": [ { "label": null, "price": 16.00, "protein": "chicken" } ] },
+        { "name": "Chicken Sadheko", "description": "Steam momo mixed with onion, tomato, lemon, carrots, cucumber, chili & spices", "tags": ["sandheko-momo"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Chicken Kothey", "description": "One side fried in butter", "tags": ["kothey-momo"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Chicken Crunchy Momo", "description": "Steam momo deep fried in batter, served with momo & oyster sauce", "tags": ["fried-momo"], "variants": [ { "label": null, "price": 16.00, "protein": "chicken" } ] },
+        { "name": "Chicken Jhol", "description": "Steam momo comes with gravy", "tags": ["jhol-momo"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Veg Chowmein", "description": null, "is_vegetarian": true, "tags": ["chowmein"], "variants": [ { "label": null, "price": 13.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Egg Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": null, "price": 14.00, "protein": "egg" } ] },
+        { "name": "Mixed Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": null, "price": 15.00 } ] },
+        { "name": "Buff Chowmein", "description": null, "tags": ["chowmein"], "variants": [ { "label": null, "price": 16.00, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Set Menu",
+      "items": [
+        { "name": "Buff Sukuti Set", "description": null, "tags": ["sukuti"], "variants": [ { "label": null, "price": 15.00, "protein": "buff" } ] },
+        { "name": "Choila Set", "description": null, "tags": ["choila"], "variants": [ { "label": null, "price": 15.00 } ] },
+        { "name": "Bhutan Set", "description": null, "tags": ["bhutan"], "variants": [ { "label": null, "price": 17.00 } ] },
+        { "name": "Mutton Tass Set", "description": null, "tags": ["taas"], "variants": [ { "label": null, "price": 15.00, "protein": "goat" } ] },
+        { "name": "Sekuwa Set", "description": null, "tags": ["sekuwa"], "variants": [ { "label": null, "price": 15.00 } ] }
+      ]
+    },
+    {
+      "name": "Starter & Other Items",
+      "items": [
+        { "name": "Chicken Steak", "description": null, "tags": [], "variants": [ { "label": null, "price": 10.00, "protein": "chicken" } ] },
+        { "name": "Chatpatay", "description": null, "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 9.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Gravy Chatpatay", "description": null, "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Alu Chop (3pcs)", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Peanut Sadheko", "description": null, "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Aalu Nimki", "description": null, "is_vegetarian": true, "tags": ["nimki"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Potato Chilly", "description": null, "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Chicken Lollipop", "description": null, "tags": ["lollipop"], "variants": [ { "label": null, "price": 10.00, "protein": "chicken" } ] },
+        { "name": "Sausage", "description": null, "tags": ["sausage"], "variants": [ { "label": null, "price": 7.00 } ] },
+        { "name": "Panipuri", "description": null, "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 7.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fulki", "description": null, "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Samosa chat", "description": null, "is_vegetarian": true, "tags": ["samosa", "chaat"], "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Coke", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.00 } ] },
+        { "name": "Fanta", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.00 } ] },
+        { "name": "Pepsi", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.00 } ] },
+        { "name": "Coke Zero", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.00 } ] },
+        { "name": "Lassi", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] }
+      ]
+    }
+  ]
+}

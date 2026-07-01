@@ -1,0 +1,198 @@
+{
+  "slug": "hamro-nepali-kitchen-karawara",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo & Noodles",
+      "items": [
+        { "name": "Momo (Steam)", "description": "Traditional steamed dumplings; served with fresh pickle made of tomato & chilly.", "tags": ["steamed-momo"],
+          "variants": [
+            { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+            { "label": "Buff", "price": 15.99, "protein": "buff" }
+          ] },
+        { "name": "Momo (Fried)", "description": "Fried dumplings.", "tags": ["fried-momo"],
+          "variants": [
+            { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+            { "label": "Buff", "price": 17.99, "protein": "buff" }
+          ] },
+        { "name": "Momo (Chilli)", "description": "Stir-fried dumplings with spicy chilli sauce.", "tags": ["chilli-momo"],
+          "variants": [
+            { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Buff", "price": 18.99, "protein": "buff" }
+          ] },
+        { "name": "Momo (Jhol)", "description": "Steamed dumplings served in spicy soup.", "tags": ["jhol-momo"],
+          "variants": [
+            { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Buff", "price": 18.99, "protein": "buff" }
+          ] },
+        { "name": "Veg Momo Platter", "description": "A generous platter of 18 veg momo - 6 steamed, 6 fried, and 6 chilli, offering a perfect mix of classic and bold flavours.", "is_vegetarian": true, "tags": ["momo"],
+          "variants": [ { "label": null, "price": 34.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Momo Platter", "description": "A generous platter of 18 chicken momo - 6 steamed, 6 fried, and 6 chilli, offering a perfect mix of classic and bold flavours.", "tags": ["momo"],
+          "variants": [ { "label": null, "price": 39.99, "protein": "chicken" } ] },
+        { "name": "Mix Momo Platter", "description": "A generous platter of mixed momos with Chicken, Buff, and Mutton - prepared steamed, fried, or chilli according to your preference, offering a variety of flavours in one plate.", "tags": ["momo"],
+          "variants": [ { "label": null, "price": 49.99 } ] },
+        { "name": "Keema Noodles", "description": null, "tags": ["keema-noodle"],
+          "variants": [
+            { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 15.99, "protein": "chicken" }
+          ] },
+        { "name": "Chowmein", "description": "Stir-fried noodles with fresh vegetables and traditional spices.", "tags": ["chowmein"],
+          "variants": [
+            { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Egg", "price": 14.99, "protein": "egg" },
+            { "label": "Chicken", "price": 15.99, "protein": "chicken" }
+          ] },
+        { "name": "Sadheko Chowmein", "description": "Spicy cold noodle salad with traditional Nepali seasonings", "is_vegetarian": true, "tags": ["chowmein", "sandheko"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Thukpa", "description": "Hearty noodle soup with mixed vegetables in flavorful broth", "tags": ["thukpa"],
+          "variants": [
+            { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 16.99, "protein": "chicken" }
+          ] }
+      ]
+    },
+    {
+      "name": "Curry",
+      "items": [
+        { "name": "Curry", "description": "Slow-cooked with traditional Nepali spices in a Nepali-style gravy.", "tags": ["curry"],
+          "variants": [
+            { "label": "Vegetable", "price": 19.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Paneer", "price": 22.99, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Chicken", "price": 22.99, "protein": "chicken" },
+            { "label": "Goat", "price": 24.99, "protein": "goat" }
+          ] }
+      ]
+    },
+    {
+      "name": "Appetizers",
+      "items": [
+        { "name": "Aloo kakra ko achar (sadheko)", "description": "Spicy potato salad with traditional Nepali seasonings and herbs", "is_vegetarian": true, "tags": ["sandheko"],
+          "variants": [ { "label": null, "price": 9.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chou Chou Sadheko", "description": "Chou Chou tossed with mustard oil, lemon, chilli, and Nepali spices - light, tangy, and refreshing.", "is_vegetarian": true, "tags": ["sandheko"],
+          "variants": [ { "label": null, "price": 15.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mustang Aloo", "description": "Traditional Mustang-style potatoes with aromatic spices", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 12.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Veg Choila", "description": "Spiced mixed vegetable salad with traditional Newari seasonings", "is_vegetarian": true, "tags": ["choila"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pakoda (6 pieces)", "description": "Crispy fritters made with mixed vegetables and gram flour", "is_vegetarian": true, "tags": ["pakora"],
+          "variants": [ { "label": null, "price": 9.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Laphing (dry/soup)", "description": "Cold mung bean noodles served dry or in soup with spicy sauce", "is_vegetarian": true, "tags": ["laphing"],
+          "variants": [
+            { "label": "Dry", "price": 10.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Soup", "price": 11.99, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Choila", "description": "Grilled meat marinated with authentic Newari spice blend", "tags": ["choila"],
+          "variants": [
+            { "label": "Chicken", "price": 21.99, "protein": "chicken" },
+            { "label": "Goat", "price": 24.99, "protein": "goat" },
+            { "label": "Buff", "price": 24.99, "protein": "buff" }
+          ] },
+        { "name": "Sekuwa", "description": "Grilled marinated meat with traditional Nepali spices and aromatic herbs", "tags": ["sekuwa"],
+          "variants": [
+            { "label": "Chicken", "price": 21.99, "protein": "chicken" },
+            { "label": "Goat", "price": 24.99, "protein": "goat" },
+            { "label": "Buff", "price": 24.99, "protein": "buff" }
+          ] },
+        { "name": "Chicken Chilli", "description": "Spicy chicken stir-fried with bell peppers and onions", "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 19.99, "protein": "chicken" } ] },
+        { "name": "Chicken Lollipop (6 pieces)", "description": "Crispy chicken drumettes marinated in spices and deep-fried", "tags": ["lollipop"],
+          "variants": [ { "label": null, "price": 19.99, "protein": "chicken" } ] },
+        { "name": "Chicken Sausage (2 pieces)", "description": "Homemade spiced chicken sausages grilled to perfection", "tags": ["sausage"],
+          "variants": [ { "label": null, "price": 9.99, "protein": "chicken" } ] },
+        { "name": "Chatpate (Dry/Gilo)", "description": "A spicy mix of puffed rice, noodles, potato, and zesty spices. A crunchy street-style favourite.", "is_vegetarian": true, "tags": ["chaat"],
+          "variants": [
+            { "label": "Dry", "price": 10.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Gilo", "price": 12.99, "protein": "veg", "is_vegetarian": true }
+          ] },
+        { "name": "Pani Puri", "description": "Crispy hollow puris filled with spiced potato mix and tangy flavoured water. It's a burst of flavours in every bite.", "is_vegetarian": true, "tags": ["pani-puri"],
+          "variants": [ { "label": null, "price": 10.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Shabalay", "description": "Crispy fried pastries filled with seasoned filling in Tibetan-Nepali style.", "tags": ["shavale"],
+          "variants": [
+            { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 14.99, "protein": "chicken" }
+          ] },
+        { "name": "Aloo Nimki", "description": "Crispy fried dough bites with spiced potato. Crunchy and flavorful. An authentic Nepali street-style treat.", "is_vegetarian": true, "tags": ["nimki"],
+          "variants": [ { "label": null, "price": 12.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bhatmaas Sadheko", "description": "Roasted soyabeans tossed with onions, spices, and a tangy Nepali twist.", "is_vegetarian": true, "tags": ["sandheko"],
+          "variants": [ { "label": null, "price": 9.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Goat Bhuttan", "description": "A traditional Nepali delicacy made from goat tripe and intestines, slow-cooked with traditional spices.", "tags": ["bhutan"],
+          "variants": [ { "label": null, "price": 19.99, "protein": "goat" } ] },
+        { "name": "Buff Sukuti", "description": "Traditional dried buffalo meat sautéed with Nepali spices, garlic, ginger, and herbs.", "tags": ["sukuti"],
+          "variants": [ { "label": null, "price": 24.99, "protein": "buff" } ] }
+      ]
+    },
+    {
+      "name": "Main Courses",
+      "items": [
+        { "name": "Thakali Khana", "description": "A wholesome Nepali set with steamed rice, lentils, seasonal vegetables, greens, pickles, and flavorful curry", "tags": ["thali", "thakali"],
+          "variants": [
+            { "label": "Veg", "price": 27.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 29.99, "protein": "chicken" },
+            { "label": "Goat", "price": 32.99, "protein": "goat" }
+          ] },
+        { "name": "Biryani", "description": "A fragrant mix of basmati rice and aromatic spices, slow-cooked to perfection", "tags": ["biryani"],
+          "variants": [
+            { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 19.99, "protein": "chicken" }
+          ] },
+        { "name": "Hamro Nepali Kitchen Meat Platter", "description": "A hearty mix of Nepali-style chicken favourites - momo, lollipop, biryani, choila, chowmein, and chilli. Perfect for sharing", "tags": [],
+          "variants": [ { "label": null, "price": 99.99 } ] },
+        { "name": "Hamro Nepali Kitchen Veg Platter", "description": "A wholesome veg platter featuring Veg Biryani, Paneer Chilli, Soyabean Choila, Veg Chowmein, 6 Veg momo, and 6 crispy pakoras - perfect for sharing.", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 79.99, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Kid's Menu",
+      "items": [
+        { "name": "Potato Fries", "description": "Crispy golden potato fries, perfect for kids", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 5.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Nuggets + Chips", "description": "Chicken nuggets served with crispy chips", "tags": [],
+          "variants": [ { "label": null, "price": 9.99, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Soft Drinks", "description": "Assorted carbonated beverages.", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.99 } ] },
+        { "name": "Plain Lassi", "description": "Traditional yogurt drink, refreshing and smooth", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.99 } ] },
+        { "name": "Mango Lassi", "description": "Creamy yogurt drink blended with sweet mango", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 6.99 } ] },
+        { "name": "HNK Lassi", "description": "House special lassi with unique flavor blend", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 7.99 } ] },
+        { "name": "Banana Smoothie", "description": "Creamy banana smoothie with milk and honey", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.99 } ] },
+        { "name": "Soda Drinks", "description": "Refreshing soda beverages", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.99 } ] },
+        { "name": "Apple Juice", "description": "Fresh apple juice", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.99 } ] },
+        { "name": "Orange Juice", "description": "Fresh orange juice", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.99 } ] },
+        { "name": "Energy Drinks", "description": "Refreshing energy beverages", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.99 } ] },
+        { "name": "Iced Tea", "description": "Chilled tea with refreshing flavor", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 4.99 } ] },
+        { "name": "Nepali Chiya (Tea)", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.99 } ] },
+        { "name": "Lottemilkis", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 3.99 } ] },
+        { "name": "Fresh Juice", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 9.99 } ] }
+      ]
+    },
+    {
+      "name": "Add Ons",
+      "items": [
+        { "name": "Rice", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 3.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Sauce", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.99 } ] },
+        { "name": "Achaar/ Chutney", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Raita", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.99 } ] },
+        { "name": "Papad (2 pieces)", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pickles", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Salad", "description": null, "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 2.99, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Gulab Jamun with yogurt", "description": "Sweet milk dumplings in sugar syrup served with yogurt", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 4.99 } ] },
+        { "name": "Sweets", "description": null, "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 2.99 } ] },
+        { "name": "Ice Cream (Strawberry/Vanilla/Chocolate)", "description": "Choice of strawberry, vanilla, or chocolate ice cream", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 3.99 } ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1168 @@
+{
+  "slug": "himali-gurkha-nepalese-restaurant-ardross",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Appetizers",
+      "items": [
+        {
+          "name": "Veg Momo [steamed or fried]",
+          "description": "Minced vegetable dumplings specially spiced & wrapped in dough, served with home-made tomato pickle. Small 8 pieces and large 12 pieces.",
+          "tags": [
+            "momo"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Momo [steamed or fried]",
+          "description": "Minced chicken dumplings specially spiced & wrapped in dough, served with home-made tomato pickle. Small 8 pieces and large 12 pieces.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Phool Sandeko (GF)",
+          "description": "Spiced hard boiled eggs marinated Nepalese style with yogurt and sesame seed.",
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "egg"
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Naram Masu(Choyla) (GF)",
+          "description": "Traditional Nepalese chicken salad, flavoured with a mixture of herbs, served warm.",
+          "tags": [
+            "choila"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 20,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chhana Ko Burry",
+          "description": "Cheese balls, encased in flour & bread crumbs deep fried. Small 8 pieces and large 12 pieces",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "paneer",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Lollipop Chicken",
+          "description": "Fried chicken wings marinated with Nepalese herbs and spices, served with homemade tomato pickle. Small 6 pieces and large 8 pieces",
+          "tags": [
+            "lollipop"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Bhatmas Sadeko (GF)",
+          "description": "Roasted soy beans mixed with chopped onion, ginger, chopped chilli, coriander and a twist of lemon.",
+          "tags": [
+            "sandheko"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Salad",
+      "items": [
+        {
+          "name": "Salad (GF)",
+          "description": "Chef’s special garden salad with Nepalese style dressing.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 18,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suruwa (Soup)",
+      "items": [
+        {
+          "name": "Chara Ko Suruwa",
+          "description": "A home recipe… tender sliced chicken flavoured with herbs, a great start to any meal.",
+          "tags": [
+            "soup"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Tarkari Ko Suruwa",
+          "description": "Selection of fresh seasonal vegetables blended with traditional Nepalese herbs and spices.",
+          "tags": [
+            "soup"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Jalpari Suruwa",
+          "description": "Nepalese style mixed seafood soup of fish and prawns.",
+          "tags": [
+            "soup"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "fish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chara Ko Parikaar (Chicken)",
+      "items": [
+        {
+          "name": "Chara Ko Sekuwa (GF)",
+          "description": "Chicken marinated for 10 to 12 hrs in special Nepalese spices, then grilled on an open fire… highly recommended by our Chef. Small 3 pieces and large 4 pieces.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 28,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 32,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chara Ko Bhutuwa (GF)",
+          "description": "Chicken – cubed, pan fried with garlic, ginger and herbs.",
+          "tags": [],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 28,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 32,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chara Ko Tandruk (GF)",
+          "description": "A traditional, superb Nepalese chicken curry, served in a mild spicy sauce.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 26,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 28,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chef’s Special Himali Chicken (GF)",
+          "description": "A chilli spiced chicken curry with thick gravy.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 27,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 29,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Bhende Khursani Bharuwa (GF)",
+          "description": "Half capsicum cups fried then filled with pan fried chicken and herbs.",
+          "tags": [],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 28,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 32,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Sabjee Ra Chara (GF)",
+          "description": "Stir Fried chicken flavoured with our herbs and spices, served with a mixture of seasonal vegetables.",
+          "tags": [],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 26,
+              "protein": "chicken"
+            },
+            {
+              "label": "Large",
+              "price": 28,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Beef Ko Parikaar (Beef)",
+      "items": [
+        {
+          "name": "Beef Tandruk (GF)",
+          "description": "Mild beef curry served in a Nepalese spicy sauce.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 26,
+              "protein": "beef"
+            },
+            {
+              "label": "Large",
+              "price": 28,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Stir fried Beef & Vegetables (GF)",
+          "description": "Flavoured with traditional herbs and spices.",
+          "tags": [],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 27,
+              "protein": "beef"
+            },
+            {
+              "label": "Large",
+              "price": 29,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Himali Gurkha (GF)",
+          "description": "A chilli spiced beef dish served on a bed of thick, spicy sauce. For those who want a little hot stuff.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 27,
+              "protein": "beef"
+            },
+            {
+              "label": "Large",
+              "price": 29,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Choyla (GF)",
+          "description": "Typical Nepalese dish found in Newari households. Slices of grilled beef marinated with Nepalese herbs and spices, with lemon juice, chilli & garnished with onion and tomato.",
+          "tags": [
+            "choila"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 27,
+              "protein": "beef"
+            },
+            {
+              "label": "Large",
+              "price": 29,
+              "protein": "beef"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Khashi Ko Parikaar (Lamb)",
+      "items": [
+        {
+          "name": "Khashi Ko Sekuwa (GF)",
+          "description": "French lamb cutlets, specially marinated for 10 to 12 hrs in our spices and grilled on an open fire. A prized recommendation by our Chef. Small 3 pieces and large 4 pieces.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 29,
+              "protein": "lamb"
+            },
+            {
+              "label": "Large",
+              "price": 33,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Khashi Ko Tandruk (GF)",
+          "description": "A lovely, mild lamb curry, served with a flavourful sauce.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 28,
+              "protein": "lamb"
+            },
+            {
+              "label": "Large",
+              "price": 30,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Khashi Ko Mashu ra Saag (GF)",
+          "description": "A traditional lamb dish cooked with spinach.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 28,
+              "protein": "lamb"
+            },
+            {
+              "label": "Large",
+              "price": 30,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Khashi Himali Gurkha (GF)",
+          "description": "A chilli spiced lamb dish, served on a bed of thick, spicy sauce.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 28,
+              "protein": "lamb"
+            },
+            {
+              "label": "Large",
+              "price": 30,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Goat Ko Parikaar (Goat)",
+      "items": [
+        {
+          "name": "Goat Curry (GF)",
+          "description": "Mild goat curry served with Nepalese sauce in a traditional style.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 26,
+              "protein": "goat"
+            },
+            {
+              "label": "Large",
+              "price": 28,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Goat Ko Pulao (GF) (Large)",
+          "description": "Classic Royal dish from Kathmandu. This is an aromatic rice dish with the rich flavours of goat meat, herbs and spices served with cucumber yogurt.",
+          "tags": [
+            "pulao"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Machha Ko Parikaar (Fish & Prawns)",
+      "items": [
+        {
+          "name": "Machha Ko Tandruk (GF)",
+          "description": "A tasty fish curry, cooked village style served in a thick sauce.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 26,
+              "protein": "fish"
+            },
+            {
+              "label": "Large",
+              "price": 28,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Machha Tareko",
+          "description": "Fish fillets marinated in a special batter mix, seasoned with traditional Nepalese spices and deep fried.",
+          "tags": [
+            "fried-fish"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 26,
+              "protein": "fish"
+            },
+            {
+              "label": "Large",
+              "price": 28,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Maccha Ko Burry",
+          "description": "Fish fillets minced with a selection of herbs, encased in breadcrumbs and deep fried (not available on weekends).",
+          "tags": [
+            "fried-fish"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 26,
+              "protein": "fish"
+            },
+            {
+              "label": "Large",
+              "price": 28,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Jhinghe Machha Ko Tandruk (GF)",
+          "description": "King prawns cooked in curry style. Small 8 pieces and large 12 pieces.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 29,
+              "protein": "prawn"
+            },
+            {
+              "label": "Large",
+              "price": 33,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Himali Gurkha Prawns (GF)",
+          "description": "King prawns, cooked in traditional Nepalese style, accompanied with spinach, flavoured with garlic and an assortment of spices. Small 8 pieces and large 12 pieces.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 29,
+              "protein": "prawn"
+            },
+            {
+              "label": "Large",
+              "price": 33,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Jhinghe Machha Ra Lasoon (GF)",
+          "description": "Nepalese style garlic prawns tossed with garlic and herbs. Small 8 pieces and large 12 pieces.",
+          "tags": [],
+          "variants": [
+            {
+              "label": "Small",
+              "price": 29,
+              "protein": "prawn"
+            },
+            {
+              "label": "Large",
+              "price": 33,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sabjee Ko Parikaar (Vegetables)",
+      "items": [
+        {
+          "name": "Mis Mash (GF)",
+          "description": "Seasonal fresh garden vegetables stir fried Nepalese village style.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Ramtoriya Ko Tarkari [seasonal] (V) (GF)",
+          "description": "Unique okra (lady’s fingers). This lovely vegetable is thinly sliced, seasoned with a special assortment of our herbs and spices and then deep fried.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 18,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 21,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Palungo Ko Saag (GF)",
+          "description": "Spinach sautéed with ginger, garlic and other spices.",
+          "tags": [
+            "saag"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aloo Tareko (GF)",
+          "description": "Nepalese style potato chips. Spiced and fried in our unique style.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Bhanta Ko Tarkari (GF)",
+          "description": "Delicious eggplant, pan fried with onions, tomatoes and served in a thick, spicy sauce.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Makai Ko Tarkari (GF)",
+          "description": "Corn off the cob, marinated specially and pan cooked.",
+          "tags": [
+            "makai"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chyau Ko Tarkari (GF)",
+          "description": "Button mushrooms cooked with peas in a rich sauce.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Gobi Matar (GF)",
+          "description": "Fresh cauliflower and peas mixed with Nepalese spices & pan fried.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aloo Tama (GF)",
+          "description": "Aromatic curry of bamboo shoots and potatoes with black eyed beans",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aloo Channa (GF)",
+          "description": "Potatoes and chic peas in a thick curry sauce.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Daal Ko Parikaar (Lentils)",
+      "items": [
+        {
+          "name": "Panchamukhi Daal (GF)",
+          "description": "Combination of 3 selected lentils, prepared with ginger, garlic and fresh tomatoes.",
+          "tags": [
+            "dal"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 13,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Daal Ra Saag (GF)",
+          "description": "Lentils with stir fried spinach.",
+          "tags": [
+            "dal",
+            "saag"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bhuja Ra Roti (Rice & Bread)",
+      "items": [
+        {
+          "name": "Sabjee Ko Pulao (GF)",
+          "description": "Vegetarian saffron Pulao cooked in typical Nepalese style.",
+          "tags": [
+            "pulao"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Bhat (Rice) (GF)",
+          "description": "Plain steamed rice",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 7,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 9,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Puri",
+          "description": "Special deep fried soft flour bread. Small 3 pieces and Large 5 pieces",
+          "tags": [
+            "puri"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": "Small",
+              "price": 7,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Large",
+              "price": 9,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Achar Haru (Pickles)",
+      "items": [
+        {
+          "name": "Kankro Ko Achar (cucumber pickle) (GF)",
+          "description": "Fresh sliced cucumber, marinated with herbs and yogurt.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Cucumber Raita (GF)",
+          "description": "Refreshing yogurt and cucumber with roasted cumin powder and black salt.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aloo Achar (potato pickle) (GF)",
+          "description": "Potatoes mixed in an assortment of herbs & spices, a little hot, a little sour.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nepalese Thali Set Menu",
+      "items": [
+        {
+          "name": "Non Vegetarian (Per Person)",
+          "description": "A combination of a variety of dishes comprising: Momo (chicken dumplings) Golbheda Ko Achar (tomato pickle) Masu (curry of chicken, beef lamb or goat) Sabjee Ko Parikar (2 dishes of seasonal vegetables) Daal (mixed lentils) Bhat (rice) Puri (soft fried bread) Single scoop of ice-cream or rice pudding (dessert) *One piece of chicken or lamb barbecue (this is not refilled) Dessert (Single scoop of ice-cream or rice pudding)",
+          "tags": [
+            "thali"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 46,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Vegetarian (Per Person)",
+          "description": "A combination of variety of dishes comprising: Vegetable momo (dumplings) Golbheda Ko Achar (tomato pickle) Ramtoriya Ko Tarkari (okra, lady fingers) (seasonal) Sabjee Ko Parikar (2 dishes of seasonal vegetables) DaaI (mixed lentils) Kankro Ko Achar (cucumber pickle) Bhat (rice) Puri (soft fried bread) Single scoop of ice-cream or rice pudding (dessert)",
+          "tags": [
+            "thali"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 41,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        {
+          "name": "Kheer (Rice Pudding)",
+          "description": "",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Sago",
+          "description": "",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Baklava",
+          "description": "2 pieces",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Gulab jamun",
+          "description": "2 pieces",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Ice cream",
+          "description": "",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Sikarni",
+          "description": "",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

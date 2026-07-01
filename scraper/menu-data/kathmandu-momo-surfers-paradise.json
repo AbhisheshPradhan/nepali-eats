@@ -5,105 +5,107 @@
   "currency": "AUD",
   "categories": [
     {
-      "name": "Veg Starters",
+      "name": "Street Food of Nepal - Veg Starters",
       "items": [
-        { "name": "Papad", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] },
-        { "name": "Chana Chatpate", "description": "A medium spicy mixture of puffed rice, roasted soybeans, diced onions, tomatoes, crunchy Waiwai noodles, green onions, Nepalese pickles, crushed crunchy puffed balls along with chilli spices and lemon juice. Served cold.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 15.95, "protein": "veg" } ] },
-        { "name": "Pani Puri", "description": "10 pieces of puffed balls with the filling of boiled potato and onions served with spicy and tangy cold water. Served cold.", "is_vegetarian": true, "spice_level": 2, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 14.95, "protein": "veg" } ] },
-        { "name": "Samosa Fried (2 pieces in a serve)", "description": "A vegetarian samosa deep fried, cooked and served with tomato ketchup or chilli/momo sauce.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 9.95, "protein": "veg" } ] },
-        { "name": "Samosa Chat", "description": "Samosa topped with chickpeas, chopped onion, snacks, yoghurt and special sauce.", "is_vegetarian": true, "tags": ["samosa", "chaat"], "variants": [ { "label": null, "price": 17.95, "protein": "veg" } ] },
-        { "name": "Bhatmas Sadheko", "description": "Roasted soybeans mixed up with red onions, tomatoes, green onions, Nepalese pickles along with chilli spices and lemon juice. Served cold with lemon wedge.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 14.95, "protein": "veg" } ] },
-        { "name": "Peanut Sadheko", "description": "Peanuts mixed up with red onions, tomatoes, green onions, Nepalese pickles along with chilli spices and lemon juice. Served cold with lemon wedge.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 17.95, "protein": "veg" } ] },
-        { "name": "Wai-Wai Sadheko", "description": "Wai-Wai crunchy noodles mixed up with red onions, tomatoes, green onions, Nepalese pickles along with chilli spices and lemon juice. Served cold with lemon wedge.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 14.95, "protein": "veg" } ] },
-        { "name": "Mix Salad", "description": "Cucumber, carrot and onion and on top chat masala.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.00, "protein": "veg" } ] },
-        { "name": "Aalu Nimki", "description": "Nimki mixed up with aalu, red onion, tomatoes, green onion, peas, Nepalese pickles along with chilli spices and lemon juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 20.99, "protein": "veg" } ] }
+        { "name": "Papad", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 6.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chana Chatpate", "description": "A medium spicy mixture of puffed rice, roasted soybeans, diced onions, tomatoes, crunchy Waiwai noodles, green onions, Nepalese pickles, crushed crunchy puffed balls along with chilli spices and lemon juice. Note: This dish is served cold.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": 15.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pani Puri (Spicy)", "description": "10 pieces of puffed balls with the filling of boiled potato and onions served with spicy and tangy cold water. Note: This dish is served cold.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": 14.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Samosa Fried (2 pieces in a serve)", "description": "A vegetarian samosa deep fried, cooked and served with tomato ketchup/or chilli/Momo sauce.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": 9.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Samosa Chat", "description": "Samosa topped with chickpeas, chop onion, snacks, yoghurt and special sauce.", "is_vegetarian": true, "tags": ["samosa", "chaat"], "variants": [ { "label": null, "price": 17.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bhatmas Sadheko", "description": "Roasted soybeans mixed up with the red onions, tomatoes, green onions, Nepalese pickles along with chilli spices and lemon juice. Note: This dish is served cold with lemon wedge.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 14.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Peanut Sadheko", "description": "Peanuts mixed up with the red onions, tomatoes, green onions, Nepalese pickles along with chilli spices and lemon juice. Note: This dish is served cold with lemon wedge.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 17.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Wai-Wai Sadheko", "description": "Wai-Wai crunchy noodles mixed up with the red onions, tomatoes, green onions, Nepalese pickles along with chilli spices and lemon juice. Note: This dish is served cold with lemon wedge.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 14.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mix Salad", "description": "Cucumber, carrot and onion and on top chat masala.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Aalu Nimki", "description": "Nimki mixed up with aalu, red onion, tomatoes, green onion, peas, nepalese pickles alone with chilli spices and lemon juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [ { "label": null, "price": 20.99, "protein": "veg", "is_vegetarian": true } ] }
       ]
     },
     {
       "name": "Non-Veg Starters",
       "items": [
         { "name": "Newari Khaja Set", "description": "Choila, bara, egg, aalu achar, aalu bodi tama, bhatmas, chiura and salad.", "tags": ["khaja", "newari"], "variants": [ { "label": "Veg", "price": 26.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 30.95, "protein": "chicken" }, { "label": "Buff", "price": 31.95, "protein": "buff" }, { "label": "Buff Sukuti", "price": 32.95, "protein": "buff" } ] },
-        { "name": "Choila", "description": "Spicy, marinated & roasted chicken/buffalo/lamb mixed with green onions, ginger, garlic, and chilli finished with Nepalese spices and mustard oil, fenugreek seeds. Served cold.", "tags": ["choila"], "variants": [ { "label": "Chicken", "price": 22.95, "protein": "chicken" }, { "label": "Buff", "price": 24.95, "protein": "buff" } ] },
+        { "name": "Choila", "description": "Spicy, marinated & roasted chicken/buffalo/lamb mixed with green onions, ginger, garlic, and chilli finished with Nepalese spices and mustard oil, fenugreek seeds. Note: This dish is served cold.", "tags": ["choila"], "variants": [ { "label": "Chicken", "price": 22.95, "protein": "chicken" }, { "label": "Buff", "price": 24.95, "protein": "buff" } ] },
         { "name": "Chicken Deep Fried Sausage (3 pieces)", "description": "It is served with chilli and momo sauce and finished with chat masala.", "tags": ["sausage"], "variants": [ { "label": null, "price": 16.95, "protein": "chicken" } ] },
         { "name": "Mutton Tass Set", "description": "Overnight marinated diced goat in garlic, ginger and homemade spice, roasted on thicken iron pan served with puffed rice, salad & chutney.", "tags": ["taas"], "variants": [ { "label": null, "price": 27.95, "protein": "goat" } ] },
-        { "name": "Buff Sukuti Set", "description": "A medium spicy, crisp dry buff meat sauteed with onions, tomatoes, ginger, garlic and seasoned with Nepalese spices and served with flattened rice. Contains buff meat and can be tough and chewy.", "tags": ["sukuti"], "variants": [ { "label": null, "price": 25.95, "protein": "buff" } ] },
-        { "name": "Buff Sadheko", "description": "Authentic Nepalese spicy mixture of onion, tomato, shallot, fresh ginger garlic, coriander, lemon juice and peanut.", "tags": ["sandheko"], "variants": [ { "label": null, "price": 25.95, "protein": "buff" } ] },
-        { "name": "Bhutan Set", "description": "Boiled goat intestines pan fried with onions and homemade spices & also goes with aalu achar, bhatmas, chiura and salad.", "tags": ["bhutan"], "variants": [ { "label": null, "price": 25.95, "protein": "goat" } ] }
+        { "name": "Buff Sukuti Set", "description": "A medium spicy, crisp dry buff meat sauteed with onions, tomatoes, ginger, garlic and seasoned with Nepalese spices and served with Flattened rice. Note: This dish contains buff meat and can be tough and chewy.", "tags": ["sukuti"], "variants": [ { "label": null, "price": 25.95, "protein": "buff" } ] },
+        { "name": "Buff Sadheko", "description": "Authentic Nepalese Spicy mixture of onion, Tomato, shallot, fresh ginger garlic, coriander, lemon juice and peanut.", "tags": ["sandheko"], "variants": [ { "label": null, "price": 25.95, "protein": "buff" } ] },
+        { "name": "Bhutan Set", "description": "Boiled Goat Intestines pan fried with onions and homemade spices & also goes with aalu achar, bhatmas, chiura and salad.", "tags": ["bhutan"], "variants": [ { "label": null, "price": 25.95, "protein": "goat" } ] }
       ]
     },
     {
       "name": "Thali Special",
       "items": [
-        { "name": "Nepali Rice Thali Set", "description": "Basmati rice, daal, aalu achar, saag, pickle, papad, salad & dessert. Curry comes with bone.", "tags": ["dal-bhat"], "variants": [ { "label": "Veg", "price": 28.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 30.95, "protein": "chicken" }, { "label": "Goat", "price": 32.95, "protein": "goat" } ] },
-        { "name": "Dhindo ra Gundruk Thali", "description": "Nepalese style buckwheat flour pudding on top ghee, aalu, achar, saag, pickle, papad, salad & sweet yoghurt. Curry comes with bone.", "tags": ["thali"], "variants": [ { "label": "Veg", "price": 29.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 31.95, "protein": "chicken" }, { "label": "Goat", "price": 34.95, "protein": "goat" } ] }
+        { "name": "Nepali Rice Thali Set", "description": "Curry comes with bone. Basmati rice, daal, aalu achar, saag, pickle, papad, salad & dessert.", "tags": ["dal-bhat", "thali"], "variants": [ { "label": "Veg", "price": 28.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 30.95, "protein": "chicken" }, { "label": "Goat", "price": 32.95, "protein": "goat" } ] },
+        { "name": "Dhindo ra Gundruk Thali", "description": "Curry comes with bone. Nepalese style buckwheat flour pudding on top ghee, aalu, achar, saag, pickle, papad, salad & sweet yoghurt.", "tags": ["thali"], "variants": [ { "label": "Veg", "price": 29.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 31.95, "protein": "chicken" }, { "label": "Goat", "price": 34.95, "protein": "goat" } ] }
       ]
     },
     {
-      "name": "Naan, Roti & Rice",
+      "name": "Naan / Roti & Rice",
       "items": [
-        { "name": "Plain Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7.00, "protein": "veg" } ] },
-        { "name": "Jeera Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.50, "protein": "veg" } ] },
-        { "name": "Plain Naan / Roti", "is_vegetarian": true, "tags": ["naan", "roti"], "variants": [ { "label": null, "price": 5.50, "protein": "veg" } ] },
-        { "name": "Butter Naan / Roti", "is_vegetarian": true, "tags": ["naan", "roti"], "variants": [ { "label": null, "price": 6.00, "protein": "veg" } ] },
-        { "name": "Cheese Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 9.00, "protein": "veg" } ] },
-        { "name": "Cheese & Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 9.50, "protein": "veg" } ] },
-        { "name": "Butter / Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.50, "protein": "veg" } ] }
+        { "name": "Plain Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jeera Rice", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 9.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Plain Naan / Roti", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 5.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Butter Naan / Roti", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Cheese Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 9.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Cheese & Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 9.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Butter / Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": 6.50, "protein": "veg", "is_vegetarian": true } ] }
       ]
     },
     {
-      "name": "Kathmandu Hot Sizzling",
+      "name": "Kathmandu Hot Sizzling (Nepalese style Tandoori)",
       "items": [
-        { "name": "Poleko Kukhura Hot Sizzling", "description": "Charcoal roasted whole chicken marinated overnight in tandoori spices served with mint sauce.", "tags": ["tandoori", "sizzler"], "variants": [ { "label": "Full", "price": 30.95, "protein": "chicken" }, { "label": "Half", "price": 20.95, "protein": "chicken" } ] },
+        { "name": "Poleko Kukhura Hot Sizzling", "description": "Charcoal roasted whole chicken marinated overnight in tandoori spices served with mint sauce.", "tags": ["tandoori"], "variants": [ { "label": "Full", "price": 30.95, "protein": "chicken" }, { "label": "Half", "price": 20.95, "protein": "chicken" } ] },
         { "name": "Chicken Tikka Sizzler", "description": "Clay ovened boneless chicken fillets marinated overnight in tandoori spices and served with mint sauce.", "tags": ["tikka", "sizzler"], "variants": [ { "label": "Full (8pcs)", "price": 32.95, "protein": "chicken" }, { "label": "Half (4pcs)", "price": 21.95, "protein": "chicken" } ] }
       ]
     },
     {
       "name": "Veg Curry",
       "items": [
-        { "name": "Rato Daal", "description": "Overnight-soaked lentils fried with onion, spices and cooked in slow heat with spices and ghee.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 21.95, "protein": "veg" } ] },
+        { "name": "Rato Daal", "description": "Overnight-soaked lentils fried with onion, spices and cooked in slow heat with spices and ghee.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 21.95, "protein": "veg", "is_vegetarian": true } ] },
         { "name": "Paneer Curry", "description": "Fried cottage cheese, capsicum and onion cooked with spices and masala gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 23.95, "protein": "paneer", "is_vegetarian": true } ] },
         { "name": "Butter Paneer Masala", "description": "Fried cottage cheese cooked in herbs and spices with creamy tomato gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 25.00, "protein": "paneer", "is_vegetarian": true } ] },
-        { "name": "Aalu Bodi Tama", "description": "Beautiful combination of potato, bamboo shoot, black eyed beans cooked with Nepalese spices and herbs.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 21.95, "protein": "veg" } ] }
+        { "name": "Aalu Bodi Tama", "description": "Beautiful combination of potato, bamboo shoot, black eyed beans cooked with Nepalese spices and herbs.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 21.95, "protein": "veg", "is_vegetarian": true } ] }
       ]
     },
     {
-      "name": "Non-Veg Curry",
+      "name": "Non-Veg Curry (Curry comes with bone)",
       "items": [
-        { "name": "Curry", "description": "Diced bone meat cooked with a combination of Nepalese homemade spices. Curry comes with bone.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": 21.95, "protein": "chicken" }, { "label": "Goat", "price": 23.95, "protein": "goat" } ] },
+        { "name": "Goat Curry", "description": "Dice bone meat cooked with combination of Nepalese homemade spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 23.95, "protein": "goat" } ] },
+        { "name": "Chicken Curry", "description": "Dice bone meat cooked with combination of Nepalese homemade spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 21.95, "protein": "chicken" } ] },
         { "name": "Butter Chicken", "description": "Delicious chicken tikka cooked in rich creamy red tomato gravy.", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": 25.95, "protein": "chicken" } ] },
-        { "name": "Chicken Tikka Masala", "description": "Tandoori grilled tikka chicken cooked with tomato, onion and capsicum in a masala sauce.", "tags": ["curry", "tikka"], "variants": [ { "label": null, "price": 24.95, "protein": "chicken" } ] }
+        { "name": "Chicken Tikka Masala", "description": "Tandoori grilled tikka chicken cooked with tomato, onion and capsicum in a masala sauce.", "tags": ["curry"], "variants": [ { "label": null, "price": 24.95, "protein": "chicken" } ] }
       ]
     },
     {
-      "name": "Soups",
+      "name": "Flavour of Nepal (Soups)",
       "items": [
         { "name": "Mutton Soup", "description": "Soup of slow cooked mutton bone spiced with Nepalese herbs.", "tags": ["soup"], "variants": [ { "label": null, "price": 24.95, "protein": "goat" } ] },
         { "name": "Thukpa", "description": "A medium sized soupy noodle cooked with vegetables/egg/chicken/buffalo seasoned with Nepalese herbs, spices, and sour lemon juice.", "tags": ["thukpa"], "variants": [ { "label": "Veg", "price": 20.95, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 21.95, "protein": "egg" }, { "label": "Chicken", "price": 21.95, "protein": "chicken" }, { "label": "Buff", "price": 23.95, "protein": "buff" } ] },
-        { "name": "Hot & Sour Soup", "description": "Soup made with carrot, cabbage, beans, pepper, ginger, garlic, shallots, & light Nepalese spices, served with lemon wedge.", "tags": ["soup"], "variants": [ { "label": "Veg", "price": 19.95, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 20.95, "protein": "egg" }, { "label": "Chicken", "price": 20.95, "protein": "chicken" }, { "label": "Buff", "price": 22.95, "protein": "buff" } ] }
+        { "name": "Hot & Sour Soup", "description": "Soup made with carrot, cabbage, beans, papper, ginger, garlic, shallots, & light Nepalese spices, served with lemon wedge.", "tags": ["soup"], "variants": [ { "label": "Veg", "price": 19.95, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 20.95, "protein": "egg" }, { "label": "Chicken", "price": 20.95, "protein": "chicken" }, { "label": "Buff", "price": 22.95, "protein": "buff" } ] }
       ]
     },
     {
       "name": "Local Flavours",
       "items": [
-        { "name": "Jumbo Wings", "description": "6 pieces serve of medium sized jumbo wings seasoned with Nepalese spices and flavors served with homemade chilli sauce and mild sauce.", "tags": ["wings"], "variants": [ { "label": null, "price": 20.95, "protein": "chicken" } ] },
-        { "name": "Bowl of Chips", "description": "A medium serves of crispy potato chips with regular salt sprinkled along with tomato ketchup on the side.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.50, "protein": "veg" } ] },
-        { "name": "Laphing", "is_vegetarian": true, "tags": ["laphing"], "variants": [ { "label": "Dry", "price": 17.95, "protein": "veg", "is_vegetarian": true }, { "label": "Jhol", "price": 20.95, "protein": "veg", "is_vegetarian": true } ] }
+        { "name": "Jumbo Wings", "description": "6 pieces serve of medium sized jumbo wings seasoned with Nepalese spices and flavors served with homemade chilli sauce and mild sauce. Note: 6 pieces of jumbo wings in a serve.", "tags": ["wings"], "variants": [ { "label": null, "price": 20.95, "protein": "chicken" } ] },
+        { "name": "Bowl of Chips", "description": "A medium serves of crispy potato chips with regular salt sprinkled along with tomato ketchup on the side.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 10.50, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Dry Laphing", "is_vegetarian": true, "tags": ["laphing"], "variants": [ { "label": null, "price": 17.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jhol Laphing", "is_vegetarian": true, "tags": ["laphing"], "variants": [ { "label": null, "price": 20.95, "protein": "veg", "is_vegetarian": true } ] }
       ]
     },
     {
       "name": "Chilli Special",
       "items": [
         { "name": "Buff Chilli", "description": "Tossed with capsicum, onion in chef's special chilli sauce.", "tags": ["chilli"], "variants": [ { "label": null, "price": 23.95, "protein": "buff" } ] },
-        { "name": "Sizzling Chilli Paneer", "description": "Tossed with capsicum, onion in chef's special chilli sauce.", "is_vegetarian": true, "tags": ["chilli", "sizzler"], "variants": [ { "label": null, "price": 25.95, "protein": "paneer", "is_vegetarian": true } ] },
-        { "name": "Wings Chilli", "description": "Deep fried wings sauteed with peppers, onions and green onion, soy sauce sweet and medium hot spicy sauce along with Nepalese herbs and flavoring spices.", "tags": ["chilli", "wings"], "variants": [ { "label": null, "price": 23.95, "protein": "chicken" } ] },
-        { "name": "Chilli Masala (Chicken)", "description": "Boneless chicken meat sauteed with onions, capsicum, green onions, soy sauce, sweet and medium hot spicy sauce along with Nepalese herbs & flavoring spices. Add on: Plain rice for $4.80. This dish can be medium spicy or hot & dry.", "tags": ["chilli"], "variants": [ { "label": null, "price": 23.95, "protein": "chicken" } ] },
-        { "name": "Chilli Paneer", "description": "Deep fried chilli marinated Indian cottage cheese (paneer) sauteed with onions, capsicum, green onions, soy sauce, sweet & medium hot spicy sauce along with Nepalese herbs & flavoring spices. Add on: Plain rice for $4.80. This dish can be medium spicy or hot & dry.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 24.95, "protein": "paneer", "is_vegetarian": true } ] }
+        { "name": "Sizzling Chilli Paneer", "description": "Tossed with capsicum, onion in chef's special chilli sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 25.95, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Wings Chilli", "description": "Deep fried wings sauteed with peppers, onions and green onions, soy sauce, sweet and medium hot spicy sauce along with nepalese herbs and flavoring spices.", "tags": ["wings", "chilli"], "variants": [ { "label": null, "price": 23.95, "protein": "chicken" } ] },
+        { "name": "Chilli Masala (Chicken)", "description": "Boneless chicken meat sauteed with onions, capsicum, green onions, soy sauce, sweet and medium hot spicy sauce along with Nepalese herbs & flavoring spices. Add on: Plain rice for $4.80. Note: This dish can be medium spicy or hot & dry.", "tags": ["chilli"], "variants": [ { "label": null, "price": 23.95, "protein": "chicken" } ] },
+        { "name": "Chilli Paneer", "description": "Deep fried chilli marinated Indian cottage cheese (paneer) sauteed with onions, capsicum, green onions, soy sauce, sweet & medium hot spicy sauce with Nepalese herbs & falvoring spices. Add on: Plain rice for $4.80. Note: This dish can be medium spicy or hot & dry.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": 24.95, "protein": "paneer", "is_vegetarian": true } ] }
       ]
     },
     {
       "name": "Pasta",
       "items": [
-        { "name": "Veggie Pasta", "description": "Mushroom and mix vegetables. Choice of sauce: pesto sauce, tomato sauce, white sauce.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 19.95, "protein": "veg" } ] },
+        { "name": "Veggie Pasta", "description": "Mushroom and mix vegetables. Choice of sauce, pesto sauce, tomato sauce, white sauce.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 19.95, "protein": "veg", "is_vegetarian": true } ] },
         { "name": "Nepalese Chicken & Mushroom Pasta", "description": "White sauce and mushroom garlic & ginger along with mixture of Nepalese herbs and spices, cheese and Italian mix herbs.", "tags": [], "variants": [ { "label": null, "price": 21.95, "protein": "chicken" } ] },
         { "name": "Nepalese Pesto Chicken Pasta", "description": "Pesto sauce contains basil, spinach, cashew, along with garlic & ginger along with mixture of Nepalese herbs and spices, cheese and Italian mix herbs.", "tags": [], "variants": [ { "label": null, "price": 22.95, "protein": "chicken" } ] },
         { "name": "Garlic Prawn Pasta (6pcs prawn)", "description": "Tomato sauce, Vienna prawns, garlic, ginger, Napoli sauce, shallots along with mixture of Nepalese herbs and spice, cheese and Italian mix herbs.", "tags": [], "variants": [ { "label": null, "price": 25.95, "protein": "prawn" } ] }
@@ -112,11 +114,11 @@
     {
       "name": "Chowmein",
       "items": [
-        { "name": "Chowmein", "description": "Nepalese style stirred fried noodles sauteed with veggies, garlic, ginger, soy sauce and flavoring of Nepalese herbs and spices. Meats are added as per the options chosen.", "tags": ["chowmein"], "variants": [ { "label": "Vegetarian", "price": 19.95, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 23.95, "protein": "paneer", "is_vegetarian": true }, { "label": "Egg Fried", "price": 20.95, "protein": "egg" }, { "label": "Chicken", "price": 21.95, "protein": "chicken" }, { "label": "Buffalo", "price": 22.95, "protein": "buff" }, { "label": "Mixed (Chicken & Egg)", "price": 23.95 }, { "label": "Prawn Fried (6pcs prawn)", "price": 26.95, "protein": "prawn" } ] }
+        { "name": "Chowmein", "description": "Nepalese style stirred fried noodles sauteed with veggies, garlic, ginger, soy sauce and flavoring of Nepalese herbs and spices. Meats are added as per the options chosen. Add Extra Chicken $5 / Egg $4 / Schezwan $4 / Prawn $9 / Buff $6.", "tags": ["chowmein"], "variants": [ { "label": "Vegetarian", "price": 19.95, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 23.95, "protein": "paneer", "is_vegetarian": true }, { "label": "Egg Fried", "price": 20.95, "protein": "egg" }, { "label": "Chicken", "price": 21.95, "protein": "chicken" }, { "label": "Buffalo", "price": 22.95, "protein": "buff" }, { "label": "Mixed (Chicken & Egg)", "price": 23.95, "protein": "chicken" }, { "label": "Prawn Fried (6pcs prawn)", "price": 26.95, "protein": "prawn" } ] }
       ]
     },
     {
-      "name": "Mo:Mo",
+      "name": "Mo:Mo:",
       "items": [
         { "name": "Steamed Momo", "description": "Nepalese style steamed dumplings with fillings of vegetables/chicken/buffalo with ginger, garlic, coriander, onion, and Nepalese spices served with homemade spices and tomato based mild sauce.", "tags": ["steamed-momo"], "variants": [ { "label": "Veg", "price": 16.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.95, "protein": "chicken" }, { "label": "Buff", "price": 19.95, "protein": "buff" } ] },
         { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [ { "label": "Veg", "price": 17.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 19.95, "protein": "chicken" }, { "label": "Buff", "price": 20.95, "protein": "buff" } ] },
@@ -131,28 +133,28 @@
     {
       "name": "House Special Fried Rice",
       "items": [
-        { "name": "Fried Rice", "description": "Steamed rice fried with the mixed vegetables and green onions along with ginger, garlic and soy sauce and finished with Nepalese herbs and spices. Meats are added as per the options chosen.", "tags": ["fried-rice"], "variants": [ { "label": "Vegetarian", "price": 19.95, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 21.95, "protein": "egg" }, { "label": "Chicken", "price": 22.95, "protein": "chicken" }, { "label": "Buffalo", "price": 23.95, "protein": "buff" }, { "label": "Mixed (Chicken & Egg)", "price": 23.95 }, { "label": "Prawn (6pcs prawn)", "price": 25.95, "protein": "prawn" } ] }
+        { "name": "House Special Fried Rice", "description": "Steamed rice fried with the mixed vegetables and green onions along with ginger, garlic and soy sauce and finished with Nepalese herbs and spices. Meats are added as per the options chosen. Add Extra Chicken $5 / Egg $4 / Extra Prawn $9 / Buff $6.", "tags": ["fried-rice"], "variants": [ { "label": "Vegetarian", "price": 19.95, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 21.95, "protein": "egg" }, { "label": "Chicken", "price": 22.95, "protein": "chicken" }, { "label": "Buffalo", "price": 23.95, "protein": "buff" }, { "label": "Mixed (Chicken & Egg)", "price": 23.95, "protein": "chicken" }, { "label": "Prawn (6pcs prawn)", "price": 25.95, "protein": "prawn" } ] }
       ]
     },
     {
       "name": "Biryani",
       "items": [
-        { "name": "Biryani", "description": "Saffron rice flavoured with aromatic spices, medium hot, served with raita condiment of spices, yoghurt, cucumber, carrot & roasted cumin seed.", "tags": ["biryani"], "variants": [ { "label": "Veg", "price": 21.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 23.95, "protein": "chicken" }, { "label": "Mutton", "price": 25.95, "protein": "goat" } ] }
+        { "name": "Biryani", "description": "Saffron rice flavoured with aromatic spices medium hot served with raita condiment of spices, yoghurt, cucumber, carrot & roasted cumin seed.", "tags": ["biryani"], "variants": [ { "label": "Veg", "price": 21.95, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 23.95, "protein": "chicken" }, { "label": "Mutton", "price": 25.95, "protein": "goat" } ] }
       ]
     },
     {
       "name": "Kids Menu",
       "items": [
-        { "name": "Kids Pasta", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg" } ] },
+        { "name": "Kids Pasta", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
         { "name": "Chicken Nuggets & Chips", "description": "5 pcs of nuggets & small chips.", "tags": [], "variants": [ { "label": null, "price": 12.95, "protein": "chicken" } ] },
-        { "name": "Plain Noodles for Kids", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.95, "protein": "veg" } ] },
-        { "name": "Rice and Lentil Soup", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.00, "protein": "veg" } ] }
+        { "name": "Plain Noodles for Kids", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.95, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Rice and Lentil Soup", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 11.00, "protein": "veg", "is_vegetarian": true } ] }
       ]
     },
     {
       "name": "Dessert",
       "items": [
-        { "name": "Gulab Jamun", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 11.95, "protein": "veg" } ] }
+        { "name": "Gulab Jamun", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 11.95, "protein": "veg", "is_vegetarian": true } ] }
       ]
     },
     {
@@ -189,41 +191,6 @@
       ]
     },
     {
-      "name": "Cocktails",
-      "items": [
-        { "name": "Mojito", "description": "Goes with white rum, fresh mint leaves, lime juice and simple syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
-        { "name": "Passion Fruit Mojito", "description": "Goes with white rum, fresh mint leaves, lime juice and simple syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Midori Splice", "description": "Melon liquor, coconut rum and pineapple juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
-        { "name": "Long Island Ice Tea", "description": "Vodka, rum, gin, tequila and triple sec.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Margarita", "description": "Goes with tequila, triple sec and fresh lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Chilli Margarita", "description": "Goes with tequila, triple sec and fresh lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
-        { "name": "Coconut Chilli Margarita", "description": "Goes with tequila, triple sec, lime juice, sugar syrup, coconut syrup and tabasco sauce.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Cosmopolitan", "description": "Goes with vodka, Cointreau, lime juice and cranberry juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Pina Colada", "description": "Goes with light rum, coconut cream, pineapple juice and lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Pornstar Martini", "description": "Goes with vanilla vodka, passoa, passion fruit puree and vanilla sugar.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Sex on the Beach", "description": "Goes with vodka, peach schnapps, orange juice and cranberry juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Lychee Martini", "description": "Vodka, lychee liquor, sweet and sour, lychee syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Kathmandu Sling", "description": "Khukuri rum, gin, grenadine, triple sec, lime juice and pineapple juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Last Kiss", "description": "Dry gin, lime juice, honey syrup, purple gel liquor.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Rainbow Paradise", "description": "White rum, grenadine, pineapple juice and blue curacao.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
-        { "name": "Tequila Sunrise", "description": "Tequila, triple sec, orange juice and grenadine.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Last Word", "description": "Dry gin, green chartreuse, maraschino liquor and lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 24.00 } ] },
-        { "name": "Pink Lady", "description": "Gin, triple sec, grenadine and lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Kentucky Maid", "description": "Bourbon, simple syrup, lime juice, mint leaves, & cucumber slices.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Moscow Mule", "description": "Vodka, fresh lime and ginger beer.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Whisky Sour", "description": "Bourbon whisky, lemon juice, sugar syrup and egg white.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Jade the Dragon", "description": "Midori, apple juice, gin, pineapple juice and sugar syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Blue Hawaiian", "description": "White rum, blue curacao, pineapple juice, coconut cream.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Blue Lagoon", "description": "Vodka, triple sec and blue curacao.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "X.Y.Z.", "description": "White rum, Cointreau/triple sec, lemon juice & lemon twist (garnish).", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Old Fashioned", "description": "Bourbon whisky, angostura bitters and simple syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
-        { "name": "Divorce Papers", "description": "Dry gin, aperol, passion fruit puree, honey syrup, lemon juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Jungle Bird", "description": "Dark rum, pineapple juice, campari, lime juice, simple syrup, & pineapple wedge.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Negroni", "description": "Gin, campari & sweet vermouth.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
-        { "name": "Strawberry Lychee Caprioska", "description": "Vodka, strawberry liquor, lychee liquor, lychee syrup, lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] }
-      ]
-    },
-    {
       "name": "Shots",
       "items": [
         { "name": "Zombie Brain", "tags": ["drinks"], "variants": [ { "label": null, "price": 13.50 } ] },
@@ -246,7 +213,7 @@
         { "name": "Stella", "tags": ["drinks"], "variants": [ { "label": "Schooner", "price": 11.50 }, { "label": "Pint", "price": 15.50 } ] },
         { "name": "Tiger", "tags": ["drinks"], "variants": [ { "label": "Schooner", "price": 11.50 }, { "label": "Pint", "price": 15.50 } ] },
         { "name": "Apple Cider", "tags": ["drinks"], "variants": [ { "label": "Schooner", "price": 11.50 }, { "label": "Pint", "price": 15.50 } ] },
-        { "name": "Ginger Beer", "tags": ["drinks"], "variants": [ { "label": "Schooner", "price": 11.50 }, { "label": "Pint", "price": 15.50 } ] },
+        { "name": "Ginger Beer (Tap)", "tags": ["drinks"], "variants": [ { "label": "Schooner", "price": 11.50 }, { "label": "Pint", "price": 15.50 } ] },
         { "name": "Stone and Wood Pacific Ale", "tags": ["drinks"], "variants": [ { "label": "Schooner", "price": 13.50 }, { "label": "Pint", "price": 17.50 } ] }
       ]
     },
@@ -265,7 +232,7 @@
         { "name": "JW Black Label", "tags": ["drinks"], "variants": [ { "label": null, "price": 13.00 } ] },
         { "name": "Chivas Regal", "tags": ["drinks"], "variants": [ { "label": null, "price": 13.50 } ] },
         { "name": "JW Double Black", "tags": ["drinks"], "variants": [ { "label": null, "price": 14.00 } ] },
-        { "name": "Blue Label", "tags": ["drinks"], "variants": [ { "label": null, "price": 28.00 } ] },
+        { "name": "JW Blue Label", "tags": ["drinks"], "variants": [ { "label": null, "price": 28.00 } ] },
         { "name": "Glenfiddich", "tags": ["drinks"], "variants": [ { "label": null, "price": 14.50 } ] },
         { "name": "Bandipur", "tags": ["drinks"], "variants": [ { "label": null, "price": 15.50 } ] }
       ]
@@ -301,15 +268,50 @@
     {
       "name": "Wines",
       "items": [
-        { "name": "Sauvignon Blanc", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Pinot Grigio", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Moscato", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Rose", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Chardonnay", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Shiraz", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Merlot", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Cabernet Sauvignon", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] },
-        { "name": "Pinot Noir", "tags": ["drinks"], "variants": [ { "label": "Glass", "price": 11.50 }, { "label": "Bottle", "price": 40.00 } ] }
+        { "name": "Sauvignon Blanc (White)", "description": "Whole bottle $40.", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Pinot Grigio (White)", "description": "Whole bottle $40.", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Moscato (White)", "description": "Whole bottle $40.", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Rose (White)", "description": "Whole bottle $40.", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Chardonnay (White)", "description": "Whole bottle $40.", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Shiraz (Red)", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Merlot (Red)", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Cabernet Sauvignon (Red)", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] },
+        { "name": "Pinot Noir (Red)", "tags": ["drinks"], "variants": [ { "label": null, "price": 11.50 } ] }
+      ]
+    },
+    {
+      "name": "Cocktails",
+      "items": [
+        { "name": "Mojito", "description": "Goes with white rum, fresh mint leaves, lime juice and simple syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
+        { "name": "Passion Fruit Mojito", "description": "Goes with white rum, fresh mint leaves, lime juice and simple syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Midori Splice", "description": "Melon liquor, coconut rum and pineapple juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
+        { "name": "Long Island Ice Tea", "description": "Vodka, rum, gin, tequila and triple sec.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Margarita", "description": "Goes with tequila, triple sec and fresh lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Chilli Margarita", "description": "Goes with tequila, triple sec and fresh lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
+        { "name": "Coconut Chilli Margarita", "description": "Goes with tequila, triple sec, lime juice, sugar syrup, coconut syrup and tabasco sauce.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Cosmopolitan", "description": "Goes with vodka, Cointreau, lime juice and cranberry juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Pina Colada", "description": "Goes with light rum, coconut cream, pineapple juice and lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Pornstar Martini", "description": "Goes with vanilla vodka, passoa, passion fruit puree and vanilla sugar.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Sex on the Beach", "description": "Goes with vodka, peach schnapps, orange juice and cranberry juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Lychee Martini", "description": "Vodka, lychee liquor, sweet and sour, lychee syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Kathmandu Sling", "description": "Khukuri rum, gin, grenadine, triple sec, lime juice and pineapple juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Last Kiss", "description": "Dry gin, lime juice, honey syrup, purple gel liquor.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Rainbow Paradise", "description": "White rum, grenadine, pineapple juice and blue curacao.", "tags": ["drinks"], "variants": [ { "label": null, "price": 21.00 } ] },
+        { "name": "Tequila Sunrise", "description": "Tequila, triple sec, orange juice and grenadine.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Last Word", "description": "Dry gin, green chartreuse, maraschino liquor and lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 24.00 } ] },
+        { "name": "Pink Lady", "description": "Gin, triple sec, grenadine and lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Kentucky Maid", "description": "Bourbon, simple syrup, lime juice, mint leaves, & cucumber slices.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Moscow Mule", "description": "Vodka, fresh lime and ginger beer.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Whisky Sour", "description": "Bourbon whisky, lemon juice, sugar syrup and egg white.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Jade the Dragon", "description": "Midori, apple juice, gin, pineapple juice and sugar syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Blue Hawaiian", "description": "White rum, blue curacao, pineapple juice, coconut cream.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Blue Lagoon", "description": "Vodka, triple sec and blue curacao.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "X.Y.Z.", "description": "White rum, cointreau/triple sec, lemon juice & lemon twist (garnish).", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Old Fashioned", "description": "Bourbon whisky, angostura bitters and simple syrup.", "tags": ["drinks"], "variants": [ { "label": null, "price": 20.00 } ] },
+        { "name": "Divorce Papers", "description": "Dry gin, aperol, passion fruit puree, honey syrup, lemon juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Jungle Bird", "description": "Dark rum, pineapple juice, campari, lime juice, simple syrup, & pineapple wedge.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Negroni", "description": "Gin, campari & sweet vermouth.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Strawberry Lychee Caprioska", "description": "Vodka, strawberry liquor, lychee liquor, lychee syrup, lime juice.", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] }
       ]
     }
   ]

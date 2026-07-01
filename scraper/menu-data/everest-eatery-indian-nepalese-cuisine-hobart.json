@@ -1,0 +1,887 @@
+{
+  "slug": "everest-eatery-indian-nepalese-cuisine-hobart",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Beef Curries",
+      "items": [
+        {
+          "name": "Beef Curry",
+          "description": "Spiced beef cooked with onions, tomatoes, and herbs",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Korma",
+          "description": "Rich beef curry with cashew cream and spices.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Spinach",
+          "description": "Beef simmered with spinach and a touch of",
+          "tags": [
+            "curry",
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Vindaloo with Potato",
+          "description": "Tangy and spicy beef curry with potatoes.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "beef"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Biryani / Rice",
+      "items": [
+        {
+          "name": "Chicken Biryani",
+          "description": "A fragrant and flavorful dish combining tender, marinated",
+          "tags": [
+            "biryani"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Fried Rice (Egg, Chicken, Veg)",
+          "description": "Stir-fried rice with vegetables, egg, or chicken.",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 15,
+              "protein": "chicken"
+            },
+            {
+              "label": "Egg",
+              "price": 15,
+              "protein": "egg"
+            }
+          ]
+        },
+        {
+          "name": "Goat Biryani",
+          "description": "Aromatic biryani with tender goat and spices.",
+          "tags": [
+            "biryani"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Biryani",
+          "description": "Spiced basmati rice with slow-cooked lamb.",
+          "tags": [
+            "biryani"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Plain Rice",
+          "description": "Steamed fragrant basmati rice.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Saffron Rice",
+          "description": "Basmati rice cooked with saffron for a golden",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Biryani",
+          "description": "Basmati rice cooked with spiced vegetables.",
+          "tags": [
+            "biryani"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chicken Curries",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "description": "Creamy tomato-based curry with tender marinated chicken.",
+          "tags": [
+            "curry",
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Curry",
+          "description": "Nepalese-style curry with chicken, onions, and spices",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Korma",
+          "description": "Chicken cooked in a rich cashew and cream-based",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "description": "Grilled chicken cooked in spicy tomato curry.",
+          "tags": [
+            "curry",
+            "tikka"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Vindaloo",
+          "description": "A fiery and tangy curry with marinated chicken,",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Coconut Chicken",
+          "description": "Chicken cooked with coconut cream and spices",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Kadai Chicken",
+          "description": "Tender chicken cooked with capsicum, onions, and tomatoes",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Spinach Chicken",
+          "description": "Spinach-infused chicken curry. (Palak Chicken)",
+          "tags": [
+            "curry",
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chowmien",
+      "items": [
+        {
+          "name": "Chicken Chowmien",
+          "description": "Stir-fried noodles with chicken and veggies.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Veg Chowmien",
+          "description": "Nepali styled friend noodles with fresh vegetables",
+          "tags": [
+            "chowmein"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        {
+          "name": "Gulab Jamun (2 Piece)",
+          "description": "Deep fried cottage cheese balls soaked in sugar",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 7,
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Entree",
+      "items": [
+        {
+          "name": "Chicken Chilli",
+          "description": "Crispy chicken in chili sauce with fresh coriander",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Chilli Prawn",
+          "description": "Fresh Prawns, Capsicums, and onions are served in",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Pakora",
+          "description": "Prawns marinated with spiced chickpea batter and Everest",
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Sizzling Chicken Tikka",
+          "description": "Boneless chicken marinated and cooked in a tandoor.",
+          "tags": [
+            "tikka",
+            "sizzler"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Sizzling Lamb Cutlets (4 Pcs)",
+          "description": "Lamb chops cooked in tandoor with Everest sauce.",
+          "tags": [
+            "sizzler"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Veg Manchurian",
+          "description": "Fried veggie balls sautéed in a tangy sauce.",
+          "tags": [
+            "manchurian"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Pakora",
+          "description": "Lightly spiced chickpea batter veggies cooked till crisp",
+          "tags": [
+            "pakora"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Samosa (2 Pcs)",
+          "description": "Crisp pastries filled with spiced potato and peas.",
+          "tags": [
+            "samosa"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Goat Curries",
+      "items": [
+        {
+          "name": "Everest Goat Curry",
+          "description": "Tasmanian Goat meat curry with fragrant Nepali spices",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Goat Masala",
+          "description": "Goat cooked in spiced onion and tomato gravy.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Goat Spinach",
+          "description": "Goat curry with spinach and aromatic spices.",
+          "tags": [
+            "curry",
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Goat Vindaloo",
+          "description": "Flavorful goat meat slow-cooked with potatoes in a",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lamb Curries",
+      "items": [
+        {
+          "name": "Lamb Kadai",
+          "description": "Succulent lamb pieces cooked with capsicum, onions, and",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Korma",
+          "description": "Lamb cooked in a creamy, spiced tomato sauce.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Rogan Josh",
+          "description": "Slow-cooked lamb curry with Kashmiri spices.",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Spinach",
+          "description": "Spinach-infused lamb curry with Nepalese spices.",
+          "tags": [
+            "curry",
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Vindaloo",
+          "description": "Tender lamb simmered with potatoes in a fiery",
+          "tags": [
+            "curry"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        {
+          "name": "Chicken Momo (Chilli)",
+          "description": "Dumplings tossed in spicy chili sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Momo (Deep Fried)",
+          "description": "Crispy fried dumplings served with chutney.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Momo (Jhol)",
+          "description": "Dumplings in a warm, spiced tomato broth.",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Momo (Steamed)",
+          "description": "Homemade Nepalese Dumplings served with special chutney (Sauce)",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Naans",
+      "items": [
+        {
+          "name": "Cheese Garlic Naan",
+          "description": "Soft and fluffy naan stuffed with cheese &",
+          "tags": [
+            "naan"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 6,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Garlic Butter Naan",
+          "description": "Soft tandoor-baked naan, with or without garlic butter.",
+          "tags": [
+            "naan"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Plain Naan",
+          "description": "Soft tandoor-baked naan, with or without garlic butter.",
+          "tags": [
+            "naan"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Plain Roti",
+          "description": "Whole wheat flatbread.",
+          "tags": [
+            "roti"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 4,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Potato Masala Kulcha",
+          "description": "Naan stuffed with spiced potato.",
+          "tags": [
+            "naan"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 6.5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Veg Curries",
+      "items": [
+        {
+          "name": "Everest Special Veg Curry",
+          "description": "Mixed vegetables in a Nepalese-style tomato-based sauce.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Kadai Paneer",
+          "description": "Cottage cheese cooked with capsicum in spiced gravy.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Mushroom Paneer",
+          "description": "Paneer and mushrooms in a rich tomato sauce.",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "description": "Homemade cottage cheese cooked in special Nepalese-style tomato",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Paneer Spinach",
+          "description": "Spinach-infused cottage cheese curry.",
+          "tags": [
+            "curry",
+            "saag"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "paneer",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Korma",
+          "description": "A creamy, mildly spiced curry with fresh vegetables",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Veg Vindaloo",
+          "description": "Fresh mixed vegetables cooked in a spicy, tangy",
+          "tags": [
+            "curry"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

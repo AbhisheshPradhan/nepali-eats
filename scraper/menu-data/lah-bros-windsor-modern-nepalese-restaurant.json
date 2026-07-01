@@ -1,0 +1,107 @@
+{
+  "slug": "lah-bros-windsor-modern-nepalese-restaurant",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Masala whitebait", "description": "cripsy whitebait, house blend masala, shrimp emulsion (gf)", "tags": ["fried-fish"], "variants": [ { "label": null, "price": 9.00, "protein": "fish" } ] },
+        { "name": "Nepali Fried Bread", "description": "smoked eggplant & tomato dip, ghee (vgo)", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 7.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Small plates",
+      "items": [
+        { "name": "Pork Momo", "description": "tomato, sesame & peanut achaar, pickled fennel, chilli oil *contains peanuts and dairy, vegan option available*", "tags": ["steamed-momo"], "variants": [ { "label": null, "price": 15.00, "protein": "pork" } ] },
+        { "name": "Cured yellowfin tuna", "description": "tamarind, chilli, ruby grapefruit, peanut, betel leaf", "tags": [], "variants": [ { "label": null, "price": 24.00, "protein": "fish" } ] },
+        { "name": "Crispy Chilli Chicken Ribs", "description": "chilli & tomato sauce, capsicum, crispy shallots", "tags": ["chilli"], "variants": [ { "label": null, "price": 17.00, "protein": "chicken" } ] },
+        { "name": "Curry Braised Pork Croquettes", "description": "confit garlic aioli, pickles", "tags": [], "variants": [ { "label": null, "price": 16.00, "protein": "pork" } ] },
+        { "name": "Grilled Lamb Skewers", "description": "coriander chutney, cucumber yogurt, pickled radish (gf)", "tags": ["sekuwa"], "variants": [ { "label": null, "price": 22.00, "protein": "lamb" } ] },
+        { "name": "Lentil Pancake 'Bara'", "description": "63 degree egg, house pickle, 'gundruk' infused lamb jus (gf, vgo)", "tags": ["bara"], "variants": [ { "label": null, "price": 16.00 } ] },
+        { "name": "Charred cucumber", "description": "mint yoghurt, lovage, toasted almond, chilli oil", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Duck 'chhoila' roti tacos", "description": "hemp seed chutney, cucumber, rhubarb & ginger relish", "tags": ["choila"], "variants": [ { "label": null, "price": 22.00, "protein": "duck" } ] }
+      ]
+    },
+    {
+      "name": "Signature Curries",
+      "items": [
+        { "name": "Crispy Pork Belly", "description": "homemade curry sauce w/ basmati rice, ghee (gf)", "tags": ["curry"], "variants": [ { "label": null, "price": 33.00, "protein": "pork" } ] },
+        { "name": "Slow Cooked Goat", "description": "(bone in), chilli w/ basmati rice, ghee (gf)", "tags": ["curry"], "variants": [ { "label": null, "price": 35.00, "protein": "goat" } ] },
+        { "name": "Seasonal Vegetables", "description": "cripsy shallots w/ basmati rice, ghee (gf)", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": 29.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Large plates",
+      "items": [
+        { "name": "Spiced chargrilled chicken", "description": "rosted tomato achaar, tamarind, nuts & seeds (gf)", "tags": [], "variants": [ { "label": null, "price": 38.00, "protein": "chicken" } ] },
+        { "name": "Gippsland Lamb Chop", "description": "gundruk XO, fresh horseradish, jus", "tags": [], "variants": [ { "label": null, "price": 38.00, "protein": "lamb" } ] },
+        { "name": "Barramundi", "description": "five tales farm collard greens, olive achar", "tags": [], "variants": [ { "label": null, "price": 35.00, "protein": "fish" } ] },
+        { "name": "Braised Celeriac", "description": "oyster mushroom, gundruk(fermented mustard leaf) broth", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 28.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Charred sugarloaf cabbage", "description": "potato miso cream, crispy shallots, chilli oil (gf)", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 15.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Triple Cooked Timmur Potatoes", "description": "chilli, garlic, szechuan pepper", "is_vegetarian": true, "tags": ["timur"], "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Steamed Basmati Rice", "description": "w/ ghee", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 5.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Baked 'Khuwa' Cloufotis", "description": "apple & rhubarb, custard", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 17.00 } ] },
+        { "name": "Basque 'Kheer' Cheesecake", "description": "vanilla cardamom cream", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": 15.00 } ] }
+      ]
+    },
+    {
+      "name": "Feed Me Menus",
+      "items": [
+        { "name": "Feed Me #1", "description": "Nepali Fried Bread; Cured yellowfin tuna; Pork Momo; Choice of one signature curry; Charred sugarloaf cabbage; Side of Basmati rice; Baked 'Khuwa' Cloufotis or Basque 'Kheer' Cheesecake. Per person.", "tags": [], "variants": [ { "label": "Per person", "price": 60.00 } ] },
+        { "name": "Feed Me #2", "description": "Nepali Fried Bread; Cured yellowfin tuna; Curry braised pork croquettes; Pork Momo; Grilled lamb skewer; Charred sugarloaf cabbage; Gippsland lamb chop; Baked 'Khuwa' Cloufotis or Basque 'Kheer' Cheesecake. Per person.", "tags": [], "variants": [ { "label": "Per person", "price": 80.00 } ] }
+      ]
+    },
+    {
+      "name": "Beer & Cider",
+      "items": [
+        { "name": "Barasinghe Pilsner", "description": null, "tags": ["drinks"], "variants": [ { "label": null, "price": 14.00 } ] },
+        { "name": "Stone & Wood Pacific Ale", "description": null, "tags": ["drinks"], "variants": [ { "label": null, "price": 12.00 } ] },
+        { "name": "Asahi Superdry", "description": null, "tags": ["drinks"], "variants": [ { "label": null, "price": 11.00 } ] },
+        { "name": "Carlton Dry", "description": null, "tags": ["drinks"], "variants": [ { "label": null, "price": 11.00 } ] },
+        { "name": "Three Oaks Apple Cider", "description": null, "tags": ["drinks"], "variants": [ { "label": null, "price": 12.00 } ] },
+        { "name": "Heaps Normal Quiet XPA (0%)", "description": null, "tags": ["drinks"], "variants": [ { "label": null, "price": 10.00 } ] }
+      ]
+    },
+    {
+      "name": "Non-Alcoholic",
+      "items": [
+        { "name": "Coke", "description": "regular/ no sugar", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Lemonade", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Lemon, lime & bitters", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 6.00 } ] },
+        { "name": "Orange juice", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Pineapple Juice", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 5.00 } ] },
+        { "name": "Capi sparkling water (700ml)", "description": null, "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 9.00 } ] },
+        { "name": "Brewed Nepali tea 'Chiya'", "description": "Tea brewed with loose-leaf tea, cinnamon, cardamom, cloves and ginger", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": "Milk tea", "price": 4.50 }, { "label": "Black tea", "price": 4.00 } ] }
+      ]
+    },
+    {
+      "name": "Signature Cocktails",
+      "items": [
+        { "name": "Passion in paradise", "description": "Vodka, lychee liquor, passionfruit, rosemary syrup, pandan", "tags": ["drinks"], "variants": [ { "label": null, "price": 23.00 } ] },
+        { "name": "Fiery watermelon", "description": "Chilli-infused tequila, watermelon juice, rosemary syrup, lemon juice", "tags": ["drinks"], "variants": [ { "label": null, "price": 23.00 } ] },
+        { "name": "Lah Bro's Old fashioned", "description": "Wild turkey bourbon, jaggery, angostura bitters", "tags": ["drinks"], "variants": [ { "label": null, "price": 22.00 } ] },
+        { "name": "Velvet Punch", "description": "Clarified cocktail with Brunswick aces gin, dry vermouth, rosé wine, figs, pepper", "tags": ["drinks"], "variants": [ { "label": null, "price": 24.00 } ] }
+      ]
+    },
+    {
+      "name": "Mocktails",
+      "items": [
+        { "name": "Bumblebee", "description": "Brunswick aces Gin (non-alc), honey, citrus, ginger, lemon", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 14.00 } ] },
+        { "name": "Mango tango", "description": "pineapple juice, verjuice, mango, lemon juice, sugar syrup", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 13.00 } ] },
+        { "name": "Virgin Passion in Paradise", "description": "brunswick aces Gin (non-alc), lychee juice, passionfruit, rosemary syrup, coconut water", "is_vegetarian": true, "tags": ["drinks"], "variants": [ { "label": null, "price": 14.00 } ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "slug": "aagaman-indian-nepalese-restaurant-melbourne-cbd-flinders-lane",
+  "source": "admin",
+  "price_source": "own_site",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starters",
+      "items": [
+        { "name": "Cannon Shots (Pani Puri)", "description": "Crispy parcels filled with spiced potato, chickpea, date, and tamarind chutney served with aromatic water.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Street Treat (Papdi Chaat)", "description": "Crisp pastry strips and potatoes covered with sweet yoghurt, mint and tamarind chutney.", "is_vegetarian": true, "tags": ["chaat"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chimichurri Scallops", "description": "Diver scallops marinated in spices, pan seared and served with basil pesto.", "tags": [], "variants": [ { "label": null, "price": null, "protein": "scallop" } ] },
+        { "name": "The Pyramid (Vegetable Samosa)", "description": "Piquant appetiser prepared with crusty dough, stuffed with peas, potatoes, and spices, fried and served with tangy tamarind sauce.", "is_vegetarian": true, "tags": ["samosa"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Farmer's Fix (Veggie Pakora)", "description": "Spinach, potatoes and onions dipped in spiced chickpea flour and deep fried, served with tangy tamarind sauce.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "The Grumpy Onion (Onion Bhaji)", "description": "Finely sliced onion smothered in a simple, fragrantly spiced batter and fried to crispy perfection.", "is_vegetarian": true, "tags": ["pakora"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Tandoor",
+      "items": [
+        { "name": "King's Platter (Meat)", "description": "Selection of kebabs, chicken tikka, garlic tikka, malai tikka, seekh kebab and lamb chop served with homemade mint and beetroot sauce.", "tags": ["tandoori", "tikka", "seekh-kebab"], "variants": [ { "label": null, "price": null } ] },
+        { "name": "Queen's Platter (Vegetable)", "description": "Assortment of house specialities. Combination of tandoori mushroom, paneer, gobi, pakora and samosa.", "is_vegetarian": true, "tags": ["tandoori"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Wonders of Momos (Chicken)", "description": "Nepal's most popular dish, dumplings filled with succulent chicken mince, served with tomato sesame chutney.", "tags": ["steamed-momo"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Forest Momos (Vegetable)", "description": "Nepal's most popular dish, dumplings filled with succulent vegetable, served with tomato sesame chutney.", "is_vegetarian": true, "tags": ["steamed-momo"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Magic Mushrooms (Tandoori)", "description": "Button mushrooms marinated in Indian spices, chargrilled with onion and capsicum and cooked in the tandoor oven.", "is_vegetarian": true, "tags": ["tandoori"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Cosy Cottage (Paneer Tikka)", "description": "Soft indian cheese, coated in indian spices, chargrilled with onions and capsicum cooked in the tandoor oven.", "is_vegetarian": true, "tags": ["tikka", "tandoori"], "variants": [ { "label": null, "price": null, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chunky Chicks (Chicken Tikka)", "description": "Boneless pieces of chicken marinated in fresh spices, lemon juice and yoghurt, barbecued in tandoor.", "tags": ["tikka", "tandoori"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Creamy Chunks (Malai Tikka)", "description": "Tender boneless chicken marinated in Indian herbs, white cheesy cream and lemon juice, cooked in tandoori oven.", "tags": ["tikka", "tandoori"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Type-G Chunks (Garlic Tikka)", "description": "Chicken breast, marinated in grounded Indian herbs, yoghurt, garlic and ginger paste, cooked in tandoor oven.", "tags": ["tikka", "tandoori"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Joy Sticks (Seekh Kebab)", "description": "Tender lamb mince mixed with ginger, garlic, rosemary and Indian spices rolled on a skewer and cooked in tandoor.", "tags": ["seekh-kebab"], "variants": [ { "label": null, "price": null, "protein": "lamb" } ] },
+        { "name": "Lambony (Lamb Chops)", "description": "Tender lamb cutlets marinated in Indian spices with fenugreek and yoghurt, cooked to perfection in tandoor.", "tags": ["tandoori"], "variants": [ { "label": null, "price": null, "protein": "lamb" } ] },
+        { "name": "Sea Curls (Tawa Prawns)", "description": "Pan grilled king prawns flavoured with crushed garlic, onion, capsicum, yoghurt, and Indian spices.", "tags": [], "variants": [ { "label": null, "price": null, "protein": "prawn" } ] },
+        { "name": "Silver Waters (Tandoori Salmon)", "description": "Fresh Atlantic salmon marinated with fresh spices cooked in tandoor oven.", "tags": ["tandoori"], "variants": [ { "label": null, "price": null, "protein": "fish" } ] },
+        { "name": "Sea Chunks (Fish Tikka)", "description": "Rockling fish fillets marinated with lemon juice, dill and lemon grass cooked in an Indian tandoor oven.", "tags": ["tikka", "tandoori"], "variants": [ { "label": null, "price": null, "protein": "fish" } ] },
+        { "name": "The Miracle (Tandoori Chicken)", "description": "Tender chicken marinated in yoghurt, pomegranate juice and authentic Indian spice and cooked in a clay oven. Available half or full.", "tags": ["tandoori"], "variants": [ { "label": "Half", "price": null, "protein": "chicken" }, { "label": "Full", "price": null, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Non-Veg Curries",
+      "items": [
+        { "name": "Everyone's Favourite (Butter Chicken)", "description": "The nation's favourite; chicken cooked in a harmonious blend of tomato and almond meal enriched with cream sauce.", "tags": ["butter-chicken"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Nutty Chick (Chicken Badam Malai)", "description": "Succulent pieces of chicken cooked with almonds, cashew, cream, tomatoes and aromatic spices.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Southern Pride (Chettinad Madras)", "description": "A classic south Indian recipe, cooked with authentic chettinad spices and white poppy seeds finished with coconut cream. Your choice of chicken, beef or lamb.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": null, "protein": "chicken" }, { "label": "Beef", "price": null, "protein": "beef" }, { "label": "Lamb", "price": null, "protein": "lamb" } ] },
+        { "name": "Queen of South (Madras Curry)", "description": "A classic south Indian recipe, cooked with curry leaves and mustard seeds finished with coconut cream. Your choice of chicken, beef or lamb.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": null, "protein": "chicken" }, { "label": "Beef", "price": null, "protein": "beef" }, { "label": "Lamb", "price": null, "protein": "lamb" } ] },
+        { "name": "Spice Me Up! (Vindaloo)", "description": "A hot curry from goa cooked in a mix of roasted spices, vinegar and coconut, with your choice of meat. Your choice of chicken, beef or lamb.", "spice_level": 4, "tags": ["curry"], "variants": [ { "label": "Chicken", "price": null, "protein": "chicken" }, { "label": "Beef", "price": null, "protein": "beef" }, { "label": "Lamb", "price": null, "protein": "lamb" } ] },
+        { "name": "Queen of North (Saag Wala)", "description": "Your choice of meat blended with English spinach purée, tempered garlic and fresh green spices. A Punjabi's favourite. Your choice of chicken, beef or lamb.", "tags": ["saag"], "variants": [ { "label": "Chicken", "price": null, "protein": "chicken" }, { "label": "Beef", "price": null, "protein": "beef" }, { "label": "Lamb", "price": null, "protein": "lamb" } ] },
+        { "name": "Emperor's Choice (Rogan Josh)", "description": "A traditional Indian curry originated in Kashmir made with extensive use of tomatoes and onions cooked with your choice of meat. Your choice of chicken, beef or lamb.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": null, "protein": "chicken" }, { "label": "Beef", "price": null, "protein": "beef" }, { "label": "Lamb", "price": null, "protein": "lamb" } ] },
+        { "name": "Tipsy Chick (Khukuri Chicken Masala)", "description": "Boneless pieces of tandoori chicken cooked with tangy tomato and onion sauce with a touch of house rum.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Nutty & Creamy (Korma)", "description": "Your choice of meat cooked with onion, yoghurt, cashew nut paste and finished with cream. Your choice of chicken, beef or lamb.", "tags": ["curry"], "variants": [ { "label": "Chicken", "price": null, "protein": "chicken" }, { "label": "Beef", "price": null, "protein": "beef" }, { "label": "Lamb", "price": null, "protein": "lamb" } ] },
+        { "name": "The Pinnacle (Himalayan Goat Curry)", "description": "Slow cooked tender goat curry pieces cooked with Nepalese Himalayan spices.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "goat" } ] },
+        { "name": "Spicy & Dicey (Gurkhali Chilli Chicken)", "description": "Boneless thigh chicken marinated in authentic Nepalese spices. Wok tossed with diced capsicum, tomato, onion, cashew, sweet chilli and soy sauce.", "tags": ["chilli"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Green Lambo (Gulmely Lamb)", "description": "Diced lamb roasted with potato and Nepalese spices finished with fresh spinach and cashew.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "lamb" } ] },
+        { "name": "Taste of Heaven (Chicken Tikka Masala)", "description": "Boneless pieces of tandoori chicken cooked with Indian spices, tangy tomato sauce, onion and capsicum.", "tags": ["tikka", "curry"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Summer Love (Mango Chicken)", "description": "A delicious Indian summer hit. Diced chicken cooked in mango pulp, topped with coconut cream.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Vegetarian / Vegan",
+      "items": [
+        { "name": "Spice-Shrooms (Mushroom Dahi Masala)", "description": "Fresh button mushrooms cooked with yoghurt, tomato sauce and freshly ground spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Simple & Dainty (Jhane Ko Dal)", "description": "Yellow lentils tempered with kashmiri chilli, curry leaves and mustard.", "is_vegetarian": true, "tags": ["dal"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Plenty of Lentils (Dal Makhani)", "description": "A staple of north Indian homes, made from black lentils and red kidney beans, finished with loads of butter and cream.", "is_vegetarian": true, "tags": ["dal"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Halloween Fun (Pharsi Masala)", "description": "Butternut pumpkin tempered with spices, and cooked in thick tomato onion sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Royal Delight (Fig Kofta)", "description": "A classic Indian recipe of cheese and fig dumplings simmered in a smooth thick sauce.", "is_vegetarian": true, "tags": ["kofta"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Forest Eggs (Eggplant Masala)", "description": "A silky smooth curry prepared with eggplant and potato along with onion, tomato, and garlic.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "King's Cottage (Kadai Paneer)", "description": "Indian cottage cheese cooked in a spicy tomato based sauce, flavoured with fresh coriander and chilli.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Queen's Cottage (Palak Paneer)", "description": "Cottage cheese tempered with a mixer of spices and fresh English spinach purée.", "is_vegetarian": true, "tags": ["saag"], "variants": [ { "label": null, "price": null, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Emperor's Cottage (Shahi Paneer)", "description": "Delicious royal curry made with cottage cheese cooked in thick gravy of onion and cashew.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Duke's Cottage (Matar Paneer)", "description": "A vegetarian north Indian dish and punjabi favourite consisting of peas and paneer in a tomato based sauce, spiced with garam masala.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Mr. Bean (Chana Masala)", "description": "Chickpeas prepared in onion and tomato sauce with tempering of cumin.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Curry in a Hurry (Mixed Veg Curry)", "description": "Fresh seasonal veggies cooked in dry spices and fresh tomato onion base.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Tandoori Duck (Entrée)", "description": "Chunky soy pieces marinated in Indian herbs, white cream, cheese and lemon juice, cooked in tandoori oven.", "is_vegetarian": true, "tags": ["tandoori"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chilli Duck", "description": "Chunky soy pieces marinated in authentic Nepalese spices, wok tossed with diced capsicum, tomato, onion, cashew, sweet chilli and soy sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Soy Tikka Masala", "description": "Soy chunks pieces of tandoori chicken cooked with Indian spices, tangy tomato sauce, onion and capsicum.", "is_vegetarian": true, "tags": ["tikka", "curry"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Vegan \"Butter Chicken\"", "description": "Soy chunks cooked in a harmonious blend of tomato and almond meal enriched with vegan cream sauce.", "is_vegetarian": true, "tags": ["butter-chicken"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Soy Madras Masala", "description": "A classic south Indian recipe, soy pieces cooked with curry leaves and mustard seeds finished with coconut cream.", "is_vegetarian": true, "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Seafood",
+      "items": [
+        { "name": "Chatpati Macchi", "description": "Rockling fish cooked in thick sauce with onion, tomato and capsicum finished with fresh herbs.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "fish" } ] },
+        { "name": "Marinara Masala", "description": "Rockling fish, mussels, and prawn, cooked in tangy tomato sauce, finished with coriander.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "fish" } ] },
+        { "name": "Rocklin Fish Curry", "description": "Fresh chunks of rockling fish cooked in homemade paste of spices, coconut milk and cream.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "fish" } ] },
+        { "name": "Malabar Prawns", "description": "Prawns cooked in a spiced coconut & tamarind flavoured sauce.", "tags": ["curry"], "variants": [ { "label": null, "price": null, "protein": "prawn" } ] }
+      ]
+    },
+    {
+      "name": "Rice & Biryani",
+      "items": [
+        { "name": "Saffron Rice", "description": "Rice simmered with saffron infused water.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Coconut Rice", "description": "Rice mixed with mustard seeds, curry leaves, grated coconut and coconut cream.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Kashmiri Pulao", "description": "Basmati rice sautéed with dry sultana and thick cream.", "is_vegetarian": true, "tags": ["pulao"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jeera Pyaza Rice", "description": "Basmati rice flavoured with cumin, finished with cream and fresh shallots.", "is_vegetarian": true, "tags": ["pulao"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Spice & Rice (Biryani)", "description": "Rice cooked with your choice of meat or veggies, cashews and flavourful spices.", "tags": ["biryani"], "variants": [ { "label": "Vegetable", "price": null, "protein": "veg", "is_vegetarian": true }, { "label": "Meat", "price": null } ] },
+        { "name": "Plain Basmati Rice", "description": "Steamed basmati rice.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Naan & Roti",
+      "items": [
+        { "name": "Naan", "description": "Leavened bread dough made with fine flour. Butter naan, garlic naan, Kashmiri naan stuffed with dry nuts and raisins, or keema naan stuffed with mildly spiced lamb mince.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": "Butter Naan", "price": null, "protein": "veg", "is_vegetarian": true }, { "label": "Garlic Naan", "price": null, "protein": "veg", "is_vegetarian": true }, { "label": "Kashmiri Naan (dry nuts and raisins)", "price": null, "protein": "veg", "is_vegetarian": true }, { "label": "Keema Naan (lamb mince)", "price": null, "protein": "lamb" } ] },
+        { "name": "Stuffed Naan", "description": "Traditional naan dough stuffed with your choice of filling, cooked in a clay oven.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Tandoori Roti", "description": "Unleavened wholemeal bread, brushed with a touch of butter.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Aloo Paratha", "description": "Unleavened bread stuffed with mildly spiced potatoes.", "is_vegetarian": true, "tags": ["roti"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Cheese and Spinach Naan", "description": "Leavened bread stuffed with mozzarella cheese, spinach and fresh herbs.", "is_vegetarian": true, "tags": ["naan"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Chocolate Samosa", "description": "Chocolate wrapped in Indian pastry, fried and served with cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Nimbu Tart", "description": "Lemon tart with Indian twist.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pista Kulfi", "description": "A popsicle made with milk and flavoured with saffron, cardamom, pistachio and served chilled. A popular Indian Ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Gulab Jamun with Ice Cream", "description": "Fried ball of a dough made from milk solids and semolina, soaked in an aromatic syrup. Served with ice-cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "On the Side",
+      "items": [
+        { "name": "Garden Salad", "description": "Refreshing and wholesome house green salad with a touch of Indian/Nepalese seasoning.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Raita", "description": "Yoghurt with grated cucumber/carrot and garnished with ground cumin.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Mixed Pickle / Mango Chutney", "description": "Mixed Pickle: condiment made from marinated veges in oil and spices. Mango Chutney: sweet and tangy condiment made from mangoes.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Papadums", "description": "Thin and crispy deep fried dough, made of lentil flour. A wafer of India.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Drinks (fully licensed)", "description": "Fully licensed with a curated cocktail list, Indian-inspired mocktails, wines, beers and spirits.", "tags": ["drinks"], "variants": [ { "label": null, "price": null } ] }
+      ]
+    }
+  ]
+}

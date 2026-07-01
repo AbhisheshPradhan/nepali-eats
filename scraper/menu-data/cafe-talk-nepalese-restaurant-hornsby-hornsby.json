@@ -1,0 +1,1075 @@
+{
+  "slug": "cafe-talk-nepalese-restaurant-hornsby-hornsby",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Snacks",
+      "items": [
+        {
+          "name": "Bhatmas Sadeko",
+          "description": "Mixed with onions, tomatoes, green chilies, coriander, and Cafetalk spices.",
+          "tags": [
+            "sandheko"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Shyabhale Set",
+          "description": "Deep fried mince meat and vegetable patties, seasoned with spices and herbs.",
+          "tags": [
+            "shavale"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11
+            }
+          ]
+        },
+        {
+          "name": "Badam Sadeko",
+          "description": "Mixed with onions, tomatoes, green chilies, coriander, and Cafetalk spices.",
+          "tags": [
+            "sandheko"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 10,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Panipuri",
+          "description": "Filled with spiced potatoes, chickpeas, onions, and a burst of flavored water.",
+          "tags": [
+            "pani-puri"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 10,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Mustang Aalu",
+          "description": "Deep-fried potatoes sautéed with garlic paste in butter, lemon, and CaféTalk's special blend of spices.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chatpate",
+          "description": "Add: Waiwai",
+          "tags": [
+            "chaat"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Sausage",
+          "description": "",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12
+            }
+          ]
+        },
+        {
+          "name": "Samosa (2pcs)",
+          "description": "Crispy pastry filled with spiced potatoes and peas, deep-fried to perfection.",
+          "tags": [
+            "samosa"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 6,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Aalu Chop",
+          "description": "Dipped in gram flour batter and served with CaféTalk sauce for a savory.",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Hot Wings",
+          "description": "Spicy, crispy chicken wings coated in a flavorful, tangy sauce for a fiery bite.",
+          "tags": [
+            "wings"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Wings",
+          "description": "",
+          "tags": [
+            "wings"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Laphing",
+      "items": [
+        {
+          "name": "Laphing Dry",
+          "description": "",
+          "tags": [
+            "laphing"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 10,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Laphing Jhol",
+          "description": "",
+          "tags": [
+            "laphing"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bara",
+      "items": [
+        {
+          "name": "Plain Bara",
+          "description": "Savory lentil fritters, seasoned with spices and herbs.",
+          "tags": [
+            "bara"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 7,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chi Keema Bara",
+          "description": "Savory lentil fritters, chicken Mince seasoned with spices and herbs.",
+          "tags": [
+            "bara"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mix Bara",
+          "description": "Savory lentil fritters, chicken mince & egg seasoned with spices and herbs.",
+          "tags": [
+            "bara"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Egg Bara",
+          "description": "Savory lentil fritters, seasoned with spices and herbs.",
+          "tags": [
+            "bara"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "protein": "egg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chef Special",
+      "items": [
+        {
+          "name": "Keema Noodles",
+          "description": "Mixed with spiced ground meat, vegetables, and aromatic herbs.",
+          "tags": [
+            "keema-noodle"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18
+            }
+          ]
+        },
+        {
+          "name": "Momo Sadeko",
+          "description": "Marinade with onions, tomatoes, green chilies and fresh coriander, and seasoned with Cafetalk spices.",
+          "tags": [
+            "sandheko-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 18,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Meat Platter",
+          "description": "Cheura, Bhatmas, Sekuwa, Bhutan, Sausage chilli & Chhoela.",
+          "tags": [
+            "sekuwa",
+            "choila",
+            "bhutan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        {
+          "name": "Chips",
+          "description": "",
+          "tags": [],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 5,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Nuggets",
+          "description": "",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Nuggets & Chips (6pcs)",
+          "description": "",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 10,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        {
+          "name": "Steamed Momo",
+          "description": "Marinated with aromatic spices and served with Café Talk sauce.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 13,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 14,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 16,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Fried Momo",
+          "description": "Deep fried momo served with Café Talk sauce.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 13,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 14,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 16,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Momo",
+          "description": "Steamed / Deep fried momo mixed with onion, capsicum and hot sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 18,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Kothey Momo",
+          "description": "Steamed momo half pan fried served with Café Talk sauce.",
+          "tags": [
+            "kothey-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 15,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 17,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Jhol Momo",
+          "description": "",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 15,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 17,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Momo Platter",
+          "description": "5pcs of Jhol, Chilli & Fried Momo.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 23,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 25,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 27,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        {
+          "name": "Chowmein",
+          "description": "Stir fried noodles with vegetables served with Café Talk sauce.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 17,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19,
+              "protein": "buff"
+            },
+            {
+              "label": "Mixed",
+              "price": 21
+            }
+          ]
+        },
+        {
+          "name": "Momo Chowmein",
+          "description": "Stir fried noodles with vegetables served with 5 pcs of Momo.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 20,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 22,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        {
+          "name": "Thukpa",
+          "description": "Boiled noodles soup mixed with vegetables.",
+          "tags": [
+            "thukpa"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 20,
+              "protein": "buff"
+            },
+            {
+              "label": "Mixed",
+              "price": 22
+            }
+          ]
+        },
+        {
+          "name": "Momo Thukpa",
+          "description": "Boiled noodles soup mixed with vegetables and steamed momo.",
+          "tags": [
+            "thukpa"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 21,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 23,
+              "protein": "buff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        {
+          "name": "Fried Rice",
+          "description": "Special Nepalese rice pan fried with special Cafe Talk sauce.",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": "Vegetable",
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 17,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19,
+              "protein": "buff"
+            },
+            {
+              "label": "Mixed",
+              "price": 21
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chicken / Buff / Chips Chilli",
+      "items": [
+        {
+          "name": "Chips Chilli",
+          "description": "",
+          "tags": [
+            "chilli"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chilli",
+          "description": "Juicy thigh chicken fillet pan fried on rich tomato chilli sauce with brown onion and capsicum.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Buff Chilli",
+          "description": "Pan fried buff on rich tomato chilli sauce with brown onion and capsicum.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Sausage Chilli",
+          "description": "Pan fried sausage on rich tomato chilli sauce with brown onion and capsicum.",
+          "tags": [
+            "chilli",
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chhoela Set",
+      "items": [
+        {
+          "name": "Chicken Chhoela",
+          "description": "Char-grilled chicken with Nepalese spices.",
+          "tags": [
+            "choila"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chhoela Set",
+          "description": "Char-grilled chicken with Nepalese spices served with rice flakes, roasted soybean, pickles and salad.",
+          "tags": [
+            "choila",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sekuwa Set",
+      "items": [
+        {
+          "name": "Goat Sekuwa",
+          "description": "Marinated goat meat in Nepalese herbs and spices and then expertly fried to perfection.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Sekuwa Set",
+          "description": "Marinated goat meat in Nepalese herbs and spices served with rice flakes, roasted soybean, pickles and salad.",
+          "tags": [
+            "sekuwa",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bhutan",
+      "items": [
+        {
+          "name": "Bhutan",
+          "description": "Goat tripe cooked with special spices. Served with beaten rice or steam rice.",
+          "tags": [
+            "bhutan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Bhutan Set",
+          "description": "Goat tripe cooked with special spices. Served with steam rice, curry, spinach, black-eyed beans & pickle.",
+          "tags": [
+            "bhutan",
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cafe Talk Special",
+      "items": [
+        {
+          "name": "Veg Khaja Set",
+          "description": "Cheura, Bhatmas, Aalu dam, Bara, Choela, Mula Kakra ko achar, Aalu tama, Boiled Egg.",
+          "tags": [
+            "khaja"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Khaja Set",
+          "description": "Cheura, Bhatmas, Aalu dam, Bara, Mula Kakra ko achar, Aalu tama, Boiled Egg.",
+          "tags": [
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24
+            }
+          ]
+        },
+        {
+          "name": "Khana Set (Chicken Curry)",
+          "description": "Your choice of curry, Daal, Saag, Achar & Paapad.",
+          "tags": [
+            "thali"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Khana Set (Goat Curry)",
+          "description": "Your choice of curry, Daal, Saag, Achar & Paapad.",
+          "tags": [
+            "thali"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Khana Set (Veg Curry)",
+          "description": "Your choice of curry, Daal, Saag, Achar & Paapad.",
+          "tags": [
+            "thali"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 17,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Drinks & Desserts",
+      "items": [
+        {
+          "name": "Mango Lassi",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 6,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Plain Lassi",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 5,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Coke / Fanta / Sprite",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        },
+        {
+          "name": "Water",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tea",
+      "items": [
+        {
+          "name": "Mountain Tea",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Lemon Tea",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        },
+        {
+          "name": "Black Tea",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        },
+        {
+          "name": "Hot Lemon (with Honey)",
+          "description": "",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        {
+          "name": "Gulab Jamun (2pcs)",
+          "description": "",
+          "tags": [
+            "dessert"
+          ],
+          "is_vegetarian": true,
+          "variants": [
+            {
+              "label": null,
+              "price": 5,
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Extra Sauce",
+          "description": "Per serving.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 0.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

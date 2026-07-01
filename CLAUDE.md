@@ -264,6 +264,13 @@ superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
   Null = unknown; set true when a menu/site advertises catering (e.g. Kathmandu Momo).
   No code reads it yet (additive, safe); wire into display/filters when the
   catering/events feature lands.
+- **`fusion` (boolean, editorial — added 2026-07):** venue-level flag for spots that blend
+  a cuisine BEYOND the expected Nepali/Indian/Tibetan (e.g. Fuda: momo + Turkish kebabs +
+  bubble tea). Kept a restaurant-level flag (not a dish/style tag) on purpose: fusion
+  describes the venue, and the menu seeder REPLACES `restaurants.tags` from the dish rollup
+  each seed, so a row-level flag survives reseeds where a hand-set tag wouldn't. Cross-cuisine
+  menu items on a fusion spot stay tagged `[]` (no Nepali dish slug). Null = unknown/not
+  fusion. No code reads it yet (additive, safe); wire into display/filters later.
 - **PostGIS:** `geom` is auto-synced from lat/lng by trigger `trg_set_restaurant_geom`;
   GiST index `idx_restaurants_geom` powers map bounds queries
   (`geom && ST_MakeEnvelope(w,s,e,n,4326)`). Enabled via `scraper/schema.sql`.
@@ -320,10 +327,16 @@ contract are in `MENU-PLAN.md`; read it before doing menu work.
   is a CROSS-CUTTING facet** (chicken/goat/buff/veg…) tagged alongside the dish, NOT
   per-dish compounds. A dish not in the vocab → add a row to `taxonomy.ts` + re-run
   `seed-taxonomy.ts` (the menu seeder HARD-ERRORS on unknown slugs by design).
-- **Seeding (one restaurant at a time, manual):** transcribe the menu (image/PDF) into
+- **Seeding (one restaurant at a time, manual):** start with `node scraper/menu-fetch.js
+  <slug>` — it resolves the own-site source (ignoring ordering-platform urls), runs
+  `pdftotext` FIRST and prints the menu TEXT for text-layer PDFs (cheap; image tokens only
+  for image-only scans, which it rasterizes at 150dpi/1568px), warns on multi-column
+  layouts, and grabs server-rendered HTML menus. Then transcribe the menu into
   `scraper/menu-data/<slug>.json` (the JSON contract — see MENU-PLAN.md +
-  `scraper/menu-data/sample-menu.json`), then `node scraper/seed-menu.js <slug>`
-  (dry-run) → add `--commit` to write. The seeder consolidates protein-only items into
+  `scraper/menu-data/sample-menu.json`; valid tag slugs via `node scraper/seed-menu.js
+  --list-tags`), then `node scraper/seed-menu.js <slug>` (dry-run) → add `--commit` to
+  write. The full worker flow lives in `MENU-WORKER-CHEATSHEET.md` (one page) +
+  `MENU-WORKER-PROMPT.md`. The seeder consolidates protein-only items into
   variants, materialises tag ancestors, unions variant proteins, and rebuilds
   `restaurants.tags` + price/count facets in one transaction. Seed popular restaurants
   first (richest menus grow the vocab fastest). **Seeded so far:** `kathmandu-momo-surfers-paradise`

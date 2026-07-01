@@ -1,0 +1,179 @@
+{
+  "slug": "momo-ghar-oii-oii-oii",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starter",
+      "items": [
+        { "name": "Potato Chilli", "description": "Potato wedges, deep fried and tossed with homemade chilli sauce.", "is_vegetarian": true, "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Chilli", "description": "Diced and fried cottage cheese stir-fried with capsicum, tomatoes, onion in homemade chilli sauce.", "is_vegetarian": true, "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chicken Chilli", "description": "Diced chicken stir-fried with capsicum, tomatoes, onions in homemade chilli sauce.", "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "chicken" } ] },
+        { "name": "Veg Manchurian", "description": "Crispy veg balls cooked in manchurian sauce.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 13.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Manchurian", "description": "Crispy cottage cheese in manchurian sauce.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chicken Manchurian", "description": "Crispy chicken balls cooked in manchurian sauce.", "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "chicken" } ] },
+        { "name": "Crispy Cauliflower Manchurian", "description": "Crispy cauliflower cooked in manchurian sauce.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 14.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Buffalo Chicken Wings", "description": "Chicken wings marinated in Nepalese spices, and tossed in homemade spicy sauce, served with salad", "tags": ["wings"],
+          "variants": [ { "label": null, "price": 16.99, "protein": "chicken" } ] },
+        { "name": "Fried Sausage", "description": "Chicken sausage fried and drizzled with homemade spices.", "tags": ["sausage"],
+          "variants": [ { "label": null, "price": 15.99, "protein": "chicken" } ] },
+        { "name": "Spring Roll", "description": "", "tags": ["spring-roll"],
+          "variants": [ { "label": "Veg", "price": 11.99, "protein": "veg", "is_vegetarian": true }, { "label": "Non-Veg", "price": 13.99 } ] },
+        { "name": "Wai Wai Chatpat", "description": "Tangy, spicy and crunchy Wai wai noodles, puffed rice, tomato, onion, chilli, chickpea splash of lime and coriander.", "is_vegetarian": true, "tags": ["chaat"],
+          "variants": [ { "label": null, "price": 11.99, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Soup",
+      "items": [
+        { "name": "Manchow Soup", "description": "A rich, thick broth made from a blend of soy sauce, garlic, ginger and a variety of spices garnished with crispy fried noodles.", "tags": ["soup"],
+          "variants": [ { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true }, { "label": "Non-Veg", "price": 14.99 } ] },
+        { "name": "Sweet Corn Soup", "description": "Thick soup cooked in a rich stock with corn and vegetables.", "tags": ["soup"],
+          "variants": [ { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true }, { "label": "Non-Veg", "price": 15.99 } ] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo", "description": "12 Pcs/portion. Chicken, mutton, veg (seasonal vegetables, soyabean, mozzarella cheese, ginger and garlic) or paneer (cottage cheese, spinach, onion, ricotta cheese), served with spicy/sesame sauce.", "tags": ["steamed-momo"],
+          "variants": [ { "label": "Chicken", "price": 17.99, "protein": "chicken" }, { "label": "Mutton", "price": 19.99, "protein": "goat" }, { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 17.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Kothey / Fried Momo", "description": "12 Pcs/portion. Chicken, mutton, veg or paneer, served with spicy/sesame sauce.", "tags": ["kothey-momo", "fried-momo"],
+          "variants": [ { "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Mutton", "price": 20.99, "protein": "goat" }, { "label": "Veg", "price": 18.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 18.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Jhol Momo", "description": "12 Pcs/portion. Chicken, mutton, veg or paneer momo served in jhol soup.", "tags": ["jhol-momo"],
+          "variants": [ { "label": "Chicken", "price": 19.99, "protein": "chicken" }, { "label": "Mutton", "price": 22.99, "protein": "goat" }, { "label": "Veg", "price": 19.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chilli / Manchurian Momo", "description": "12 Pcs/portion. Chicken, mutton, veg or paneer momo tossed in chilli or manchurian sauce.", "tags": ["chilli-momo", "manchurian"],
+          "variants": [ { "label": "Chicken", "price": 20.99, "protein": "chicken" }, { "label": "Mutton", "price": 23.99, "protein": "goat" }, { "label": "Veg", "price": 20.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 20.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Trio Momo Platter", "description": "12 Pcs/portion. 4 pcs steam, 4 pcs fried, 4 pcs chilli Momo.", "tags": ["momo"],
+          "variants": [ { "label": "Chicken", "price": 21.99, "protein": "chicken" }, { "label": "Mutton", "price": 23.99, "protein": "goat" }, { "label": "Veg", "price": 21.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 21.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Malai Momo", "description": "12 Pcs/portion. Fried Momo tossed in creamy cheese sauce.", "tags": ["momo"],
+          "variants": [ { "label": "Chicken", "price": 22.99, "protein": "chicken" }, { "label": "Mutton", "price": 23.99, "protein": "goat" }, { "label": "Veg", "price": 22.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 22.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Tandoori Momo", "description": "12 Pcs/portion. Momo marinated in spicy tandoori masala and roasted in tandoor and served with mint, coriander and mayo sauce.", "tags": ["momo", "tandoori"],
+          "variants": [ { "label": "Chicken", "price": 21.99, "protein": "chicken" }, { "label": "Mutton", "price": 23.99, "protein": "goat" }, { "label": "Veg", "price": 21.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 21.99, "protein": "paneer", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Stir fried noodles cooked in Nepalese style with veggies, sauce and spices.", "tags": ["chowmein"],
+          "variants": [ { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 19.99, "protein": "chicken" }, { "label": "Egg", "price": 18.99, "protein": "egg" }, { "label": "Mixed", "price": 21.99 } ] },
+        { "name": "Schezwan Chowmein", "description": "Stir fried noodles seasoned with schezwan sauce.", "tags": ["chowmein"],
+          "variants": [ { "label": "Veg", "price": 18.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 20.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 20.99, "protein": "chicken" }, { "label": "Egg", "price": 19.99, "protein": "egg" }, { "label": "Mixed", "price": 22.99 } ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "A classic dish featuring rice and vegetables, stir fried.", "tags": ["fried-rice"],
+          "variants": [ { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 19.99, "protein": "chicken" }, { "label": "Egg", "price": 18.99, "protein": "egg" }, { "label": "Mixed", "price": 21.99 } ] },
+        { "name": "Schezwan Rice", "description": "A spicy and flavourful dish that combines stir-fried rice seasoned with schezwan sauce.", "tags": ["fried-rice"],
+          "variants": [ { "label": "Veg", "price": 18.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 20.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 20.99, "protein": "chicken" }, { "label": "Egg", "price": 19.99, "protein": "egg" }, { "label": "Mixed", "price": 22.99 } ] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "description": "A traditional Tibetan noodle soup prepared in a rich and flavourful broth; chicken version includes tender noodles and chunks of succulent chicken in a rich, savory chicken stock.", "tags": ["thukpa"],
+          "variants": [ { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 17.99, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Chop Suey",
+      "items": [
+        { "name": "Chop Suey", "description": "Stir fried dish, consisting of assorted vegetables, cooked in a thick soy sauce base and served over crispy fried noodles.", "tags": ["chopsuey"],
+          "variants": [ { "label": "Veg", "price": 19.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 21.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 21.99, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Khaja Set",
+      "items": [
+        { "name": "Khaja Set", "description": "Served with: Puffed rice, bhujja, radish, pickle, crunchy masala fried soya bean, spicy potato, black channa curry and salad.", "tags": ["khaja"],
+          "variants": [ { "label": "Veg (Paneer)", "price": 21.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Non veg (Chicken)", "price": 22.99, "protein": "chicken" } ] }
+      ]
+    },
+    {
+      "name": "Mains",
+      "items": [
+        { "name": "Paneer Chilli", "description": "Diced and fried cottage cheese stir-fried with capsicum, tomatoes, onion in homemade chilli sauce.", "is_vegetarian": true, "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chicken Chilli", "description": "Diced chicken stir-fried with capsicum, tomatoes, onions in homemade chilli sauce.", "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "chicken" } ] },
+        { "name": "Veg Manchurian", "description": "Crispy veg. balls cooked in manchurian sauce.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 17.99, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Manchurian", "description": "Crispy cottage cheese in manchurian sauce.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Chicken Manchurian", "description": "Crispy chicken balls cooked in manchurian sauce.", "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "chicken" } ] },
+        { "name": "Crispy Cauliflower Manchurian", "description": "Crispy cauliflower cooked in manchurian sauce.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 18.99, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Tiny Tummies",
+      "items": [
+        { "name": "Chips & Chicken Nuggets", "description": "", "tags": [],
+          "variants": [ { "label": null, "price": 8.00, "protein": "chicken" } ] },
+        { "name": "Chips", "description": "", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 4.00, "protein": "veg", "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Momo Ghar Chef Special Dessert", "description": "Crispy fried pastry stuffed with chocolate & coconut served with chocolate sauce.", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 9.99, "is_vegetarian": true } ] },
+        { "name": "Gulab Jamun (2 PC)", "description": "", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 5.99, "is_vegetarian": true } ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Can of Soft Drink", "description": "", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 3.50 } ] },
+        { "name": "Bottle of Soft Drink (1.25 Lt)", "description": "", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 5.50 } ] },
+        { "name": "Mango Lassi", "description": "", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 4.49, "is_vegetarian": true } ] },
+        { "name": "Masala Chai", "description": "", "is_vegetarian": true, "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 3.50, "is_vegetarian": true } ] },
+        { "name": "Water Bottle", "description": "", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 3.00 } ] }
+      ]
+    },
+    {
+      "name": "Family Pack (6-7 People)",
+      "items": [
+        { "name": "Chicken Chilli", "description": "Family pack for 6-7 people.", "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 95.00, "protein": "chicken" } ] },
+        { "name": "Chicken Manchurian", "description": "Family pack for 6-7 people.", "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 95.00, "protein": "chicken" } ] },
+        { "name": "Veg Manchurian", "description": "Family pack for 6-7 people.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 95.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Paneer Chilli", "description": "Family pack for 6-7 people.", "is_vegetarian": true, "tags": ["chilli"],
+          "variants": [ { "label": null, "price": 95.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Paneer Manchurian", "description": "Family pack for 6-7 people.", "is_vegetarian": true, "tags": ["manchurian"],
+          "variants": [ { "label": null, "price": 95.00, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Veg Chowmein", "description": "Family pack for 6-7 people.", "is_vegetarian": true, "tags": ["chowmein"],
+          "variants": [ { "label": null, "price": 80.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Chowmein", "description": "Family pack for 6-7 people.", "tags": ["chowmein"],
+          "variants": [ { "label": null, "price": 85.00, "protein": "chicken" } ] },
+        { "name": "Egg Chowmein", "description": "Family pack for 6-7 people.", "tags": ["chowmein"],
+          "variants": [ { "label": null, "price": 85.00, "protein": "egg" } ] },
+        { "name": "Veg Fried Rice", "description": "Family pack for 6-7 people.", "is_vegetarian": true, "tags": ["fried-rice"],
+          "variants": [ { "label": null, "price": 80.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Fried Rice", "description": "Family pack for 6-7 people.", "tags": ["fried-rice"],
+          "variants": [ { "label": null, "price": 85.00, "protein": "chicken" } ] },
+        { "name": "Egg Fried Rice", "description": "Family pack for 6-7 people.", "tags": ["fried-rice"],
+          "variants": [ { "label": null, "price": 85.00, "protein": "egg" } ] }
+      ]
+    }
+  ]
+}
