@@ -84,6 +84,18 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "timur", kind: "dish", name: "Timur", synonyms: ["timmur", "timmuri", "timbur", "sichuan pepper", "szechuan pepper"] },
   { slug: "dessert", kind: "dish", name: "Dessert", synonyms: ["sweets", "mithai", "juju dhau"] },
   { slug: "drinks", kind: "dish", name: "Drinks", synonyms: ["beverages", "chiya", "lassi"] },
+  { slug: "dosa", kind: "dish", name: "Dosa", synonyms: ["dosai", "masala dosa", "rawa dosa"] },
+  { slug: "pulao", kind: "dish", name: "Pulao", synonyms: ["pulav", "pilaf", "pulao rice", "peas pulao"] },
+  { slug: "saag", kind: "dish", name: "Saag", synonyms: ["palak", "spinach", "saag curry"] },
+  { slug: "chopsuey", kind: "dish", name: "Chop Suey", synonyms: ["chop suey", "chowsuey"] },
+  { slug: "kati-roll", kind: "dish", name: "Kati Roll", synonyms: ["katti roll", "kathi roll"] },
+  { slug: "thenthuk", kind: "dish", name: "Thenthuk", synonyms: ["thenduk", "then thuk"], style: "tibetan" },
+  { slug: "kachila", kind: "dish", name: "Kachila", synonyms: ["kachhila"], style: "newari" },
+  { slug: "batuk", kind: "dish", name: "Batuk", synonyms: ["bahtuk"], style: "newari" },
+  { slug: "chokha", kind: "dish", name: "Chokha", synonyms: ["choka", "aloo chokha"] },
+  { slug: "makai", kind: "dish", name: "Makai (Corn)", synonyms: ["makkai", "poleko makai", "grilled corn", "corn"] },
+  { slug: "fried-fish", kind: "dish", name: "Fried Fish", synonyms: ["tareko machha", "fish fry", "machha fry"] },
+  { slug: "fokso", kind: "dish", name: "Fokso", synonyms: ["foksa", "lungs", "fokso fry"], style: "newari" },
 
   // --- Styles (flat, top-level) ---------------------------------------------
   { slug: "newari", kind: "style", name: "Newari", synonyms: ["newa", "newar"] },
@@ -101,6 +113,8 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "sandheko-momo", kind: "preparation", parent: "momo", name: "Sandheko Momo", synonyms: ["sandheko", "sadeko", "sandeko momo"] },
   { slug: "jhol-momo", kind: "preparation", parent: "momo", name: "Jhol Momo", synonyms: ["jhol", "jhol momo", "soup momo"] },
   { slug: "chilli-momo", kind: "preparation", parent: "momo", name: "Chilli Momo (C-Momo)", synonyms: ["c-momo", "c momo", "chili momo", "chilly momo"] },
+  { slug: "poleko-momo", kind: "preparation", parent: "momo", name: "Poleko Momo", synonyms: ["poleko momo", "grilled momo"] },
+  { slug: "choila-momo", kind: "preparation", parent: "momo", name: "Choila Momo", synonyms: ["choyla momo", "chhoila momo"] },
   // (protein is NOT a momo child — see the cross-cutting protein facet below)
 
   // --- Protein: cross-cutting facet (NOT children of any dish) ---------------
@@ -116,6 +130,9 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "buff", kind: "protein", name: "Buff", synonyms: ["buffalo", "rango", "rango ko masu"] },
   { slug: "beef", kind: "protein", name: "Beef", synonyms: ["cow"] },
   { slug: "duck", kind: "protein", name: "Duck", synonyms: ["haans"] },
+  { slug: "crab", kind: "protein", name: "Crab", synonyms: ["kekada"] },
+  { slug: "scallop", kind: "protein", name: "Scallop", synonyms: ["scallops"] },
+  { slug: "calamari", kind: "protein", name: "Calamari", synonyms: ["squid", "squids"] },
   { slug: "pork", kind: "protein", name: "Pork", synonyms: ["bangur", "sungur"] },
   { slug: "fish", kind: "protein", name: "Fish", synonyms: ["machha"] },
   { slug: "prawn", kind: "protein", name: "Prawn", synonyms: ["shrimp", "jhinge", "king prawn"] },
