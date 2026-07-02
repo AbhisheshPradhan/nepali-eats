@@ -1,0 +1,807 @@
+{
+  "slug": "8848-momo-house-mango-hill",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Basecamp Appetisers",
+      "items": [
+        {
+          "name": "Sherpas' Momo Egg Drop Soup",
+          "description": "Steaming hot veg soup infused with herbs and chilies, thickened with egg drop and tapioca flour.",
+          "tags": [
+            "soup"
+          ],
+          "variants": [
+            {
+              "label": "Soup",
+              "price": 10
+            },
+            {
+              "label": "with 5pc Veg/Chicken/Pork Momo",
+              "price": 18
+            },
+            {
+              "label": "with 5pc Buffalo Momo",
+              "price": 20
+            }
+          ]
+        },
+        {
+          "name": "8848 Crispy Potato Chaat",
+          "description": "Crispy fried pastry parcel loaded with spiced potatoes, smothered with chickpea, sweet yoghurt dressing, Tomato Tangy & Himalayan mint sauce and topped with crispy Bhujiya (Besan Vermicelli).",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sides & Accompaniments",
+      "items": [
+        {
+          "name": "Nepali Paratha",
+          "is_vegetarian": true,
+          "tags": [
+            "roti"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        },
+        {
+          "name": "Steamed Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 3.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Himalayan Garden Salad",
+          "description": "Lettuce, tomato, carrot, spring onion, lime, green chilli.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chutney & Sauce",
+      "description": "$2.00 each.",
+      "items": [
+        {
+          "name": "8848 Chili Garlic Chutney",
+          "description": "Fresh red chilli paste seasoned with garlic, Himalayan salt and herbs.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 2
+            }
+          ]
+        },
+        {
+          "name": "8848 Tangy Tomato Chutney",
+          "description": "A mildly spiced and tangy tomato base chutney with garlic, ginger and onion infused flavours.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 2
+            }
+          ]
+        },
+        {
+          "name": "8848 Momo Sauce",
+          "description": "A smooth tomato sesame and soya bean base sauce tempered with Nepali spices.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 2
+            }
+          ]
+        },
+        {
+          "name": "8848 Himalayan Mint Chutney",
+          "description": "Fresh amalgamation of mint, coriander, chilies and a sweet spicy sour balanced taste that goes well with grilled meats.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Street Food, Nibbles and Sides",
+      "items": [
+        {
+          "name": "Nepali Fish Tempura",
+          "description": "Three pieces of Alaskan Pollock Fish, coated in a batter and crispy fried, seasoned with Nepalese herbs and spices. Served with Tomato Tangy Sauce and greens.",
+          "tags": [
+            "fried-fish"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Calamari Twist",
+          "description": "Sea salt and cracked pepper seasoned, then battered fried Calamari with Nepalese seasoning. Served with Tomato Tangy Sauce.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "calamari"
+            }
+          ]
+        },
+        {
+          "name": "K'Man Doo Wings with a Zzzing! (8 pieces)",
+          "description": "Our No. 1 seller (aside from our spectacular momos)! Wings marinated with original herbs and spices, grilled and destined to ruin you for other wings, anywhere. Served with house chutney and salad.",
+          "tags": [
+            "wings"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "8848 Chicken Choila",
+          "description": "A classic Nepalese chicken appetiser, super-hot and spicy, bursting with mouth-watering flavours. Served with house chutney and salad. Usually served cold, but can be requested warm.",
+          "tags": [
+            "choila",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Pork Sekuwa",
+          "description": "Choice pork loin cuts, seasoned and marinated in Nepalese herbs and spices then grilled to lip-smacking perfection. Served with house chutney and salad.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Buffalo Sukuti",
+          "description": "Popular Buffalo jerky meat seasoned in select Nepalese spices, cooked to the authentic taste found in the high Himalayas of Nepal.",
+          "tags": [
+            "sukuti"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Fries",
+          "description": "Perfectly seasoned, golden, crunchy fries.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        },
+        {
+          "name": "Momolicious Loaded Fries",
+          "description": "Golden, crunchy fries topped with 4 momos of your choice, 8848 house sauce and chilli sauce.",
+          "tags": [],
+          "variants": [
+            {
+              "label": "Vegetarian / Chicken / Pork",
+              "price": 15
+            },
+            {
+              "label": "Buffalo",
+              "price": 18
+            }
+          ]
+        },
+        {
+          "name": "Bhatmas Sadeko",
+          "description": "Nepal's rustic fried soya bean salad tossed with fresh veg and spices, herbs and chutney. Enjoy with your main meal or a chilled beer.",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Peanut Sadeko",
+          "description": "Roasted peanuts tossed with onions, chilies, coriander, fresh coriander, sea salt and a dash of lime.",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chow Chow Sadeko",
+          "description": "Fried vermicelli noodles mixed with fresh onions, tomato, coriander and spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Sausage on Stick (3 pieces)",
+          "description": "Juicy chicken sausages seasoned with Nepali spices.",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momos",
+      "description": "All Momos are served with 8848 House Sauce. 8848 Chilli Sauce served free upon request.",
+      "items": [
+        {
+          "name": "Steamed Momo (10 pieces)",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16,
+              "protein": "chicken"
+            },
+            {
+              "label": "Pork",
+              "price": 16,
+              "protein": "pork"
+            },
+            {
+              "label": "Buffalo",
+              "price": 18,
+              "protein": "buff"
+            },
+            {
+              "label": "Cheese & Spinach",
+              "price": 18,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Deep Fried Momo (10 pieces)",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16,
+              "protein": "chicken"
+            },
+            {
+              "label": "Pork",
+              "price": 16,
+              "protein": "pork"
+            },
+            {
+              "label": "Buffalo",
+              "price": 18,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Kothey Pan Fried Momo (10 pieces)",
+          "description": "Pan fried Momos with crispy texture on one side and smooth soft on the other side.",
+          "tags": [
+            "kothey-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 18,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18,
+              "protein": "chicken"
+            },
+            {
+              "label": "Pork",
+              "price": 18,
+              "protein": "pork"
+            },
+            {
+              "label": "Buffalo",
+              "price": 20,
+              "protein": "buff"
+            },
+            {
+              "label": "Cheese & Spinach",
+              "price": 20,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chilli Momo (10 pieces)",
+          "description": "Fried Momos, wok-tossed with diced capsicum, onion and chillies, cooked in chilli tomato sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 20,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 20,
+              "protein": "chicken"
+            },
+            {
+              "label": "Pork",
+              "price": 20,
+              "protein": "pork"
+            },
+            {
+              "label": "Buffalo",
+              "price": 22,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Jhol Momo (10 pieces)",
+          "description": "Served cold in a delicious tomato, sesame, herb-based sauce but can be requested warm.",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 19,
+              "protein": "chicken"
+            },
+            {
+              "label": "Pork",
+              "price": 19,
+              "protein": "pork"
+            },
+            {
+              "label": "Buffalo",
+              "price": 21,
+              "protein": "buff"
+            },
+            {
+              "label": "Cheese & Spinach",
+              "price": 21,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momo Platters",
+      "description": "Combo platters consist of steamed, chilli, kothey (pan fried) and fried Momos. Choice of two fillings only. $2.00 extra for 8848 Himalayan Mint / 8848 Tomato Tangy Sauce.",
+      "items": [
+        {
+          "name": "Nepali Friendly Platter (20 pieces)",
+          "description": "Combination platter of Steamed, Chilli, Kothey (pan fried). Choice of two fillings only (Veg/Chicken/Pork).",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg/Chicken/Pork",
+              "price": 38
+            },
+            {
+              "label": "with Buffalo option",
+              "price": 40
+            }
+          ]
+        },
+        {
+          "name": "King of Happy Times Platter (30 pieces)",
+          "description": "Combination platter of Steamed, Chilli, Kothey (pan fried). Choice of two fillings only (Veg/Chicken/Pork).",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg/Chicken/Pork",
+              "price": 55
+            },
+            {
+              "label": "with Buffalo option",
+              "price": 60
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Signature Dishes",
+      "items": [
+        {
+          "name": "Chickpea and Cottage Cheese Curry",
+          "description": "Curry in a Hurry, served with steamed rice and Nepalese salad.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Chicken Curry",
+          "description": "Curry in a Hurry, served with steamed rice and Nepalese salad.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Goat Curry",
+          "description": "Curry in a Hurry, served with steamed rice and Nepalese salad.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "8848 Khaja Platter",
+          "description": "The great sampler consisting of Chura, Pork Sekuwa or Chicken Choila or Chick Pea curry, Paratha, Nepali tempered potato, Bhatmas Sadeko, Himalayan Garden salad, pickles and condiments.",
+          "tags": [
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28
+            },
+            {
+              "label": "Add Buff Sukuti",
+              "price": 33
+            }
+          ]
+        },
+        {
+          "name": "K'Man Doo Sizzzzler",
+          "description": "A multi-sensory experience served on a sizzling platter. Your choice of grilled pork or chicken, stir-fried with capsicum and onions and seasoned in teriyaki sauce. Served with two Nepali roti.",
+          "tags": [
+            "sizzler"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25
+            }
+          ]
+        },
+        {
+          "name": "Wow The Bao Sliders (2 Baos)",
+          "description": "Two steamed bao filled with your choice of any two fillings - Chicken 8848 / Pork Sekuwa / Grilled Cottage Cheese, with Himalayan Slaw, lightly seasoned with 8848 sauces and chutney. Served with fries. Extra fries $5.00.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18
+            }
+          ]
+        },
+        {
+          "name": "Butter Chicken Momos",
+          "description": "Steam Momos (8 pcs) cooked in Australia's No. 1 favourite, Butter Chicken curry.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rice & Noodles",
+      "items": [
+        {
+          "name": "Fried Rice",
+          "description": "Wok-tossed rice mixed with greens, carrots, peas, onions, capsicum and Nepali seasoning. Served with 8848 House Sauce.",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 14,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Egg",
+              "price": 16,
+              "protein": "egg"
+            },
+            {
+              "label": "Chicken",
+              "price": 19,
+              "protein": "chicken"
+            },
+            {
+              "label": "Pork",
+              "price": 19,
+              "protein": "pork"
+            },
+            {
+              "label": "Buffalo",
+              "price": 19,
+              "protein": "buff"
+            },
+            {
+              "label": "Mix",
+              "price": 22
+            }
+          ]
+        },
+        {
+          "name": "Chow Mein",
+          "description": "Wok-tossed egg noodles mixed with greens, cabbage, carrots, onions, seasoning and sauces.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Egg",
+              "price": 18,
+              "protein": "egg"
+            },
+            {
+              "label": "Chicken",
+              "price": 19,
+              "protein": "chicken"
+            },
+            {
+              "label": "Pork",
+              "price": 19,
+              "protein": "pork"
+            },
+            {
+              "label": "Buffalo",
+              "price": 19,
+              "protein": "buff"
+            },
+            {
+              "label": "Mix",
+              "price": 23
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zak D Yak Champion Kids Menu",
+      "items": [
+        {
+          "name": "Butter Chicken and Rice",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Four Piece Momos in Butter Sauce (Makhani Sauce)",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12
+            }
+          ]
+        },
+        {
+          "name": "Chicken Nuggets and Chips",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "8848 House Desserts",
+      "items": [
+        {
+          "name": "Chocolate Momos (6 pieces)",
+          "description": "Steamed Momos filled with decadent chocolate, glazed in toffee sauce and topped with whipped cream.",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert",
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Gulab Jamun with Yoghurt",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Monana",
+          "description": "Deep fried banana in momo wrap served with ice cream and toffee sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
