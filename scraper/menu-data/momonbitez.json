@@ -1,0 +1,143 @@
+{
+  "slug": "momonbitez",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steam Momo (10pcs)", "description": "Juicy dumplings, perfectly seasoned and wrapped, offering a delightful burst of flavor in every bite.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Veg", "price": 16.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Paneer", "price": 16.99, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Buff", "price": 19.99, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo (10pcs)", "description": "Steamed dumplings on our specialty soup.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 19.99, "protein": "chicken" },
+          { "label": "Veg", "price": 19.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Buff", "price": 22.99, "protein": "buff" }
+        ] },
+        { "name": "Chilly (fried) Momo (10pcs)", "description": "Fried dumplings in spicy chilli and tomato sauce with onions and capsicums.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 21.99, "protein": "chicken" },
+          { "label": "Veg", "price": 21.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Paneer", "price": 21.99, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Buff", "price": 22.99, "protein": "buff" }
+        ] },
+        { "name": "Kothe Momo (10pcs)", "description": "Pan fried steam dumplings, providing unique semi-fried texture.", "tags": ["kothey-momo"], "variants": [
+          { "label": "Chicken", "price": 19.99, "protein": "chicken" },
+          { "label": "Veg", "price": 19.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Buff", "price": 21.99, "protein": "buff" }
+        ] },
+        { "name": "Sadheko Momo (10pcs)", "description": "Juicy specially seasoned (sadheko) steam dumplings.", "tags": ["sandheko-momo"], "variants": [
+          { "label": "Chicken", "price": 21.99, "protein": "chicken" },
+          { "label": "Veg", "price": 21.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Paneer", "price": 21.99, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Buff", "price": 22.99, "protein": "buff" }
+        ] },
+        { "name": "MOMO Platter", "description": "Momo platter (15 pcs). 5 pcs each momo (steam/sadheko/chilly/kothe).", "tags": ["momo"], "variants": [{ "label": null, "price": 29.99 }] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "tags": ["chowmein"], "variants": [
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+          { "label": "Egg", "price": 18.99, "protein": "egg" },
+          { "label": "Paneer", "price": 18.99, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg/Vegan", "price": 18.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 22.99, "protein": "buff" },
+          { "label": "Mix", "price": 24.99 }
+        ] },
+        { "name": "Keema Noodles", "tags": ["keema-noodle"], "variants": [{ "label": null, "price": 18.99 }] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "tags": ["thukpa"], "variants": [
+          { "label": "Veg", "price": 19.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 19.99, "protein": "egg" },
+          { "label": "Chicken", "price": 22.99, "protein": "chicken" },
+          { "label": "Buff", "price": 24.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Thali Set",
+      "items": [
+        { "name": "Nepali Thali Set", "tags": ["thali"], "variants": [
+          { "label": "Veg", "price": 29.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 31.99, "protein": "chicken" },
+          { "label": "Mutton", "price": 33.99, "protein": "lamb" }
+        ] },
+        { "name": "Premium Nepali Thali Set", "tags": ["thali"], "variants": [{ "label": null, "price": 39.99 }] }
+      ]
+    },
+    {
+      "name": "Khaja & Sekuwa Sets",
+      "items": [
+        { "name": "Khaja Set", "tags": ["khaja"], "variants": [
+          { "label": "Chicken", "price": 25.99, "protein": "chicken" },
+          { "label": "Buff", "price": 25.99, "protein": "buff" }
+        ] },
+        { "name": "Sekuwa Set", "tags": ["sekuwa"], "variants": [
+          { "label": "Chicken", "price": 25.99, "protein": "chicken" },
+          { "label": "Buff", "price": 25.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Appetizers",
+      "items": [
+        { "name": "Bhatmas Sandheko", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Wai Wai Sandheko", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] },
+        { "name": "Chatpate (Dry/Gilo)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.99, "protein": "veg" }] },
+        { "name": "Sausage Fry (2 Pieces)", "description": "Fried sausage, complemented with Nepali tomato chutney.", "tags": ["sausage"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Chips Chilli", "description": "Crispy, fried, golden chips, seasoned in a fiery Nepalese tomato sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Pani Puri (10 Pieces)", "description": "Crispy fried dough balls filled with your choice of potatoes, moong sprouts, or chickpeas, served with spicy tangy water and sweet chutney.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Dahi Puri", "description": "Puff pastry served with spiced yoghurt and a tangy chutney - a classic Indian street food delight.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Buff Sukuti Only", "description": "Crispy pieces of Buffalo meat, mixed with spices that tingle your taste buds.", "tags": ["sukuti"], "variants": [{ "label": null, "price": 16.99, "protein": "buff" }] },
+        { "name": "Chicken Choila", "description": "Marinated Chicken meat, sauteed with onion, coriander, ginger, garlic and Nepalese herbs and spices.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 16.99, "protein": "chicken" }] },
+        { "name": "Buff Choila", "description": "Marinated Buff meat, sauteed with onion, coriander, ginger, garlic and Nepalese herbs and spices.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 18.99, "protein": "buff" }] },
+        { "name": "Chicken Sandheko Masu", "description": "Tender chicken, infused with aromatic Nepali herbs and spices, then served chilled.", "tags": ["sandheko"], "variants": [{ "label": null, "price": 16.99, "protein": "chicken" }] },
+        { "name": "Spicy Bag (chicken)", "description": "Fried chicken bite-sized pieces, seasoned with a spicy blend of herbs and spices, served with deep fried chips.", "tags": [], "variants": [{ "label": null, "price": 19.99, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Specials",
+      "items": [
+        { "name": "MoMoNbitez Special", "description": "Momo(5pcs), Chowmein(half), Sausage(2pcs), Sekuwa(timely), Salad, fried egg, 2x selected cold drinks.", "tags": [], "variants": [{ "label": null, "price": 60.99 }] },
+        { "name": "Himalayan Pack", "description": "1 serve momo of your choice (10 pcs), 1 serve Chowmein (Veg/Chicken/Buff/Mix), Pakauda (3pcs), Panipuri or dahipuri (10 pcs), Gulab Jamun (2pcs).", "tags": [], "variants": [{ "label": null, "price": 59.99 }] },
+        { "name": "Laphing", "tags": ["laphing"], "variants": [{ "label": "Dry", "price": 13.99 }, { "label": "Jhol", "price": 13.99 }] }
+      ]
+    },
+    {
+      "name": "Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Savoury flavourful fried rice.", "tags": ["fried-rice"], "variants": [
+          { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+          { "label": "Buff", "price": 19.99, "protein": "buff" },
+          { "label": "Mix", "price": 22.99 }
+        ] },
+        { "name": "Rice Bowl", "description": "Plain Rice Bowl.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Yomari", "description": "Yomari. 1pc.", "is_vegetarian": true, "tags": ["yomari"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Gulab Jamun", "description": "Gulab Jamun. 2 pcs.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 6.99 }] }
+      ]
+    },
+    {
+      "name": "Platter",
+      "items": [
+        { "name": "Royal Nepali Family Platter", "description": "4 serves of momo (Veg, Paneer, buff, chicken). 2 serves of Chowmein, Sekuwa set (Chicken/Lamb/Buff), Pani puri or Dahi puri, Gulab Jamun (5Pcs), 5X soft Drinks of your choice.", "tags": ["momo"], "variants": [{ "label": null, "price": 159.99 }] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "slug": "himalayan-food-corner-glenorchy",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Lunch Special & Mains",
+      "items": [
+        { "name": "Meat Curry & Rice/Naan", "description": "Delicious Meat Curry With Rice/Naan.", "tags": ["curry"], "variants": [{ "label": null, "price": 14.90 }] },
+        { "name": "Veg Curry & Rice/Naan", "description": "Vegetarian Curry with Rice/Naan.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 12.90, "protein": "veg" }] },
+        { "name": "Lunch Combo (Veg)", "description": "Veg Curry + Rice + Garlic Naan + Small Can Drink or Water.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 17.90 }] },
+        { "name": "Lunch Combo (Meat)", "description": "Meat Curry + Rice + Garlic Naan + Small Can Drink or Water.", "tags": [], "variants": [{ "label": null, "price": 19.90 }] },
+        { "name": "Biryani", "tags": ["biryani"], "variants": [
+          { "label": "Veg", "price": 20.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 20.00, "protein": "chicken" },
+          { "label": "Goat (on bone)", "price": 22.00, "protein": "goat" },
+          { "label": "Lamb", "price": 22.00, "protein": "lamb" }
+        ] },
+        { "name": "Fried Rice", "tags": ["fried-rice"], "variants": [
+          { "label": "Veg", "price": 14.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.90, "protein": "chicken" },
+          { "label": "Egg", "price": 16.90, "protein": "egg" },
+          { "label": "Mixed", "price": 17.90 }
+        ] },
+        { "name": "Samosa Chat", "is_vegetarian": true, "tags": ["chaat", "samosa"], "variants": [{ "label": null, "price": 12.90, "protein": "veg" }] },
+        { "name": "Chhole Bhature", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 15.90, "protein": "veg" }] },
+        { "name": "Aloo Paratha (Home Made)", "is_vegetarian": true, "tags": ["roti"], "variants": [
+          { "label": "1 Piece", "price": 6.90 },
+          { "label": "2 Piece", "price": 13.00 }
+        ] }
+      ]
+    },
+    {
+      "name": "Dumplings Momo",
+      "items": [
+        { "name": "Steamed Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 14.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14.90, "protein": "chicken" },
+          { "label": "Buffalo", "price": 18.00, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo", "description": "Jhol (Soup) Momo.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.90, "protein": "chicken" },
+          { "label": "Buffalo", "price": 19.00, "protein": "buff" }
+        ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 14.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14.90, "protein": "chicken" }
+        ] },
+        { "name": "Kothe Momo (Pan Fried)", "tags": ["kothey-momo"], "variants": [
+          { "label": "Veg", "price": 17.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17.00, "protein": "chicken" }
+        ] },
+        { "name": "Chilly Momo", "tags": ["chilli-momo"], "variants": [
+          { "label": "Veg", "price": 16.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16.90, "protein": "chicken" },
+          { "label": "Buffalo (Steamed)", "price": 20.00, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Noodles Chowmein",
+      "items": [
+        { "name": "Chowmein", "tags": ["chowmein"], "variants": [
+          { "label": "Vegetarian", "price": 14.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.90, "protein": "chicken" },
+          { "label": "Egg", "price": 16.90, "protein": "egg" },
+          { "label": "Mix", "price": 17.90 }
+        ] },
+        { "name": "Thukpa Soup Noodles", "tags": ["thukpa"], "variants": [
+          { "label": "Vegetarian", "price": 14.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.90, "protein": "chicken" },
+          { "label": "Egg", "price": 16.90, "protein": "egg" },
+          { "label": "Mix", "price": 17.90 }
+        ] }
+      ]
+    }
+  ]
+}

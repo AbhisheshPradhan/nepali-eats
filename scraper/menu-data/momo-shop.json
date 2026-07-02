@@ -1,0 +1,68 @@
+{
+  "slug": "momo-shop",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Chicken Momo", "description": "Made with local free-range ground chicken mixed with red onion, ginger, coriander and house spice. Served with your choice of freshly made achar.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Regular", "price": 17.50, "protein": "chicken" },
+          { "label": "Large", "price": 19.50, "protein": "chicken" }
+        ] },
+        { "name": "Vegie Momo", "description": "Suitable for vegans! Fresh tofu, cabbage, carrot, ginger, house spices in handmade flour pastry. Cabbage pea shoot garnish. Served with your choice of achar!", "is_vegetarian": true, "tags": ["steamed-momo"], "variants": [
+          { "label": "Regular", "price": 17.50, "protein": "veg" },
+          { "label": "Large", "price": 19.50, "protein": "veg" }
+        ] },
+        { "name": "Mushroom Momo", "description": "Suitable for vegans! Mushroom, cabbage, red onion, coriander, spring onion, ginger, house spices, in handmade flour pastry. Served with your choice of achar!", "is_vegetarian": true, "tags": ["steamed-momo"], "variants": [
+          { "label": "Regular", "price": 17.50, "protein": "veg" },
+          { "label": "Large", "price": 19.50, "protein": "veg" }
+        ] },
+        { "name": "Potato + Snow Pea Tendrils Momo", "description": "Suitable for vegans! Potato, snow pea tendrils, spring onion, red onion, garlic, ginger and house spices, in a handmade flour pastry. Served with your choice of achar!", "is_vegetarian": true, "tags": ["steamed-momo"], "variants": [
+          { "label": "Regular", "price": 17.50, "protein": "veg" },
+          { "label": "Large", "price": 19.50, "protein": "veg" }
+        ] },
+        { "name": "Pork Momo", "description": "Classic steamed momos made with local free-range ground pork, fermented greens, red onion, ginger, house spice, spring onion, coriander in handmade flour pastry. Served with freshly made achar of your choice!", "tags": ["steamed-momo"], "variants": [
+          { "label": "Regular", "price": 17.50, "protein": "pork" },
+          { "label": "Large", "price": 19.50, "protein": "pork" }
+        ] },
+        { "name": "Lamb Momo", "description": "Made with grass-fed, ground lamb meat mixed with red onion, ginger, coriander, house spice wrapped in handmade flour pastry. Served with your choice of freshly made achar.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Regular", "price": 19.50, "protein": "lamb" },
+          { "label": "Large", "price": 21.50, "protein": "lamb" }
+        ] },
+        { "name": "'IN LOVE' Choice of 2", "description": "Your choice of half and half.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Regular", "price": 19.50 },
+          { "label": "Large", "price": 20.50 }
+        ] },
+        { "name": "Frozen Chicken Momo (16 pieces)", "description": "Please bring cooler bag/esky for frozen momo takeaway. Net weight 535g. Ingredients: free-range ground chicken, red onion, ginger, coriander, salt, house spice, wheat flour. Steam from frozen over high heat 15-20 minutes.", "tags": ["momo"], "variants": [{ "label": null, "price": 25.00, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Salad",
+      "items": [
+        { "name": "ANTI Roasted Cauliflower and Chickpea Salad", "description": "Turmeric cayenne pepper roasted cauliflower, chickpea, radish, red onion, sesame dressing, flat leaf parsley, lemon wedge.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 18.00, "protein": "veg" }] },
+        { "name": "CRUNCHY Greens with Potato Salad", "description": "Seasonal greens, potato, red onion, perilla and sesame seed dressing, lemon wedge.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 18.00, "protein": "veg" }] },
+        { "name": "WHOLE Sprouts and Fermented Greens Salad", "description": "Sprouts, fermented greens, red cabbage, radish, red onion, fresh chilli, citrus mustard dressing, coriander, lemon wedge.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 18.00, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "San Pellegrino Limonata", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.60 }] },
+        { "name": "San Pellegrino Aranciata", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.60 }] },
+        { "name": "Hepburn Springs Still Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Hepburn Mineral Sparkling Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Karma Organic Orange Mango Apple Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Karma Organic Cola", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Karma Orange Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Karma Organic Lemonade", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.20 }] },
+        { "name": "Coca Cola No Sugar Can", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Remedy Small Batch Kombucha Yuzu Mandarin", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Yumbo Soda Blood Orange", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.80 }] },
+        { "name": "Yumbo Soda Grapefruit", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.80 }] },
+        { "name": "Mateo Yerba Mate Soda Organic Ginger", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.50 }] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "slug": "chulo-on-wheels-mowbray",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Light Bites",
+      "items": [
+        { "name": "Chatpat", "description": "A spicy mix of puffed rice, veggies, and tangy sauces — crunchy and flavorful.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6.99, "protein": "veg" }] },
+        { "name": "Laphing", "description": "Cold, spicy noodle rolls made from plain flour starch, topped with garlic, soy sauce, and chili — Tibetan-inspired.", "tags": ["laphing"], "variants": [
+          { "label": "Dry", "price": 12.99 },
+          { "label": "Jhol", "price": 14.99 }
+        ] },
+        { "name": "Sausage (3pc)", "description": "Spicy or mild sausage, perfect as a snack or side.", "tags": ["sausage"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Choila", "description": "Traditional Newari-style spicy grilled meat, marinated with mustard oil, garlic, and spices.", "tags": ["choila", "newari"], "variants": [
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Buff", "price": 17.99, "protein": "buff" }
+        ] },
+        { "name": "Samosa (2pc)", "description": "Crispy pastry filled with spiced potatoes.", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 7.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Hearty Mains",
+      "items": [
+        { "name": "Fried Momo", "description": "Deep-fried momo with crispy outer layer and juicy filling.", "tags": ["fried-momo"], "variants": [
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Steam Momo", "description": "Soft and juicy dumplings, freshly steamed.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Buff", "price": 15.99, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo", "description": "Steamed momos served in a spicy, tangy sesame-tomato soup.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Buff", "price": 17.99, "protein": "buff" }
+        ] },
+        { "name": "Chowmein", "description": "Stir-fried noodles infused with authentic Nepali sauce and spices, mixed with veggies.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 12.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Buff", "price": 15.99, "protein": "buff" },
+          { "label": "Mixed", "price": 16.99 }
+        ] },
+        { "name": "Bara (2pc)", "description": "Savory lentil pancake, crispy on the outside, soft inside — a popular Newari dish.", "is_vegetarian": true, "tags": ["bara", "newari"], "variants": [{ "label": null, "price": 6.99, "protein": "veg" }] },
+        { "name": "Egg Bara", "description": "Lentil pancake topped with egg — rich and filling.", "tags": ["bara", "newari"], "variants": [{ "label": null, "price": 5.00, "protein": "egg" }] },
+        { "name": "Samosa Chat", "description": "Crushed samosa topped with chickpeas, yogurt, and chutneys.", "is_vegetarian": true, "tags": ["chaat", "samosa"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Masala Tea", "description": "Hot Nepali-style spiced milk tea, infused with cardamom, ginger, and other spices.", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.00 }] },
+        { "name": "Soft Drinks", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] }
+      ]
+    }
+  ]
+}

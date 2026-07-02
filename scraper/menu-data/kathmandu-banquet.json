@@ -1,0 +1,77 @@
+{
+  "slug": "kathmandu-banquet",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Steam Momo", "description": "Nepalese Dumpling.", "tags": ["steamed-momo"], "variants": [{ "label": null, "price": 15 }] },
+        { "name": "Jhol Momo", "description": "Nepalese Momo dipped on soup.", "tags": ["jhol-momo"], "variants": [{ "label": null, "price": 15 }] },
+        { "name": "Chilli Momo", "tags": ["chilli-momo"], "variants": [{ "label": null, "price": 15 }] },
+        { "name": "Kothey Momo", "description": "Half fried and half steamed Momo.", "tags": ["kothey-momo"], "variants": [{ "label": null, "price": 15 }] },
+        { "name": "Samosa Chaat", "description": "Samosa topped with tangy sauce.", "is_vegetarian": true, "tags": ["chaat", "samosa"], "variants": [{ "label": null, "price": 9.50, "protein": "veg" }] },
+        { "name": "Spring Roll", "description": "Deep-fried pastry stuffed with Veg.", "is_vegetarian": true, "tags": ["spring-roll"], "variants": [{ "label": null, "price": 8.50, "protein": "veg" }] },
+        { "name": "Sekuwa", "description": "Nepalese boneless meat marinated with natural herbs and roasted in natural wood fire.", "tags": ["sekuwa"], "variants": [
+          { "label": "Chicken", "price": 18, "protein": "chicken" },
+          { "label": "Haasko (Duck)", "price": 18, "protein": "duck" }
+        ] }
+      ]
+    },
+    {
+      "name": "Sadheko",
+      "items": [
+        { "name": "Wai-Wai Sadheko", "description": "Marinated Crunchy Noodles.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 8.50, "protein": "veg" }] },
+        { "name": "Bhatmas Sadheko", "description": "Soyabean with house made spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 8.50, "protein": "veg" }] },
+        { "name": "Sukuti Sadheko", "description": "Marinated Spicy Dried Buffalo Meat.", "tags": ["sukuti", "sandheko"], "variants": [{ "label": null, "price": 16.50, "protein": "buff" }] },
+        { "name": "Aloo Sadheko", "description": "Marinated Spicy Deep-fried Potato.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 8.50, "protein": "veg" }] },
+        { "name": "Badhel Sadheko", "description": "Marinated Spicy Wild Boar.", "tags": ["sandheko"], "variants": [{ "label": null, "price": 16.50, "protein": "pork" }] },
+        { "name": "Sadheko Momo", "description": "Momo marinated with Nepalese herbs and spices.", "tags": ["sandheko-momo"], "variants": [{ "label": null, "price": 16.50 }] }
+      ]
+    },
+    {
+      "name": "C: Menu",
+      "items": [
+        { "name": "Choila Set", "description": "Marinated meat with rice flakes.", "tags": ["choila", "khaja", "newari"], "variants": [
+          { "label": "Buff", "price": 15.50, "protein": "buff" },
+          { "label": "Chicken", "price": 15.50, "protein": "chicken" },
+          { "label": "Goat", "price": 15.50, "protein": "goat" }
+        ] },
+        { "name": "Chowmein", "description": "Nepalese fried noodles.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 15.50, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.50, "protein": "chicken" },
+          { "label": "Seafood", "price": 15.50 }
+        ] },
+        { "name": "Chicken Winglet", "description": "Nepalese Styled Fried Chicken.", "tags": ["wings"], "variants": [{ "label": null, "price": 15.50, "protein": "chicken" }] },
+        { "name": "Chilli Chicken", "description": "Fried Chicken with Chilli Sauce.", "tags": ["chilli"], "variants": [{ "label": null, "price": 15.50, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Set Menu",
+      "items": [
+        { "name": "Thali Set", "description": "Nepalese Platter - Rice with Choice of Chicken/Goat with Vegetable, Lentils with sides Papadum and Chutney.", "tags": ["thali"], "variants": [{ "label": null, "price": 30 }] },
+        { "name": "Dhido Set", "description": "Traditional Himalayan delicacy slowly cooked buckwheat, polenta, millet flour with choice of Chicken/Goat Curry, Vegetable, Lentils & Chutney.", "tags": ["dhido"], "variants": [{ "label": null, "price": 30 }] }
+      ]
+    },
+    {
+      "name": "Curry",
+      "items": [
+        { "name": "Chicken Curry", "description": "Nepalese Chicken Curry.", "tags": ["curry"], "variants": [{ "label": null, "price": 17.50, "protein": "chicken" }] },
+        { "name": "Goat Curry", "description": "Nepalese Goat Curry.", "tags": ["curry"], "variants": [{ "label": null, "price": 17.50, "protein": "goat" }] },
+        { "name": "Mix Veggie Curry", "description": "Mix Vegetable.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 15, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Chips", "description": "Deep fried potato chips.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6.50 }] },
+        { "name": "Papadums (5pcs)", "description": "Nepalese deep fried dough of black gram bean flour until crunchy.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.50 }] },
+        { "name": "Kachumber", "description": "Nepalese fresh chopped salad with chopped onions, tomatoes, cucumbers and a salt pepper lemon dressing.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.50, "protein": "veg" }] },
+        { "name": "Roti", "description": "Nepalese Roti.", "is_vegetarian": true, "tags": ["roti"], "variants": [{ "label": null, "price": 2 }] },
+        { "name": "Garlic Naan", "description": "Fresh Garlic Naan.", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Plain Naan", "description": "Fresh Plain Naan.", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 2.50 }] }
+      ]
+    }
+  ]
+}

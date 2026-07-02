@@ -9,6 +9,7 @@ import {
 	MapTrifold,
 	CookingPot,
 	CircleNotch,
+	SlidersHorizontal,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import { PlaceCard } from "@/components/PlaceCard";
@@ -17,6 +18,24 @@ import type { Restaurant, RestaurantPin, Bbox } from "@/lib/types";
 import { isOpenNow } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { cn } from "@/lib/cn";
+
+// Attribute chips shown behind the "Filters" toggle. Tokens must match FLAG_COLS
+// in lib/queries.ts; labels are AU-facing. Ordered by usefulness for eating out.
+const FLAG_OPTIONS: [string, string][] = [
+	["veg", "Vegetarian"],
+	["takeout", "Takeaway"],
+	["delivery", "Delivery"],
+	["dinein", "Dine-in"],
+	["alcohol", "Licensed"],
+	["outdoor", "Outdoor seating"],
+	["kid", "Kid-friendly"],
+	["groups", "Good for groups"],
+	["reservable", "Takes bookings"],
+	["cocktails", "Cocktails"],
+	["music", "Live music"],
+	["dogs", "Dog-friendly"],
+	["wheelchair", "Wheelchair access"],
+];
 
 const MapView = dynamic(() => import("./MapView"), {
 	ssr: false,
@@ -106,6 +125,14 @@ export function ExploreClient({
 	const [price, setPrice] = useState(0);
 	const [minRating, setMinRating] = useState(0);
 	const [sort, setSort] = useState("featured");
+	// selected attribute-flag tokens (see FLAG_OPTIONS / FLAG_COLS)
+	const [flags, setFlags] = useState<string[]>([]);
+	// whether the attribute-chip panel is expanded
+	const [showFilters, setShowFilters] = useState(false);
+	const toggleFlag = (token: string) =>
+		setFlags((f) =>
+			f.includes(token) ? f.filter((t) => t !== token) : [...f, token],
+		);
 
 	const [hovered, setHovered] = useState<number | null>(null);
 	const [selected, setSelected] = useState<number | null>(focusId ?? null);
@@ -155,11 +182,8 @@ export function ExploreClient({
 		p.set("sort", sort);
 		if (price) p.set("price", String(price));
 		if (minRating) p.set("rating", String(minRating));
-		// New attribute filters (UI scaffolded/commented below, pending design). When
-		// wired, hold the selected flag tokens in state and append them here, e.g.:
-		//   if (flags.length) p.set("flags", flags.join(","));
-		// Tokens: veg, alcohol, cocktails, kid, music, takeout, delivery, dinein,
-		// outdoor, reservable, groups, dogs, wheelchair (see FLAG_COLS in queries.ts).
+		// Attribute flags: true-only AND filters, allowlisted in queries.ts FLAG_COLS.
+		if (flags.length) p.set("flags", flags.join(","));
 		if (fixed.tag) p.set("tag", fixed.tag);
 		if (fixed.venue) p.set("venue", fixed.venue);
 		// geographic scope is seed-only: drop it the moment we're in map-area mode so
@@ -225,7 +249,7 @@ export function ExploreClient({
 		const t = setTimeout(() => fetchRef.current(true), 0);
 		return () => clearTimeout(t);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [price, minRating, sort]);
+	}, [price, minRating, sort, flags]);
 
 	// Default view: if the visitor already granted location, recentre on them
 	// ("near me" by default). Otherwise keep the SSR state-capital / Sydney centre.
@@ -384,9 +408,10 @@ export function ExploreClient({
 					</Button>
 				</div>
 
-				{/* Filters (Open now / Sort / Rating) hidden for now. */}
-				{false && (
-					<div className="flex gap-x-5 gap-y-2.5 items-center mt-3 flex-wrap">
+				{/* Filter bar: primary controls always visible; attribute chips live
+				    behind the Filters toggle. Open now is computed client-side. */}
+				<div className="mt-3">
+					<div className="flex gap-x-4 gap-y-2 items-center flex-wrap">
 						<button
 							onClick={() => setOpenOnly((o) => !o)}
 							className={cn(
@@ -396,41 +421,9 @@ export function ExploreClient({
 									: "bg-white border-sand-400 text-ink-700",
 							)}
 						>
-							<Clock
-								weight="fill"
-								size={16}
-							/>
+							<Clock weight="fill" size={16} />
 							Open now
 						</button>
-
-						<label className="flex items-center gap-2">
-							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
-								Sort
-							</span>
-							<div className="relative">
-								<select
-									value={sort}
-									onChange={(e) => setSort(e.target.value)}
-									className="appearance-none border-2 border-sand-400 rounded-full bg-white pl-3.5 pr-8 py-[5px] font-display font-bold text-[0.9rem] text-ink-900 cursor-pointer outline-none"
-								>
-									<option value="featured">Featured</option>
-									<option value="rating">
-										Highest rated
-									</option>
-									<option value="newest">Newest</option>
-								</select>
-								<CaretDown
-									className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-700"
-									size={14}
-								/>
-							</div>
-						</label>
-
-						{/* Price filter hidden for now (price data too sparse to be useful) */}
-						{/* <label className="flex items-center gap-2">
-            <span className="font-display font-bold text-ink-700 text-[0.9rem]">Price</span>
-            <Seg value={price} onChange={setPrice} options={[[0, "Any"], [1, "$"], [2, "$$"], [3, "$$$"]]} />
-          </label> */}
 
 						<label className="flex items-center gap-2">
 							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
@@ -447,43 +440,80 @@ export function ExploreClient({
 							/>
 						</label>
 
-						{/*
-						  NEW ATTRIBUTE FILTERS — scaffolded, pending UI design.
-						  Backend is live (queries.ts FLAG_COLS + ?flags= param). To enable:
-						  hold selected tokens in state and append them in buildParams (see note
-						  there). Example chips for the data we now have from the Places API:
+						<label className="flex items-center gap-2">
+							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
+								Sort
+							</span>
+							<div className="relative">
+								<select
+									value={sort}
+									onChange={(e) => setSort(e.target.value)}
+									className="appearance-none border-2 border-sand-400 rounded-full bg-white pl-3.5 pr-8 py-[5px] font-display font-bold text-[0.9rem] text-ink-900 cursor-pointer outline-none"
+								>
+									<option value="featured">Featured</option>
+									<option value="rating">Highest rated</option>
+									<option value="newest">Newest</option>
+								</select>
+								<CaretDown
+									className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-700"
+									size={14}
+								/>
+							</div>
+						</label>
 
-						  {([
-						    ["veg", "Vegetarian"],
-						    ["alcohol", "Licensed"],
-						    ["cocktails", "Cocktails"],
-						    ["kid", "Kid-friendly"],
-						    ["music", "Live music"],
-						    ["takeout", "Takeaway"],
-						    ["delivery", "Delivery"],
-						    ["dinein", "Dine-in"],
-						    ["outdoor", "Outdoor seating"],
-						    ["reservable", "Reservable"],
-						    ["groups", "Good for groups"],
-						    ["dogs", "Dog-friendly"],
-						    ["wheelchair", "Wheelchair access"],
-						  ] as const).map(([token, label]) => (
-						    <button
-						      key={token}
-						      onClick={() => toggleFlag(token)}
-						      className={cn(
-						        "inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-						        flags.includes(token)
-						          ? "bg-coriander-500 border-coriander-500 text-white"
-						          : "bg-white border-sand-400 text-ink-700",
-						      )}
-						    >
-						      {label}
-						    </button>
-						  ))}
-						*/}
+						<button
+							onClick={() => setShowFilters((s) => !s)}
+							className={cn(
+								"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+								flags.length > 0 || showFilters
+									? "bg-coriander-500 border-coriander-500 text-white"
+									: "bg-white border-sand-400 text-ink-700",
+							)}
+						>
+							<SlidersHorizontal size={16} />
+							Filters
+							{flags.length > 0 && (
+								<span className="inline-grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-white/90 text-coriander-600 text-[0.72rem] leading-none">
+									{flags.length}
+								</span>
+							)}
+							<CaretDown
+								className={cn(
+									"transition-transform",
+									showFilters && "rotate-180",
+								)}
+								size={14}
+							/>
+						</button>
 					</div>
-				)}
+
+					{showFilters && (
+						<div className="flex flex-wrap gap-2 items-center mt-2.5">
+							{FLAG_OPTIONS.map(([token, label]) => (
+								<button
+									key={token}
+									onClick={() => toggleFlag(token)}
+									className={cn(
+										"border-2 rounded-full px-3.5 py-1 cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
+										flags.includes(token)
+											? "bg-coriander-500 border-coriander-500 text-white"
+											: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+									)}
+								>
+									{label}
+								</button>
+							))}
+							{flags.length > 0 && (
+								<button
+									onClick={() => setFlags([])}
+									className="px-2 font-display font-bold text-[0.85rem] text-chili-600 cursor-pointer hover:underline"
+								>
+									Clear all
+								</button>
+							)}
+						</div>
+					)}
+				</div>
 			</div>
 
 			{/* body */}

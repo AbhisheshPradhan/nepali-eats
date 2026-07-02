@@ -269,25 +269,28 @@ export function SearchBox({
 						hero ? "text-[1.1rem] py-2.5" : "text-base",
 					)}
 				/>
-				<Button
-					type="submit"
-					// gated: only a real pick from the dropdown enables Search
-					disabled={!selected}
-					size={hero ? "md" : "sm"}
-					iconRight={
-						hero ? (
+				{/* Bar variant (Explore): the Search button is dead weight. It's
+				    gated on `selected`, but picking a row navigates immediately, so
+				    it's never clickable, and Enter already submits via the form's
+				    onSubmit. Near Me is the visible action beside the input there.
+				    Keep it only on the hero, where there's no Near Me. */}
+				{hero && (
+					<Button
+						type="submit"
+						// gated: only a real pick from the dropdown enables Search
+						disabled={!selected}
+						size="md"
+						iconRight={
 							<ArrowRight
 								size={18}
 								weight="bold"
 							/>
-						) : undefined
-					}
-					className={
-						hero ? "max-sm:basis-full max-sm:w-full" : undefined
-					}
-				>
-					Search
-				</Button>
+						}
+						className="max-sm:basis-full max-sm:w-full"
+					>
+						Search
+					</Button>
+				)}
 			</form>
 
 			{showDropdown && (loading || flatOptions.length > 0) && (

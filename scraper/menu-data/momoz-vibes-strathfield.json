@@ -1,0 +1,100 @@
+{
+  "slug": "momoz-vibes-strathfield",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steam Momo", "description": "Tender dumplings steamed to perfection.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 11.99, "protein": "chicken" },
+          { "label": "Buff", "price": 13.99, "protein": "buff" },
+          { "label": "Veg", "price": 11.99, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Chicken", "price": 12.99, "protein": "chicken" },
+          { "label": "Buff", "price": 14.99, "protein": "buff" },
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Jhol Momo", "description": "Steam momo comes with tomato soup (aachar).", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 12.99, "protein": "chicken" },
+          { "label": "Buff", "price": 14.99, "protein": "buff" },
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Kothey Momo", "tags": ["kothey-momo"], "variants": [
+          { "label": "Chicken", "price": 12.99, "protein": "chicken" },
+          { "label": "Buff", "price": 14.99, "protein": "buff" },
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Chilly Momo", "description": "Fried momo cooked with capsicum, onion, tomato ketchup and chillies.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Buff", "price": 15.99, "protein": "buff" },
+          { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Stir-fried noodles with vegetables.", "tags": ["chowmein"], "variants": [
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 14.99, "protein": "buff" },
+          { "label": "Mix", "price": 15.99 }
+        ] }
+      ]
+    },
+    {
+      "name": "Laphing",
+      "items": [
+        { "name": "Laphing", "description": "Cold tibetan mung bean noodles in a flavourful sauce.", "tags": ["laphing"], "variants": [
+          { "label": "Noodles", "price": 10.00 },
+          { "label": "Peanuts", "price": 11.00 },
+          { "label": "Mixed", "price": 12.00 },
+          { "label": "Jhol", "price": 12.00 }
+        ] }
+      ]
+    },
+    {
+      "name": "Amilo / Piro",
+      "items": [
+        { "name": "Chatpate", "description": "Rice puff, boiled potato, cucumber, onion, dry noodles mixed with lemon and spices.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6.99, "protein": "veg" }] },
+        { "name": "Gilo Chatpate", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 7.99, "protein": "veg" }] },
+        { "name": "Pani-Puri", "description": "Six pieces of crunchy puff filled with mashed potato and tamarind water.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 5.99, "protein": "veg" }] },
+        { "name": "Fulki", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 6.99, "protein": "veg" }] },
+        { "name": "Laphing Chatpate", "tags": ["laphing"], "variants": [{ "label": null, "price": 12.99 }] }
+      ]
+    },
+    {
+      "name": "Khaja Set",
+      "items": [
+        { "name": "Chhoila Set", "description": "Traditional newari food comes with bitten rice, salad, nepali salad, chicken chhoila and bhatmas.", "tags": ["choila", "khaja", "newari"], "variants": [{ "label": null, "price": 14.99, "protein": "chicken" }] },
+        { "name": "Chhoila", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 9.00 }] }
+      ]
+    },
+    {
+      "name": "Sides & Starters",
+      "items": [
+        { "name": "Shaphaley", "tags": ["shavale"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Sausage", "tags": ["sausage"], "variants": [{ "label": "1 Pc", "price": 4.00 }, { "label": "2 Pcs", "price": 7.50 }] },
+        { "name": "Chips & Nuggets", "tags": [], "variants": [{ "label": null, "price": 7.00 }] },
+        { "name": "Samosa", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 5.00, "protein": "veg" }] },
+        { "name": "Aalu Nimki", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 8.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.50 }] },
+        { "name": "Coke No Sugar", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.50 }] },
+        { "name": "Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.50 }] },
+        { "name": "Fanta", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.50 }] },
+        { "name": "Thai Red Bull", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.00 }] },
+        { "name": "Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.50 }] },
+        { "name": "Chiya", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] }
+      ]
+    }
+  ]
+}

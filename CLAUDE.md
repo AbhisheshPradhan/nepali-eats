@@ -494,6 +494,32 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
         4. Later/free: the July Places API re-run widens the field mask to capture `types`/
            `primaryType` — if Google tags any as event/banquet types, use as an extra signal.
       Feeds the DISCOVERY entry below (surface A catering + a venue-hire lead-gen supply).
+- [ ] **Dietary flags: vegan + gluten-free (do TOGETHER with the venue_hire plan above)** — same
+      shape as venue_hire (website-scan + editorial, confirmed-true only, nullable, never guessed).
+      Leave for now; bundle when we run the venue_hire scan. Two levels, sourced differently:
+        - **Restaurant-level (near-term, the realistic data):** the discovery/filter signal
+          ("can this place feed a vegan/coeliac?"). Mirrors the EXISTING vegetarian dual model
+          (`serves_vegetarian` restaurant-level = "has options" vs `menu_items.is_vegetarian` =
+          per-dish truth). Schema: `ALTER TABLE restaurants ADD COLUMN vegan boolean, ADD COLUMN
+          gluten_free boolean;` (nullable; `true`=confirmed, `null`=unknown, never bulk-false —
+          same profile as `catering`/`venue_hire`/`fusion`, nothing reads them until wired).
+        - **Item-level (enable now, populate over time):** the content/SEO/trust signal for
+          "gluten-free momo in <city>" landing pages + the "restaurant + matched items" listing.
+          Add `vegan` + `gluten-free` as CROSS-CUTTING facet tags in `web/lib/menu/taxonomy.ts`
+          (same pattern as the `veg` protein tag) + re-run `seed-taxonomy.ts`. Cheap/additive.
+          Populated ONLY when a menu explicitly marks a dish — accrues via normal menu seeding,
+          NO back-scan. Landing pages are a LATER deliverable gated on real item coverage (don't
+          build them against ~5 seeded restaurants).
+      **⚠️ Gluten-free is effectively a MEDICAL claim (coeliac), stricter than vegetarian:** never
+      infer it, set true only from an explicit menu/website statement, frame as "gluten-free
+      OPTIONS / check with venue," not a guarantee. Vegan is milder but same rule (ghee/paneer/
+      dairy are everywhere, so vegetarian ≠ vegan and neither derives from the other).
+      **Backfill (restaurant-level):** clone the venue_hire website-scan (Playwright asset-block +
+      proxy, homepage + `/menu`, grep lexicon: "gluten free"/"gluten-free"/"GF"/"coeliac"/"vegan"/
+      "plant-based") → REVIEW file, NO auto-commit → editorial confirm. 314/448 have a website;
+      expect a LOW hit rate (small sites rarely state it) — most stay `null`, which is correct.
+      Restaurant-level is derivable from item-level where a menu exists (has ≥1 GF/vegan-tagged
+      item → "options"); item-level is NEVER derivable from restaurant-level (drives the sequencing).
 - [ ] **DISCOVERY: Event booking / Festivals promotion / lead CRM** — monetization
       discovery piece, NOT yet scoped to build. Three related-but-distinct surfaces that share
       data but monetize differently; this entry captures the thinking so it isn't lost.
