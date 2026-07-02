@@ -254,3 +254,23 @@ unseeded until they publish a live menu (or supply a PDF / in-store photos).
 | # | Name | Suburb | State | Own-site menu page | Note |
 |---|------|--------|-------|--------------------|------|
 | 452 | Silver Salver Restaurant and function Center | North Wollongong | NSW | https://www.silversalver.com.au/dine-menu.html | 39 rev. Full menu markup (Breakfast/Lunch/Dinner/Desserts, dishes like "Aloo Gobhi Masala $19.90" with descriptions, ~106 price tokens) exists but is entirely **commented out** in the HTML; live page renders only nav/footer (0 visible prices after full Playwright render). Recheck if they un-comment / publish it. |
+
+## O. Session 2026-07-02 (deep-render pass): non-Nepali + ordering-widget-with-no-published-prices — SKIP
+
+Final pass after the own-site menus were exhausted. Two classes:
+
+**O1. Not Nepali (cuisine leak — should reclassify/hide, `is_nepali`):**
+
+| # / slug | Name | Suburb | Evidence |
+|----------|------|--------|----------|
+| slice-station | Slice Station | — | Pizza shop (Garlic/Margarita/Pepperoni pizzas). Not Nepali. |
+| light-of-asia-bundaberg | Light of Asia | Bundaberg QLD | Thai restaurant (roast duck curry, satay, curry puff, coconut cream). Not Nepali. |
+| munchy-monk | Munchy Monk | Northbridge NSW | Predominantly Chinese dumpling house (xiao long bao, dan dan noodles); one "beef momo". Menu is its online-ordering system. |
+
+**O2. Ordering-widget menu with NO published prices (prices load only after selecting a location/pickup-time in the cart app) — not machine-extractable.** These are the restaurant's own domain but the menu sits behind a white-label ordering widget that reveals prices only after interaction. Deep Playwright render (click Order/Menu/Pickup + try /menu /order paths) returned <20 price tokens. Recheck manually or seed from in-store photos/PDF if supplied.
+
+Examples (review_count): taste-of-the-himalayas-brighton (401), the-everest-spice-curryhouse (309), durbar-cafe-restaurant-kearneys-spring (304), thamel-chowk-restaurant-and-bar (329), aaku-momo-moments (258), kantipur-indian-nepalese-restaurant-bar (218), sarangi-kitchen-and-bar-granville (196), nepal-ghar-hurstville (194), sekuwa-house-cooks-hill (193), laphing-central-broadmeadows (291), taste-of-himalaya-ashfield (266), friends-momos-woden (285), momo-cha-harris-park (294), the-mango-tree (365), jans (344), peggys (308), plus ~25 more from the same low/no-price bucket.
+
+**O3. WooCommerce/own-site menu page rendered zero prices:** danphe-nepalese-and-indian-food-claremont-claremont (72) — `/category/starters` etc. rendered no priced products.
+
+**O4. Dead / cert-broken / DNS-fail own domains (final pass):** the-darbar-south-fremantle (SSL cert expired), the-bhatti-lounge-fortitude-valley, sherpa-nepalese-restaurant-launceston, fresh-chulo-glandore, capital-laphing-canberra-weston, 9-meal-cafe-and-nepalese-restaurant (all errored on load — timeout/cert/DNS).

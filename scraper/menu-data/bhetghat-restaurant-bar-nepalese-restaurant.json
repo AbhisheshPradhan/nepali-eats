@@ -1,0 +1,596 @@
+{
+  "slug": "bhetghat-restaurant-bar-nepalese-restaurant",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starter & Entrée",
+      "items": [
+        {
+          "name": "Chips",
+          "description": "Deep fried potato chips served with sauce.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.99
+            }
+          ]
+        },
+        {
+          "name": "Samosa",
+          "description": "Piquant appetizer prepared with crusty dough and stuffed with peas potato served with tangy tamarind sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Aloo Chop (2 pc)",
+          "description": "Mashed potato patties seasoned with Nepali spices and lightly fried.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Sausage (2pc)",
+          "description": "Mildly spiced chicken sausages grilled and served hot.",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Bhatmas Sadeko",
+          "description": "Deep fried soyabean mixed with nepali herbs and spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chatpate",
+          "description": "A tangy spicy Nepali street snack smashed with puffed rice, veggies, and zesty sauces.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Pani Puri (8 Pcs)",
+          "description": "Popular street food, potato, onion, chickpeas stuffed crispy puri drenched in sour and spicy coriander and mint flavoured water.",
+          "is_vegetarian": true,
+          "tags": [
+            "pani-puri"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Keema Noodles",
+          "description": "Stir-fried noodles mixed with minced chicken and Nepali-style spices.",
+          "tags": [
+            "keema-noodle"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Momos (10pcs)",
+          "description": "Nepal's most popular and favourite dish, dumpling filled with succulent mince served with tomato achar.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.99
+            }
+          ]
+        },
+        {
+          "name": "Mustang Aloo",
+          "description": "Chunky potatoes stir-fried with Himalayan spices for bold, earthy flavour.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Momo Platter (16pcs)",
+          "description": "Platter of steamed, fried, marinated & chilli served with tomato chutney.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29.99
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vegetarian",
+      "items": [
+        {
+          "name": "Paneer Chilli",
+          "description": "Fried paneer tossed with capsicum and onions in a spicy Indo-Nepalese chilli sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.99,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Daal Makhani",
+          "description": "Made from black lentils, finished with loads of butter and cream.",
+          "is_vegetarian": true,
+          "tags": [
+            "dal"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Sahi Paneer",
+          "description": "Soft paneer cubes cooked in a rich, creamy cashew-based gravy.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.99,
+              "protein": "paneer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nepali Cuisine",
+      "items": [
+        {
+          "name": "Goat Soup",
+          "description": "Slow cooked goat bone marrow soup.",
+          "tags": [
+            "soup"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3.99,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chowmein",
+          "description": "Stir-fried veggies with noodles, garnished with fresh herbs.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99
+            }
+          ]
+        },
+        {
+          "name": "Fry Rice",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99
+            }
+          ]
+        },
+        {
+          "name": "Biryani",
+          "description": "Choice of veg/chicken/goat cooked with long grain basmati rice together with traditional Biryani spices served with fresh Raita.",
+          "tags": [
+            "biryani"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.99
+            }
+          ]
+        },
+        {
+          "name": "Goat Tass Set",
+          "description": "Marinated goat meat with Nepalese spices and shallow fried with onion garlic and served with puff rice.",
+          "tags": [
+            "taas"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.99,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Choila Set (Chicken)",
+          "description": "Choila served with pickles, and spicy choila with puffed rice.",
+          "tags": [
+            "choila",
+            "khaja",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.99,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chicken Dishes",
+      "items": [
+        {
+          "name": "Chicken Chilli",
+          "description": "Crispy chicken pieces stir-fried in a spicy, tangy chilli sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Butter Chicken",
+          "description": "The nation's favourite chicken cooked in a harmonious blend of tomatoes with cream sauce.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Timur Chicken (Chef Special)",
+          "description": "Deep fried batter chicken tossed in dry chilli, Sichuan pepper, ginger, garlic.",
+          "tags": [
+            "timur"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chef Special Chicken Curry",
+          "description": "Slow cooked lemon pepper flavour chicken Maryland served with coconut rice.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.99,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lamb/Goat",
+      "items": [
+        {
+          "name": "Mountain Goat Curry (with bone)",
+          "description": "Chef special goat curry.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.99,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Rogan Josh",
+          "description": "Traditional lamb curry cooked in onion tomato sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.99,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fish/Seafood",
+      "items": [
+        {
+          "name": "Garlic Chilli Prawn",
+          "description": "Prawn cooked in garlic, tomatoes, onion and chilli sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.99,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Fish Curry",
+          "description": "Fish cooked in spice, herbs and onion sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.99,
+              "protein": "fish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pizza/Pasta",
+      "items": [
+        {
+          "name": "Prawn Spaghetti",
+          "description": "Prawns tossed with garlic, chilli, tomato sauce, and garnished with fresh herbs.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.99,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rice",
+      "items": [
+        {
+          "name": "Basmati Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Jeera Rice",
+          "description": "Cumin flavoured basmati rice.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Coconut Rice",
+          "description": "Rice, mustard, curry leaf, grated coconut & cream coconut.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 7.99,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bread",
+      "items": [
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3.99
+            }
+          ]
+        },
+        {
+          "name": "Butter Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3.99
+            }
+          ]
+        },
+        {
+          "name": "Cheese Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.99
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        {
+          "name": "Gulab Jamun",
+          "description": "Solid milk dumpling served in warm sugar syrup.",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.99
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "items": [
+        {
+          "name": "Soft Drink Can",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.99
+            }
+          ]
+        },
+        {
+          "name": "Lemon Lime & Bitter",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.99
+            }
+          ]
+        },
+        {
+          "name": "Lassi (mango/sweet)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.99
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "slug": "everest-eats",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Steam Momo",
+      "items": [
+        { "name": "Steam Momo", "description": "Soft and juicy Nepali dumplings, steamed to perfection and served with house-made tomato sesame achar.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 17.00, "protein": "chicken" },
+          { "label": "Chicken (1/2)", "price": 9.00, "protein": "chicken" },
+          { "label": "Paneer", "price": 17.00, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Paneer (1/2)", "price": 9.00, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 16.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Veg (1/2)", "price": 8.50, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Fried Momo",
+      "items": [
+        { "name": "Fried Momo", "description": "Crispy golden dumplings served with homemade tomato achar.", "tags": ["fried-momo"], "variants": [
+          { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+          { "label": "Chicken (1/2)", "price": 9.50, "protein": "chicken" },
+          { "label": "Paneer", "price": 18.00, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Paneer (1/2)", "price": 9.50, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 17.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Veg (1/2)", "price": 9.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Cold Jhol Momo",
+      "items": [
+        { "name": "Cold Jhol Momo", "description": "Steamed dumplings served with our signature chilled sesame, tomato and timur based Nepali jhol sauce.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 19.00, "protein": "chicken" },
+          { "label": "Chicken (1/2)", "price": 10.00, "protein": "chicken" },
+          { "label": "Paneer", "price": 19.00, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Paneer (1/2)", "price": 9.50, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 18.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Veg (1/2)", "price": 10.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Hot Jhol Momo",
+      "items": [
+        { "name": "Hot Jhol Momo", "description": "Steamed dumplings served with our signature hot Nepali jhol sauce made with sesame, tomato and timur.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+          { "label": "Chicken (1/2)", "price": 10.00, "protein": "chicken" },
+          { "label": "Paneer", "price": 18.00, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Paneer (1/2)", "price": 10.00, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 18.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Veg (1/2)", "price": 10.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Chilli Momo",
+      "items": [
+        { "name": "Chilli Momo", "description": "Crispy fried momo tossed in signature spicy chilli sauce with onion and capsicum.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 22.00, "protein": "chicken" },
+          { "label": "Paneer", "price": 22.00, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 20.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Stir-fried noodles cooked with fresh vegetables, garlic and aromatic Himalayan spices.", "tags": ["chowmein"], "variants": [
+          { "label": "Chicken", "price": 19.00, "protein": "chicken" },
+          { "label": "Veg", "price": 17.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "description": "A warm noodle soup with fresh vegetables and aromatic spices in a rich, flavourful broth.", "tags": ["thukpa"], "variants": [
+          { "label": "Chicken", "price": 21.00, "protein": "chicken" },
+          { "label": "Veg", "price": 19.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Aloo Nimki", "description": "Crispy deep-fried Nepali crackers made from flour and mashed potato mixed with diced tomato, onion, coriander, and homemade spices.", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 15.00, "protein": "veg" }] }
+      ]
+    }
+  ]
+}
