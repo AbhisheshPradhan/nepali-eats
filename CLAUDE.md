@@ -422,6 +422,22 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
 
 ### Post-launch (do AFTER launch, not blocking)
 
+- [ ] **Dedicated catering-menu model (`catering_sets` table)** — see
+      `CATERING-BACKLOG.md` for the full venue list + design note. Catering is NOT
+      menu-shaped (set/package = one per-person price + courses + choice-lists, no
+      dish line-items/variants) and must stay OUT of global dish search and à la
+      carte price facets, so build a **separate `catering_sets` table** (not the
+      menu tables, not a generic `menus` table). Dominant case is **dual venues** (a
+      normal restaurant that ALSO caters — ~22 already seeded with catering flyers
+      deliberately SKIPPED), so it must attach to a restaurant WITHOUT touching its
+      à la carte `menu_items`. Sketch: `catering_sets(restaurant_id FK, slug, title,
+      subtitle, price, price_unit, currency, courses jsonb [{heading,choices[]}],
+      notes, position, is_hidden)`; JSONB is fine here because we never query into
+      it. Detail page renders a "Catering & Events" section; migrate Prisha's 7
+      interim `menu_items` into it. **Interim until then:** ignore catering menus;
+      if one is supplied, seed it as a normal menu the way Prisha was done (one
+      priced item per set, courses in the item `description`).
+
 - [ ] **Non-destructive cropping (nice to have)** — today the admin editor crop is
       destructive: `CropModal` bakes the chosen region into a new file and the old
       one is deleted (see "Image cropping is client-side + destructive" above), so
