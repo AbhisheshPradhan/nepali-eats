@@ -7,6 +7,7 @@ import { Rating } from "@/components/ui/Rating";
 import { VenueType } from "@/components/ui/VenueType";
 import { PriceLevel } from "@/components/ui/PriceLevel";
 import { Avatar } from "@/components/Avatar";
+import { CardCarousel } from "@/components/CardCarousel";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import type { Restaurant } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
@@ -61,6 +62,12 @@ export type PlaceCardProps = {
 	// when set, renders a "View on map" button (Explore list) that centres the map
 	// on this spot instead of navigating to the detail page
 	onViewMap?: () => void;
+	// when 2+ slides result, the image slot becomes a photo carousel (Explore map
+	// popup). Fewer than 2 falls back to the single image below.
+	gallery?: string[];
+	// optional brand logo, shown as the first (contained, not cropped) slide so
+	// the venue is instantly recognisable before the food photos.
+	galleryLogo?: string | null;
 };
 
 // One card, two layouts:
@@ -80,7 +87,13 @@ export function PlaceCard({
 	noHover = false,
 	hideState = false,
 	onViewMap,
+	gallery,
+	galleryLogo,
 }: PlaceCardProps) {
+	// Carousel slides = logo (if any) first, then the food photos.
+	const carouselSlides = galleryLogo
+		? [galleryLogo, ...(gallery ?? [])]
+		: (gallery ?? []);
 	const row = variant === "row";
 	// Row cards always open in a new tab; other cards opt in via `newTab`.
 	const openNewTab = newTab ?? row;
@@ -143,7 +156,13 @@ export function PlaceCard({
 					background: `linear-gradient(135deg, hsl(${hue} 90% 62%), hsl(${(hue + 24) % 360} 85% 55%))`,
 				}}
 			>
-				{img ? (
+				{carouselSlides.length > 1 ? (
+					<CardCarousel
+						photos={carouselSlides}
+						logoFirst={!!galleryLogo}
+						alt={r.name}
+					/>
+				) : img ? (
 					<Image
 						src={img}
 						alt={r.name}

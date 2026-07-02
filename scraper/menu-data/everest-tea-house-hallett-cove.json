@@ -1,0 +1,490 @@
+{
+  "slug": "everest-tea-house-hallett-cove",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entrees",
+      "items": [
+        {
+          "name": "Chicken Momo (6pcs)",
+          "description": "Minced chicken wrapped in pastry. Steamed and served with tomato & flax seed achar.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Vegetarian Momo (6pcs)",
+          "description": "Vegetables wrapped in pastry. Steamed and served with tomato & flax seed achar.",
+          "is_vegetarian": true,
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Choila",
+          "description": "Tender chicken pieces marinated with traditional Nepali spices, Timur, turmeric, ginger, garlic, mustard oil & coriander.",
+          "tags": [
+            "choila",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka",
+          "description": "Boneless chicken marinated in yogurt, mint, spice and grilled to infuse the flavours.",
+          "tags": [
+            "tikka"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Aalu Chop",
+          "description": "Crispy golden patties of boiled potato with bahra masala spices, served with mint & yoghurt sauce.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Mushroom Choila",
+          "description": "Fresh roasted mushrooms with herbs, lemon, spring onion, tomato, capsicum & Nepalese spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "choila",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Samosa",
+          "description": "Crispy pastries with spiced potato, onion, peas & spring onions, served with mint & yoghurt sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Pappadums (5pcs)",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.05
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vegetarian",
+      "items": [
+        {
+          "name": "Daal Bhaat Tarkari",
+          "description": "Traditional platter of rice, lentils, vegetable curry, stir-fried spinach & tomato achar.",
+          "is_vegetarian": true,
+          "tags": [
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Curry (Paneer Tarkari)",
+          "description": "Homemade paneer with capsicum, onion, tomato, ginger, garlic & coriander seeds, finished with cream & butter.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.95,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Paneer",
+          "description": "Paneer marinated with garlic, ginger, lemon & masala spice, pan-fried with fresh chilli.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.5,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Mix-Vegetable Curry (Misaye Ko Tarkari)",
+          "description": "Mixed vegetables with coriander, ginger, garlic, tomato, spring onions & bahra masala.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chickpea Curry (Chana Ko Tarkari)",
+          "description": "Chickpeas, potato & cashew nuts cooked with garlic, ginger, cumin, chilli & creamed coconut.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Aalu Bodi Tama Curry",
+          "description": "Potato, black-eyed beans & bamboo shoots with tomato, cumin, chilli, ginger & garlic.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.95,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Potato",
+          "description": "Potato marinated with garlic, ginger, lemon & masala spice, pan-fried with fresh chilli.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.95,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chicken, Lamb & Goat",
+      "items": [
+        {
+          "name": "Chicken Curry (Kukhura ko Maasu)",
+          "description": "Authentic Nepali chicken curry with tomato, garlic, ginger, bay leaves, cinnamon & cardamom.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Chicken (Piro Kukhura)",
+          "description": "Chicken marinated with garlic, ginger, lemon & masala, pan-fried with fresh chilli.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Himalayan Smoked Butter Chicken",
+          "description": "Boneless chicken slow-cooked with Himalayan spices, tomato, cashew, butter & cream.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Curry",
+          "description": "Slow-cooked with tomato, onion, garlic, ginger, chilli, cardamom, cinnamon & turmeric.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.95,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Goat Curry",
+          "description": "Slow-cooked with tomato, onion, garlic, ginger, chilli, cardamom, cinnamon & turmeric.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.95,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Jalfrezi",
+          "description": "Sliced capsicum, onion, tomatoes flavour the succulent boneless chicken pieces cooked with vegetable.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Jalfrezi",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.95,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Balti",
+          "description": "Medium spiced balti dish with garlic, ginger, aromatic spices and mixed herb, served in balti bowl.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Balti",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.95,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Korma",
+          "description": "Chicken in a delicate spice, cashew nuts, coconut cooked in a creamy sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Korma",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.95,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Hot Pot",
+          "description": "Slow-cooked in spicy tomato sauce with garlic, ginger, capsicum, spring onion, lemon & chilli.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.95,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Hot Pot",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.95,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rice & Bread",
+      "items": [
+        {
+          "name": "Plain Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3.5
+            }
+          ]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5
+            }
+          ]
+        },
+        {
+          "name": "Cheese Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.5
+            }
+          ]
+        },
+        {
+          "name": "Large Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

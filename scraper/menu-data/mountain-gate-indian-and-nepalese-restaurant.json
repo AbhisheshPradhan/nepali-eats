@@ -1,0 +1,767 @@
+{
+  "slug": "mountain-gate-indian-and-nepalese-restaurant",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "The Kick Off - Vegetarian",
+      "items": [
+        {
+          "name": "Aloo Chop (2pcs)",
+          "description": "Mashed potato freshly battered and deep fried.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Cauliflower Pakoda (4pcs)",
+          "description": "Fresh cauliflower with chickpeas flour, spices, and deep fried.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Mix Pakoda (4pcs)",
+          "description": "Spinach, cauliflower, potato, onion lightly spiced and dipped in chickpeas batter.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Everest Chilli Veg MoMo",
+          "description": "Veg mince mixed with traditional Nepalese herbs and spices filled in a pastry, pan fried in spicy sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Spicy Paneer Momo (8 Pcs)",
+          "description": "Cottage cheese & vegetables mince mixed with traditional Nepalese herbs and spices filled in a pastry.",
+          "is_vegetarian": true,
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.5,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Steam Veg Momo (8 Pcs)",
+          "description": "Veg mince mixed with traditional Nepalese herbs and spices filled in a pastry.",
+          "is_vegetarian": true,
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Mushroom",
+          "description": "Fresh mushroom marinated with famous Indian herbs and cooked in the tandoori oven.",
+          "is_vegetarian": true,
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Onion Bhaji (4pcs)",
+          "description": "Julienne potato and onion mixed with chickpeas, flour, and spices and deep-fried.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Samosa (2pcs)",
+          "description": "Toasted potato and green peas with spices, plain flour, butter, rolled in triangular pancakes and deep fried.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Vegetable Platter",
+          "description": "2pcs aloo chop, 2pcs samosa, 2pcs onion bhaji, 2pcs mushroom served with salad and chutney.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "The Kick Off - Non Vegetarian",
+      "items": [
+        {
+          "name": "Fish Tikka",
+          "description": "Fish fillets marinated in yogurt and spices, cooked in tandoori oven.",
+          "tags": [
+            "tikka",
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Malai Tikka (4pcs)",
+          "description": "Pieces of boneless chicken marinated with yogurt and mild creamy spicy herbs, skewered in tandoori oven.",
+          "tags": [
+            "tikka",
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Chops",
+          "description": "Lamb cutlets marinated with rum and selected spices. Charcoal grilled in tandoori oven.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": "2pcs",
+              "price": 14,
+              "protein": "lamb"
+            },
+            {
+              "label": "4pcs",
+              "price": 26,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Steam Chicken MoMo (8 Pcs)",
+          "description": "Chicken mince mixed with traditional Nepalese herbs and spices, filled in a pastry.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Everest Chilli Chicken MoMo (8pcs)",
+          "description": "Chicken mince mixed with traditional Nepalese herbs and spices, filled in a pastry, pan fried in spicy sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mixed Grilled (10pcs)",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 40
+            }
+          ]
+        },
+        {
+          "name": "Prawn Horn Pa (4pcs)",
+          "description": "Marinated prawns wrapped in spring roll paper and deep fried. Served with sweet chilli sauce.",
+          "tags": [
+            "spring-roll"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Sheek Kebab (4pcs)",
+          "description": "Lamb mince mixed with spices, yogurt, garlic and cooked in the tandoori oven.",
+          "tags": [
+            "seekh-kebab"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Spring Rolls (2pcs)",
+          "description": "Chicken mince, vermicelli noodles and vegetables wrapped in a pastry and deep fried, served with sweet chilli sauce.",
+          "tags": [
+            "spring-roll"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Chicken",
+          "description": "Chicken marinated in Indian spices, yogurt, garlic, ginger and cooked in tandoori oven.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": "Half",
+              "price": 15,
+              "protein": "chicken"
+            },
+            {
+              "label": "Full",
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Prawns (6pcs)",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chicken Fare",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "description": "Marinated chicken cooked in clay oven and served with a sweet oriental tomato, butter, cream, cashew nut sauce. Topped with cream and almond flakes.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Chicken",
+          "description": "Slices of boneless chicken sauteed with capsicum, onion, spring onion and chillies.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Everest Pepper Chicken",
+          "description": "Tender pieces of chicken cooked with ginger, garlic & traditional Nepalese herbs, crushed pepper, garnished with fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Chilli Chicken",
+          "description": "Deep fried chicken sauteed with diced capsicum, onion and hot chilli sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Kadai Chicken",
+          "description": "Diced chicken cooked with coriander, tomato, onion, capsicum and kadai sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Korma",
+          "description": "Diced chicken cooked with herbs in creamy gravy garnished with fresh coriander and cashew nut.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Madras",
+          "description": "Boneless chicken cooked in south indian style selected spices, coconut, curry leaves.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mango Chicken",
+          "description": "Boneless chicken cooked in an onion gravy with mango puree.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Palak Chicken",
+          "description": "Boneless chicken cooked with spinach puree.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Rogni",
+          "description": "Diced chicken cooked in spices, delicate sauce and garnished with fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Sabzi Chicken",
+          "description": "Diced chicken cooked with mixed vegetables and spices garnished with fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "description": "Chicken tikka cooked with capsicum, onion, tomato, butter, cream, cashew nut sauce. Topped with cream and coriander.",
+          "tags": [
+            "curry",
+            "tikka",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Vindaloo",
+          "description": "Diced chicken cooked in spices with hot sauce, topped with fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.5,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Noodles",
+      "items": [
+        {
+          "name": "Chow Chow",
+          "description": "Stir fried chow chow with med hot spices and soy sauce.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "From The Meadows (Lamb & Goat)",
+      "items": [
+        {
+          "name": "Rogan Josh",
+          "description": "Diced lamb cooked in rich onion gravy garnished with fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Korma",
+          "description": "Diced lamb marinated with yogurt and herbs and cooked on a slow fire in a creamy sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Madras",
+          "description": "Boneless lamb cooked in South Indian style selected spices, coconut, curry leaves.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Palak Lamb",
+          "description": "Diced lamb cooked in onion gravy with spinach puree garnished with cream and ginger.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Vindaloo",
+          "description": "Diced lamb cooked with hot chilli sauce, spices and vinegar.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Mushroom Lamb",
+          "description": "Diced lamb and mushroom cooked with spices, medium sauce and finished with fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Kadai Lamb",
+          "description": "Diced lamb cooked with coriander, tomato, onion and capsicum.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Pumpkin Lamb",
+          "description": "Diced lamb cooked with pumpkin, cream and spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Style Goat Meat Curry",
+          "description": "Tender goat meat on the bone, marinated in spicy coriander, cumin and cooked with garlic, ginger, tomato and herbs.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Everest Pepper Lamb",
+          "description": "Tender pieces of diced lamb cooked with ginger, garlic & traditional Nepalese herbs, crushed pepper garnished with fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Dal Meat",
+          "description": "Diced lamb meat cooked with lentils, cream, butter and spices, finished with ginger and fresh coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rice & Breads",
+      "items": [
+        {
+          "name": "Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5
+            }
+          ]
+        },
+        {
+          "name": "Butter Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5
+            }
+          ]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5
+            }
+          ]
+        },
+        {
+          "name": "Basmati Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.5,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

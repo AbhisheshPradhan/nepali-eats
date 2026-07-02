@@ -1,0 +1,565 @@
+{
+  "slug": "crazy-momo-house",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Combos",
+      "items": [
+        {
+          "name": "Rice & Curry Combo",
+          "description": "1/2 Plain Rice with 1/2 Curry of your choice.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.5
+            }
+          ]
+        },
+        {
+          "name": "Momo Lover",
+          "description": "5pcs steamed chicken/veg momo and 5pcs Chilly Chicken/Veg Momo.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.5
+            }
+          ]
+        },
+        {
+          "name": "Couple Combo",
+          "description": "5pcs Steamed chicken/veg Momo, 1 Plain Rice, 1 Butter Chicken or Mango Chicken and 1 Garlic Naan.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 42.9
+            }
+          ]
+        },
+        {
+          "name": "Family Pack",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 80.9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Entrees",
+      "items": [
+        {
+          "name": "Fries",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.9
+            }
+          ]
+        },
+        {
+          "name": "Kids Chicken Nuggets With Fries",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Onion Pakoda (4pcs)",
+          "description": "Sliced onion wrapped in chickpea flour, served with tamarind chutney.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Veg Samosa (2pcs)",
+          "description": "Fried pastry stuffed with potatoes, onion, peas, served with tamarind chutney.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Chilli",
+          "description": "Fried paneer pieces tossed with onion, capsicum, soy, tomato, and chilli sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chilli",
+          "description": "Fried marinated chicken tossed with onion, capsicum, soy, tomato and chilli sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Pakoda (10pcs)",
+          "description": "Battered paneer, fried until crisp and served with tamarind and house special achar.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Chicken (4pcs)",
+          "description": "Spiced and marinated chicken roasted in a traditional tandoor and served with house made sauce.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Pakoda (10pcs)",
+          "description": "Prawns marinated in spices and deep fried, served with tamarind and house special achar.",
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29.9,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Choila",
+          "description": "Chicken mixed with garlic, ginger, spring onion, and variety of spices, herbs and homemade sauce.",
+          "tags": [
+            "choila",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Buff Choila",
+          "description": "Meat mixed with ginger, garlic, spring onion, a variety of spices, herbs and homemade sauce.",
+          "tags": [
+            "choila",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.9,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Papad (2pcs)",
+          "description": "Fried until crispy.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momos",
+      "items": [
+        {
+          "name": "Steamed Momos",
+          "description": "Pastry filled with mince, onion, coriander, cabbage and served with homemade chutney.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 16,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Jhol Momos",
+          "description": "Served with soup, mixture of nuts, tomato, spices, and chilli.",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 19,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 19,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chilli Momos",
+          "description": "Tossed with onion, capsicum, soy, chilli, and tomato sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 22,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 22,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Veg Curries",
+      "items": [
+        {
+          "name": "Palak Paneer",
+          "description": "Soft cheese simmered in a smooth spicy and delicious spinach gravy.",
+          "is_vegetarian": true,
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.9,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "description": "Fresh Paneer, green peas, flavoured with blend of tomatoes, spices and cream.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Mixed Vegetables",
+          "description": "Fresh mixed vegetables, cooked in a blended gravy.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Daal Fry",
+          "description": "Smoky flavoured lentils tempered with spices and ghee.",
+          "is_vegetarian": true,
+          "tags": [
+            "dal"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.9,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Non Veg Curries",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "description": "Mild to hot, silky smooth rich texture infused with buttery cream.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mango Chicken",
+          "description": "Seared chicken and fresh mango in a sweet and savoury sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Honey Chicken",
+          "description": "Marinated chicken tossed in a sweet honey-based sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Curry",
+          "description": "Typical curry stewed in onion and tomato-based sauce flavoured with ginger and garlic.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Palak",
+          "description": "Marinated chicken simmered in a smooth spicy and delicious spinach gravy.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Palak",
+          "description": "Marinated lamb simmered in a smooth spicy and delicious spinach gravy.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26.9,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Curry",
+          "description": "Typical curry stewed in onion and tomato-based sauce flavoured with ginger and garlic.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26.9,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rice",
+      "items": [
+        {
+          "name": "Plain Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Coconut Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 14.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Biryani",
+          "tags": [
+            "biryani"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 20.9,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 22.9,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Fried Rice",
+          "description": "Stir fried rice, mixed vegetables, spices and soy sauce.",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Egg",
+              "price": 17,
+              "protein": "egg"
+            },
+            {
+              "label": "Chicken",
+              "price": 18,
+              "protein": "chicken"
+            },
+            {
+              "label": "Egg and Chicken",
+              "price": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bread/Naan",
+      "items": [
+        {
+          "name": "Garlic Cheese Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6.99
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

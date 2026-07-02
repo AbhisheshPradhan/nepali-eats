@@ -1,0 +1,57 @@
+{
+  "slug": "tasty-tibetan-treats",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Lunch & Dinner",
+      "items": [
+        { "name": "Momo Mince Spring Roll", "description": "Momo seasoned lean beef mince with your choice of chilli sauce, soy sauce, sweet chilli sauce.", "tags": ["spring-roll"], "variants": [{ "label": null, "price": 15.00, "protein": "beef" }] },
+        { "name": "Momo Mince Burger", "description": "Momo seasoned lean beef mince, tasty cheese, pickle, burger sauce, served with chips and salad.", "tags": [], "variants": [{ "label": null, "price": 18.90, "protein": "beef" }] },
+        { "name": "Tasty Tibetan Beef Momo", "description": "Tibetan authentic seasoned beef mince, onion, wrapped in hand made dough served with house made chilli sauce & soy sauce (steamed, fried, $1 for pan fried).", "tags": ["momo", "tibetan"], "variants": [{ "label": "For 3", "price": 9.00, "protein": "beef" }, { "label": "For 6", "price": 16.00, "protein": "beef" }] },
+        { "name": "Tasty Tibetan Chicken Momo", "description": "Tibetan authentic seasoned chicken mince, onion, ginger, garlic, wrapped in hand made dough served with house made chilli sauce & soy sauce (steamed, fried, $1 for pan fried).", "tags": ["momo", "tibetan"], "variants": [{ "label": "For 3", "price": 9.00, "protein": "chicken" }, { "label": "For 6", "price": 16.00, "protein": "chicken" }] },
+        { "name": "Tasty Tibetan Veg Momo", "description": "Tibetan authentic seasoned mixed fresh vegetables, wrapped in hand made dough served with salad, house made chilli sauce & soy sauce (steamed, fried, $1 for pan fried).", "is_vegetarian": true, "tags": ["momo", "tibetan"], "variants": [{ "label": "For 3", "price": 8.00, "protein": "veg" }, { "label": "For 6", "price": 15.00, "protein": "veg" }] },
+        { "name": "Tasty Tibetan Beef Shapaley", "description": "Tibetan authentic street food of seasoned beef mince, onion, wrapped in hand made dough and flattened and deep fried, served with salad, house made chilli sauce & soy sauce.", "tags": ["shavale", "tibetan"], "variants": [{ "label": "For 2", "price": 12.00, "protein": "beef" }, { "label": "For 5", "price": 25.00, "protein": "beef" }] },
+        { "name": "Egg Fried Rice", "description": "Chef's special seasoned & steamed rice, fresh diced veggies, free range eggs, served with house made chilli (add beef $3 chicken $3 prawn $4.5).", "tags": ["fried-rice"], "variants": [{ "label": null, "price": 14.00, "protein": "egg" }] },
+        { "name": "Tibetan Vege Stir Fry Noodle", "description": "Angel hair noodle, wombok, bok choy, capsicum, onion served with your choice of chilli level (add beef $3 chicken $3 prawn $4.5).", "is_vegetarian": true, "tags": ["chowmein"], "variants": [{ "label": null, "price": 16.00, "protein": "veg" }] },
+        { "name": "Battered Hoki In Crispy Batter", "description": "With chips, salad and aioli.", "tags": ["fried-fish"], "variants": [{ "label": null, "price": 18.90, "protein": "fish" }] },
+        { "name": "Thenthuk", "description": "The famous hand pulled noodle common in Tibetan cuisine, with green vegies, served with chilli sauce on the side.", "tags": ["thenthuk", "tibetan"], "variants": [
+          { "label": "Veg", "price": 16.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.50, "protein": "chicken" },
+          { "label": "Beef", "price": 18.50, "protein": "beef" }
+        ] },
+        { "name": "Mothuk (Momo Soup)", "description": "Authentic hand folded Tibetan mothuk served in deeply flavorful soup with seasonal green vegetables and signature house made chilli sauce on the side.", "tags": ["jhol-momo", "tibetan"], "variants": [
+          { "label": "Beef", "price": 19.90, "protein": "beef" },
+          { "label": "Chicken", "price": 19.90, "protein": "chicken" }
+        ] },
+        { "name": "Mixed Tasty Plate", "description": "3x beef momo, 2x shapaley, 3x spring roll, fried rice.", "tags": ["momo"], "variants": [{ "label": null, "price": 29.90 }] },
+        { "name": "Mixed Tasty Momo Plates", "description": "3 beef momo, 3 chicken momo, 3 veg momo.", "tags": ["momo"], "variants": [{ "label": null, "price": 23.00 }] },
+        { "name": "Hot Chips", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Chilli Chips", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 9.50, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Kids Meals",
+      "items": [
+        { "name": "Kids Fish & Chips Meal", "tags": [], "variants": [{ "label": null, "price": 13.00 }] },
+        { "name": "Kids Chicken Nuggets & Chips Meal", "tags": [], "variants": [{ "label": null, "price": 13.00, "protein": "chicken" }] },
+        { "name": "Kids Poached Beef Meal", "tags": [], "variants": [{ "label": null, "price": 13.00, "protein": "beef" }] },
+        { "name": "Kids Chicken Mini Momo Meal", "tags": ["momo"], "variants": [{ "label": null, "price": 13.00, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Hot Beverages",
+      "items": [
+        { "name": "Chai", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Mocha", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Latte", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Hot Chocolate", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Cappuccino", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Medium Flat White", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Espresso", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Long Black", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] }
+      ]
+    }
+  ]
+}

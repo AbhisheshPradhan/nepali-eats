@@ -1,0 +1,56 @@
+{
+  "slug": "nepa-kitchen-darwin-city",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree",
+      "items": [
+        { "name": "Mixed Pakoda", "description": "Deep fried snack made with gram flour, salt, light spices and a main ingredient like onion, cabbage, carrot.", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 11.99, "protein": "veg" }] },
+        { "name": "Chatpate", "description": "Puffed rice, onion, Nepalese spices, mixed with lime.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.99, "protein": "veg" }] },
+        { "name": "Badam Sadheko", "description": "Roasted peanuts mixed with Nepalese spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 11.99, "protein": "veg" }] },
+        { "name": "Bhatmas Sadeko", "description": "Fried soybean mixed with Nepalese spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 11.99, "protein": "veg" }] },
+        { "name": "Chicken Chilli", "description": "Popular Indo-Chinese dish of chicken, mainly boneless.", "tags": ["chilli"], "variants": [{ "label": null, "price": 18.99, "protein": "chicken" }] },
+        { "name": "Chilli Fry", "description": "Chilli cheese fries, the perfect starter for a vegetarian.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 14.99, "protein": "veg" }] },
+        { "name": "Alu Chat", "description": "Street food prepared by frying potatoes and adding spices and chutney.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 14.99, "protein": "veg" }] },
+        { "name": "Fries", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Aalu Sadeko", "description": "Spicy potato salad, blended and mixed with various Nepalese herbs and spices - boiled potato, onion, green chillies and seasoning.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Pani Puri", "description": "Round hollow puri filled with flavored water, tamarind chutney, chilli, chaat masala, potato, onion or chickpeas.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Aalu Chop", "description": "Deep fried snack made from potato, mixed with Nepalese herbs and gram flour.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Puri Tarkari",
+      "items": [
+        { "name": "Puri Tarkari", "description": "Choice of Chicken or Goat curry with Puri.", "tags": ["puri"], "variants": [{ "label": "Chicken", "price": 16.99, "protein": "chicken" }, { "label": "Goat", "price": 17.99, "protein": "goat" }] },
+        { "name": "Veg Puri Tarkari", "description": "4 Pcs of puri with white soyabean usually Matar (Chole).", "is_vegetarian": true, "tags": ["puri"], "variants": [{ "label": null, "price": 15.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Chowmein & Noodles",
+      "items": [
+        { "name": "Chowmein", "description": "Nepalese style noodles mixed with seasonal vegetables.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Egg", "price": 16.99, "protein": "egg" },
+          { "label": "Buff", "price": 17.99, "protein": "buff" },
+          { "label": "Mutton", "price": 17.99, "protein": "goat" },
+          { "label": "Mixed", "price": 18.99 }
+        ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Special Basmati rice fried with seasonal vegetables and Nepa Special Spices.", "tags": ["fried-rice"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Egg", "price": 16.99, "protein": "egg" },
+          { "label": "Goat", "price": 17.99, "protein": "goat" },
+          { "label": "Mix", "price": 19.99 }
+        ] }
+      ]
+    }
+  ]
+}

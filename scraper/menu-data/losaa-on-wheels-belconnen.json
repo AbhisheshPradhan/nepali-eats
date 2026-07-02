@@ -1,0 +1,70 @@
+{
+  "slug": "losaa-on-wheels-belconnen",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steam Momo", "description": "Taste Nepalese street food.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Vegetable", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" }
+        ] },
+        { "name": "Fry Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Vegetable", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" }
+        ] },
+        { "name": "Jhol Momo", "description": "Traditional Nepalese dumplings served in a flavorful broth.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Vegetable", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" }
+        ] },
+        { "name": "Kothey Momo", "tags": ["kothey-momo"], "variants": [
+          { "label": "Vegetable", "price": 16.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17.99, "protein": "chicken" }
+        ] },
+        { "name": "Chilli Momo", "description": "Spicy Tibetan-style dumplings filled with flavourful ingredients.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Vegetable", "price": 17.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chow Mein",
+      "items": [
+        { "name": "Chow Mein", "description": "Stir-fried noodles with vegetables.", "tags": ["chowmein"], "variants": [
+          { "label": "Vegetable", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 18.99, "protein": "buff" },
+          { "label": "Mixed", "price": 20.99 }
+        ] }
+      ]
+    },
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Chicken Shyaphale (2pcs)", "tags": ["shavale"], "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }] },
+        { "name": "Spiral Potatoes (2pcs)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 13.99, "protein": "veg" }] },
+        { "name": "Aloo Nimki", "description": "Crispy potato fritters with a hint of spice.", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Sausage (2pcs)", "tags": ["sausage"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Samosa", "description": "Crispy pastry pockets filled with spiced potatoes and peas.", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 10.99, "protein": "veg" }] },
+        { "name": "Fulki", "description": "Crispy, flavorful snack.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 11.99, "protein": "veg" }] },
+        { "name": "Aloo Chop (2pcs)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.99, "protein": "veg" }] },
+        { "name": "Samosa Chaat", "description": "Crispy pastry pockets filled with spiced potatoes and chickpeas.", "is_vegetarian": true, "tags": ["chaat", "samosa"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Khaja Set",
+      "items": [
+        { "name": "Hakku Choila", "description": "Traditional Nepalese spiced grilled meat salad with herbs and mustard oil.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 24.99 }] }
+      ]
+    },
+    {
+      "name": "Kids",
+      "items": [
+        { "name": "Kids Nuggets And Chips", "description": "Crispy nuggets served with a side of chips.", "tags": [], "variants": [{ "label": null, "price": 8.99, "protein": "chicken" }] },
+        { "name": "Kids Chips", "description": "Crispy fried potato strips, perfect for kids!", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.99 }] }
+      ]
+    }
+  ]
+}

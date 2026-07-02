@@ -1,0 +1,75 @@
+{
+  "slug": "muskan-bar-and-kitchen-morningside",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree - Light Bite",
+      "items": [
+        { "name": "Chunky Chips", "description": "Chicken salt, aioli. Dairy free, vegetarian. Load me up with bacon, cheese and sour cream for an extra charge.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.00 }] },
+        { "name": "Flame Grilled Sweet Corn Cobs", "description": "Vegetarian. Cream cheese, puffed grains.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 14.00, "protein": "veg" }] },
+        { "name": "Crispy Coated Chicken Wings", "description": "Chef's secret hot sauce, ranch, shallots.", "tags": ["wings"], "variants": [{ "label": null, "price": 18.00, "protein": "chicken" }] },
+        { "name": "Lemon Pepper Calamari", "description": "Dairy free. Dill mayo, pickled onion, chili salt, fennel slaw.", "tags": [], "variants": [{ "label": null, "price": 16.00, "protein": "calamari" }] },
+        { "name": "Tossed Wai Wai Noodles", "description": "Wai Wai noodles tossed with spices, cucumber, tomatoes, coriander, peanuts and lemon juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 14.00, "protein": "veg" }] },
+        { "name": "Cucumber Sticks", "description": "Wedged cucumbers tossed in house spice, sesame and lime.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12.00, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Flavours From Nepal",
+      "items": [
+        { "name": "Chatpate", "description": "Crispy noodle salad with cucumber, tomato, onion, smashed potatoes, green peas, puffed rice, crispy bits, spices, lemon juice. Dairy free, vegetarian.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 14.00, "protein": "veg" }] },
+        { "name": "Pani Puri", "description": "Fried and puffed doughballs stuffed with potatoes, onion and chickpeas served cold with tangy tamarind sauce.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 12.00, "protein": "veg" }] },
+        { "name": "Duck Choila", "description": "Tender marinated meat, garlic chives, shallots, chillies, tossed in spicy Szechuan pepper spice served with garden salad.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 30.00, "protein": "duck" }] },
+        { "name": "Chicken Choila", "description": "Tender marinated chicken tossed in chilli, garlic, sechuan pepper, onion and served with garden salad.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 24.00, "protein": "chicken" }] },
+        { "name": "Spicy Potatoes", "description": "Spicy marinated potatoes with house made hot dipping sauce.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 14.00, "protein": "veg" }] },
+        { "name": "Buff Choila", "description": "Buffalo meat marinated and tossed in sechuan pepper, house made special sauce, ginger, garlic, chilli sauce coating served with garden salad.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 27.00, "protein": "buff" }] },
+        { "name": "Fried Sausage", "description": "Chicken sausage, chef's spice dust, house-made special chilli sauce.", "tags": ["sausage"], "variants": [{ "label": null, "price": 16.00, "protein": "chicken" }] },
+        { "name": "Chicken Sekuwa", "description": "Marinated and grilled chicken thigh pieces served with garden salad and freshly made tomato chutney.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 24.00, "protein": "chicken" }] },
+        { "name": "Lamb Sekuwa", "description": "Marinated and grilled lamb pieces served with garden salad and mint yoghurt.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 28.00, "protein": "lamb" }] },
+        { "name": "Pork Belly Sekuwa", "description": "Pork belly marinated and grilled till tender, served with garden salad and freshly made tomato chutney.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 28.00, "protein": "pork" }] }
+      ]
+    },
+    {
+      "name": "Chow Mein (Stir Fried Noodles)",
+      "items": [
+        { "name": "Chow Mein", "description": "House-made stir-fried noodles with capsicum, shallots, cabbage, onion, soy sauce, garlic chives, chickpeas.", "tags": ["chowmein"], "variants": [
+          { "label": "Vegetarian", "price": 18.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 19.00, "protein": "egg" },
+          { "label": "Chicken", "price": 20.00, "protein": "chicken" },
+          { "label": "Buff", "price": 22.00, "protein": "buff" },
+          { "label": "Mixed", "price": 25.00 }
+        ] }
+      ]
+    },
+    {
+      "name": "Momos",
+      "items": [
+        { "name": "Momo", "description": "Your choice of protein filled Nepalese pastry cooked to your liking - steamed, deep-fried or pan-fried, with peanut, coriander and tomato chutney and house special hot sauce.", "tags": ["momo"], "variants": [
+          { "label": "Vegetarian", "price": 16.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 19.00, "protein": "chicken" },
+          { "label": "Buff", "price": 21.00, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Thali",
+      "items": [
+        { "name": "Thali", "description": "Classic Nepalese dinner set with a choice of curry, veg curry, housemade pickle, wilted spinach (mustard greens), black lentil soup, rice, yoghurt, tomato chutney, papadum, carrot and cucumber.", "tags": ["thali", "dal-bhat"], "variants": [
+          { "label": "Vegetarian", "price": 32.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 33.00, "protein": "chicken" },
+          { "label": "Fish", "price": 35.00, "protein": "fish" },
+          { "label": "Pork", "price": 35.00, "protein": "pork" },
+          { "label": "Himalayan Goat", "price": 35.00, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "To Finish With",
+      "items": [
+        { "name": "Rasmalai (each)", "description": "Coconut and nut flavoured sweet delicacy with condensed milk sauce.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Gulab Jamun (each)", "description": "Sweet cardamom flavoured balls dipped in sugar syrup.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 3.50 }] }
+      ]
+    }
+  ]
+}

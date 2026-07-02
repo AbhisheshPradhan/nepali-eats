@@ -12,6 +12,13 @@ import {
 	SlidersHorizontal,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/shadcn/select";
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
 import type { Restaurant, RestaurantPin, Bbox } from "@/lib/types";
@@ -377,12 +384,25 @@ export function ExploreClient({
 	// "You may also like" only renders when the viewport fetch adds more (length > 1).
 	const isFocusView = focusId != null && shown[0]?.id === focusId;
 
+	// Count every active filter the "Filters" button stands for. On mobile Open
+	// now + Rating live inside its panel; on desktop they sit in the bar but still
+	// count as active filters, so the badge is a consistent total either way.
+	const activeFilterCount =
+		flags.length + (openOnly ? 1 : 0) + (minRating > 0 ? 1 : 0);
+	const clearAllFilters = () => {
+		setFlags([]);
+		setOpenOnly(false);
+		setMinRating(0);
+	};
+
 	return (
 		<div className="flex flex-col h-[calc(100dvh-57px)]">
 			{/* top bar */}
 			<div className="px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100 relative z-[1200]">
-				<div className="flex items-center gap-3 flex-wrap">
-					<div className="flex-[1_1_360px] max-w-[560px]">
+				<div className="flex items-center gap-3">
+					{/* flex-1 + min-w-0 lets the box shrink so "Near me" stays on the
+					    same line on narrow phones (instead of wrapping to a 2nd row). */}
+					<div className="flex-1 min-w-0 max-w-[560px]">
 						{/* Same component as the homepage hero. Pure navigation: pick a
                 suburb (recenters, shows all its spots) or a restaurant (focus).
                 Pre-filled with the current area; empty state clears, not redirects. */}
@@ -393,6 +413,8 @@ export function ExploreClient({
 							defaultValue={boxValue}
 						/>
 					</div>
+					{/* Desktop: Near me sits beside the search box. On mobile it moves
+					    into the Filters panel so the search input owns the whole row. */}
 					<Button
 						size="sm"
 						onClick={nearMe}
@@ -402,7 +424,7 @@ export function ExploreClient({
 								size={16}
 							/>
 						}
-						className="shrink-0 whitespace-nowrap"
+						className="shrink-0 whitespace-nowrap h-11 max-md:hidden"
 					>
 						Near me
 					</Button>
@@ -411,11 +433,14 @@ export function ExploreClient({
 				{/* Filter bar: primary controls always visible; attribute chips live
 				    behind the Filters toggle. Open now is computed client-side. */}
 				<div className="mt-3">
-					<div className="flex gap-x-4 gap-y-2 items-center flex-wrap">
+					{/* Mobile: one horizontally-scrollable row (bleeds to the screen
+					    edges) so the controls stay on a single thumb-swipeable line
+					    instead of eating two rows above the map. Desktop: plain wrap. */}
+					<div className="flex items-center gap-2.5 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:gap-x-4 md:gap-y-2 md:overflow-visible">
 						<button
 							onClick={() => setOpenOnly((o) => !o)}
 							className={cn(
-								"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+								"max-md:hidden shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
 								openOnly
 									? "bg-coriander-500 border-coriander-500 text-white"
 									: "bg-white border-sand-400 text-ink-700",
@@ -425,7 +450,7 @@ export function ExploreClient({
 							Open now
 						</button>
 
-						<label className="flex items-center gap-2">
+						<label className="max-md:hidden flex items-center gap-2 shrink-0">
 							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
 								Rating
 							</span>
@@ -440,41 +465,41 @@ export function ExploreClient({
 							/>
 						</label>
 
-						<label className="flex items-center gap-2">
+						<div className="flex items-center gap-2 shrink-0">
 							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
 								Sort
 							</span>
-							<div className="relative">
-								<select
-									value={sort}
-									onChange={(e) => setSort(e.target.value)}
-									className="appearance-none border-2 border-sand-400 rounded-full bg-white pl-3.5 pr-8 py-[5px] font-display font-bold text-[0.9rem] text-ink-900 cursor-pointer outline-none"
+							<Select value={sort} onValueChange={setSort}>
+								<SelectTrigger className="rounded-full border-2 border-sand-400 bg-white px-3.5 font-display font-bold text-[0.9rem] text-ink-900 shadow-none">
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent
+									position="popper"
+									sideOffset={6}
+									align="start"
+									className="rounded-lg"
 								>
-									<option value="featured">Featured</option>
-									<option value="rating">Highest rated</option>
-									<option value="newest">Newest</option>
-								</select>
-								<CaretDown
-									className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-700"
-									size={14}
-								/>
-							</div>
-						</label>
+									<SelectItem value="featured">Featured</SelectItem>
+									<SelectItem value="rating">Highest rated</SelectItem>
+									<SelectItem value="newest">Newest</SelectItem>
+								</SelectContent>
+							</Select>
+						</div>
 
 						<button
 							onClick={() => setShowFilters((s) => !s)}
 							className={cn(
-								"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-								flags.length > 0 || showFilters
+								"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+								activeFilterCount > 0 || showFilters
 									? "bg-coriander-500 border-coriander-500 text-white"
 									: "bg-white border-sand-400 text-ink-700",
 							)}
 						>
 							<SlidersHorizontal size={16} />
 							Filters
-							{flags.length > 0 && (
+							{activeFilterCount > 0 && (
 								<span className="inline-grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-white/90 text-coriander-600 text-[0.72rem] leading-none">
-									{flags.length}
+									{activeFilterCount}
 								</span>
 							)}
 							<CaretDown
@@ -488,29 +513,72 @@ export function ExploreClient({
 					</div>
 
 					{showFilters && (
-						<div className="flex flex-wrap gap-2 items-center mt-2.5">
-							{FLAG_OPTIONS.map(([token, label]) => (
+						<div className="mt-2.5">
+							{/* Mobile only: Near me + Open now + Rating live in the panel
+							    (desktop keeps them in the bar above). */}
+							<div className="md:hidden flex flex-wrap items-center gap-2 pb-3 mb-3 border-b border-paper-300">
+								<Button
+									size="sm"
+									onClick={nearMe}
+									iconLeft={
+										<NavigationArrow weight="fill" size={16} />
+									}
+									className="shrink-0"
+								>
+									Near me
+								</Button>
 								<button
-									key={token}
-									onClick={() => toggleFlag(token)}
+									onClick={() => setOpenOnly((o) => !o)}
 									className={cn(
-										"border-2 rounded-full px-3.5 py-1 cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
-										flags.includes(token)
+										"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+										openOnly
 											? "bg-coriander-500 border-coriander-500 text-white"
-											: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+											: "bg-white border-sand-400 text-ink-700",
 									)}
 								>
-									{label}
+									<Clock weight="fill" size={16} />
+									Open now
 								</button>
-							))}
-							{flags.length > 0 && (
-								<button
-									onClick={() => setFlags([])}
-									className="px-2 font-display font-bold text-[0.85rem] text-chili-600 cursor-pointer hover:underline"
-								>
-									Clear all
-								</button>
-							)}
+								<label className="flex items-center gap-2">
+									<span className="font-display font-bold text-ink-700 text-[0.9rem]">
+										Rating
+									</span>
+									<Seg
+										value={minRating}
+										onChange={setMinRating}
+										options={[
+											[0, "Any"],
+											[4, "★ 4.0+"],
+											[4.5, "★ 4.5+"],
+										]}
+									/>
+								</label>
+							</div>
+
+							<div className="flex flex-wrap gap-2 items-center">
+								{FLAG_OPTIONS.map(([token, label]) => (
+									<button
+										key={token}
+										onClick={() => toggleFlag(token)}
+										className={cn(
+											"border-2 rounded-full px-3.5 py-1 cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
+											flags.includes(token)
+												? "bg-coriander-500 border-coriander-500 text-white"
+												: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+										)}
+									>
+										{label}
+									</button>
+								))}
+								{activeFilterCount > 0 && (
+									<button
+										onClick={clearAllFilters}
+										className="px-2 font-display font-bold text-[0.85rem] text-chili-600 cursor-pointer hover:underline"
+									>
+										Clear all
+									</button>
+								)}
+							</div>
 						</div>
 					)}
 				</div>

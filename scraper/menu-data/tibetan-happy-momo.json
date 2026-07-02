@@ -1,0 +1,53 @@
+{
+  "slug": "tibetan-happy-momo",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Lunch & Dinner",
+      "items": [
+        { "name": "Tibetan Happy Plate", "description": "4x Momos, 2x Shapales, 2pcs Gyuma & Egg Fried Rice.", "tags": ["momo", "tibetan"], "variants": [{ "label": null, "price": 31.99 }] },
+        { "name": "Stir Fry Noodle", "description": "Angel hair noodle, julienned carrot, wombok, pakchoy, capsicum, onion served with your choice of chilli level.", "is_vegetarian": true, "tags": ["chowmein"], "variants": [{ "label": null, "price": 14.00, "protein": "veg" }] },
+        { "name": "Cold Noodle", "description": "Noodle, fried pakchoy, zucchini, wombok, capsicum, tomato served with house-made chilli sauce.", "is_vegetarian": true, "tags": ["chowmein"], "variants": [{ "label": null, "price": 17.00, "protein": "veg" }] },
+        { "name": "Fried Rice", "description": "Chef's special seasoned & steamed rice, fresh diced veggie, free range egg, served with house made chilli.", "tags": ["fried-rice"], "variants": [{ "label": null, "price": 13.00, "protein": "egg" }] },
+        { "name": "Handmade Gyuma", "description": "Tibetan beef fried gyuma sausage made with handmade beef mince, onion, served with house-made sauces.", "tags": ["sausage", "tibetan"], "variants": [{ "label": null, "price": 27.00, "protein": "beef" }] },
+        { "name": "Tibetan Fried Beef Shapta", "description": "Fried beef with capsicum, onion & tomatoes.", "tags": ["tibetan"], "variants": [{ "label": null, "price": 25.99, "protein": "beef" }] },
+        { "name": "Tibetan Fried Pork Shapta", "description": "Pork fried with capsicum, onion & tomatoes.", "tags": ["tibetan"], "variants": [{ "label": null, "price": 25.99, "protein": "pork" }] },
+        { "name": "Tibetan White Lhaping", "tags": ["laphing", "tibetan"], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Tibetan Yellow Dry Lhaping (handmade)", "tags": ["laphing", "tibetan"], "variants": [{ "label": null, "price": 11.50 }] },
+        { "name": "Tibetan Yellow Soup Lhaping (handmade)", "tags": ["laphing", "tibetan"], "variants": [{ "label": null, "price": 11.50 }] },
+        { "name": "Fried Mokthuk (10pcs, handmade)", "description": "Mokthuk is a type of momo, dry or deep fried, with handmade zizi momo in your preference beef or chicken.", "tags": ["fried-momo", "tibetan"], "variants": [{ "label": null, "price": 20.99 }] },
+        { "name": "Poached Mokthuk (10pcs, handmade)", "description": "Handmade zizi momo in beef or chicken broth and green veges served with chilli sauce on the side.", "tags": ["jhol-momo", "tibetan"], "variants": [{ "label": null, "price": 19.99 }] },
+        { "name": "Soup Mokthuk (10pcs, handmade)", "description": "Handmade zizi momo in beef or chicken broth and green veges served with chilli sauce on the side.", "tags": ["jhol-momo", "tibetan"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Thukpa", "description": "Tibetan traditional noodle soup with broth, beef or chicken, green veges served with chilli sauce on the side.", "tags": ["thukpa", "tibetan"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Fried Thenthuk (handpulled noodle)", "description": "The famous hand pulled noodle common in Tibetan cuisine, broth, green veges, stir fried.", "tags": ["thenthuk", "tibetan"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Vege Thenthuk (handpulled noodle)", "description": "The famous hand pulled noodle common in Tibetan cuisine, broth, green veges, served with chilli sauce.", "is_vegetarian": true, "tags": ["thenthuk", "tibetan"], "variants": [{ "label": null, "price": 13.99, "protein": "veg" }] },
+        { "name": "Tibetan Shapaley (4pcs, handmade)", "description": "Authentic Tibetan meat pie, a popular street food of seasoned beef mince, wombok, onion, celery, wrapped in hand made dough and flattened, deep fried.", "tags": ["shavale", "tibetan"], "variants": [{ "label": null, "price": 22.99, "protein": "beef" }] },
+        { "name": "Vege Pan Fried Momo (6pcs, handmade)", "is_vegetarian": true, "tags": ["kothey-momo"], "variants": [{ "label": null, "price": 14.00, "protein": "veg" }] },
+        { "name": "Vege Steamed Momo (6pcs, handmade)", "is_vegetarian": true, "tags": ["steamed-momo"], "variants": [{ "label": null, "price": 13.00, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Summer Special",
+      "items": [
+        { "name": "Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.00 }] },
+        { "name": "Soda Spider", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.00 }] },
+        { "name": "Smoothies", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.50 }] },
+        { "name": "Milkshakes", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.00 }] },
+        { "name": "Thick Shakes", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.50 }] }
+      ]
+    },
+    {
+      "name": "Beverages",
+      "items": [
+        { "name": "Selection of Teas", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Cold Coffee", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.00 }] },
+        { "name": "Cappuccino", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Cafe Latte", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Flat White", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] },
+        { "name": "Long Black", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.00 }] }
+      ]
+    }
+  ]
+}

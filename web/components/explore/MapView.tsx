@@ -96,6 +96,12 @@ export default function MapView({
   const mapRef = useRef<MapRef>(null);
   const [cursor, setCursor] = useState("");
   const [popup, setPopup] = useState<RestaurantPin | null>(null);
+  // Gallery for the open popup's carousel, lazy-loaded per spot (pins carry only
+  // one photo). Cached by slug so reopening the same pin doesn't refetch.
+  type Gallery = { logo: string | null; photos: string[] };
+  const [gallery, setGallery] = useState<Gallery>({ logo: null, photos: [] });
+  // plain record, not a Map — `Map` is the react-map-gl component in this file.
+  const galleryCache = useRef<Record<string, Gallery>>({});
   const activeId = selectedId ?? hoveredId ?? -1;
   // true once the visitor has actually panned/zoomed. Until then we (re)emit the
   // settled bounds on every `idle` so the list scopes to the real viewport even
@@ -147,6 +153,34 @@ export default function MapView({
     lastAutoSelect.current = selectedId;
     setPopup(pin);
   }, [selectedId, pins]);
+
+  // Lazy-load the open spot's gallery for the popup carousel.
+  useEffect(() => {
+    const slug = popup?.slug;
+    if (!slug) {
+      setGallery({ logo: null, photos: [] });
+      return;
+    }
+    const cached = galleryCache.current[slug];
+    if (cached) {
+      setGallery(cached);
+      return;
+    }
+    setGallery({ logo: null, photos: [] }); // reset while the new spot loads
+    let cancelled = false;
+    fetch(`/api/restaurants/${slug}/photos`)
+      .then((r) => r.json())
+      .then((d: { logo?: string | null; photos?: string[] }) => {
+        if (cancelled) return;
+        const g: Gallery = { logo: d.logo ?? null, photos: d.photos ?? [] };
+        galleryCache.current[slug] = g;
+        setGallery(g);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [popup?.slug]);
 
   // When the map becomes visible (mobile list→map toggle), the container has just
   // gone from display:none to its full height. Resize on the next frame so the
@@ -307,6 +341,8 @@ export default function MapView({
             </button>
             <PlaceCard
               r={{ ...popup, openingHours: null }}
+              gallery={gallery.photos}
+              galleryLogo={gallery.logo}
               className="w-[230px]"
               newTab
               noHover

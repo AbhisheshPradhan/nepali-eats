@@ -1,0 +1,552 @@
+{
+  "slug": "the-momos-more-cafe-restaurant-claremont",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Nepalese Specialties / Khaja Set",
+      "items": [
+        {
+          "name": "Thakali Khana Set",
+          "description": "A traditional Nepali set meal featuring dal, rice, vegetable curry, meat curry (optional), pickles, and a yogurt dessert.",
+          "tags": [
+            "thakali",
+            "dal-bhat"
+          ],
+          "variants": [
+            {
+              "label": "Vegetarian",
+              "price": 39.6,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 39.6,
+              "protein": "chicken"
+            },
+            {
+              "label": "Goat",
+              "price": 39.6,
+              "protein": "goat"
+            },
+            {
+              "label": "Fish",
+              "price": 39.6,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tass (Chitwan Ko Tass)",
+          "description": "Tender pieces cooked slowly in a rich spiced broth, marinated with garlic, ginger, cumin, coriander, garam masala and local spices.",
+          "tags": [
+            "taas"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24.2,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Goat Tass (Chitwan Ko Tass)",
+          "description": "Tender pieces of goat cooked slowly in a rich spiced broth, marinated with garlic, ginger, cumin, coriander, garam masala and local spices.",
+          "tags": [
+            "taas"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26.4,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Sekuwa",
+          "description": "Grilled marinated chicken cooked in tandoori oven served with a side of chutney and fresh salad.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23.1,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Goat Sekuwa",
+          "description": "Grilled marinated goat cooked in tandoori oven served with a side of chutney and fresh salad.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.3,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Choila",
+          "description": "A classic Nepali treat, choila offers an irresistible combination of smoky grilled meat and aromatic spices.",
+          "tags": [
+            "choila",
+            "newari"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Buff Sukuti",
+          "description": "Traditional Nepali dried meat marinated in garlic, ginger, cumin, coriander and chilli then slow-cooked until tender.",
+          "tags": [
+            "sukuti"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.3,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chilli",
+          "description": "Boneless chicken stir-fried until crispy, then tossed in a spicy, tangy sauce with soy, chilli, garlic, ginger, green chillies and bell peppers.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.8,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mushroom Chilli",
+          "description": "Fresh mushrooms sauteed until golden and crispy then tossed in a zesty sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.9,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Chilli",
+          "description": "Paneer lightly fried to golden brown then tossed in a flavourful sauce of soy, chilli, garlic, ginger and vinegar.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.9,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Macha Tarako (Fried Fish)",
+          "description": "Fried fish tossed with Nepalese mixed spices served with salad and house chutney.",
+          "tags": [
+            "fried-fish"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.9,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Sitan Platter",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 93.5
+            }
+          ]
+        },
+        {
+          "name": "Sizzler",
+          "tags": [
+            "sizzler"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 27.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Appetizers",
+      "items": [
+        {
+          "name": "Nepalese-style Fried Chicken Sausage",
+          "description": "Juicy, flavourful sausages served with a tangy dipping sauce and a side of fresh chutney.",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.4,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Samosa Chaat",
+          "description": "Crispy golden samosas crumbled and topped with cooling yogurt and fresh herbs.",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat",
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Badam Sadeko",
+          "description": "Crunchy roasted soybeans tossed in a tangy dressing of mustard oil, turmeric, cumin and chilli powder, garnished with onions, coriander and lime.",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Pani Puri",
+          "description": "Crisp puris filled with a spicy, tangy medley of potatoes, chickpeas, and a refreshing mint-coriander water.",
+          "is_vegetarian": true,
+          "tags": [
+            "pani-puri"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.4,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Momos And More Special Chatpate",
+          "description": "Puffed rice, boiled potatoes, chickpeas, and a medley of fresh veggies like onions, tomatoes and cilantro.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.4,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momos",
+      "items": [
+        {
+          "name": "Steamed Momo",
+          "description": "Delicate dumplings filled with finely chopped chicken or vegetables, herbs and spices, steamed to perfection and served with dipping chutney.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 17.6,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 17.6,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Jhol Momo",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 18.7,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 18.7,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Kothe Momo (Pan-fried Momo)",
+          "tags": [
+            "kothey-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 18.7,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 18.7,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Chili Momo",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 19.8,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 19.8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Sadeko Momo",
+          "tags": [
+            "sandheko-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 19.8,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 19.8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Fried Momo",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 19.8,
+              "protein": "chicken"
+            },
+            {
+              "label": "Veg",
+              "price": 19.8,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        },
+        {
+          "name": "Goat Soup Momo",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Half Momo Veg",
+          "is_vegetarian": true,
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Momo Platter",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 93.5
+            }
+          ]
+        },
+        {
+          "name": "Momo Platter For 2",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 44
+            }
+          ]
+        },
+        {
+          "name": "Mixed Platter (Big Platter)",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 88
+            }
+          ]
+        },
+        {
+          "name": "Me Time Platter",
+          "description": "5 pieces of momo, half chowmein and half chatpatey.",
+          "tags": [
+            "momo",
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Popular Curries & Sides",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29.7,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Goat Curry (Authentic Nepalese Curry)",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29.7,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Saag",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29.7,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7
+            }
+          ]
+        },
+        {
+          "name": "Steamed Basmati Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.5,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

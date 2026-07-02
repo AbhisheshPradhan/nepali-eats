@@ -1,0 +1,59 @@
+{
+  "slug": "momo-ghar",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Smoked and Grilled Meats",
+      "items": [
+        { "name": "Chicken Chhoila (Served Cold)", "description": "Charcoal grilled marinated chicken meat tossed on fresh ginger and garlic, marinated in mustard oil, and homemade roasted Himalayan herbs and spices.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 14.99, "protein": "chicken" }] },
+        { "name": "Chicken Chhoila Khaja Set", "description": "Comes with Nepali style achar, beaten rice, salads, bhatmas and peanut sadheko, chicken chhoila.", "tags": ["choila", "khaja", "newari"], "variants": [{ "label": null, "price": 19.99, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Chips and Rice",
+      "items": [
+        { "name": "Chilli Chips", "description": "Fried chips tossed with veggies and authentic tomato sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 10.99, "protein": "veg" }] },
+        { "name": "Fried Rice", "description": "Rice fried with flavour of Nepalese herbs and spices.", "tags": ["fried-rice"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Nepalese style stir fried noodles sauteed with veggies, chickpeas, garlic, ginger, soy sauce, and Nepalese herbs and spices.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" },
+          { "label": "Mix", "price": 18.99 }
+        ] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo", "description": "Comes with Nepalese style homemade sauce.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 15.99, "protein": "buff" }
+        ] },
+        { "name": "Fried Momo", "description": "Comes with Nepalese style homemade sauce.", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Jhol Soup Momo", "description": "Steamed momo served with the authentic soup made of roasted peanut, sesame seeds, brown soybean and roasted tomatoes.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Chilly Momo", "description": "Fried momo tossed with authentic sauce, Nepalese chilli sauce and veggies.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 17.99, "protein": "buff" }
+        ] }
+      ]
+    }
+  ]
+}

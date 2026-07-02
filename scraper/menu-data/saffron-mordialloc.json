@@ -1,0 +1,658 @@
+{
+  "slug": "saffron-mordialloc",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starters",
+      "items": [
+        {
+          "name": "Samosa (2pcs)",
+          "description": "Homemade pastry pyramids stuffed with lightly spiced peas and potatoes.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Pappadam (6pcs)",
+          "description": "Lentil wafers.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Papadi Chaat",
+          "description": "Crispy wheat wafers topped with spiced potatoes, chickpeas, cool yoghurt and drizzled with sweet tamarind and spicy mint chutneys.",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Onion Bhaji",
+          "description": "Shredded onions, mixed with chickpea flour & deep fried.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Tikka Starter",
+          "description": "Marinated cottage cheese cooked in tandoor.",
+          "is_vegetarian": true,
+          "tags": [
+            "tikka",
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Steam Chicken Momo (8pcs)",
+          "description": "Chicken dumplings steamed nepalese style.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Chicken Momo (8pcs)",
+          "description": "Chicken dumplings steamed then tossed with chilli and spices.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mushroom Tandoori",
+          "description": "Fresh mushrooms marinated with tandoori sauce, mixed with delicate herbs and spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Starter",
+          "description": "Boneless chicken marinated with tandoori sauce, special herbs and light spices, cooked in tandoori oven.",
+          "tags": [
+            "tikka",
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Chicken Starter (4pcs)",
+          "description": "Yogurt-marinated tandoori chicken, roasted in a tandoori oven with Indian herbs and spices.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Seekh Kebab Starter",
+          "description": "Minced lamb marinated with fresh spices, rolled onto skewers and cooked in a tandoori oven.",
+          "tags": [
+            "seekh-kebab"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Cutlets",
+          "description": "Lamb cutlets, marinated in special spices and roasted in a tandoori oven.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Fish Tikka Starter (4pcs)",
+          "description": "Tandoori-oven cooked rockling fillet, marinated in cumin seeds and spices.",
+          "tags": [
+            "tikka",
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Tikka Starter (6pcs)",
+          "description": "Tiger prawns marinated in special homemade sauce mixed with cumin seeds and spices cooked in the Tandoori Oven.",
+          "tags": [
+            "tikka",
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Saffron Tandoori Platter",
+          "description": "2pcs assortment of chicken tikka, 2pcs tandoori chicken, 2pcs lamb cutlets and 2pcs seekh kebab.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Saffron All Favourite",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "description": "Mild. Our famous Butter Chicken cooked with tomato sauce and organic full cream.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Rogan Josh",
+          "description": "Diced lamb in a fresh coriander garnished onion gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "description": "Chicken Tikka sauté with onion, capsicum & tomato cooked in masala sauce with fresh spring onion.",
+          "tags": [
+            "curry",
+            "tikka",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Pepper Chilli Lamb",
+          "description": "Lamb cooked with garlic, pepper, and chilli in a spicy, homemade hot sauce with onion gravy & vegetable.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Pepper Chilli Beef",
+          "description": "Beef cooked with garlic, pepper, and chilli in a spicy, homemade hot sauce with onion gravy & vegetable.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Pepper Chilli Goat",
+          "description": "Goat cooked with garlic, pepper, and chilli in a spicy, homemade hot sauce with onion gravy & vegetable.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Himalayan Goat Curry",
+          "description": "Authentic Nepalese style Goat Curry with bones.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Harabhara Lamb",
+          "description": "Tender lamb simmered with spinach, basil, and fresh coriander, finished with a touch of lime juice.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Chilli Chicken",
+          "description": "Crispy chicken fillets tossed with garlic, onion, capsicum, and green chilli in our chef's special spices.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Prawn Curry",
+          "description": "Tiger prawns cooked with fresh garlic and onion sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Goat Saag",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Chilli Paneer",
+          "description": "Cottage cheese pan-fried with onion, capsicum, tomato, chilli and chef's special spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Cutlet Masala",
+          "description": "Tandoori cutlets cooked with thick gravy. Chef Special.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 36,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Chilli Prawns",
+          "description": "King Prawns pan-fried with onion, capsicum, tomato, chilli and chef's special spices.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Seafood Dishes",
+      "items": [
+        {
+          "name": "Goan Fish Curry",
+          "description": "Goan curry with tender fish fillets, simmered in a tangy and aromatic sauce with coconut milk and a blend of coastal spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Fish Vindaloo",
+          "description": "Rockling fillet and potatoes cooked with very hot chilli sauce garnished with coriander.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Vindaloo",
+          "description": "Succulent prawns and potatoes simmered in a fiery Goan vindaloo sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Coconut Malabari",
+          "description": "Succulent prawns simmered in a very mild, creamy coconut sauce with a blend of aromatic malabari spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vegetable Curries",
+      "items": [
+        {
+          "name": "Dal Tadka",
+          "is_vegetarian": true,
+          "tags": [
+            "dal"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Aloo Gobi",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Aloo Saag",
+          "description": "Spinach cooked with potatoes and cumin seeds.",
+          "is_vegetarian": true,
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Kadai",
+          "description": "Indian cottage cheese stir-fried with onion and capsicum in a spicy, semi-dry curry.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Palak Paneer",
+          "description": "Tender Indian cottage cheese cubes simmered in a rich, pureed spinach and spice gravy.",
+          "is_vegetarian": true,
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Dal Makhani",
+          "is_vegetarian": true,
+          "tags": [
+            "dal"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Aloo Baigan",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Malai Kofta",
+          "description": "Delicate cottage cheese, potato & dry fruit dumplings simmered in a rich, creamy gravy and fresh coriander.",
+          "is_vegetarian": true,
+          "tags": [
+            "kofta"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tandoori Bread",
+      "items": [
+        {
+          "name": "Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

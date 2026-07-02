@@ -51,8 +51,8 @@ is per-request: a "commit" on one change does NOT carry over to later changes.
 
 ## Production stack & deployment (LIVE — core stack deployed)
 The site is live at **nepali-eats.vercel.app** (Vercel test domain). Neon DB,
-Vercel, and R2 media are all up and serving; remaining work is the custom domain,
-Cloudflare edge, and the SEO consoles (see checklist below).
+Vercel, and R2 media are all up and serving; remaining work is the custom domain
+(DNS on Vercel) and the SEO consoles (see checklist below).
 Chosen low-cost launch setup (about $0/mo until traffic or commercial scale):
 - **Host:** Vercel (Hobby, free). Next.js native, SSR for SEO.
 - **DB:** Neon (free). Managed Postgres with PostGIS; the raw-SQL `node-postgres`
@@ -61,9 +61,20 @@ Chosen low-cost launch setup (about $0/mo until traffic or commercial scale):
   `/admin` or Neon's SQL editor.
 - **Media:** Cloudflare R2 (free tier, free egress). Photos and menus via
   `NEXT_PUBLIC_MEDIA_BASE`. Kept off Supabase/Neon because R2 egress is free.
-- **Edge:** Cloudflare in front (DNS, CDN cache, bot protection, www to apex).
+- **DNS + edge:** **Vercel** (DNS pointed straight at Vercel; its CDN, SSL, and
+  platform DDoS protection are enough for launch). Decided 2026-07-02 to SKIP a
+  Cloudflare proxy in front for now: it's free but adds setup quirks (must use SSL
+  "Full (strict)" or you get redirect loops, plus double-CDN cache fights with
+  Vercel's ISR). Revisit the Cloudflare front-of-site layer LATER, when scrapers
+  hit the directory or we're on Vercel Pro and want to cap usage overages — its
+  Super Bot Fight Mode + cache would absorb traffic before Vercel's meter. Note:
+  this only affects DNS/proxy; **R2 media stays on Cloudflare regardless** (free
+  egress), so a Cloudflare account is still in the stack for storage only.
 - First real bill is the DB (about $19 Neon paid or $25 Supabase Pro) only when
-  traffic outgrows free; Vercel Pro ($20) only if it becomes commercial.
+  traffic outgrows free. **Vercel Pro ($20/mo) is triggered by COMMERCIAL use, not
+  traffic** — Hobby's terms bar monetized sites, so the day we monetize (featured
+  placements, catering/event leads, FoodHub, ads) we must move to Pro regardless of
+  traffic volume.
 
 Deploy status:
 - [x] Neon: project created, PostGIS enabled, schema + data loaded. `DATABASE_URL`
@@ -74,10 +85,12 @@ Deploy status:
       (`pub-6334a35f40da4f7fb1e3f948b1e0dbc1.r2.dev`). Public reads serve 200.
 - [x] Vercel: repo imported (root `web/`), env vars set, deployed to
       **nepali-eats.vercel.app**. Custom domain still TODO.
-- [ ] Custom domain (still on the `.vercel.app` test URL; `NEXT_PUBLIC_SITE_URL`
-      still `localhost`, update it when the real domain lands so canonicals are right).
-- [ ] Cloudflare: DNS in front of Vercel, cache rules, Super Bot Fight Mode
-      (skip Googlebot), www to apex 301.
+- [ ] Custom domain on **Vercel** (add the domain in Vercel, point the registrar's
+      DNS at Vercel, do the www→apex redirect in Vercel; still on the `.vercel.app`
+      test URL). Then set `NEXT_PUBLIC_SITE_URL` to the real domain so canonicals are right.
+- [ ] (LATER, not launch) Optional Cloudflare proxy in front of Vercel for bot
+      protection + cache — deferred; revisit when scrapers/traffic or Vercel Pro
+      overages make it worth the setup. R2 media already on Cloudflare either way.
 - [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
       Explore, `/api/*`, and the geo homepage dynamic.
 - [ ] Search Console + Bing Webmaster + GA4; submit sitemap (see LAUNCH.md).

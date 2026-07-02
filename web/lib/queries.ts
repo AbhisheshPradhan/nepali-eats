@@ -298,6 +298,43 @@ export async function getRestaurantBySlug(
 	return { ...base, photos: mapped };
 }
 
+// Ordered gallery photo keys for ONE restaurant (cover first, then gallery by
+// position). Lean on purpose: the Explore popup carousel lazy-loads this per open
+// spot, so the map's `pins` payload doesn't have to carry a photo array per pin.
+export async function restaurantGallery(
+	slug: string,
+): Promise<{ logo: string | null; photos: string[] }> {
+	const rows = await query<{
+		logo_key: string | null;
+		cover_key: string | null;
+		gallery: string[];
+	}>(
+		`SELECT r.logo_key, r.cover_key,
+		        COALESCE(
+		          array_agg(p.storage_key ORDER BY p.is_primary DESC, p.position ASC, p.id ASC)
+		            FILTER (WHERE p.storage_key IS NOT NULL),
+		          '{}'
+		        ) AS gallery
+		   FROM restaurants r
+		   LEFT JOIN restaurant_photos p
+		     ON p.restaurant_id = r.id AND NOT p.removed
+		  WHERE r.slug = $1
+		  GROUP BY r.id, r.logo_key, r.cover_key`,
+		[slug],
+	);
+	if (!rows.length) return { logo: null, photos: [] };
+	const { logo_key, cover_key, gallery } = rows[0];
+	// cover first (it may be a standalone cover not present in the gallery rows),
+	// then the rest, de-duped, capped so a huge gallery can't bloat the popup. The
+	// logo is returned separately so the carousel can render it contained (a brand
+	// mark), not cropped like a photo.
+	const ordered = [cover_key, ...gallery].filter((k): k is string => !!k);
+	const photos = Array.from(new Set(ordered))
+		.filter((k) => k !== logo_key)
+		.slice(0, 10);
+	return { logo: logo_key, photos };
+}
+
 // Full menu (categories -> items -> variants) for ONE restaurant. Detail-page only —
 // deliberately NOT joined into card/pin/explore queries (those stay lean). Returns
 // categories ordered by position, each with its visible items + priced variants;

@@ -1,0 +1,79 @@
+{
+  "slug": "newy-momo-chaa",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Tandoori Chicken (2 Pieces)", "tags": ["tandoori"], "variants": [{ "label": null, "price": 21.50, "protein": "chicken" }] },
+        { "name": "Vegetable Samosa Chat", "is_vegetarian": true, "tags": ["chaat", "samosa"], "variants": [{ "label": null, "price": 20.50, "protein": "veg" }] },
+        { "name": "Vegetable Samosa (2 Pieces)", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 12.50, "protein": "veg" }] },
+        { "name": "Vegetable Pakauda (5 Pieces)", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 20.50, "protein": "veg" }] },
+        { "name": "Chicken Spring Rolls (5 Pieces)", "tags": ["spring-roll"], "variants": [{ "label": null, "price": 20.50, "protein": "chicken" }] },
+        { "name": "Chicken Nibbles (5 Pieces)", "tags": [], "variants": [{ "label": null, "price": 20.50, "protein": "chicken" }] },
+        { "name": "Pani Puri (6 Pieces)", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 16.50, "protein": "veg" }] },
+        { "name": "Dahi Puri (6 Pieces)", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 18.50, "protein": "veg" }] },
+        { "name": "Papadum (4pcs)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Nuggets (10 Pieces)", "tags": [], "variants": [{ "label": null, "price": 18.50, "protein": "chicken" }] },
+        { "name": "Fries (Large)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 16.50 }] }
+      ]
+    },
+    {
+      "name": "Chillies",
+      "items": [
+        { "name": "Chicken Chilly", "tags": ["chilli"], "variants": [{ "label": null, "price": 27.90, "protein": "chicken" }] },
+        { "name": "Aloo Chilly", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 25.90, "protein": "veg" }] },
+        { "name": "Paneer Chilly", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 29.90, "protein": "paneer" }] },
+        { "name": "Chicken Sausage Chilly", "tags": ["chilli", "sausage"], "variants": [{ "label": null, "price": 25.90, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Mo:Mo (Nepalese Style Dumplings)",
+      "items": [
+        { "name": "Steamed Mo:mo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 24.90, "protein": "chicken" },
+          { "label": "Veg", "price": 24.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 25.90, "protein": "buff" }
+        ] },
+        { "name": "Pan Fried Mo:mo", "tags": ["kothey-momo"], "variants": [
+          { "label": "Chicken", "price": 25.90, "protein": "chicken" },
+          { "label": "Veg", "price": 25.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 26.90, "protein": "buff" }
+        ] },
+        { "name": "Deep Fried Mo:mo", "tags": ["fried-momo"], "variants": [
+          { "label": "Chicken", "price": 25.90, "protein": "chicken" },
+          { "label": "Veg", "price": 25.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 26.90, "protein": "buff" }
+        ] },
+        { "name": "Jhol Mo:mo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 27.90, "protein": "chicken" },
+          { "label": "Veg", "price": 27.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 28.90, "protein": "buff" }
+        ] },
+        { "name": "Chilly Mo:mo", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 28.90, "protein": "chicken" },
+          { "label": "Veg", "price": 28.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 29.90, "protein": "buff" }
+        ] },
+        { "name": "Mo:mo Platter (18 Pieces)", "tags": ["momo"], "variants": [
+          { "label": "Chicken", "price": 42.50, "protein": "chicken" },
+          { "label": "Veg", "price": 42.50, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 44.50, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein (Nepalese Style Stir Fried Noodles)",
+      "items": [
+        { "name": "Chowmein", "tags": ["chowmein"], "variants": [
+          { "label": "Vegetable", "price": 23.90, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 24.90, "protein": "chicken" },
+          { "label": "Egg", "price": 24.90, "protein": "egg" },
+          { "label": "Mixed", "price": 26.90 }
+        ] }
+      ]
+    }
+  ]
+}

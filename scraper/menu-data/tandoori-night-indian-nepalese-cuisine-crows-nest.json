@@ -1,0 +1,969 @@
+{
+  "slug": "tandoori-night-indian-nepalese-cuisine-crows-nest",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entrees",
+      "items": [
+        {
+          "name": "Aalu Chop",
+          "description": "Four pieces. Chutney spiced mashed potatoes deep fried with chickpeas batter. Served with tomato chutney.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chilli",
+          "description": "Diced chicken thigh fillets marinated and deep fried, cooked in garlic, tomato, soya and chilli sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Lollipop",
+          "description": "Spiced mid chicken wings, deep fried with the gram and corn flour batter. Served with sauce.",
+          "tags": [
+            "lollipop"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Momo",
+          "description": "Ten pieces. Steamed spiced chicken mince mixed with ginger, garlic, cumin, coriander dumpling. Served with the momo sauce.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Sekuwa",
+          "description": "Diced chicken marinated with Nepalese spices and cooked in clay oven.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka",
+          "description": "Chicken thigh fillet marinated in a yoghurt base sauce and spiced and cooked evenly on skewers in clay ovens. Served with mint.",
+          "tags": [
+            "tikka"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Ghandruk Chicken Fry",
+          "description": "Spiced thinly sliced chicken and shallow fried with the flour batter. Served with mint sauce.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 14,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Cutlet",
+          "description": "Lamb cutlet marinated in a yoghurt base sauce and spiced and cooked evenly on skewers in clay oven. Served with mint sauce.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Sekuwa",
+          "description": "Diced lamb marinated with Nepalese spices and cooked in clay oven.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Malekhu Fish Fry",
+          "description": "Spiced sliced fish marinated with spice and shallow fried with chickpeas batter.",
+          "tags": [
+            "fried-fish"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Onion Bhaji",
+          "description": "Spiced and deep fried chopped onion marinated with chickpeas and corn flour. Served with pakora sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Chilli",
+          "description": "Cottage cheese marinated and deep fried, cooked in garlic, tomato, soya and chilli sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Tikka",
+          "description": "Four pieces. Cottage cheese marinated with spice and yoghurt cooked in tandoor. Served with mint sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "tikka",
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Butterfly",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Chilli",
+          "description": "King prawns marinated and deep fried, cooked in garlic, tomato, soya and chilli sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Prawn",
+          "description": "Six pieces. King prawn marinated in a yoghurt base sauce and spiced and cooked evenly on skewers in clay oven. Served with mint.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Yarsa Aalu",
+          "description": "Diced potatoes cooked with Nepalese spices. Served with coriander.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 14,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mains",
+      "items": [
+        {
+          "name": "Beef Korma",
+          "description": "Diced beef cooked in cashew and almond gravy, laced with mild spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Madras",
+          "description": "Diced beef cooked in coconut cream, mustard seed, curry leaves, onion sauce with ginger, garlic, cumin, coriander and garam masala.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Vindaloo",
+          "description": "Pieces of beef cooked in a spicy vindaloo gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Butter Chicken",
+          "description": "Tandoor cooked chicken thigh fillet cooked with tomato based creamy sauce.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Kadia",
+          "description": "Diced chicken thigh fillet cooked with ginger, garlic, cumin, coriander, diced onion and capsicum.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Korma",
+          "description": "Diced chicken thigh fillet cooked in cashew and almond gravy, laced with mild spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Madras",
+          "description": "Diced chicken thigh fillets cooked in coconut cream, mustard seed, curry leaves, onion sauce with spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 23,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "description": "Tandoor cooked chicken tikka cooked with onion, tomato, capsicum, herbs and spices.",
+          "tags": [
+            "curry",
+            "tikka",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Vindaloo",
+          "description": "Pieces of chicken thigh fillets cooked in a spicy vindaloo gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 22,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Ghandruk Chicken Curry",
+          "description": "Diced chicken thigh fillet cooked with ginger, garlic, cumin, coriander, pepper in tomato, yoghurt and onion sauce.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Korma",
+          "description": "Diced lamb cooked in cashew and almond gravy, laced with mild spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Rogan Josh",
+          "description": "Diced lamb cooked in a tomato onion sauce with ginger, garlic, cumin, coriander and garam masala.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Shank",
+          "description": "Lamb shank cooked in a tomato onion sauce with ginger, garlic, cumin, coriander and garam masala.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Shiraz",
+          "description": "Diced lamb in a mild masala sauce with spices, cream and a touch of red wine.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Vindaloo",
+          "description": "Pieces of lamb cooked in a spicy vindaloo gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Madras Fish",
+          "description": "Diced ling fish fillet cooked in coconut cream, mustard seed, curry leaves, onion sauce with spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Mountain Goat Curry",
+          "description": "Diced goat with bone cooked with Nepalese herbs and spices with tomato and onion gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Sarabi",
+          "description": "King prawns cooked in mild masala sauce with spices, cream and a touch of brandy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Prawn Tikka Masala",
+          "description": "King prawns cooked with onion, tomato, capsicum and herbs.",
+          "tags": [
+            "curry",
+            "tikka",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Silly Yak",
+          "description": "Diced yak meat cooked in sauce with ginger, garlic, cumin, coriander and garam masala.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 52
+            }
+          ]
+        },
+        {
+          "name": "Trishuli Fish Curry Masala",
+          "description": "Diced ling fish cooked in tomato based sauce with ginger, garlic and garam masala.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "fish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vegetarian Mains",
+      "items": [
+        {
+          "name": "Aloo Gobi",
+          "description": "Diced potatoes and cauliflower cooked with spices in a thick gravy.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Daal",
+          "description": "Yellow lentils cooked with chopped onions, light spices, sauteed with ginger, garlic and coriander.",
+          "is_vegetarian": true,
+          "tags": [
+            "dal"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Eggplant Potato",
+          "description": "Diced potatoes and eggplant cooked with spices in a thick gravy.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Palak Paneer",
+          "description": "Cottage cheese cubes and spinach cooked with Indian spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Vegetable Vindaloo",
+          "description": "Chopped mixed vegetables cooked in a spicy vindaloo gravy.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chow Mein",
+      "items": [
+        {
+          "name": "Chow Mein",
+          "description": "Boiled noodles shallow fried with tomato, soya sauce, Nepalese herbs and spices.",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 22,
+              "protein": "chicken"
+            },
+            {
+              "label": "Vegetable",
+              "price": 20,
+              "protein": "veg",
+              "is_vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Biryanis",
+      "items": [
+        {
+          "name": "Biryani",
+          "description": "Basmati rice made with biryani spices. Served with raita sauce.",
+          "tags": [
+            "biryani"
+          ],
+          "variants": [
+            {
+              "label": "Vegetables",
+              "price": 22,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 23,
+              "protein": "chicken"
+            },
+            {
+              "label": "Goat",
+              "price": 26,
+              "protein": "goat"
+            },
+            {
+              "label": "Lamb",
+              "price": 26,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        {
+          "name": "Boiled Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Chef Special Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        },
+        {
+          "name": "Saffron Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Plain Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Butter Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5
+            }
+          ]
+        },
+        {
+          "name": "Cheese Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Cheese and Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7
+            }
+          ]
+        },
+        {
+          "name": "Peshawari Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Meat Naan",
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7
+            }
+          ]
+        },
+        {
+          "name": "Paratha",
+          "is_vegetarian": true,
+          "tags": [
+            "roti"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7
+            }
+          ]
+        },
+        {
+          "name": "Roti",
+          "is_vegetarian": true,
+          "tags": [
+            "roti"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        {
+          "name": "Gulab Jumun",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Rashbary",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Rice Pudding",
+          "is_vegetarian": true,
+          "tags": [
+            "dessert"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Condiments",
+      "items": [
+        {
+          "name": "Mango Chutney",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        },
+        {
+          "name": "Mint Sauce",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        },
+        {
+          "name": "Papadum",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        },
+        {
+          "name": "Raita",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 0.5
+            }
+          ]
+        },
+        {
+          "name": "Spicy Onion",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

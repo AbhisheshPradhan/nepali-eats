@@ -1,0 +1,80 @@
+{
+  "slug": "momo-star",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Chow Mein (Fry Noodles)",
+      "items": [
+        { "name": "Chow Mein", "description": "Stir fry noodles served with capsicum, cabbage, carrot, spring onion, red onion.", "tags": ["chowmein"], "variants": [
+          { "label": "Chicken", "price": 16.00, "protein": "chicken" },
+          { "label": "Egg", "price": 16.00, "protein": "egg" },
+          { "label": "Vegetarian", "price": 16.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Combo", "price": 18.00 }
+        ] },
+        { "name": "Thukpa", "tags": ["thukpa"], "variants": [
+          { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+          { "label": "Veg", "price": 18.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Chilli Momo", "tags": ["chilli-momo"], "variants": [{ "label": "Chicken", "price": 18.00, "protein": "chicken" }] },
+        { "name": "Momo Platter", "tags": ["momo"], "variants": [
+          { "label": "Chicken", "price": 26.00, "protein": "chicken" },
+          { "label": "Veg", "price": 26.00, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Side",
+      "items": [
+        { "name": "Sausage", "tags": ["sausage"], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Chatpate", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8.00, "protein": "veg" }] },
+        { "name": "Chips Chilli", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 15.00, "protein": "veg" }] },
+        { "name": "Sausage Chilli", "tags": ["chilli", "sausage"], "variants": [{ "label": null, "price": 16.00 }] },
+        { "name": "Paneer Chilli", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 18.00, "protein": "paneer" }] },
+        { "name": "Piro Timure Alu / Spicy Sichuan Potato", "is_vegetarian": true, "tags": ["timur"], "variants": [{ "label": null, "price": 10.00, "protein": "veg" }] },
+        { "name": "Fries", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 7.00 }] },
+        { "name": "Popcorn Chicken Chilli", "tags": ["chilli"], "variants": [{ "label": null, "price": 18.00, "protein": "chicken" }] },
+        { "name": "Panipuri", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 15.00, "protein": "veg" }] },
+        { "name": "Alu Chop (2 pieces)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8.00, "protein": "veg" }] },
+        { "name": "Fulki (Hot Pani Puri, 6 pieces)", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 15.00, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fry Rice", "tags": ["fried-rice"], "variants": [
+          { "label": "Chicken", "price": 17.00, "protein": "chicken" },
+          { "label": "Egg", "price": 17.00, "protein": "egg" },
+          { "label": "Veg", "price": 17.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Combo", "price": 18.00 }
+        ] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Gulab Jamun", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Kheer", "description": "Creamy dessert made with rice and milk.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 8.00 }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Masala Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Diet Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Mountain Dew", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Sunkist", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Solo", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Water Bottle", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] }
+      ]
+    }
+  ]
+}

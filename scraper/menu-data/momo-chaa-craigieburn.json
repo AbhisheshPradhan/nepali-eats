@@ -1,0 +1,81 @@
+{
+  "slug": "momo-chaa-craigieburn",
+  "source": "admin",
+  "price_source": "ordering",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Veg Entree",
+      "items": [
+        { "name": "Chatpate", "description": "Nepalese style jhalmuri/bhelpuri; puffed rice with finely chopped onion, coriander and other spices.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] },
+        { "name": "Puchka", "description": "Nepalese style panipuri. Spicy/sour, not sweet.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": "6pcs", "price": 7.99 }, { "label": "12pcs", "price": 12.99 }] },
+        { "name": "Veg Flavour Wai Wai Sandeko", "description": "Nepalese instant noodle marinated with spices, chopped onion, and lime.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] },
+        { "name": "Piro Aalo", "description": "Very very hot. Boiled potato cooked in homemade spicy sauce.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Non-Veg Entree",
+      "items": [
+        { "name": "Chilli Chicken Entree", "description": "Fried chicken tossed in chilli sauce with garlic, capsicum, onion and spring onion.", "tags": ["chilli"], "variants": [{ "label": null, "price": 13.99, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo", "description": "Dumplings filled with your choice of protein mixed with vegetables and spices served with delicious sauces.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" },
+          { "label": "Paneer", "price": 18.99, "protein": "paneer", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Chilli Momo",
+      "items": [
+        { "name": "Chilli Momo", "description": "Steamed or deep fried momo coated in chilli sauce and mixed with capsicum, onion, spring onion and coriander.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+          { "label": "Buff", "price": 19.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Half Plate Momos",
+      "items": [
+        { "name": "Half Plate Steamed Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 9.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 9.99, "protein": "chicken" },
+          { "label": "Buff", "price": 11.99, "protein": "buff" }
+        ] },
+        { "name": "Half Plate Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 10.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 10.99, "protein": "chicken" },
+          { "label": "Buff", "price": 12.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Wok fried noodles with vegetables and your choice of protein.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 16.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 17.99, "protein": "egg" },
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+          { "label": "Buff", "price": 19.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Beverage",
+      "items": [
+        { "name": "Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Soft Drink", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Fanta", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Coke No Sugar", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] }
+      ]
+    }
+  ]
+}
