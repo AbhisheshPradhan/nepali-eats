@@ -415,3 +415,5 @@ Onion Pakora $9.50, veg steamed momo $12.99, thali $22.99-25.99). Range $2.50-$2
 - aloo-bodi-tama (dish, Newari potato + black-eyed-pea + bamboo-shoot) — Galli Kitchen (Aalu Bodi Tama) — currently tagged []
 - aloo-chop (dish, spiced mashed-potato croquette) — Galli Kitchen (Aalu Chop) — currently tagged []
 - piro-aalu (dish, spicy potato snack) — Galli Kitchen (Piro Aalu) — currently tagged []
+- fulki (dish, regional pani-puri/golgappa; listed separately from pani puri) — Mul Chowk Kitchen Sydney (Butwal Ko Fulki) — currently tagged []
+- pangra (dish, fried chicken giblets/gizzards; distinct from bhutan=goat offal) — Namaste Ashfield (Pangra Fry, Pangra Set) — currently tagged []

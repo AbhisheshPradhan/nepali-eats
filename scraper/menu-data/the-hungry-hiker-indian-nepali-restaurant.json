@@ -1,0 +1,1379 @@
+{
+  "slug": "the-hungry-hiker-indian-nepali-restaurant",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entrée",
+      "items": [
+        {
+          "name": "Vegetarian Samosa (2pc)",
+          "description": "Pastry filled with mashed potatoes, green peas and light spices.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Potato Bonda (4pc)",
+          "description": "Spiced mashed potatoes, hand rolled and fried to golden perfection.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 11,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Onion Bhaji (4pc)",
+          "description": "Lightly spiced onion fritters with a crisp finish.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Campers Mixed Pakoda (4pc)",
+          "description": "Golden fritters of seasonal vegetables - the ultimate fireside snack.",
+          "is_vegetarian": true,
+          "tags": [
+            "pakora"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Fingers",
+          "description": "Cottage cheese coated in a spiced batter and fried to perfection.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Mushrooms",
+          "description": "Mushrooms marinated with famous spices and yoghurt then roasted.",
+          "is_vegetarian": true,
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Chicken",
+          "description": "Marinated in aromatic spices and yoghurt, roasted in a traditional oven.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": "Half (4pc)",
+              "price": 28,
+              "protein": "chicken"
+            },
+            {
+              "label": "Full (8pc)",
+              "price": 34,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka (4pc)",
+          "description": "Marinated in aromatic spices and yoghurt then grilled.",
+          "tags": [
+            "tikka"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Seek Kebab (4pc)",
+          "description": "Succulent spiced mince pressed around a skewer, gently roasted.",
+          "tags": [
+            "seekh-kebab"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Momo (8pc)",
+          "description": "Steamed Nepali dumplings filled with spiced minced chicken.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Pepper Momo / Chilli Momo (8pc)",
+          "description": "Dumplings tossed in a Nepali sauce & sautéed with capsicums, onions; option of spicy or spicy chilli finish.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24
+            }
+          ]
+        },
+        {
+          "name": "Hungry Tandoori Platter",
+          "description": "Combination of tandoori classics.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": "Half (4pc)",
+              "price": 40
+            },
+            {
+              "label": "Full (8pc)",
+              "price": 75
+            }
+          ]
+        },
+        {
+          "name": "Roasted Rockling",
+          "description": "Fish marinated in yogurt and aromatic spices, roasted to perfection.",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Lamb Cutlets (4pc)",
+          "description": "Marinated with spices and yoghurt, slow roasted with charred finish.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Tandoori Prawns (6pc)",
+          "description": "Marinated in traditional spices, then lightly roasted with a slight char.",
+          "tags": [
+            "tandoori"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dips, Dips and Bits",
+      "items": [
+        {
+          "name": "Mixed Pickles",
+          "description": "A combination of Indian pickles adding a tangy kick to your meal.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Mint Chutney",
+          "description": "A refreshing sauce of yogurt and zesty mint, perfect as a cooling dip.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Tamarind Chutney",
+          "description": "Sweet and tangy condiment made from tamarind and date pulp.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Mango Chutney",
+          "description": "Made from ripe mangoes, vinegar, and a mix of warming spices.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5
+            }
+          ]
+        },
+        {
+          "name": "Spicy Chutney",
+          "description": "Fresh tomato, mint and coriander chutney with a slight chilli flavour.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5
+            }
+          ]
+        },
+        {
+          "name": "Papadums (4pc)",
+          "description": "Crispy Indian wafers.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 5
+            }
+          ]
+        },
+        {
+          "name": "Raita Yoghurt",
+          "description": "Grated cucumber and carrot mixed with sweetened natural yogurt.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Kachumber Salad",
+          "description": "Cucumber, onion, tomatoes, coriander with lemon juice and spices.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chicken Specialty",
+      "description": "Upsize your main to a larger portion for +$4.",
+      "items": [
+        {
+          "name": "Village Chicken Curry",
+          "description": "Slow-cooked curry, in traditional spices and a rich, rustic gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Garden Chicken",
+          "description": "Village-style curry, cooked with a medley of seasonal vegetables.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Lentil Creamy Chicken",
+          "description": "Chicken and mixed lentils simmered with cream and assorted spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Vindaloo",
+          "description": "Bold and tangy curry with potatoes cooked in vinegar and fiery spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Spicy Piro Piro Chicken",
+          "description": "A fiery hot Nepali village-style curry, in a bold blend of spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Authentic Potato Chicken",
+          "description": "Simmered to perfection with tender chicken and potatoes.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Golden Pumpkin Chicken",
+          "description": "Simmered in a rich, aromatic curry sauce with pumpkin.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Chennai",
+          "description": "Simmered in a coconut-based gravy with curry leaves and spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 24,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Spinach",
+          "description": "Simmered in a spinach purée, gently spiced for a rich and nourishing curry.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Korma",
+          "description": "In a silky, creamy, aromatic sauce with a blend of mild delicate spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Butter Chicken",
+          "description": "In a rich, creamy tomato and sweet buttery sauce infused with spices.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Gurkha Chilli Chicken",
+          "description": "Bold, spicy chicken with a rich chilli flavour.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Kathmandu Chicken",
+          "description": "With sautéed onion, capsicum, chilli spices and cooked in a stir-fry style.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Cashew Mushroom",
+          "description": "Simmered in a blend of spices, cream, mushrooms and roasted cashew nuts.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Princess Chicken Pasanda",
+          "description": "A royal dish simmered in an aromatic creamy sauce with mild spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Mango Chicken",
+          "description": "In a rich, velvety mango sauce with a hint of tangy spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Jalfrezi",
+          "description": "Stir-fried medley of spices, capsicums, onions, and tomatoes.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "description": "Grilled to perfection and simmered in a rich, tomato-based sauce with onion and capsicum.",
+          "tags": [
+            "curry",
+            "tikka",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tasha's Saucepan (Fish & Seafood)",
+      "items": [
+        {
+          "name": "Nepali Fish Curry",
+          "description": "Rockling fish fillets are simmered with spices in a rich, aromatic gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Tropical Coconut Fish",
+          "description": "Rockling fillets in a spiced coconut curry with fragrant coastal flavours.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Fish Masala",
+          "description": "Spiced fish simmered with onions and capsicum for a savoury flavour.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Garlic Chilli Prawns",
+          "description": "Sautéed with garlic, onions, tomatoes, and capsicum, spiced with chilli.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Lakeside Chilli Fish",
+          "description": "Spicy dish with sautéed onions, ripe tomatoes, and colourful capsicums.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29,
+              "protein": "fish"
+            }
+          ]
+        },
+        {
+          "name": "Tiger Prawn Curry",
+          "description": "In a rich curry sauce, blending coastal flavours with tender seafood.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Butter Prawns",
+          "description": "In a sweet, mild, creamy tomato-butter sauce with aromatic spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Ocean Prawn Masala",
+          "description": "In a robust spiced masala with sautéed onions, capsicum, tomatoes.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30,
+              "protein": "prawn"
+            }
+          ]
+        },
+        {
+          "name": "Coriander Pepper Prawns",
+          "description": "With black pepper and coriander, offering an aromatic and herby flavour.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 30,
+              "protein": "prawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lamb Lovers",
+      "items": [
+        {
+          "name": "Lamb Rogan Josh",
+          "description": "Slow-cooked for hours with aromatic spices in a rich, flavourful gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 27,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Authentic Potato Lamb",
+          "description": "Simmered to perfection with the hearty addition of potatoes.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 27,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Vindaloo",
+          "description": "Bold and tangy curry with potatoes cooked in vinegar and fiery spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 27,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Sherpa Lamb",
+          "description": "Diced and mixed lamb, and green peas cooked in traditional Nepali style.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 27,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Bhuna Lamb",
+          "description": "Spiced lamb, finished with onion and capsicum for deep, hearty flavours.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 27,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Korma",
+          "description": "In a silky, creamy, aromatic sauce with a blend of mild delicate spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Lamb Chennai",
+          "description": "Simmered in a coconut-based gravy with curry leaves and spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Spinach Lamb",
+          "description": "Simmered in a spinach purée, gently spiced for a rich and nourishing curry.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Handy Lamb Pasanda",
+          "description": "A royal dish simmered in an aromatic creamy sauce with mild spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        },
+        {
+          "name": "Everest Pepper Lamb",
+          "description": "A signature dish featuring tender lamb, marinated in Himalayan spices, slow cooked for hours, finished with black pepper.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "lamb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brilliant Beef",
+      "items": [
+        {
+          "name": "Belgrave Beef Curry",
+          "description": "A flavourful curry featuring slow-cooked Aussie beef and fragrant spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Authentic Potato Beef",
+          "description": "Simmered to perfection with the hearty addition of potatoes.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Vindaloo",
+          "description": "Bold and tangy curry with potatoes cooked in vinegar and fiery spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Mushroom",
+          "description": "Cooked with earthy mushrooms in a savoury, aromatic gravy.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Valley Chilli Beef",
+          "description": "With sautéed onion, capsicum, chilli spices and cooked in a stir-fry style.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Korma",
+          "description": "In a silky, creamy, aromatic sauce with a blend of mild delicate spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Spinach Beef",
+          "description": "Simmered in a spinach purée, gently spiced for a rich and nourishing curry.",
+          "tags": [
+            "saag"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Chennai",
+          "description": "Simmered in a coconut-based gravy with curry leaves and spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Pumpkin Australia",
+          "description": "Simmered in a rich, aromatic curry sauce with pumpkin.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Pepper Beef",
+          "description": "With black pepper, stir-fried with onion, capsicum, and aromatic herbs.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Royal Beef Pasanda",
+          "description": "A royal dish simmered in an aromatic creamy sauce with mild spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        },
+        {
+          "name": "Beef Masala",
+          "description": "With spices in a rich, tomato-based masala with onion and capsicum.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 26,
+              "protein": "beef"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Himalayan Goat",
+      "items": [
+        {
+          "name": "Mountain Chilli Goat",
+          "description": "Tender goat tossed with onion, capsicum, spices, and fiery chilli sauce.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Forest Goat Masala",
+          "description": "With onion, capsicum, and a fragrant blend of traditional Himalayan spices.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Grand Goat Curry",
+          "description": "A festive dish from our home village, slow-cooked goat simmered in aromatic Nepali spices; rich, tender, and full of tradition.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 28,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Drinks - Non Alcoholic",
+      "items": [
+        {
+          "name": "Sparkling Water",
+          "description": "Mineral, Tonic or Soda.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Soft Drinks",
+          "description": "Coke, Coke Zero, Fanta, Lemonade, Solo.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5
+            }
+          ]
+        },
+        {
+          "name": "Juice",
+          "description": "Orange, Apple, Pineapple, Tropical.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        },
+        {
+          "name": "Ginger Beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        },
+        {
+          "name": "Raspberry Lemonade",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        },
+        {
+          "name": "Lemon Lime Bitters",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        },
+        {
+          "name": "Lime 'n' Soda",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 7
+            }
+          ]
+        },
+        {
+          "name": "Mango Lassi",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Masala Chai Tea",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Drinks - Alcoholic",
+      "items": [
+        {
+          "name": "Aussie Beer",
+          "description": "Crown Lager, VB, Carlton Draught, Cascade Light, James Boags, Great Northern (Zero Alcohol).",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Foreign Friends",
+          "description": "Kingfisher (India), Asahi (Japan), Corona (Mexico).",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12
+            }
+          ]
+        },
+        {
+          "name": "Pale & Playful",
+          "description": "Little Creatures.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12
+            }
+          ]
+        },
+        {
+          "name": "Cider",
+          "description": "Apple or Rose.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12
+            }
+          ]
+        },
+        {
+          "name": "Scotch / Bourbon / Brandy",
+          "description": "Straight / on rocks; add mixer (Coke, Ginger Ale, Soda, Lemonade) +$4.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20
+            }
+          ]
+        },
+        {
+          "name": "Vodka",
+          "description": "Straight / on rocks; add mixer +$4.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20
+            }
+          ]
+        },
+        {
+          "name": "Gin",
+          "description": "Straight / on rocks; add mixer +$4.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20
+            }
+          ]
+        },
+        {
+          "name": "Red Wine (glass)",
+          "description": "Merlot, Shiraz, Cabernet Sauvignon, Pinot Noir.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16
+            }
+          ]
+        },
+        {
+          "name": "White Wine (glass)",
+          "description": "Chardonnay, Sauvignon Blanc, Pinot Grigio.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 14
+            }
+          ]
+        },
+        {
+          "name": "Sparkling Wine",
+          "description": "Henkell Dry-Sec Sparkling Piccolo 200ml, Brown Brothers Prosecco 200ml.",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "slug": "jerysolti-auburn",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Signature Sets",
+      "items": [
+        { "name": "JPT - Jerry Puri Tarkari", "tags": ["puri"], "variants": [
+          { "label": "Small", "price": 15 },
+          { "label": "Large", "price": 20 }
+        ] },
+        { "name": "Samosa Tarkari Set", "description": "2 pcs samosa, tarkari, 1 pc jerry, tea.", "tags": ["samosa"], "variants": [{ "label": null, "price": 15 }] },
+        { "name": "Selroti Tarkari Set", "description": "2 pcs selroti, tarkari, 1 pc jerry, tea.", "tags": ["sel-roti"], "variants": [{ "label": null, "price": 15 }] }
+      ]
+    },
+    {
+      "name": "Light & Street Specials",
+      "items": [
+        { "name": "Aluchop", "description": "3 pcs fried spiced mashed potato.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12, "protein": "veg" }] },
+        { "name": "Chicken Steam Momo", "description": "10 pcs dumplings.", "tags": ["steamed-momo"], "variants": [{ "label": null, "price": 14, "protein": "chicken" }] },
+        { "name": "Chicken Sausage (3 pcs)", "tags": ["sausage"], "variants": [{ "label": null, "price": 12, "protein": "chicken" }] },
+        { "name": "Rabdi", "description": "Jerry special sauce.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 8 }] }
+      ]
+    },
+    {
+      "name": "Amilo Piro",
+      "items": [
+        { "name": "Chatpat", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12, "protein": "veg" }] },
+        { "name": "Chau Chau Chatpat", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12, "protein": "veg" }] },
+        { "name": "Chicken Chatpat", "tags": [], "variants": [{ "label": null, "price": 15, "protein": "chicken" }] },
+        { "name": "Alu Chatpat", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12, "protein": "veg" }] },
+        { "name": "Panipuri", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 12, "protein": "veg" }] },
+        { "name": "Dahi Puri", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 15, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Individual Items",
+      "items": [
+        { "name": "Jerry", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 2 }] },
+        { "name": "Puri", "is_vegetarian": true, "tags": ["puri"], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Selroti", "is_vegetarian": true, "tags": ["sel-roti"], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Samosa", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Sausage", "tags": ["sausage"], "variants": [{ "label": null, "price": 5 }] }
+      ]
+    },
+    {
+      "name": "Jerry Specials",
+      "items": [
+        { "name": "Jerry with Rabdi", "is_vegetarian": true, "tags": ["dessert"], "variants": [
+          { "label": "5 pcs (with small rabdi)", "price": 10 },
+          { "label": "10 pcs (with small rabdi)", "price": 14 },
+          { "label": "Half Kilo (with small rabdi)", "price": 25 },
+          { "label": "1 Kilo (with large rabdi)", "price": 40 }
+        ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Milk Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Soft Drinks", "tags": ["drinks"], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 1 }] }
+      ]
+    }
+  ]
+}

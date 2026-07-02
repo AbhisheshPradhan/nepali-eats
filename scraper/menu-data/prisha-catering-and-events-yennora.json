@@ -1,0 +1,85 @@
+{
+  "slug": "prisha-catering-and-events-yennora",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Set Menu 1",
+      "items": [
+        {
+          "name": "Set Menu 1 (1 course, per person)",
+          "description": "Entrees: Pulau; Chicken Curry/Goat Curry; Mix Veg/Aalu Tama; Tomato Achar/Mix Achar; Rajma/Mattar Paneer; Papad/Spring Roll. Price excluding GST. Catering for groups of 15 or more; event bookings minimum 20 guests.",
+          "tags": ["pulao", "curry", "rajma", "spring-roll"],
+          "variants": [ { "label": null, "price": 18.00 } ]
+        }
+      ]
+    },
+    {
+      "name": "Set Menu 2",
+      "items": [
+        {
+          "name": "Set Menu 2 (1 course, per person)",
+          "description": "Entrees: Furandhana; Chicken Choila/Chicken Roast; Mix Achar/Aalu Sadeko; Springroll/Papad/Prawn; Pulau/Jira Rice; Goat Curry/Chicken Curry; Mix Veg/Aalu Tama/Rajma; Tomato Achar/Rasbari. Price excluding GST. Catering for groups of 15 or more; event bookings minimum 20 guests.",
+          "tags": ["choila", "sandheko", "spring-roll", "pulao", "curry", "rajma", "dessert"],
+          "variants": [ { "label": null, "price": 24.00 } ]
+        }
+      ]
+    },
+    {
+      "name": "Set Menu 3",
+      "items": [
+        {
+          "name": "Set Menu 3 (2 course, per person)",
+          "description": "Entrees: Furandana/Bhuteko Chiura; Mix Achar/Aalu Sadeko; Chicken Choila/Chicken Roast/Chicken Chilli; Soyabinko Achar/Bhatmas Sadeko; Papad/Spring Roll. Main Meal: Pulau/Jira Rice; Goat Curry/Chicken Curry; Mattar Paneer/Rajma; Aalu Tama Bodi/Mix Veg; Tomato Achar; Rasbari. Price excluding GST. Catering for groups of 15 or more; event bookings minimum 20 guests.",
+          "tags": ["choila", "chilli", "sandheko", "spring-roll", "pulao", "curry", "rajma", "dessert"],
+          "variants": [ { "label": null, "price": 28.00 } ]
+        }
+      ]
+    },
+    {
+      "name": "Set Menu 4",
+      "items": [
+        {
+          "name": "Set Menu 4 (2 course, per person)",
+          "description": "Entrees: Furandhana/Bhuteko Chiura; Mix Achar/Aalu Sadeko; Chicken Choila/Goat Choila/Buff Choila; Chiken Chilli/Patato Chilli; Papad/Spring Roll/Bhatmas Sadeko; MoMo/Chiken Roast/Fish Fry. Main Meal: Pulau/Jira Rice; Goat Curry/Chicken Curry/Lamb Curry; Mattar Paneer/Rajma; Aalu Tama Bodi/Mix Veg; Rasbari/Gajar Ko Haluwa/Fruit Salad. Price excluding GST. Catering for groups of 15 or more; event bookings minimum 20 guests.",
+          "tags": ["choila", "chilli", "sandheko", "spring-roll", "momo", "fried-fish", "pulao", "curry", "rajma", "dessert"],
+          "variants": [ { "label": null, "price": 30.00 } ]
+        }
+      ]
+    },
+    {
+      "name": "Set Menu 5",
+      "items": [
+        {
+          "name": "Set Menu 5 (2 course, per person)",
+          "description": "Entrees: Furandhana/Bhuteko Chiura; Mix Achar/Aalu Sadeko; Chicken Choila/Goat Choila/Buff Choila; Chicken Chilli/Patato Chilli/Paneer Chilli; Papad/Spring roll/Prawn; Chiken Roast/Fish Fry; Bhatmas Sadeko; Bhutan/MoMo. Main Meal: Pulau/Jira Rice/Plain Rice; Goat Curry/Chicken Curry/Lamb Curry; Fish curry/Butter Chicken; Mattar Paneer/Rajma; Aalu Tama Bodi/Mix veg; Rasbari With Yoghurt/Gajar Ko Haluwa/Fruit Salad. Price excluding GST. Catering for groups of 15 or more; event bookings minimum 20 guests.",
+          "tags": ["choila", "chilli", "sandheko", "spring-roll", "fried-fish", "bhutan", "momo", "pulao", "curry", "butter-chicken", "rajma", "dessert"],
+          "variants": [ { "label": null, "price": 37.00 } ]
+        }
+      ]
+    },
+    {
+      "name": "Set Menu 6",
+      "items": [
+        {
+          "name": "Set Menu 6 (2 course, per person)",
+          "description": "Entrees: Furandhana/Bhuteko Chiura; Mix Achar/Aalu Sadeko; Chicken Choila/Goat Choila/Buff Choila/Pork Choila; Chicken Chilli/Pork Chilli/Patato Chilli/Paneer Chilli; Papad/Spring Roll/Bhatmas Sadeko; Chikden Roast/Fish Fry; Goat Sekuwa/Lamb Sekuwa/Chicken Tandoori; Bhutan/Sukuti Sadeko; Mo:Mo Chilli/Mo:Mo Steam/Mo:Mo Fry. Main Meal: Pulau/Jira Rice/Plain Rice; Goat Curry/Chicken Curry/Lamb Curry; Fish curry/Butter Chicken; Mattar Paneer/Rajma; Aalu Tama Bodi/Mix veg; Rasbari With Yoghurt/Gajar Ko Haluwa/Fruit Salad/Rasmalai. Price excluding GST. Catering for groups of 15 or more; event bookings minimum 20 guests.",
+          "tags": ["choila", "chilli", "spring-roll", "sandheko", "fried-fish", "sekuwa", "tandoori", "bhutan", "sukuti", "steamed-momo", "fried-momo", "chilli-momo", "pulao", "curry", "butter-chicken", "rajma", "dessert"],
+          "variants": [ { "label": null, "price": 45.00 } ]
+        }
+      ]
+    },
+    {
+      "name": "Kid's Menu",
+      "items": [
+        {
+          "name": "Kid's Menu (per person)",
+          "description": "Chicken Nugget, Chips, Chowmein. Price excluding GST.",
+          "tags": ["chowmein"],
+          "variants": [ { "label": null, "price": 10.00 } ]
+        }
+      ]
+    }
+  ]
+}

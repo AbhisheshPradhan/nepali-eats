@@ -1,0 +1,1301 @@
+{
+  "slug": "durbar-cafe-restaurant-kearneys-spring",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entrée",
+      "items": [
+        {
+          "name": "Chicken Sausage (3 pc)",
+          "description": "Marinated with ginger, garlic and chili finished with Nepalese spices and mustard oil, fenugreek seed. Served with Momo or chili sauce.",
+          "tags": [
+            "sausage"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Pani Puri (8 pc)",
+          "description": "Puffed balls stuffed with spiced potatoes and peas served with mint water on side for dipping.",
+          "is_vegetarian": true,
+          "tags": [
+            "pani-puri"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Veg Spring Roll",
+          "description": "Spring roll filling with wok fried noodles and vegetable served with tomatoes ketchup or dumpling sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "spring-roll"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Chatpate",
+          "description": "A medium spicy mixture of puffed rice, roasted soybeans, diced onions, tomatoes, crunchy Waiwai noodles, green onions, Nepalese pickles, crushed crunchy puffed balls along with chili spices and lemon.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Vegetarian Samosa (3pc)",
+          "description": "Crispy pastry stuffed with spiced potatoes and peas, served with spicy mint chutney and sweet tamarind chutney.",
+          "is_vegetarian": true,
+          "tags": [
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Bhatmas Sadheko (Vegetarian)",
+          "description": "A roasted Bhatmas (soybeans) mixed up with diced onions, tomatoes, green onions, Nepalese pickles with chili spices & lemon.",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Wings (8 pc)",
+          "description": "Traditional chicken wings deep fried and blended with our homemade sauce with mixed bell pepper, red onions, and coriander.",
+          "tags": [
+            "wings"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 12.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Spicy Nepalese Wings",
+          "tags": [
+            "wings"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 15.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Samosa Chat (Vegetarian)",
+          "description": "Samosa spiced mixed topped with chickpea, tamarind, yogurt, raita, and coriander.",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat",
+            "samosa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Dahi Puri",
+          "description": "Puris stuffed with spiced potatoes and mildly sweetened dahi – plain yogurt, sweet tamarind chutney, spicy green chutney and other spice powders.",
+          "is_vegetarian": true,
+          "tags": [
+            "chaat"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 13.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Piro Aalu",
+          "description": "Traditional spicy potatoes toast with nepalese spices.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.99,
+              "protein": "veg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spicy Nepalese Snack",
+      "description": "All these are medium hot to spicy.",
+      "items": [
+        {
+          "name": "Wai Wai Sadheko (Veg)",
+          "is_vegetarian": true,
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 11.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Pork Sadheko",
+          "tags": [
+            "sandheko"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Pork Sekuwa",
+          "description": "Nepalese style grill meat, served with Nepalese chutney.",
+          "tags": [
+            "sekuwa"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Sukuti",
+          "description": "Dried buffalo meat cooked with Nepalese spice.",
+          "tags": [
+            "sukuti"
+          ],
+          "variants": [
+            {
+              "label": "Sukuti",
+              "price": 20.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Sukuti Set",
+              "price": 24.99,
+              "protein": "buff"
+            }
+          ]
+        },
+        {
+          "name": "Chicken 65",
+          "tags": [
+            "chicken-65"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99,
+              "protein": "chicken"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chilli Items",
+      "description": "Add rice $3.",
+      "items": [
+        {
+          "name": "Chicken Chilli",
+          "description": "Boneless chicken marinated with spices, cooked in chili chicken sauce with bell peppers, red onion, and tomatoes.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Pork Chilli",
+          "description": "Boneless pork marinated with spices, cooked in chili sauce with bell peppers, red onion, and tomatoes.",
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 18.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Chips Chilli",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 16.99,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Chilli",
+          "description": "Paneer marinated with spices, cooked in chili sauce with bell peppers, red onion, and tomatoes.",
+          "is_vegetarian": true,
+          "tags": [
+            "chilli"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99,
+              "protein": "paneer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Curries",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "description": "Boneless chicken marinated in tandoori sauce, cooked with butter and mild spiced creamy tomato and onion-based sauce.",
+          "tags": [
+            "butter-chicken"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Goat Rogan Josh",
+          "description": "Bone-in goat meat cooked in the mild creamy onion and tomato-based sauce, with tomato chunks, ginger and garlic. Garnished with cream.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.99,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Rogan Josh",
+          "description": "Chicken cooked in the mild creamy onion and tomato-based sauce, with tomato chunks, ginger and garlic. Garnished with cream.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Goat Korma",
+          "description": "Bone-in goat cooked in the coconut-based creamy sauce with cashew and raisins.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 21.99,
+              "protein": "goat"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Tikka Masala",
+          "description": "Homemade style paneer (cheese cubes) cooked with fresh mixed bell peppers, red onion, in creamy tomato and onion-based sauce.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "tikka",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Butter Masala",
+          "description": "A creamy, rich, mildly sweet gravy made with onion tomato base, rich in butter and cream.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 17.99,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Tikka Masala",
+          "description": "Chicken marinated in tandoori sauce, cooked in the mild spiced creamy tomato and onion-based sauce with bell peppers, onion, and a touch of butter.",
+          "tags": [
+            "curry",
+            "tikka",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Rogan Josh",
+          "description": "Paneer cooked in the mild creamy onion and tomato-based sauce, with tomato chunks, ginger and garlic. Garnished with cream.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Chicken Korma",
+          "description": "Boneless chicken cooked in the coconut-based creamy sauce with cashew and raisins.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "chicken"
+            }
+          ]
+        },
+        {
+          "name": "Paneer Korma",
+          "description": "Paneer cooked in the coconut-based creamy sauce with cashew and raisins.",
+          "is_vegetarian": true,
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 19.99,
+              "protein": "paneer"
+            }
+          ]
+        },
+        {
+          "name": "Durbar Goat Curry",
+          "description": "Bone in goat slow cooked with Nepalese spice served with rice and papadam.",
+          "tags": [
+            "curry",
+            "nepali-indian"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 20.99,
+              "protein": "goat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mo:Mo (Nepalese Dumpling)",
+      "items": [
+        {
+          "name": "Steam Momo (10 pc)",
+          "description": "Minced vegetables, chicken or buff marinated in homemade spices, stuffed in handmade dough and steamed. Served with sesame seeds and tomato Momo sauce. Extra sauce $1 each.",
+          "tags": [
+            "steamed-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 13.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 14.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 17.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 16.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Chilli (C) Momo (10 pc)",
+          "description": "Deep fried momos cooked with mixed bell peppers, red onions, and coriander in chili sauce.",
+          "tags": [
+            "chilli-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 17.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 18.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Jhol Momo (10 pc)",
+          "description": "Steamed momo dipped in sesame seeds, tomatoes, and homemade spices soup.",
+          "tags": [
+            "jhol-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 17.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 18.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Fried Momo (10 pc)",
+          "description": "The momos are exactly the same except after they've been steamed they've been finished off with a quick fry. Extra sauce $1 each.",
+          "tags": [
+            "fried-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 18.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 17.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Kothey Momo (10 pc)",
+          "description": "Half fried and half steamed momo made in an elongated shape. Extra sauce $1 each.",
+          "tags": [
+            "kothey-momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 18.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 17.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Butter Chicken Momo (8 pc)",
+          "description": "Chicken momos mixed with butter chicken gravy.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 16.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 19.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Momo Platter (16 pc)",
+          "description": "4 different types of momos. Extra sauce $1 each.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 25.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 26.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 30,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 27.99,
+              "protein": "pork"
+            }
+          ]
+        },
+        {
+          "name": "Mix Momo Platter (16 pc)",
+          "description": "4 different types of momos. Extra sauce $1 each.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": "Chicken & Buff",
+              "price": 29.99
+            },
+            {
+              "label": "Chicken & Pork",
+              "price": 28.99
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "description": "Noodles cooked with mixed vegetables and homemade spices, garnished with chopped red onion, coriander. Extra meat $3, Add Chana (chickpea) $1, Extra sauce $1.",
+      "items": [
+        {
+          "name": "Chowmein",
+          "tags": [
+            "chowmein"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 15,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Paneer",
+              "price": 18,
+              "protein": "paneer",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 18,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 19,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 19,
+              "protein": "pork"
+            },
+            {
+              "label": "Mix",
+              "price": 21
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "description": "Steamed rice fried with mixed vegetables and green onions along with ginger, garlic and soy sauce, finished with Nepalese herbs and spices. Extra sauce $1.",
+      "items": [
+        {
+          "name": "Fried Rice",
+          "tags": [
+            "fried-rice"
+          ],
+          "variants": [
+            {
+              "label": "Veg",
+              "price": 14.99,
+              "protein": "veg",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Paneer",
+              "price": 16.99,
+              "protein": "paneer",
+              "is_vegetarian": true
+            },
+            {
+              "label": "Chicken",
+              "price": 16.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Egg",
+              "price": 15.99,
+              "protein": "egg"
+            },
+            {
+              "label": "Pork",
+              "price": 17.99,
+              "protein": "pork"
+            },
+            {
+              "label": "Buff",
+              "price": 18.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Mix (any 2 meats)",
+              "price": 20.99
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Platters",
+      "items": [
+        {
+          "name": "Kings Platter",
+          "description": "5 pc chicken fried momo, 2 pc wings, 2 pc sausage, chicken chili, beaten rice or steamed rice, papadam served with homemade sauce.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 25.99
+            }
+          ]
+        },
+        {
+          "name": "Durbar Platter",
+          "description": "Piro aalo, bhatmas sadheko, 4 pc spicy wings, chicken chilli or pork sekuwa, 4 pc chicken c momo, green salad served with home made sauce.",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 29
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Khaja Set",
+      "description": "Comes with beaten rice or steam rice, Jeera Alu or Mix Achar, Bhatmas Sadheko, green salad, egg, choice of meat, Thakali chutney & papadam.",
+      "items": [
+        {
+          "name": "Khaja Set",
+          "tags": [
+            "khaja"
+          ],
+          "variants": [
+            {
+              "label": "Chicken",
+              "price": 25.99,
+              "protein": "chicken"
+            },
+            {
+              "label": "Buff",
+              "price": 29.99,
+              "protein": "buff"
+            },
+            {
+              "label": "Pork",
+              "price": 28.99,
+              "protein": "pork"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kids Meal",
+      "items": [
+        {
+          "name": "Chips",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 7.99
+            }
+          ]
+        },
+        {
+          "name": "Chips & Nuggets",
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 10.99
+            }
+          ]
+        },
+        {
+          "name": "Kids Momo (5 pcs)",
+          "tags": [
+            "momo"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Extras",
+      "items": [
+        {
+          "name": "Plain Rice",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [
+            {
+              "label": null,
+              "price": 2.5,
+              "protein": "veg"
+            }
+          ]
+        },
+        {
+          "name": "Plain Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3.5
+            }
+          ]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5
+            }
+          ]
+        },
+        {
+          "name": "Butter Naan",
+          "is_vegetarian": true,
+          "tags": [
+            "naan"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Beer",
+      "items": [
+        {
+          "name": "Corona",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9
+            }
+          ]
+        },
+        {
+          "name": "Great Northern",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8
+            }
+          ]
+        },
+        {
+          "name": "Carlsberg",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 8.5
+            }
+          ]
+        },
+        {
+          "name": "Vodka Cruiser",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Nepalese Beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Tiger (Tap)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "Schooner",
+              "price": 8.5
+            },
+            {
+              "label": "Pint",
+              "price": 12
+            },
+            {
+              "label": "Jug",
+              "price": 22
+            },
+            {
+              "label": "Tower",
+              "price": 65
+            }
+          ]
+        },
+        {
+          "name": "Gorkha Lager (Tap)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": "Schooner",
+              "price": 8.5
+            },
+            {
+              "label": "Pint",
+              "price": 12
+            },
+            {
+              "label": "Jug",
+              "price": 22
+            },
+            {
+              "label": "Tower",
+              "price": 65
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hard Drinks & Shots",
+      "items": [
+        {
+          "name": "Jack Daniel's (30ml)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.5
+            }
+          ]
+        },
+        {
+          "name": "Jim Beam (30ml)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.5
+            }
+          ]
+        },
+        {
+          "name": "Old Durbar (Nepal)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Black Label (30ml)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Vodka (30ml)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.5
+            }
+          ]
+        },
+        {
+          "name": "Bundaberg Rum",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9.5
+            }
+          ]
+        },
+        {
+          "name": "Khukri Rum (30ml) (Nepal)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Tequila Shot",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        },
+        {
+          "name": "Fire Ball Shot",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wines",
+      "items": [
+        {
+          "name": "Sauvignon Blanc (White)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9
+            }
+          ]
+        },
+        {
+          "name": "Mascato (White)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9
+            }
+          ]
+        },
+        {
+          "name": "Shiraz (Red)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9
+            }
+          ]
+        },
+        {
+          "name": "Cabernet Merlot (Red)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "items": [
+        {
+          "name": "Coke, Fanta, Sprite, Lemonade",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 3.5
+            }
+          ]
+        },
+        {
+          "name": "Lemon Lime Bitters, Ice Tea, Ginger Beer",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.5
+            }
+          ]
+        },
+        {
+          "name": "Mirinda",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 4
+            }
+          ]
+        },
+        {
+          "name": "Juice (Orange, Mango, Apple)",
+          "tags": [
+            "drinks"
+          ],
+          "variants": [
+            {
+              "label": null,
+              "price": 5.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
