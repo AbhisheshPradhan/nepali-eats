@@ -88,10 +88,10 @@ scraper/backup.sh [db|media|all]  # point-in-time Neon dump + media tarball -> b
 ```
 
 ## Status
-469 curated restaurants (450 shown; 19 permanently-closed spots hidden), 144 with
-photos (768 files self-hosted on R2). A Google Places API pass (2026-06-25) added
-full-week opening hours, business status, and attribute flags (vegetarian,
-takeout, delivery, dine-in, outdoor seating, wheelchair access, etc.).
-Phase 2: auth/user accounts, saved spots + reviews, menu Stage-2 (parse menus →
-items + prices, needs `ANTHROPIC_API_KEY`), surfacing the attribute filters in
-Explore, distance sort.
+~437 curated restaurants visible (permanently-closed spots hidden), ~76% with
+photos (self-hosted WebP on R2), ~144 with full structured menus (~9k items). A
+Google Places API pass (2026-06-25) added full-week opening hours, business
+status, and attribute flags (vegetarian, takeout, delivery, dine-in, outdoor
+seating, wheelchair access, etc.), now surfaced as Explore filters.
+Phase 2: finish menu seeding (see `MENU-QUEUE.md`), launch tasks (`LAUNCH.md`),
+then auth/claims/reviews (`ROADMAP.md`).

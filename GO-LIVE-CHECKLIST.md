@@ -53,8 +53,8 @@ Conformance audit:
 
 - [x] **App icon** — custom `app/icon.png` added (default `favicon.ico` removed).
 - [ ] **Apple touch icon** — add `app/apple-icon.png` for iOS home-screen.
-- [ ] **OG image** — `app/opengraph-image.*`; then wire the `openGraph.images`
-      reference in `web/app/layout.tsx` (no link-preview card today)
+- [x] **OG image** — programmatic OG cards live for home, restaurant, and
+      location pages (`app/opengraph-image.tsx` + per-route variants)
 
 ## 🛠 Build items
 

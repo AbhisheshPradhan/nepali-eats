@@ -1,8 +1,13 @@
 # nepali-eats
 
-Directory of **Nepali restaurants in Australia**. Data is scraped from Google
-Maps, enriched with full addresses/contact details, and stored in a local
-Postgres database that will back the directory site.
+Directory of **Nepali restaurants in Australia**: scraped from Google Maps,
+enriched, stored in Postgres (Neon), served by the Next.js app in `web/`.
+
+**Where things live:** launch/SEO/UX master plan → `LAUNCH.md` · frontend punch
+list → `GO-LIVE-CHECKLIST.md` · menu system design → `MENU-PLAN.md` · menu
+worklists → `MENU-SEEDING-PLAN.md` + `MENU-QUEUE.md` · post-launch backlog →
+`ROADMAP.md` · catering → `CATERING-BACKLOG.md` · copy → `VOICE_AND_TONE.md` +
+`COPY.md` · blog → `BLOG-PLAN.md` · code review → `web/CODE-REVIEW.md`.
 
 ## Copywriting & content voice (READ BEFORE writing any user-facing text)
 
@@ -27,7 +32,7 @@ generator), you MUST:
     - Read it aloud: would a human say this to a friend about food?
       Do this automatically, without being asked. Voice = warm, human, food-obsessed;
       specific dish names over generic "cuisine"; AU spelling. Brand tagline:
-      **"Find your momo people."**
+      **"Find your momo people."** Full guide: `VOICE_AND_TONE.md`.
 
 ## Dev server (do NOT start it)
 Do NOT run `npm run dev` / `next dev` (or `npm start`). Abhishesh runs the dev
@@ -40,674 +45,239 @@ NEVER `git commit` or `git push` until Abhishesh explicitly says to (e.g. "commi
 tree for review — even when a task feels finished, wait for the explicit go. Approval
 is per-request: a "commit" on one change does NOT carry over to later changes.
 
-## Stack
+## Stack & deployment (LIVE at nepali-eats.vercel.app)
 
-- **Node 25 + Playwright** (Chromium, headless) for scraping/enrichment
-- **PostgreSQL** — now hosted on **Neon** (with PostGIS). Dev and prod share the
-  SAME Neon DB (see "Schema changes are SHARED with prod" below). The old local
-  `postgresql@17` / `nepali_eats` DB is retired.
-- **Webshare proxies** (20, rotating) in `.env` as `WEBSHARE_PROXIES`
-- `DATABASE_URL` in `.env` → the Neon connection string (`...neon.tech/neondb`).
+- **Scraper:** Node 25 + Playwright (Chromium, headless), 20 rotating Webshare
+  proxies (`WEBSHARE_PROXIES` in root `.env`).
+- **DB:** **Neon** Postgres + PostGIS. `DATABASE_URL` in root `.env` → Neon.
+  ⚠️ Dev and prod share the SAME Neon DB (see "Schema changes are SHARED").
+  The old local `postgresql@17` DB is retired.
+- **Host:** **Vercel** (Hobby, root `web/`). Stays on Vercel, NOT Cloudflare
+  Pages/Workers: Next 16 ISR/RSC/`'use cache'` work zero-adapter and the raw
+  `node-postgres`/PostGIS layer needs full Node (Workers would force a DB
+  rewrite). ⚠️ Hobby's terms bar monetized sites: the day we monetize we move
+  to Pro ($20/mo) regardless of traffic. First real bill otherwise is the DB
+  (~$19 Neon) when traffic outgrows free.
+- **Media:** Cloudflare **R2** (free egress), bucket `nepalieats-media`, synced
+  via `scraper/upload-media-r2.sh`, served via `NEXT_PUBLIC_MEDIA_BASE`.
+- **DNS + edge (TODO):** Cloudflare proxy IN FRONT of Vercel (anti-scraping,
+  decided 2026-07-02): registrar → Cloudflare (orange-cloud, Super Bot Fight
+  Mode allowing verified bots, cache rules) → Vercel. ⚠️ Gotchas: SSL mode MUST
+  be **Full (strict)** ("Flexible" causes redirect loops with Vercel); do NOT
+  blanket-cache HTML (fights ISR) — cache static assets hard, respect origin
+  headers for HTML.
 
-## Production stack & deployment (LIVE — core stack deployed)
-The site is live at **nepali-eats.vercel.app** (Vercel test domain). Neon DB,
-Vercel, and R2 media are all up and serving; remaining work is the custom domain
-(DNS on Vercel) and the SEO consoles (see checklist below).
-Chosen low-cost launch setup (about $0/mo until traffic or commercial scale):
-- **Host:** Vercel (Hobby, free). Next.js native, SSR for SEO.
-- **DB:** Neon (free). Managed Postgres with PostGIS; the raw-SQL `node-postgres`
-  layer works unchanged. Picked over Supabase for the $0 always-ready tier.
-  Tradeoff: no free Supabase Studio admin, so editing uses a small custom
-  `/admin` or Neon's SQL editor.
-- **Media:** Cloudflare R2 (free tier, free egress). Photos and menus via
-  `NEXT_PUBLIC_MEDIA_BASE`. Kept off Supabase/Neon because R2 egress is free.
-- **Hosting stays on Vercel (NOT Cloudflare Pages/Workers)** — Next.js is Vercel's
-  product so ISR/RSC/Next-16 `'use cache'` all work with zero adapter, and the raw
-  `node-postgres`/PostGIS layer works unchanged (Cloudflare's edge/Workers runtime
-  is not full Node, so it'd force a DB-layer rewrite to the Neon HTTP driver /
-  Hyperdrive). Hosting is free on both, so no reason to switch.
-- **DNS + edge:** **Cloudflare proxy IN FRONT of Vercel** (decided 2026-07-02, to
-  protect our scraped directory data from being re-scraped). Registrar DNS →
-  Cloudflare (proxied/orange-cloud, Super Bot Fight Mode + cache) → Vercel app.
-  ⚠️ Setup gotchas: SSL mode MUST be **Full (strict)** (default "Flexible" causes
-  redirect loops with Vercel); and do NOT let Cloudflare blanket-cache HTML or it
-  fights Vercel ISR revalidation on restaurant pages — cache static assets hard,
-  respect origin cache headers for HTML. **R2 media is on Cloudflare regardless**
-  (free egress), so Cloudflare is already in the stack for storage.
-- First real bill is the DB (about $19 Neon paid or $25 Supabase Pro) only when
-  traffic outgrows free. **Vercel Pro ($20/mo) is triggered by COMMERCIAL use, not
-  traffic** — Hobby's terms bar monetized sites, so the day we monetize (featured
-  placements, catering/event leads, FoodHub, ads) we must move to Pro regardless of
-  traffic volume.
-
-Deploy status:
-- [x] Neon: project created, PostGIS enabled, schema + data loaded. `DATABASE_URL`
-      points at Neon (dev AND prod share it — see "Schema changes are SHARED" below).
-- [x] App `DATABASE_URL` → Neon. (Scraper/migrations use the direct connection.)
-- [x] R2: bucket `nepalieats-media` live, `media/` synced via
-      `scraper/upload-media-r2.sh`, `NEXT_PUBLIC_MEDIA_BASE` set
-      (`pub-6334a35f40da4f7fb1e3f948b1e0dbc1.r2.dev`). Public reads serve 200.
-- [x] Vercel: repo imported (root `web/`), env vars set, deployed to
-      **nepali-eats.vercel.app**. Custom domain still TODO.
-- [ ] Custom domain via **Cloudflare DNS → Vercel** (WANTED): add the domain in
-      Vercel to get its target, add the domain to Cloudflare, create the DNS records
-      pointing at Vercel with the **orange cloud (proxied) ON**, set Cloudflare SSL
-      to **Full (strict)**, and do the www→apex 301 in Cloudflare. Still on the
-      `.vercel.app` test URL. Then set `NEXT_PUBLIC_SITE_URL` to the real domain so
-      canonicals are right.
-- [ ] Cloudflare bot protection: enable **Super Bot Fight Mode** (allow verified
-      bots so Googlebot/Bingbot still crawl) to block scrapers before they hit
-      Vercel; add cache rules (cache static assets hard, respect origin headers for
-      HTML so ISR isn't broken).
-- [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
-      Explore, `/api/*`, and the geo homepage dynamic.
-- [ ] Search Console + Bing Webmaster + GA4; submit sitemap (see LAUNCH.md).
-- [ ] Editorial admin for `featured_rank` (non-null = featured) and descriptions: small
-      custom `/admin` or Neon SQL editor.
+Remaining deploy checklist (details in `LAUNCH.md` §3 / `GO-LIVE-CHECKLIST.md`):
+- [ ] Custom domain via Cloudflare DNS → Vercel (www→apex 301 in Cloudflare),
+      then set `NEXT_PUBLIC_SITE_URL` so canonicals are right.
+- [ ] Cloudflare bot protection + cache rules (above).
+- [ ] Rate-limit `/api/search` + `/api/restaurants` (or confirm Cloudflare rules
+      cover it; the `.vercel.app` host bypasses Cloudflare).
+- [ ] Search Console + Bing + GA4; submit sitemap.
+- [ ] Editorial admin for `featured_rank` + descriptions (small `/admin` or Neon
+      SQL editor).
 
 ## Project layout
 
-- `scraper/` — all scraping/enrichment scripts (run from PROJECT ROOT, e.g.
-  `node scraper/scrape.js`; they read root `.env`, write to root `media/`, and
-  resolve `node_modules` at root).
-- `web/` — Next.js 16 (App Router, RSC) + Tailwind v4 frontend. BUILT. Run:
-  `cd web && npm run dev` (http://localhost:3000). Reads Postgres via
-  `lib/queries.ts` (node-postgres, no ORM). Theme generated from
-  `design-system/tokens` (Baloo 2 + Mukta, Phosphor icons, chili/marigold on cream).
-  Pages: Home, **Explore** (see below), `/restaurant/[slug]` (Restaurant JSON-LD),
-  `/nepali-restaurants/[state|suburb]`, `/momo`, `/tag/[tag]`, Stories, `/add-a-spot`,
-  sitemap/robots/404. Photos via `mediaUrl()` → `/media` (dev symlink
-  `web/public/media -> ../../media`) → R2 in prod (`NEXT_PUBLIC_MEDIA_BASE`).
-  Home **featured row is state-scoped** (IP-geo state → that state's featured
-  picks (rows with a non-null `featured_rank`), fallback that state's popular;
-  default NSW/Sydney 2000; heading "Where
-  {metro}'s eating this week"; cards show distance from shared location or the
-  state capital).
-- **Explore = map-driven, PostGIS-backed:**
-    - `GET /api/restaurants?bbox=w,s,e,n&page&sort&tag&venue&price&rating&q` →
-      PostGIS bounds query. Page 1 returns `{items(30), total, pins(all in view)}`;
-      later pages return items only (load-more pagination).
-    - Map = **Mapbox GL JS** (`react-map-gl` v8 + `NEXT_PUBLIC_MAPBOX_TOKEN`,
-      `light-v11` vector style). GeoJSON source with **native clustering**; circle
-      pins coloured by rating (marigold ≥4.7, else chili) with the rating as label.
-      Click a pin → **popup card** (photo/name/rating/price, opens detail in new
-      tab) = the mobile detail affordance; cluster click zooms in.
-      **Auto-refreshes the list on `moveend`** (debounced). Hover/selected highlight
-      via data-driven paint expressions (`activeId`), not DOM markers, so no lag.
-    - List paginates 30 at a time; **distance labels** (Haversine) appear when the
-      user shares location ("Near me") or arrives via `?lat&lng`.
-    - Initial centre: `?focus=<slug>` (centre on a restaurant, pin it to top of list)
-        > `?lat&lng` > `?state/suburb/tag` (fit to extent) > **IP geo** state capital
-        > (Vercel `x-vercel-ip-country-region`) > **Sydney 2000** (non-AU / undetected).
-    - `GET /api/search?q=` (fires after 3 chars) → restaurant-name + suburb +
-      postcode suggestions. Shared `SearchBox` (home + explore); picking an option
-      only fills the box, search runs on Enter/Search button.
-    - **Permanently-closed spots are hidden from every public surface** (explore,
-      home, search, sitemap, facets) via `business_status IS DISTINCT FROM
-      'CLOSED_PERMANENTLY'` (`NOT_CLOSED` in `lib/queries.ts`); detail pages still
-      resolve so inbound links don't 404.
-    - **Flags filter** (`?flags=`) maps allowlisted attribute columns
-      (`vegetarian`/`takeout`/`delivery`/`dineIn`/`outdoor`/`reservable`/`groups`/
-      `dogs`/`wheelchair`, see `FLAG_COLS`) to true-only `WHERE` clauses; backend
-      plumbing is live, UI scaffolded pending design.
-    - Auth/reviews-text/menus-stage2/distance-sort = phase 2.
-- **Live open-status:** `OpenStatusBadge` (client component) shows "Open till
-  10pm / Opens today at 5pm / Closed / Temporarily/Permanently closed" on the
-  detail cover and place cards. Computed in the browser (the page is ISR-cached,
-  so a server-rendered status would be stale) and re-ticks each minute.
-  `openStatus()` in `lib/format.ts` returns a domain `kind`
-  (open/closing/opening/closed) + label; the badge maps `kind` → palette tone.
-  `Badge` tones are now colour-named (`ink`/`coriander`/`marigold`/`chili`/
-  `himalaya`), not feature-named.
-- **Admin tooling:** `/admin` (Clerk-gated, `ADMIN_USER_IDS`) plus a media-triage
-  tool at `/admin/triage` (`TriageClient` + `/api/admin/triage`, mark cover/
-  reviewed). The header `AdminStateSwitcher` lets an admin preview the geo-scoped
-  home for any AU state via the `ne_admin_state` cookie (`lib/stateOverride.ts`);
-  the server honors it ONLY for admins (`resolveState()` in `lib/geo.ts`), so
-  anonymous traffic pays no auth cost.
-- **Inline restaurant editor (edit from the detail page):** admins/owners get an
-  "Edit Details" toggle on `/restaurant/[slug]` that opens a slide-over drawer
-  (`components/edit/RestaurantEditPanel.tsx`, shadcn Sheet) instead of routing to
-  the older `/admin/[slug]` form (`RestaurantEditor.tsx`, still there). Three tabs:
-  **General** (every batched field + hours behind ONE Save = a single PATCH to
-  `/api/admin/restaurants/[slug]`), **Photos** (cover, gallery, logo — instant
-  uploads), **Menu** (menu-file uploads — instant; uploaded files are viewable
-  links). Drawer media loads via `GET /api/admin/restaurants/[slug]/editor`
-  (photos + menu files). Gated like all `/api/admin/*` (proxy.ts Clerk +
-  `ADMIN_USER_IDS`, re-checked by `requireAdmin`). See `web/EDIT_RESTAURANT_PLAN.md`.
-- **Image cropping is client-side + destructive.** `CropModal` (react-easy-crop)
-  draws the chosen region to a `<canvas>` and exports a JPEG blob; the cover (16:9)
-  and gallery photos (4:3) each have an upload-crop AND a re-frame Crop button. The
-  crop is baked into a new file and the outside pixels are dropped (gallery
-  originals survive only when a cover points at a `photos/…` key). Re-framing an
-  EXISTING photo loads it through `GET /api/admin/media?key=…`
-  (`getMedia()` in `lib/admin/storage.ts`), a **same-origin admin proxy** that
-  streams the R2 object server-side — the public `NEXT_PUBLIC_MEDIA_BASE` R2 domain
-  is cross-origin with no CORS headers, so a direct `<img crossOrigin>` + canvas
-  export is blocked ("Couldn't load the image"). The proxy reuses the existing
-  server-side `R2_*` creds; no new env vars.
-- `design-system/` — NepaliEats design system + mockup (reference for the build).
-- `media/` — self-hosted photos/menus (shared; symlinked into web/public in dev → R2 in prod).
-- root `.env`, `node_modules`, `package.json` — shared by the scraper.
+- `scraper/` — scraping/enrichment scripts. Run from PROJECT ROOT (they read
+  root `.env`, write root `media/`, resolve root `node_modules`).
+- `web/` — Next.js 16 (App Router, RSC) + Tailwind v4. Reads Postgres via
+  `lib/queries.ts` (node-postgres, no ORM). Theme from `design-system/tokens`
+  (Baloo 2 + Mukta, Phosphor icons, chili/marigold on cream). Pages: Home,
+  Explore, `/restaurant/[slug]`, `/nepali-restaurants/[state|suburb]`, `/momo`,
+  `/tag/[tag]`, Stories, `/add-a-spot`, sitemap/robots/404. Photos via
+  `mediaUrl()` → `/media` (dev symlink `web/public/media -> ../../media`) → R2
+  in prod. ⚠️ This Next version has breaking changes: read
+  `web/node_modules/next/dist/docs/` before writing Next-specific code
+  (`web/AGENTS.md`).
+- `design-system/` — design system + mockup (build reference).
+- `media/` — self-hosted photos/menus (gitignored; symlinked in dev, R2 in prod).
 
-## Data pipeline (run from project root, in order)
+### Frontend decisions worth knowing (don't re-derive)
 
-1. `node scraper/scrape.js` — search Google Maps for "Nepali restaurant" across 82
-   AU areas (`scraper/locations.js`), dedupe by Google feature-ID. Writes JSON/CSV.
-2. `node scraper/load-db.js` — parse + upsert JSON into `restaurants` (idempotent on
-   `google_feature_id`; derives suburb/state/postcode/slug). One-time seed.
-3. `node scraper/enrich-db.js` — fill `full_address`/phone/website/review_count via
-   place pages, **direct + 20 rotating proxies**. `scraper/run-passes.sh` loops it.
-4. `node scraper/enrich-google.js` — place pages → photos (download+WebP) + review_count
-    - rating. `node scraper/enrich-website.js` → email + socials (cfemail decode) +
-      own-site photos + menu-file discovery.
-5. `node scraper/export-db.js` — snapshot table to `main-table.json` / `.csv`.
+- **Home:** featured + popular rows are state-scoped (IP-geo → state, default
+  NSW/Sydney): featured = rows with non-null `featured_rank`; popular = hand-set
+  `popular` flag, never featured rows. Both self-hide when empty. Cards show
+  distance from shared location or the state capital.
+- **Explore = map-driven, PostGIS-backed.** `GET /api/restaurants?bbox=…` →
+  page 1 returns `{items(30), total, pins(all in view)}`; later pages items
+  only. Mapbox GL JS (`react-map-gl` v8, `NEXT_PUBLIC_MAPBOX_TOKEN`) with native
+  clustering; pin click → popup card; list auto-refreshes on `moveend`
+  (debounced); hover/selection via data-driven paint (`activeId`), not DOM
+  markers. Initial centre: `?focus=<slug>` > `?lat&lng` > `?state/suburb/tag`
+  extent > IP-geo state capital > Sydney. `GET /api/search?q=` (3+ chars) powers
+  the shared SearchBox autocomplete. The `?flags=` filter maps allowlisted
+  attribute columns (`FLAG_COLS` in `lib/queries.ts`) to true-only WHERE
+  clauses; the filter UI (chips + Open now + Rating) is live in
+  `ExploreClient.tsx`.
+- **Permanently-closed spots are hidden from every public surface** (explore,
+  home, search, sitemap, facets) via `business_status IS DISTINCT FROM
+  'CLOSED_PERMANENTLY'` (`NOT_CLOSED` in `lib/queries.ts`); detail pages still
+  resolve so inbound links don't 404.
+- **Live open-status:** `OpenStatusBadge` computes open/closed in the BROWSER
+  (pages are ISR-cached, server-rendered status would go stale) and re-ticks
+  each minute. `openStatus()` in `lib/format.ts` returns a domain `kind`; badge
+  maps kind → palette tone. `Badge` tones are colour-named, not feature-named.
+- **Admin:** `/admin` (Clerk-gated via `proxy.ts` + `ADMIN_USER_IDS`, plus
+  per-page `assertAdmin` / per-route `requireAdmin`), media triage at
+  `/admin/triage`, header `AdminStateSwitcher` previews the geo-scoped home per
+  state via the `ne_admin_state` cookie (honored only for admins in
+  `resolveState()`, so anonymous traffic pays no auth cost).
+- **Inline restaurant editor:** admins get an "Edit Details" slide-over drawer
+  on the detail page (`components/edit/RestaurantEditPanel.tsx`, 3 tabs:
+  General = one batched PATCH; Photos + Menu = instant uploads). Old
+  `/admin/[slug]` form still exists. See `web/EDIT_RESTAURANT_PLAN.md`.
+- **Image cropping is client-side + destructive:** `CropModal` bakes the crop
+  into a new file (cover 16:9, gallery 4:3). Re-framing an EXISTING photo loads
+  it through `GET /api/admin/media?key=…` — a same-origin admin proxy that
+  streams the R2 object server-side, because the public R2 domain sends no CORS
+  headers so a direct `<img crossOrigin>` + canvas export fails.
 
-**Opening hours (headless fallback — now superseded by the Places API pass below):**
-`node scraper/enrich-hours.js` (or `scraper/run-hours-daily.sh`). Headless Maps only
-exposes **today's** hours row, so this captures one weekday per run and accumulates
-the week in `opening_hours_raw` over ~7-9 daily runs; it rebuilds canonical
-`opening_hours` via `scraper/hours.js` and opportunistically backfills price. No
-photos. Guard = `hours_scraped_at::date < CURRENT_DATE` (re-scrapes every row once
-per day). Kept as a free fallback for rows the API misses, but the **full-week
-hours now come from the Places API** (`reconcile-places.js`, see below). The About
-panel attributes `kid_friendly` (381 rows, 377 true) and `live_music` (365 rows,
-57 true) are now POPULATED from the Places API pass.
+## Data pipeline (run from project root) — ENRICHMENT COMPLETE
+
+One-time seed + enrichment passes, all idempotent/resumable:
+
+1. `scraper/scrape.js` — Google Maps search across 82 AU areas → JSON.
+2. `scraper/load-db.js` — ⚠️ ONE-TIME seed, never re-run (see below).
+3. `scraper/enrich-db.js` — addresses/phone/website via place pages (proxies).
+4. `scraper/enrich-google.js` — photos + rating/review_count.
+   `scraper/enrich-website.js` — email + socials + own-site photos + menu links.
+5. `scraper/export-db.js` — snapshot → `main-table.json`/`.csv`.
+
+`scraper/enrich-hours.js` (headless, one weekday per run) is a free FALLBACK
+only; full-week hours now come from the Places API.
 
 **Google Places API (New) pass — DONE 2026-06-25 (553 calls, free tier):**
-`node scraper/enrich-places.js` — one Place Details call per restaurant (keyed off
-`google_place_id`), dumps the FULL raw JSON into staging column `places_api_raw`
-(+ stamps `places_api_at`). It does NOT touch any canonical column; mapping into
-real columns is the separate, reviewable `reconcile-places.js` step. Direct
-connection, NO proxy (it's an authed API). Hard `MAX_CALLS=600` guard in code,
-stops on 429, resumable (`places_api_at IS NULL`), ordered
-featured→rating→review_count. All rows now have `places_api_at`. This
-supersedes the headless `enrich-hours.js` for hours and is the source for the
-attribute columns / price / full-week hours / fresh rating+review_count /
-`business_status` / `editorial_summary`.
+`scraper/enrich-places.js` dumps raw Place Details JSON into `places_api_raw`
+(+`places_api_at`), one call per restaurant keyed off `google_place_id`, direct
+connection (no proxy), `MAX_CALLS=600` guard, resumable. It never touches
+canonical columns; `scraper/reconcile-places.js` (dry-run default, `--commit`)
+maps raw → canonical: full-week `opening_hours`, rating, review_count,
+price_level, `business_status`, attribute booleans, `parking`,
+`editorial_summary`. Re-parseable any time from the stored raw, no API re-call.
 
-**Reconcile (raw → canonical) — DONE 2026-06-25:** `node scraper/reconcile-places.js`
-(dry run by default; `--commit` to write). Reads `places_api_raw` and maps it into
-canonical columns: full-week `opening_hours` (now 474 rows, replacing the headless
-accumulation), `rating`, `review_count`, `price_level`, `business_status`, the
-attribute booleans (`serves_vegetarian`, `takeout`, `delivery`, `dine_in`,
-`outdoor_seating`, `reservable`, `good_for_groups`, `serves_alcohol`,
-`serves_cocktails`, `allows_dogs`, `wheelchair_accessible`), a friendly `parking`
-label (derived from Google `parkingOptions`), and `editorial_summary`.
-Re-derivable any time from the stored raw — no API re-call needed to re-parse.
-
-**Backfill place IDs — DONE:** `node scraper/backfill-place-ids.js` resolved the 6
-rows that had a NULL `google_place_id` via Places Text Search (suburb-verified),
-so they now flow through the API pass.
-
-> **⚠️ RE-RUN REMINDER — do this on/after 2026-07-01 (next calendar month).**
-> The first full pass (553 calls) ran 2026-06-25 and was FREE under the monthly
-> per-SKU free allowance (~1,000 calls, top SKU = Enterprise+Atmosphere). A second
-> 553-call run in the SAME month would tip ~100 calls over the free cap (~$2-3), so
-> WAIT until July when the allowance resets, then re-run for free. Before re-running:
-> 1. **Widen the field mask** in `enrich-places.js` to also capture (all in-tier, free):
->    `utcOffsetMinutes` (correct open-now math across AU timezones/DST),
->    `primaryType`, `types` (sharpen venue_type/tags), `googleMapsUri`,
->    `formattedAddress`. (`editorialSummary` already in the mask.)
-> 2. **Reset the guard** to re-fetch everyone: `UPDATE restaurants SET places_api_at
->    = NULL, places_api_raw = NULL;` then `node scraper/enrich-places.js`, then
->    `node scraper/reconcile-places.js --commit`.
-> 3. ~~Backfill the 6 rows with NULL `google_place_id`~~ — DONE via
->    `backfill-place-ids.js`; all rows now have a `google_place_id`.
-> Do NOT request `photos` (separate per-fetch SKU = real cost) or `reviews`
-> (licensing constraints) without a deliberate decision.
-
-`scraper/build-table.js` / `scraper/enrich.js` are earlier file-based versions,
-superseded by the DB scripts. `scraper/schema.sql` holds the table definition.
+> **⚠️ RE-RUN REMINDER — due NOW (on/after 2026-07-01).** The June pass was free
+> under the monthly per-SKU allowance (~1,000); a second same-month run would
+> tip over (~$2-3), so July+ is free again. Before re-running:
+> 1. **Widen the field mask** in `enrich-places.js` (all in-tier/free):
+>    `utcOffsetMinutes`, `primaryType`, `types`, `googleMapsUri`,
+>    `formattedAddress`.
+> 2. **Reset the guard:** `UPDATE restaurants SET places_api_at = NULL,
+>    places_api_raw = NULL;` → `node scraper/enrich-places.js` → `node
+>    scraper/reconcile-places.js --commit`.
+> 3. Do NOT request `photos` (paid per-fetch SKU) or `reviews` (licensing)
+>    without a deliberate decision.
 
 ## Database
 
-- **DB:** `nepali_eats` • **main table:** `restaurants`
-- Natural key: `google_feature_id` (`0x..:0x..`, 100% present). Also store
-  `google_place_id` (`ChIJ..`, Places API key). `google_cid` was dropped (redundant).
-- Columns: slug, name, cuisine, venue_type, tags[], halal_status, rating,
-  review_count, price_level, price_range, opening_hours, street, suburb, state,
-  postcode, full_address, lat, lng, **geom (PostGIS Point 4326)**, phone, email,
-  website, facebook, instagram, tiktok, whatsapp, menu_url, menu_source,
-  google_maps_url, source_query, address_source, is_nepali, relevance,
-  featured_rank, popular, description, enriched_at, place_enriched_at,
-  website_checked_at, timestamps.
-- **Places API columns (added 2026-06, populated by `reconcile-places.js`):**
-  `business_status` ('OPERATIONAL'/'CLOSED_TEMPORARILY'/'CLOSED_PERMANENTLY' —
-  drives open-status + hiding closed spots), attribute booleans
-  `serves_vegetarian`, `takeout`, `delivery`, `dine_in`, `outdoor_seating`,
-  `reservable`, `good_for_groups`, `serves_alcohol`, `serves_cocktails`,
-  `allows_dogs`, `wheelchair_accessible`; `parking` (friendly label) and
-  `editorial_summary` (Google's one-line blurb, 27 rows). Staging:
-  `places_api_raw` (jsonb, full Place Details) + `places_api_at` (timestamp).
-- **`catering` (boolean, editorial — NOT from Places, added 2026-07):** does the spot
-  cater off-site events. Distinct from `good_for_groups` (a large table dining in).
-  Null = unknown; set true when a menu/site advertises catering (e.g. Kathmandu Momo).
-  No code reads it yet (additive, safe); wire into display/filters when the
-  catering/events feature lands.
-- **`fusion` (boolean, editorial — added 2026-07):** venue-level flag for spots that blend
-  a cuisine BEYOND the expected Nepali/Indian/Tibetan (e.g. Fuda: momo + Turkish kebabs +
-  bubble tea). Kept a restaurant-level flag (not a dish/style tag) on purpose: fusion
-  describes the venue, and the menu seeder REPLACES `restaurants.tags` from the dish rollup
-  each seed, so a row-level flag survives reseeds where a hand-set tag wouldn't. Cross-cuisine
-  menu items on a fusion spot stay tagged `[]` (no Nepali dish slug). Null = unknown/not
-  fusion. No code reads it yet (additive, safe); wire into display/filters later.
-- **PostGIS:** `geom` is auto-synced from lat/lng by trigger `trg_set_restaurant_geom`;
-  GiST index `idx_restaurants_geom` powers map bounds queries
-  (`geom && ST_MakeEnvelope(w,s,e,n,4326)`). Enabled via `scraper/schema.sql`.
-- Taxonomy: old Google `category` was dropped (meaningless — all are Nepalese).
-  `venue_type` (Restaurant/Café/Takeaway/Food Truck/Caterer/Dessert/Bar) +
-  `tags[]` (momo, thakali, newari, tibetan, vegetarian, nepali-indian) derived
-  from name. `halal_status` (certified/options/not_halal/unknown) — restaurant
-  level; per-item halal belongs in future `menu_items`. Currently all 'unknown'.
-- `email` + socials (facebook/instagram/tiktok/whatsapp) added 2026-06; populated
-  from restaurant websites (see website-enrichment TODO). Only #857 done so far.
-- **Opening hours (two-field):** `opening_hours_raw` (jsonb) holds the per-day
-  strings exactly as scraped; `opening_hours` (jsonb) holds the canonical parsed
-  shape the frontend reads: `{ "mon": [[600,1230]], "tue": [], ... }`
-  minutes-from-midnight, `[]`=closed, absent key=unknown, close>1440=past midnight.
-  `opening_hours` is rebuilt from `_raw` by `scraper/hours.js` every pass, so
-  re-parsing never needs a re-scrape. `hours_scraped_at` is the per-day-run key.
-  **As of 2026-06-25 the full-week `opening_hours` (474 rows) is supplied by the
-  Places API via `reconcile-places.js`** (`regularOpeningHours.periods`), which
-  supersedes the headless single-day accumulation. See `scraper/enrich-hours.js`
-  and the "Opening hours" pipeline note above.
-- **Filter attribute columns — now POPULATED** (Places API, see above): the
-  Explore "flags" filter is backed by `serves_vegetarian`, `takeout`, `delivery`,
-  `dine_in`, `outdoor_seating`, `reservable`, `good_for_groups`, `serves_alcohol`,
-  `serves_cocktails`, `allows_dogs`, `wheelchair_accessible`. `kid_friendly`
-  (381 rows, 377 true) and `live_music` (365 rows, 57 true) are ALSO populated
-  from the same Places API pass (Google's `goodForChildren`/`liveMusic`).
-- Indexes: state, suburb, postcode, (lat,lng).
+- **Main table `restaurants`.** Natural key `google_feature_id` (100% present);
+  `google_place_id` = Places API key. Columns: slug, name, cuisine, venue_type,
+  tags[], halal_status, rating, review_count, price_level, price_range,
+  opening_hours, street, suburb, state, postcode, full_address, lat, lng,
+  **geom (PostGIS Point 4326)**, phone, email, website, socials
+  (facebook/instagram/tiktok/whatsapp), menu_url, menu_source, google_maps_url,
+  source_query, address_source, is_nepali, relevance, featured_rank, popular,
+  description, logo_key, cover_key(+source/attribution), timestamps.
+- **Places API columns** (populated 2026-06-25): `business_status`, attribute
+  booleans (`serves_vegetarian`, `takeout`, `delivery`, `dine_in`,
+  `outdoor_seating`, `reservable`, `good_for_groups`, `serves_alcohol`,
+  `serves_cocktails`, `allows_dogs`, `wheelchair_accessible`, `kid_friendly`,
+  `live_music`), `parking` (friendly label), `editorial_summary` (27 rows),
+  staging `places_api_raw`/`places_api_at`.
+- **Editorial booleans (null = unknown, never bulk-false):** `catering`
+  (does off-site events; distinct from `good_for_groups`) and `fusion`
+  (venue blends a cuisine beyond Nepali/Indian/Tibetan, e.g. Fuda; row-level
+  on purpose so it survives menu reseeds). Nothing reads them yet (additive).
+- **PostGIS:** `geom` auto-synced from lat/lng by trigger
+  `trg_set_restaurant_geom`; GiST index powers the bbox queries.
+- **Opening hours, two fields:** `opening_hours_raw` (per-day strings as
+  scraped) + canonical `opening_hours` (`{"mon": [[600,1230]], ...}`,
+  minutes-from-midnight, `[]`=closed, absent=unknown, close>1440=past
+  midnight), rebuilt from raw by `scraper/hours.js`. Full week on 474 rows via
+  the Places API.
+- Taxonomy: `venue_type` (Restaurant/Café/Takeaway/Food Truck/Caterer/Dessert/
+  Bar) + name-derived `tags[]`; `halal_status` all 'unknown' still. The old
+  Google `category` column was dropped.
+- Postgres regex word boundaries are `\m \M \y`, NOT `\b`.
 
 ## ⚠️ Schema changes are SHARED with prod — deploy code with them
 
-Dev and prod (Vercel) point `DATABASE_URL` at the **same Neon database**. So any
-**schema change** (e.g. `ALTER TABLE ... DROP/ADD/RENAME COLUMN`, type changes)
-takes effect for the **currently-deployed** site the instant you run it. If the
-deployed code still references a dropped/renamed column, prod (and your local
-`.next`) start erroring (`column ... does not exist`). Rule: whenever you migrate
-the DB, **ship the matching code change to prod (push to `main` → Vercel)** in the
-same go — don't leave the deployed app out of sync with the schema. Locally,
-restart `next dev` / clear `.next` so the stale compiled query is rebuilt.
-
-## Menus (schema LIVE on Neon; seeding in progress) — design lives in MENU-PLAN.md
-
-The shared canonical menu schema is BUILT and applied to Neon (it also backs FoodHub
-later). **Don't redesign it — seed into it.** Full design + locked decisions + the JSON
-contract are in `MENU-PLAN.md`; read it before doing menu work.
-
-- **Schema** (`scraper/schema-menu.sql`, applied): `dish_categories` (controlled
-  hierarchical tag vocab + `search_aliases`), `menu_categories` → `menu_items` →
-  `menu_item_variants` (priced), `menu_item_tags` (M2M), `menu_item_photos` (deferred).
-  `restaurants` gained `price_min/max`, `menu_item_count`, `menu_parsed_at`. Item
-  provenance: `menu_items.source` (admin/owner_upload/llm_extracted) + `is_hidden`.
-- **Taxonomy / controlled vocab:** `web/lib/menu/taxonomy.ts` is the single source of
-  truth (50 tags) → seeded to `dish_categories` by `node scraper/seed-taxonomy.ts`
-  (idempotent). Model: dish-level default; **momo** has a preparation subtree; **protein
-  is a CROSS-CUTTING facet** (chicken/goat/buff/veg…) tagged alongside the dish, NOT
-  per-dish compounds. A dish not in the vocab → add a row to `taxonomy.ts` + re-run
-  `seed-taxonomy.ts` (the menu seeder HARD-ERRORS on unknown slugs by design).
-- **Seeding (one restaurant at a time, manual):** start with `node scraper/menu-fetch.js
-  <slug>` — it resolves the own-site source (ignoring ordering-platform urls), runs
-  `pdftotext` FIRST and prints the menu TEXT for text-layer PDFs (cheap; image tokens only
-  for image-only scans, which it rasterizes at 150dpi/1568px), warns on multi-column
-  layouts, and grabs server-rendered HTML menus. Then transcribe the menu into
-  `scraper/menu-data/<slug>.json` (the JSON contract — see MENU-PLAN.md +
-  `scraper/menu-data/sample-menu.json`; valid tag slugs via `node scraper/seed-menu.js
-  --list-tags`), then `node scraper/seed-menu.js <slug>` (dry-run) → add `--commit` to
-  write. The full worker flow lives in `MENU-WORKER-CHEATSHEET.md` (one page) +
-  `MENU-WORKER-PROMPT.md`. The seeder consolidates protein-only items into
-  variants, materialises tag ancestors, unions variant proteins, and rebuilds
-  `restaurants.tags` + price/count facets in one transaction. Seed popular restaurants
-  first (richest menus grow the vocab fastest). **Seeded so far:** `kathmandu-momo-surfers-paradise`
-  (168), `heshela-newa-khaja-ghar-{rockdale-rockdale,hurstville-hurstville}` (91 each — same
-  menu seeded to both branches), `falcha-town-hall-sydney` (53). Bar/drinks ARE transcribed
-  (tagged `drinks`, item-level only so they don't roll up to `restaurants.tags`); catering
-  flyers are skipped (set the `catering` flag instead — Kathmandu + both Heshela are true).
-- **Menu item descriptions are transcribed VERBATIM** from the menu (not generated), so
-  the copywriting/human-copy standard does NOT apply to them (it still applies to the
-  separate restaurant blurb generator).
-- **Nothing in the deployed web app reads these tables yet** (no frontend menu render /
-  dish search), so menu schema changes stay low-risk until that ships.
+Dev and prod point `DATABASE_URL` at the **same Neon database**, so any schema
+change hits the deployed site instantly. If deployed code references a
+dropped/renamed column, prod errors. Rule: when you migrate, **ship the matching
+code to prod (push to `main` → Vercel) in the same go**; locally restart
+`next dev`/clear `.next`.
 
 ## ⚠️ DB is the source of truth (do NOT re-run load-db.js)
 
-The 400 non-Nepali rows were **hard-deleted** (`DELETE WHERE is_nepali IS FALSE`).
-`nepali-restaurants-au.json` still has all 1017, so re-running `load-db.js` would
-**resurrect them**. Treat Postgres as canonical; `load-db.js` was a one-time seed.
-Current table (as of 2026-06-30): **467 rows** (all `is_nepali IS NOT FALSE`); **448
-visible** after hiding the 19 `business_status = 'CLOSED_PERMANENTLY'` spots from public surfaces.
-Category field cleaned: rating-string pollution backfilled+nulled, non-Nepali categories (Taiwanese, event venues, couriers, shops, etc.) removed.
+Non-Nepali rows were **hard-deleted**; `nepali-restaurants-au.json` still has
+all 1017, so re-running `load-db.js` would resurrect them. Postgres is
+canonical; the JSON/CSV files are exports. Directory query:
+`is_nepali IS NOT FALSE`. As of 2026-07-03: **~437 visible** (plus
+permanently-closed hidden), 1017 originally scraped.
 
-## Status (1017 scraped → 467 in directory) — ENRICHMENT COMPLETE
+## Menus (schema LIVE on Neon; seeding ~144/437 done)
 
-Final coverage: address 100%, lat/lng 100%, rating 99%, phone 95%, **photos 76%**
-(433 restaurants, 1125 files self-hosted WebP under media/photos/<id>/, linked via
-restaurant_photos), website 73%, review_count 57%, any social 42%, menu link 41%,
-email 39%. Photos: 932 from websites + 193 from Google. Scripts: enrich-google.js
-(place pages → photos/review_count/rating), enrich-website.js (sites → email/
-socials/own-site photos/menu discovery, incl. Cloudflare cfemail decode).
-Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiting design file).
+Canonical menu schema is BUILT and applied (it also backs FoodHub later, a
+QR-menu/ordering upsell — keep menu CONTENT normalized + SQL-queryable, keep
+ordering concerns like carts/modifiers OUT of the shared core). **Don't
+redesign it — seed into it.** Full design + locked decisions + JSON contract:
+`MENU-PLAN.md` (read before menu work).
 
-## (prior) Status
+- **Schema** (`scraper/schema-menu.sql`): `dish_categories` (controlled
+  hierarchical vocab + `search_aliases`) → `menu_categories` → `menu_items` →
+  `menu_item_variants` (priced), `menu_item_tags` (M2M), `menu_item_photos`
+  (deferred). `restaurants` gained `price_min/max`, `menu_item_count`,
+  `menu_parsed_at`. Provenance: `menu_items.source` + `is_hidden`.
+- **Taxonomy:** `web/lib/menu/taxonomy.ts` is the single source of truth →
+  seeded by `node scraper/seed-taxonomy.ts` (idempotent). Dish-level default;
+  momo has a preparation subtree; **protein is a cross-cutting facet** tagged
+  alongside the dish. Unknown dish → add to `taxonomy.ts` + re-run seed (the
+  menu seeder HARD-ERRORS on unknown slugs by design). Workers log gaps to
+  `MENU-TAXONOMY-TODO.md`; only the coordinator edits `taxonomy.ts`.
+- **Seeding flow (one restaurant at a time):** `node scraper/menu-fetch.js
+  <slug>` (resolves the own-site source, pdftotext first, rasterizes image-only
+  scans) → transcribe to `scraper/menu-data/<slug>.json` → `node
+  scraper/seed-menu.js <slug>` (dry-run) → `--commit`. Worker docs:
+  `MENU-WORKER-CHEATSHEET.md` (the one-pager) + `MENU-WORKER-PROMPT.md`.
+  Worklists: `MENU-SEEDING-PLAN.md` (menu_url buckets A/B/C) + `MENU-QUEUE.md`
+  (all remaining by popularity) + `MENU-SKIPPED-SOURCES.md` (why rows were
+  skipped) + `MENU-REMAINING-PLAN.md` (strategy for the rest). Progress:
+  `node scraper/menu-progress.js`.
+- **Hard source rule: the restaurant's OWN menu only** (own-domain page/PDF or
+  physical-menu photos). Never ordering/delivery platforms (Uber Eats, Menulog,
+  yumbojumbo, square.site, Foodhub white-labels, …): marked-up prices, subset
+  menus. If that's the only source, SKIP. Branches of a chain each have their
+  OWN menu; never reuse another branch's JSON (owner-confirmed).
+- Menu item descriptions are transcribed VERBATIM (the human-copy standard does
+  NOT apply to them; it does apply to the blurb generator).
+- Bar/drinks ARE transcribed (`drinks`, item-level only); catering flyers are
+  SKIPPED (set `catering=true` instead; see `CATERING-BACKLOG.md`).
+- The detail page renders the menu when items exist (`RestaurantMenu`); dish
+  search / dish×city SEO pages not built yet.
 
-- ✅ Scrape complete: **1017** unique restaurants nationwide
-- ✅ Loaded into Postgres; **100% lat/lng** (map-ready)
-- ✅ Enrichment complete. Coverage: full_address 99%, lat/lng 100%, phone 95%,
-  rating 99%, suburb 99%, website 74%, **review_count 61%**.
-- ⚠️ `review_count` capped at ~61%: Google serves **inconsistent place payloads**
-  (full vs. "lite" with no review data) depending on exit/throttle, so the count
-  widget/data often isn't present to scrape. Rating is fine (99%). For complete
-  review counts + review text, use the **Google Places API** (paid, licensed) —
-  bundle with the deferred reviews/photos work.
-- Exports refreshed via `node export-db.js` → `main-table.csv` / `main-table.json`.
-- Coverage by state (foundVia): VIC, NSW, WA lead; then QLD, SA, NT, TAS, ACT
+## Status
+
+1017 scraped → ~437 visible after relevance cleanup + closures. Coverage:
+address + lat/lng 100%, rating 99%, phone 95%, photos ~76% (self-hosted WebP
+under `media/photos/<id>/`), website 73%, menus ~144 restaurants (~9k items).
+Remaining data work: menu seeding (see queue docs), optional `review_needed`
+precision pass (`ROADMAP.md`).
 
 ## Key learnings (don't re-discover these)
 
-- **Google stalls headless Chromium from datacenter proxies.** Proxies work fine
-  for plain `curl` against Google, but Playwright+proxy hangs/times out when
-  loading full pages — UNLESS you **block images/media/fonts/css**; with asset
-  blocking, good proxies render a place page in ~4s.
-- **Direct connection throttles after ~300 place-page hits** (panel stops
-  rendering, no error). Fix = rotate across **direct + all proxies** and retry
-  failures on a different exit; ~60% fill per pass, converges over passes.
-- Plain proxy HTTP fetch returns only the Maps **shell** (no address); the place
-  data loads via JS, so rendering (Playwright) is required.
-- List-card scrape only yields a **street fragment** (no suburb/state/postcode)
-  and review counts render inconsistently — full address needs the place page.
-
-## TODO / roadmap
-
-### Post-launch (do AFTER launch, not blocking)
-
-- [ ] **Dedicated catering-menu model (`catering_sets` table)** — see
-      `CATERING-BACKLOG.md` for the full venue list + design note. Catering is NOT
-      menu-shaped (set/package = one per-person price + courses + choice-lists, no
-      dish line-items/variants) and must stay OUT of global dish search and à la
-      carte price facets, so build a **separate `catering_sets` table** (not the
-      menu tables, not a generic `menus` table). Dominant case is **dual venues** (a
-      normal restaurant that ALSO caters — ~22 already seeded with catering flyers
-      deliberately SKIPPED), so it must attach to a restaurant WITHOUT touching its
-      à la carte `menu_items`. Sketch: `catering_sets(restaurant_id FK, slug, title,
-      subtitle, price, price_unit, currency, courses jsonb [{heading,choices[]}],
-      notes, position, is_hidden)`; JSONB is fine here because we never query into
-      it. Detail page renders a "Catering & Events" section; migrate Prisha's 7
-      interim `menu_items` into it. **Interim until then:** ignore catering menus;
-      if one is supplied, seed it as a normal menu the way Prisha was done (one
-      priced item per set, courses in the item `description`).
-
-- [ ] **Non-destructive cropping (nice to have)** — today the admin editor crop is
-      destructive: `CropModal` bakes the chosen region into a new file and the old
-      one is deleted (see "Image cropping is client-side + destructive" above), so
-      you can't un-crop, repeated crops soften JPEG quality, and one aspect ratio is
-      baked per image. Not worth it now (crops are infrequent admin actions, storage
-      is trivial, new keys cache-bust cleanly). Revisit IF the claim flow lands and
-      owners start re-framing their own photos a lot, OR we need multiple aspect
-      ratios from one source. Preferred approach when we do: keep the original +
-      store a normalized crop rect and crop on the fly via **Cloudflare Image
-      Resizing** (`/cdn-cgi/image/…`, same provider as R2) so it's lossless and
-      multi-aspect with NO extra storage (avoids the ~2x cost of storing a second
-      cropped file). Then every display surface builds the transformed URL.
-- [ ] **Language options / Nepali translation** — add a language switcher so the
-      site can be translated into Nepali (नेपाली). Covers UI strings, nav, and
-      ideally restaurant blurbs. Plan for i18n routing (e.g. `/ne/...`) + a
-      translation layer; English stays default.
-- [ ] **Restaurant blurb generator** — only ~36 rows have a `description` today
-      (12 hand-written + 24 paraphrased from Google `editorial_summary`; the other
-      ~93% are blank and fall back to `autoBlurb`). Build an LLM generator (needs
-      `ANTHROPIC_API_KEY`) that writes an original 1-2 sentence blurb per restaurant
-      in brand voice into `description`. Feed it everything we have as signal: name,
-      `venue_type`, `tags[]`, `suburb`/`state`, rating, and the Google
-      `editorial_summary` as a *hint only* (do NOT republish or store its text in a
-      displayed column — licensing; treat it as one input so output is "informed by",
-      not "derived from"). Apply the human-copy standard (no em/en dashes, AU
-      spelling, no AI-tell words; copywriting skill). Skip rows already non-NULL so
-      hand-written + paraphrased blurbs are preserved. Skip the non-Nepali leaks
-      flagged by `relevance`/`is_nepali`. Make it reviewable (stage to a column or
-      dry-run file before writing `description`).
-- [ ] **Photo carousel in the place card** — the Explore Mapbox popup card
-      (`.ne-popup`, see `web/components/explore/MapView.tsx`) shows a single photo;
-      add a swipeable/clickable carousel through the restaurant's `restaurant_photos`
-      so users can flick through multiple shots without opening the detail page.
-- [ ] **Momo Route / momo crawl** — let foodies string several momo spots into a
-      route (momo-hopping, the way people do bar/café crawls): an ordered set of
-      stops shown on the Explore map with walking distance/time between them and a
-      shareable URL. The format is proven (food crawls, Eater/Infatuation "maps,"
-      Google Maps Lists) and on-brand ("Find your momo people"), with strong SEO
-      ("momo crawl <city>", "best momo route in <suburb>"). **Build editorial-first,
-      UGC later:** start with admin-curated trails per city/suburb (e.g. "5 momo
-      stops walking distance in Harris Park") so it ships value and SEO on day one
-      and reuses what we have (PostGIS to order stops + compute leg distance/time,
-      the Explore map to render). Add a user "build your own route" tool only after
-      auth lands (UGC route-builders have a cold-start problem: low creation rates,
-      need accounts + seeded content to not feel empty). **Caveat:** crawling only
-      works where momo spots cluster, check which suburbs have 3+ momo places close
-      together (PostGIS proximity) before designing the walking UX; spread-out
-      spots become a drive, not a crawl. Likely a `routes` + `route_stops` table
-      (slug, title, city/suburb, ordered restaurant_id stops, author) plus
-      `/momo/route/[slug]` pages.
-- [ ] **Split `catering` vs `venue_hire` + "Events & Catering" nav** — START AFTER menu
-      seeding is done (post-launch, not blocking). Today `catering` (editorial boolean) is
-      overloaded: it can't tell "cooks food for your off-site event" apart from "has a
-      bookable function space on their premises." They're orthogonal (host a wedding at a
-      hireable venue = venue hire; hire a hall elsewhere + truck food in = catering; a spot
-      can do either/both/neither). Keep THREE distinct concepts clear:
-        - `good_for_groups` (Places API) = big table dines in normally (no exclusive space).
-        - `catering` (editorial) = they cook + deliver/serve at YOUR location (off-premise).
-        - `venue_hire` (NEW editorial boolean) = they have a bookable private/function space
-          ON their premises. `null`=unknown, `true`=confirmed; only set `false` if explicitly
-          confirmed no (never bulk-false — absence of evidence ≠ no venue hire).
-      Decisions: column name `venue_hire`; user-facing label **"Functions"** / "Function venue"
-      (AU-idiomatic, matches how these spots title their own pages, strong SEO). Boolean only —
-      no capacity/min-spend now (that's future lead-CRM). Additive/nullable, nothing reads it =
-      low-risk (same profile as `catering`/`fusion`).
-      Nav: add a header item **"Events & Catering"** = the capability directory (find a caterer /
-      hire a function space), filtering on `catering OR venue_hire` with two badges/facets.
-      ⚠️ Do NOT reuse bare "Events" — reserve **"What's On"** for the future festivals/community
-      calendar (see the DISCOVERY entry below, surface B) so the two intents (plan YOUR event vs
-      attend an event) don't collide. Final label goes through the copywriting/human-copy standard.
-      **Backfill plan (produce → review → commit, like menus).** Names barely help — a scan found
-      only ~4 rows with a venue-hire token in the name (Third Eye Rooftop Function Centre/Banksia,
-      Everest Function Centre/Rockdale, Kathmandu Banquet/North Melbourne, Silver Salver …Function
-      Center/Wollongong). So this is a WEBSITE-scan + editorial job (441 visible, 314 have a
-      website), not name-derivation:
-        0. Schema: `ALTER TABLE restaurants ADD COLUMN venue_hire boolean;` (nullable).
-        1. Auto-`true` the ~4 name slam-dunks after a glance; the 2 "banquets" editorial rows
-           (Taste of the Himalayas, Namaste Parkside) go to the review pile ("banquet" usually =
-           set-feast menu, not a hireable space).
-        2. Website scan (reuse the Playwright asset-block + proxy infra): per row with a website,
-           fetch homepage + probe `/functions`,`/events`,`/private-events`,`/venue-hire`,
-           `/functions-events`; grep a venue-hire lexicon (function room/centre, private function,
-           venue hire, hire our space, private dining room, seats up to N, capacity, reception/
-           banquet hall, book your party/wedding here, exclusive use). PRECISION GUARD: separate
-           on-site space ("our function room / seats X") → `venue_hire` candidate, from off-site
-           food ("we cater for events / delivered to your venue") → `catering` candidate. Emit
-           candidates + matched snippet/path to a REVIEW file; NO auto-commit (false positives —
-           claiming weddings they don't do — are worse than misses).
-        3. Editorial confirm: set `venue_hire=true` on confirmed rows, opportunistically fix
-           `catering` where the scan reveals off-site catering; unconfirmed stays `null`.
-        4. Later/free: the July Places API re-run widens the field mask to capture `types`/
-           `primaryType` — if Google tags any as event/banquet types, use as an extra signal.
-      Feeds the DISCOVERY entry below (surface A catering + a venue-hire lead-gen supply).
-- [ ] **Dietary flags: vegan + gluten-free (do TOGETHER with the venue_hire plan above)** — same
-      shape as venue_hire (website-scan + editorial, confirmed-true only, nullable, never guessed).
-      Leave for now; bundle when we run the venue_hire scan. Two levels, sourced differently:
-        - **Restaurant-level (near-term, the realistic data):** the discovery/filter signal
-          ("can this place feed a vegan/coeliac?"). Mirrors the EXISTING vegetarian dual model
-          (`serves_vegetarian` restaurant-level = "has options" vs `menu_items.is_vegetarian` =
-          per-dish truth). Schema: `ALTER TABLE restaurants ADD COLUMN vegan boolean, ADD COLUMN
-          gluten_free boolean;` (nullable; `true`=confirmed, `null`=unknown, never bulk-false —
-          same profile as `catering`/`venue_hire`/`fusion`, nothing reads them until wired).
-        - **Item-level (enable now, populate over time):** the content/SEO/trust signal for
-          "gluten-free momo in <city>" landing pages + the "restaurant + matched items" listing.
-          Add `vegan` + `gluten-free` as CROSS-CUTTING facet tags in `web/lib/menu/taxonomy.ts`
-          (same pattern as the `veg` protein tag) + re-run `seed-taxonomy.ts`. Cheap/additive.
-          Populated ONLY when a menu explicitly marks a dish — accrues via normal menu seeding,
-          NO back-scan. Landing pages are a LATER deliverable gated on real item coverage (don't
-          build them against ~5 seeded restaurants).
-      **⚠️ Gluten-free is effectively a MEDICAL claim (coeliac), stricter than vegetarian:** never
-      infer it, set true only from an explicit menu/website statement, frame as "gluten-free
-      OPTIONS / check with venue," not a guarantee. Vegan is milder but same rule (ghee/paneer/
-      dairy are everywhere, so vegetarian ≠ vegan and neither derives from the other).
-      **Backfill (restaurant-level):** clone the venue_hire website-scan (Playwright asset-block +
-      proxy, homepage + `/menu`, grep lexicon: "gluten free"/"gluten-free"/"GF"/"coeliac"/"vegan"/
-      "plant-based") → REVIEW file, NO auto-commit → editorial confirm. 314/448 have a website;
-      expect a LOW hit rate (small sites rarely state it) — most stay `null`, which is correct.
-      Restaurant-level is derivable from item-level where a menu exists (has ≥1 GF/vegan-tagged
-      item → "options"); item-level is NEVER derivable from restaurant-level (drives the sequencing).
-- [ ] **DISCOVERY: Event booking / Festivals promotion / lead CRM** — monetization
-      discovery piece, NOT yet scoped to build. Three related-but-distinct surfaces that share
-      data but monetize differently; this entry captures the thinking so it isn't lost.
-    - **(A) Catering / private-event enquiries** (birthdays, bhoj, office orders) —
-      diner → restaurant lead-gen. Highest-intent, highest-value transaction in the
-      space and the clearest gap vs Google Maps (Maps can't do "momo + mains for 30
-      in Harris Park next Sat"). Money = restaurants pay to *receive* leads
-      (subscription or pay-per-lead) and/or featured "verified caterer" placement
-      (reuses `featured_rank`). NOT diner-pays. Hard part is supply-side cold-start:
-      we have no relationship/monitored channel with any restaurant (email 39%, phone
-      95% but scraped ≠ a pipeline). v0 = concierge: form routes to admin, we broker
-      manually by phone, to validate demand before building owner plumbing.
-    - **(B) Festival & community events** = a PUBLIC "what's on" layer (Dashain,
-      Tihar/Deusi-Bhailo, Holi, Teej, Losar, Nepali New Year, Buddha Jayanti, momo
-      comps, live-music nights). Different shape from A (one-to-many, time-bound,
-      public). Strongest SEO gap in the diaspora online (event info today is buried in
-      FB groups/WhatsApp, unindexed) → recurring SEASONAL traffic spikes per festival.
-      Primarily an audience/traffic play that makes A + the whole directory stickier
-      ("the Nepali food + culture hub for AU"), not a strong direct revenue line:
-      monetize via promoted/featured events + festival-season sponsorship inventory;
-      ticketing cut is high-build and fights Eventbrite/Humanitix, skip early. Open
-      scope call: restaurant-only vs community-wide (temples, associations host the
-      best events) — leaning community-wide = bigger, more defensible surface but
-      drifts from "restaurant directory". Same editorial-first → UGC-later pattern as
-      momo routes: admin-curate per city first (no auth needed), add submissions later.
-      ⚠️ Real cost is editorial freshness, not the build — a stale calendar is worse
-      than none.
-    - **(C) Lead CRM** — once A/B run, both need somewhere to land/track: an
-      `enquiries` table (restaurant_id FK, contact, party size, date, event_type,
-      message, status, created_at) + an `events` table (title, type, restaurant_id
-      NULLABLE so community orgs qualify, datetime, suburb/state, geom, ticket_url,
-      description, status). Owner-facing enquiry management basically needs the
-      claim/auth flow already deferred below, so A's real launch rides on auth; B can
-      ship editorial-only without it.
-    - **Recommended sequence:** launch directory → B editorial-curated (audience +
-      warms restaurant relationships, no auth) → A concierge on the warmed
-      restaurants → monetize both via `featured_rank` once traffic exists (sells
-      hardest in festival season). **Validate both sides MANUALLY before writing
-      matchmaking code — first dollar is a phone call, not a feature.**
-- [ ] **Add a Spot** (`/add-a-spot` submission flow) — post-launch feature.
-- [ ] **Login / auth** — post-launch feature (gates reviews, claims, saved spots).
-- [ ] **Claim a restaurant** — claim portal so an owner can claim their listing
-      (verify, then `grantOwnership` → `restaurant_owners`). The detail-page Edit
-      button already shows for admins + owners (`/api/me?restaurantId` → `canEdit`),
-      but `/admin/[slug]` is still admin-gated (`proxy.ts` + `assertAdmin`). When
-      the claim portal lands, open the editor to verified owners so claiming lets
-      them edit their own spot.
-      ⚠️ **Client/server authz mismatch to resolve in this work:** the detail-page
-      edit UI is revealed when `canEdit = admin OR owner` (`EditModeProvider` →
-      `/api/me?restaurantId`), but the actual write routes
-      (`/api/admin/restaurants/[slug]/*`) are still `requireAdmin()` (admin ONLY).
-      So once claims land, a verified owner will see the full edit panel and every
-      save will 403. It fails CLOSED (server denies, so no security hole today),
-      but the two authz definitions have already drifted. When opening the editor
-      to owners, widen the write routes from `requireAdmin()` to an admin-or-owner
-      check (reuse `isOwnerOf`) so the server matches what the client reveals.
-- [ ] **Cache `/api/search` responses** — autocomplete is deterministic per query
-      and data is near-static, but the route (`app/api/search/route.ts`) sends no
-      cache header and `SearchBox` does a raw `fetch` into local state, so repeat
-      queries (e.g. `?q=auburn`) refetch every time. Plan:
-      (1) add `Cache-Control` (`s-maxage` + `stale-while-revalidate`) so the
-      CDN/browser serve repeats without invoking the function — biggest win;
-      (2) **normalize the cache key** (lowercase + trim + collapse whitespace) so
-      `Auburn`/`auburn`/`auburn ` are one entry (SQL is already case-insensitive);
-      (3) optionally wrap `searchSuggest(q)` in Next 16's `'use cache'` +
-      `cacheLife`/`cacheTag` for DB protection on cold edges; cache empty/no-result
-      responses too. Skip per-instance in-memory LRU. **Invalidation:** rely on TTL
-      + deploy busts now; wire `revalidateTag('search')` into the `/admin` save once
-      owner edits get frequent (claim flow). React Query/SWR is *not* needed for
-      this — revisit a client query lib only when saved-spots/reviews land.
-      ⚠️ Next 16 caching APIs changed; confirm `'use cache'`/header syntax against
-      `node_modules/next/dist/docs/` before implementing (see `web/AGENTS.md`).
-
-- [ ] **Re-enable Explore filters (data is now mostly enriched).** The Open now /
-      Sort / Rating filter row is still **hidden** in `ExploreClient.tsx` (gated
-      with `{false && (...)}`, search for "Filters (Open now / Sort / Rating)
-      hidden"). The Places API pass (2026-06-25) filled the gaps that made this
-      thin: full-week `opening_hours` (474 rows, Open now is now reliable) and the
-      attribute booleans (vegetarian/takeout/delivery/dine-in/etc.); price is still
-      sparse (136 rows). The backend `flags` filter is already wired
-      (`FLAG_COLS`/`?flags=`). Remaining work is mostly the UI: design the filter
-      surface, then remove the `{false &&}` wrapper. `openOnly`/`sort`/`minRating`/
-      `price` still wire into the query.
-- [ ] Finish address enrichment to plateau (~95%+ where Google has data)
-- [ ] Backfill `review_count` + re-confirm `rating` from place pages (in progress —
-      review counts render inconsistently on list cards, reliable on place pages)
-- [x] **Relevance cleanup DONE** (flagged, nothing deleted). Columns added:
-      `is_nepali` (true/false/null) + `relevance` bucket. **Directory query:**
-      `WHERE is_nepali IS NOT FALSE` → **624 visible**, 393 excluded.
-      Buckets: `nepali` 356 (keyword/category match, keep) · `review_needed` 268
-      (generic-named, from Nepali searches, kept as likely-Nepali) · `indian_likely`
-      152 (pure Indian, excluded) · `grocery_retail` 105 · `other_cuisine` 92 ·
-      `manual_excluded` 27 (hand-picked famous non-Nepali leaks) · `other_venue` 17.
-      Note: Postgres regex word boundaries are `\m \M \y` (NOT `\b`). Nepali signal
-      always wins first, so genuine Nepali is never excluded by a cuisine rule.
-- [ ] Optional precision pass: `review_needed` (268) long tail + `indian_likely`
-      (152, may contain Nepali-Indian fusion) are best separated by an LLM
-      name+category classifier (needs an Anthropic API key in `.env`). Reversible
-      via the `relevance` column.
-- [ ] Classify `website` links → add `website_type` (`own_site` | `aggregator` |
-      `ordering` | `social`) so menu sourcing can route per restaurant
-- [~] **Menu scraping** → menu tables. **SCHEMA + taxonomy + seeders are now BUILT
-      and live on Neon** (see the "Menus" section above + `MENU-PLAN.md`); the actual
-      shape superseded the single-table sketch below. Remaining: seed restaurants one
-      menu at a time, then build the frontend (detail-page menu render + dish search +
-      dish×city SEO pages). Historical sketch of the original idea:
-      new `menu_items` table
-      (restaurant_id FK, section, name, description, price, currency, photo_url,
-      is_vegetarian, spice_level, source, source_url, position, fetched_at).
-      Source priority: ordering platforms (Menulog/Uber Eats/DoorDash/order.store,
-      structured + prices) → restaurant own-site via LLM extraction → Google
-      (weak for structured menus). Promote `section` to a `menu_sections` table
-      if menus get richer.
-    - **⚠️ DESIGN CONSTRAINT — the menu tables are a SHARED canonical schema,
-      not directory-only.** They are intended to also back **FoodHub** (not live
-      yet): a **QR-menu / in-restaurant ordering app** sold as an upsell to the
-      restaurants already in this directory. So design the menu schema
-      product-neutral: keep menu **content** (categories, items, priced
-      **variants**, dish taxonomy, dietary flags, descriptions) **normalized and
-      SQL-queryable** so it serves BOTH the directory (display + dish/price/diet
-      filtering, dish landing pages) AND FoodHub (rendering orderable items).
-      Keep **transactional/ordering** concerns (availability toggles, modifier
-      GROUPS with select rules, carts, orders, payments) OUT of the shared core —
-      those are FoodHub-specific and layer on later, referencing the shared menu.
-      Notably this means NOT using FoodHub's old `modifiers Json` shortcut for
-      variants (it kills the directory's column-level filtering); variants live in
-      a normalized table both products read. Full design + decisions live in
-      `MENU-PLAN.md`. Source of truth for now is this Neon DB; whether FoodHub
-      reads it directly or the menu tables split into a shared service is a later
-      call (decide when FoodHub is built).
-- [ ] **Website enrichment** → scrape each restaurant's `website` (451/617 have one)
-      for `email` + socials (facebook/instagram/tiktok/whatsapp). Build
-      `enrich-website.js` (fetch homepage + /contact, regex tel:/mailto:/social
-      links). #857 done manually as the template.
-- [ ] **Website / Google photos scraping** → new `restaurant_photos` table
-      (restaurant_id FK, url, source, attribution, width, height, position,
-      fetched_at). Sources: restaurant site / ordering platforms (item photos),
-      or Google Places Photos API (licensed, paid). ⚠️ Google photos & reviews
-      have storage/display licensing constraints; site photos have copyright
-      considerations — confirm usage rights before storing.
-- [ ] Google reviews (deferred)
-- [x] **Opening hours — DONE via Places API** (`reconcile-places.js`,
-      `regularOpeningHours`): full-week `opening_hours` on 474 rows, replacing the
-      headless single-day accumulation (`enrich-hours.js`, kept as a fallback).
-      Price/rating/review_count + attribute columns + `business_status` also
-      backfilled in the same pass, including `kid_friendly` (377 true) and
-      `live_music` (57 true) from Google's `goodForChildren`/`liveMusic`.
-- [ ] Menus/prices go stale — define a refresh cadence (`fetched_at` staleness)
+- **Google stalls headless Chromium from datacenter proxies** UNLESS you block
+  images/media/fonts/css; with asset blocking a place page renders in ~4s.
+- **Direct connection throttles after ~300 place-page hits** (panel silently
+  stops rendering). Fix = rotate direct + all proxies, retry on other exits.
+- Plain proxy HTTP fetch returns only the Maps shell; place data needs JS, so
+  rendering (Playwright) is required.
+- List-card scrape yields only a street fragment; full address needs the place
+  page. Review counts render inconsistently on list cards.
 
 ## Conventions
 
 - Enrichment scripts are **idempotent + resumable** (drive off `WHERE ... IS NULL`).
-- Keep CSV/JSON as exports/snapshots; **Postgres is the source of truth.**
+- CSV/JSON are exports/snapshots; **Postgres is the source of truth**.
 - Respect proxy rotation + asset blocking for any new Google scraping.
+- TODOs live in `ROADMAP.md` (post-launch) and the launch docs — not here.

@@ -70,18 +70,17 @@ Nothing goes live for crawling until these are true. Detail/why is in §4 (SEO),
 - [ ] **Home schema:** `WebSite` + `SearchAction` (sitelinks search box) +
       `Organization` JSON-LD (SEO §5). Only restaurant + stories pages emit JSON-LD
       today.
-- [ ] **Default OG image + Twitter card.** No `og`/`opengraph-image` asset exists, so
-      every social/link preview is blank. Add `app/opengraph-image` + Twitter
-      fallback in `app/layout.tsx` (SEO §7).
-- [ ] **Sitemap `lastModified`** from real row timestamps (`updated_at`/
-      `enriched_at`), not build time (SEO §7).
-- [ ] **`aggregateRating` compliance.** It's emitted on detail pages but no reviews
-      are shown, a rich-results violation that can draw a manual action. Drop it for
-      now (no reviews yet); keep the visible rating UI (SEO §8).
-- [ ] **Home H1 carries the head term** (currently pure brand voice), SEO §10
-      Option A.
-- [ ] **Mobile must-fixes** so core pages don't "feel broken": `100dvh`, ≥44px tap
-      targets, detail-page CTAs (UX A1/A3/A4).
+- [x] **Default OG image + Twitter card — DONE.** Programmatic OG cards ship for
+      home, restaurant, and location pages (`app/opengraph-image.tsx` etc.).
+- [x] **Sitemap `lastModified` — DONE.** `app/sitemap.ts` now uses real row
+      timestamps (`GREATEST(updated_at, enriched_at, created_at)`).
+- [x] **`aggregateRating` compliance — DONE.** Dropped from the detail-page
+      JSON-LD (see the comment in `restaurant/[slug]/page.tsx`); the visible
+      rating UI stays.
+- [x] **Home H1 carries the head term — DONE.** H1 is now "Find authentic Nepali
+      food across Australia".
+- [~] **Mobile must-fixes:** `100dvh` (A1) and the detail-page sticky CTA bar
+      (A4) are DONE; ≥44px tap targets (A3) still to verify on device.
 
 ## Content quality bar (the gate every page must pass to be indexable)
 
@@ -268,8 +267,8 @@ Current: only `Restaurant` on detail pages. Add:
 - **`/explore` is the most-linked page but is a client-rendered map app.** Its
   canonical is fixed to `/explore` (good, `?tag=`/`?suburb=` don't spawn duplicates).
   Keep that; stop using it as the primary discovery path (§2).
-- **`generateStaticParams` on `/restaurant/[slug]`** is absent (renders on-demand).
-  Fine functionally; consider prebuilding for faster first crawl/TTFB (low priority).
+- **`generateStaticParams` on `/restaurant/[slug]`** — DONE (every visible
+  restaurant prerenders at build; new/edited spots still render on demand).
 
 ## §7. Technical / on-page details
 
@@ -453,8 +452,15 @@ the data is gathered**, contact, and an owner **"claim your spot"** path (E-E-A-
 
 **Brief:** be critical; priority is looking good on **mobile**. Method: code-level
 review of layout/components/responsive classes. Items marked **(verify on device)**
-need a physical/emulator check. (Recommendations only; some, e.g. the Clerk login that
-fixes B5, have since shipped.)
+need a physical/emulator check.
+
+**Shipped since this audit (2026-07 status):** A1 `100dvh` (ExploreClient uses
+`h-[calc(100dvh-57px)]`), A2 filter collapse (filters live behind a "Filters"
+toggle; mobile keeps one scrollable control row), A4 detail CTAs (sticky bottom
+Call/Directions bar on mobile), A7 map resize (Mapbox `resize()` on the
+list→map toggle), B5 Clerk login. Still open: A3 tap targets, A5 hardcoded
+57px header height, A6 z-index scale, B1 responsive H1s, B2 `_blank` rows,
+B3/B4/B6.
 
 ## Verdict
 

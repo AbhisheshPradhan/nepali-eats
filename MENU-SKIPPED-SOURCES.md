@@ -88,23 +88,18 @@ in-store photos) turns up.
 | 341 | ChiyaHub | Kogarah | NSW | https://www.chiyahub.com/menu | 148 rev. Own-domain Nepalese tea café site; the `/menu` page re-renders the marketing homepage with ZERO prices even after full Playwright JS render. Explicit banner "Check our wall menu for daily deals!" = the real menu is an in-store WALL menu, not published online. Prose names snacks (momo, samosa, sel-roti, aloo anda chana, samosa chat) and teas (masala chiya, ginger max chiya, lassis) but nothing priced. Recheck if they publish a priced menu / in-store photos. |
 | ALL | 8848 Momo House (whole chain) | Fortitude Valley + 7 others | QLD/NSW/VIC/WA | https://www.8848momos.com.au/ | ~777 rev flagship (8+ branches share this site, all `menu_url` = ubereats). Own site's `/new-menu/` + `/oriental-fusion-restaurant-menu/` publish only **3D promo mockup renders** (folded-brochure / stacked-booklet images — `mockup_menu3-1.png`, `menu.png`), NOT a legible flat priced menu; 0 prices anywhere on the site ("NEW MENU NOW AVAILABLE INSTORE!"). "ORDER ONLINE" → `order8848momohouse.com.au` (white-label online-ordering storefront, online-order pricing). No readable dine-in menu. Recheck if they publish a flat menu image/PDF. Affects all branches: Fortitude Valley, Gold Coast/Surfers, Maroochydore, Mount Gravatt, Melbourne, Parramatta, + others. |
 
-## H. Own site's only menu is a CATERING-PACKAGES menu (no dine-in priced menu) — SKIP (set `catering=true`)
-
-The restaurant's own site links its "Menu" only to a catering domain / catering-packages
-page (event menu packages, per-head, no à la carte dine-in prices). Per the "skip catering
-flyers" rule this is not seeded as a priced menu; set `catering=true` instead and leave
-`menu_item_count` NULL until a real dine-in menu (own `/menu`, PDF, or in-store photos) turns up.
-
-| # | Name | Suburb | State | Source | Note |
-|---|------|--------|-------|--------|------|
-| 32 | Mul Chowk Kitchen Sydney | Campsie | NSW | https://mccatering.com.au/menu (linked from own site mulchowkkitchen.com.au) | `mccatering.com.au` = "MC Catering, A Joint Venture of Mul Chowk Kitchen". Menu page is event catering PACKAGES for Sydney/Canberra only (no dine-in à la carte prices). Own restaurant site has no `/menu` (404). `catering=true` set 2026-07-02. |
-
 ## G. Self-hosted white-label ORDERING storefront (own domain/subdomain, but online-order menu/prices) — SKIP
 
 Same rule as section C (`square.site`): the URL is on the restaurant's own domain, but the
 page is a white-label **online-ordering** app (pre-order / pickup / delivery cart, vouchers,
 loyalty) whose prices are online-order pricing, not the true dine-in menu. Skepticism rule
 applies → SKIP. Vendor is identifiable from the JS bundle host.
+
+> ⚠️ Reconcile against `MENU-SEEDING-PLAN.md` before re-attempting: a few rows
+> below were LATER judged seedable (own-account ordering menu with restaurant-set
+> prices, marked `price_source: "website"`) and are now seeded — e.g. Galli
+> Kitchen (79 items), Mad Momos (48), Momo Chaa Craigieburn (16), Muskan (21).
+> The DB (`menu_item_count`) is the source of truth for what's done.
 
 | # | Name | Suburb | State | URL | Vendor / note |
 |---|------|--------|-------|-----|---------------|
@@ -118,7 +113,6 @@ applies → SKIP. Vendor is identifiable from the JS bundle host.
 | 641 | Momo Chaa | Craigieburn | VIC | https://momochaacraigieburn.com.au/ | 426 rev. **Foodhub** white-label ordering (`assets.foodhub.com` / `public.touch2success.com`); whole site is the online-order storefront, no static menu. → SKIP. |
 | 481 | Mount View Nepalese Restaurant | (VIC) | VIC | https://mountviewnepaleserestaurant.com.au/ | 432 rev. **Foodhub** white-label ordering (`assets.foodhub.com` / `public.touch2success.com`); online-order-only, no static menu. → SKIP. |
 | 180 | Muskan Bar and Kitchen | Morningside | QLD | https://muskanbarandkitchenonline.com.au/ | 448 rev. **Foodhub** white-label ordering (`assets.foodhub.com` / `public.touch2success.com`); online-order-only, no static menu. → SKIP. |
-| 240 | The Hangout Cafe and Restaurant | Moonah | TAS | https://thehangoutrestaurant.com.au/ | 521 rev. **Foodhub** white-label ordering (`assets.foodhub.com` / `assets.touch2success.com`); online-order-only, no static menu. → SKIP. |
 | 492 | Galli Kitchen | (—) | — | https://www.gallikitchen.com.au/s/order | 501 rev. Menu is a **Square** online-ordering storefront (`/s/order`). Per the square skepticism rule (same as square.site) → SKIP. |
 | 172 | Rashmin Indian Nepalese Restaurant | Roseville | NSW | https://rashminrosevillerestaurant.com.au/ | 555 rev. Indian/Nepalese **takeaway**; own domain but "MENU & Order" opens a **Foodbooking / GloriaFood** online-ordering widget (`foodbooking.com` / `fbgcdn.com`), no static published menu. Online-order-only. Per the online-order skepticism rule → SKIP. Recheck if a static dine-in menu / PDF turns up. |
 | 66 | The Himalaya Bites | Sydney | NSW | https://thehimalayabites.com.au/ | 414 rev. **Foodhub** white-label ordering (`assets.foodhub.com` / `public.touch2success.com` / checkout.com); online-order-only, no static menu. → SKIP. **Tell:** the `<title>` "… Takeaway in <street> | Order Food Online" + a JS-rendered empty shell is the Foodhub "native site" template — same as #506 Mustang Palace, #240 The Hangout, #481 Mount View, #641 Momo Chaa, #180 Muskan; can be skipped on the title alone. |
@@ -189,7 +183,6 @@ renew and rebuild. Distinct from section I (server-default placeholder on a live
 |---|------|--------|-------|-----------|------|
 | 183 | Indus Curry Express - Authentic Indian & Nepalese Restaurant | Geebung | QLD | https://induscurryexpress.com/menus | 735 reviews. Domain **expired, parked on GoDaddy** ("has expired and is parked free"); both `website` (`induscurryexpress.com`) and `menu_url` (`/menus`) serve the parking page. High value — recheck if they renew the domain and republish. |
 | 238 | Mirmire Nepali Taste (Nepali and Indian cuisine) | Hobart | TAS | http://www.mirmire-nepalitaste.com.au/ | 665 reviews. Domain is **DEAD — DNS SERVFAIL** on apex + www from both Google (8.8.8.8) and Cloudflare (1.1.1.1); does not resolve at all (no parking page even). `menu_url` NULL. No site to fetch. High value — needs a live source (new domain / socials / in-store photos) discovered before it can be seeded. |
-| 39 | Bota Corner | Parramatta | NSW | https://botacorner.com.au/ | 511 rev. Domain **does not resolve** (net::ERR_NAME_NOT_RESOLVED); no site to fetch. `menu_url` NULL. High value — needs a live source (new domain / socials / in-store photos). |
 | 23 | Majheri Restaurant | Strathfield | NSW | https://majheri.com.au/ | 593 reviews. Domain is **DEAD — NXDOMAIN** (apex + www don't exist per Google 8.8.8.8); domain lapsed/unregistered, no site at all. `menu_url` NULL. High value — needs a live source (new domain / socials / in-store photos) discovered before it can be seeded. |
 | 39 | Bota Corner | Parramatta | NSW | https://botacorner.com.au/ | 511 reviews. Domain is **DEAD — no DNS A record** (`dig` returns empty on both Google 8.8.8.8 and Cloudflare 1.1.1.1; Playwright `ERR_NAME_NOT_RESOLVED`), 2026-07-02. `menu_url` NULL. High value — needs a live source (new domain / socials / in-store photos) before it can be seeded. |
 | 212 | Royal Bhatti MoMo | Parramatta | NSW | http://royalbhatti.com/ | 528 reviews. Domain is a **"Domain for Sale" parking page** (lapsed, listed for sale — "Contact us for more information"); no site, no menu. `menu_url` NULL. High value — recheck if they register a real domain / publish a menu elsewhere. |
@@ -244,7 +237,7 @@ none is a usable priced Nepali own-site menu. Claim locks kept so they aren't re
 | cafe-himalayan-brew-phillip | Cafe Himalayan Brew Phillip | Phillip ACT | 65 rev. Own site menu (`cafehimalayanbrew.com.au/menu`, has a Tuggeranong/Phillip branch toggle) is a **Western brunch café** menu (toast, eggs benedict, burgers, sandwiches, gourmet pies, coffee). No taxonomy-mappable Nepali dishes (only branding like "Himalayan Big Breakfast"). Same class as the Ribs Lane / Savoury non-Nepali skips. |
 | silver-salver-restaurant-and-function-center-best-restaurant-in-wollongong | Silver Salver | North Wollongong NSW | 39 rev. Own site `silversalver.com.au/dine-menu.html`: the whole menu section (Veg / Bread-Rice-Biryani / Non-Veg / Mains / Kids — ~106 priced items, real Indian/Nepali dishes) is **entirely HTML-commented-out** in the source, and the live JS container ("Menu will come through Javascript") renders **empty**. Nothing is published to visitors — seeding the disabled block would republish prices the owner took offline. SKIP until the live menu is restored. |
 
-## N. Own-site menu markup is COMMENTED OUT / not published — SKIP (unverifiable, not shown to diners)
+## P. Own-site menu markup is COMMENTED OUT / not published — SKIP (unverifiable, not shown to diners)
 
 The `menu_url` is the restaurant's own domain and the page SOURCE contains a full menu
 (dish names, descriptions, ~100 price tokens), but the entire menu block is wrapped in HTML
