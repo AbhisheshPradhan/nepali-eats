@@ -33,7 +33,11 @@ import { EditToggle } from "@/components/edit/EditToggle";
 import { EditPanelMount } from "@/components/edit/EditPanelMount";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import DetailMap from "@/components/DetailMap";
-import { getRestaurantBySlug, getRestaurantMenu } from "@/lib/queries";
+import {
+	getRestaurantBySlug,
+	getRestaurantMenu,
+	restaurantSitemapEntries,
+} from "@/lib/queries";
 import { RestaurantMenu } from "@/components/RestaurantMenu";
 import { mediaUrl } from "@/lib/media";
 import {
@@ -49,6 +53,15 @@ import {
 import { PriceLevel } from "@/components/ui/PriceLevel";
 
 export const revalidate = 3600;
+
+// Prerender every visible restaurant as static HTML at build (mirrors the
+// tag/location pages). Without this the route falls back to on-demand rendering.
+// New/edited spots not in this list still render at request time (dynamicParams
+// defaults true) and cache per `revalidate`.
+export async function generateStaticParams() {
+	const rows = await restaurantSitemapEntries();
+	return rows.map((r) => ({ slug: r.slug }));
+}
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
 
