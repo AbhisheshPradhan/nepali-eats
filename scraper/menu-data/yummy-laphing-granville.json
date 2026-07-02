@@ -1,0 +1,85 @@
+{
+  "slug": "yummy-laphing-granville",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Brekky",
+      "items": [
+        { "name": "Roti, Aloo Dum, Chana, Jhol, Egg & Tea", "tags": ["roti"], "variants": [{ "label": null, "price": 12 }] }
+      ]
+    },
+    {
+      "name": "Amilo Piro Snacks",
+      "items": [
+        { "name": "Chat Pate (Gillo or Sukha)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8, "protein": "veg" }] },
+        { "name": "Pani Puri (8pcs)", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 10, "protein": "veg" }] },
+        { "name": "Aloo Nimki", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 10, "protein": "veg" }] },
+        { "name": "WaiWai Sadeko", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 10, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Deep Fry Items",
+      "items": [
+        { "name": "Aloo Stick (2pcs)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6, "protein": "veg" }] },
+        { "name": "Mushroom Stick (2pcs)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8, "protein": "veg" }] },
+        { "name": "Sausage Stick (2pcs)", "tags": ["sausage"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Sha Phaley (2pcs)", "tags": ["shavale"], "variants": [{ "label": null, "price": 10 }] }
+      ]
+    },
+    {
+      "name": "Yummy Laphing",
+      "items": [
+        { "name": "Laphing", "tags": ["laphing"], "variants": [
+          { "label": "Dry", "price": 11 },
+          { "label": "Jhol", "price": 12 }
+        ] }
+      ]
+    },
+    {
+      "name": "Add Extra",
+      "items": [
+        { "name": "WaiWai", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2 }] },
+        { "name": "Chips", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2 }] },
+        { "name": "Peanut", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2 }] },
+        { "name": "Mix", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5 }] }
+      ]
+    },
+    {
+      "name": "Noodle Bar",
+      "items": [
+        { "name": "Mushroom Noodle", "is_vegetarian": true, "tags": ["chowmein"], "variants": [{ "label": null, "price": 15, "protein": "veg" }] },
+        { "name": "Egg Noodle", "tags": ["chowmein"], "variants": [{ "label": null, "price": 15, "protein": "egg" }] },
+        { "name": "Chicken Keema Noodle", "tags": ["keema-noodle"], "variants": [{ "label": null, "price": 16, "protein": "chicken" }] },
+        { "name": "Egg + Chicken Mix Noodle", "tags": ["chowmein"], "variants": [{ "label": null, "price": 16 }] },
+        { "name": "Keema Noodle", "tags": ["keema-noodle"], "variants": [{ "label": null, "price": 18 }] }
+      ]
+    },
+    {
+      "name": "Ambo Momo",
+      "items": [
+        { "name": "Steam Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 12, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 13, "protein": "chicken" }
+        ] },
+        { "name": "Local Jhol Momo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15, "protein": "chicken" }
+        ] },
+        { "name": "Tibetan Momo", "tags": ["momo"], "variants": [
+          { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15, "protein": "chicken" }
+        ] }
+      ]
+    },
+    {
+      "name": "Meal Deal",
+      "items": [
+        { "name": "1 Veg Curry + Rice", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 10, "protein": "veg" }] },
+        { "name": "1 Non-Veg Curry + Rice", "tags": ["curry"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "2 Curry + Rice", "tags": ["curry"], "variants": [{ "label": null, "price": 15 }] }
+      ]
+    }
+  ]
+}

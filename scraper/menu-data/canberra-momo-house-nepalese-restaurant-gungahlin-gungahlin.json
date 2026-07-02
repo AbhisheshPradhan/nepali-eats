@@ -1,0 +1,162 @@
+{
+  "slug": "canberra-momo-house-nepalese-restaurant-gungahlin-gungahlin",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starter / Snack",
+      "items": [
+        { "name": "Chatpate Dry", "description": "Mixed of boiled potato, coriander, peas, Nepali instant noodle, lemon, chilli, herbs and spices.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.99, "protein": "veg" }] },
+        { "name": "Chatpate Gilo", "description": "Mixed of boiled potato, coriander, peas, Nepali instant noodle, lemon, chilli, herbs, spices and homemade special sauce.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12.50, "protein": "veg" }] },
+        { "name": "Veg Pakora (6pcs)", "description": "Mixed vegetable fritters served with spicy chutney.", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 11.99, "protein": "veg" }] },
+        { "name": "Aalu Chop (4pcs)", "description": "Boiled potato mixed with shallot, coriander, onion, marinated with herbs and spices, battered and deep fried served with spicy chutney.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 11.99, "protein": "veg" }] },
+        { "name": "Aalu Nimki", "description": "Mixed of boiled potato, coriander, peas, nimki, lemon, chilli, herbs, spices and homemade special sauce.", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Sadeko Aalu", "description": "Spicy marinated diced boiled potato.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] },
+        { "name": "Laphing", "description": "A spicy thin noodle filled with homemade special chutney, Nepalese instant noodle and homemade soft bread; jhol dipped into flavoured soy sauce.", "tags": ["laphing"], "variants": [
+          { "label": "Dry", "price": 11.99 },
+          { "label": "Jhol", "price": 13.50 }
+        ] },
+        { "name": "Sadeko WaiWai", "description": "Spicy marinated Nepali instant noodles, boiled potato, coriander, peas, chilli, herbs and spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] },
+        { "name": "Sadeko Peanuts", "description": "Roasted peanuts marinated with herbs, spices and seasoning.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Pani Puri", "description": "Bite size chat consisting of a hollow, crispy fried puffed ball filled with potato, onion, peas, coriander, spices and flavoured water.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 11.50, "protein": "veg" }] },
+        { "name": "Sadeko Bhatmas", "description": "Roasted soybean marinated with onion, coriander, ginger, garlic, herbs, spices and seasoning.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Momo (10pcs)",
+      "items": [
+        { "name": "Steam Momo", "description": "Choice of steamed dumplings served with tomato based spicy chutney.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 15.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.50, "protein": "chicken" },
+          { "label": "Buffalo", "price": 16.50, "protein": "buff" },
+          { "label": "Goat", "price": 17.50, "protein": "goat" }
+        ] },
+        { "name": "Steam Sadeko Momo", "description": "Choice of steamed dumplings marinated with spicy chutney, seasonal vegetables, peanuts and seasoning.", "tags": ["sandheko-momo"], "variants": [
+          { "label": "Veg", "price": 17.50, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.50, "protein": "chicken" },
+          { "label": "Buffalo", "price": 19.50, "protein": "buff" },
+          { "label": "Goat", "price": 19.99, "protein": "goat" }
+        ] },
+        { "name": "Kothe Momo", "description": "One sided pan fried choice of steamed dumpling, served with homemade chutney.", "tags": ["kothey-momo"], "variants": [
+          { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 17.99, "protein": "buff" },
+          { "label": "Goat", "price": 18.99, "protein": "goat" }
+        ] },
+        { "name": "Fried Momo", "description": "Deep fried choice of dumplings serve with homemade chutney.", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 17.99, "protein": "buff" },
+          { "label": "Goat", "price": 18.99, "protein": "goat" }
+        ] },
+        { "name": "Fried Sadeko Momo", "description": "Deep fried choice of dumplings marinated with spicy sauce, seasonal vegetables, peanuts and seasoning.", "tags": ["sandheko-momo"], "variants": [
+          { "label": "Veg", "price": 18.50, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 19.99, "protein": "buff" },
+          { "label": "Goat", "price": 20.50, "protein": "goat" }
+        ] },
+        { "name": "Fried C-Momo", "description": "Deep fried choice of dumpling cooked with onion, capsicum, spices, tomato sauce and seasoning.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+          { "label": "Buffalo", "price": 19.50, "protein": "buff" },
+          { "label": "Goat", "price": 19.99, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "House Special",
+      "items": [
+        { "name": "Veg Pack for 4", "description": "1 Veg momo platter, 4pc aalu chop, 4pc veg pakora, 1 mushroom chilli, 1 paneer chilli, 2 veg chowmein, 4 can of coke/fanta/sprite.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 135.00 }] },
+        { "name": "Veg Pack for 6", "description": "2 Veg momo platter, 6pc aalu chop, 6pc veg pakora, 2 mushroom chilli, 2 paneer chilli, 3 veg chowmein, 6 can of coke/fanta/sprite.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 235.00 }] },
+        { "name": "Chicken Pack for 4", "description": "1 Chicken momo platter, 4pc sausage, 4 stick sekuwa, 4pc lollypop/wings, 1 chicken chilli, 1 chicken stir fry chowmein, 4 can of coke/fanta/sprite.", "tags": [], "variants": [{ "label": null, "price": 135.00 }] },
+        { "name": "Chicken Pack for 6", "description": "2 Chicken momo platter, 6pc sausage, 6 stick sekuwa, 4pc lollypop/wings, 2 chicken chilli, 1 chicken chowmein, 1 chicken sadeko chowmein, 6 can of coke/fanta/sprite.", "tags": [], "variants": [{ "label": null, "price": 210.00 }] },
+        { "name": "Buff Pack for 4", "description": "1 Buff momo platter, 1 buff chilli, 4 stick buff sekuwa, 1 buff sukuti set, 1 buff chowmein, 4 can of coke/fanta/sprite.", "tags": [], "variants": [{ "label": null, "price": 145.00 }] }
+      ]
+    },
+    {
+      "name": "Lunch Special (Mon-Fri, Opening - 3:00pm)",
+      "items": [
+        { "name": "Curry with Rice", "description": "Curry with rice, homemade chutney/pickle.", "tags": ["curry"], "variants": [
+          { "label": "Veg", "price": 10.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 12.00, "protein": "chicken" },
+          { "label": "Goat", "price": 13.00, "protein": "goat" }
+        ] },
+        { "name": "Lunch Combo", "description": "6pc steam momo, 1/2 chowmein & 1 can of drinks.", "tags": ["momo", "chowmein"], "variants": [
+          { "label": "Veg", "price": 15.00, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16.00, "protein": "chicken" },
+          { "label": "Buff", "price": 17.00, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Ice Cream", "description": "Choice of Vanilla/Strawberry flavour.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 4.99 }] },
+        { "name": "Yogurt & Gulab Jamun", "description": "Yogurt with gulab jamun and sugar syrup.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 5.50 }] },
+        { "name": "Gulab Jamun", "description": "Gulab Jamun with sugar syrup.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 4.99 }] },
+        { "name": "Jeri (Jalebi)", "description": "Deep fried pretzel-shaped loops dipped in sugar syrup. (occasionally available, contact for bulk order.)", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 4.99 }] }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "items": [
+        { "name": "Coke Classic", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Coke No Sugar", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Fanta", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Lemonade", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] }
+      ]
+    },
+    {
+      "name": "Lassi",
+      "items": [
+        { "name": "Sweet Dahi Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.00 }] },
+        { "name": "Sweet Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.00 }] },
+        { "name": "Sweet Banana Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.00 }] },
+        { "name": "Salted Dahi Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.00 }] }
+      ]
+    },
+    {
+      "name": "Milkshake",
+      "items": [
+        { "name": "Strawberry Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Chocolate Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Caramel Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Banana Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Vanilla Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] }
+      ]
+    },
+    {
+      "name": "Hot Drinks & Juice",
+      "items": [
+        { "name": "Nepali Masala Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Orange Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.50 }] },
+        { "name": "Orange Watermelon Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.50 }] },
+        { "name": "Watermelon Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.00 }] },
+        { "name": "Apple, Carrot, Ginger Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] }
+      ]
+    },
+    {
+      "name": "Beer",
+      "items": [
+        { "name": "Mustang Strong", "tags": ["drinks"], "variants": [{ "label": null, "price": 10.50 }] },
+        { "name": "Mustang Premium", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.00 }] },
+        { "name": "Nepal Ice", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.00 }] },
+        { "name": "Barahsinge Pilsner", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.50 }] },
+        { "name": "Barahsinge 8", "tags": ["drinks"], "variants": [{ "label": null, "price": 10.00 }] },
+        { "name": "Barahsinge Lager", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.00 }] },
+        { "name": "Barahsinge Pale Ale", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.00 }] },
+        { "name": "Barahsinghe Hazy IPA", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.00 }] },
+        { "name": "Gorkha Premium", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.00 }] },
+        { "name": "Gorkha Strong", "tags": ["drinks"], "variants": [{ "label": null, "price": 10.50 }] },
+        { "name": "Asahi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Peroni", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Carlton Draught", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Pure Blonde", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Hahn", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Corona", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] }
+      ]
+    }
+  ]
+}
