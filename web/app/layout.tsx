@@ -72,11 +72,11 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
 export const metadata: Metadata = {
 	metadataBase: new URL(SITE),
 	title: {
-		default: "NepaliEats - 500+ Nepali restaurants across Australia",
+		default: "Nepali restaurants & momo near you - NepaliEats",
 		template: "%s - NepaliEats",
 	},
 	description:
-		"500+ Nepali restaurants, cafes, food trucks and caterers across Australia, in one place. Find momo, Thakali dal bhat, sel roti and Newari feasts near you.",
+		"Find Nepali restaurants near you across Australia. Search by suburb or dish: momo, Thakali dal bhat, sel roti and Newari feasts, with ratings, hours and maps.",
 	alternates: { canonical: "/" },
 	openGraph: { type: "website", siteName: "NepaliEats", locale: "en_AU" },
 };

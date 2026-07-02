@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { OG, OG_SIZE, OG_CONTENT_TYPE, ogFonts, ogMomo } from "@/lib/og";
 
 export const runtime = "nodejs";
-export const alt = "NepaliEats - Find your momo people";
+export const alt = "NepaliEats - Find Nepali food near you across Australia";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
@@ -34,7 +34,7 @@ export default async function Image() {
 						display: "flex",
 						flexDirection: "column",
 						justifyContent: "center",
-						padding: "0 60px",
+						padding: "0 56px",
 					}}
 				>
 					<div style={{ display: "flex", fontSize: 40, fontWeight: 800 }}>
@@ -44,20 +44,18 @@ export default async function Image() {
 					<div
 						style={{
 							display: "flex",
-							fontSize: 78,
+							flexWrap: "wrap",
+							fontSize: 54,
 							fontWeight: 800,
-							color: OG.ink,
-							lineHeight: 1.02,
-							marginTop: 20,
+							lineHeight: 1.14,
+							marginTop: 18,
 						}}
 					>
-						Find your
+						<span style={{ color: OG.ink }}>Find&nbsp;</span>
+						<span style={{ color: OG.chili }}>momo, dal bhat and Newari feasts&nbsp;</span>
+						<span style={{ color: OG.ink }}>near you</span>
 					</div>
-					<div style={{ display: "flex", fontSize: 78, fontWeight: 800, lineHeight: 1.02 }}>
-						<span style={{ color: OG.chili }}>momo</span>
-						<span style={{ color: OG.ink }}>{" people."}</span>
-					</div>
-					<div style={{ display: "flex", marginTop: 30 }}>
+					<div style={{ display: "flex", marginTop: 28 }}>
 						<div
 							style={{
 								display: "flex",
@@ -69,7 +67,7 @@ export default async function Image() {
 								fontWeight: 700,
 							}}
 						>
-							400+ Nepali restaurants across Australia
+							400+ spots across Australia
 						</div>
 					</div>
 				</div>
