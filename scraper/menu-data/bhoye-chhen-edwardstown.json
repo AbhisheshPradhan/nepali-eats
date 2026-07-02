@@ -1,0 +1,198 @@
+{
+  "slug": "bhoye-chhen-edwardstown",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Vegetarian & Vegan",
+      "items": [
+        { "name": "Chatpate", "description": "Puffed rice, mixed with onion, tomato, potatoes, Nepali snacks, lemon juice, nuts with homemade spices & garnished with coriander leaf, SERVED COLD", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Aalu Wo", "description": "Sliced boiled potato dipped in special batter and deep fried, SERVED HOT", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Aalu Nimki", "description": "Aloo Nimki is an incredibly popular street food from the eastern Nepali city of Dharan. It's a crunchy, saucy and flavourful symphony in your mouth.", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Aalu Chop", "description": "Fried spiced potato croquette/patty. Crispy on the outside and moist on the inside.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Bara", "description": "Bara (Lentil Flitters) can be enjoyed as a appetizer, or even as a snack. These vegan crunchy lentil flitters/Bara are sure to satisfy", "is_vegetarian": true, "tags": ["bara"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Aalu Sadheko", "description": "Boiled potatoes marinated Nepali spices", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Badam Sadheko", "description": "Badam Sadheko is a spiced and zesty Nepali Peanut Salad that is a delicious and nutritious snack that can be enjoyed any time of the day. , SERVED COLD", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Hariyo Bhatmas Sadheko", "description": "Hariyo Bhatmas Sadheko is a spiced and zesty Nepali green soybean Salad, SERVED COLD", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Samosa", "description": "2 pieces", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Aalu Tama", "description": "Aloo Tama is a Nepali stew made with bamboo-shoot, potatoes, and black-eyed peas", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6.99 }] },
+        { "name": "Chips Chilli", "description": "Chips Chilli (Vegan) Marinated chips with Nepalese spices and deep fried with onions, green chillies, tomatoes & capsicums toppings (served hot)", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Paneer Chilli", "description": "Cottage Cheese with Nepalese spices and deep fried with onions, green chillies, tomatoes & capsicums toppings (served hot)", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 18.99, "protein": "paneer" }] }
+      ]
+    },
+    {
+      "name": "Non-Vegetarian",
+      "items": [
+        { "name": "Bhuttan with Baji", "description": "Bhuttan in Nepali, is a spicy dish prepared with goat tripe and other digestive parts that has been stir-fried in a wok or a frying pan with Nepali herbs and condiments. It also includes Liver and kidneys. It is served with Baji (Beaten Rice / Flattened rice)", "tags": ["bhutan"], "variants": [{ "label": null, "price": 15.99, "protein": "goat" }] },
+        { "name": "Buffalo Chilli / Chicken Chilli", "description": "tender pieces of meat with ginger, garlic and different Nepalese spices. The meat is deep fried and pan fried with dice onion, capsicum and pepper with hints of sweet chilli sauce and soy sauce.", "tags": ["chilli"], "variants": [{ "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Buffalo", "price": 18.99, "protein": "buff" }] },
+        { "name": "Fokso Fry", "description": "Swoo is a traditional starter in Newari Cuisine known as Fokso in a nepali term meaning mutton lungs. Mutton lungs is filled with batter then boiled and deep fried", "tags": ["fokso"], "variants": [{ "label": null, "price": 18.99, "protein": "goat" }] },
+        { "name": "Jibro Fry", "description": "It is a goat tounge which is boiled first and then fried with different flavourful masala. It is soft crunchy in texture and taste is just amazing.", "tags": [], "variants": [{ "label": null, "price": 18.99, "protein": "goat" }] },
+        { "name": "Giddi Fry", "description": "Gidi Fry is a popular dish that actually includes Goat brains cooked with special Nepali herbs and spices", "tags": [], "variants": [{ "label": null, "price": 18.99, "protein": "goat" }] },
+        { "name": "Sukuti Sadheko (Buffalo Jerkey)", "description": "Sukuti Sadheko is a truly unique Nepali dish that offers such a wonderful range of flavours and textures. Imagine crispy pieces of dried meat, mixed with spices that tingle your taste buds, offering a dance of flavors in every bite. For those new to this delicacy, Sukuti is smoke-dried meat.", "tags": ["sukuti", "sandheko"], "variants": [{ "label": null, "price": 21.99, "protein": "buff" }] }
+      ]
+    },
+    {
+      "name": "Choyela",
+      "items": [
+        { "name": "Choyela", "description": "Chargrilled chicken or Buff marinated in homemade roasted masala, SERVED COLD", "tags": ["choila", "newari"], "variants": [{ "label": "Soyabean", "price": 10.99, "is_vegetarian": true }, { "label": "Chicken", "price": 15.99, "protein": "chicken" }, { "label": "Buffalo", "price": 17.99, "protein": "buff" }] },
+        { "name": "Choyela with Baji", "description": "choyela served with Beaten Rice pickle and salad. SERVED COLD", "tags": ["choila", "newari"], "variants": [{ "label": "Soyabean", "price": 13.99, "is_vegetarian": true }, { "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Buffalo", "price": 20.99, "protein": "buff" }] },
+        { "name": "Chicken Lollipop", "description": "Marinated with homemade spices and deep fried, served with homemade dipping Sauce", "tags": ["lollipop"], "variants": [{ "label": null, "price": 19.99, "protein": "chicken" }] },
+        { "name": "Hot Wings", "description": "deep fried wings marinated with secret hot spices", "tags": ["wings"], "variants": [{ "label": null, "price": 19.99, "protein": "chicken" }] },
+        { "name": "Wo", "description": "Nepalese style lentil pancakes mixed with different herbs & homemade spices served with homemade sauces", "tags": [], "variants": [{ "label": "Plain", "price": 12.99, "is_vegetarian": true }, { "label": "Egg", "price": 13.99, "protein": "egg" }, { "label": "Chicken", "price": 14.99, "protein": "chicken" }, { "label": "Buffalo", "price": 15.99, "protein": "buff" }, { "label": "Mix", "price": 17.99 }] },
+        { "name": "Chatamari", "description": "It consists of a rice crepe which is topped with minced meat, vegetables and an egg in the middle : packed with flavor and amazing textures.", "tags": ["chatamari"], "variants": [{ "label": "Plain", "price": 14.99, "is_vegetarian": true }, { "label": "Egg", "price": 15.99, "protein": "egg" }, { "label": "Chicken", "price": 16.99, "protein": "chicken" }, { "label": "Buffalo", "price": 17.99, "protein": "buff" }, { "label": "Mix", "price": 19.99 }] }
+      ]
+    },
+    {
+      "name": "Momo Time",
+      "items": [
+        { "name": "Steam Momo", "description": "Steamed Nepali dumplings served with spicy homemade sauce", "tags": ["steamed-momo"], "variants": [{ "label": "Veg/Vegan", "price": 16.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 18.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 16.99, "protein": "chicken" }, { "label": "Goat", "price": 20.99, "protein": "goat" }, { "label": "Buffalo", "price": 18.99, "protein": "buff" }] },
+        { "name": "Kothey Momo", "description": "half pan fried and half steamed momo", "tags": ["kothey-momo"], "variants": [{ "label": "Veg/Vegan", "price": 17.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 17.99, "protein": "chicken" }, { "label": "Goat", "price": 21.99, "protein": "goat" }, { "label": "Buffalo", "price": 19.99, "protein": "buff" }] },
+        { "name": "Chilli Momo", "description": "Fried Nepali dumplings served in sweet and spicy sauce", "tags": ["chilli-momo"], "variants": [{ "label": "Veg/Vegan", "price": 18.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 20.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 19.99, "protein": "chicken" }, { "label": "Goat", "price": 22.99, "protein": "goat" }, { "label": "Buffalo", "price": 20.99, "protein": "buff" }] },
+        { "name": "Fried Momo", "description": "Deep fried Nepali dumplings served with special hot sauce and Momo sauce", "tags": ["fried-momo"], "variants": [{ "label": "Veg/Vegan", "price": 17.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 17.99, "protein": "chicken" }, { "label": "Goat", "price": 21.99, "protein": "goat" }, { "label": "Buffalo", "price": 19.99, "protein": "buff" }] },
+        { "name": "Jhol Momo", "description": "Steam Momo served with a broth that is a mixture of a spicy sauce known as achar. served with HOT Jhol tomato based or COLD Jhol sesame seed based", "tags": ["jhol-momo"], "variants": [{ "label": "Veg/Vegan", "price": 18.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 19.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Goat", "price": 22.99, "protein": "goat" }, { "label": "Buffalo", "price": 20.99, "protein": "buff" }] },
+        { "name": "Momo Platter", "description": "five pieces of steam, chilli, kothey and momo served with homemade sauce", "tags": ["momo"], "variants": [{ "label": "Veg/Vegan", "price": 36.99, "protein": "veg", "is_vegetarian": true }, { "label": "Paneer", "price": 41.99, "protein": "paneer", "is_vegetarian": true }, { "label": "Chicken", "price": 36.99, "protein": "chicken" }, { "label": "Goat", "price": 45.99, "protein": "goat" }, { "label": "Buffalo", "price": 41.99, "protein": "buff" }] }
+      ]
+    },
+    {
+      "name": "Noodles",
+      "items": [
+        { "name": "Chow Mein", "description": "stir-fried noodles in Nepali way served hot", "tags": ["chowmein"], "variants": [{ "label": "Veg/Vegan", "price": 16.99, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 17.99, "protein": "egg" }, { "label": "Chicken", "price": 17.99, "protein": "chicken" }, { "label": "Buffalo", "price": 18.99, "protein": "buff" }, { "label": "Mix", "price": 21.99 }] },
+        { "name": "Keema Noodles", "description": "Boiled noodles served with soy chilli sauce topped with chicken or buff minced cooked using homemade spices", "tags": ["keema-noodle"], "variants": [{ "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Buffalo", "price": 19.99, "protein": "buff" }, { "label": "Mix", "price": 22.99 }] },
+        { "name": "Thukpa", "description": "which originated in the eastern part of Tibet. Nepalese version of Thukpa has a predominant vegetarian feature and a bit of spicier flavor. Thukpa can be prepared in both vegetarian and non-vegetarian variations; the most popular non-vegetarian variation includes chicken", "tags": ["thukpa"], "variants": [{ "label": "Veg/Vegan", "price": 17.99, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 18.99, "protein": "egg" }, { "label": "Chicken", "price": 18.99, "protein": "chicken" }, { "label": "Buffalo", "price": 19.99, "protein": "buff" }, { "label": "Mix", "price": 22.99 }] },
+        { "name": "Sekuwa Set", "description": "Sekuwa is meat grilled or pan fried. While the meat is still raw, it is mixed with natural herbs and spices and other ingredients.", "tags": ["sekuwa"], "variants": [{ "label": "Chicken", "price": 19.99, "protein": "chicken" }, { "label": "Buffalo", "price": 21.99, "protein": "buff" }, { "label": "Goat", "price": 24.99, "protein": "goat" }] },
+        { "name": "Nepali Style Fried Rice", "description": "Fried rice in typical Nepali style", "tags": ["fried-rice"], "variants": [{ "label": "Veg/Vegan", "price": 17.99, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 17.99, "protein": "egg" }, { "label": "Chicken", "price": 17.99, "protein": "chicken" }, { "label": "Buff", "price": 18.99, "protein": "buff" }, { "label": "Mix", "price": 21.99 }] }
+      ]
+    },
+    {
+      "name": "Samaya Baji",
+      "items": [
+        { "name": "Samay Baji", "description": "Samay Baji consists of many items on a single plate. Among them are boiled rice, wo, Choyela, fried boiled egg, black soybeans, spicy potato salad (Aalu-sadheko), finely cut ginger, green leaves (Saag).", "tags": ["khaja", "newari"], "variants": [{ "label": "Veg/Vegan", "price": 24.99, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 25.99, "protein": "chicken" }, { "label": "Buffalo", "price": 29.99, "protein": "buff" }] },
+        { "name": "Nepali Dal Bhat Power", "description": "Nepali steam rice served with lentils seasonal leaves, seasonal vegetables, gundruk, pickle, tomato pickle and yogurt. PRE ORDER ONLY. Time required minimum 45 minutes and 2 people. ADD ON CHARGES APPLIES FOR EXTRA. Dine In only Not For Takeaway", "tags": ["dal-bhat"], "variants": [{ "label": "Veg/Vegan", "price": 23.99, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 24.99, "protein": "chicken" }, { "label": "Goat", "price": 27.99, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Sweet Dessert",
+      "items": [
+        { "name": "Yomari", "description": "Yomari is a delicacy of the Newar community in Nepal. It is a steamed dumpling that consists of an external covering of rice flour with sweet fillings such as Chakku and Khuwa. Chakku, often referred to as Nepali molasses, is a sweet delicacy deeply rooted in Nepali culture. It is a thick, dark syrup made from concentrated sugarcane juice or other sources of sugar. Khuwa is made of either dried whole milk or milk thickened by heating in an open iron pan.", "is_vegetarian": true, "tags": ["yomari"], "variants": [{ "label": "Chakku", "price": 11.99 }, { "label": "Khuwa", "price": 11.99 }, { "label": "Mix", "price": 11.99 }] },
+        { "name": "Juju Dhau (King Curd/Yoghurt) Panna Cotta", "description": "A Taste of Bhaktapur, Nepal. Immerse yourself in the rich heritage of Bhaktapur with our Juju Dhau Panna Cotta, a modern take on the iconic King Curd. Complemented by the sweet charm of Lal Mohan (Gulab Jamun), this dessert is a flavorful journey through Nepal's traditions.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Aaintha", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Lakhamari", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 10 }] }
+      ]
+    },
+    {
+      "name": "Add-Ons",
+      "items": [
+        { "name": "Baji / Beaten Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4.99 }] },
+        { "name": "Sada Bhat / plain Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": "Small", "price": 3.99 }, { "label": "Large", "price": 6.99 }] },
+        { "name": "Daal (lentils)", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": "Small", "price": 7.99 }, { "label": "Large", "price": 11.99 }] },
+        { "name": "Mix Veg", "is_vegetarian": true, "tags": [], "variants": [{ "label": "Small", "price": 8.99 }, { "label": "Large", "price": 15.99 }] },
+        { "name": "Chicken Curry", "tags": ["curry"], "variants": [{ "label": "Small", "price": 9.99, "protein": "chicken" }, { "label": "Large", "price": 18.99, "protein": "chicken" }] },
+        { "name": "Goat Curry", "tags": ["curry"], "variants": [{ "label": "Small", "price": 12.99, "protein": "goat" }, { "label": "Large", "price": 20.99, "protein": "goat" }] },
+        { "name": "Mula Achar (Radish pickle)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Nepali Salad", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.99 }] },
+        { "name": "Papad", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Prawn Crackers", "tags": [], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "MoMo Aachar/Sauce", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 1.99 }] },
+        { "name": "Chilli Sauce", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 1.99 }] }
+      ]
+    },
+    {
+      "name": "Kids Food",
+      "items": [
+        { "name": "Kids Chicken Chow Mien", "tags": ["chowmein"], "variants": [{ "label": null, "price": 9.99, "protein": "chicken" }] },
+        { "name": "Kids Rice Frice", "tags": ["fried-rice"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Nuggets & Chips", "tags": [], "variants": [{ "label": null, "price": 9.99, "protein": "chicken" }] },
+        { "name": "Spring Roll (4 pc)", "is_vegetarian": true, "tags": ["spring-roll"], "variants": [{ "label": null, "price": 4.99 }] },
+        { "name": "Bowl of Chips", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.99 }] },
+        { "name": "Batman Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.49 }] },
+        { "name": "Barbie Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.49 }] },
+        { "name": "Minion Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.49 }] },
+        { "name": "Fire Engine", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.49 }] },
+        { "name": "Vanilla Ice Cream 1 Scoop", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 3.49 }] },
+        { "name": "Vanilla Ice Cream 2 Scoops", "description": "Can be served with Chocolate or Strawberry toppings", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 6.49 }] }
+      ]
+    },
+    {
+      "name": "Special Menu",
+      "items": [
+        { "name": "Keema Aanda", "tags": [], "variants": [{ "label": null, "price": 12.99, "protein": "egg" }] },
+        { "name": "Timur Aalu", "is_vegetarian": true, "tags": ["timur"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Vegan Lover", "description": "ADD CHHYANG 1 CHYARNI FOR $14 EXTRA. MOMO, AALU CHOP, WO, AALU SADEKO, Mix Achar", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 35.99 }] },
+        { "name": "Chicken Lover", "description": "ADD CHHYANG 1 CHYARNI FOR $14 EXTRA. Hot Wings, lollipop, Choila, Mix aachar", "tags": [], "variants": [{ "label": null, "price": 35.99, "protein": "chicken" }] },
+        { "name": "Bhoye Set", "description": "ADD CHHYANG 1 CHYARNI FOR $14 EXTRA. Baji, Aalu Tama, mix aachar, Badam Sadeheko, Aalu Sadeheko, Choila, Bhuttan, Sekuwa", "tags": ["khaja", "newari"], "variants": [{ "label": null, "price": 85.99 }] }
+      ]
+    },
+    {
+      "name": "Non Alcoholic",
+      "items": [
+        { "name": "Orange Fresh Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Green Apple Fresh Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Watermelon Fresh Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Any Mix Fresh Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Chocolate Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Strawberry Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Plain Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Coke Zero", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Fanta", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Srite", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Lychee Drink", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.99 }] },
+        { "name": "Spring Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Lemon, Lime and Bitters", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.99 }] },
+        { "name": "Jug Lemon, Lime and Bitters", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Jug of Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Masala Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Black Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Lemon Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Hot Lemon w/Honey", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.99 }] }
+      ]
+    },
+    {
+      "name": "Alcoholic",
+      "items": [
+        { "name": "Chhyang by Bowl", "description": "Nepali & Tibetan alcoholic beverage popular in Nepal made from rice", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Chhyang 1LTR", "description": "Nepali & Tibetan alcoholic beverage popular in Nepal made from rice", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Nepali Beer Pilsner 5.0%", "tags": ["drinks"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Nepali Beer Lager 5.0%", "tags": ["drinks"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Nepali Beer Strong 8.0%", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Sauvignon Blanc (187ml bottle)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Chardonnay (187ml bottle)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Pinot Grigio (187ml bottle)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Moscato (200ml bottle)", "tags": ["drinks"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Merlot (187ml bottle)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Shiraz Cabernet (187ml bottle)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Cabernet Sauvignon (187ml bottle)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Any Wine Bottle 750ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 29.99 }] },
+        { "name": "Absolut Vodka", "description": "served 60ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] },
+        { "name": "Double Black", "description": "served 60ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] },
+        { "name": "Captain Morgan", "description": "served 60ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] },
+        { "name": "Chivas Regal", "description": "served 60ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] },
+        { "name": "Jack Daniels", "description": "served 60ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] },
+        { "name": "Jameson", "description": "served 60ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] },
+        { "name": "Old Durbar Black Chimney", "description": "Nepali liquor served 60ml. Blended Reserve Whiskey", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Bandipur", "description": "Nepali liquor served 60ml. Blended Malt Scotch Whiskey", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "8848 Vodka", "description": "Nepali liquor served 60ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] }
+      ]
+    },
+    {
+      "name": "Classic Cocktails",
+      "items": [
+        { "name": "Old Fashioned", "description": "2 ounces bourbon, 1/4 ounce sugar syrup, 2 dashes Angostura bitters", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Mojito", "description": "1/2 ounce simple syrup, 2 ounces white rum, 3/4 ounce lime juice, 3 mint leaves, club soda to top", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Daiquiri", "description": "2 ounces light rum, 1 ounce lime juice, 3/4 ounce sugar syrup, garnish: lime wedge", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Gin & Tonic", "description": "2 ounces gin, 4 ounces tonic water, 2 lime wheels", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Margarita", "description": "2 ounces blanco tequila, 1/2 ounce orange liqueur, 1 ounce lime juice, 1/2 ounce agave syrup", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Tequila Sunrise", "description": "2 ounces tequila, 4 ounces orange juice, 1/2 ounce grenadine", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] }
+      ]
+    },
+    {
+      "name": "Mocktails",
+      "items": [
+        { "name": "Virgin Mojito", "tags": ["drinks"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Mocktail Sunrise", "tags": ["drinks"], "variants": [{ "label": null, "price": 14.99 }] }
+      ]
+    }
+  ]
+}

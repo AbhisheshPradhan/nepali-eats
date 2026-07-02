@@ -1,0 +1,114 @@
+{
+  "slug": "new-farm-curry-house",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entrées",
+      "items": [
+        { "name": "Corn, Spinach & Onion Bhaji", "description": "V GF DF. Crispy fried sliced onions with corn, spinach and fresh spices in a chickpea batter. (4 pieces).", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 9.9 }] },
+        { "name": "Vegetable Samosa", "description": "V. Two large homemade samosas with crispy, golden pastry filled with potato and peas.", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 10.9 }] },
+        { "name": "Chicken Tikka", "description": "GF. Tender chicken pieces flavoured with yoghurt and spices, cooked in a traditional clay tandoor oven.", "tags": ["tikka"], "variants": [{ "label": null, "price": 14.9, "protein": "chicken" }] },
+        { "name": "Chicken 65", "description": "GF. Boneless chicken pieces marinated in southern Indian spices, coconut and chef's special masala.", "tags": ["chicken-65"], "variants": [{ "label": null, "price": 14.9, "protein": "chicken" }] },
+        { "name": "Steamed Momo", "description": "Choose from Chicken or Vegetable & Panir. A popular dish of either chicken or vegetable and panir dumplings, served with a tomato and sesame seed dip. (8 pieces).", "tags": ["steamed-momo"], "variants": [{ "label": "Chicken", "price": 14.9, "protein": "chicken" }, { "label": "Veg & Paneer", "price": 14.9, "protein": "paneer", "is_vegetarian": true }] },
+        { "name": "Fried Momo", "description": "Choose from Chicken or Vegetable & Panir. A popular dish of either chicken or vegetable and panir dumplings, served with a tomato and sesame seed dip. (8 pieces).", "tags": ["fried-momo"], "variants": [{ "label": "Chicken", "price": 14.9, "protein": "chicken" }, { "label": "Veg & Paneer", "price": 14.9, "protein": "paneer", "is_vegetarian": true }] },
+        { "name": "Chilli Momo", "description": "MEDIUM OR HOT. Choose from Chicken or Vegetable & Panir. A popular dish of either chicken or vegetable and panir dumplings, served with a tomato and sesame seed dip. (8 pieces).", "tags": ["chilli-momo"], "variants": [{ "label": "Chicken", "price": 16.9, "protein": "chicken" }, { "label": "Veg & Paneer", "price": 16.9, "protein": "paneer", "is_vegetarian": true }] }
+      ]
+    },
+    {
+      "name": "Global Curry Favourites",
+      "description": "All curries can be cooked either mild, medium, or hot. Please advise us of your preferred choice when ordering.",
+      "items": [
+        { "name": "Butter Chicken", "description": "GF. Diced tandoori chicken breast cooked in a creamy, tomato, ginger, almond and cashew sauce.", "tags": ["butter-chicken"], "variants": [{ "label": null, "price": 22.9, "protein": "chicken" }] },
+        { "name": "Chicken Tikka Masala", "description": "GF. Diced tandoori chicken breast cooked in an almond, onion and tomato sauce with diced onion, capsicum and fresh herbs.", "tags": ["curry"], "variants": [{ "label": null, "price": 22.9, "protein": "chicken" }] },
+        { "name": "Chicken Khorma", "description": "GF. An aromatic creamy chicken curry with a mildly spiced, rich-textured onion, almond and cashew sauce.", "tags": ["curry"], "variants": [{ "label": null, "price": 22.9, "protein": "chicken" }] },
+        { "name": "Lamb Rogan Josh", "description": "GF. A special curry made with succulent lamb, fried onions, ground spices, tomato and herbs.", "tags": ["curry"], "variants": [{ "label": null, "price": 24.9, "protein": "lamb" }] },
+        { "name": "Lamb Khorma", "description": "GF. An aromatic creamy lamb curry with a mildly spiced, rich-textured onion, almond and cashew sauce.", "tags": ["curry"], "variants": [{ "label": null, "price": 24.9, "protein": "lamb" }] },
+        { "name": "Beef Vindaloo", "description": "GF DF (MEDIUM OR HOT). A spicy curry made with red chillies, cumin, vinegar and tomato.", "tags": ["curry"], "variants": [{ "label": null, "price": 24.9, "protein": "beef" }] },
+        { "name": "Beef Goan", "description": "GF DF. A delicacy of Southern India, tender beef cooked with tomato, onion, fresh herbs and spices, coconut and curry leaves.", "tags": ["curry"], "variants": [{ "label": null, "price": 24.9, "protein": "beef" }] }
+      ]
+    },
+    {
+      "name": "Savoury",
+      "description": "All curries can be cooked either mild, medium, or hot. Please advise us of your preferred choice.",
+      "items": [
+        { "name": "Chicken Curry (Boneless)", "description": "GF. A traditionally cooked savoury chicken curry cooked with onion, tomato, ginger and garlic.", "tags": ["curry"], "variants": [{ "label": null, "price": 24.9, "protein": "chicken" }] },
+        { "name": "Goat Curry (With Bones)", "description": "GF. A traditional savoury \"on-bone\" goat curry cooked with onion, tomato, ginger and garlic. Cooking on-bone gives the curry an unique flavour.", "tags": ["curry"], "variants": [{ "label": null, "price": 24.9, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Signature Curries",
+      "description": "All curries can be cooked either mild, medium, or hot. Please advise us of your preferred choice when ordering.",
+      "items": [
+        { "name": "Lamb Cashew", "description": "GF. A delicious thick, nutty lamb curry cooked with cashew nut and secret spices. Goes well with saffron rice.", "tags": ["curry"], "variants": [{ "label": null, "price": 26.9, "protein": "lamb" }] },
+        { "name": "Eggplant Pasanda", "description": "V GF. Rolled, stuffed eggplant cooked in a very rich gravy made with almonds, cashew nut paste and cream.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 26.9 }] },
+        { "name": "Chicken Nilgiri", "description": "GF. Succulent chicken pieces in a sauce of freshly ground mint, yoghurt, coriander, fresh coconut and aromatic spices.", "tags": ["curry"], "variants": [{ "label": null, "price": 26.9, "protein": "chicken" }] },
+        { "name": "Murg Balti", "description": "GF. An aromatic curry of succulent chicken in a traditional balti sauce made with roasted cashew paste, onion, tomato and cream.", "tags": ["curry"], "variants": [{ "label": null, "price": 26.9, "protein": "chicken" }] },
+        { "name": "Prawn Goan", "description": "GF DF. Fresh prawns cooked in a spicy coconut sauce with tomato, tamarind, cumin, coconut cream and dry red chillies.", "tags": ["curry"], "variants": [{ "label": null, "price": 26.9, "protein": "prawn" }] }
+      ]
+    },
+    {
+      "name": "Vegan and Vegetarian Curries",
+      "description": "All curries can be cooked either mild, medium, or hot. Please advise us of your preferred choice.",
+      "items": [
+        { "name": "Aloo Baingan Bagarey", "description": "VG GF DF. A rich and spicy eggplant and potato curry with aromatic spices and curry leaves, onions and tomato.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 21.9 }] },
+        { "name": "Aloo Gobhi", "description": "VG GF. Potato and cauliflower florets pan-fried with ginger, onions, fresh coriander, spices and tomatoes.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 21.9 }] },
+        { "name": "Tadka Dahl", "description": "VG GF. Traditional tempered dahl with garlic, chillies, onions, tomatoes, curry leaves and mustard seeds.", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 21.9 }] },
+        { "name": "Paneer Butter Masala", "description": "V GF. Paneer in a rich tomato, onion, almond and creamy butter sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 22.9, "protein": "paneer" }] },
+        { "name": "Palak Paneer", "description": "V GF. Cottage cheese cubes in a spinach and almond sauce with aromatic spices.", "is_vegetarian": true, "tags": ["saag"], "variants": [{ "label": null, "price": 22.9, "protein": "paneer" }] }
+      ]
+    },
+    {
+      "name": "Rice",
+      "description": "All takeaway curries are served with complimentary steamed rice.",
+      "items": [
+        { "name": "Steamed Rice", "description": "complimentary with curry", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Saffron Rice", "description": "contains nuts and dairy", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6 }] }
+      ]
+    },
+    {
+      "name": "Breads",
+      "items": [
+        { "name": "Plain Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Roti Naan (Wholemeal)", "description": "VG OPTION", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Tasty Cheese Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 6.5 }] },
+        { "name": "Spinach and Cheese Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 6.5 }] },
+        { "name": "Cheese and Garlic Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 6.5 }] }
+      ]
+    },
+    {
+      "name": "Accompaniments",
+      "items": [
+        { "name": "Cucumber and Yoghurt Raita", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Mango Chutney", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Lime Pickle", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Pappadums (x4)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Indian Salad", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 7 }] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Mango Kulfi", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 6 }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Soft Drinks", "description": "Coke, Diet Coke, Coke Zero, Fanta, Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Lemon, Lime & Bitters", "tags": ["drinks"], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Ginger Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Sparkling Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 6 }] }
+      ]
+    },
+    {
+      "name": "Meal Deals",
+      "items": [
+        { "name": "Meal Deal for Two", "description": "Mini vegetable somosas (4 pieces), Two chicken or vegetable curries of your choice, Two serves of rice, One plain or garlic naan.", "tags": [], "variants": [{ "label": null, "price": 47.9 }] }
+      ]
+    }
+  ]
+}

@@ -295,3 +295,123 @@ DECISION: marked venue-level **`fusion=true`** (new editorial boolean column, li
 taxonomy adds; do NOT add kebab/doner/shish/dip slugs for them. Bubble tea = `[drinks]`.
 Notes: kebab section is "100% Halal Certified" (supplier) — consider restaurant-level
 halal_status='options' (kebabs halal, momo unstated). Not set during seed.
+
+## Nepali Food Mandala (Dubbo, NSW, id 484) — seeded 2026-07-02 (86 items, own-site menu w/ prices)
+Source: own domain nepalifoodmandala.com.au/menu (GloriaFood/globalfoodsoft ordering
+widget embedded on the OWN site — commission-free, restaurant sets its own prices, full
+comprehensive menu incl. dine-in table reservation). Judged seedable as the restaurant's
+own menu (not a marked-up aggregator). Nepali/Indian curry house + fusion momos.
+Tag gap (tagged [] for now, no existing slug):
+- chatpate (dish) — "Chatpate" (already queued from Ayla / Rolling Flavors / Old Durbar) — []
+Mapping notes:
+- Steam Momo consolidated to one item w/ Vegetable + Chicken protein variants.
+- Fusion "Alfredo Momo" / "Pesto Basilic Momo" → [momo] (no prep slug for sauce-tossed).
+- All rogan josh / korma / madras / vindaloo / tikka-masala / kadhai → [curry] + protein
+  on variant (protein is a facet, not a per-dish slug).
+- Palak Paneer → [saag]; Daal Makhni → [dal]; Pulau Rice → [pulao]; Poleko Chicken &
+  Lamb Chops (grilled marinated meats) → [sekuwa]; Paneer Shaslik (tandoor skewers) → [tandoori].
+- Plain/saffron/jeera/coconut rice, papadum/pickle/raita/sauce sides, kids chips/nuggets/
+  fish&chips, and the mixed "Mandala Platter" → [] (no dish slug; fine).
+⚠️ "From" prices: Steam Momo, Chowmein, Biryani, Thali Set, Alfredo/Pesto Momo show
+  GloriaFood "From $X" (size/portion sub-options not exposed in the rendered text) —
+  seeded at the base "From" price; sub-variants not captured.
+
+## Danphe (Hobart, TAS, id 236) — seeded 2026-07-02 (68 items, own-site menu w/ prices)
+Source: own domain danphenepalese.com.au (WordPress). DB menu_url was junk CSS
+(wp-content/themes/danphe/css/menu.css); real menu lives on category pages
+(/category/{starters,maincourse,vegan,dessert,beverage}/). Updated menu_url to the
+starters category page (no single /menu page exists). Two-branch op (Hobart 2/138 Collins
+St + Claremont) sharing ONE menu site — seeded the Hobart row; Claremont not in directory.
+Judgment calls:
+- **Skipped the "Vegan Menu" category** — dietary-filtered DUPLICATE of items already in
+  Starters/Main (Onion Balls, Aaloo Chops, Mushroom Pakoda, Aaloo Bodi Tama, Yellow/Kalo
+  Daal, Chickpea Potato Curry, Plain Rice, Roti), not distinct dishes. Each dish seeded once.
+- Momo grid split to preps (steamed/jhol/fried/soup/C-momo=chilli) w/ Chicken/Veg variants;
+  Momo Platter one [momo] item. Chow Mein / Fried Rice / Thukpa / Biryani / Non-Veg Thali
+  consolidated to protein variants.
+- No NEW tag gaps — all mapped to existing vocab. Items left [] (no slug, fine): Aaloo Chops,
+  Plain Rice, Saffron Rice, Raita, Pappadum, Mixed chutney, Aaloo ko achar.
+- No catering signal on menu; catering NOT set. Prices sane ($3-$28), no typos.
+
+## Cafe Talk Kogarah (Kogarah, NSW, id 88) — seeded 2026-07-02 (57 items, own-site image menu w/ prices, catering=true)
+Source: own domain cafetalk.com.au/menu/ (image menu: menu-front + menu-back .avif;
+converted to PNG + read). DB menu_url was junk CSS; updated to cafetalk.com.au/menu/.
+Branch check: cafetalk.com.au IS the Kogarah branch (126 Railway Parade, Kogarah) — DISTINCT
+from the already-seeded Hornsby branch (thecafetalk.com.au). Advertises "Dine In • Take Away
+• Catering" → catering=true set.
+Modelling:
+- Momo = prep×protein matrix: 5 prep items (Steam/Kothey/Fried/Chilli/Jhol) each with
+  Veg/Chicken/Buff variants. Momo Platter one [momo] item. Chowmein/Thukpa/Fried Rice
+  consolidated to protein variants (Veg/Chicken/Buff/Mixed; Mixed protein left unset).
+- "Momo Chowmein"/"Momo Thukpa" (noodle dish topped with momo) → tags [chowmein/thukpa, momo].
+- Wine = Glass/Bottle variants. Beer/spirits item-level [drinks].
+New tag gaps (tagged [] for now):
+- chatpate/chatpatte (dish) — "Chatpatte" (already queued from Ayla/Rolling Flavors/Old Durbar) — []
+- keema-anda / keema (dish, minced meat + egg) — "Keema Aanda" — [] (no keema dish slug; keema-noodle
+  is noodle-specific). Consider a `keema` dish slug; also seen as keema dosa elsewhere.
+Notes: descriptions transcribed verbatim; veg/buff momo descriptions on the menu are copy-paste
+of the chicken line, so consolidated items use one neutral description. Prices sane ($2.50-$55).
+
+## Fewa Kitchen (Chippendale, NSW, id 11) — seeded 2026-07-02 (99 items, own-site image menu w/ prices)
+Source: own domain fewakitchen.wordpress.com/home/menu/ (10 menu-design PNGs; downloaded +
+upscaled 2x with sips to read small prices). Nepalese restaurant & cafe: big Western breakfast/
+cafe section (croissants, benedicts, burgers, shakes/smoothies/juices — tagged [] / [drinks])
+plus a full Nepali lunch/dinner menu. menu_url already correct; no catering signal (NOT set).
+Modelling:
+- Momo = 4 prep items (Steamed/Jhol/Fried/Chilly) each with Chicken/Veg/Buff variants.
+- Chow Mein / Fried Rice consolidated to protein variants. Sizzlers kept per-protein (distinct
+  descriptions). Thali (Veg/Chicken/Goat/Rato-Bhale-rooster) + Biryani (Chicken/Goat) +
+  "Nepalese Style Curry" (Goat/Chicken/Seasonal-Veg) consolidated to protein variants.
+- Milkshakes/Smoothies flavour options → labelled variants. Coffee Small/Large → 2 variants.
+- Add-on modifiers (Add Bacon/Egg $2.50, Extra Egg $3, alt-milk, "make it Khaja Set +$4",
+  Add Grilled Chicken $3.99) dropped per shared-schema no-modifiers rule.
+New tag gaps (tagged [] for now):
+- chatpate (dish) — "Chat Pat" (already queued many times above) — []
+Notes: prices verified against upscaled page images (Beef Burger $19.50, Ceaser Salad $14.99,
+Onion Pakora $9.50, veg steamed momo $12.99, thali $22.99-25.99). Range $2.50-$25.99, no typos.
+
+- yummy-laphing-granville — SKIPPED 2026-07-02: website yummylaphing.au serves only a default
+  "Caddy works!" placeholder page (no real site), menu_url NULL, only Instagram. No own-site
+  priced menu to seed. Claim lock kept. Revisit if they publish a real site/menu.
+
+- namaste-restaurant-sydney/strathfield/ashfield/hurstville (namasterestro.com.au) — SKIPPED
+  2026-07-02: the whole namasterestro.com.au is a non-functional DEMO/wayback-recovery site
+  ("The DEMO version only includes 4 pages..."). Homepage 0 prices; branch pages are stubs.
+  No real own-site menu. Applies to ALL Namaste branches on this domain. Claim kept (sydney).
+
+- momo-bar-manly (Manly, NSW, 842 rev) — DEFERRED 2026-07-02 (not skipped, claim released):
+  momo.bar is the restaurant's OWN site but a Square-based multi-location FRANCHISE ordering
+  system (Warringah Mall/Manly/Dee Why/Mona Vale). Two blockers for a clean seed: (1) listing
+  shows only PRICE RANGES (e.g. A$12-17 = size variants), exact per-variant prices need
+  drilling each item modal; (2) menu is location-switched and defaults to Warringah Mall, not
+  Manly. Needs a deliberate interactive scrape of the Manly location with per-item variant
+  prices. Heavily fusion (poke bowls + Australian-twist momo). Revisit with a proper Square/
+  location-aware extraction.
+
+- wo / woh (dish, Newari lentil pancake; distinct from bara) — Bhoye Chhen (Wo plain/egg/chi/buff/mix; Aalu Wo) — currently tagged []
+- aloo-tama / aalu-tama (dish, Nepali bamboo-shoot + potato + black-eyed-pea stew) — Bhoye Chhen (Aalu Tama) — currently tagged []
+- jibro fry (dish, goat tongue) — Bhoye Chhen (Jibro Fry) — currently tagged []
+- giddi fry (dish, goat brain) — Bhoye Chhen (Giddi Fry) — currently tagged []
+- aloo-chop (dish, potato croquette/patty) — Bhoye Chhen (Aalu Chop) — currently tagged []
+- juju-dhau (dish, Bhaktapur king curd/yoghurt; here a panna cotta) — Bhoye Chhen — tagged [dessert] fallback
+- lakhamari / aaintha (Newari sweets) — Bhoye Chhen — tagged [dessert] fallback
+
+- cafe-himalayan-brew-phillip (Phillip, ACT, 65 rev) — SKIPPED 2026-07-02 (coordinator decision
+  needed): cafehimalayanbrew.com.au/menu is a real priced own-site menu BUT it's a WESTERN
+  BRUNCH CAFÉ (toast, eggs benedict, smash avo, burgers, poke bowls, pasta, schnitzel,
+  sandwiches, coffee, milkshakes) with ZERO Nepali/Indian/Tibetan dishes — only "Himalayan Big
+  Breakfast"/"Himalayan Bowl"/"Himalayan Vege Burger" (all Western) carry the brand name. Every
+  item would tag [] and restaurants.tags would roll up empty; the dish taxonomy wasn't built for
+  a coffee/brunch café. Also 2 branches (Tuggeranong/Phillip) with a location toggle; default
+  shows Tuggeranong (Phillip may differ). NOT seeded. Coordinator: decide whether café/brunch
+  menus with no Nepali dishes are worth seeding for display-completeness; if yes, capture the
+  Phillip-specific menu. Claim kept.
+
+- ads-kitchencatherine-field (Catherine Field, NSW, 751 rev) — SKIPPED 2026-07-02: adskitchen.com.au
+  is a ~210-char under-construction splash page (only a Facebook link, no menu link, no /menu|/menus|
+  /food-menu path, no iframe). No own-site menu to seed. Claim kept. Revisit if a real site/menu appears.
+
+- chatpate (dish, puffed-rice/noodle savory street snack; distinct from chaat) — Galli Kitchen (Chatpate, Rumpum Chatpate) — currently tagged []
+- aloo-bodi-tama (dish, Newari potato + black-eyed-pea + bamboo-shoot) — Galli Kitchen (Aalu Bodi Tama) — currently tagged []
+- aloo-chop (dish, spiced mashed-potato croquette) — Galli Kitchen (Aalu Chop) — currently tagged []
+- piro-aalu (dish, spicy potato snack) — Galli Kitchen (Piro Aalu) — currently tagged []

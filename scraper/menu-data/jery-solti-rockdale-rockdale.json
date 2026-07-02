@@ -1,0 +1,475 @@
+{
+  "slug": "jery-solti-rockdale-rockdale",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Breakfast & Sets",
+      "items": [
+        {
+          "name": "JPT Set",
+          "description": "2 Pcs Jery, 3 Pcs Puri & Tarkari",
+          "is_vegetarian": true,
+          "tags": ["puri"],
+          "variants": [{ "label": null, "price": 15 }]
+        },
+        {
+          "name": "JPT Large",
+          "description": "3 Pcs Jery, 4 Pcs Puri & Large Tarkari",
+          "is_vegetarian": true,
+          "tags": ["puri"],
+          "variants": [{ "label": null, "price": 20 }]
+        },
+        {
+          "name": "Nepali Breakfast Set",
+          "description": "Channa, Alu Dum, Egg, Paneer, Selroti, Tea & 1 Pcs Jery",
+          "tags": ["sel-roti"],
+          "variants": [{ "label": null, "price": 18 }]
+        },
+        {
+          "name": "Tibetan Breakfast Set",
+          "description": "Piro Alu, 2 pcs Bhaley Roti, Egg, Tea & 1 Pcs Jery",
+          "tags": ["tibetan-bread"],
+          "variants": [{ "label": null, "price": 19 }]
+        },
+        {
+          "name": "Alu Puri Set",
+          "description": "Pokhereli Alu, 3 Pcs Puri, Egg, Tea & 1 Pcs Jery",
+          "tags": ["puri"],
+          "variants": [{ "label": null, "price": 18 }]
+        },
+        {
+          "name": "Alu Paratha Tarkari Set",
+          "description": "2 Pcs Alu Paratha, Tarkari, Tea & 1 Pcs Jery",
+          "is_vegetarian": true,
+          "tags": ["roti"],
+          "variants": [{ "label": null, "price": 16 }]
+        },
+        {
+          "name": "Samosa Tarkari Set",
+          "description": "2 Pcs Samosa, tarkari , Tea & 1 Pcs Jery",
+          "is_vegetarian": true,
+          "tags": ["samosa"],
+          "variants": [{ "label": null, "price": 16 }]
+        },
+        {
+          "name": "Sukkha-Roti Tarkari",
+          "description": "3 Pcs Sukkha-roti, Tarkari, Tea & 1 Pcs Jery",
+          "is_vegetarian": true,
+          "tags": ["roti"],
+          "variants": [{ "label": null, "price": 16 }]
+        },
+        {
+          "name": "Sel-Roti Tarkari Set",
+          "description": "2 Pcs Sel-roti, Tarkari, Tea & 1 Pcs Jery",
+          "is_vegetarian": true,
+          "tags": ["sel-roti"],
+          "variants": [{ "label": null, "price": 16 }]
+        },
+        {
+          "name": "Maharaja Set",
+          "description": "4 pcs Jery, 4 pcs Puri, Rabdi, 2 pcs Samosa, 2 pcs Sel-Roti, 2 Masala Egg, Alum Dum, 3pcs Alu Chop, Piro Alu, Masala Chana, 2 Pcs Bhaley Roti, Chutney, Salad & 2 Choice of Drinks",
+          "tags": ["khaja"],
+          "variants": [{ "label": null, "price": 79 }]
+        }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        {
+          "name": "Steamed Momo",
+          "description": "Steamed momo",
+          "tags": ["steamed-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 14, "protein": "chicken" },
+            { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true }
+          ]
+        },
+        {
+          "name": "Jhol Momo",
+          "description": "Jhol momo",
+          "tags": ["jhol-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 16, "protein": "chicken" },
+            { "label": "Veg", "price": 16, "protein": "veg", "is_vegetarian": true }
+          ]
+        },
+        {
+          "name": "Fried Momo",
+          "description": "Fried momo",
+          "tags": ["fried-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 17, "protein": "chicken" }
+          ]
+        },
+        {
+          "name": "Sadheko Momo",
+          "description": "Sadheko momo",
+          "tags": ["sandheko-momo"],
+          "variants": [{ "label": null, "price": 17 }]
+        },
+        {
+          "name": "Chilly Momo",
+          "description": "Chilly momo",
+          "tags": ["chilli-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 18, "protein": "chicken" },
+            { "label": "Paneer", "price": 18, "protein": "paneer", "is_vegetarian": true }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chatpat",
+      "items": [
+        {
+          "name": "Chatpat",
+          "description": "Traditional chatpat",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 12 }]
+        },
+        {
+          "name": "Chauchau Chatpat",
+          "description": "Chauchau chatpat",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 12 }]
+        },
+        {
+          "name": "Alu Chatpat",
+          "description": "Potato chatpat",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 12 }]
+        },
+        {
+          "name": "Chicken Chatpat",
+          "description": "Chicken Chatpat",
+          "tags": [],
+          "variants": [{ "label": null, "price": 15, "protein": "chicken" }]
+        }
+      ]
+    },
+    {
+      "name": "Puri & Chaat",
+      "items": [
+        {
+          "name": "Pani Puri",
+          "description": "Pani Puri",
+          "is_vegetarian": true,
+          "tags": ["pani-puri"],
+          "variants": [{ "label": null, "price": 12 }]
+        },
+        {
+          "name": "Dahi Puri",
+          "description": "Dahi Puri",
+          "is_vegetarian": true,
+          "tags": ["chaat"],
+          "variants": [{ "label": null, "price": 15 }]
+        },
+        {
+          "name": "Butwal ko fulki",
+          "description": "Butwal style fulki",
+          "is_vegetarian": true,
+          "tags": ["pani-puri"],
+          "variants": [{ "label": null, "price": 15 }]
+        },
+        {
+          "name": "Samosa Chat",
+          "description": "Samosa Chat",
+          "is_vegetarian": true,
+          "tags": ["chaat"],
+          "variants": [{ "label": null, "price": 15 }]
+        }
+      ]
+    },
+    {
+      "name": "Alu (Potato)",
+      "items": [
+        {
+          "name": "Alu Chop",
+          "description": "3 pcs Alu Chop with chutney & salad",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 12 }]
+        },
+        {
+          "name": "Piro Alu",
+          "description": "A portion of Piro Alu with chutney & salad",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 14 }]
+        },
+        {
+          "name": "Pokhereli Alu",
+          "description": "A portion of Pokhereli Alu with chutney & salad",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 14 }]
+        },
+        {
+          "name": "Timur Alu",
+          "description": "A portion of Timur Alu with chutney & salad",
+          "is_vegetarian": true,
+          "tags": ["timur"],
+          "variants": [{ "label": null, "price": 14 }]
+        },
+        {
+          "name": "Jira Alu",
+          "description": "A portion of Jira Alu with chutney & salad",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 14 }]
+        }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        {
+          "name": "Chowmein",
+          "tags": ["chowmein"],
+          "variants": [
+            { "label": "Veg", "price": 12, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 14, "protein": "chicken" },
+            { "label": "Mixed", "price": 16 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Snacks & Combos",
+      "items": [
+        {
+          "name": "Pakoda",
+          "description": "4 Pcs Pakoda with chutney & salad",
+          "is_vegetarian": true,
+          "tags": ["pakora"],
+          "variants": [{ "label": null, "price": 12 }]
+        },
+        {
+          "name": "Small Mo:cha",
+          "description": "6 Pcs Momo, Chowmein & 1 Drink",
+          "tags": ["momo", "chowmein"],
+          "variants": [{ "label": null, "price": 22 }]
+        },
+        {
+          "name": "Large Momo Combo",
+          "description": "14 Pcs Momo, Chowmein & 2 Drinks",
+          "tags": ["momo", "chowmein"],
+          "variants": [{ "label": null, "price": 40 }]
+        },
+        {
+          "name": "Mixed Mo:Cha",
+          "description": "5 Pcs Sadheko, 5 Pcs Fried, 5 Pcs Chilly with Chowmein & 2 Drinks",
+          "tags": ["momo", "chowmein"],
+          "variants": [{ "label": null, "price": 48 }]
+        },
+        {
+          "name": "APSP Combo",
+          "description": "4 Pcs Alu Chop, 4 Pcs Pakoda & 1 choice of Drink",
+          "is_vegetarian": true,
+          "tags": ["pakora"],
+          "variants": [{ "label": null, "price": 25 }]
+        },
+        {
+          "name": "Alu Chup Combo",
+          "description": "4 Pcs Alu Chop, 4 Pcs Pakoda, 3 Pcs sausage, Pokhereli Alu & 2 choice of Drink",
+          "tags": ["pakora", "sausage"],
+          "variants": [{ "label": null, "price": 45 }]
+        },
+        {
+          "name": "Chicken Sausage",
+          "description": "3 Pcs Sausage with chutney & salad",
+          "tags": ["sausage"],
+          "variants": [{ "label": null, "price": 14, "protein": "chicken" }]
+        },
+        {
+          "name": "Nuggets & Chips",
+          "description": "6 pcs Nuggets with Chips & Ketchup",
+          "tags": [],
+          "variants": [{ "label": null, "price": 14, "protein": "chicken" }]
+        }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        {
+          "name": "Jery",
+          "description": "Single piece",
+          "is_vegetarian": true,
+          "tags": ["dessert"],
+          "variants": [{ "label": null, "price": 2 }]
+        },
+        {
+          "name": "Puri",
+          "description": "Single piece",
+          "is_vegetarian": true,
+          "tags": ["puri"],
+          "variants": [{ "label": null, "price": 2.5 }]
+        },
+        {
+          "name": "Tarkari (Veg Curry)",
+          "description": "Vegetarian curry",
+          "is_vegetarian": true,
+          "tags": ["curry"],
+          "variants": [{ "label": null, "price": 8, "protein": "veg", "is_vegetarian": true }]
+        },
+        {
+          "name": "Selroti",
+          "description": "Single piece",
+          "is_vegetarian": true,
+          "tags": ["sel-roti"],
+          "variants": [{ "label": null, "price": 3 }]
+        },
+        {
+          "name": "Bhaley Roti",
+          "description": "Single piece",
+          "is_vegetarian": true,
+          "tags": ["tibetan-bread"],
+          "variants": [{ "label": null, "price": 3 }]
+        },
+        {
+          "name": "Sukka Roti",
+          "description": "Single piece",
+          "is_vegetarian": true,
+          "tags": ["roti"],
+          "variants": [{ "label": null, "price": 3 }]
+        },
+        {
+          "name": "Samosa",
+          "description": "Single piece",
+          "is_vegetarian": true,
+          "tags": ["samosa"],
+          "variants": [{ "label": null, "price": 4 }]
+        },
+        {
+          "name": "Partha",
+          "description": "Single piece",
+          "is_vegetarian": true,
+          "tags": ["roti"],
+          "variants": [{ "label": null, "price": 4 }]
+        },
+        {
+          "name": "Boiled Egg",
+          "description": "Single piece",
+          "tags": [],
+          "variants": [{ "label": null, "price": 2.5, "protein": "egg" }]
+        },
+        {
+          "name": "Alu Dum",
+          "description": "Potato curry",
+          "is_vegetarian": true,
+          "tags": ["curry"],
+          "variants": [{ "label": null, "price": 8 }]
+        },
+        {
+          "name": "Channa",
+          "description": "Chickpea curry",
+          "is_vegetarian": true,
+          "tags": ["curry"],
+          "variants": [{ "label": null, "price": 8 }]
+        }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        {
+          "name": "Special Nepali Tea",
+          "description": "Traditional Nepali tea",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 4 }]
+        },
+        {
+          "name": "Black Tea",
+          "description": "Black Tea",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 3 }]
+        },
+        {
+          "name": "Lemon Tea",
+          "description": "Lemon Tea",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 3 }]
+        },
+        {
+          "name": "Hot Lemon (Add Honey)",
+          "description": "Hot lemon with honey",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 4 }]
+        },
+        {
+          "name": "Plain Lassi",
+          "description": "Plain yogurt drink",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 6 }]
+        },
+        {
+          "name": "Banana Lassi",
+          "description": "Banana flavored yogurt drink",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 7 }]
+        },
+        {
+          "name": "Mango Lassi",
+          "description": "Mango flavored yogurt drink",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 7 }]
+        },
+        {
+          "name": "Virgin Mojito",
+          "description": "Non-alcoholic mojito",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 9 }]
+        },
+        {
+          "name": "Red melon Juice",
+          "description": "Fresh red melon juice",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 9 }]
+        },
+        {
+          "name": "Refresher",
+          "description": "Mint/Kiwi/Pineapple",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 2 }]
+        },
+        {
+          "name": "Bottled Water",
+          "description": "Bottled Water",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 2 }]
+        },
+        {
+          "name": "COKE",
+          "description": "Coca Cola",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 3.5 }]
+        },
+        {
+          "name": "FANTA",
+          "description": "Fanta",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 3.5 }]
+        },
+        {
+          "name": "SPRITE",
+          "description": "Sprite",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 3.5 }]
+        },
+        {
+          "name": "MOUNTAIN DEW",
+          "description": "Mountain Dew",
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 3.5 }]
+        }
+      ]
+    }
+  ]
+}

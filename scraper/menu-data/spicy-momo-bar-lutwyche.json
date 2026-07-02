@@ -1,0 +1,172 @@
+{
+  "slug": "spicy-momo-bar-lutwyche",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree Menu",
+      "items": [
+        { "name": "Pani Puri", "description": "(Mild, Medium or Hot) Fried Crispy dough balls stuffed with potatoes, onions, chilli, spices and herbs served with spicy tangy water on side.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 13 }] },
+        { "name": "Peanuts Sandeko", "description": "(Mild, Medium or Hot) Roasted peanuts mixed with tomato, onion, garlic, ginger, cilantro, spices & lime juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 13 }] },
+        { "name": "Chatpate Sandeko", "description": "(Mild, Medium or Hot) Puffed Rice mixed with lemon, potatoes, tomatoes, cucumber, onion, green peas, various vegetables and spices.", "is_vegetarian": true, "tags": ["sandheko", "chaat"], "variants": [{ "label": null, "price": 13 }] },
+        { "name": "Buff Sandeko", "description": "(Mild, Medium or Hot) Buffalo meat mixed with spices, onion, green chilli, sliced garlic, ginger & lemon juice.", "tags": ["sandheko"], "variants": [{ "label": null, "price": 22, "protein": "buff" }] },
+        { "name": "Aalu Sandeko", "description": "(Mild, Medium or Hot) Boiled potatoes mixed with tomato, onion, garlic, ginger, cilantro, spices & lime juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Chicken Sandeko", "description": "(Mild, Medium or Hot) Chicken mixed with spices, onion, green chilli, sliced garlic, ginger & lemon juice.", "tags": ["sandheko"], "variants": [{ "label": null, "price": 17, "protein": "chicken" }] },
+        { "name": "Bhatmas Sandeko", "description": "(Mild, Medium or Hot) Roasted soybean mixed with spices, onion, green chilli, sliced garlic, ginger & lemon juice.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 13 }] }
+      ]
+    },
+    {
+      "name": "Hot Entree",
+      "items": [
+        { "name": "Chicken Wings Fried (8 pieces)", "tags": ["wings"], "variants": [{ "label": null, "price": 14, "protein": "chicken" }] },
+        { "name": "Chicken Sausage Fried (3 pieces)", "tags": ["sausage"], "variants": [{ "label": null, "price": 14, "protein": "chicken" }] },
+        { "name": "Chips Fried", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Spring Roll (3 pieces)", "description": "Veg", "is_vegetarian": true, "tags": ["spring-roll"], "variants": [{ "label": null, "price": 9, "protein": "veg" }] },
+        { "name": "Pork Spring Roll (3 pieces)", "tags": ["spring-roll"], "variants": [{ "label": null, "price": 10, "protein": "pork" }] },
+        { "name": "Duck Spring Roll (3 pieces)", "tags": ["spring-roll"], "variants": [{ "label": null, "price": 10, "protein": "duck" }] },
+        { "name": "Veg Samosa (3 pieces)", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 10, "protein": "veg" }] },
+        { "name": "Milk Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 4 }] }
+      ]
+    },
+    {
+      "name": "Momo Dumplings",
+      "description": "Momo's (dumplings) is one of the Nepal's most popular dishes. Filled with meat or vegetables. Served with house made tomato & herbs dipping & Sauce.",
+      "items": [
+        { "name": "Steam Momo (10 pieces)", "tags": ["steamed-momo"], "variants": [{ "label": "Chicken", "price": 15, "protein": "chicken" }, { "label": "Pork", "price": 15, "protein": "pork" }, { "label": "Veg", "price": 15, "protein": "veg", "is_vegetarian": true }, { "label": "Cheese", "price": 20, "is_vegetarian": true }] },
+        { "name": "Pan Fried Momo (10 pieces)", "tags": ["kothey-momo"], "variants": [{ "label": "Chicken", "price": 17, "protein": "chicken" }, { "label": "Pork", "price": 17, "protein": "pork" }, { "label": "Veg", "price": 17, "protein": "veg", "is_vegetarian": true }, { "label": "Cheese", "price": 22, "is_vegetarian": true }] },
+        { "name": "Deep Fried Momo (10 pieces)", "tags": ["fried-momo"], "variants": [{ "label": "Chicken", "price": 17, "protein": "chicken" }, { "label": "Pork", "price": 17, "protein": "pork" }, { "label": "Veg", "price": 17, "protein": "veg", "is_vegetarian": true }] },
+        { "name": "Jhol Momo (10 pieces)", "description": "Steamed momo served with your choice of filling, with a tangy, flavorful soup.", "tags": ["jhol-momo"], "variants": [{ "label": "Chicken", "price": 18, "protein": "chicken" }, { "label": "Pork", "price": 18, "protein": "pork" }, { "label": "Veg", "price": 18, "protein": "veg", "is_vegetarian": true }] },
+        { "name": "Chilli Momo", "tags": ["chilli-momo"], "variants": [{ "label": "Chicken", "price": 20, "protein": "chicken" }, { "label": "Pork", "price": 20, "protein": "pork" }, { "label": "Veg", "price": 20, "protein": "veg", "is_vegetarian": true }] },
+        { "name": "Bhutanese Momo (10 pieces)", "tags": ["momo"], "variants": [{ "label": null, "price": 15 }] },
+        { "name": "Medium Platter (16 pieces)", "description": "Chicken/Pork/Veg/Mix momos with your choice of filling, served with house-made tomato, herbs dipping & spicy sauce.", "tags": ["momo"], "variants": [{ "label": "Chicken", "price": 32, "protein": "chicken" }, { "label": "Pork", "price": 32, "protein": "pork" }, { "label": "Veg", "price": 32, "protein": "veg", "is_vegetarian": true }, { "label": "Mix", "price": 37 }] },
+        { "name": "Big Momo Platter (30 pieces)", "description": "Chicken/Pork/Veg/Mix momos with your choice of filling, served with house-made tomato, herbs dipping & spicy sauce.", "tags": ["momo"], "variants": [{ "label": "Chicken", "price": 52, "protein": "chicken" }, { "label": "Pork", "price": 52, "protein": "pork" }, { "label": "Veg", "price": 52, "protein": "veg", "is_vegetarian": true }, { "label": "Mix", "price": 57 }] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Chowmein is a stir fried dish consisting of noodles, meat (chicken, egg, buff, veg) with cabbage, celery, carrots, chickpeas, green onions and garlic.", "tags": ["chowmein"], "variants": [{ "label": "Chicken", "price": 19, "protein": "chicken" }, { "label": "Buffalo", "price": 22, "protein": "buff" }, { "label": "Veg", "price": 17, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 19, "protein": "egg" }, { "label": "Mix (Chicken & Egg)", "price": 22 }] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Fried rice with seasonal vegetables, choice of meat and flavoured with Nepalese herbs & spices.", "tags": ["fried-rice"], "variants": [{ "label": "Chicken", "price": 19, "protein": "chicken" }, { "label": "Buffalo", "price": 22, "protein": "buff" }, { "label": "Veg", "price": 17, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 19, "protein": "egg" }, { "label": "Mix (Chicken & Egg)", "price": 22 }] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "description": "Boiled noodles served with Seasonal veggies, soup, and your choice of meat.", "tags": ["thukpa"], "variants": [{ "label": "Chicken", "price": 16, "protein": "chicken" }, { "label": "Buffalo", "price": 20, "protein": "buff" }, { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 16, "protein": "egg" }, { "label": "Mix (Chicken & Egg)", "price": 20 }, { "label": "Mix (Buff & Egg)", "price": 22 }] }
+      ]
+    },
+    {
+      "name": "Khaja Set",
+      "items": [
+        { "name": "Khaja Set", "description": "Beaten rice, spicy potatoes, mixed pickles, salad, spicy peanuts.", "tags": ["khaja"], "variants": [{ "label": "Chicken", "price": 25, "protein": "chicken" }, { "label": "Buffalo", "price": 27, "protein": "buff" }, { "label": "Veg", "price": 20, "protein": "veg", "is_vegetarian": true }] }
+      ]
+    },
+    {
+      "name": "Goat Bhutan Set",
+      "items": [
+        { "name": "Goat Bhutan Set", "description": "Goat bhutan is a spicy dish prepared with goat tripe and other internal organs parts that has been stir-fried in a wok or a frying pan with other ingredients like shallots, onions, tomatoes, garlic with other herbs. It also includes liver and kidneys.", "tags": ["bhutan"], "variants": [{ "label": null, "price": 20, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Chilli Dishes",
+      "description": "Chilli dish which consists of capsicum, onions, chilli sauce, tomato sauce and vinegar choice of Boneless chicken, Chicken wings, Paneer and Chips.",
+      "items": [
+        { "name": "Chips Chilli", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 15 }] },
+        { "name": "Chicken Chilli", "tags": ["chilli"], "variants": [{ "label": null, "price": 20, "protein": "chicken" }] },
+        { "name": "Paneer Chilli", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 20, "protein": "paneer" }] },
+        { "name": "Wings Chilli", "tags": ["chilli", "wings"], "variants": [{ "label": null, "price": 18, "protein": "chicken" }] },
+        { "name": "Add Steam Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5 }] }
+      ]
+    },
+    {
+      "name": "Nepalese Curry",
+      "description": "(Mild, Medium or Hot) Nepalese style traditional curry with your choice of meat (Goat/Chicken).",
+      "items": [
+        { "name": "Goat Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 17, "protein": "goat" }] },
+        { "name": "Chicken Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 15, "protein": "chicken" }] },
+        { "name": "Add Steam Plain Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5 }] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Gulab Jamun", "description": "2 pieces of gulab jamun served with ice cream or yogurt.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Ice cream", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 5 }] }
+      ]
+    },
+    {
+      "name": "Kids Meal",
+      "items": [
+        { "name": "Momo (5 pieces)", "tags": ["momo"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Chips", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Nuggets and Chips", "tags": [], "variants": [{ "label": null, "price": 10, "protein": "chicken" }] },
+        { "name": "Sausage (2 pieces)", "tags": ["sausage"], "variants": [{ "label": null, "price": 10, "protein": "chicken" }] },
+        { "name": "Wings (4 pieces)", "tags": ["wings"], "variants": [{ "label": null, "price": 10, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Tap Beer",
+      "items": [
+        { "name": "Tap Beer", "tags": ["drinks"], "variants": [{ "label": "Schooner", "price": 8 }, { "label": "Pint", "price": 12 }, { "label": "Jug", "price": 23 }] },
+        { "name": "Nepalese Beer Bottle", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] }
+      ]
+    },
+    {
+      "name": "Whiskey",
+      "items": [
+        { "name": "Red Label (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Black Label (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Glenfiddich (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Old Darbar (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Chivas (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Vodka (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Jack Daniels (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Bundaburg Rum (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Khukuri Rum (30 ml)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] }
+      ]
+    },
+    {
+      "name": "Shots",
+      "items": [
+        { "name": "B52", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Jagerbomb", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Jagermeister", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Tequila", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Baby Guiness", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Sambuca", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Whiskey Shot", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] }
+      ]
+    },
+    {
+      "name": "Wine",
+      "items": [
+        { "name": "Wine Bottle", "tags": ["drinks"], "variants": [{ "label": null, "price": 25 }] },
+        { "name": "Red Wine Glass", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "White Wine Glass", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Sweet Wine Glass", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "items": [
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Diet Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Coke Zero", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Sunkist", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "M Due", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Lemonade", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Kids Drink", "tags": ["drinks"], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Ginger Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Red Bull", "tags": ["drinks"], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Water Bottle", "tags": ["drinks"], "variants": [{ "label": null, "price": 3 }] }
+      ]
+    }
+  ]
+}

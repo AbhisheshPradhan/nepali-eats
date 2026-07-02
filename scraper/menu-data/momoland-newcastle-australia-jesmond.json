@@ -1,0 +1,129 @@
+{
+  "slug": "momoland-newcastle-australia-jesmond",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo (10 pcs)", "description": "Juicy steamed dumplings filled with flavorful minced seasoned with traditional Nepali herbs and spices and served with tangy tomato chutney.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 16.9, "protein": "chicken" },
+          { "label": "Buff", "price": 19.9, "protein": "buff" },
+          { "label": "Paneer", "price": 18.9, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 15.9, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Chilli Momo (10 pcs)", "description": "Crispy fried dumplings tossed in a spicy, tangy Nepali-style chilli sauce with onions, capsicum and fresh herbs for a bold, flavorful kick.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 21.9, "protein": "chicken" },
+          { "label": "Buff", "price": 24.9, "protein": "buff" },
+          { "label": "Paneer", "price": 23.9, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 20.9, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Jhol Momo (10 pcs)", "description": "Steamed dumplings served in a chilled, flavorful broth made from sesame, peanuts, soybeans and fresh blend of coriander, mint and nepali spices.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 19.9, "protein": "chicken" },
+          { "label": "Buff", "price": 22.9, "protein": "buff" },
+          { "label": "Paneer", "price": 21.9, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 18.9, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Deep/Pan Fried Momo (10 pcs)", "description": "Crispy deep or pan fried dumplings with a golden crust, packed with savory spiced meat and served with tangy Nepali chutney.", "tags": ["fried-momo"], "variants": [
+          { "label": "Chicken", "price": 18.9, "protein": "chicken" },
+          { "label": "Buff", "price": 21.9, "protein": "buff" },
+          { "label": "Paneer", "price": 20.9, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 17.9, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Sadeko Momo (10 pcs)", "description": "Steamed dumplings tossed in a spicy, tangy marinade with mustard oil, fresh herbs, onions, and Nepali spices for a bold, flavorful kick.", "tags": ["sandheko-momo"], "variants": [
+          { "label": "Chicken", "price": 19.9, "protein": "chicken" },
+          { "label": "Buff", "price": 22.9, "protein": "buff" },
+          { "label": "Paneer", "price": 21.9, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Veg", "price": 18.9, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein / Noodles",
+      "items": [
+        { "name": "Chowmein / Noodles", "description": "Stir-fried noodles tossed with fresh vegetables and Nepali-style seasonings for smoky, savory street-food classic.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 18.9, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 21.9, "protein": "chicken" },
+          { "label": "Buff", "price": 24.9, "protein": "buff" },
+          { "label": "Mixed (Chk/Buff/Veg)", "price": 25.9 }
+        ] }
+      ]
+    },
+    {
+      "name": "Khaja Set",
+      "items": [
+        { "name": "Bhutan Set", "description": "A spicy goat offals (tripe, fatty runner and bhutan) served with aalo aachar, beaten rice, roasted soybeans and side of tomato chutney.", "tags": ["bhutan", "khaja"], "variants": [{ "label": null, "price": 25.5, "protein": "goat" }] },
+        { "name": "Choila", "description": "Smoked grilled meat marinated with mustard oil, garlic, chilli, sichuan pepper served with beaten rice, aalo aachar and roasted soybeans.", "tags": ["choila", "newari"], "variants": [
+          { "label": "Chicken", "price": 22.5, "protein": "chicken" },
+          { "label": "Buff", "price": 26.5, "protein": "buff" },
+          { "label": "Soya Chunks", "price": 20.9, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Curries / Rice",
+      "items": [
+        { "name": "Chicken Curry (Med)", "description": "Slow cooked chicken with onion, tomatoes, garlic, ginger and blend of spices like cumin, coriander, and sichuan pepper and herbs.", "tags": ["curry"], "variants": [{ "label": null, "price": 13.9, "protein": "chicken" }] },
+        { "name": "Goat Curry (Med)", "description": "Slow cooked goat (bone-in) with onion, tomatoes, garlic, ginger and blend of spices like cumin, coriander, and sichuan pepper and herbs.", "tags": ["curry"], "variants": [{ "label": null, "price": 15.9, "protein": "goat" }] },
+        { "name": "Daal (Med)", "description": "Lentil soup spiced with turmeric and tempered with cumin, ginger and garlic.", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Curry & Rice Deal", "description": "A hearty curry (non veg) served with steamed basmati rice.", "tags": ["curry"], "variants": [{ "label": null, "price": 12.9 }] },
+        { "name": "Daal & Rice Deal", "description": "A hearty daal served with steamed basmati rice.", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 10.9, "protein": "veg" }] },
+        { "name": "Steamed Basmati Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.9, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Nepalese Street Food",
+      "items": [
+        { "name": "Chatpate", "description": "A spicy, tangy Nepali street snack made with puffed rice, potatoes, fresh veggies, crunchy noodles, and zesty spices, all tossed in mustard oil and lemon juice for bold flavor.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Panipuri (10 pcs)", "description": "Crispy puris stuffed with spiced potatoes and herbs served with tangy tamarind water for a burst of sweet, sour and spicy Nepali-style street flavor.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 13.9, "protein": "veg" }] },
+        { "name": "Pani Puri Takeaway (12 pcs)", "description": "Crispy puris stuffed with spiced potatoes and herbs served with tangy tamarind water for a burst of sweet, sour and spicy Nepali-style street flavor.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 16.9, "protein": "veg" }] },
+        { "name": "Sausage (2 pcs)", "description": "Nepalese style juicy deep fried sausages served hot with tangy tomato chutney or spicy aachar, perfect as a quick, flavorful street-style.", "tags": ["sausage"], "variants": [{ "label": null, "price": 12.9 }] },
+        { "name": "Samosa (2 pcs)", "description": "A deep-fried pastry filled with spiced mashed potatoes, peas and traditional herbs. Crispy on the outside and savory inside and served with tangy tomato chutney.", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 7.9, "protein": "veg" }] },
+        { "name": "Piro Aalu", "description": "A spicy and tangy street-style snack made with sliced fried potatoes mixed chopped onions, chillies, mustard oil, lemon juice and a blend of spices.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.9, "protein": "veg" }] },
+        { "name": "Aalu Chops (4 pcs)", "description": "Deep-fried mashed potatoes patties spiced with Nepali herbs and coated in a crispy batter served with tangy tomato chutney.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.9, "protein": "veg" }] },
+        { "name": "Pakoda (6 pcs)", "description": "A crispy deep-fried snack made from gram flour batter mixed with vegetables and herbs added with Nepali spices. It is served with tangy tomato chutney.", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 10.9, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Chilli",
+      "items": [
+        { "name": "Chicken Chilli", "description": "Crispy fried chicken pieces tossed in a spicy, tangy sauce with onions, capsicum, green chillies and bold himalayan spices to make it favorite appetizer.", "tags": ["chilli"], "variants": [{ "label": null, "price": 18.9, "protein": "chicken" }] },
+        { "name": "Paneer Chilli", "description": "Crispy paneer cubes tossed in a spicy, tangy, Nepali-style chilli sauce with onions, capsicum, and bold himalayas spices - a popular fusion.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 17.9, "protein": "paneer" }] },
+        { "name": "Sausage Chilli", "description": "A flavorful fusion dish made with sliced chicken sausages stir-fried with onions, capsicum, green chillies, and Nepali-style spicy, tangy sauce.", "tags": ["chilli", "sausage"], "variants": [{ "label": null, "price": 17.9, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Biryani / Fried Rice",
+      "items": [
+        { "name": "Biryani", "tags": ["biryani"], "variants": [
+          { "label": "Chicken", "price": 18.5, "protein": "chicken" },
+          { "label": "Goat", "price": 20.5, "protein": "goat" }
+        ] },
+        { "name": "Fried Rice", "tags": ["fried-rice"], "variants": [
+          { "label": "Veg", "price": 15.5, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16.5, "protein": "chicken" }
+        ] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Chips & Nuggets", "tags": [], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Fried Noodles", "tags": ["chowmein"], "variants": [{ "label": "Chicken", "price": 10, "protein": "chicken" }, { "label": "Veg", "price": 10, "protein": "veg", "is_vegetarian": true }] },
+        { "name": "Fried Rice", "tags": ["fried-rice"], "variants": [{ "label": "Chicken", "price": 10, "protein": "chicken" }, { "label": "Veg", "price": 10, "protein": "veg", "is_vegetarian": true }] },
+        { "name": "Chilli French Fries", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10 }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Nepali Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.0 }] },
+        { "name": "Coke/Fanta/Sprite/Dew", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.0 }] },
+        { "name": "Nepali Red Bull (Thai)", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Ginger Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] }
+      ]
+    }
+  ]
+}

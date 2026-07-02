@@ -1,0 +1,212 @@
+{
+  "slug": "ghumti-kitchen-allawah",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Chatpate", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] },
+        { "name": "Pani Puri (8 pcs)", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Chilli",
+      "items": [
+        { "name": "Chicken Chilli", "tags": ["chilli"], "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }] },
+        { "name": "Buff Chilli", "tags": ["chilli"], "variants": [{ "label": null, "price": 17.99, "protein": "buff" }] },
+        { "name": "Paneer Chilli", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 15.99, "protein": "paneer" }] },
+        { "name": "Mushroom Chilli", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 14.99, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Sadheko Items",
+      "items": [
+        { "name": "Bhatamas Sadheko", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 9.99, "protein": "veg" }] },
+        { "name": "Piro Aalu", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.99, "protein": "veg" }] },
+        { "name": "Sukuti", "tags": ["sukuti"], "variants": [{ "label": null, "price": 16.99 }] },
+        { "name": "Pangra", "tags": [], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Timur Chicken", "tags": ["timur"], "variants": [{ "label": null, "price": 14.99, "protein": "chicken" }] },
+        { "name": "Spicy Wings", "tags": ["wings"], "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }] },
+        { "name": "Bhuttan", "tags": ["bhutan"], "variants": [{ "label": null, "price": 16.99, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Sekuwa",
+      "items": [
+        { "name": "Sekuwa (4 pcs)", "tags": ["sekuwa"], "variants": [
+          { "label": "Chicken", "price": 3.99, "protein": "chicken" },
+          { "label": "Goat", "price": 4.99, "protein": "goat" },
+          { "label": "Pork", "price": 4.99, "protein": "pork" }
+        ] }
+      ]
+    },
+    {
+      "name": "Choila",
+      "items": [
+        { "name": "Choila", "tags": ["choila", "newari"], "variants": [
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Goat", "price": 15.99, "protein": "goat" },
+          { "label": "Pork", "price": 15.99, "protein": "pork" }
+        ] }
+      ]
+    },
+    {
+      "name": "Sausage",
+      "items": [
+        { "name": "Chicken Sausage (per pcs)", "tags": ["sausage"], "variants": [{ "label": null, "price": 3.99, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steam Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 11.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 12.99, "protein": "chicken" },
+          { "label": "Buff", "price": 13.99, "protein": "buff" }
+        ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Buff", "price": 14.99, "protein": "buff" }
+        ] },
+        { "name": "Sadheko Momo", "tags": ["sandheko-momo"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Chilly Momo", "tags": ["chilli-momo"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Kothey Momo", "tags": ["kothey-momo"], "variants": [
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Buff", "price": 15.99, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Momo Platter", "tags": ["momo"], "variants": [
+          { "label": "Veg", "price": 18.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 19.99, "protein": "chicken" },
+          { "label": "Buff", "price": 23.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Nepali Khaja Set",
+      "items": [
+        { "name": "Nepali Khaja Set", "tags": ["khaja"], "variants": [
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Goat", "price": 17.99, "protein": "goat" },
+          { "label": "Sukuti", "price": 19.99 },
+          { "label": "Bhuttan", "price": 18.99, "protein": "goat" },
+          { "label": "Pork", "price": 18.99, "protein": "pork" }
+        ] },
+        { "name": "Goat Taas Set", "tags": ["taas"], "variants": [{ "label": null, "price": 19.99, "protein": "goat" }] },
+        { "name": "Chicken Tikka", "tags": ["tikka"], "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Thali Set",
+      "items": [
+        { "name": "Thali Set", "tags": ["thali"], "variants": [
+          { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+          { "label": "Goat", "price": 19.99, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "Special",
+      "items": [
+        { "name": "Meat Platter", "tags": [], "variants": [{ "label": null, "price": 39.99 }] },
+        { "name": "Chicken Burger", "tags": [], "variants": [{ "label": null, "price": 14.99, "protein": "chicken" }] },
+        { "name": "Lamb Burger", "tags": [], "variants": [{ "label": null, "price": 16.99, "protein": "lamb" }] }
+      ]
+    },
+    {
+      "name": "Authentic Curry",
+      "items": [
+        { "name": "Veg Curry", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Butter Chicken", "tags": ["butter-chicken"], "variants": [{ "label": null, "price": 16.99, "protein": "chicken" }] },
+        { "name": "Chicken", "tags": ["curry"], "variants": [{ "label": null, "price": 13.99, "protein": "chicken" }] },
+        { "name": "Goat", "tags": ["curry"], "variants": [{ "label": null, "price": 14.99, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Kids Meal",
+      "items": [
+        { "name": "Nuggets", "tags": [], "variants": [{ "label": null, "price": 4.99 }] },
+        { "name": "Fries", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4.99 }] }
+      ]
+    },
+    {
+      "name": "Biryani",
+      "items": [
+        { "name": "Biryani", "tags": ["biryani"], "variants": [
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Goat", "price": 17.99, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "tags": ["fried-rice"], "variants": [
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Buff", "price": 14.99, "protein": "buff" },
+          { "label": "Pork", "price": 14.99, "protein": "pork" },
+          { "label": "Mix (Combination of your Choice)", "price": 17.99 }
+        ] }
+      ]
+    },
+    {
+      "name": "Naan",
+      "items": [
+        { "name": "Naan Bread", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 3.99 }] }
+      ]
+    },
+    {
+      "name": "Noodle",
+      "items": [
+        { "name": "Chowmein", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 13.99, "protein": "egg" },
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Buff", "price": 15.99, "protein": "buff" },
+          { "label": "Pork", "price": 15.99, "protein": "pork" },
+          { "label": "Buff & Chicken", "price": 16.99 },
+          { "label": "Pork & Chicken", "price": 16.99 }
+        ] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "tags": ["thukpa"], "variants": [
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Vegetable", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Pork", "price": 16.99, "protein": "pork" },
+          { "label": "Mix (Combination of your Choice)", "price": 16.99 },
+          { "label": "Chicken Combo (with 5pcs Momo)", "price": 17.99, "protein": "chicken" },
+          { "label": "Buff Combo (with 5pcs Momo)", "price": 19.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "items": [
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Fanta", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.99 }] }
+      ]
+    }
+  ]
+}

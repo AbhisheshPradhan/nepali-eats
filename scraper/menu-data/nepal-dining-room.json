@@ -1,0 +1,81 @@
+{
+  "slug": "nepal-dining-room",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starter - Small Bites",
+      "items": [
+        { "name": "Pan Fried Chicken (GF)", "description": "Tender chicken thigh fillet marinated with mustard leaves, yoghurt, garlic, ginger and cumin.", "tags": [], "variants": [{ "label": null, "price": 12.9, "protein": "chicken" }] },
+        { "name": "MOMO - Lamb/Chicken/Veg", "description": "Steamed momos served with tomato and sesame chutney.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Lamb", "price": 11.9, "protein": "lamb" },
+          { "label": "Chicken", "price": 11.9, "protein": "chicken" },
+          { "label": "Veg", "price": 11.9, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Tareko Maachaa", "description": "Pan fried fish fillets marinated with turmeric and rock salt coated with flour, simmered with spicy garlic, yoghurt and lime leaves.", "tags": ["fried-fish"], "variants": [{ "label": null, "price": 11.9, "protein": "fish" }] },
+        { "name": "Pork Choila", "description": "Grilled pork belly marinated with garlic, ginger, onion, coriander and chilli with a touch of lime.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 13.9, "protein": "pork" }] },
+        { "name": "Tapas Platter", "description": "Selection of popular small bites, Aloo chop, Momo, Beans, Pork Choila, and Pan Fried Chicken.", "tags": [], "variants": [{ "label": "for 2pp", "price": 22 }, { "label": "for 4 ppl", "price": 44 }] },
+        { "name": "Hot Bamboo Shoots", "description": "Soup cooked with black eye beans in a chicken broth.", "tags": ["soup"], "variants": [{ "label": null, "price": 9.9 }] },
+        { "name": "Aloo Chop", "description": "Potato patties battered in chickpea and rice flour. Served with cucumber, onion, tomato salsa & drizzled with tamarind sauce.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Aloo Chaat (V)", "description": "Aloo chop mixed with crispy ajwan seed pastry pieces and drizzled with yoghurt and tamarind sauce.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 12.9, "protein": "veg" }] },
+        { "name": "Lamb Choila", "description": "Grilled lamb shoulder marinated with garlic, ginger, onion, coriander, tomato and chilli with a touch of lime and wild pepper.", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 13.9, "protein": "lamb" }] }
+      ]
+    },
+    {
+      "name": "Main",
+      "items": [
+        { "name": "Goat Tarkari", "description": "Slow-cooked goat curry.", "tags": ["curry"], "variants": [{ "label": null, "price": 27, "protein": "goat" }] },
+        { "name": "Chicken Tarkari", "description": "Cooked with butternut pumpkin.", "tags": ["curry"], "variants": [{ "label": null, "price": 25, "protein": "chicken" }] },
+        { "name": "Prawns", "description": "Pan fried king prawns sauteed with capsicum, onion, green beans, lime leaves, diced tomatoes and soy sauce.", "tags": [], "variants": [{ "label": null, "price": 29, "protein": "prawn" }] },
+        { "name": "Chilli Chicken", "description": "Stir fried tender chicken fillets with capsicum, green beans, onion, soy sauce and dried chilli.", "tags": ["chilli"], "variants": [{ "label": null, "price": 20.9, "protein": "chicken" }] },
+        { "name": "Maachaa Tarkari", "description": "Pan fried fillets marinated with turmeric and rock salt and simmered with tomato and coconut milk based sauce with a touch of mustard seeds and lime leaves.", "tags": ["curry"], "variants": [{ "label": null, "price": 29, "protein": "fish" }] },
+        { "name": "Slow Cooked Lamb Shank", "description": "Lamb shank cooked in a curry sauce, served with potatoes and spinach.", "tags": ["curry"], "variants": [{ "label": null, "price": 29, "protein": "lamb" }] },
+        { "name": "Eggplant and Pumpkin Tarkari", "description": "Roasted eggplant and pumpkin cooked with green peas in a tomato based gravy.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 29, "protein": "veg" }] },
+        { "name": "Seafood Tarkari", "description": "Combination of tiger prawns, scallops, calamari and fish fillets cooked in a light curry sauce with a touch of coconut milk, mustard seeds and a hint of lime juice.", "tags": ["curry"], "variants": [{ "label": null, "price": 29 }] },
+        { "name": "Seafood Chow Chow", "description": "Stir fried noodles with king prawns, sauteed with scallops, calamari, fish fillet and vegetables in a tomato based sauce and garnished with coriander.", "tags": ["chowmein"], "variants": [{ "label": null, "price": 26 }] },
+        { "name": "Chilli Momo Vegetable", "description": "Pan fried steamed momos with onion, capsicum, tomatoes, green beans and chilli.", "is_vegetarian": true, "tags": ["chilli-momo"], "variants": [{ "label": null, "price": 24.9, "protein": "veg" }] },
+        { "name": "Lamb Meatball", "description": "Cooked with mixed beans in tomato and onion gravy with a touch of cream.", "tags": ["kofta"], "variants": [{ "label": null, "price": 25, "protein": "lamb" }] },
+        { "name": "Lamb Tarkari", "description": "Cooked with capsicum, cumin, mustard seeds, garlic, ginger, onion and curry leaves in a tomato and coconut based sauce.", "tags": ["curry"], "variants": [{ "label": null, "price": 26, "protein": "lamb" }] },
+        { "name": "Mixed Vegetable Tarkari", "description": "Mixed vegetables, cooked in a mild curry sauce.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 21, "protein": "veg" }] },
+        { "name": "Garlic Prawns", "description": "King prawns pan fried with garlic, onion, tomato and mushroom in a creamy sauce.", "tags": [], "variants": [{ "label": null, "price": 29, "protein": "prawn" }] },
+        { "name": "Pork Belly Tarkari", "description": "Pork curry with bok choy.", "tags": ["curry"], "variants": [{ "label": null, "price": 31, "protein": "pork" }] },
+        { "name": "Traditional Maachaa Tarkari", "description": "Fish fillets cooked with fenugreek seeds, garlic, ginger, coriander, tomato and onion.", "tags": ["curry"], "variants": [{ "label": null, "price": 29, "protein": "fish" }] },
+        { "name": "Grilled Chicken Sekuwa", "description": "Chicken thigh fillet marinated with garlic, ginger, onion, coriander and chilli with a touch of lime. Served with salad and tomato chutney.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 24, "protein": "chicken" }] },
+        { "name": "Sweet Potato Tarkari", "description": "Sweet potatoes, black eye beans and spinach cooked with tomato, onion, garlic, ginger and cumin powder.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 21, "protein": "veg" }] },
+        { "name": "Cauliflower", "description": "Cauliflower, baby potatoes and green peas cooked with garlic and ginger in a hot pot.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 21, "protein": "veg" }] },
+        { "name": "Tofu Chow Chow", "description": "Stir fried noodles with assorted vegetables and tofu with soy sauce, Nepalese spices and garnished with spring onion and coriander.", "is_vegetarian": true, "tags": ["chowmein"], "variants": [{ "label": null, "price": 19.9, "protein": "veg" }] },
+        { "name": "Chicken Chow Chow", "description": "Stir fried noodles with chicken fillets, vegetables, garlic, ginger and tomatoes.", "tags": ["chowmein"], "variants": [{ "label": null, "price": 19.9, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Rice, Roti & Sides",
+      "items": [
+        { "name": "Plain Basmati Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.0, "protein": "veg" }] },
+        { "name": "Chamre Rice", "description": "Nepalese rice cooked with cumin seeds and turmeric.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4, "protein": "veg" }] },
+        { "name": "Kwati", "description": "Lightly spiced pan fried mixed beans sprout sprinkled with coriander and lemon juice.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 7.9, "protein": "veg" }] },
+        { "name": "Butternut Pumpkin", "description": "Cooked with garlic, mustard seeds and lemon juice.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Daal", "description": "Yellow lentil soup.", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Garlic Spinach", "description": "Fresh spinach infused with garlic.", "is_vegetarian": true, "tags": ["saag"], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Chilli Chutne", "description": "Spicy and tangy condiment made with chilli peppers.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.0 }] },
+        { "name": "Pulao Rice", "description": "Rice cooked with ghee, cashews and sultanas.", "is_vegetarian": true, "tags": ["pulao"], "variants": [{ "label": null, "price": 4, "protein": "veg" }] },
+        { "name": "Wholemeal Roti", "description": "Soft, wholemeal flatbread, gluten-free.", "is_vegetarian": true, "tags": ["roti"], "variants": [{ "label": null, "price": 5.5 }] },
+        { "name": "Saag", "description": "Stir fried bok choy with dried chilli and ginger.", "is_vegetarian": true, "tags": ["saag"], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Aloo Dam", "description": "Pan fried potatoes with garlic, ginger, tomatoes, chillies, lime and ground sesame seeds.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Steamed Mixed Vegetables", "description": "Mixed seasonal vegetables, steamed to perfection.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.9, "protein": "veg" }] },
+        { "name": "Mula Ko Achar", "description": "Radish pickle.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.5 }] }
+      ]
+    },
+    {
+      "name": "Sweet - Desserts",
+      "items": [
+        { "name": "Sticky Date Pudding", "description": "Served with vanilla ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 12.9 }] },
+        { "name": "Chocolate Brownie", "description": "Served with pistachio ice cream.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 12.9 }] },
+        { "name": "Pistachio Ice Cream", "description": "Creamy pistachio flavoured ice cream, gluten-free.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 10.0 }] },
+        { "name": "Lal Mohan", "description": "Evaporated milk dumplings served with vanilla ice cream and with or without mixed berries.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 12.9 }] },
+        { "name": "Strawberry Sorbet", "description": "Sweet and refreshing strawberry treat.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 7.9 }] },
+        { "name": "Vanilla Ice Cream", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 7.9 }] }
+      ]
+    }
+  ]
+}

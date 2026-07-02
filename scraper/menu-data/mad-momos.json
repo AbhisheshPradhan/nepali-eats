@@ -1,0 +1,168 @@
+{
+  "slug": "mad-momos",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 15.0, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.0, "protein": "chicken" },
+          { "label": "Buff", "price": 17.0, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Veg", "price": 15.0, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.0, "protein": "chicken" },
+          { "label": "Buff", "price": 17.0, "protein": "buff" }
+        ] },
+        { "name": "Pan Fried Momo", "tags": ["kothey-momo"], "variants": [
+          { "label": "Veg", "price": 17.5, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17.5, "protein": "chicken" },
+          { "label": "Buff", "price": 19.5, "protein": "buff" }
+        ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 17.5, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17.5, "protein": "chicken" },
+          { "label": "Buff", "price": 19.5, "protein": "buff" }
+        ] },
+        { "name": "Chilly Momo", "tags": ["chilli-momo"], "variants": [
+          { "label": "Veg", "price": 17.5, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17.5, "protein": "chicken" },
+          { "label": "Buff", "price": 19.5, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Momo Platter",
+      "items": [
+        { "name": "Momo Platter", "description": "Mix platter = 5 pcs each of Chicken, Buffalo and Veg (steam only).", "tags": ["momo"], "variants": [
+          { "label": "Mix", "price": 21.5 },
+          { "label": "Chicken", "price": 21.5, "protein": "chicken" },
+          { "label": "Veg Paneer", "price": 21.5, "protein": "paneer", "is_vegetarian": true },
+          { "label": "Buffalo", "price": 23.5, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 15.0, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 17.0, "protein": "egg" },
+          { "label": "Chicken", "price": 18.0, "protein": "chicken" },
+          { "label": "Buff", "price": 19.0, "protein": "buff" },
+          { "label": "Mix", "price": 24.0 }
+        ] }
+      ]
+    },
+    {
+      "name": "Street Snacks",
+      "items": [
+        { "name": "Marinated Potatoes", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8.0 }] },
+        { "name": "Chatpatey", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 13.0 }] },
+        { "name": "Gilo Chatpatey", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 13.5 }] },
+        { "name": "Chicken Sausage", "tags": ["sausage"], "variants": [{ "label": null, "price": 8.0, "protein": "chicken" }] },
+        { "name": "Fish and Chips", "tags": ["fried-fish"], "variants": [{ "label": null, "price": 14.5, "protein": "fish" }] },
+        { "name": "Panipuri", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 14.0 }] },
+        { "name": "Aaloo Nimki", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 13.0 }] },
+        { "name": "Chau Chau Sadheko", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 13.0 }] },
+        { "name": "Veg Spring Rolls (4 pcs)", "is_vegetarian": true, "tags": ["spring-roll"], "variants": [{ "label": null, "price": 9.5, "protein": "veg" }] },
+        { "name": "Fries", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8.0 }] },
+        { "name": "Season Wedges", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.0 }] },
+        { "name": "Bread Chop", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.0 }] }
+      ]
+    },
+    {
+      "name": "Fire & Flavor",
+      "items": [
+        { "name": "Chicken Savayale", "tags": ["shavale"], "variants": [{ "label": null, "price": 12.0, "protein": "chicken" }] },
+        { "name": "Buffalo Savayale", "tags": ["shavale"], "variants": [{ "label": null, "price": 14.0, "protein": "buff" }] },
+        { "name": "Butter Tomato Sauce Momo", "tags": ["momo"], "variants": [{ "label": null, "price": 17.5 }] },
+        { "name": "Lamb Pan Fried", "tags": ["kothey-momo"], "variants": [
+          { "label": "Set", "price": 24.5, "protein": "lamb" },
+          { "label": "Only", "price": 18.0, "protein": "lamb" }
+        ] },
+        { "name": "Chicken Chhoyala", "tags": ["choila"], "variants": [
+          { "label": "Set", "price": 18.0, "protein": "chicken" },
+          { "label": "Only", "price": 13.0, "protein": "chicken" }
+        ] },
+        { "name": "Buffalo Chhoyala", "tags": ["choila"], "variants": [
+          { "label": "Set", "price": 22.0, "protein": "buff" },
+          { "label": "Only", "price": 15.0, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Momo Chow Combo",
+      "items": [
+        { "name": "Momo Chow Combo", "tags": ["momo", "chowmein"], "variants": [
+          { "label": "Veg", "price": 18.5, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 20.5, "protein": "chicken" },
+          { "label": "Buffalo", "price": 21.5, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Mad Kids",
+      "items": [
+        { "name": "Kids Noodles", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 9.0, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 11.0, "protein": "buff" },
+          { "label": "Chicken", "price": 11.0, "protein": "chicken" }
+        ] },
+        { "name": "Mozzarella Sticks with Chips", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12.5 }] },
+        { "name": "Nuggets and Fries", "tags": [], "variants": [{ "label": null, "price": 10.0, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "tags": ["fried-rice"], "variants": [
+          { "label": "Veg", "price": 14.5, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 16.0, "protein": "egg" },
+          { "label": "Chicken", "price": 16.0, "protein": "chicken" },
+          { "label": "Buff", "price": 17.5, "protein": "buff" },
+          { "label": "Mixed", "price": 20.0 }
+        ] }
+      ]
+    },
+    {
+      "name": "Frozen Momos",
+      "items": [
+        { "name": "Frozen Momo (100 pcs)", "tags": ["momo"], "variants": [
+          { "label": "Chicken", "price": 80.0, "protein": "chicken" },
+          { "label": "Buff", "price": 90.0, "protein": "buff" },
+          { "label": "Veg", "price": 80.0, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Frozen Momo (25 pcs)", "tags": ["momo"], "variants": [
+          { "label": "Chicken", "price": 22.5, "protein": "chicken" },
+          { "label": "Buffalo", "price": 25.0, "protein": "buff" },
+          { "label": "Veg", "price": 22.5, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Chocolate Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.0 }] },
+        { "name": "Caramel Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.0 }] },
+        { "name": "Banana Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.0 }] },
+        { "name": "Vanilla Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.0 }] },
+        { "name": "Strawberry Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.0 }] },
+        { "name": "Blue Heaven Milkshake", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.0 }] },
+        { "name": "Noah Apple", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Noah Mix", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Noah Orange", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.0 }] },
+        { "name": "Coke Zero", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.0 }] },
+        { "name": "Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.0 }] },
+        { "name": "Fanta", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.0 }] },
+        { "name": "Solo", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.0 }] },
+        { "name": "Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.0 }] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.0 }] }
+      ]
+    }
+  ]
+}

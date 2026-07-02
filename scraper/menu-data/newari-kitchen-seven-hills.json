@@ -1,0 +1,106 @@
+{
+  "slug": "newari-kitchen-seven-hills",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "description": "Nepalese style dumpling with filling of vegetables/chicken/buff with garlic, ginger, coriander and Nepalese spices served with homemade sauce.",
+      "items": [
+        { "name": "Steam Momo", "tags": ["steamed-momo"],
+          "variants": [
+            { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 14, "protein": "chicken" },
+            { "label": "Buff", "price": 15, "protein": "buff" }
+          ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"],
+          "variants": [
+            { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 14, "protein": "chicken" },
+            { "label": "Buff", "price": 15, "protein": "buff" }
+          ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"],
+          "variants": [
+            { "label": "Veg", "price": 15, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 15, "protein": "chicken" },
+            { "label": "Buff", "price": 16, "protein": "buff" }
+          ] },
+        { "name": "Chilly Momo", "tags": ["chilli-momo"],
+          "variants": [
+            { "label": "Veg", "price": 16, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 16, "protein": "chicken" },
+            { "label": "Buff", "price": 17, "protein": "buff" }
+          ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmien", "description": "Nepalese style stir-fried noodle sauted with vegetables, garlic and flavouring of Nepalese herbs and spices.", "tags": ["chowmein"],
+          "variants": [
+            { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true },
+            { "label": "Egg", "price": 15, "protein": "egg" },
+            { "label": "Chicken", "price": 16, "protein": "chicken" },
+            { "label": "Buff", "price": 17, "protein": "buff" },
+            { "label": "Mix", "price": 19 }
+          ] }
+      ]
+    },
+    {
+      "name": "Khaja Sets",
+      "items": [
+        { "name": "Mini Khaja Set", "description": "Beaten rice, smokey marinated Chicken OR Buff, spiced potato, crispy lentil patties and salad.", "tags": ["khaja", "newari"],
+          "variants": [
+            { "label": "Chicken", "price": 15, "protein": "chicken" },
+            { "label": "Buff", "price": 16.5, "protein": "buff" }
+          ] },
+        { "name": "Special Newari Khaja Set", "description": "Beaten rice, smokey marinated Chicken OR Buff, black soyabean, spiced potato, boiled egg, homemade radish pickle, anchovy and crispy lentil patties.", "tags": ["khaja", "newari"],
+          "variants": [
+            { "label": "Chicken", "price": 18, "protein": "chicken" },
+            { "label": "Buff", "price": 20, "protein": "buff" }
+          ] },
+        { "name": "Goat Sukuti Set", "description": "Roasted and stir-fried goat with spices, beaten rice, spiced potato, black soyabean, salad.", "tags": ["sukuti", "khaja"],
+          "variants": [ { "label": null, "price": 22, "protein": "goat" } ] },
+        { "name": "Bhutan Set", "description": "Goat tripe and other offal, beaten rice, spiced potato, black soyabean and salad.", "tags": ["bhutan", "khaja"],
+          "variants": [ { "label": null, "price": 19, "protein": "goat" } ] }
+      ]
+    },
+    {
+      "name": "Newari Specials",
+      "items": [
+        { "name": "Choila", "description": "Smoked grilled chicken OR Buff marinated in mustard oil and Nepalese sauce.", "tags": ["choila", "newari"],
+          "variants": [
+            { "label": "Chicken", "price": 13, "protein": "chicken" },
+            { "label": "Buff", "price": 15, "protein": "buff" }
+          ] },
+        { "name": "Goat Sukuti", "description": "Roasted and stir-fried goat with spices and salad.", "tags": ["sukuti"],
+          "variants": [ { "label": null, "price": 18, "protein": "goat" } ] },
+        { "name": "Bhutan", "description": "Goat tripe and other offal and salad.", "tags": ["bhutan"],
+          "variants": [ { "label": null, "price": 15, "protein": "goat" } ] },
+        { "name": "Bara", "description": "Ground black lentil patties with special homemade ingredients.", "tags": ["bara", "newari"],
+          "variants": [
+            { "label": "Plain", "price": 10, "protein": "veg", "is_vegetarian": true },
+            { "label": "Egg", "price": 11, "protein": "egg" },
+            { "label": "Keema", "price": 13 },
+            { "label": "Keema Egg", "price": 14, "protein": "egg" }
+          ] },
+        { "name": "Aalu Nimki", "description": "Crispy fried Nimki served with tangy, spiced potato achar, a perfect balance of crunch and flavour.", "is_vegetarian": true, "tags": ["nimki"],
+          "variants": [ { "label": null, "price": 10, "protein": "veg" } ] },
+        { "name": "Khuwa Yomari (2pcs)", "description": "Soft steamed rice flour filled with rich caramelised khuwa and a hint of warm spices.", "is_vegetarian": true, "tags": ["yomari", "newari"],
+          "variants": [ { "label": null, "price": 10, "protein": "veg" } ] }
+      ]
+    },
+    {
+      "name": "Snacks & Sides",
+      "items": [
+        { "name": "Chicken Sausage (2pc)", "tags": ["sausage"],
+          "variants": [ { "label": null, "price": 9, "protein": "chicken" } ] },
+        { "name": "Aalu Sadeko", "is_vegetarian": true, "tags": ["sandheko"],
+          "variants": [ { "label": null, "price": 5, "protein": "veg" } ] },
+        { "name": "Only Beaten Rice", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 3, "protein": "veg" } ] }
+      ]
+    }
+  ]
+}

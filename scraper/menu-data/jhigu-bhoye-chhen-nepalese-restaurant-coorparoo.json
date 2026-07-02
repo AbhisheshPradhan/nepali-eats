@@ -1,0 +1,187 @@
+{
+  "slug": "jhigu-bhoye-chhen-nepalese-restaurant-coorparoo",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Kaula (Entree)",
+      "items": [
+        { "name": "Sausage Fry (3 pieces)", "description": "Deep fried sausage sprinkeled with spices and served with house sauce.", "tags": ["sausage"], "variants": [{ "label": null, "price": 15.9 }] },
+        { "name": "Papad (3 pieces)", "description": "Thin Nepali Wafer made of dried Lentils", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Wings", "description": "Nepali Style Marinated chicken wings served with Peri Peri / BBQ / Bhoye Chhen Special Sauce", "tags": ["wings"], "variants": [{ "label": "6 pcs", "price": 9, "protein": "chicken" }, { "label": "12 pcs", "price": 16, "protein": "chicken" }] },
+        { "name": "Bowl of Chips", "description": "A medium serves of crispy potato chips with regular salt along with tomato ketchup on the side.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.9 }] },
+        { "name": "Chips Chilli", "description": "Crispy potato chips sauteed with onions capsicum green onions, soy sauce, sweet and medium hot spicy sauce along with Nepalese herbs and flavouring spices.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 16.9 }] },
+        { "name": "Samosa", "description": "A Vegetarian samosa deep fried cooked and served with tomato ketchup / chilli / mild sauce.", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 8.9 }] },
+        { "name": "Pani Puri", "description": "10 pieces of puffed balls with the filling of boiled potato and onions served with spicy and tangy cold water. Note: This dish is served cold.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 14.9 }] },
+        { "name": "Chatpat", "description": "A medium spicy mixture of puffed rice, roasted soybeans diced onions, tomatos, crunchy waiwai noodles, green onions, Nepalese Pickles, crushed crunchy puffed bails along with chilly spices and lemon juice. Note: This dish is served cold.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 14.9 }] }
+      ]
+    },
+    {
+      "name": "Sheetan (Newari Side Dish)",
+      "items": [
+        { "name": "Waiwai Sadeko", "description": "A roosted Wai-Wai crunchy noodles mixed up with the diced onions, tomatoes green onions, Nepalese pickles along with chilly spices and lemon juice. Note: This dish is served cold.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 14.9 }] },
+        { "name": "Piro Alu", "description": "Nepali Style Steamed potato with Nepali Spices, herbs and green chilly. Note: This dish is served cold.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 11.9 }] },
+        { "name": "Mixed Achar", "description": "Traditional Nepali Pickle made from potato, cucumber, carrot, radish, green/white peas, green chilli, sesame powder mixed with nepali spices and lemon juice. Note: This dish is served cold.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 13.9 }] },
+        { "name": "Plain Wo with Alu Tama ko jhol", "description": "Nepali Style pan cake made from ground black lentils.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 14.9 }] },
+        { "name": "Egg Wo with Alu Tama ko Jhol", "description": "Nepali Style Pan Cake Made from Ground Black Lentils with egg on top.", "tags": [], "variants": [{ "label": null, "price": 16.9, "protein": "egg" }] },
+        { "name": "Mixed Wo with Alu Tama ko Jhol", "description": "Nepali Style Pan Cake Made from Ground Black Lentils with egg and Chicken minced on top.", "tags": [], "variants": [{ "label": null, "price": 19.9 }] },
+        { "name": "Chicken / Buff Choila", "description": "Spicy, marinated roasted chicken / buffalo mixed with green garlic leaves, garlic ginger paste and green chilli finished with Nepalese spices and mustard oil. Note: This dish is served cold.", "tags": ["choila", "newari"], "variants": [{ "label": "Chicken", "price": 17.9, "protein": "chicken" }, { "label": "Buff", "price": 19.9, "protein": "buff" }] },
+        { "name": "Pangra Fry (Giblet Fry)", "description": "Stir fried chicken giblet with tomato, onion, green chilly and ginger garlic paste.", "tags": [], "variants": [{ "label": null, "price": 19.9, "protein": "chicken" }] },
+        { "name": "Chilly (Chicken / Buffalo / Sausage)", "description": "Boneless chicken / buffalo / sausage meat sautéed with onions capsicum green onions, soy sauce, sweet and medium hot spicy sauce along with Nepalese herbs and flavoring spices.", "tags": ["chilli"], "variants": [{ "label": "Chicken", "price": 19.9, "protein": "chicken" }, { "label": "Buffalo", "price": 20.9, "protein": "buff" }, { "label": "Sausage", "price": 18.9 }] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "description": "Nepalese style steamed dumplings with fillings of Vegetable / Chicken / Buffalo with ginger, garlic, coriander, onion and Nepalese spices served with homemade spices.",
+      "items": [
+        { "name": "Steamed Momo", "tags": ["steamed-momo"], "variants": [{ "label": "Veg", "price": 16.9, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 18.9, "protein": "chicken" }, { "label": "Buff", "price": 20.9, "protein": "buff" }] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [{ "label": "Veg", "price": 17.9, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 19.9, "protein": "chicken" }, { "label": "Buff", "price": 21.9, "protein": "buff" }] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [{ "label": "Veg", "price": 17.9, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 19.9, "protein": "chicken" }, { "label": "Buff", "price": 21.9, "protein": "buff" }] },
+        { "name": "Chilly Momo", "tags": ["chilli-momo"], "variants": [{ "label": "Veg", "price": 19.9, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 20.9, "protein": "chicken" }, { "label": "Buff", "price": 22.9, "protein": "buff" }] },
+        { "name": "Mutton Soup Momo", "tags": ["momo", "soup"], "variants": [{ "label": "Chicken", "price": 22.9, "protein": "chicken" }, { "label": "Buff", "price": 24.9, "protein": "buff" }] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chow Mein", "description": "Nepalese style stired fried noodles sauteed with veggies, garlic, ginger, soya sauce and flavouring of Nepalese herbs and spices.", "tags": ["chowmein"], "variants": [{ "label": "Veg", "price": 18.9, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 19.9, "protein": "egg" }, { "label": "Chicken", "price": 20.9, "protein": "chicken" }, { "label": "Buff", "price": 22.9, "protein": "buff" }, { "label": "Mixed", "price": 23.9 }] },
+        { "name": "Keema Noodles", "description": "Noodles mixed with special sauce made with Sichuan pepper, chilli flakes and garlic served with chicken mince and green Asian vege.", "tags": ["keema-noodle"], "variants": [{ "label": null, "price": 23.9, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Steamed rice fired with the mixed vegetables and green onions along with ginger, garlic and soya sauce and finished with Nepalese herbs and spices", "tags": ["fried-rice"], "variants": [{ "label": "Vegetarian", "price": 18.9, "protein": "veg", "is_vegetarian": true }, { "label": "Egg", "price": 19.9, "protein": "egg" }, { "label": "Chicken", "price": 20.9, "protein": "chicken" }, { "label": "Buff", "price": 21.9, "protein": "buff" }, { "label": "Mixed (Chicken & Buff)", "price": 22.9 }] }
+      ]
+    },
+    {
+      "name": "Dal Bhat Set",
+      "items": [
+        { "name": "Dal Bhat Set", "description": "Rice, Pickle, Saag, Seasonal Tarkari, Meat (Chicken / Mutton), Salad, Papad", "tags": ["dal-bhat"], "variants": [{ "label": "Veg", "price": 25.9, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 27.9, "protein": "chicken" }, { "label": "Mutton", "price": 30.9, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Curry",
+      "items": [
+        { "name": "Alu bodi tama", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 19.9 }] },
+        { "name": "Goat Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 23.9, "protein": "goat" }] },
+        { "name": "Chicken Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 20.9, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Roti and Rice",
+      "items": [
+        { "name": "Steam rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Plain roti (2 pcs)", "is_vegetarian": true, "tags": ["roti"], "variants": [{ "label": null, "price": 4 }] }
+      ]
+    },
+    {
+      "name": "Mains - Newa Bhoye",
+      "items": [
+        { "name": "Bhoye Chhen Set", "description": "Chiura, Bhatmas, Piro Alu, Mixed Achar, Bodi Alu tama, Wo, Boiled egg, Chicken choila / Buff Choila, Pangra Fry, Yogurt, Gulab Jamun", "tags": ["khaja", "newari"], "variants": [{ "label": "Chicken", "price": 69, "protein": "chicken" }, { "label": "Buff", "price": 73, "protein": "buff" }] },
+        { "name": "Samay Baji Set", "description": "Chiura, Bodi, Kalo Bhatmas, Wo, Piro Alu, Mixed Achar, Boiled egg (half), Choila (Veg / Chicken / Buff)", "tags": ["khaja", "newari"], "variants": [{ "label": "Veg", "price": 19.9, "protein": "veg", "is_vegetarian": true }, { "label": "Chicken", "price": 22.9, "protein": "chicken" }, { "label": "Buff", "price": 24.9, "protein": "buff" }] },
+        { "name": "Bhoye Chhen Platter", "tags": [], "variants": [{ "label": null, "price": 33.9 }] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Gulab Jamun (2 piece)", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 7 }] },
+        { "name": "Yoghurt", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Kulfi", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 5.9 }] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Fish & Chips", "tags": [], "variants": [{ "label": null, "price": 12.9, "protein": "fish" }] },
+        { "name": "Chicken Nuggets & Chips", "tags": [], "variants": [{ "label": null, "price": 12.9, "protein": "chicken" }] },
+        { "name": "Plain Noodles", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 8.9 }] }
+      ]
+    },
+    {
+      "name": "Cocktail",
+      "items": [
+        { "name": "Margarita", "description": "Tequila, Cointreau, Lime Juice, Simple syrup", "tags": ["drinks"], "variants": [{ "label": null, "price": 21 }] },
+        { "name": "Spicy Margarita", "description": "Tequila, Cointreau, Lime Juice, Simple syrup, Orange juice, spicy sauce", "tags": ["drinks"], "variants": [{ "label": null, "price": 21 }] },
+        { "name": "Blue Hawaiian", "description": "White Rum, Blue Curacao, Pineapple Juice, Coconut cream", "tags": ["drinks"], "variants": [{ "label": null, "price": 21 }] },
+        { "name": "Long Island Ice Tea", "description": "Gin, Vodka, White Rum, Tequila, Cointreau, Simple Syrup, Cola", "tags": ["drinks"], "variants": [{ "label": null, "price": 22 }] },
+        { "name": "Lychee Martini", "description": "Vodka, Lychee Syrup, lime Juice, Lychee", "tags": ["drinks"], "variants": [{ "label": null, "price": 21 }] },
+        { "name": "Pina Colada", "description": "White Rum, Coconut cream, Pineapple Juice, Coconut Milk", "tags": ["drinks"], "variants": [{ "label": null, "price": 22 }] },
+        { "name": "Aperol Spritz", "description": "Aperol Spritz, prosecco, Orange Juice, Soda Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 21 }] },
+        { "name": "Classic Mojito", "description": "Mint leaves, White Rum, Soda (Orange)", "tags": ["drinks"], "variants": [{ "label": null, "price": 21 }] },
+        { "name": "Tequila Sunrise", "description": "Tequila, Orange Juice, Lime Juice, Raspberry Syrup", "tags": ["drinks"], "variants": [{ "label": null, "price": 21 }] }
+      ]
+    },
+    {
+      "name": "Mocktail",
+      "items": [
+        { "name": "Virgin Mojito", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.9 }] },
+        { "name": "Pina Colada virgin", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.9 }] },
+        { "name": "Lychee Martini Virgin", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.9 }] }
+      ]
+    },
+    {
+      "name": "Liquor",
+      "items": [
+        { "name": "Jack Daniel's", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Red Label", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Black Label", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Captain Morgan Rum", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Bacardi Rum", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Gin", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Vodka", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Chivas", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Dimple", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Tequila", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Malibu", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Grey Goose Vodka", "description": "Top Shelf", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Four Pillar Gin", "description": "Top Shelf", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Double Black Label", "description": "Top Shelf", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "The Glenlivet / Glenfiddich", "description": "Top Shelf", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Roku Gin", "description": "Top Shelf", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] }
+      ]
+    },
+    {
+      "name": "Beer",
+      "items": [
+        { "name": "Old Durbar", "description": "Beer & Spirits (Nepal)", "tags": ["drinks"], "variants": [{ "label": null, "price": 13 }] },
+        { "name": "Khukri Rum", "description": "Beer & Spirits (Nepal)", "tags": ["drinks"], "variants": [{ "label": null, "price": 13 }] },
+        { "name": "Chyang (750ml)", "description": "Beer & Spirits (Nepal)", "tags": ["drinks"], "variants": [{ "label": null, "price": 21.5 }] },
+        { "name": "Barasinghe", "description": "Beer & Spirits (Nepal)", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Barasinghe Strong", "description": "Beer & Spirits (Nepal)", "tags": ["drinks"], "variants": [{ "label": null, "price": 13 }] },
+        { "name": "Corona", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.5 }] },
+        { "name": "Asahi Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.5 }] },
+        { "name": "Great Northern", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.5 }] },
+        { "name": "Stone & Wood", "description": "Tap Beer", "tags": ["drinks"], "variants": [{ "label": "Schooner", "price": 14 }, { "label": "Pint", "price": 16 }, { "label": "Jug", "price": 30 }] },
+        { "name": "Stella", "description": "Tap Beer", "tags": ["drinks"], "variants": [{ "label": "Schooner", "price": 12 }, { "label": "Pint", "price": 14 }, { "label": "Jug", "price": 28 }] }
+      ]
+    },
+    {
+      "name": "Wine",
+      "items": [
+        { "name": "Sauvignon Blanc", "description": "White Wine", "tags": ["drinks"], "variants": [{ "label": "Glass (150ml)", "price": 9.5 }, { "label": "Bottle", "price": 40 }] },
+        { "name": "Pinot Grigio", "description": "White Wine", "tags": ["drinks"], "variants": [{ "label": "Glass (150ml)", "price": 9.5 }, { "label": "Bottle", "price": 40 }] },
+        { "name": "Chardonnay", "description": "White Wine", "tags": ["drinks"], "variants": [{ "label": "Glass (150ml)", "price": 9.5 }, { "label": "Bottle", "price": 40 }] },
+        { "name": "Moscato", "description": "White Wine", "tags": ["drinks"], "variants": [{ "label": "Glass (150ml)", "price": 9 }, { "label": "Bottle", "price": 35 }] },
+        { "name": "Pinot Noir", "description": "Red Wine", "tags": ["drinks"], "variants": [{ "label": "Glass", "price": 9.5 }, { "label": "Bottle", "price": 40 }] },
+        { "name": "Merlot", "description": "Red Wine", "tags": ["drinks"], "variants": [{ "label": "Glass", "price": 9.5 }, { "label": "Bottle", "price": 40 }] },
+        { "name": "Shiraz", "description": "Red Wine", "tags": ["drinks"], "variants": [{ "label": "Glass", "price": 9.5 }, { "label": "Bottle", "price": 40 }] }
+      ]
+    },
+    {
+      "name": "Soft Drink",
+      "items": [
+        { "name": "Coke / Fanta / Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Coke Zero", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Masala Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Lemon Lime Bitters", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Ginger Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.5 }] },
+        { "name": "Juice", "description": "Apple, Orange, Pineapple", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Nepali Masala Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] }
+      ]
+    }
+  ]
+}

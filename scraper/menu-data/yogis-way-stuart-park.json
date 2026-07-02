@@ -1,0 +1,58 @@
+{
+  "slug": "yogis-way-stuart-park",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree",
+      "items": [
+        { "name": "Dahi Puri (6pcs)", "description": "Spicy potato stuffed balls topped with tamarind sauce and yoghurt.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 14.50, "protein": "veg" }] },
+        { "name": "Samosa Chat", "description": "Smashed samosa, aromatic peas and potato curry, mint yogurt, tamarind sauce, crispy noodles, fresh chilli.", "is_vegetarian": true, "tags": ["chaat", "samosa"], "variants": [{ "label": null, "price": 14.50, "protein": "veg" }] },
+        { "name": "Grilled Octopus", "description": "Street food style octopus sekuwa - overnight marinated in exotic spices, slow cooked and finished in smokey oak.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 18.50 }] },
+        { "name": "Yellow Fin Tuna Choila", "description": "Overnight marinated yellow fin tuna, exotic herbs, chilli, coriander, mustard oil (cooked medium rare).", "tags": ["choila", "newari"], "variants": [{ "label": null, "price": 20.50, "protein": "fish" }] },
+        { "name": "Chilli Chicken", "description": "Himalayan spiced marinated chicken, onion, mix bell peppers, chilli, coriander tossed in schezuan sauce.", "tags": ["chilli"], "variants": [{ "label": null, "price": 16.90, "protein": "chicken" }] },
+        { "name": "Chilli Prawns (5pcs)", "description": "Australian tiger prawns, onion, bell peppers, chilli, coriander tossed in schezuan sauce.", "tags": ["chilli"], "variants": [{ "label": null, "price": 22.50, "protein": "prawn" }] },
+        { "name": "Steamed Momo (6pcs)", "description": "Hand wrapped, served with charred tomato chutney. Add authentic Jhol (sesame & yoghurt based soup) or Chilli (szechuan sauce, bell peppers, onion, herbs) style +$2.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 14.90, "protein": "chicken" },
+          { "label": "Vegan", "price": 13, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 15.90, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Mains",
+      "items": [
+        { "name": "Mushroom Masala Curry", "description": "Mixed mushroom, house made masala paste, aromatic herbs, tomato puree.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 25.50, "protein": "veg" }] },
+        { "name": "Puri Tarkari", "description": "Puffed deep fried soft roti, peas and potato curry, aromatic spices, yogurt.", "is_vegetarian": true, "tags": ["puri"], "variants": [{ "label": null, "price": 18.50, "protein": "veg" }] },
+        { "name": "Royal Butter Paneer", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 26.90, "protein": "paneer" }] },
+        { "name": "Goat Curry", "description": "Slow cooked farmer style curry, exotic herbs, onion and tomato base.", "tags": ["curry"], "variants": [{ "label": null, "price": 29, "protein": "goat" }] },
+        { "name": "Triple Cooked Pork Belly", "description": "Slow cooked master stock, star anise, cinnamon, quick fried and oak tossed in house made aromatic schezuan sauce.", "tags": [], "variants": [{ "label": null, "price": 29.90, "protein": "pork" }] },
+        { "name": "Pumpkin Salad", "description": "Grilled pumpkin, spinach, creamy feta, roasted walnuts, seed, beetroot and balsamic dressing.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 19.90, "protein": "veg" }] },
+        { "name": "Daal", "description": "Authentic Nepalese style, two mixed lentils, pressure cooker cooked.", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 16.90, "protein": "veg" }] },
+        { "name": "Royal Butter Chicken", "description": "Slow cooked cashew nuts and tomato sauce, grilled chicken, creamy sauce.", "tags": ["butter-chicken"], "variants": [{ "label": null, "price": 27, "protein": "chicken" }] },
+        { "name": "Seafood Curry", "description": "Slow cooked farmer style curry, exotic herbs, onion and tomato base.", "tags": ["curry"], "variants": [{ "label": null, "price": 29 }] },
+        { "name": "Crispy Skin Barramundi", "description": "NT farmed barra, potato and cheese roastie, grilled asparagus, roasted carrot puree.", "tags": [], "variants": [{ "label": null, "price": 35, "protein": "fish" }] },
+        { "name": "Biryani", "description": "Exotic Nepali masala, nuts, rose water, fresh herbs, shredded cheese with spiced yogurt.", "tags": ["biryani"], "variants": [
+          { "label": "Chicken", "price": 26, "protein": "chicken" },
+          { "label": "Goat", "price": 28, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Steamed Rice Long Grain Basmati", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5, "protein": "veg" }] },
+        { "name": "House Made Roti (Flat Bread)", "is_vegetarian": true, "tags": ["roti"], "variants": [{ "label": null, "price": 6.50 }] },
+        { "name": "Chips", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6 }] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Triple Spiced Ice-Cream", "description": "Mango sorbet folded in blend of cardamom, cloves, cinnamon and balanced with rose extract (2 scoop).", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 14.90 }] },
+        { "name": "Gajar Ko Halwa", "description": "Deconstructed carrot pudding, slow cooked in butter and milk, berry, cream and sugar dust.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 13.50 }] }
+      ]
+    }
+  ]
+}

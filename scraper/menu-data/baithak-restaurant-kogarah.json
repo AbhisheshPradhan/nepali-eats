@@ -1,0 +1,735 @@
+{
+  "slug": "baithak-restaurant-kogarah",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Specials",
+      "items": [
+        {
+          "name": "Thukpa Momo",
+          "description": "Tradional Nepali Noodles Soup With 4 Pcs Kothey Momo",
+          "tags": ["thukpa"],
+          "variants": [
+            { "label": "Veg", "price": 20.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 22.99, "protein": "chicken" },
+            { "label": "Buff", "price": 23.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Shyabhale 4pcs",
+          "description": "Crispy Bread Stuffed With Chicken Mince And Vegetables Comes With Chutney",
+          "tags": ["shavale"],
+          "variants": [{ "label": null, "price": 20, "protein": "chicken" }]
+        },
+        {
+          "name": "Laphing",
+          "description": "Spicy Plain Flour Noodles Dish With Peanuts And Soy Sauce",
+          "is_vegetarian": true,
+          "tags": ["laphing"],
+          "variants": [{ "label": null, "price": 15.99 }]
+        },
+        {
+          "name": "Jhaneko Mutton Sekuwa",
+          "description": "Overnight Marinated Mutton Sekuwa Tossed With Aromatic Herbs",
+          "tags": ["sekuwa"],
+          "variants": [{ "label": null, "price": 24.99, "protein": "goat" }]
+        },
+        {
+          "name": "Badel Tawa",
+          "description": "Sliced Wild Boar Marinated With Aromatic Spices Grilled To Perfect",
+          "tags": [],
+          "variants": [{ "label": null, "price": 22.99, "protein": "pork" }]
+        },
+        {
+          "name": "Spicy Timmure Pork Belly",
+          "description": "Crispy Fried Pork Belly Sautéed With Szechuan Peppers, Hot And Spicy Sauce",
+          "tags": ["timur"],
+          "variants": [{ "label": null, "price": 22.99, "protein": "pork" }]
+        },
+        {
+          "name": "Sekuwa",
+          "description": "Overnight Marinated, Chargrilled To Perfection",
+          "tags": ["sekuwa"],
+          "variants": [
+            { "label": "Chicken", "price": 19.99, "protein": "chicken" },
+            { "label": "Mutton", "price": 22.99, "protein": "goat" },
+            { "label": "Pork", "price": 22.99, "protein": "pork" }
+          ]
+        },
+        {
+          "name": "Upgrade Sekuwa to Khaja Set",
+          "description": "Upgrade Any Sekuwa To Khaja Set And Get Chiura, Achar And Peanut Sadheko",
+          "tags": [],
+          "variants": [{ "label": null, "price": 4.99 }]
+        },
+        {
+          "name": "Khasiko Hyakula",
+          "description": "Fried Goat Hyakula With Chef's Special Marination",
+          "tags": [],
+          "variants": [{ "label": null, "price": 24.99, "protein": "goat" }]
+        },
+        {
+          "name": "Sukuti Buff Momo",
+          "tags": ["momo", "sukuti"],
+          "variants": [{ "label": null, "price": 23.99, "protein": "buff" }]
+        },
+        {
+          "name": "Hot Soup Chicken Momo on Kasaudi",
+          "tags": ["momo", "soup"],
+          "variants": [{ "label": null, "price": 20.99, "protein": "chicken" }]
+        }
+      ]
+    },
+    {
+      "name": "Vegetarian Appetizers",
+      "items": [
+        {
+          "name": "Twakka Makai",
+          "description": "Crunchy Fried Corn Tossed With Aromatic Spices And Tangy Flavour",
+          "is_vegetarian": true,
+          "tags": ["makai"],
+          "variants": [{ "label": null, "price": 14.99 }]
+        },
+        {
+          "name": "Chatpate",
+          "description": "Puffed Rice Mix With Wai Wai Noodles, Potatoes, Onion, Tomato, Coriander, Lemon Juice And Spices",
+          "is_vegetarian": true,
+          "tags": ["chaat"],
+          "variants": [{ "label": null, "price": 12.99 }]
+        },
+        {
+          "name": "Noodles Sadheko",
+          "description": "Spicy Mixture Of Onion, Tomato, Shallot, Coriander, Lemon Juice And Nepalese Spices",
+          "is_vegetarian": true,
+          "tags": ["sandheko"],
+          "variants": [{ "label": null, "price": 13.99 }]
+        },
+        {
+          "name": "Panipuri",
+          "description": "Deep Fried Crispy Flatbread Filled With Flavoured Water, Mashed Potato, Onion, Chickpeas",
+          "is_vegetarian": true,
+          "tags": ["pani-puri"],
+          "variants": [{ "label": null, "price": 13.99 }]
+        },
+        {
+          "name": "Peanuts Sadheko",
+          "description": "Peanut Mixed With Tomato, Onion, And Spicy Homemade Spices",
+          "is_vegetarian": true,
+          "tags": ["sandheko"],
+          "variants": [{ "label": null, "price": 12.99 }]
+        },
+        {
+          "name": "Mushroom Chilly",
+          "description": "Crispy Fried Mushroom Tossed With Spicy And Sour Chilly Sauce With Spring Onion, Capsicum, Onion, And Tomato",
+          "is_vegetarian": true,
+          "tags": ["chilli"],
+          "variants": [{ "label": null, "price": 17.99 }]
+        },
+        {
+          "name": "Himali Timmure Aaloo",
+          "description": "Fried Potatoes Tossed With Timur, Dried Chillies, Herbs, And Himalayan Spices",
+          "is_vegetarian": true,
+          "tags": ["timur"],
+          "variants": [{ "label": null, "price": 16.99 }]
+        },
+        {
+          "name": "Sadheko Green Bhatmas",
+          "description": "Green Bhatmas Mixed With Tomato, Onion, Lemon Juice And Spicy Homemade Spices",
+          "is_vegetarian": true,
+          "tags": ["sandheko"],
+          "variants": [{ "label": null, "price": 15.99 }]
+        },
+        {
+          "name": "Paneer Chilly",
+          "description": "Crispy Fried Paneer Tossed In Spicy, Slightly Sweet & Sour Chilli Sauce With Spring Onion, Capsicum, Onion, And Tomato",
+          "is_vegetarian": true,
+          "tags": ["chilli"],
+          "variants": [{ "label": null, "price": 18.99, "protein": "paneer" }]
+        },
+        {
+          "name": "Chips Chilly",
+          "description": "Crispy Fried Potatoes Tossed In Spicy, Slightly Sweet & Sour Chilli Sauce With Spring Onion, Capsicum, Onion, And Tomato",
+          "is_vegetarian": true,
+          "tags": ["chilli"],
+          "variants": [{ "label": null, "price": 16.99 }]
+        },
+        {
+          "name": "Bowl of Chips",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 12.99 }]
+        },
+        {
+          "name": "Green Salad",
+          "description": "Cucumber, Carrot, Slice Of Lemon, Green Chilly, Mixed Salad Leaf",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 12.99 }]
+        }
+      ]
+    },
+    {
+      "name": "Non-Veg Appetizers",
+      "items": [
+        {
+          "name": "Akabare Chicken Wings",
+          "description": "Deep Fried Wings Marinated With The Akabare Chilli Sauce And Aromatic Spices.",
+          "tags": ["wings"],
+          "variants": [{ "label": null, "price": 18.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Sausage",
+          "description": "Fried Chicken Sausage With Homemade Sauce 2pcs",
+          "tags": ["sausage"],
+          "variants": [{ "label": null, "price": 9.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Sausage Chilli",
+          "description": "Crispy Chicken Sausage Tossed In Spicy And Sour Chilli Sauce With Capsicum, Onion, And Tomato",
+          "tags": ["sausage", "chilli"],
+          "variants": [{ "label": null, "price": 16.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Chicken Chhoila Chatpate",
+          "description": "Nepali Chatpate Mixed With Chicken Chhoila And Chhoila Spices",
+          "tags": ["choila", "chaat"],
+          "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Spicy Timure Chicken",
+          "description": "Boneless Chicken Tossed With Szechuan Peppercorns And Dry Red Chilli To Connect Your Plate.",
+          "tags": ["timur"],
+          "variants": [{ "label": null, "price": 18.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Chilli",
+          "description": "Crispy Meat Tossed In Spicy And Sour Chilli Sauce With Capsicum, Onion, And Tomato.",
+          "tags": ["chilli"],
+          "variants": [
+            { "label": "Chicken", "price": 19.99, "protein": "chicken" },
+            { "label": "Pork", "price": 21.99, "protein": "pork" },
+            { "label": "Buff", "price": 21.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Buff Sukuti Sadheko",
+          "description": "Dried Buff Marinated With Chef's Special Spices Comes With Salad",
+          "tags": ["sukuti", "sandheko"],
+          "variants": [{ "label": null, "price": 22.99, "protein": "buff" }]
+        },
+        {
+          "name": "Chicken Chilli Lollipop",
+          "description": "Deep Fried Chicken Wings Served With House Chilli Sauce",
+          "tags": ["lollipop", "chilli"],
+          "variants": [{ "label": null, "price": 19.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Choila",
+          "description": "Grilled Meat Marinated With Newari Spices, Served Cold",
+          "tags": ["choila", "newari"],
+          "variants": [
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Buff", "price": 20.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Bhutan",
+          "description": "Fried Goat Tribes And Intestines",
+          "tags": ["bhutan"],
+          "variants": [{ "label": null, "price": 17.99, "protein": "goat" }]
+        }
+      ]
+    },
+    {
+      "name": "Classic Nepali Momo",
+      "items": [
+        {
+          "name": "Steamed Momo",
+          "tags": ["steamed-momo"],
+          "variants": [
+            { "label": "Veg (Paneer)", "price": 16.99, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+            { "label": "Buff", "price": 18.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Fried Momo",
+          "tags": ["fried-momo"],
+          "variants": [
+            { "label": "Veg (Paneer)", "price": 17.99, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Buff", "price": 19.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Jhol Momo",
+          "tags": ["jhol-momo"],
+          "variants": [
+            { "label": "Veg (Paneer)", "price": 18.99, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+            { "label": "Buff", "price": 20.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Kothey Momo",
+          "tags": ["kothey-momo"],
+          "variants": [
+            { "label": "Veg (Paneer)", "price": 18.99, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+            { "label": "Buff", "price": 20.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Chilly Momo",
+          "tags": ["chilli-momo"],
+          "variants": [
+            { "label": "Veg (Paneer)", "price": 20.99, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Chicken", "price": 20.99, "protein": "chicken" },
+            { "label": "Buff", "price": 22.99, "protein": "buff" }
+          ]
+        },
+        {
+          "name": "Sadheko Momo",
+          "tags": ["sandheko-momo"],
+          "variants": [
+            { "label": "Veg (Paneer)", "price": 20.99, "protein": "paneer", "is_vegetarian": true },
+            { "label": "Chicken", "price": 20.99, "protein": "chicken" },
+            { "label": "Buff", "price": 22.99, "protein": "buff" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Baithak Special Platter",
+      "items": [
+        {
+          "name": "Non-Veg Platter",
+          "description": "Sausage, Chicken Wings, Mutton Taas",
+          "tags": [],
+          "variants": [{ "label": null, "price": 35.99 }]
+        },
+        {
+          "name": "Sekuwa Platter",
+          "description": "Chicken Sekuwa, Mutton Sekuwa, Chicken Wings Sekuwa",
+          "tags": ["sekuwa"],
+          "variants": [{ "label": null, "price": 36.99 }]
+        },
+        {
+          "name": "Veg Platter",
+          "description": "Mushroom Chilly, Himali Aaloo, Paneer Chilly",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 33.99 }]
+        },
+        {
+          "name": "Momo Platter",
+          "description": "30 Pcs (Steam, Fried, Kothey)",
+          "tags": ["momo"],
+          "variants": [
+            { "label": "Veg", "price": 46.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 47.99, "protein": "chicken" },
+            { "label": "Buff", "price": 49.99, "protein": "buff" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nepalese Chow Mein",
+      "items": [
+        {
+          "name": "Nepalese Chow Mein",
+          "description": "Stir fried noodles with vegetables and Nepalese spices",
+          "tags": ["chowmein"],
+          "variants": [
+            { "label": "Veg", "price": 16.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Buff", "price": 20.99, "protein": "buff" },
+            { "label": "Mixed", "price": 22.99 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        {
+          "name": "Thukpa",
+          "description": "Traditional Nepali Hot Soup With Noodles And Vegetables.",
+          "tags": ["thukpa"],
+          "variants": [
+            { "label": "Vegetables", "price": 19.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 20.99, "protein": "chicken" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Keema Noodles",
+      "items": [
+        {
+          "name": "Chicken Keema Noodles",
+          "description": "Chicken Mince And Noodles Served With Hot Chilli Sauce And Peanuts",
+          "tags": ["keema-noodle"],
+          "variants": [{ "label": null, "price": 20.99, "protein": "chicken" }]
+        }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        {
+          "name": "Fried Rice",
+          "tags": ["fried-rice"],
+          "variants": [
+            { "label": "Veg", "price": 17.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 19.99, "protein": "chicken" },
+            { "label": "Chhoila", "price": 21.99 },
+            { "label": "Mixed", "price": 23.99 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mains",
+      "items": [
+        {
+          "name": "Royal Lahure Thakali Set",
+          "description": "Boiled Rice, Choice Of Curry, Dal, Spinach, Mula Ko Achar, Papad, Chutney, Salad And Gulab Jamun",
+          "tags": ["thali", "thakali"],
+          "variants": [
+            { "label": "Veg", "price": 24.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 26.99, "protein": "chicken" },
+            { "label": "Goat", "price": 28.99, "protein": "goat" }
+          ]
+        },
+        {
+          "name": "Royal Lahure Dhido Set",
+          "description": "Choice Of Curry, Dal, Spinach, Mula Ko Achar, Papad, Chutney, Salad And Gulab Jamun",
+          "tags": ["dhido", "thakali"],
+          "variants": [
+            { "label": "Veg", "price": 25.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 27.99, "protein": "chicken" },
+            { "label": "Goat", "price": 29.99, "protein": "goat" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Baithak Khaja Set",
+      "items": [
+        {
+          "name": "Bhutan Set",
+          "description": "Fried Goat Tribes And Intestines, Chiura, Achar, Bhatmas Sadheko, Salad",
+          "tags": ["khaja", "bhutan"],
+          "variants": [{ "label": null, "price": 24.99, "protein": "goat" }]
+        },
+        {
+          "name": "Mutton Taas Set",
+          "description": "Puffed Rice, Peanuts Sadheko, Achar, Chutney And Salads.",
+          "tags": ["khaja", "taas"],
+          "variants": [{ "label": null, "price": 25.99, "protein": "goat" }]
+        }
+      ]
+    },
+    {
+      "name": "Newari Khaja Set",
+      "items": [
+        {
+          "name": "Khaja Set",
+          "description": "Chhoila, Chiura, Newari Achar, Tomato Chutney, Bhatmas Sadheko, Spiced Egg, Alu Tama Tar Kari, Bara",
+          "tags": ["khaja", "newari"],
+          "variants": [
+            { "label": "Chicken", "price": 25.99, "protein": "chicken" },
+            { "label": "Buff", "price": 26.99, "protein": "buff" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Biryani",
+      "items": [
+        {
+          "name": "Biryani",
+          "tags": ["biryani"],
+          "variants": [
+            { "label": "Veg", "price": 18.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 20.99, "protein": "chicken" },
+            { "label": "Goat", "price": 22.99, "protein": "goat" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Curry",
+      "items": [
+        {
+          "name": "Butter Chicken",
+          "tags": ["butter-chicken"],
+          "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Goat Curry",
+          "tags": ["curry"],
+          "variants": [{ "label": null, "price": 17.99, "protein": "goat" }]
+        },
+        {
+          "name": "Dal Makhani",
+          "is_vegetarian": true,
+          "tags": ["dal"],
+          "variants": [{ "label": null, "price": 14.99 }]
+        },
+        {
+          "name": "Mattar Paneer",
+          "is_vegetarian": true,
+          "tags": ["curry"],
+          "variants": [{ "label": null, "price": 15.99, "protein": "paneer" }]
+        }
+      ]
+    },
+    {
+      "name": "Naan",
+      "items": [
+        {
+          "name": "Plain Naan",
+          "is_vegetarian": true,
+          "tags": ["naan"],
+          "variants": [{ "label": null, "price": 4.99 }]
+        },
+        {
+          "name": "Garlic Naan",
+          "is_vegetarian": true,
+          "tags": ["naan"],
+          "variants": [{ "label": null, "price": 5.99 }]
+        },
+        {
+          "name": "Butter Naan",
+          "is_vegetarian": true,
+          "tags": ["naan"],
+          "variants": [{ "label": null, "price": 5.99 }]
+        }
+      ]
+    },
+    {
+      "name": "For Kids",
+      "items": [
+        {
+          "name": "Chips",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 5.99 }]
+        },
+        {
+          "name": "Nuggets",
+          "tags": [],
+          "variants": [{ "label": null, "price": 7.99, "protein": "chicken" }]
+        },
+        {
+          "name": "Rice and Butter Chicken",
+          "tags": ["butter-chicken"],
+          "variants": [{ "label": null, "price": 9.99, "protein": "chicken" }]
+        }
+      ]
+    },
+    {
+      "name": "Extra",
+      "items": [
+        { "name": "Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Daal", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Chiura", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2.99 }] },
+        { "name": "Extra Chicken Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 5.99, "protein": "chicken" }] },
+        { "name": "Extra Goat Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 8.99, "protein": "goat" }] },
+        { "name": "Papad", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 1.99 }] },
+        { "name": "Saag", "is_vegetarian": true, "tags": ["saag"], "variants": [{ "label": null, "price": 1.99 }] },
+        { "name": "Achar", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 2.99 }] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        {
+          "name": "Gulab Jamun with Yoghurt",
+          "description": "2 Pieces",
+          "is_vegetarian": true,
+          "tags": ["dessert"],
+          "variants": [{ "label": null, "price": 7.99 }]
+        },
+        {
+          "name": "Ice Cream",
+          "description": "See Staff For Flavours. 2 Scoops",
+          "is_vegetarian": true,
+          "tags": ["dessert"],
+          "variants": [{ "label": null, "price": 7.99 }]
+        }
+      ]
+    },
+    {
+      "name": "Baithak Wild Selections",
+      "items": [
+        { "name": "Jungle Me Mungle", "description": "Vodka, Rum, Orange Juice, Pineapple Juice, Melon Liqueur", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Sex in the Driveway", "description": "Vodka, Peach Snaps, Blue Curacao, Lemon Lime", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Naughty Aunty", "description": "Prosecco, Pomegranate Juice, Aperol, Orange Zest", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Sugar Daddy", "description": "Midori, Malibu, Pineapple Juice, Lemonade And Mint", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Wet Pussy (Shots)", "description": "Vodka, Peach Schnapps, Cranberry Juice, Lime", "tags": ["drinks"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Happy Ending", "description": "Baileys, Coffee Liqueur, Vodka, Double Cream", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] }
+      ]
+    },
+    {
+      "name": "Wines",
+      "items": [
+        { "name": "Sparkling", "description": "Prosecco 200ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] },
+        { "name": "Moscato", "description": "Heart & Soul Pink Moscato", "tags": ["drinks"], "variants": [{ "label": "Glass", "price": 8.99 }, { "label": "Bottle", "price": 32 }] },
+        { "name": "Debortoli Brut Cuvee Champagne", "tags": ["drinks"], "variants": [{ "label": null, "price": 39.99 }] },
+        { "name": "2022 Willowglen Shiraz Cabernet", "tags": ["drinks"], "variants": [{ "label": "Glass", "price": 8.99 }, { "label": "Bottle", "price": 32 }] },
+        { "name": "2022 Willowglen Cabernet Merlot", "tags": ["drinks"], "variants": [{ "label": "Glass", "price": 8.99 }, { "label": "Bottle", "price": 32 }] },
+        { "name": "2024 Willowglen Chardonnay", "tags": ["drinks"], "variants": [{ "label": "Glass", "price": 8.99 }, { "label": "Bottle", "price": 32 }] }
+      ]
+    },
+    {
+      "name": "Whisky (30ml / 60ml)",
+      "items": [
+        { "name": "The Himalayan Reserve", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Gurkhas and Guns", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Old Durbar", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Johnnie Walker Red Label", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 8.99 }, { "label": "60ml", "price": 17.99 }] },
+        { "name": "Johnnie Walker Black Label", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Johnnie Walker Gold Label", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 12.99 }, { "label": "60ml", "price": 24.99 }] },
+        { "name": "Johnnie Walker Double Black", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 11.99 }, { "label": "60ml", "price": 22.99 }] },
+        { "name": "Johnnie Walker Blue Label", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 23.99 }, { "label": "60ml", "price": 46.99 }] },
+        { "name": "Chivas Regal 12 Years", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 10.99 }, { "label": "60ml", "price": 20.99 }] },
+        { "name": "Jack Daniels Tennessee", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 10.99 }, { "label": "60ml", "price": 20.99 }] },
+        { "name": "Jameson (Irish) Whiskey", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 12.99 }, { "label": "60ml", "price": 23.99 }] },
+        { "name": "Glenfiddich 12 Years Single Malt", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 12.99 }, { "label": "60ml", "price": 23.99 }] }
+      ]
+    },
+    {
+      "name": "Gin (30ml / 60ml)",
+      "items": [
+        { "name": "Wembly Dry Gin", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Gordon's London Dry Gin", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Bombay Sapphire", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 10.99 }, { "label": "60ml", "price": 20.99 }] }
+      ]
+    },
+    {
+      "name": "Vodka (30ml / 60ml)",
+      "items": [
+        { "name": "8848", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Absolute Vanilla", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 10.99 }, { "label": "60ml", "price": 20.99 }] },
+        { "name": "Smirnoff", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Grey Goose", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 11.99 }, { "label": "60ml", "price": 22.99 }] },
+        { "name": "Alize", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] }
+      ]
+    },
+    {
+      "name": "Rum (30ml / 60ml)",
+      "items": [
+        { "name": "Khukuri Rum", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 9.99 }, { "label": "60ml", "price": 18.99 }] },
+        { "name": "Hot Rum Punch", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 13.99 }, { "label": "60ml", "price": 23.99 }] },
+        { "name": "Bacardi White Rum", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 10.99 }, { "label": "60ml", "price": 20.99 }] },
+        { "name": "Malibu", "tags": ["drinks"], "variants": [{ "label": "30ml", "price": 11.99 }, { "label": "60ml", "price": 22.99 }] }
+      ]
+    },
+    {
+      "name": "Tequila",
+      "items": [
+        { "name": "Jose Cuervo Silver", "description": "30 Ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Jose Reposado Tequila", "description": "30 Ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] }
+      ]
+    },
+    {
+      "name": "Shots",
+      "items": [
+        { "name": "Fireball Cinnamon", "description": "30 Ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Galliano Black Sambuca", "description": "30 Ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Jägerbomb", "description": "30 Ml", "tags": ["drinks"], "variants": [{ "label": null, "price": 13.99 }] }
+      ]
+    },
+    {
+      "name": "Non-Alcoholic Drinks",
+      "items": [
+        { "name": "Pink Lemonade", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Soft Drinks", "description": "(Coca Cola, Sprite, Fanta, Soda Water)", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.99 }] },
+        { "name": "Red Bull", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.99 }] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Juices", "description": "(Apple, Orange, Pineapple, Mango)", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.99 }] },
+        { "name": "Lemon Lime Bitter", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Ginger Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Zero Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 7.99 }] }
+      ]
+    },
+    {
+      "name": "Beers on Tap",
+      "description": "Pint also available, please check with staff",
+      "items": [
+        { "name": "Sydney Pale Ale", "tags": ["drinks"], "variants": [{ "label": "Schooner", "price": 8.5 }, { "label": "Pint", "price": 12.5 }, { "label": "3 Litre", "price": 65 }] },
+        { "name": "2 Sherpa Himalayan Lager", "tags": ["drinks"], "variants": [{ "label": "Schooner", "price": 9.49 }, { "label": "Pint", "price": 12.5 }, { "label": "3 Litre", "price": 65 }] },
+        { "name": "2 Sherpa Everest Pale Ale", "tags": ["drinks"], "variants": [{ "label": "Schooner", "price": 9.49 }, { "label": "Pint", "price": 12.5 }, { "label": "3 Litre", "price": 65 }] },
+        { "name": "2 Sherpa Peaky Pilsner", "tags": ["drinks"], "variants": [{ "label": "Schooner", "price": 9.49 }, { "label": "Pint", "price": 12.5 }, { "label": "3 Litre", "price": 65 }] }
+      ]
+    },
+    {
+      "name": "Nepali Beers",
+      "items": [
+        { "name": "Arna Strong", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Barhasinghe Pilsner", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Barhasinghe Super-Strong", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Mustang Blue", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Mustang Red", "tags": ["drinks"], "variants": [{ "label": null, "price": 11.99 }] },
+        { "name": "Nepal Ice", "tags": ["drinks"], "variants": [{ "label": null, "price": 9.99 }] }
+      ]
+    },
+    {
+      "name": "Others",
+      "items": [
+        { "name": "Corona Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Carlsberg", "tags": ["drinks"], "variants": [{ "label": null, "price": 10.99 }] },
+        { "name": "Vodka Cruiser", "description": "(See Staff For Flavours)", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Apple Cider", "tags": ["drinks"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Soju", "description": "(See Staff For Flavours)", "tags": ["drinks"], "variants": [{ "label": null, "price": 23.99 }] },
+        { "name": "Chyang", "tags": ["drinks"], "variants": [{ "label": null, "price": 20.99 }] }
+      ]
+    },
+    {
+      "name": "Cocktails",
+      "items": [
+        { "name": "Margarita", "description": "Tequila, Cointreau, Lime, Agave Served With A Salt Rim", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Passion Fruit Margarita", "description": "Passion Fruit Syrup, Tequila, Cointreau, Lime, Agave Served With A Salt Rim", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Spicy Margarita", "description": "Tequila, Cointreau, Chilli, Lime, Agave Served With A Salt Rim", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Mojito", "description": "Bacardi Rum, Fresh Lime Juice And Mint, Topped With House Soda", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Aperol Spritz", "description": "Aperol, Prosecco, And Soda Served With An Orange Slice", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Lychee Daiquiri", "description": "Bacardi Rum, Agave Syrup, Lychee Syrup, Fresh Mint", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Long Island Iced Tea", "description": "Vodka, Tequila, Triple Sec, Gin, White Rum, Filled With Ice And Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 23.99 }] },
+        { "name": "Cosmopolitan", "description": "Vodka, Cointreau, Lime Juice, Cranberry Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Negroni", "description": "Gin, Campari, Sweet Vermouth, Served With Ice", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Drunken Mango", "description": "Galliano, Malibu, Mango Juice, Strawberry Served With Ice", "tags": ["drinks"], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Whisky Sour/Amaretto Sour", "description": "Disaronno, Egg White, Lemon, Simple Sugar Syrup", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Nepali Martini", "description": "8848 Vodka, Chambord, Pineapple Juice", "tags": ["drinks"], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Baithak Special", "description": "Malibu, Alize, Pineapple Juice, Lime Juice, Simple Syrup, Bitters", "tags": ["drinks"], "variants": [{ "label": null, "price": 19.99 }] }
+      ]
+    },
+    {
+      "name": "Mocktails",
+      "items": [
+        { "name": "Truth or Dare", "description": "Bitters, Passion Fruit, Pineapple, Lime", "tags": ["drinks"], "variants": [{ "label": null, "price": 15.99 }] },
+        { "name": "Double Happiness", "description": "Lychee, Grapefruit, Elderflower, Lime", "tags": ["drinks"], "variants": [{ "label": null, "price": 15.99 }] },
+        { "name": "Without Consequences", "description": "Raspberries, Rose Water, Lychee, Grenadine", "tags": ["drinks"], "variants": [{ "label": null, "price": 15.99 }] },
+        { "name": "Cranberry Cooler", "description": "Lime Juice, Cranberry Juice, Soda", "tags": ["drinks"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Watermelon Fizzy", "description": "Watermelon, Sugar Syrup, Lime Juice, Mint, Club Soda", "tags": ["drinks"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Virgin Strawberry Daiquiri", "description": "Fresh Strawberries, Sugar Syrup, Lime Juice, Soda Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Orange Moscow Mule", "description": "Orange Juice, Mint Leaves, Ginger Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Virgin Tropical Oasis", "description": "Fruity Sensation Of Mango, Pineapple And Orange Juices With Coconut Rush", "tags": ["drinks"], "variants": [{ "label": null, "price": 15.99 }] }
+      ]
+    },
+    {
+      "name": "Hukka",
+      "items": [
+        { "name": "Double Apple Flavour", "tags": ["drinks"], "variants": [{ "label": null, "price": 40 }] },
+        { "name": "Mint Flavour", "tags": ["drinks"], "variants": [{ "label": null, "price": 40 }] },
+        { "name": "Paan Raas Flavour", "tags": ["drinks"], "variants": [{ "label": null, "price": 45 }] },
+        { "name": "Extra Flavour", "tags": ["drinks"], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Extra Coil", "tags": ["drinks"], "variants": [{ "label": null, "price": 2 }] }
+      ]
+    }
+  ]
+}

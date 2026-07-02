@@ -1,0 +1,271 @@
+{
+  "slug": "fewa-kitchen-chippendale",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Breakfast (8:30am to 11:45am) - Toasties",
+      "items": [
+        { "name": "Ham and Cheese Croissant", "tags": [], "variants": [{ "label": null, "price": 8.50 }] },
+        { "name": "Ham, Cheese and Tomato Croissant", "tags": [], "variants": [{ "label": null, "price": 9.50 }] }
+      ]
+    },
+    {
+      "name": "Breakfast",
+      "items": [
+        { "name": "Eggs Your Way", "description": "Fried, Poached or Scrambled with Sourdough Bread", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.00 }] },
+        { "name": "Fewa Acai Bowl", "description": "Toasted Granola, Banana, Strawberry, Kiwi, Chia seeds and Coconut Flakes", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 14.99 }] },
+        { "name": "Toasted Granola", "description": "Homemade Granola served with Yogurt, Banana, Strawberry, Berries", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12.99 }] },
+        { "name": "Bacon and Egg Roll", "description": "Fried Egg, Bacon, Cheese and BBQ sauce on a toasted Milk Bun", "tags": [], "variants": [{ "label": null, "price": 10.50 }] },
+        { "name": "Brekkie Burger", "description": "Fried Egg, Bacon, Cheese, Smashed Avocado, tomato, Halloumi, Lettuce and Aioli on a Toasted Milk Bun", "tags": [], "variants": [{ "label": null, "price": 14.50 }] },
+        { "name": "Fewa Big Breakfast", "description": "Two Eggs (your way), Bacon, Mushroom, Grilled Tomato, Chorizo, Baked Beans, Hash Browns on Sourdough Toast", "tags": [], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Fewa Vege Breakfast", "description": "Two Eggs (your way), Mushroom, Grilled Tomato, Fresh Avocado, Halloumi, Hashbrowns on Sourdough Toast", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Eggs Benedict", "description": "Two Poached Eggs, Bacon, Spinach, Hollandaise Sauce on Sourdough Toast", "tags": [], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Croissant Benedict", "description": "Two Poached Eggs, Bacon, Spinach, Hollandaise Sauce", "tags": [], "variants": [{ "label": null, "price": 18.99 }] },
+        { "name": "Avocado Toast", "description": "Two Eggs, Lemon Dressing, Smashed Avocado, Fetta Cheese, Cherry Tomato, Relish on Sourdough Toast", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Cinnamon French Toast", "description": "Banana, Maple Syrup, Ice-cream and Seasonal Fruits topped with Crushed Pistachio and Icing Sugar", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 17.99 }] },
+        { "name": "Hot Pancake", "description": "Banana, Maple Syrup, Seasonal Fruits, Ice Cream, Topped with crushed Pistachio and Icing Sugar", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 17.99 }] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Kids on Toast", "description": "Served with Scrambled Eggs on Sourdough", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 7.50 }] },
+        { "name": "Pancake", "description": "Served with Chocolate Sauce, Strawberry and Ice Cream", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 9.00 }] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Eggs", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.00 }] },
+        { "name": "Avocado", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Bacon", "tags": [], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Hashbrowns", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.00 }] },
+        { "name": "Chorizo", "tags": [], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Halloumi", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Mushroom", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4.00 }] },
+        { "name": "Roasted Tomatoes", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.00 }] }
+      ]
+    },
+    {
+      "name": "Beverages",
+      "items": [
+        { "name": "Latte", "tags": ["drinks"], "variants": [{ "label": "Small", "price": 4.50 }, { "label": "Large", "price": 5.20 }] },
+        { "name": "Chai Latte", "tags": ["drinks"], "variants": [{ "label": "Small", "price": 4.50 }, { "label": "Large", "price": 5.20 }] },
+        { "name": "Cappuccino", "tags": ["drinks"], "variants": [{ "label": "Small", "price": 4.50 }, { "label": "Large", "price": 5.20 }] },
+        { "name": "Flat White", "tags": ["drinks"], "variants": [{ "label": "Small", "price": 4.50 }, { "label": "Large", "price": 5.20 }] },
+        { "name": "Long Black", "tags": ["drinks"], "variants": [{ "label": "Small", "price": 4.50 }, { "label": "Large", "price": 5.20 }] },
+        { "name": "Mocha", "tags": ["drinks"], "variants": [{ "label": "Small", "price": 4.50 }, { "label": "Large", "price": 5.20 }] },
+        { "name": "Expresso", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Piccolo", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Baby Chino", "tags": ["drinks"], "variants": [{ "label": null, "price": 2.50 }] }
+      ]
+    },
+    {
+      "name": "Tea",
+      "items": [
+        { "name": "Earl Grey", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "English Breakfast", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] },
+        { "name": "Green Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 5.00 }] }
+      ]
+    },
+    {
+      "name": "Iced Drinks",
+      "items": [
+        { "name": "Iced Coffee", "description": "Ice, Milk, Coffee Shot", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Iced Mocha", "description": "Ice, Milk, Coffee Shot, Chocolate", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Iced Long Black", "description": "Ice, Coffee Shot", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Iced Latte", "description": "Ice, Milk, Coffee Shot", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.00 }] },
+        { "name": "Iced Chocolate", "description": "Ice, Milk, Chocolate", "tags": ["drinks"], "variants": [{ "label": null, "price": 6.50 }] }
+      ]
+    },
+    {
+      "name": "Milkshakes",
+      "items": [
+        { "name": "Milkshake", "tags": ["drinks"], "variants": [
+          { "label": "Chocolate", "price": 6.50 },
+          { "label": "Strawberry", "price": 6.50 },
+          { "label": "Vanilla", "price": 6.50 },
+          { "label": "Caramel", "price": 6.50 }
+        ] }
+      ]
+    },
+    {
+      "name": "Smoothies",
+      "items": [
+        { "name": "Smoothie", "description": "Blended with Yogurt and Honey", "is_vegetarian": true, "tags": ["drinks"], "variants": [
+          { "label": "Strawberry", "price": 6.50 },
+          { "label": "Banana", "price": 6.50 },
+          { "label": "Mixed", "price": 6.50 },
+          { "label": "Mango", "price": 6.50 }
+        ] },
+        { "name": "Green Smoothie", "description": "Avocado, Banana, Kale, Spinach", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 7.50 }] },
+        { "name": "Acai Smoothie", "description": "with Banana and Chia Seeds (no Yogurt and Honey)", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 8.50 }] }
+      ]
+    },
+    {
+      "name": "Freshly Squeezed Juices",
+      "items": [
+        { "name": "Freshly Squeezed Juice", "description": "Choice of 3 Fruits: Orange, Apple, Celery, Lemon, Mint, Ginger, Carrot, Pineapple, Watermelon", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6.50 }] },
+        { "name": "Lean Green", "description": "Apple, Celery, Hand Full Spinach, Kale", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6.50 }] },
+        { "name": "Sunrise", "description": "Orange, Carrot, Pineapple, Piece Ginger", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6.50 }] },
+        { "name": "Watermelon Crush", "description": "Watermelon, Ice Blended", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6.50 }] },
+        { "name": "Detox Green", "description": "Green Apples, Celery, Cucumber, Kale, Lemon, Ginger", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6.50 }] }
+      ]
+    },
+    {
+      "name": "Lunch and Dinner - Veg Starters",
+      "items": [
+        { "name": "Pani Puri", "description": "Fried Crisp Balls Filled with Onion, Chickpeas, Potato, And Coriander Served with Flavored Water", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 10.50, "protein": "veg" }] },
+        { "name": "Chat Pat", "description": "Mixed Of Puffed Rice, Waiwai Noodles, Onion, Peas, Potatoes, Lemon Juice, Coriander and Mixed Spice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10.50, "protein": "veg" }] },
+        { "name": "Dahi Puri", "description": "Fried Crisp Balls Filled with Potato, Onion, Peas, Yogurt Served with Tangy Chutney", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 10.50, "protein": "veg" }] },
+        { "name": "Papadi Chat", "description": "Papadi Topped with Chickpeas, Onion, And Yogurt With Sweet and Tangy Chutney", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 10.50, "protein": "veg" }] },
+        { "name": "Onion Pakora", "description": "Mixed of Onion, Cabbage, Coriander, Green Chili, Nepalese Spice Chickpeas Flour and Deep Fried Served with Chutney", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 9.50, "protein": "veg" }] },
+        { "name": "Cheesy Paneer Spring Roll (4pcs)", "description": "Wrap with Paneer, Mix Veg, Spice Served with Sweet Chili", "is_vegetarian": true, "tags": ["spring-roll"], "variants": [{ "label": null, "price": 9.99, "protein": "paneer" }] },
+        { "name": "Paneer Chilly", "description": "Fried Cottage Cheese Sautéed with Onion, Tomatoes, Capsicum, Ginger and Garlic with Sweet and Spicy Tangy Sauce", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 14.99, "protein": "paneer" }] }
+      ]
+    },
+    {
+      "name": "Non-Veg Starters",
+      "items": [
+        { "name": "Buff Chilly", "description": "Stir-fried Buff sauteed with Onion, Capsicum, Coriander, Tomato, ginger and Garlic in a sweet spicy tangy sauce", "tags": ["chilli"], "variants": [{ "label": null, "price": 16.99, "protein": "buff" }] },
+        { "name": "Chicken Chilly", "description": "Fried Chicken sauteed with Onion, Capsicum, Coriander, Tomato, ginger and Garlic in a sweet spicy tangy sauce", "tags": ["chilli"], "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }] },
+        { "name": "Chicken Lollipop (4pcs)", "description": "Marinated chicken drumette with Nepalese spice and chickpea flour then deep fried served with chutney", "tags": ["lollipop"], "variants": [{ "label": null, "price": 14.99, "protein": "chicken" }] },
+        { "name": "Goat Sukuti", "description": "Homemade dry meat cooked with Nepalese spice", "tags": ["sukuti"], "variants": [{ "label": null, "price": 17.99, "protein": "goat" }] },
+        { "name": "Buff Sukati", "description": "Homemade dry meat cooked with Nepalese spice", "tags": ["sukuti"], "variants": [{ "label": null, "price": 18.99, "protein": "buff" }] },
+        { "name": "Chicken Sausage", "description": "Deep fried sausage served with chutney", "tags": ["sausage"], "variants": [{ "label": null, "price": 7.99, "protein": "chicken" }] },
+        { "name": "Spicy Chicken Wings", "description": "Deep fried chicken wings tossed with homemade chili sauce", "tags": ["wings"], "variants": [{ "label": null, "price": 13.99, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Mains",
+      "items": [
+        { "name": "Grilled Chicken Burger", "description": "Grilled Chicken, Lettuce, Tomato, Avocado, and Chili Mayonnaise served with Chips", "tags": [], "variants": [{ "label": null, "price": 18.50, "protein": "chicken" }] },
+        { "name": "Chicken Schnitzel Burger", "description": "Crumbed Chicken, Lettuce, Tomato, Melted Cheese, and Chili mayonnaise served with Chips", "tags": [], "variants": [{ "label": null, "price": 18.50, "protein": "chicken" }] },
+        { "name": "Beef Burger with Chips", "description": "Beef Patty, Melted Cheese, Tomato, Caramelized Onion, Beetroot, BBQ and Aioli", "tags": [], "variants": [{ "label": null, "price": 19.50, "protein": "beef" }] },
+        { "name": "Fish with Chips", "description": "Beer battered fish served with Chips and Tartar Sauce", "tags": ["fried-fish"], "variants": [{ "label": null, "price": 19.50, "protein": "fish" }] },
+        { "name": "Salt and Pepper Squid", "description": "Deep fried Squid served with Tartar Sauce", "tags": [], "variants": [{ "label": null, "price": 18.50, "protein": "calamari" }] },
+        { "name": "Ceaser Salad", "description": "Cos Lettuce, Crispy Bacon, Croutons, Poached Eggs and Ceaser Dressing", "tags": [], "variants": [{ "label": null, "price": 14.99 }] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "tags": ["fried-rice"], "variants": [
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 15.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steamed Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Veg", "price": 12.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 15.99, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Chilly Momo", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 17.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chow Mein",
+      "description": "All Chowmein is Stir Fry with Mix Vegetable and Spice",
+      "items": [
+        { "name": "Chow Mein", "tags": ["chowmein"], "variants": [
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Sizzler",
+      "items": [
+        { "name": "Chicken Sizzler", "description": "Stir fry chicken sautéed with capsicum, onion, ginger, garlic and Nepalese spice served in hot sizzling pan", "tags": ["sizzler"], "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }] },
+        { "name": "Buff Sizzler", "description": "Stir fry buff sautéed with capsicum, onion, ginger, garlic and Nepalese spice served in hot sizzling pan", "tags": ["sizzler"], "variants": [{ "label": null, "price": 17.99, "protein": "buff" }] },
+        { "name": "Goat Sizzler", "description": "Stir fry boneless goat meat sautéed with onion, spring onion, coriander, ginger, garlic and cumin served in hot sizzling pan", "tags": ["sizzler"], "variants": [{ "label": null, "price": 16.99, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Fewa Nepali Thali Set",
+      "description": "All Thali Served With Plain Basmati Rice, Black Lentils, Seasonal Veg Curry, Saag(Spinach), Radish Pickle, Tomato Chutney, Salad, Ghee, Yogurt And Sweet",
+      "items": [
+        { "name": "Fewa Nepali Thali Set", "tags": ["thali"], "variants": [
+          { "label": "Veg", "price": 22.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 23.99, "protein": "chicken" },
+          { "label": "Goat", "price": 24.99, "protein": "goat" },
+          { "label": "Rato Bhale (Rooster)", "price": 25.99, "protein": "chicken" }
+        ] }
+      ]
+    },
+    {
+      "name": "Biryani",
+      "description": "All Biryani Served with Yogurt Sauce",
+      "items": [
+        { "name": "Biryani", "tags": ["biryani"], "variants": [
+          { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+          { "label": "Goat", "price": 17.99, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "Curries and Rice",
+      "items": [
+        { "name": "Nepalese Style Curry", "tags": ["curry"], "variants": [
+          { "label": "Goat", "price": 16.99, "protein": "goat" },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Seasonal Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Butter Chicken", "tags": ["butter-chicken"], "variants": [{ "label": null, "price": 16.99, "protein": "chicken" }] },
+        { "name": "Mutter Paneer", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 15.99, "protein": "paneer" }] },
+        { "name": "Butter Paneer", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 14.99, "protein": "paneer" }] },
+        { "name": "Dal Fry", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 12.99, "protein": "veg" }] },
+        { "name": "Plain Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Jeera Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 4.99 }] }
+      ]
+    },
+    {
+      "name": "Sweets",
+      "items": [
+        { "name": "Gulab Jamun", "description": "Served with Sweet Yogurt and Topped with Pista", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 5.99 }] }
+      ]
+    },
+    {
+      "name": "Lassi",
+      "items": [
+        { "name": "Plain Lassi", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 5.99 }] },
+        { "name": "Banana Lassi", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6.49 }] },
+        { "name": "Mango Lassi", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6.99 }] }
+      ]
+    },
+    {
+      "name": "Soft Drink",
+      "items": [
+        { "name": "Coke", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Coke (No Sugar)", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Fanta", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Sprite", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Bottle Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Sparkling Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.50 }] },
+        { "name": "Lemon Lime Bitters", "tags": ["drinks"], "variants": [{ "label": null, "price": 4.50 }] }
+      ]
+    }
+  ]
+}

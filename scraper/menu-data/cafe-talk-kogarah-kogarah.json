@@ -1,0 +1,188 @@
+{
+  "slug": "cafe-talk-kogarah-kogarah",
+  "source": "admin",
+  "price_source": "print",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Momo",
+      "items": [
+        { "name": "Steam Momo", "description": "Mince marinated with aromatic spices, served with Cafe Talk sauce.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 13, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14, "protein": "chicken" },
+          { "label": "Buff", "price": 15, "protein": "buff" }
+        ] },
+        { "name": "Kothey Momo", "description": "Steamed momo half pan fried, served with Cafe Talk sauce.", "tags": ["kothey-momo"], "variants": [
+          { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15, "protein": "chicken" },
+          { "label": "Buff", "price": 16, "protein": "buff" }
+        ] },
+        { "name": "Fried Momo", "description": "Deep fried momo, served with Cafe Talk sauce.", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 13, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14, "protein": "chicken" },
+          { "label": "Buff", "price": 15, "protein": "buff" }
+        ] },
+        { "name": "Chilli Momo", "description": "Steamed / deep fried momo mixed with onion, capsicum and hot spicy sauce.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Veg", "price": 15, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16, "protein": "chicken" },
+          { "label": "Buff", "price": 17, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Veg", "price": 14, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15, "protein": "chicken" },
+          { "label": "Buff", "price": 16, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Momo Platter",
+      "items": [
+        { "name": "Momo Platter", "description": "5pcs of Steam, Chilli & Fried Momo.", "tags": ["momo"], "variants": [
+          { "label": "Veg", "price": 25, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 25, "protein": "chicken" },
+          { "label": "Buff", "price": 27, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmein", "description": "Stir fried noodles with vegetables, served with Cafe Talk sauce.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 15, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17, "protein": "chicken" },
+          { "label": "Buff", "price": 18, "protein": "buff" },
+          { "label": "Mixed", "price": 20 }
+        ] },
+        { "name": "Momo Chowmein", "description": "Stir fried noodles with vegetables and choice of meat served with 5 pcs of momo.", "tags": ["chowmein", "momo"], "variants": [
+          { "label": "Veg", "price": 17, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 19, "protein": "chicken" },
+          { "label": "Buff", "price": 20, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "description": "Boiled noodles soup mixed with vegetables.", "tags": ["thukpa"], "variants": [
+          { "label": "Veg", "price": 15, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 16, "protein": "chicken" },
+          { "label": "Buff", "price": 18, "protein": "buff" },
+          { "label": "Mixed", "price": 20 }
+        ] },
+        { "name": "Momo Thukpa", "description": "Boiled noodles soup mixed with vegetables and steamed momo.", "tags": ["thukpa", "momo"], "variants": [
+          { "label": "Veg", "price": 18, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 19, "protein": "chicken" },
+          { "label": "Buff", "price": 20, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Special Nepalese rice, pan fried with special Cafe Talk sauce.", "tags": ["fried-rice"], "variants": [
+          { "label": "Vegetable", "price": 15, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 17, "protein": "chicken" },
+          { "label": "Buff", "price": 18, "protein": "buff" },
+          { "label": "Mixed", "price": 20 }
+        ] }
+      ]
+    },
+    {
+      "name": "Chilli",
+      "items": [
+        { "name": "Chicken Chilli", "description": "Juicy thigh chicken fillet pan fried on rich tomato chilli sauce with brown onion and capsicum.", "tags": ["chilli"], "variants": [{ "label": null, "price": 18, "protein": "chicken" }] },
+        { "name": "Buff Chilli", "description": "Pan fried buff on rich tomato chilli sauce with brown onion and capsicum.", "tags": ["chilli"], "variants": [{ "label": null, "price": 20, "protein": "buff" }] },
+        { "name": "Paneer Chilli", "description": "Soft paneer cubes tossed with onions, capsicum, and green chilies in a spicy, savory sauce.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 18, "protein": "paneer" }] },
+        { "name": "Sausage Chilli", "description": "Sliced sausages stir-fried with bell peppers, onions, garlic and green chillies in a tangy Nepali-style chilli sauce.", "tags": ["chilli", "sausage"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Chips Chilli", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 12 }] }
+      ]
+    },
+    {
+      "name": "Chhoela, Sekuwa & Sukuti Sets",
+      "items": [
+        { "name": "Chicken Chhoela", "description": "Char-grilled chicken with Nepalese spices.", "tags": ["choila"], "variants": [{ "label": null, "price": 17, "protein": "chicken" }] },
+        { "name": "Chhoela Set", "description": "Char-grilled chicken with Nepalese spices, served with rice flakes, roasted soyabean, pickles and salad.", "tags": ["choila"], "variants": [{ "label": null, "price": 19, "protein": "chicken" }] },
+        { "name": "Goat Sekuwa", "description": "Marinated goat meat in Nepalese herbs and spices cooked in char-grill.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 18, "protein": "goat" }] },
+        { "name": "Sekuwa Set", "description": "Marinated goat meat in Nepalese herbs and spices cooked in char-grill, served with puffed rice, pickles and salad.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 20, "protein": "goat" }] },
+        { "name": "Buff Sukuti", "description": "Smoked and fried buffalo meat stir-fried with Nepali herbs, garlic, ginger, onions, and green chilli. A bold and flavourful appetizer with a rich, chewy texture.", "tags": ["sukuti"], "variants": [{ "label": null, "price": 20, "protein": "buff" }] },
+        { "name": "Buff Sukuti Set", "description": "Served with buff sukuti, bhatmas sandheko, mixed pickle, puffed rice, and fresh salad.", "tags": ["sukuti"], "variants": [{ "label": null, "price": 22, "protein": "buff" }] }
+      ]
+    },
+    {
+      "name": "Thali Set",
+      "items": [
+        { "name": "Veg Thali Set", "description": "Nepali style thali with steamed rice, creamy paneer curry, lentil soup (dal), sautéed greens, pickles, fresh salad, ghee and crispy papad.", "is_vegetarian": true, "tags": ["thali", "dal-bhat"], "variants": [{ "label": null, "price": 20 }] },
+        { "name": "Chicken Thali Set", "description": "Nepali-style thali with steamed rice, tender chicken curry, lentil soup (dal), sautéed greens, pickles, fresh salad, ghee and crispy papad.", "tags": ["thali", "dal-bhat"], "variants": [{ "label": null, "price": 20, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Bhutan",
+      "items": [
+        { "name": "Bhutan", "description": "Goat offal cooked in a traditional Nepalese style, widely eaten in Nepal.", "tags": ["bhutan"], "variants": [{ "label": null, "price": 18, "protein": "goat" }] },
+        { "name": "Bhutan Set", "description": "Goat offal cooked in a traditional Nepalese style, served with rice flakes, roasted soyabean, pickles and salad.", "tags": ["bhutan"], "variants": [{ "label": null, "price": 20, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Sandheko Items",
+      "items": [
+        { "name": "Peanuts Sandheko", "description": "Roasted peanuts seasoned with oil, onions, chilli, coriander, and lemon juice. A tangy, spicy bar-style snack with a satisfying crunch.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Aloo Sandheko", "description": "A flavorful potato salad made with boiled potatoes, finely chopped onions, green chillies, and cilantro, all tossed in oil and traditional spices.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Wai Wai Sandheko", "description": "Crunchy instant noodles mixed with spices, fresh veggies, lemon, and mustard oil.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Hariyo Bhatmas Sandheko", "description": "Steamed green soybeans (hariyo bhatmas) mixed with mustard oil, fresh herbs, green chilies, garlic, ginger and Nepali spices. A zesty and nutritious snack.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Fried Bhatmas Sandheko", "description": "Crispy fried soybeans seasoned with oil, onions, chilli, coriander, and lemon juice. A tangy, spicy bar-style snack with a satisfying crunch.", "is_vegetarian": true, "tags": ["sandheko"], "variants": [{ "label": null, "price": 10 }] }
+      ]
+    },
+    {
+      "name": "Snacks & Street Food",
+      "items": [
+        { "name": "Timur Chicken", "description": "Tender chicken stir-fried with Timur (Himalayan Sichuan pepper), garlic, ginger, and Nepali spices.", "tags": ["timur"], "variants": [{ "label": null, "price": 18, "protein": "chicken" }] },
+        { "name": "Keema Aanda", "description": "Add WaiWai +1", "tags": [], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Chicken Sausage (2pcs)", "tags": ["sausage"], "variants": [{ "label": null, "price": 12, "protein": "chicken" }] },
+        { "name": "Laphing Dry", "description": "Add WaiWai +1", "tags": ["laphing"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Laphing Jhol", "description": "Add WaiWai +1", "tags": ["laphing"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Shyabhale Set (2pcs)", "tags": ["shavale"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Pani Puri", "description": "Crispy hollow puris filled with a spicy & tangy tamarind-infused water, accompanied by a mix of boiled potatoes and chickpeas.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Chatpatte", "description": "Puffed rice mixed with boiled potato, fresh tomato, Spanish onion, fresh chilli, special Cafe Talk spice & tossed on fresh lemon juice and roasted mustard oil. Add WaiWai +2", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10 }] }
+      ]
+    },
+    {
+      "name": "Cafe Talk Special",
+      "items": [
+        { "name": "Khaja Set", "description": "Chura, Bhatmas, Chhoila, Aalu dam, Mula Kakra ko achar, Aalu tama, Boiled Egg & Bara.", "tags": ["khaja"], "variants": [{ "label": null, "price": 22 }] },
+        { "name": "Veg Khaja Set", "is_vegetarian": true, "tags": ["khaja"], "variants": [{ "label": null, "price": 18 }] },
+        { "name": "Meat Platters", "description": "Chura, Bhatmas, Sekuwa, Bhutan & Chhoila.", "tags": ["khaja"], "variants": [{ "label": null, "price": 55 }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Mango Lassi", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Plain Lassi", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Coke / Fanta / Sprite", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Mountain Tea", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Water Bottle", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 2.5 }] },
+        { "name": "Hot Lemon Honey", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 5 }] }
+      ]
+    },
+    {
+      "name": "Alcoholic Drinks",
+      "items": [
+        { "name": "Mustang / Nepal Ice (Beer)", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Asahi (Beer)", "tags": ["drinks"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Chivas Regal", "description": "30mL", "tags": ["drinks"], "variants": [{ "label": null, "price": 9 }] },
+        { "name": "Double Black", "description": "30mL", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Jack Daniels", "description": "30mL", "tags": ["drinks"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Red Label", "description": "30mL", "tags": ["drinks"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Vodka", "description": "30mL", "tags": ["drinks"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Red Wine", "tags": ["drinks"], "variants": [
+          { "label": "Glass", "price": 10 },
+          { "label": "Bottle", "price": 55 }
+        ] },
+        { "name": "White Wine", "tags": ["drinks"], "variants": [
+          { "label": "Glass", "price": 10 },
+          { "label": "Bottle", "price": 55 }
+        ] }
+      ]
+    }
+  ]
+}

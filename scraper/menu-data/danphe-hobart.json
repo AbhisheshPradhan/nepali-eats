@@ -1,0 +1,171 @@
+{
+  "slug": "danphe-hobart",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starters",
+      "items": [
+        { "name": "Vegetable Samosas (2pc)", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Onion Balls (2pc) (GF) (DF)", "description": "Crispy onions bound together with lightly spiced chickpeas batter.", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Aaloo Chops (2pc) (GF) (DF)", "description": "Potato patties filled with green peas and spices served with homemade tomato sauce.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Samosa Chaat", "description": "Popular savoury snack; crushed samosa is served with onion, green chilli, yoghurt, tamarind sauce, mint sauce and fresh coriander.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Aaloo Tikka Chaat (GF)", "description": "Potato patties topped up with onions, green chilli, yoghurt, tamarind sauce, mint sauce and fresh coriander.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Mushroom Pakoda (GF) (DF)", "description": "Chickpea batter mushroom cooked till crisp. Served with mint sauce.", "is_vegetarian": true, "tags": ["pakora"], "variants": [{ "label": null, "price": 16 }] },
+        { "name": "Prawn Pakoda (GF) (DF)", "description": "Lightly spiced chickpea batter prawns cooked till crisp. Served with mint sauce.", "tags": ["pakora"], "variants": [{ "label": null, "price": 18, "protein": "prawn" }] },
+        { "name": "Chicken Chhoyla (DF) (GF)", "description": "All-time favourite among Nepalese. Grilled chicken tossed with fresh ginger, lemon juice, garlic, coriander and spring onion.", "tags": ["choila"], "variants": [{ "label": null, "price": 17, "protein": "chicken" }] },
+        { "name": "Chicken Chilli (DF)", "description": "Crispy chicken sautéed with onions, tomato, capsicum and tomato sauce garnished with freshly chopped spring onion.", "tags": ["chilli"], "variants": [{ "label": null, "price": 20, "protein": "chicken" }] },
+        { "name": "Saffron Chicken Tikka (GF)", "description": "Boneless chicken marinated in saffron essence, yoghurt and spices cooked in clay tandoor till tender.", "tags": ["tikka", "tandoori"], "variants": [{ "label": null, "price": 20, "protein": "chicken" }] },
+        { "name": "Tandoori Chicken (GF)", "description": "Packed with flavours, the chicken with bone is marinated in yoghurt and homemade spices.", "tags": ["tandoori"], "variants": [{ "label": null, "price": 20, "protein": "chicken" }] },
+        { "name": "Tandoori Lamb Cutlet (3pc) (GF)", "description": "Tender lamb cutlets marinated in yoghurt and spices cooked in clay tandoor till tender.", "tags": ["tandoori"], "variants": [{ "label": null, "price": 22, "protein": "lamb" }] },
+        { "name": "Chilli Paneer (GF)", "description": "Paneer tossed with onions, tomato, capsicum and tomato sauce garnished with freshly chopped spring onion.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 20, "protein": "paneer" }] },
+        { "name": "Taas (GF) (DF)", "description": "Goat marinated in Nepali herbs and spices and slowly cooked.", "tags": ["taas"], "variants": [{ "label": null, "price": 25, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Momo (Dumplings)",
+      "items": [
+        { "name": "Steamed Momo (10pc)", "description": "Chicken or vegetable dumpling served with homemade sesame seeds and tomato chutney.", "tags": ["steamed-momo"], "variants": [
+          { "label": "Chicken", "price": 17, "protein": "chicken" },
+          { "label": "Vegetable", "price": 17, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Jhol Momo (10pc)", "description": "Steamed Chicken or Vegetarian dumpling served with soya bean, sesame seed and tomato based chutney garnished with coriander.", "tags": ["jhol-momo"], "variants": [
+          { "label": "Chicken", "price": 19, "protein": "chicken" },
+          { "label": "Vegetarian", "price": 19, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Fried Momo (10pc)", "description": "Fried Chicken or Vegetarian dumpling served with homemade sesame seed and tomato chutney.", "tags": ["fried-momo"], "variants": [
+          { "label": "Chicken", "price": 17, "protein": "chicken" },
+          { "label": "Vegetarian", "price": 17, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Soup Momo", "description": "Steamed Chicken or Vegetarian dumpling served with chicken or vegetable broth and homemade sesame based tomato chutney on the side.", "tags": ["momo", "soup"], "variants": [
+          { "label": "Chicken", "price": 20, "protein": "chicken" },
+          { "label": "Vegetarian", "price": 20, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "C-Momo (10pc)", "description": "Chicken or Vegetarian dumplings tossed in onions, capsicum, chilli sauce and garnished with spring onions.", "tags": ["chilli-momo"], "variants": [
+          { "label": "Chicken", "price": 20, "protein": "chicken" },
+          { "label": "Vegetarian", "price": 20, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Momo Platter", "description": "Choice of Chicken or Vegetarian 4pc Steam, 4pc Fried, 4pc Kothey, 4pc C-Momo served with homemade sesame and tomato chutney.", "tags": ["momo"], "variants": [
+          { "label": "Chicken", "price": 28, "protein": "chicken" },
+          { "label": "Vegetarian", "price": 28, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Main Course - Vegetarian",
+      "items": [
+        { "name": "Aaloo Bodi Tama (GF) (DF)", "description": "Traditional comfort Nepalese curry prepared with black eye beans, potatoes, bamboo shoots and homemade spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 18 }] },
+        { "name": "Yellow Daal (GF)", "description": "A simple lentil with flavours of tempered cumin, onion, ginger, garlic, tomatoes and coriander.", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 18 }] },
+        { "name": "Kalo Daal (GF)", "description": "It is the most loved lentil among Nepalese people. It has a flavourful and satisfying taste. It is tempered with cumin, onion, ginger, garlic, tomatoes and coriander.", "is_vegetarian": true, "tags": ["dal"], "variants": [{ "label": null, "price": 18 }] },
+        { "name": "Vegetable Korma (GF)", "description": "A mild curry with cream base, cashew nuts and spices cooked in seasonal fresh vegetables.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 19 }] },
+        { "name": "Palak Paneer (GF)", "description": "Fresh blended spinach cooked with cottage cheese, tomato, onion with a touch of spices and fresh cream.", "is_vegetarian": true, "tags": ["saag"], "variants": [{ "label": null, "price": 22, "protein": "paneer" }] },
+        { "name": "Paneer Butter Masala (GF)", "description": "Cottage cheese cooked with onions, tomato, ginger, garlic, butter, cream and coriander leaves.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 22, "protein": "paneer" }] },
+        { "name": "Malai Kofta (GF)", "description": "Potato and cottage cheese fried and cooked in onion, tomato, cashew nuts, cream and spices.", "is_vegetarian": true, "tags": ["kofta"], "variants": [{ "label": null, "price": 22 }] },
+        { "name": "Chickpea and Potato Curry (GF) (DF)", "description": "Chickpea and potatoes cooked with cumin, onion, tomatoes, ginger, garlic and spices.", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 18 }] }
+      ]
+    },
+    {
+      "name": "Main Course - Chicken",
+      "items": [
+        { "name": "Chicken Curry (GF) (DF)", "description": "A traditional chicken curry cooked in Nepalese spices and herbs garnished with fresh coriander.", "tags": ["curry"], "variants": [{ "label": null, "price": 22, "protein": "chicken" }] },
+        { "name": "Butter Chicken (GF)", "description": "One of the well-known dishes among curry lovers, this flavourful grilled chicken is cooked in ground cashew nuts paste and spices giving a mild taste to the dish.", "tags": ["butter-chicken"], "variants": [{ "label": null, "price": 22, "protein": "chicken" }] },
+        { "name": "Chicken Tikka Masala (GF)", "description": "Boneless tandoori chicken cooked with onions, tomatoes, capsicum and lightly spiced creamy sauce.", "tags": ["curry", "tikka"], "variants": [{ "label": null, "price": 22, "protein": "chicken" }] },
+        { "name": "Chicken Vindaloo (GF) (DF)", "description": "Vindaloo is tangy, sweet and hot gravy, flavoured by charred grilled chicken garnished with fresh coriander.", "tags": ["curry"], "variants": [{ "label": null, "price": 22, "protein": "chicken" }] },
+        { "name": "Saag Chicken (GF)", "description": "Chicken curry with spinach cooked with onions, garlic and tomatoes.", "tags": ["saag"], "variants": [{ "label": null, "price": 22, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Main Course - Lamb / Goat",
+      "items": [
+        { "name": "Lamb Rogan Josh (GF) (DF)", "description": "An aromatic slow-cooked lamb curry with flavours giving a melting tender taste and enticing spices. It is garnished with coriander leaves.", "tags": ["curry"], "variants": [{ "label": null, "price": 24, "protein": "lamb" }] },
+        { "name": "Lamb Korma (GF)", "description": "A mild curry with cream base, cashew nuts and spices.", "tags": ["curry"], "variants": [{ "label": null, "price": 24, "protein": "lamb" }] },
+        { "name": "Lamb Vindaloo (GF) (DF)", "description": "Cooked in a hot and tangy red sauce. It is garnished with coriander leaves.", "tags": ["curry"], "variants": [{ "label": null, "price": 24, "protein": "lamb" }] },
+        { "name": "Saag Lamb (GF)", "description": "Lamb curry with spinach cooked with onions, garlic and tomatoes.", "tags": ["saag"], "variants": [{ "label": null, "price": 24, "protein": "lamb" }] },
+        { "name": "Goat Curry (GF) (DF)", "description": "A popular dish among households, the goat with bone is cooked till tender using onions, garam masala, ginger, garlic and tomatoes. It is garnished with fresh chopped coriander.", "tags": ["curry"], "variants": [{ "label": null, "price": 24, "protein": "goat" }] }
+      ]
+    },
+    {
+      "name": "Sea Food",
+      "items": [
+        { "name": "Jal Pari (Fish Chilli) (GF) (DF)", "description": "Barramundi fillets tossed in garlic, capsicum, onions and tomato sauce garnished with lemon wedge and fresh coriander.", "tags": ["chilli"], "variants": [{ "label": null, "price": 25, "protein": "fish" }] },
+        { "name": "Fish Curry (GF) (DF)", "description": "Barramundi fish cooked with homemade Nepalese spices and garnished with fresh coriander.", "tags": ["curry"], "variants": [{ "label": null, "price": 25, "protein": "fish" }] },
+        { "name": "Prawn Curry (GF) (DF)", "description": "Prawns cooked in coconut milk and homemade tomato sauce.", "tags": ["curry"], "variants": [{ "label": null, "price": 25, "protein": "prawn" }] },
+        { "name": "Mixed Seafood Curry (GF) (DF)", "description": "Mixed seafood cooked with homemade Nepalese spices and garnished with fresh coriander.", "tags": ["curry"], "variants": [{ "label": null, "price": 25 }] },
+        { "name": "Prawn Chilli (GF) (DF)", "description": "Prawn sautéed with onions, tomato, and capsicum and tomato sauce garnished with freshly chopped spring onion.", "tags": ["chilli"], "variants": [{ "label": null, "price": 25, "protein": "prawn" }] }
+      ]
+    },
+    {
+      "name": "Thali",
+      "items": [
+        { "name": "Khaja Thali (GF) (DF)", "description": "A set of chicken chhoyla, bhatmas sadheko, aaloo ko achar and chiura.", "tags": ["khaja", "thali"], "variants": [{ "label": null, "price": 25, "protein": "chicken" }] },
+        { "name": "Vegetarian Thali (GF)", "description": "Known as Daal-Bhaat-Tarkari, this set comes with rice, three vegetarian curries, Saag (Spinach), aaloo ko achar and pappadum.", "is_vegetarian": true, "tags": ["dal-bhat", "thali"], "variants": [{ "label": null, "price": 28 }] },
+        { "name": "Non Vegetarian Thali (GF)", "description": "Daal-Bhaat-Tarkari, this set comes with rice, a choice of meat (Chicken or Goat), Daal, vegetarian curry, Saag (Spinach), aaloo ko achar and pappadum.", "tags": ["dal-bhat", "thali"], "variants": [
+          { "label": "Chicken", "price": 28, "protein": "chicken" },
+          { "label": "Goat", "price": 28, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "Rice & Noodles",
+      "items": [
+        { "name": "Plain Rice (DF)", "description": "Traditional basmati rice cooked till soft and fluffy.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Saffron Rice", "description": "A savoury dish with a delicate, floral aroma.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Biryani", "description": "One of the most loved delicacies; it has an aromatic and hearty combination of spices. It is served with raita (spiced yogurt).", "tags": ["biryani"], "variants": [
+          { "label": "Vegetable", "price": 24, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 24, "protein": "chicken" },
+          { "label": "Lamb", "price": 24, "protein": "lamb" },
+          { "label": "Goat", "price": 24, "protein": "goat" }
+        ] },
+        { "name": "Chow Mein", "description": "Stir fried noodles cooked with fresh veggies, spring onions, coriander with a hint of Nepalese spices.", "tags": ["chowmein"], "variants": [
+          { "label": "Chicken", "price": 19, "protein": "chicken" },
+          { "label": "Vegetarian", "price": 18, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Fried Rice", "description": "Stir fried rice cooked with chicken or vegetable, fresh onions, soya sauce and fresh herbs.", "tags": ["fried-rice"], "variants": [
+          { "label": "Chicken", "price": 18, "protein": "chicken" },
+          { "label": "Vegetable", "price": 18, "protein": "veg", "is_vegetarian": true }
+        ] },
+        { "name": "Thukpa", "description": "Rich, savoury noodle soup cooked with a choice of vegetable or chicken.", "tags": ["thukpa"], "variants": [
+          { "label": "Chicken", "price": 20, "protein": "chicken" },
+          { "label": "Vegetable", "price": 20, "protein": "veg", "is_vegetarian": true }
+        ] }
+      ]
+    },
+    {
+      "name": "Bread",
+      "items": [
+        { "name": "Naan", "description": "Choice of Plain, Garlic, Mint, Butter", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 4 }] },
+        { "name": "Cheese Garlic Naan / Cheese Naan", "is_vegetarian": true, "tags": ["naan"], "variants": [{ "label": null, "price": 8 }] },
+        { "name": "Roti", "description": "Freshly baked in a tandoor, the bread is made from wholemeal flour.", "is_vegetarian": true, "tags": ["roti"], "variants": [{ "label": null, "price": 4 }] }
+      ]
+    },
+    {
+      "name": "Side Dish",
+      "items": [
+        { "name": "Raita (spiced yogurt)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Pappadum", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Mixed chutney", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Aaloo ko achar", "description": "Aaloo ko achar (Masala marinate potatoes salad)", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5 }] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Jerry", "description": "Fried batter into spiral shapes which are then coated with sugar syrup", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 3 }] },
+        { "name": "Rasmalai", "description": "Juicy cheese discs served with thickened milk", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Gajar Ko Halwa", "description": "Gajar Ko Halwa (Carrot pudding)", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Kheer", "description": "Kheer (Rice pudding)", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Gulab Jamun", "description": "Gulab jamun (also spelled gulaab jamun) are a milk-solid-based South Asian sweet", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 8 }] }
+      ]
+    },
+    {
+      "name": "Beverages",
+      "items": [
+        { "name": "Soft drinks", "description": "(Coke, Coke Zero, Fanta, Sprite, Lemon Lime Bitters, Ginger Beer)", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 4.5 }] },
+        { "name": "Lassi", "description": "Mango or Sweet or Salty", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 7 }] },
+        { "name": "Milk Tea / Coffee", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 5.5 }] },
+        { "name": "Green Tea", "is_vegetarian": true, "tags": ["drinks"], "variants": [{ "label": null, "price": 5.5 }] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "slug": "food-house-nepal-dee-why",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Starters",
+      "items": [
+        {
+          "name": "Samosa 1 PC",
+          "description": "Potato, Onion, peas & Nepalese spices wrapped in pastery and deep fried for crisp skin",
+          "is_vegetarian": true,
+          "tags": ["samosa"],
+          "variants": [{ "label": null, "price": 3.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Samosa Chaat",
+          "description": "samosa mixed with Yogurt, Onion, Chickpeas, coriander & spices",
+          "is_vegetarian": true,
+          "tags": ["samosa", "chaat"],
+          "variants": [{ "label": null, "price": 11.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Panipuri",
+          "description": "Crispy hollow puris stuffed with spiced potato mix, served with tangy, spiced flavoured water to pour inside.",
+          "is_vegetarian": true,
+          "tags": ["pani-puri"],
+          "variants": [{ "label": null, "price": 10.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Sausage Chicken",
+          "tags": ["sausage"],
+          "variants": [{ "label": null, "price": 8.5, "protein": "chicken" }]
+        },
+        {
+          "name": "Sekuwa Set",
+          "description": "Marinated, char grilled and served with side dishes",
+          "tags": ["sekuwa"],
+          "variants": [
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Lamb", "price": 19.99, "protein": "lamb" },
+            { "label": "Pork", "price": 19.99, "protein": "pork" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Momo (Dumplings)",
+      "items": [
+        {
+          "name": "Momo – Nepali Dumplings",
+          "description": "Soft dumplings filled with your choice of vegetables, chicken, buffalo, or goat, seasoned with traditional Nepali spices. Served steamed, fried, or in a spiced soup (Jhol Momo).",
+          "tags": ["momo"],
+          "variants": [
+            { "label": "Veg", "price": 11.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+            { "label": "Buff", "price": 15.99, "protein": "buff" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Combo",
+      "items": [
+        {
+          "name": "Chiya + Donut",
+          "description": "A golden, crispy, ring-shaped Nepali donut made from rice flour and lightly sweetened, served with a cup of spiced milk tea. Tea: Authentic spiced Nepali tea brewed with black tea, milk, ginger, and cardamom.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 5.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Chiya + Samosa",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 5.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Chatpate",
+          "description": "A popular street-style snack made with puffed rice, boiled potatoes, fresh tomato, onion, coriander, green chilli, and lime, tossed with Nepali spices for a tangy, spicy crunch.",
+          "is_vegetarian": true,
+          "tags": [],
+          "variants": [{ "label": null, "price": 9.99, "is_vegetarian": true }]
+        }
+      ]
+    },
+    {
+      "name": "Thakali Special",
+      "items": [
+        {
+          "name": "Thakali Set – Traditional Nepali Meal Lunch",
+          "description": "A wholesome Nepali thali served on a brass plate with unlimited steamed rice, lentil soup (dal), seasonal vegetables, pickles (achar), greens, and papad. Choose your curry: Vegetable, Paneer, Chicken, Lamb, Pork.",
+          "tags": ["thali", "thakali"],
+          "variants": [
+            { "label": "Veg", "price": 21.0, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 22.0, "protein": "chicken" },
+            { "label": "Lamb", "price": 23.0, "protein": "lamb" },
+            { "label": "Pork", "price": 24.0, "protein": "pork" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        {
+          "name": "Chowmein",
+          "description": "Wok-tossed noodles cooked with fresh vegetables, Nepali spices, and your choice of protein: Vegetable, Egg, Chicken, Buff, Mutton",
+          "tags": ["chowmein"],
+          "variants": [
+            { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Egg", "price": 15.99, "protein": "egg" },
+            { "label": "Chicken", "price": 16.99, "protein": "chicken" },
+            { "label": "Buff", "price": 18.99, "protein": "buff" },
+            { "label": "Mixed", "price": 20.9 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        {
+          "name": "Thukpa - Nepali Noodle Soup",
+          "description": "A hearty noodle soup simmered with vegetables, spices, and your choice of Veg, Egg, Chicken, Buff, or Mutton.",
+          "tags": ["thukpa"],
+          "variants": [
+            { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+            { "label": "Egg", "price": 16.99, "protein": "egg" },
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Buff", "price": 18.99, "protein": "buff" },
+            { "label": "Mixed", "price": 20.9 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Food House Special",
+      "items": [
+        {
+          "name": "Keema Noodles",
+          "description": "Wok-tossed noodles cooked with fresh vegetables, Nepali spices, and your choice of protein: Vegetable, Egg, Chicken, Buff, Mutton.",
+          "tags": ["keema-noodle"],
+          "variants": [
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Lamb/Goat", "price": 19.99, "protein": "goat" },
+            { "label": "Buff", "price": 21.99, "protein": "buff" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Choila",
+      "items": [
+        {
+          "name": "Choila",
+          "description": "Tender pieces of grilled protein (Buff or Chicken) marinated in Nepali spices, tossed with mustard oil, garlic, chilli, and fresh herbs.",
+          "tags": ["choila"],
+          "variants": [
+            { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+            { "label": "Buff", "price": 18.99, "protein": "buff" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sadeko Special",
+      "items": [
+        {
+          "name": "Sadeko",
+          "description": "Crispy fried soybeans or Peanut tossed with onion, tomato, coriander, green chilli, lime, and Nepali spices. A crunchy, tangy, and spicy.",
+          "tags": ["sandheko"],
+          "variants": [
+            { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+            { "label": "Bhatmas", "price": 14.99, "is_vegetarian": true },
+            { "label": "Peanut", "price": 15.99, "is_vegetarian": true }
+          ]
+        },
+        {
+          "name": "WaiWai",
+          "description": "Crunchy noodles crushed and mixed with onion, tomato, coriander, green chilli, lime, and Nepali spices. A tangy, spicy street snack that's addictive and full of flavour. Wai Wai Sadeko is a nostalgic snack in Nepal – quick, fiery, and loved by all ages.",
+          "is_vegetarian": true,
+          "tags": ["sandheko"],
+          "variants": [{ "label": null, "price": 9.99, "is_vegetarian": true }]
+        }
+      ]
+    },
+    {
+      "name": "Bhutan Set",
+      "items": [
+        {
+          "name": "Bhuttan Set – Traditional Nepali Delicacy",
+          "description": "A bold and flavourful dish made from goat offal (liver, kidney, and other organs), stir-fried with Nepali spices, onion, garlic, and chilli. Served with beaten rice, pickles, sauce, and salad.",
+          "tags": ["bhutan"],
+          "variants": [{ "label": "Goat", "price": 19.99, "protein": "goat" }]
+        }
+      ]
+    },
+    {
+      "name": "Chiya (Tea) Station",
+      "items": [
+        {
+          "name": "Chiya",
+          "tags": ["drinks"],
+          "variants": [
+            { "label": "Masala chiya", "price": 3.99 },
+            { "label": "Cardamom", "price": 3.99 },
+            { "label": "Ginger", "price": 3.99 },
+            { "label": "Kadak Chiya", "price": 3.99 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cold Drinks",
+      "items": [
+        {
+          "name": "Lassi (Mango/plain/Salted)",
+          "is_vegetarian": true,
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 5.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Lemonade",
+          "is_vegetarian": true,
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 4.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Coke",
+          "is_vegetarian": true,
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 2.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Water",
+          "is_vegetarian": true,
+          "tags": ["drinks"],
+          "variants": [{ "label": null, "price": 2.99, "is_vegetarian": true }]
+        }
+      ]
+    },
+    {
+      "name": "Kids Special",
+      "items": [
+        {
+          "name": "Chicken (4PCS) Nuggets + Chips",
+          "tags": [],
+          "variants": [{ "label": null, "price": 8.0, "protein": "chicken" }]
+        }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        {
+          "name": "Gulab Jamun with yogurt",
+          "is_vegetarian": true,
+          "tags": ["dessert"],
+          "variants": [{ "label": null, "price": 9.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Rasmalai",
+          "is_vegetarian": true,
+          "tags": ["dessert"],
+          "variants": [{ "label": null, "price": 7.99, "is_vegetarian": true }]
+        },
+        {
+          "name": "Jerry",
+          "is_vegetarian": true,
+          "tags": ["dessert"],
+          "variants": [{ "label": null, "price": 7.99, "is_vegetarian": true }]
+        }
+      ]
+    }
+  ]
+}

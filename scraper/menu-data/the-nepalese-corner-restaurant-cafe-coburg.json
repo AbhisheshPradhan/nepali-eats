@@ -1,0 +1,137 @@
+{
+  "slug": "the-nepalese-corner-restaurant-cafe-coburg",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entrees",
+      "items": [
+        { "name": "Wai Wai Chatpatey", "description": "Fried bhatmas or Wai wai mixed with herbs", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Shaphaley (1 Piece)", "description": "Chicken mince marinated with ginger, garlic, onion", "tags": ["shavale"], "variants": [{ "label": null, "price": 4.99, "protein": "chicken" }] },
+        { "name": "Chicken Lollipop", "description": "Deep-fried chicken wings marinated in Nepalese herbs, served", "tags": ["lollipop"], "variants": [{ "label": null, "price": 7.99, "protein": "chicken" }] },
+        { "name": "Crispy Fries", "description": "Perfectly seasoned crispy French fries.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Laphing", "description": "Savory starch rolls in a spicy house sauce.", "is_vegetarian": true, "tags": ["laphing"], "variants": [{ "label": "Dry", "price": 9.99 }, { "label": "Jhol", "price": 9.99 }] },
+        { "name": "Chicken Sausage (2 Pieces)", "description": "Juicy chicken sausages served with Nepalese achar", "tags": ["sausage"], "variants": [{ "label": null, "price": 8.99, "protein": "chicken" }] },
+        { "name": "Dharane Aalu Nimki", "description": "Potatoes tossed with Nepalese spices, onion, peas", "is_vegetarian": true, "tags": ["nimki"], "variants": [{ "label": null, "price": 8.99 }] },
+        { "name": "Pani Puri (8 Pieces)", "description": "Crispy dough balls filled with spiced potatoes", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 9.99 }] },
+        { "name": "Samosa (2 Pieces)", "description": "Classic spiced potato-filled pastries with aromatic flavors.", "is_vegetarian": true, "tags": ["samosa"], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Aloo Chop", "description": "Crispy fried mashed potatoes mixed with Nepalese spices", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 6.99 }] }
+      ]
+    },
+    {
+      "name": "Momo (Nepalese Dumplings)",
+      "items": [
+        { "name": "Steamed Momo", "tags": ["steamed-momo"], "variants": [
+          { "label": "Veg", "price": 13.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 13.99, "protein": "chicken" },
+          { "label": "Pork", "price": 14.99, "protein": "pork" },
+          { "label": "Buff", "price": 15.99, "protein": "buff" }
+        ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Pork", "price": 15.99, "protein": "pork" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Pork", "price": 15.99, "protein": "pork" },
+          { "label": "Buff", "price": 16.99, "protein": "buff" }
+        ] },
+        { "name": "Chilly Momo", "tags": ["chilli-momo"], "variants": [
+          { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Pork", "price": 16.99, "protein": "pork" },
+          { "label": "Buff", "price": 17.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Thali Set",
+      "items": [
+        { "name": "Thali Set", "tags": ["thali"], "variants": [
+          { "label": "Vegetarian", "price": 20.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 21.99, "protein": "chicken" },
+          { "label": "Pork", "price": 23.99, "protein": "pork" },
+          { "label": "Goat", "price": 23.99, "protein": "goat" }
+        ] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "tags": ["fried-rice"], "variants": [
+          { "label": "Vegetarian", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 14.99, "protein": "egg" },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Pork", "price": 16.99, "protein": "pork" }
+        ] }
+      ]
+    },
+    {
+      "name": "Curry and Rice",
+      "items": [
+        { "name": "Curry and Rice", "tags": ["curry"], "variants": [
+          { "label": "Vegetarian", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Goat", "price": 16.99, "protein": "goat" },
+          { "label": "Pork", "price": 16.99, "protein": "pork" }
+        ] }
+      ]
+    },
+    {
+      "name": "Noodles and Soup",
+      "items": [
+        { "name": "Chowmein", "description": "Stir-fried noodles with fresh vegetables, tossed in a house sauce.", "tags": ["chowmein"], "variants": [
+          { "label": "Veg", "price": 14.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Egg", "price": 13.99, "protein": "egg" },
+          { "label": "Chicken", "price": 14.99, "protein": "chicken" },
+          { "label": "Pork", "price": 16.99, "protein": "pork" },
+          { "label": "Buff", "price": 17.99, "protein": "buff" }
+        ] },
+        { "name": "Thukpa", "description": "A hearty Nepalese noodle soup.", "tags": ["thukpa"], "variants": [
+          { "label": "Veg", "price": 15.99, "protein": "veg", "is_vegetarian": true },
+          { "label": "Chicken", "price": 15.99, "protein": "chicken" },
+          { "label": "Pork", "price": 16.99, "protein": "pork" },
+          { "label": "Buff", "price": 17.99, "protein": "buff" }
+        ] }
+      ]
+    },
+    {
+      "name": "Main Dishes",
+      "items": [
+        { "name": "Chicken Chilly", "description": "Wok-tossed chicken with veggies in a sweet and spicy sauce.", "tags": ["chilli"], "variants": [{ "label": null, "price": 15.99, "protein": "chicken" }] },
+        { "name": "Pork Ear", "description": "Grilled pork ear with soybeans, onions, and house spices.", "tags": [], "variants": [{ "label": null, "price": 11.99, "protein": "pork" }] },
+        { "name": "Buff Sukuti", "description": "Fried dried buffalo meat with herbs, onions.", "tags": ["sukuti"], "variants": [{ "label": null, "price": 19.99, "protein": "buff" }] },
+        { "name": "Khaja Set", "tags": ["khaja"], "variants": [
+          { "label": "Mushroom", "price": 18.99, "is_vegetarian": true },
+          { "label": "Chicken", "price": 18.99, "protein": "chicken" },
+          { "label": "Lamb", "price": 19.99, "protein": "lamb" }
+        ] },
+        { "name": "Sekuwa Set", "tags": ["sekuwa"], "variants": [
+          { "label": "Chicken", "price": 17.99, "protein": "chicken" },
+          { "label": "Pork", "price": 20.99, "protein": "pork" }
+        ] }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        { "name": "Gulab Jamun (2 Pieces)", "description": "Sweet, syrup-soaked dumplings", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 5.99 }] },
+        { "name": "Ice Cream (2 Scoops)", "description": "Your choice of classic flavors", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 3.99 }] },
+        { "name": "Kheer", "description": "Nepalese Rice Pudding. (simmering rice with milk, sugar)", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 8.99 }] }
+      ]
+    },
+    {
+      "name": "Kids Menu",
+      "items": [
+        { "name": "Vegetarian Spring Roll", "description": "Crispy veggie rolls perfect for kids.", "is_vegetarian": true, "tags": ["spring-roll"], "variants": [{ "label": null, "price": 5.99 }] },
+        { "name": "Chicken Strips with Fries", "description": "Juicy chicken tenders and crispy fries.", "tags": [], "variants": [{ "label": null, "price": 7.99, "protein": "chicken" }] },
+        { "name": "Fries and Nuggets", "description": "A kid-friendly classic.", "tags": [], "variants": [{ "label": null, "price": 7.99 }] },
+        { "name": "Waffle with Maple Syrup and Ice Cream", "description": "Sweet treat for young diners.", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 7.99 }] }
+      ]
+    }
+  ]
+}

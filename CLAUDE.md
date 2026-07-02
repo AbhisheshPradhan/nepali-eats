@@ -451,6 +451,49 @@ Next: menus Stage-2 (needs ANTHROPIC_API_KEY) + Next.js frontend in web/ (awaiti
       spots become a drive, not a crawl. Likely a `routes` + `route_stops` table
       (slug, title, city/suburb, ordered restaurant_id stops, author) plus
       `/momo/route/[slug]` pages.
+- [ ] **Split `catering` vs `venue_hire` + "Events & Catering" nav** — START AFTER menu
+      seeding is done (post-launch, not blocking). Today `catering` (editorial boolean) is
+      overloaded: it can't tell "cooks food for your off-site event" apart from "has a
+      bookable function space on their premises." They're orthogonal (host a wedding at a
+      hireable venue = venue hire; hire a hall elsewhere + truck food in = catering; a spot
+      can do either/both/neither). Keep THREE distinct concepts clear:
+        - `good_for_groups` (Places API) = big table dines in normally (no exclusive space).
+        - `catering` (editorial) = they cook + deliver/serve at YOUR location (off-premise).
+        - `venue_hire` (NEW editorial boolean) = they have a bookable private/function space
+          ON their premises. `null`=unknown, `true`=confirmed; only set `false` if explicitly
+          confirmed no (never bulk-false — absence of evidence ≠ no venue hire).
+      Decisions: column name `venue_hire`; user-facing label **"Functions"** / "Function venue"
+      (AU-idiomatic, matches how these spots title their own pages, strong SEO). Boolean only —
+      no capacity/min-spend now (that's future lead-CRM). Additive/nullable, nothing reads it =
+      low-risk (same profile as `catering`/`fusion`).
+      Nav: add a header item **"Events & Catering"** = the capability directory (find a caterer /
+      hire a function space), filtering on `catering OR venue_hire` with two badges/facets.
+      ⚠️ Do NOT reuse bare "Events" — reserve **"What's On"** for the future festivals/community
+      calendar (see the DISCOVERY entry below, surface B) so the two intents (plan YOUR event vs
+      attend an event) don't collide. Final label goes through the copywriting/human-copy standard.
+      **Backfill plan (produce → review → commit, like menus).** Names barely help — a scan found
+      only ~4 rows with a venue-hire token in the name (Third Eye Rooftop Function Centre/Banksia,
+      Everest Function Centre/Rockdale, Kathmandu Banquet/North Melbourne, Silver Salver …Function
+      Center/Wollongong). So this is a WEBSITE-scan + editorial job (441 visible, 314 have a
+      website), not name-derivation:
+        0. Schema: `ALTER TABLE restaurants ADD COLUMN venue_hire boolean;` (nullable).
+        1. Auto-`true` the ~4 name slam-dunks after a glance; the 2 "banquets" editorial rows
+           (Taste of the Himalayas, Namaste Parkside) go to the review pile ("banquet" usually =
+           set-feast menu, not a hireable space).
+        2. Website scan (reuse the Playwright asset-block + proxy infra): per row with a website,
+           fetch homepage + probe `/functions`,`/events`,`/private-events`,`/venue-hire`,
+           `/functions-events`; grep a venue-hire lexicon (function room/centre, private function,
+           venue hire, hire our space, private dining room, seats up to N, capacity, reception/
+           banquet hall, book your party/wedding here, exclusive use). PRECISION GUARD: separate
+           on-site space ("our function room / seats X") → `venue_hire` candidate, from off-site
+           food ("we cater for events / delivered to your venue") → `catering` candidate. Emit
+           candidates + matched snippet/path to a REVIEW file; NO auto-commit (false positives —
+           claiming weddings they don't do — are worse than misses).
+        3. Editorial confirm: set `venue_hire=true` on confirmed rows, opportunistically fix
+           `catering` where the scan reveals off-site catering; unconfirmed stays `null`.
+        4. Later/free: the July Places API re-run widens the field mask to capture `types`/
+           `primaryType` — if Google tags any as event/banquet types, use as an extra signal.
+      Feeds the DISCOVERY entry below (surface A catering + a venue-hire lead-gen supply).
 - [ ] **DISCOVERY: Event booking / Festivals promotion / lead CRM** — monetization
       discovery piece, NOT yet scoped to build. Three related-but-distinct surfaces that share
       data but monetize differently; this entry captures the thinking so it isn't lost.
