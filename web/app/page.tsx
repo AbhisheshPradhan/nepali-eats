@@ -1,11 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Bunting } from "@/components/Bunting";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CravingCarousel } from "@/components/CravingCarousel";
-import { FeaturedCards } from "@/components/FeaturedCards";
-import { PopularCards } from "@/components/PopularCards";
+import { StateRow } from "@/components/StateRow";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import {
@@ -14,7 +12,7 @@ import {
 	tagFacets,
 	totalCount,
 } from "@/lib/queries";
-import { capitalLatLng, metroFromState } from "@/lib/format";
+import { metroFromState } from "@/lib/format";
 import { resolveState } from "@/lib/geo";
 
 export default async function HomePage() {
@@ -33,9 +31,6 @@ export default async function HomePage() {
 	// ever climbs ("550+", then "600+"), never showing an awkward live number.
 	const countLabel = `${Math.floor(total / 50) * 50}+`;
 
-	// Default "you are here" for distances = the state capital, until the visitor
-	// shares their real location.
-	const defaultLoc = capitalLatLng(state);
 	const metro = metroFromState(state);
 
 	return (
@@ -60,21 +55,16 @@ export default async function HomePage() {
 				</div>
 			</section>
 
-			{/* FEATURED (self-hides when the visitor's state has no featured picks) */}
-			{gems.length > 0 && (
-				<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-6">
-					<FeaturedCards
-						gems={gems}
-						state={state}
-						metro={metro}
-						fallbackLoc={defaultLoc}
-					/>
-				</section>
-			)}
-
-			{/* POPULAR (self-hides when the visitor's state has no flagged spots) */}
-			<PopularCards
-				popular={popular}
+			{/* FEATURED + POPULAR (each self-hides when the state has no picks) */}
+			<StateRow
+				kind="featured"
+				items={gems}
+				state={state}
+				metro={metro}
+			/>
+			<StateRow
+				kind="popular"
+				items={popular}
 				state={state}
 				metro={metro}
 			/>

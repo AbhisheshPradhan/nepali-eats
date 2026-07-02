@@ -4,8 +4,7 @@ Deferred work, moved out of CLAUDE.md so the working notes stay short. Nothing
 here blocks launch. Each entry keeps the decisions already made so they aren't
 re-litigated later. Related docs: `LAUNCH.md` (launch/SEO/UX master plan),
 `CATERING-BACKLOG.md` (catering venue list + `catering_sets` design),
-`MENU-REMAINING-PLAN.md` (menu coverage for the remaining ~300 spots),
-`web/CODE-REVIEW.md` (code-level fixes).
+`MENU-REMAINING-PLAN.md` (menu coverage for the remaining ~300 spots).
 
 ## Catering model (`catering_sets`)
 
@@ -138,13 +137,14 @@ Also: owner edit policy, claims queue, owner dashboard — see LAUNCH.md §8.
 
 - **Login / auth** — gates reviews, claims, saved spots (Clerk already in).
 - **Add a Spot** — `/add-a-spot` submission flow.
-- **Cache `/api/search`** — add `Cache-Control` (`s-maxage` +
-  `stale-while-revalidate`), normalize the cache key (lowercase/trim/collapse
-  whitespace), optionally `'use cache'` on `searchSuggest`; cache empty results
-  too; skip in-memory LRU; TTL + deploy busts for invalidation, wire
-  `revalidateTag` only when owner edits get frequent. ⚠️ Confirm Next 16 syntax
-  against `node_modules/next/dist/docs/` first. (Also `/api/restaurants` — see
-  `web/CODE-REVIEW.md`.)
+- **API cache follow-ups** — `/api/search` + `/api/restaurants` now send
+  `Cache-Control` and the search box normalizes queries (done 2026-07-03).
+  Remaining, only if needed: `'use cache'` on `searchSuggest` for DB protection
+  on cold edges (⚠️ confirm Next 16 syntax against
+  `node_modules/next/dist/docs/` first), and `revalidateTag` invalidation once
+  owner edits get frequent (claim flow). If the dataset ever grows well past AU
+  scale, also revisit `pinsInBounds` (correlated photo subquery per pin, silent
+  3000 cap).
 - **Non-destructive cropping** — current admin crop is destructive (baked into
   a new file). Fine for now; revisit if owners re-frame photos a lot or we need
   multi-aspect. Preferred: keep original + crop rect, transform via Cloudflare

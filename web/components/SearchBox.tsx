@@ -71,7 +71,10 @@ export function SearchBox({
 			const ctrl = new AbortController();
 			abortRef.current = ctrl;
 			setLoading(true);
-			fetch(`/api/search?q=${encodeURIComponent(q)}`, {
+			// normalize the query so case/whitespace variants share one CDN cache
+			// entry (the SQL match is case-insensitive anyway)
+			const norm = q.toLowerCase().replace(/\s+/g, " ");
+			fetch(`/api/search?q=${encodeURIComponent(norm)}`, {
 				signal: ctrl.signal,
 			})
 				.then((r) => r.json())

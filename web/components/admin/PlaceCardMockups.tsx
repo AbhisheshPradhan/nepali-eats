@@ -30,13 +30,17 @@ type Mockup = { id: string; design: string; config: PlaceCardConfig };
 // back to a single current component. Author new designs under
 // components/admin/mockups/place-card/ and register them to add design options.
 export function PlaceCardMockups({ sample }: { sample: PlaceCardData | null }) {
-	const nextId = useRef(0);
+	// id 0 is the initial mockup (a literal, so no ref access during render);
+	// make() is only called from event handlers.
+	const nextId = useRef(1);
 	const make = (): Mockup => ({
 		id: String(nextId.current++),
 		design: "current",
 		config: { ...DEFAULT_CONFIG },
 	});
-	const [mockups, setMockups] = useState<Mockup[]>(() => [make()]);
+	const [mockups, setMockups] = useState<Mockup[]>(() => [
+		{ id: "0", design: "current", config: { ...DEFAULT_CONFIG } },
+	]);
 
 	if (!sample) {
 		return (

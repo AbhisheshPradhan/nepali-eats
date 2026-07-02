@@ -77,6 +77,12 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   // searching a restaurant centres the map on it and pins it to the top of the list
   const focused = sp.focus ? await getCardBySlug(sp.focus) : null;
 
+  // ?lat&lng must both parse to finite numbers or the branch is skipped —
+  // a malformed value would put NaN into the camera and crash Mapbox's flyTo.
+  const qLat = sp.lat ? Number(sp.lat) : NaN;
+  const qLng = sp.lng ? Number(sp.lng) : NaN;
+  const hasLatLng = Number.isFinite(qLat) && Number.isFinite(qLng);
+
   if (focused && focused.lat != null && focused.lng != null) {
     const { lat, lng } = focused;
     center = [lat, lng];
@@ -85,14 +91,12 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     zoom = 16;
     areaLabel = `Search result for "${focused.name}"`;
     focusId = focused.id;
-  } else if (sp.lat && sp.lng) {
-    const lat = parseFloat(sp.lat);
-    const lng = parseFloat(sp.lng);
-    center = [lat, lng];
-    userLoc = [lat, lng];
+  } else if (hasLatLng) {
+    center = [qLat, qLng];
+    userLoc = [qLat, qLng];
     zoom = 13;
     areaLabel = "near you";
-    nearLabel = (await reverseGeocodeSuburb(lat, lng)) ?? "Near you";
+    nearLabel = (await reverseGeocodeSuburb(qLat, qLng)) ?? "Near you";
   } else if (sp.tag || sp.state || sp.suburb || sp.venue) {
     const ext = await extentOf(filters);
     if (ext) {
@@ -126,8 +130,8 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   // it changes; same key = same view = leave the live map/filters untouched.
   const viewKey = sp.focus
     ? `focus:${sp.focus}`
-    : sp.lat && sp.lng
-      ? `ll:${sp.lat},${sp.lng}`
+    : hasLatLng
+      ? `ll:${qLat},${qLng}`
       : sp.suburb || sp.state || sp.tag || sp.venue
         ? `area:${sp.suburb ?? ""}|${sp.state ?? ""}|${sp.tag ?? ""}|${sp.venue ?? ""}`
         : "default";

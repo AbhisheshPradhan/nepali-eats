@@ -314,17 +314,19 @@ export function autoBlurb(r: {
 	return `${r.name} is a Nepali ${kind} ${place}, known for ${foods}.`;
 }
 
+// Coordinates win when we have them (exact pin); the address/name is the
+// fallback only. Never send both — Google keeps just one `destination`.
 export function directionsUrl(r: {
 	fullAddress: string | null;
 	name: string;
 	lat: number | null;
 	lng: number | null;
 }): string {
-	const dest = r.fullAddress || r.name;
-	const base = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}`;
-	return r.lat != null && r.lng != null
-		? `${base}&destination=${r.lat},${r.lng}`
-		: base;
+	const dest =
+		r.lat != null && r.lng != null
+			? `${r.lat},${r.lng}`
+			: r.fullAddress || r.name;
+	return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}`;
 }
 
 export function suburbSlug(suburb: string, state: string): string {

@@ -48,9 +48,9 @@ export default async function Image({
 						background: logo ? OG.white : "transparent",
 					}}
 				>
-					{/* eslint-disable-next-line @next/next/no-img-element */}
 					{logo ? (
 						<img
+							alt=""
 							src={logo}
 							width={420}
 							height={420}
@@ -58,6 +58,7 @@ export default async function Image({
 						/>
 					) : (
 						<img
+							alt=""
 							src={momo}
 							width={528}
 							height={630}

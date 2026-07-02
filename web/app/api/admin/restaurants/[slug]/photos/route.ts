@@ -8,8 +8,13 @@ import {
 } from "@/lib/admin/queries";
 import { saveMedia, photoKey } from "@/lib/admin/storage";
 
+// Per-file cap. Vercel's ~4.5MB request-body limit is the real ceiling; this
+// gives a clear per-file signal instead of an opaque 413.
+const MAX_BYTES = 8 * 1024 * 1024;
+
 // POST a photo (multipart, field "file"; repeatable). Stores under media/, then
-// inserts a restaurant_photos row. Returns the refreshed photo list.
+// inserts a restaurant_photos row. Returns the refreshed photo list plus the
+// names of any files skipped (non-image or oversized), so the client can say so.
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
@@ -25,14 +30,18 @@ export async function POST(
   const files = form.getAll("file").filter((f): f is File => f instanceof File);
   if (!files.length) return NextResponse.json({ error: "No file" }, { status: 400 });
 
+  const skipped: string[] = [];
   for (const file of files) {
-    if (!file.type.startsWith("image/")) continue; // images only
+    if (!file.type.startsWith("image/") || file.size > MAX_BYTES) {
+      skipped.push(file.name);
+      continue;
+    }
     const buf = Buffer.from(await file.arrayBuffer());
     const key = await saveMedia(photoKey(id, file.name), buf);
     await addPhoto(id, key, { source: "upload" });
   }
 
-  return NextResponse.json({ ok: true, photos: await getPhotosForAdmin(id) });
+  return NextResponse.json({ ok: true, skipped, photos: await getPhotosForAdmin(id) });
 }
 
 // PATCH { order: number[] } -> persist a new photo order (positions). Returns

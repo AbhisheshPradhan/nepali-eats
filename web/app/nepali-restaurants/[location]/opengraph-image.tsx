@@ -63,8 +63,8 @@ export default async function Image({
 				}}
 			>
 				<div style={{ width: "46%", height: "100%", display: "flex" }}>
-					{/* eslint-disable-next-line @next/next/no-img-element */}
-					<img
+										<img
+						alt=""
 						src={momo}
 						width={552}
 						height={630}

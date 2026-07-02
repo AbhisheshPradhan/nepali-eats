@@ -7,7 +7,7 @@ enriched, stored in Postgres (Neon), served by the Next.js app in `web/`.
 list → `GO-LIVE-CHECKLIST.md` · menu system design → `MENU-PLAN.md` · menu
 worklists → `MENU-SEEDING-PLAN.md` + `MENU-QUEUE.md` · post-launch backlog →
 `ROADMAP.md` · catering → `CATERING-BACKLOG.md` · copy → `VOICE_AND_TONE.md` +
-`COPY.md` · blog → `BLOG-PLAN.md` · code review → `web/CODE-REVIEW.md`.
+`COPY.md` · blog → `BLOG-PLAN.md`.
 
 ## Copywriting & content voice (READ BEFORE writing any user-facing text)
 

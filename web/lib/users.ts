@@ -70,11 +70,14 @@ export async function deleteUserByClerkId(clerkUserId: string): Promise<void> {
 }
 
 // Lazy fallback to the webhook: ensure the signed-in Clerk user has a local row,
-// then return it. Call from authenticated server contexts (e.g. the owner
-// dashboard) so a user always exists even if the webhook was missed.
+// then return it. Read-first: this sits on hot GET paths (/api/me, /api/saved),
+// so the Clerk currentUser() network call + upsert only run when the row is
+// missing (webhook missed/lagging). Profile updates stay the webhook's job.
 export async function ensureCurrentUser(): Promise<DbUser | null> {
   const { userId } = await auth();
   if (!userId) return null;
+  const existing = await getUserByClerkId(userId);
+  if (existing) return existing;
   const cu = await currentUser();
   await upsertUser({
     clerkUserId: userId,

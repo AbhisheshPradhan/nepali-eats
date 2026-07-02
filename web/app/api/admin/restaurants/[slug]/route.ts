@@ -41,5 +41,7 @@ export async function DELETE(
   }
   // Purge the row's on-disk photos/menus so files don't outlive the record.
   await removeRestaurantMedia(deleted.id);
+  // Bust the ISR cache so the deleted spot's page 404s now, not in up to 1h.
+  revalidatePath(`/restaurant/${slug}`);
   return NextResponse.json({ ok: true, name: deleted.name });
 }

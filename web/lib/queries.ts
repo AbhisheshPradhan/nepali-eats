@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { query } from "./db";
 import type {
 	Restaurant,
@@ -272,7 +273,9 @@ export async function extentOf(o: ListOpts) {
 	};
 }
 
-export async function getRestaurantBySlug(
+// React.cache: generateMetadata and the page body both call this per render;
+// memoizing per-request halves the query volume on every ISR render/build.
+export const getRestaurantBySlug = cache(async function getRestaurantBySlug(
 	slug: string,
 ): Promise<RestaurantDetail | null> {
 	const rows = await query(
@@ -296,7 +299,7 @@ export async function getRestaurantBySlug(
 		isPrimary: p.is_primary,
 	}));
 	return { ...base, photos: mapped };
-}
+});
 
 // Ordered gallery photo keys for ONE restaurant (cover first, then gallery by
 // position). Lean on purpose: the Explore popup carousel lazy-loads this per open
@@ -468,7 +471,9 @@ export async function stateFacets(): Promise<Facet[]> {
 	return rows.map((r) => ({ value: r.value, count: Number(r.count) }));
 }
 
-export async function suburbFacets(
+// React.cache: the [location] page's resolve() runs this in generateMetadata
+// AND the page body; memoize per-request (it's a full GROUP BY scan).
+export const suburbFacets = cache(async function suburbFacets(
 	state?: string,
 ): Promise<(Facet & { state: string })[]> {
 	const rows = await query<{ value: string; state: string; count: string }>(
@@ -483,7 +488,7 @@ export async function suburbFacets(
 		state: r.state,
 		count: Number(r.count),
 	}));
-}
+});
 
 export async function tagFacets(): Promise<Facet[]> {
 	const rows = await query<{ value: string; count: string }>(
@@ -525,32 +530,34 @@ export async function searchSuggest(q: string): Promise<Suggestion> {
 	const like = `%${namePart}%`;
 	const pre = `${namePart}%`;
 	const stateLike = statePart ? `${statePart}%` : null;
-	const restaurants = await query<{
-		slug: string;
-		name: string;
-		suburb: string;
-		state: string;
-	}>(
-		`SELECT slug, name, suburb, state FROM restaurants
+	const [restaurants, locations] = await Promise.all([
+		query<{
+			slug: string;
+			name: string;
+			suburb: string;
+			state: string;
+		}>(
+			`SELECT slug, name, suburb, state FROM restaurants
       WHERE name ILIKE $1 AND ($3::text IS NULL OR state ILIKE $3) AND ${NOT_CLOSED}
       ORDER BY (name ILIKE $2) DESC, review_count DESC NULLS LAST
       LIMIT 6`,
-		[like, pre, stateLike],
-	);
-	const locations = await query<{
-		suburb: string;
-		state: string;
-		postcode: string;
-		n: string;
-	}>(
-		`SELECT suburb, state, min(postcode) postcode, count(*)::text n FROM restaurants
+			[like, pre, stateLike],
+		),
+		query<{
+			suburb: string;
+			state: string;
+			postcode: string;
+			n: string;
+		}>(
+			`SELECT suburb, state, min(postcode) postcode, count(*)::text n FROM restaurants
       WHERE (suburb ILIKE $1 OR postcode ILIKE $1) AND ($3::text IS NULL OR state ILIKE $3)
-        AND suburb IS NOT NULL AND state IS NOT NULL
+        AND suburb IS NOT NULL AND state IS NOT NULL AND ${NOT_CLOSED}
       GROUP BY suburb, state
       ORDER BY (suburb ILIKE $2) DESC, count(*) DESC
       LIMIT 5`,
-		[like, pre, stateLike],
-	);
+			[like, pre, stateLike],
+		),
+	]);
 	return {
 		restaurants,
 		locations: locations.map((l) => ({

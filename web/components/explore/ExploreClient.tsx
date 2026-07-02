@@ -129,7 +129,6 @@ export function ExploreClient({
 	const [boxValue, setBoxValue] = useState(initialQuery);
 	const [boxKey, setBoxKey] = useState(0);
 	const [openOnly, setOpenOnly] = useState(false);
-	const [price, setPrice] = useState(0);
 	const [minRating, setMinRating] = useState(0);
 	const [sort, setSort] = useState("featured");
 	// selected attribute-flag tokens (see FLAG_OPTIONS / FLAG_COLS)
@@ -187,7 +186,6 @@ export function ExploreClient({
 		p.set("bbox", `${b.w},${b.s},${b.e},${b.n}`);
 		p.set("page", String(page));
 		p.set("sort", sort);
-		if (price) p.set("price", String(price));
 		if (minRating) p.set("rating", String(minRating));
 		// Attribute flags: true-only AND filters, allowlisted in queries.ts FLAG_COLS.
 		if (flags.length) p.set("flags", flags.join(","));
@@ -208,7 +206,8 @@ export function ExploreClient({
 		abortRef.current?.abort();
 		const ctrl = new AbortController();
 		abortRef.current = ctrl;
-		reset ? setLoading(true) : setLoadingMore(true);
+		if (reset) setLoading(true);
+		else setLoadingMore(true);
 		fetch(`/api/restaurants?${buildParams(page)}`, { signal: ctrl.signal })
 			.then((r) => r.json())
 			.then((data) => {
@@ -231,7 +230,11 @@ export function ExploreClient({
 				setLoadingMore(false);
 			});
 	};
-	fetchRef.current = run;
+	// Latest-ref pattern: keep the ref pointing at this render's `run` (which
+	// closes over the current filters) without writing a ref during render.
+	useEffect(() => {
+		fetchRef.current = run;
+	});
 
 	// map bounds change → auto-refresh the list (debounced). The first event
 	// refetches the actual visible bounds; SSR data shows meanwhile (no flash).
@@ -247,7 +250,6 @@ export function ExploreClient({
 		const delay = firstBoundsRef.current ? 0 : 400;
 		firstBoundsRef.current = false;
 		debounceRef.current = setTimeout(() => fetchRef.current(true), delay);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// refilter when controls change
@@ -255,8 +257,7 @@ export function ExploreClient({
 		if (!bboxRef.current) return;
 		const t = setTimeout(() => fetchRef.current(true), 0);
 		return () => clearTimeout(t);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [price, minRating, sort, flags]);
+	}, [minRating, sort, flags]);
 
 	// Default view: if the visitor already granted location, recentre on them
 	// ("near me" by default). Otherwise keep the SSR state-capital / Sydney centre.
@@ -267,7 +268,7 @@ export function ExploreClient({
 			!navigator.geolocation
 		)
 			return;
-		const useLoc = () =>
+		const locate = () =>
 			navigator.geolocation.getCurrentPosition(
 				(p) => {
 					setUserLoc([p.coords.latitude, p.coords.longitude]);
@@ -281,11 +282,10 @@ export function ExploreClient({
 			navigator.permissions
 				.query({ name: "geolocation" as PermissionName })
 				.then((res) => {
-					if (res.state === "granted") useLoc();
+					if (res.state === "granted") locate();
 				})
 				.catch(() => {});
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [autoLocate]);
 
 	// Searching from the Explore page navigates to /explore?suburb=… which is a SOFT

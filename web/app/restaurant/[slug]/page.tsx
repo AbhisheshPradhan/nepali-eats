@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
 	MapPin,
-	Clock,
 	NavigationArrow,
 	Phone,
 	Globe,
@@ -41,9 +40,6 @@ import {
 import { RestaurantMenu } from "@/components/RestaurantMenu";
 import { mediaUrl } from "@/lib/media";
 import {
-	priceString,
-	isOpenNow,
-	todayHoursLine,
 	weekSchedule,
 	autoBlurb,
 	directionsUrl,
@@ -104,10 +100,7 @@ export default async function VenuePage({
 		.filter((p) => p.storageKey !== r.primaryPhoto)
 		.slice(0, 6)
 		.map((p) => mediaUrl(p.storageKey));
-	const open = isOpenNow(r.openingHours, r.state);
-	const hoursToday = todayHoursLine(r.openingHours, r.state);
 	const week = weekSchedule(r.openingHours, r.state);
-	const price = priceString(r);
 	const hue = hueFromId(r.id);
 	const where = [r.suburb, r.state].filter(Boolean).join(", ");
 
@@ -189,14 +182,19 @@ export default async function VenuePage({
 			: {}),
 		...(r.phone ? { telephone: r.phone } : {}),
 		...(r.priceLevel ? { priceRange: "$".repeat(r.priceLevel) } : {}),
-		address: {
-			"@type": "PostalAddress",
-			streetAddress: r.street || undefined,
-			addressLocality: r.suburb || undefined,
-			addressRegion: r.state || undefined,
-			postalCode: r.postcode || undefined,
-			addressCountry: "AU",
-		},
+		// only emit the address block when we actually have address data
+		...(r.street || r.suburb || r.state || r.postcode
+			? {
+					address: {
+						"@type": "PostalAddress",
+						streetAddress: r.street || undefined,
+						addressLocality: r.suburb || undefined,
+						addressRegion: r.state || undefined,
+						postalCode: r.postcode || undefined,
+						addressCountry: "AU",
+					},
+				}
+			: {}),
 		...(r.lat && r.lng
 			? {
 					geo: {
@@ -377,22 +375,6 @@ export default async function VenuePage({
 								className="text-[1rem]"
 							/>
 
-							{/* {price && (
-							<span className="text-ink-500 font-semibold">
-								{price}
-							</span>
-						)} */}
-
-							{/* {where && (
-							<span className="text-ink-500 inline-flex items-center gap-1.5">
-								<MapPin
-									size={16}
-									weight="fill"
-								/>
-								{where}
-							</span>
-						)} */}
-
 							{r.fullAddress && (
 								<div className="flex gap-1 items-center">
 									<MapPin
@@ -419,14 +401,6 @@ export default async function VenuePage({
 								))}
 							</div>
 						)}
-
-						{/* description hidden for now —
-						{r.description && (
-							<p className="text-[1.18rem] leading-relaxed text-ink-700 mb-7">
-								{r.description?.trim()}
-							</p>
-						)}
-						*/}
 
 						{/* gallery */}
 						{gallery.length > 0 && (
@@ -495,16 +469,6 @@ export default async function VenuePage({
 											reviews on Google
 										</p>
 									</div>
-									{/* {r.googleMapsUrl && (
-									<a
-										href={r.googleMapsUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="ml-auto font-display font-bold text-chili-600 hover:text-chili-700 text-[0.7rem]"
-									>
-										Read on Google
-									</a>
-								)} */}
 								</div>
 							</>
 						)}

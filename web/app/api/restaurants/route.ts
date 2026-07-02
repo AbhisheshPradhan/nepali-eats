@@ -44,13 +44,22 @@ export async function GET(request: Request) {
     offset: (page - 1) * PAGE_SIZE,
   });
 
+  // Near-static data; let the CDN absorb repeat viewports (this route fires on
+  // every map moveend). Admin edits surface within 5 min, SWR keeps it fast.
+  const HEADERS = {
+    "Cache-Control": "public, s-maxage=300, stale-while-revalidate=86400",
+  };
+
   // pins + total only needed on a fresh load (page 1); "load more" skips them.
   if (page === 1) {
     const [total, pins] = await Promise.all([
       countRestaurants(opts),
       opts.bbox ? pinsInBounds(opts) : Promise.resolve([]),
     ]);
-    return NextResponse.json({ items, total, pins, pageSize: PAGE_SIZE });
+    return NextResponse.json(
+      { items, total, pins, pageSize: PAGE_SIZE },
+      { headers: HEADERS },
+    );
   }
-  return NextResponse.json({ items, pageSize: PAGE_SIZE });
+  return NextResponse.json({ items, pageSize: PAGE_SIZE }, { headers: HEADERS });
 }
