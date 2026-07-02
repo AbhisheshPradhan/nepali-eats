@@ -61,15 +61,19 @@ Chosen low-cost launch setup (about $0/mo until traffic or commercial scale):
   `/admin` or Neon's SQL editor.
 - **Media:** Cloudflare R2 (free tier, free egress). Photos and menus via
   `NEXT_PUBLIC_MEDIA_BASE`. Kept off Supabase/Neon because R2 egress is free.
-- **DNS + edge:** **Vercel** (DNS pointed straight at Vercel; its CDN, SSL, and
-  platform DDoS protection are enough for launch). Decided 2026-07-02 to SKIP a
-  Cloudflare proxy in front for now: it's free but adds setup quirks (must use SSL
-  "Full (strict)" or you get redirect loops, plus double-CDN cache fights with
-  Vercel's ISR). Revisit the Cloudflare front-of-site layer LATER, when scrapers
-  hit the directory or we're on Vercel Pro and want to cap usage overages — its
-  Super Bot Fight Mode + cache would absorb traffic before Vercel's meter. Note:
-  this only affects DNS/proxy; **R2 media stays on Cloudflare regardless** (free
-  egress), so a Cloudflare account is still in the stack for storage only.
+- **Hosting stays on Vercel (NOT Cloudflare Pages/Workers)** — Next.js is Vercel's
+  product so ISR/RSC/Next-16 `'use cache'` all work with zero adapter, and the raw
+  `node-postgres`/PostGIS layer works unchanged (Cloudflare's edge/Workers runtime
+  is not full Node, so it'd force a DB-layer rewrite to the Neon HTTP driver /
+  Hyperdrive). Hosting is free on both, so no reason to switch.
+- **DNS + edge:** **Cloudflare proxy IN FRONT of Vercel** (decided 2026-07-02, to
+  protect our scraped directory data from being re-scraped). Registrar DNS →
+  Cloudflare (proxied/orange-cloud, Super Bot Fight Mode + cache) → Vercel app.
+  ⚠️ Setup gotchas: SSL mode MUST be **Full (strict)** (default "Flexible" causes
+  redirect loops with Vercel); and do NOT let Cloudflare blanket-cache HTML or it
+  fights Vercel ISR revalidation on restaurant pages — cache static assets hard,
+  respect origin cache headers for HTML. **R2 media is on Cloudflare regardless**
+  (free egress), so Cloudflare is already in the stack for storage.
 - First real bill is the DB (about $19 Neon paid or $25 Supabase Pro) only when
   traffic outgrows free. **Vercel Pro ($20/mo) is triggered by COMMERCIAL use, not
   traffic** — Hobby's terms bar monetized sites, so the day we monetize (featured
@@ -85,12 +89,16 @@ Deploy status:
       (`pub-6334a35f40da4f7fb1e3f948b1e0dbc1.r2.dev`). Public reads serve 200.
 - [x] Vercel: repo imported (root `web/`), env vars set, deployed to
       **nepali-eats.vercel.app**. Custom domain still TODO.
-- [ ] Custom domain on **Vercel** (add the domain in Vercel, point the registrar's
-      DNS at Vercel, do the www→apex redirect in Vercel; still on the `.vercel.app`
-      test URL). Then set `NEXT_PUBLIC_SITE_URL` to the real domain so canonicals are right.
-- [ ] (LATER, not launch) Optional Cloudflare proxy in front of Vercel for bot
-      protection + cache — deferred; revisit when scrapers/traffic or Vercel Pro
-      overages make it worth the setup. R2 media already on Cloudflare either way.
+- [ ] Custom domain via **Cloudflare DNS → Vercel** (WANTED): add the domain in
+      Vercel to get its target, add the domain to Cloudflare, create the DNS records
+      pointing at Vercel with the **orange cloud (proxied) ON**, set Cloudflare SSL
+      to **Full (strict)**, and do the www→apex 301 in Cloudflare. Still on the
+      `.vercel.app` test URL. Then set `NEXT_PUBLIC_SITE_URL` to the real domain so
+      canonicals are right.
+- [ ] Cloudflare bot protection: enable **Super Bot Fight Mode** (allow verified
+      bots so Googlebot/Bingbot still crawl) to block scrapers before they hit
+      Vercel; add cache rules (cache static assets hard, respect origin headers for
+      HTML so ISR isn't broken).
 - [ ] Cache content pages with static/ISR (restaurant, city, tag, momo); keep
       Explore, `/api/*`, and the geo homepage dynamic.
 - [ ] Search Console + Bing Webmaster + GA4; submit sitemap (see LAUNCH.md).
