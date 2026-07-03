@@ -21,10 +21,14 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/shadcn/select";
-import { Drawer } from "vaul";
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
-import { SheetDetail } from "@/components/explore/SheetDetail";
+import {
+	SheetDetailHeader,
+	SheetDetailBody,
+} from "@/components/explore/SheetDetail";
+import { ExploreSheet } from "@/components/explore/ExploreSheet";
+import { SheetListCard } from "@/components/explore/SheetListCard";
 import type { Restaurant, ExploreSpot, Bbox, DishSearchResult } from "@/lib/types";
 import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
@@ -49,14 +53,6 @@ const FLAG_OPTIONS: [string, string][] = [
 ];
 
 const PAGE_SIZE = 30;
-
-// Sheet UI (mobile drawer) snap points: peek (handle + count), half (browse
-// list over the map), tall (almost-full list). Content height matches the top
-// snap so vaul's translate math lines up.
-const SNAP_PEEK = 0.14;
-const SNAP_HALF = 0.45;
-const SNAP_TALL = 0.88;
-const SNAPS = [SNAP_PEEK, SNAP_HALF, SNAP_TALL];
 
 const MapView = dynamic(() => import("./MapView"), {
 	ssr: false,
@@ -97,8 +93,9 @@ function Seg<T extends string | number>({
 }
 
 // Client-side equivalents of the old SQL ORDER BY clauses. `featured` also
-// floats spots with a card image (logo or photo) above photoless ones; explicit
-// Rating/Newest sorts stay pure so a top pick isn't buried for lacking a photo.
+// floats spots with a card image (logo or photo) above photoless ones; the
+// explicit Rating sort stays pure so a top pick isn't buried for lacking a
+// photo. `nearest` needs the distance origin, so it's built in the component.
 const hasImage = (s: ExploreSpot) => !!(s.logoKey || s.primaryPhoto);
 const desc = (a: number | null, b: number | null) => (b ?? -1) - (a ?? -1);
 const SORTS: Record<string, (a: ExploreSpot, b: ExploreSpot) => number> = {
@@ -108,7 +105,6 @@ const SORTS: Record<string, (a: ExploreSpot, b: ExploreSpot) => number> = {
 		desc(a.reviewCount, b.reviewCount) ||
 		desc(a.rating, b.rating),
 	rating: (a, b) => desc(a.rating, b.rating) || desc(a.reviewCount, b.reviewCount),
-	newest: (a, b) => b.id - a.id,
 };
 
 export function ExploreClient({
@@ -176,11 +172,13 @@ export function ExploreClient({
 	// (viewport-independent, CDN-cached per dish). An unknown slug resolves to an
 	// empty result so the coarse restaurants.tags tier below still works.
 	const [dishData, setDishData] = useState<DishSearchResult | null>(null);
-	// One selection per facet kind: a momo preparation and/or a protein.
+	// One selection per facet kind: a momo preparation and/or a protein (dish
+	// search), or a member dish (style search, e.g. Newari -> Choila).
 	const [prepSel, setPrepSel] = useState<string | null>(null);
 	const [proteinSel, setProteinSel] = useState<string | null>(
 		dishProtein ?? null,
 	);
+	const [dishRefineSel, setDishRefineSel] = useState<string | null>(null);
 
 	// "No {dish} nearby, showing the closest" banner (auto-resolve on untouched
 	// maps); cleared when the user takes the map over or the dish changes.
@@ -257,7 +255,33 @@ export function ExploreClient({
 	const appliedViewKey = useRef(viewKey);
 	const appliedCameraKey = useRef(cameraKey);
 
-	// map bounds change → refilter the in-memory list (no fetch, no debounce).
+	// Sheet UI: distance from the viewport top to the bottom of the search bar,
+	// so the drawer's fully-expanded height stops just under it (search stays
+	// visible; the sheet's controls row never clips behind it).
+	const topBarRef = useRef<HTMLDivElement>(null);
+	const [topInset, setTopInset] = useState(125);
+	useEffect(() => {
+		if (!sheetUi) return;
+		const measure = () => {
+			const el = topBarRef.current;
+			if (el) setTopInset(Math.round(el.getBoundingClientRect().bottom));
+		};
+		measure();
+		window.addEventListener("resize", measure);
+		return () => window.removeEventListener("resize", measure);
+	}, [sheetUi]);
+
+	// Sheet UI: bumped the instant a real map gesture BEGINS (movestart), so a
+	// half-open sheet drops to peek right as the user grabs the map — not after
+	// the gesture settles. A half-open sheet reveals the map immediately.
+	const [collapseSignal, setCollapseSignal] = useState(0);
+	const onMapInteractStart = useCallback(
+		() => setCollapseSignal((n) => n + 1),
+		[],
+	);
+
+	// map bounds change (moveEND) → refilter the in-memory list (no fetch, no
+	// debounce).
 	const onBounds = useCallback((b: Bbox, userMoved: boolean) => {
 		setViewBbox(b);
 		// any real pan/zoom away from the seeded view (suburb/state, a lat/lng
@@ -269,13 +293,12 @@ export function ExploreClient({
 			enterAreaMode("");
 			setAutoBanner(null);
 		}
-
 	}, []);
 
 	// Pagination window, keyed to the current filter/viewport signature so any
 	// change resets it to one page (mirrors the old fetch-per-move behaviour)
 	// without a reset effect. "Load more" grows the count under the same key.
-	const pageKey = JSON.stringify([sort, flags, minRating, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel]);
+	const pageKey = JSON.stringify([sort, flags, minRating, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel, dishRefineSel]);
 	const [page, setPage] = useState({ key: pageKey, count: PAGE_SIZE });
 	const shownCount = page.key === pageKey ? page.count : PAGE_SIZE;
 	const showMore = () =>
@@ -334,22 +357,19 @@ export function ExploreClient({
 		// a new dish (or none) resets the facet chips to the URL's protein
 		setPrepSel(null);
 		setProteinSel(dishProtein ?? null);
+		setDishRefineSel(null);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
-
-	// Sheet UI: the drawer's snap position (peek / half / tall).
-	const [snap, setSnap] = useState<number | string | null>(SNAP_HALF);
 
 	const onSelect = useCallback(
 		(id: number | null) => {
 			setSelected(id);
-			if (id == null) return; // deselect (popup/sheet closed) -> shrink the pin back
+			if (id == null) return; // deselect -> shrink the pin back
 			if (sheetUi) {
-				// opening a spot: make sure the sheet is at least half-open so the
-				// detail is actually visible (a peeked sheet stays peeked otherwise)
-				setSnap((s) =>
-					typeof s === "number" && s < SNAP_HALF ? SNAP_HALF : s,
-				);
+				// Sheet UI: recentre the map on the selected spot (MapView lifts it
+				// above the drawer). The drawer itself raises to half (ExploreSheet).
+				const s = spots?.find((x) => x.id === id);
+				if (s) setCenter([s.lat, s.lng]);
 				return;
 			}
 			const el = document.getElementById(`row-${id}`);
@@ -359,8 +379,15 @@ export function ExploreClient({
 					behavior: "smooth",
 				});
 		},
-		[sheetUi],
+		[sheetUi, spots],
 	);
+
+	// Sheet UI: tapping a list card opens the detail AND zooms the map in on the
+	// spot (like the desktop "View on map"). onSelect recentres; this adds zoom.
+	const openFromList = (r: { id: number; lat: number | null }) => {
+		onSelect(r.id);
+		if (sheetUi && r.lat != null) setZoom((z) => Math.max(z, 15));
+	};
 
 	const nearMe = () => {
 		if (!navigator.geolocation) return;
@@ -411,13 +438,14 @@ export function ExploreClient({
 				.filter(
 					(it) =>
 						(!prepSel || it.slugs.includes(prepSel)) &&
-						(!proteinSel || it.slugs.includes(proteinSel)),
+						(!proteinSel || it.slugs.includes(proteinSel)) &&
+						(!dishRefineSel || it.slugs.includes(dishRefineSel)),
 				)
 				.map((it) => it.name);
 			if (names.length) m.set(r.id, [...new Set(names)]);
 		}
 		return m;
-	}, [dish, dishData, prepSel, proteinSel]);
+	}, [dish, dishData, prepSel, proteinSel, dishRefineSel]);
 
 	// Attribute/quality filters + the URL-seeded scope. tag/venue always apply;
 	// suburb/state are seed-only and drop once the visitor takes over the map.
@@ -432,7 +460,7 @@ export function ExploreClient({
 			(s) =>
 				(!dish ||
 					dishItems?.has(s.id) ||
-					(!prepSel && !proteinSel && s.tags.includes(dish))) &&
+					(!prepSel && !proteinSel && !dishRefineSel && s.tags.includes(dish))) &&
 				(!fixed.tag || s.tags.includes(fixed.tag)) &&
 				(!fixed.venue || s.venueType === fixed.venue) &&
 				(areaScoped ||
@@ -442,7 +470,7 @@ export function ExploreClient({
 				(!minRating || (s.rating ?? 0) >= minRating) &&
 				(!openOnly || isOpenNow(s.openingHours, s.state) !== false),
 		);
-	}, [spots, dish, dishItems, prepSel, proteinSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, minRating, openOnly, areaScoped]);
+	}, [spots, dish, dishItems, prepSel, proteinSel, dishRefineSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, minRating, openOnly, areaScoped]);
 
 	// only list spots whose pin is in the current viewport (matches what's on the map)
 	const inView = useMemo(() => {
@@ -457,14 +485,21 @@ export function ExploreClient({
 	}, [matches, viewBbox]);
 
 	const sorted = useMemo(() => {
-		const cmp = SORTS[sort] ?? SORTS.featured;
+		// "nearest" sorts by distance from the visitor's location (shared, else
+		// the state capital) — the same origin the card distance labels use.
+		const cmp =
+			sort === "nearest"
+				? (a: ExploreSpot, b: ExploreSpot) =>
+						haversineKm(distOrigin, a.lat, a.lng) -
+						haversineKm(distOrigin, b.lat, b.lng)
+				: (SORTS[sort] ?? SORTS.featured);
 		// dish mode: menu-verified spots (they get pills) rank above coarse-tag
 		// matches, then the chosen sort applies within each tier.
 		const tier = (s: ExploreSpot) => (dishItems?.has(s.id) ? 0 : 1);
 		return [...inView].sort((a, b) =>
 			dish ? tier(a) - tier(b) || cmp(a, b) : cmp(a, b),
 		);
-	}, [inView, sort, dish, dishItems]);
+	}, [inView, sort, dish, dishItems, distOrigin]);
 
 	// keep the searched (focused) restaurant pinned to the top
 	const ordered = useMemo(() => {
@@ -655,6 +690,24 @@ export function ExploreClient({
 						</>
 					)}
 				</div>
+			) : inDrawer ? (
+				<div className="flex flex-col">
+					{shown.map((r, i) => (
+						<Fragment key={r.id}>
+							{isFocusView && i === 1 && (
+								<h2 className="font-display font-bold text-ink-700 pt-3 pb-0.5">
+									You may also like
+								</h2>
+							)}
+							<SheetListCard
+								r={r}
+								pills={dishItems?.get(r.id)}
+								fallbackOrigin={distOrigin}
+								onOpen={() => openFromList(r)}
+							/>
+						</Fragment>
+					))}
+				</div>
 			) : (
 				<div className="grid grid-cols-1 gap-3">
 					{shown.map((r, i) => (
@@ -664,7 +717,7 @@ export function ExploreClient({
 									You may also like
 								</h2>
 							)}
-							<div id={inDrawer ? undefined : `row-${r.id}`}>
+							<div id={`row-${r.id}`}>
 								<PlaceCard
 									r={r}
 									variant="row"
@@ -691,10 +744,167 @@ export function ExploreClient({
 		</>
 	);
 
+	// Dish refine chips: the searched dish (x clears) + preparation/protein
+	// facets. Rendered in the top bar (desktop) and the sheet header (mobile).
+	const dishBar = (
+		<div className="flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
+			<button
+				onClick={clearDish}
+				title="Clear dish search"
+				className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-chili-500 border-2 border-chili-500 text-white px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.9rem]"
+			>
+				<CookingPot weight="fill" size={15} />
+				{dishName}
+				<X size={13} weight="bold" />
+			</button>
+			{(dishData?.facets ?? []).map((f) => {
+				const active =
+					f.kind === "preparation"
+						? prepSel === f.slug
+						: f.kind === "dish"
+							? dishRefineSel === f.slug
+							: proteinSel === f.slug;
+				const toggle = () =>
+					f.kind === "preparation"
+						? setPrepSel(active ? null : f.slug)
+						: f.kind === "dish"
+							? setDishRefineSel(active ? null : f.slug)
+							: setProteinSel(active ? null : f.slug);
+				return (
+					<button
+						key={f.slug}
+						onClick={toggle}
+						className={cn(
+							"shrink-0 border-2 rounded-full px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
+							active
+								? "bg-coriander-500 border-coriander-500 text-white"
+								: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+						)}
+					>
+						{f.name}
+					</button>
+				);
+			})}
+		</div>
+	);
+
+	// Attribute-flag chips + Clear all (the expanded "Filters" panel), shared by
+	// the top bar (desktop) and the sheet header (mobile).
+	const flagsWrap = (
+		<div className="flex flex-wrap gap-2 items-center">
+			{FLAG_OPTIONS.map(([token, label]) => (
+				<button
+					key={token}
+					onClick={() => toggleFlag(token)}
+					className={cn(
+						"border-2 rounded-full px-3.5 py-1 cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
+						flags.includes(token)
+							? "bg-coriander-500 border-coriander-500 text-white"
+							: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+					)}
+				>
+					{label}
+				</button>
+			))}
+			{activeFilterCount > 0 && (
+				<button
+					onClick={clearAllFilters}
+					className="px-2 font-display font-bold text-[0.85rem] text-chili-600 cursor-pointer hover:underline"
+				>
+					Clear all
+				</button>
+			)}
+		</div>
+	);
+
+	// Sheet UI: one horizontally-scrollable controls row inside the drawer's
+	// list header (Google-Maps style) — Near me, Sort, Open now, Rating and the
+	// Filters toggle all live here on mobile, leaving only the search box over
+	// the map.
+	const sheetControls = (
+		<div className="-mx-4 px-4 pb-2.5 flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide">
+			<Button
+				size="sm"
+				onClick={nearMe}
+				iconLeft={<NavigationArrow weight="fill" size={15} />}
+				className="shrink-0 whitespace-nowrap"
+			>
+				Near me
+			</Button>
+			<Select value={sort} onValueChange={setSort}>
+				<SelectTrigger className="shrink-0 rounded-full border-2 border-sand-400 bg-white px-3.5 font-display font-bold text-[0.9rem] text-ink-900 shadow-none">
+					<SelectValue />
+				</SelectTrigger>
+				<SelectContent
+					position="popper"
+					sideOffset={6}
+					align="start"
+					className="rounded-lg z-[1300]"
+				>
+					<SelectItem value="featured">Featured</SelectItem>
+					<SelectItem value="rating">Highest rated</SelectItem>
+					<SelectItem value="nearest">Nearest</SelectItem>
+				</SelectContent>
+			</Select>
+			<button
+				onClick={() => setOpenOnly((o) => !o)}
+				className={cn(
+					"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+					openOnly
+						? "bg-coriander-500 border-coriander-500 text-white"
+						: "bg-white border-sand-400 text-ink-700",
+				)}
+			>
+				<Clock weight="fill" size={16} />
+				Open now
+			</button>
+			<Seg
+				value={minRating}
+				onChange={setMinRating}
+				options={[
+					[0, "Any"],
+					[4, "★ 4.0+"],
+					[4.5, "★ 4.5+"],
+				]}
+			/>
+			<button
+				onClick={() => setShowFilters((s) => !s)}
+				className={cn(
+					"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+					activeFilterCount > 0 || showFilters
+						? "bg-coriander-500 border-coriander-500 text-white"
+						: "bg-white border-sand-400 text-ink-700",
+				)}
+			>
+				<SlidersHorizontal size={16} />
+				Filters
+				{activeFilterCount > 0 && (
+					<span className="inline-grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-white/90 text-coriander-600 text-[0.72rem] leading-none">
+						{activeFilterCount}
+					</span>
+				)}
+				<CaretDown
+					className={cn(
+						"transition-transform",
+						showFilters && "rotate-180",
+					)}
+					size={14}
+				/>
+			</button>
+		</div>
+	);
+
 	return (
 		<div className="flex flex-col h-[calc(100dvh-57px)]">
-			{/* top bar */}
-			<div className="px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100 relative z-[1200]">
+			{/* top bar: a solid search band above the map (in normal flow). We tried
+			    floating the pill over the map (Google style) but an <input> layered
+			    over the Mapbox WebGL canvas doesn't reliably receive taps/focus on
+			    iOS Safari, so the band sits above the canvas instead. In sheet UI
+			    the filter row moves into the drawer, so the band holds only search. */}
+			<div
+				ref={topBarRef}
+				className="relative z-[1200] px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100"
+			>
 				<div className="flex items-center gap-3">
 					{/* flex-1 + min-w-0 lets the box shrink so "Near me" stays on the
 					    same line on narrow phones (instead of wrapping to a 2nd row). */}
@@ -727,8 +937,9 @@ export function ExploreClient({
 				</div>
 
 				{/* Filter bar: primary controls always visible; attribute chips live
-				    behind the Filters toggle. Everything filters in memory, instantly. */}
-				<div className="mt-3">
+				    behind the Filters toggle. Everything filters in memory, instantly.
+				    Sheet UI moves ALL of this into the drawer header on mobile. */}
+				<div className={cn("mt-3", sheetUi && "max-md:hidden")}>
 					{/* Mobile: one horizontally-scrollable row (bleeds to the screen
 					    edges) so the controls stay on a single thumb-swipeable line
 					    instead of eating two rows above the map. Desktop: plain wrap. */}
@@ -777,7 +988,7 @@ export function ExploreClient({
 								>
 									<SelectItem value="featured">Featured</SelectItem>
 									<SelectItem value="rating">Highest rated</SelectItem>
-									<SelectItem value="newest">Newest</SelectItem>
+									<SelectItem value="nearest">Nearest</SelectItem>
 								</SelectContent>
 							</Select>
 						</div>
@@ -808,46 +1019,8 @@ export function ExploreClient({
 						</button>
 					</div>
 
-					{/* Dish refine bar: what you searched + the preparation/protein
-					    chips found in the matched menus. One pick per kind; tapping
-					    the active chip clears it. All in-memory, instant. */}
-					{dish && (
-						<div className="mt-2.5 flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
-							<button
-								onClick={clearDish}
-								title="Clear dish search"
-								className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-chili-500 border-2 border-chili-500 text-white px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.9rem]"
-							>
-								<CookingPot weight="fill" size={15} />
-								{dishName}
-								<X size={13} weight="bold" />
-							</button>
-							{(dishData?.facets ?? []).map((f) => {
-								const active =
-									f.kind === "preparation"
-										? prepSel === f.slug
-										: proteinSel === f.slug;
-								const toggle = () =>
-									f.kind === "preparation"
-										? setPrepSel(active ? null : f.slug)
-										: setProteinSel(active ? null : f.slug);
-								return (
-									<button
-										key={f.slug}
-										onClick={toggle}
-										className={cn(
-											"shrink-0 border-2 rounded-full px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
-											active
-												? "bg-coriander-500 border-coriander-500 text-white"
-												: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
-										)}
-									>
-										{f.name}
-									</button>
-								);
-							})}
-						</div>
-					)}
+					{/* Dish refine bar (see dishBar above): one pick per kind. */}
+					{dish && <div className="mt-2.5">{dishBar}</div>}
 
 					{showFilters && (
 						<div className="mt-2.5">
@@ -892,30 +1065,7 @@ export function ExploreClient({
 								</label>
 							</div>
 
-							<div className="flex flex-wrap gap-2 items-center">
-								{FLAG_OPTIONS.map(([token, label]) => (
-									<button
-										key={token}
-										onClick={() => toggleFlag(token)}
-										className={cn(
-											"border-2 rounded-full px-3.5 py-1 cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
-											flags.includes(token)
-												? "bg-coriander-500 border-coriander-500 text-white"
-												: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
-										)}
-									>
-										{label}
-									</button>
-								))}
-								{activeFilterCount > 0 && (
-									<button
-										onClick={clearAllFilters}
-										className="px-2 font-display font-bold text-[0.85rem] text-chili-600 cursor-pointer hover:underline"
-									>
-										Clear all
-									</button>
-								)}
-							</div>
+							{flagsWrap}
 						</div>
 					)}
 				</div>
@@ -953,6 +1103,7 @@ export function ExploreClient({
 						onHover={setHovered}
 						onSelect={onSelect}
 						onBounds={onBounds}
+						onInteractStart={onMapInteractStart}
 						center={center}
 						zoom={zoom}
 						active={sheetUi || viewMode === "map"}
@@ -988,51 +1139,52 @@ export function ExploreClient({
 				)}
 			</div>
 
-			{/* Sheet UI: the mobile bottom drawer. LIST state = heading pinned
-			    under the handle (visible at peek) + the scrollable list; DETAIL
-			    state = the tapped spot's preview. The map stays interactive
-			    behind it (modal=false); it can't be dismissed, only peeked. */}
+			{/* Sheet UI: the mobile bottom drawer (LIST state = heading + controls
+			    pinned under the handle + the scrollable list; DETAIL state = the
+			    tapped spot's preview). The map stays interactive behind it; it
+			    can't be dismissed, only peeked. Snap state lives INSIDE
+			    ExploreSheet so drag-settle doesn't re-render the map/list. */}
 			{sheetUi && (
-				<Drawer.Root
-					open
-					modal={false}
-					dismissible={false}
-					snapPoints={SNAPS}
-					activeSnapPoint={snap}
-					setActiveSnapPoint={setSnap}
-				>
-					<Drawer.Portal>
-						<Drawer.Content
-							aria-describedby={undefined}
-							className="md:hidden fixed inset-x-0 bottom-0 z-[1150] flex h-[88dvh] flex-col rounded-t-2xl border-t border-paper-300 bg-paper-50 outline-none shadow-[0_-10px_30px_rgba(43,26,18,0.18)]"
-						>
-							<Drawer.Title className="sr-only">
-								{detailSpot ? detailSpot.name : "Spots in view"}
-							</Drawer.Title>
-							<div
-								className="mx-auto mt-2.5 mb-1.5 h-1.5 w-10 shrink-0 rounded-full bg-sand-400"
-								aria-hidden
+				<ExploreSheet
+					title={detailSpot ? detailSpot.name : "Spots in view"}
+					topInset={topInset}
+					collapseSignal={collapseSignal}
+					isDetail={!!detailSpot}
+					showClear={!detailSpot && (activeFilterCount > 0 || !!dish)}
+					onClearAll={() => {
+						clearAllFilters();
+						setShowFilters(false);
+						if (dish) clearDish();
+					}}
+					peekHeader={
+						detailSpot ? (
+							<SheetDetailHeader
+								spot={detailSpot}
+								pills={dishItems?.get(detailSpot.id)}
+								onClose={() => onSelect(null)}
 							/>
-							{detailSpot ? (
-								<SheetDetail
-									spot={detailSpot}
-									pills={dishItems?.get(detailSpot.id)}
-									onClose={() => onSelect(null)}
-								/>
-							) : (
-								<>
-									<div className="px-4 shrink-0">
-										{headingRow}
-									</div>
-									<div className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-										{listBanner}
-										{listBody(true)}
-									</div>
-								</>
-							)}
-						</Drawer.Content>
-					</Drawer.Portal>
-				</Drawer.Root>
+						) : (
+							<>
+								{headingRow}
+								{sheetControls}
+								{showFilters && (
+									<div className="pb-2.5">{flagsWrap}</div>
+								)}
+								{dish && <div className="pb-2.5">{dishBar}</div>}
+							</>
+						)
+					}
+					body={
+						detailSpot ? (
+							<SheetDetailBody spot={detailSpot} />
+						) : (
+							<>
+								{listBanner}
+								{listBody(true)}
+							</>
+						)
+					}
+				/>
 			)}
 		</div>
 	);

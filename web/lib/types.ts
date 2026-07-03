@@ -154,12 +154,13 @@ export interface DishSuggestion {
   protein?: string; // protein slug to pre-select (?protein=)
 }
 
-// One facet chip on a dish search (a momo preparation or a protein present in
-// the matched items), for the refine bar.
+// One facet chip on a dish search. For a dish tag these are momo preparations or
+// proteins present in the matched items; for a STYLE tag (Newari, Tibetan…) they
+// are the style's member dishes (choila, yomari, sukuti…). For the refine bar.
 export interface DishFacet {
   slug: string;
   name: string;
-  kind: "preparation" | "protein";
+  kind: "preparation" | "protein" | "dish";
 }
 
 // A matched menu item on a dish search. `slugs` = the item's facet tags

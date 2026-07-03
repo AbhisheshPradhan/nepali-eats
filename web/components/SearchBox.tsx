@@ -7,6 +7,7 @@ import {
 	MapPin,
 	ForkKnife,
 	CookingPot,
+	X,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import type { Suggestion } from "@/lib/queries";
@@ -22,7 +23,7 @@ const useIsoLayoutEffect =
 
 export function SearchBox({
 	variant = "hero",
-	placeholder = "Search a restaurant, suburb or postcode",
+	placeholder = "Search a dish, restaurant, or suburb",
 	defaultValue = "",
 	embedded = false,
 }: {
@@ -108,6 +109,18 @@ export function SearchBox({
 		setSelected(null);
 		setOpen(true);
 		setActiveIndex(-1); // typing resets the keyboard highlight
+	};
+
+	// Explore bar: the clear (X) button empties the input and refocuses it so the
+	// keyboard stays up for a fresh query. Text-only clear; the dish/area chips on
+	// Explore have their own clear controls.
+	const clearInput = () => {
+		setValue("");
+		setSelected(null);
+		setSugg(EMPTY);
+		setActiveIndex(-1);
+		setOpen(false);
+		inputRef.current?.focus();
 	};
 
 	// Enter / Search button. Priority: an explicit pick > the top live suggestion
@@ -258,7 +271,7 @@ export function SearchBox({
 			<form
 				onSubmit={submit}
 				className={cn(
-					"input-group flex items-center gap-2 bg-white border-2 border-sand-400 rounded-4xl sm:rounded-full shadow-md",
+					"input-group flex items-center gap-2 bg-white border-2 border-sand-400 rounded-4xl sm:rounded-full shadow-md transition-[box-shadow,border-color] duration-150 hover:border-sand-500 hover:shadow-lg focus-within:border-sand-500 focus-within:shadow-lg",
 					hero
 						? "flex-wrap pl-2 sm:pl-5 pr-2 py-2"
 						: "h-11 pl-4 pr-1.5 shadow-sm",
@@ -296,6 +309,17 @@ export function SearchBox({
 						hero ? "text-[1.1rem] py-2.5" : "text-base",
 					)}
 				/>
+				{/* Explore bar: clear the input (X) when there's text. */}
+				{embedded && value.length > 0 && (
+					<button
+						type="button"
+						aria-label="Clear search"
+						onClick={clearInput}
+						className="shrink-0 grid h-7 w-7 place-items-center rounded-full text-ink-500 hover:bg-paper-100 cursor-pointer"
+					>
+						<X size={16} weight="bold" />
+					</button>
+				)}
 				{/* Bar variant (Explore): the Search button is dead weight. It's
 				    gated on `selected`, but picking a row navigates immediately, so
 				    it's never clickable, and Enter already submits via the form's

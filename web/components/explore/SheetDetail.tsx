@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { NavigationArrow, Phone, X, ArrowRight } from "@phosphor-icons/react";
@@ -14,15 +14,14 @@ import type { ExploreSpot } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
 import { directionsUrl } from "@/lib/format";
 
-// The DETAIL state of the mobile Explore drawer (sheet UI): a rich preview of
-// the tapped spot — photos, live status, dish pills, primary actions — with
-// "Full details" linking to the real page. Stage 2 replaces this with the full
+// The DETAIL state of the mobile Explore drawer, split so the sheet can measure
+// the PEEK-visible part: <SheetDetailHeader> is the always-visible block (title,
+// rating/price, venue + open status, dish pills, Directions/Call) that the sheet
+// sizes its collapsed height to; <SheetDetailBody> is the scrollable rest
+// (photos + "see full page" link). Stage 2 replaces the body with the real
 // detail rendered in-drawer via an intercepting route.
 
-type Gallery = { logo: string | null; photos: string[] };
-const galleryCache = new Map<string, Gallery>();
-
-export function SheetDetail({
+export function SheetDetailHeader({
 	spot,
 	pills,
 	onClose,
@@ -31,48 +30,8 @@ export function SheetDetail({
 	pills?: string[];
 	onClose: () => void;
 }) {
-	const [gallery, setGallery] = useState<Gallery>({ logo: null, photos: [] });
-	const scrollRef = useRef<HTMLDivElement>(null);
-
-	// Lazy-load the photo carousel per spot, cached by slug (same data the map
-	// popup uses; the endpoint is CDN-cached).
-	useEffect(() => {
-		const cached = galleryCache.get(spot.slug);
-		if (cached) {
-			setGallery(cached);
-			return;
-		}
-		setGallery({ logo: null, photos: [] });
-		let cancelled = false;
-		fetch(`/api/restaurants/${spot.slug}/photos`)
-			.then((r) => r.json())
-			.then((d: { logo?: string | null; photos?: string[] }) => {
-				if (cancelled) return;
-				const g: Gallery = { logo: d.logo ?? null, photos: d.photos ?? [] };
-				galleryCache.set(spot.slug, g);
-				setGallery(g);
-			})
-			.catch(() => {});
-		return () => {
-			cancelled = true;
-		};
-	}, [spot.slug]);
-
-	// New spot -> start at the top of the sheet content.
-	useEffect(() => {
-		scrollRef.current?.scrollTo({ top: 0 });
-	}, [spot.id]);
-
-	const slides = gallery.logo
-		? [gallery.logo, ...gallery.photos]
-		: gallery.photos;
-	const img = mediaUrl(spot.logoKey) ?? mediaUrl(spot.primaryPhoto);
-
 	return (
-		<div
-			ref={scrollRef}
-			className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 pb-[calc(1rem+env(safe-area-inset-bottom))]"
-		>
+		<div>
 			<div className="flex items-start justify-between gap-3 pt-1 pb-2">
 				<div className="min-w-0">
 					<h2 className="font-display font-extrabold text-[1.35rem] text-ink-900 leading-tight m-0 truncate">
@@ -134,7 +93,7 @@ export function SheetDetail({
 				</div>
 			)}
 
-			{/* actions */}
+			{/* primary actions (kept in the peek-visible header) */}
 			<div className="flex gap-2 pb-3">
 				<Button
 					href={directionsUrl({
@@ -161,18 +120,48 @@ export function SheetDetail({
 						Call
 					</Button>
 				)}
-				<Button
-					href={`/restaurant/${spot.slug}`}
-					block
-					size="sm"
-					variant="outline"
-					iconRight={<ArrowRight size={16} />}
-				>
-					Full details
-				</Button>
 			</div>
+		</div>
+	);
+}
 
-			{/* photos */}
+type Gallery = { logo: string | null; photos: string[] };
+const galleryCache = new Map<string, Gallery>();
+
+export function SheetDetailBody({ spot }: { spot: ExploreSpot }) {
+	const [gallery, setGallery] = useState<Gallery>({ logo: null, photos: [] });
+
+	// Lazy-load the photo carousel per spot, cached by slug (same data the map
+	// popup uses; the endpoint is CDN-cached).
+	useEffect(() => {
+		const cached = galleryCache.get(spot.slug);
+		if (cached) {
+			setGallery(cached);
+			return;
+		}
+		setGallery({ logo: null, photos: [] });
+		let cancelled = false;
+		fetch(`/api/restaurants/${spot.slug}/photos`)
+			.then((r) => r.json())
+			.then((d: { logo?: string | null; photos?: string[] }) => {
+				if (cancelled) return;
+				const g: Gallery = { logo: d.logo ?? null, photos: d.photos ?? [] };
+				galleryCache.set(spot.slug, g);
+				setGallery(g);
+			})
+			.catch(() => {});
+		return () => {
+			cancelled = true;
+		};
+	}, [spot.slug]);
+
+	const slides = gallery.logo
+		? [gallery.logo, ...gallery.photos]
+		: gallery.photos;
+	const img = mediaUrl(spot.logoKey) ?? mediaUrl(spot.primaryPhoto);
+
+	return (
+		<div className="pt-1">
 			<div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-paper-200">
 				{slides.length > 1 ? (
 					<CardCarousel

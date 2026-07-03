@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { query } from "./db";
+import { DISH_CATEGORIES } from "./menu/taxonomy";
 import type {
 	Restaurant,
 	RestaurantDetail,
@@ -656,12 +657,32 @@ export async function searchSuggest(q: string): Promise<Suggestion> {
 export async function dishRestaurants(
 	slug: string,
 ): Promise<DishSearchResult | null> {
-	const tagRows = await query<{ id: number; slug: string; name: string }>(
-		`SELECT id, slug, name FROM dish_categories WHERE slug = $1`,
-		[slug],
-	);
+	const tagRows = await query<{
+		id: number;
+		slug: string;
+		name: string;
+		kind: string;
+	}>(`SELECT id, slug, name, kind FROM dish_categories WHERE slug = $1`, [slug]);
 	const tag = tagRows[0];
 	if (!tag) return null;
+
+	// Facet axis depends on the searched tag's kind. A DISH refines by its momo
+	// preparation subtree + cross-cutting proteins; a STYLE (Newari, Tibetan…)
+	// refines by its MEMBER DISHES (choila, yomari, sukuti…) — protein is a
+	// meaningless axis for a cuisine, so we swap it out. Member slugs come from
+	// the taxonomy `style` field (the seeder tags each dish's style alongside it).
+	const isStyle = tag.kind === "style";
+	const memberDishes = isStyle
+		? DISH_CATEGORIES.filter((c) => c.kind === "dish" && c.style === slug).map(
+				(c) => c.slug,
+			)
+		: [];
+	// Per-item facet slugs: for a style, the item's member-dish tags; for a dish,
+	// its proteins + preparations under the searched dish. $2 carries whichever.
+	const facetClause = isStyle
+		? `d2.slug = ANY($2)`
+		: `(d2.kind = 'protein' OR d2.parent_id = $2)`;
+	const facetParam = isStyle ? memberDishes : tag.id;
 
 	const rows = await query<{
 		restaurant_id: number;
@@ -673,7 +694,7 @@ export async function dishRestaurants(
               SELECT d2.slug FROM menu_item_tags t2
                 JOIN dish_categories d2 ON d2.id = t2.dish_category_id
                WHERE t2.menu_item_id = mi.id
-                 AND (d2.kind = 'protein' OR d2.parent_id = $1)
+                 AND ${facetClause}
             ) AS slugs
        FROM menu_items mi
        JOIN restaurants r ON r.id = mi.restaurant_id
@@ -684,7 +705,7 @@ export async function dishRestaurants(
                WHERE t.menu_item_id = mi.id AND t.dish_category_id = $1
             )
       ORDER BY mi.restaurant_id, mi.position, mi.id`,
-		[tag.id],
+		[tag.id, facetParam],
 	);
 
 	const byRestaurant = new Map<number, DishItem[]>();
@@ -696,14 +717,21 @@ export async function dishRestaurants(
 		for (const s of row.slugs ?? []) facetSlugs.add(s);
 	}
 
-	// Resolve facet names/kinds; keep taxonomy order (preparations before
-	// proteins, then by display_order/id) so chips render in a stable order.
+	// Resolve facet names/kinds. Styles surface member dishes; dishes surface
+	// preparations then proteins. Either way keep taxonomy order (display_order/id)
+	// so chips render stably.
+	const facetKindClause = isStyle
+		? `kind = 'dish'`
+		: `kind IN ('preparation','protein')`;
+	const facetOrder = isStyle
+		? `display_order, id`
+		: `kind = 'protein', display_order, id`;
 	const facets: DishFacet[] = facetSlugs.size
 		? (
 				await query<{ slug: string; name: string; kind: string }>(
 					`SELECT slug, name, kind FROM dish_categories
-            WHERE slug = ANY($1) AND kind IN ('preparation','protein')
-            ORDER BY kind = 'protein', display_order, id`,
+            WHERE slug = ANY($1) AND ${facetKindClause}
+            ORDER BY ${facetOrder}`,
 					[[...facetSlugs]],
 				)
 			).map((f) => ({

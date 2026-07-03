@@ -48,6 +48,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "sel-roti", kind: "dish", name: "Sel roti", synonyms: ["selroti", "sel"] },
   { slug: "dal-bhat", kind: "dish", name: "Dal bhat", synonyms: ["daal bhat", "dal bhat tarkari", "khana set"], featured: true },
   { slug: "thali", kind: "dish", name: "Thali / set", synonyms: ["thali set", "set menu", "platter"] },
+  { slug: "thakali-set", kind: "dish", name: "Thakali Set", synonyms: ["thakali thali", "thakali khana", "thakali khana set", "thakali dal bhat", "thakali khaja set"], style: "thakali" },
   { slug: "curry", kind: "dish", name: "Curry", synonyms: ["curries", "tarkari"] },
   { slug: "biryani", kind: "dish", name: "Biryani", synonyms: ["biriyani", "briyani"] },
   { slug: "fried-rice", kind: "dish", name: "Fried rice", synonyms: ["friedrice"] },
@@ -111,7 +112,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
 
   // --- Styles (flat, top-level) ---------------------------------------------
   { slug: "newari", kind: "style", name: "Newari", synonyms: ["newa", "newar"] },
-  { slug: "thakali", kind: "style", name: "Thakali", synonyms: ["thakali set"] },
+  { slug: "thakali", kind: "style", name: "Thakali", synonyms: ["thakali cuisine"] },
   { slug: "tibetan", kind: "style", name: "Tibetan", synonyms: ["tibet"] },
   { slug: "nepali-indian", kind: "style", name: "Nepali-Indian", synonyms: ["indian-nepali", "indo-nepali", "indian nepalese"] },
 
