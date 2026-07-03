@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ListingGrid } from "@/components/ListingGrid";
+import { LandingPage } from "@/components/LandingPage";
+import { stateLanding, suburbLanding } from "@/lib/landing";
 import { listRestaurants, suburbFacets } from "@/lib/queries";
-import { suburbSlug, metroFromState } from "@/lib/format";
+import { suburbSlug } from "@/lib/format";
 
 export const revalidate = 3600;
+
+const CAP = 30;
 
 const STATE_CODE: Record<string, string> = {
   nsw: "NSW", vic: "VIC", qld: "QLD", wa: "WA",
@@ -71,26 +74,21 @@ export default async function LocationPage({
 
   if (r.type === "state") {
     const list = await listRestaurants({ state: r.state, limit: 500 });
-    const name = STATE_NAME[r.state] || r.state;
     return (
-      <ListingGrid
-        eyebrow={`All across ${r.state}`}
-        title={`Nepali restaurants in ${name}`}
-        intro={`From ${metroFromState(r.state)} to the regions, here is every spot serving real Nepali food in ${name}. Follow the queues, bring your appetite.`}
-        restaurants={list}
-        exploreHref={`/explore?state=${r.state}`}
+      <LandingPage
+        content={stateLanding(r.state, list)}
+        restaurants={list.slice(0, CAP)}
+        total={list.length}
       />
     );
   }
 
   const list = await listRestaurants({ suburb: r.suburb, state: r.state, limit: 200 });
   return (
-    <ListingGrid
-      eyebrow={`${r.suburb}, ${r.state}`}
-      title={`Nepali restaurants in ${r.suburb}`}
-      intro={`The kitchens, cafes and takeaways serving Nepali food in ${r.suburb}, ${r.state}. Momo, thali sets and more, all close to home.`}
-      restaurants={list}
-      exploreHref={`/explore?suburb=${encodeURIComponent(r.suburb)}`}
+    <LandingPage
+      content={suburbLanding(r.suburb, r.state, list)}
+      restaurants={list.slice(0, CAP)}
+      total={list.length}
     />
   );
 }

@@ -50,7 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...suburbs
       .filter((s) => s.count >= 2)
       .map((s) => url(`/nepali-restaurants/${suburbSlug(s.value, s.state)}`, 0.7)),
-    ...tags.map((t) => url(`/tag/${t.value}`, 0.6)),
+    ...tags.map((t) => url(`/nepali-food/${t.value}`, 0.6)),
     ...STORIES.map((s) => url(`/stories/${s.slug}`, 0.5, undefined)),
     ...restaurants.map((r) => url(`/restaurant/${r.slug}`, 0.6, r.lastmod)),
   ];

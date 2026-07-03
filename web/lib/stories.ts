@@ -54,7 +54,7 @@ export const STORIES: Story[] = [
       },
       {
         type: "p",
-        text: "Find the kitchens doing it properly on the [Thakali page](/tag/thakali).",
+        text: "Find the kitchens doing it properly on the [Thakali page](/nepali-food/thakali).",
       },
       { type: "h2", text: "Newari food" },
       {
@@ -63,12 +63,12 @@ export const STORIES: Story[] = [
       },
       {
         type: "p",
-        text: "It is sour, smoky and made for a group. Here is [where to find Newari food](/tag/newari).",
+        text: "It is sour, smoky and made for a group. Here is [where to find Newari food](/nepali-food/newari).",
       },
       { type: "h2", text: "Tibetan and Nepali warmers" },
       {
         type: "p",
-        text: "Nepal shares a long border and a lot of food with Tibet. That gives you thukpa, a hearty noodle soup, and laphing, cold and springy and tossed in chilli. Perfect for a cold day or a hot one. Browse the [Tibetan-Nepali spots](/tag/tibetan).",
+        text: "Nepal shares a long border and a lot of food with Tibet. That gives you thukpa, a hearty noodle soup, and laphing, cold and springy and tossed in chilli. Perfect for a cold day or a hot one. Browse the [Tibetan-Nepali spots](/nepali-food/tibetan).",
       },
       { type: "h2", text: "Sides and sweets" },
       {
@@ -93,7 +93,7 @@ export const STORIES: Story[] = [
           },
           {
             q: "Is there vegetarian Nepali food?",
-            a: "Plenty. Veg momo, dal bhat and gundruk are everywhere. See the [vegetarian spots](/tag/vegetarian).",
+            a: "Plenty. Veg momo, dal bhat and gundruk are everywhere. See the [vegetarian spots](/nepali-food/vegetarian).",
           },
         ],
       },
@@ -141,7 +141,7 @@ export const STORIES: Story[] = [
       { type: "h2", text: "The fillings" },
       {
         type: "p",
-        text: "Buff is the traditional choice and what most Nepali regulars order. Chicken is the crowd-pleaser. Veg and paneer momo are everywhere and genuinely good, not an afterthought. See the [vegetarian spots](/tag/vegetarian) if that is your order.",
+        text: "Buff is the traditional choice and what most Nepali regulars order. Chicken is the crowd-pleaser. Veg and paneer momo are everywhere and genuinely good, not an afterthought. See the [vegetarian spots](/nepali-food/vegetarian) if that is your order.",
       },
       { type: "h2", text: "How to eat momo like a regular" },
       {
@@ -226,7 +226,7 @@ export const STORIES: Story[] = [
       },
       {
         type: "p",
-        text: "See every spot serving it on the [Thakali page](/tag/thakali). New to Nepali food and want the lighter option first? Start with [momo](/momo).",
+        text: "See every spot serving it on the [Thakali page](/nepali-food/thakali). New to Nepali food and want the lighter option first? Start with [momo](/momo).",
       },
       {
         type: "faq",

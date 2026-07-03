@@ -14,8 +14,7 @@ const HAS_IMAGE = new Set(["momo", "newari", "tibetan", "vegetarian"]);
 // tile standard.
 function CravingTile({ tag, hue }: { tag: string; hue: number }) {
 	const label = tagLabel(tag);
-	const href =
-		tag === "momo" ? "/momo" : `/explore?tag=${encodeURIComponent(tag)}`;
+	const href = tag === "momo" ? "/momo" : `/nepali-food/${tag}`;
 	return (
 		<Link
 			href={href}

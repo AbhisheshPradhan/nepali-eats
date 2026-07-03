@@ -23,6 +23,13 @@ const nextConfig: NextConfig = {
     remotePatterns,
     formats: ["image/webp"],
   },
+  // The dish/cuisine hubs moved from /tag/[slug] to /nepali-food/[slug]. Redirect
+  // any stray old link (momo keeps its own /momo route).
+  async redirects() {
+    return [
+      { source: "/tag/:slug", destination: "/nepali-food/:slug", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

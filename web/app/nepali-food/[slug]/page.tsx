@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ListingGrid } from "@/components/ListingGrid";
+import { LandingPage } from "@/components/LandingPage";
+import { tagLanding } from "@/lib/landing";
 import { listRestaurants, tagFacets } from "@/lib/queries";
 import { tagLabel } from "@/lib/format";
+
+const CAP = 30;
 
 export const revalidate = 3600;
 
@@ -17,39 +20,36 @@ const INTRO: Record<string, string> = {
 
 export async function generateStaticParams() {
   const tags = await tagFacets();
-  return tags.filter((t) => t.value !== "momo").map((t) => ({ tag: t.value }));
+  return tags.filter((t) => t.value !== "momo").map((t) => ({ slug: t.value }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ tag: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { tag } = await params;
-  const label = tagLabel(tag);
+  const { slug } = await params;
+  const label = tagLabel(slug);
   return {
     title: `${label} spots across Australia`,
-    description: INTRO[tag] || `Nepali ${label} food across Australia.`,
-    alternates: { canonical: `/tag/${tag}` },
+    description: INTRO[slug] || `Nepali ${label} food across Australia.`,
+    alternates: { canonical: `/nepali-food/${slug}` },
   };
 }
 
-export default async function TagPage({
+export default async function NepaliFoodPage({
   params,
 }: {
-  params: Promise<{ tag: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { tag } = await params;
-  const list = await listRestaurants({ tag, limit: 500 });
+  const { slug } = await params;
+  const list = await listRestaurants({ tag: slug, limit: 500 });
   if (list.length === 0) notFound();
-  const label = tagLabel(tag);
   return (
-    <ListingGrid
-      eyebrow="Eat by craving"
-      title={`${label} across Australia`}
-      intro={INTRO[tag] || `Every spot serving ${label} Nepali food, gathered in one place.`}
-      restaurants={list}
-      exploreHref={`/explore?tag=${encodeURIComponent(tag)}`}
+    <LandingPage
+      content={tagLanding(slug, list)}
+      restaurants={list.slice(0, CAP)}
+      total={list.length}
     />
   );
 }
