@@ -96,6 +96,18 @@ export default function MapView({
   const mapRef = useRef<MapRef>(null);
   const [cursor, setCursor] = useState("");
   const [popup, setPopup] = useState<ExploreSpot | null>(null);
+  // On phones the map is short, so a pin-anchored popup regularly clips off the
+  // bottom edge (and grows after its images lazy-load, past the anchor Mapbox
+  // chose). Below md the card docks to the bottom of the map instead —
+  // viewport-positioned, so it can never clip.
+  const [dockCard, setDockCard] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setDockCard(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
   // Gallery for the open popup's carousel, lazy-loaded per spot (pins carry only
   // one photo). Cached by slug so reopening the same pin doesn't refetch.
   type Gallery = { logo: string | null; photos: string[] };
@@ -137,6 +149,25 @@ export default function MapView({
     mapRef.current?.flyTo({ center: [center[1], center[0]], zoom, duration: 800 });
   }, [center, zoom]);
 
+  // Mobile dock: if the opened pin sits where the bottom card will cover it,
+  // ease it up into the free space above the card so you can still see WHICH
+  // spot you opened. Skips while the camera is animating (projection would be
+  // mid-flight) and when the map is hidden/too short to matter.
+  const CARD_SPACE = 360; // docked card height + bottom margin, roughly
+  const nudgeAboveCard = (lng: number, lat: number) => {
+    const m = mapRef.current;
+    if (!m || !dockCard || m.isMoving()) return;
+    const h = m.getContainer().clientHeight;
+    if (h < CARD_SPACE + 80) return;
+    if (m.project([lng, lat]).y > h - CARD_SPACE) {
+      m.easeTo({
+        center: [lng, lat],
+        offset: [0, -CARD_SPACE / 2],
+        duration: 450,
+      });
+    }
+  };
+
   // Auto-open the popup for the selected spot (a focus search, or "View on map")
   // as if its pin had been clicked. On a focus search the pin isn't in `pins` at
   // mount, so we wait for it to arrive, then open once. `lastAutoSelect` keeps it
@@ -152,6 +183,8 @@ export default function MapView({
     if (!pin) return; // not loaded into view yet; reopen when it arrives
     lastAutoSelect.current = selectedId;
     setPopup(pin);
+    nudgeAboveCard(pin.lng, pin.lat);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId, pins]);
 
   // Lazy-load the open spot's gallery for the popup carousel.
@@ -214,7 +247,10 @@ export default function MapView({
     const id = f.properties?.id as number;
     onSelect(id);
     const pin = pins.find((p) => p.id === id);
-    if (pin) setPopup(pin);
+    if (pin) {
+      setPopup(pin);
+      nudgeAboveCard(pin.lng, pin.lat);
+    }
   };
 
   const onMouseMove = (e: MapMouseEvent) => {
@@ -310,7 +346,7 @@ export default function MapView({
         <Layer {...pointLabelLayer()} />
       </Source>
 
-      {popup && (
+      {popup && !dockCard && (
         <Popup
           longitude={popup.lng}
           latitude={popup.lat}
@@ -328,17 +364,12 @@ export default function MapView({
           maxWidth="240px"
         >
           <div className="relative">
-            <button
-              type="button"
-              aria-label="Close"
-              onClick={() => {
+            <CloseCard
+              onClose={() => {
                 setPopup(null);
                 onSelect(null);
               }}
-              className="absolute top-2 right-2 z-10 grid h-7 w-7 place-items-center rounded-full bg-ink-900/70 text-white hover:bg-ink-900 cursor-pointer"
-            >
-              <X size={14} weight="bold" />
-            </button>
+            />
             <PlaceCard
               r={popup}
               gallery={gallery.photos}
@@ -350,6 +381,42 @@ export default function MapView({
           </div>
         </Popup>
       )}
+
+      {/* Mobile: the card docks to the bottom of the map (never clips, never
+          fights the pin anchor); the highlighted pin still shows WHERE it is. */}
+      {popup && dockCard && (
+        <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center pointer-events-none">
+          <div className="relative pointer-events-auto rounded-lg shadow-xl">
+            <CloseCard
+              onClose={() => {
+                setPopup(null);
+                onSelect(null);
+              }}
+            />
+            <PlaceCard
+              r={popup}
+              gallery={gallery.photos}
+              galleryLogo={gallery.logo}
+              className="w-[240px]"
+              newTab
+              noHover
+            />
+          </div>
+        </div>
+      )}
     </Map>
+  );
+}
+
+function CloseCard({ onClose }: { onClose: () => void }) {
+  return (
+    <button
+      type="button"
+      aria-label="Close"
+      onClick={onClose}
+      className="absolute top-2 right-2 z-10 grid h-7 w-7 place-items-center rounded-full bg-ink-900/70 text-white hover:bg-ink-900 cursor-pointer"
+    >
+      <X size={14} weight="bold" />
+    </button>
   );
 }

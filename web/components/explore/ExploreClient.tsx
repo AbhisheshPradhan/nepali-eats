@@ -907,12 +907,14 @@ export function ExploreClient({
 					/>
 				</div>
 
-				{/* Hide the floating toggle while the list is empty — the empty
-				    state shows its own "Open map" button right under the copy. */}
+				{/* Hide the floating toggle while the list is empty (the empty
+				    state has its own "Open map" button) and while a spot card is
+				    open on the map (the docked card owns the bottom edge). */}
 				<div
 					className={cn(
 						"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
 						viewMode === "list" && ready && shown.length === 0 && "hidden",
+						viewMode === "map" && selected != null && "hidden",
 					)}
 				>
 					<button
