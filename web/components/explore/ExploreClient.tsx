@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
 	NavigationArrow,
@@ -21,7 +21,7 @@ import {
 } from "@/components/shadcn/select";
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
-import type { Restaurant, RestaurantPin, Bbox } from "@/lib/types";
+import type { Restaurant, ExploreSpot, Bbox } from "@/lib/types";
 import { isOpenNow } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { cn } from "@/lib/cn";
@@ -43,6 +43,8 @@ const FLAG_OPTIONS: [string, string][] = [
 	["dogs", "Dog-friendly"],
 	["wheelchair", "Wheelchair access"],
 ];
+
+const PAGE_SIZE = 30;
 
 const MapView = dynamic(() => import("./MapView"), {
 	ssr: false,
@@ -82,11 +84,24 @@ function Seg<T extends string | number>({
 	);
 }
 
+// Client-side equivalents of the old SQL ORDER BY clauses. `featured` also
+// floats spots with a card image (logo or photo) above photoless ones; explicit
+// Rating/Newest sorts stay pure so a top pick isn't buried for lacking a photo.
+const hasImage = (s: ExploreSpot) => !!(s.logoKey || s.primaryPhoto);
+const desc = (a: number | null, b: number | null) => (b ?? -1) - (a ?? -1);
+const SORTS: Record<string, (a: ExploreSpot, b: ExploreSpot) => number> = {
+	featured: (a, b) =>
+		Number(hasImage(b)) - Number(hasImage(a)) ||
+		(a.featuredRank ?? Infinity) - (b.featuredRank ?? Infinity) ||
+		desc(a.reviewCount, b.reviewCount) ||
+		desc(a.rating, b.rating),
+	rating: (a, b) => desc(a.rating, b.rating) || desc(a.reviewCount, b.reviewCount),
+	newest: (a, b) => b.id - a.id,
+};
+
 export function ExploreClient({
 	fixed,
 	initialItems,
-	initialPins,
-	initialTotal,
 	initialCenter,
 	initialZoom,
 	areaLabel,
@@ -98,9 +113,9 @@ export function ExploreClient({
 	initialQuery = "",
 }: {
 	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
+	// SSR seed: just the focused restaurant (when any) so a ?focus= landing paints
+	// its result instantly; everything else renders from the spots payload.
 	initialItems: Restaurant[];
-	initialPins: RestaurantPin[];
-	initialTotal: number;
 	initialCenter: [number, number];
 	initialZoom: number;
 	areaLabel: string;
@@ -114,15 +129,20 @@ export function ExploreClient({
 	// initialQuery = what the search box shows (suburb, state / focused name)
 	initialQuery?: string;
 }) {
-	const [items, setItems] = useState<Restaurant[]>(initialItems);
-	const [pins, setPins] = useState<RestaurantPin[]>(initialPins);
-	const [total, setTotal] = useState(initialTotal);
-	const [loading, setLoading] = useState(false);
-	const [loadingMore, setLoadingMore] = useState(false);
-	// false until the client's first viewport fetch resolves. The list/pins/count
-	// are client-owned, so until then we show a loading state, not a "0 spots" /
-	// empty flash. (The focused restaurant is the one thing rendered server-side.)
-	const [hasLoaded, setHasLoaded] = useState(false);
+	// THE data: every visible spot, fetched once (CDN-cached). All filtering,
+	// sorting and pagination happen in memory — map pans never refetch.
+	const [spots, setSpots] = useState<ExploreSpot[] | null>(null);
+
+	useEffect(() => {
+		const ctrl = new AbortController();
+		fetch("/api/explore/spots", { signal: ctrl.signal })
+			.then((r) => r.json())
+			.then((d: { spots?: ExploreSpot[] }) => setSpots(d.spots ?? []))
+			.catch((e) => {
+				if (e.name !== "AbortError") console.error(e);
+			});
+		return () => ctrl.abort();
+	}, []);
 
 	// The search box is uncontrolled (SearchBox owns its text). To override it from
 	// "Near me", we bump boxKey to remount it with a fresh defaultValue.
@@ -148,9 +168,7 @@ export function ExploreClient({
 	const [userLoc, setUserLoc] = useState<[number, number] | null>(
 		initialUserLoc ?? null,
 	);
-	// the map's live viewport. The fetched list can be scoped to a wider bbox than
-	// what's actually on screen (SSR seed box, or a pending zoom before refetch), so
-	// we clip the rendered list to this so it always matches the visible pins.
+	// the map's live viewport — the sole geographic filter for the list.
 	const [viewBbox, setViewBbox] = useState<Bbox | null>(null);
 
 	// The URL (suburb/state/lat-lng/focus) only SEEDS the view. Once the visitor
@@ -169,95 +187,30 @@ export function ExploreClient({
 		}
 	};
 
-	const bboxRef = useRef<Bbox | null>(null);
-	const firstBoundsRef = useRef(true); // first viewport fetch fires immediately
-	const pageRef = useRef(1);
-	const abortRef = useRef<AbortController | null>(null);
-	const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const listRef = useRef<HTMLDivElement>(null);
-	const fetchRef = useRef<(reset: boolean) => void>(() => {});
 	// the view this client last applied; starts at the mount value so the resync
 	// effect is a no-op on first render and only fires on later soft navigations.
 	const appliedViewKey = useRef(viewKey);
 
-	const buildParams = (page: number) => {
-		const b = bboxRef.current!;
-		const p = new URLSearchParams();
-		p.set("bbox", `${b.w},${b.s},${b.e},${b.n}`);
-		p.set("page", String(page));
-		p.set("sort", sort);
-		if (minRating) p.set("rating", String(minRating));
-		// Attribute flags: true-only AND filters, allowlisted in queries.ts FLAG_COLS.
-		if (flags.length) p.set("flags", flags.join(","));
-		if (fixed.tag) p.set("tag", fixed.tag);
-		if (fixed.venue) p.set("venue", fixed.venue);
-		// geographic scope is seed-only: drop it the moment we're in map-area mode so
-		// the bbox is the sole geo filter (read the ref so fetch-time is authoritative).
-		if (!areaScopedRef.current) {
-			if (fixed.state) p.set("state", fixed.state);
-			if (fixed.suburb) p.set("suburb", fixed.suburb);
-		}
-		return p;
-	};
-
-	const run = (reset: boolean) => {
-		if (!bboxRef.current) return;
-		const page = reset ? 1 : pageRef.current + 1;
-		abortRef.current?.abort();
-		const ctrl = new AbortController();
-		abortRef.current = ctrl;
-		if (reset) setLoading(true);
-		else setLoadingMore(true);
-		fetch(`/api/restaurants?${buildParams(page)}`, { signal: ctrl.signal })
-			.then((r) => r.json())
-			.then((data) => {
-				if (reset) {
-					setItems(data.items);
-					setPins(data.pins || []);
-					setTotal(data.total ?? 0);
-					setHasLoaded(true);
-					pageRef.current = 1;
-				} else {
-					setItems((prev) => [...prev, ...data.items]);
-					pageRef.current = page;
-				}
-			})
-			.catch((e) => {
-				if (e.name !== "AbortError") console.error(e);
-			})
-			.finally(() => {
-				setLoading(false);
-				setLoadingMore(false);
-			});
-	};
-	// Latest-ref pattern: keep the ref pointing at this render's `run` (which
-	// closes over the current filters) without writing a ref during render.
-	useEffect(() => {
-		fetchRef.current = run;
-	});
-
-	// map bounds change → auto-refresh the list (debounced). The first event
-	// refetches the actual visible bounds; SSR data shows meanwhile (no flash).
+	// map bounds change → refilter the in-memory list (no fetch, no debounce).
 	const onBounds = useCallback((b: Bbox, userMoved: boolean) => {
-		bboxRef.current = b;
-		setViewBbox(b); // clip the list to the visible area immediately, before refetch
-		// any real pan/zoom away from the seeded view (suburb/state, a lat/lng search,
-		// "Near me", or the default camera) → switch to map-area mode. Clear the box
-		// (don't show "Map area" as text — it's not a real query); the "in the map
-		// area" context lives in the list heading below.
+		setViewBbox(b);
+		// any real pan/zoom away from the seeded view (suburb/state, a lat/lng
+		// search, "Near me", or the default camera) → switch to map-area mode.
+		// Clear the box (don't show "Map area" as text); the "in the map area"
+		// context lives in the list heading below.
 		if (userMoved) enterAreaMode("");
-		if (debounceRef.current) clearTimeout(debounceRef.current);
-		const delay = firstBoundsRef.current ? 0 : 400;
-		firstBoundsRef.current = false;
-		debounceRef.current = setTimeout(() => fetchRef.current(true), delay);
+		 
 	}, []);
 
-	// refilter when controls change
-	useEffect(() => {
-		if (!bboxRef.current) return;
-		const t = setTimeout(() => fetchRef.current(true), 0);
-		return () => clearTimeout(t);
-	}, [minRating, sort, flags]);
+	// Pagination window, keyed to the current filter/viewport signature so any
+	// change resets it to one page (mirrors the old fetch-per-move behaviour)
+	// without a reset effect. "Load more" grows the count under the same key.
+	const pageKey = JSON.stringify([sort, flags, minRating, openOnly, areaScoped, viewBbox]);
+	const [page, setPage] = useState({ key: pageKey, count: PAGE_SIZE });
+	const shownCount = page.key === pageKey ? page.count : PAGE_SIZE;
+	const showMore = () =>
+		setPage({ key: pageKey, count: shownCount + PAGE_SIZE });
 
 	// Default view: if the visitor already granted location, recentre on them
 	// ("near me" by default). Otherwise keep the SSR state-capital / Sydney centre.
@@ -292,7 +245,7 @@ export function ExploreClient({
 	// navigation: the server re-renders with a new camera but React keeps this client
 	// instance, so center/zoom/scope (seeded only at mount) would otherwise go stale
 	// and the map never moves. When the server-resolved viewKey changes, re-apply the
-	// new view: recentre (MapView flyTo → onBounds refetch), re-seed the geo scope so
+	// new view: recentre (MapView flyTo → onBounds refilter), re-seed the geo scope so
 	// the new suburb/state filter applies, and resync the search box.
 	useEffect(() => {
 		if (appliedViewKey.current === viewKey) return;
@@ -304,8 +257,6 @@ export function ExploreClient({
 		setSelected(focusId ?? null);
 		setBoxValue(initialQuery);
 		setBoxKey((k) => k + 1);
-		// let the post-flyTo bounds emit fetch immediately rather than debounced.
-		firstBoundsRef.current = true;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
 
@@ -343,7 +294,7 @@ export function ExploreClient({
 
 	// "View on map" from a list card: recentre + zoom in on the spot and highlight
 	// its pin. On mobile this also flips to the map view so the move is visible.
-	const viewOnMap = (r: Restaurant) => {
+	const viewOnMap = (r: { id: number; lat: number | null; lng: number | null }) => {
 		if (r.lat == null || r.lng == null) return;
 		setSelected(r.id);
 		setCenter([r.lat, r.lng]);
@@ -357,31 +308,62 @@ export function ExploreClient({
 	// distances from the focused restaurant.
 	const distOrigin = userLoc ?? defaultUserLoc;
 
-	// only list spots whose pin is in the current viewport (matches what's on the map)
-	const inView = (r: Restaurant) =>
-		!viewBbox ||
-		r.lat == null ||
-		r.lng == null ||
-		(r.lng >= viewBbox.w &&
-			r.lng <= viewBbox.e &&
-			r.lat >= viewBbox.s &&
-			r.lat <= viewBbox.n);
+	// ---- the in-memory pipeline: scope -> filter -> sort -> paginate ---------
 
-	const base = items.filter(
-		(r) =>
-			inView(r) &&
-			(!openOnly || isOpenNow(r.openingHours, r.state) !== false),
+	// Attribute/quality filters + the URL-seeded scope. tag/venue always apply;
+	// suburb/state are seed-only and drop once the visitor takes over the map.
+	const matches = useMemo(() => {
+		if (!spots) return [];
+		const suburb = fixed.suburb?.toLowerCase();
+		return spots.filter(
+			(s) =>
+				(!fixed.tag || s.tags.includes(fixed.tag)) &&
+				(!fixed.venue || s.venueType === fixed.venue) &&
+				(areaScoped ||
+					((!fixed.state || s.state === fixed.state) &&
+						(!suburb || s.suburb?.toLowerCase() === suburb))) &&
+				flags.every((f) => s.flags.includes(f)) &&
+				(!minRating || (s.rating ?? 0) >= minRating) &&
+				(!openOnly || isOpenNow(s.openingHours, s.state) !== false),
+		);
+	}, [spots, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, minRating, openOnly, areaScoped]);
+
+	// only list spots whose pin is in the current viewport (matches what's on the map)
+	const inView = useMemo(() => {
+		if (!viewBbox) return matches;
+		return matches.filter(
+			(s) =>
+				s.lng >= viewBbox.w &&
+				s.lng <= viewBbox.e &&
+				s.lat >= viewBbox.s &&
+				s.lat <= viewBbox.n,
+		);
+	}, [matches, viewBbox]);
+
+	const sorted = useMemo(
+		() => [...inView].sort(SORTS[sort] ?? SORTS.featured),
+		[inView, sort],
 	);
+
 	// keep the searched (focused) restaurant pinned to the top
-	const shown =
-		focusId != null && base.some((r) => r.id === focusId)
-			? [
-					...base.filter((r) => r.id === focusId),
-					...base.filter((r) => r.id !== focusId),
-				]
-			: base;
+	const ordered = useMemo(() => {
+		if (focusId == null) return sorted;
+		const focus = sorted.filter((s) => s.id === focusId);
+		return focus.length
+			? [...focus, ...sorted.filter((s) => s.id !== focusId)]
+			: sorted;
+	}, [sorted, focusId]);
+
+	// Ready = the payload landed AND the map reported its real viewport, so the
+	// list never flashes an un-clipped nationwide set before the bounds arrive.
+	const ready = spots !== null && viewBbox !== null;
+	const total = ordered.length;
+	// Until then, the SSR-seeded focused restaurant is the list.
+	const shown: (ExploreSpot | Restaurant)[] = ready
+		? ordered.slice(0, shownCount)
+		: initialItems;
 	// focus view = the searched restaurant sits at the top (shown as the result).
-	// "You may also like" only renders when the viewport fetch adds more (length > 1).
+	// "You may also like" only renders when the viewport adds more (length > 1).
 	const isFocusView = focusId != null && shown[0]?.id === focusId;
 
 	// Count every active filter the "Filters" button stands for. On mobile Open
@@ -431,7 +413,7 @@ export function ExploreClient({
 				</div>
 
 				{/* Filter bar: primary controls always visible; attribute chips live
-				    behind the Filters toggle. Open now is computed client-side. */}
+				    behind the Filters toggle. Everything filters in memory, instantly. */}
 				<div className="mt-3">
 					{/* Mobile: one horizontally-scrollable row (bleeds to the screen
 					    edges) so the controls stay on a single thumb-swipeable line
@@ -597,11 +579,11 @@ export function ExploreClient({
 						<span className="font-display font-bold text-ink-700">
 							{isFocusView
 								? areaLabel
-								: !hasLoaded
+								: !ready
 									? "Finding spots…"
 									: `${total} ${total === 1 ? "spot" : "spots"} ${areaScoped ? "in the map area" : areaLabel}`}
 						</span>
-						{loading && (
+						{!ready && (
 							<CircleNotch
 								className="animate-spin text-chili-500"
 								size={18}
@@ -609,7 +591,7 @@ export function ExploreClient({
 						)}
 					</div>
 
-					{shown.length === 0 && !hasLoaded ? (
+					{shown.length === 0 && !ready ? (
 						<div className="text-center py-12 text-ink-500">
 							<CircleNotch
 								size={28}
@@ -660,16 +642,10 @@ export function ExploreClient({
 						</div>
 					)}
 
-					{items.length < total && !openOnly && (
+					{ready && shownCount < total && (
 						<div className="pt-4 text-center">
-							<Button
-								variant="outline"
-								onClick={() => run(false)}
-								disabled={loadingMore}
-							>
-								{loadingMore
-									? "Loading…"
-									: `Load more (${total - items.length} left)`}
+							<Button variant="outline" onClick={showMore}>
+								{`Load more (${total - shownCount} left)`}
 							</Button>
 						</div>
 					)}
@@ -682,7 +658,7 @@ export function ExploreClient({
 					)}
 				>
 					<MapView
-						pins={pins}
+						pins={ready ? matches : []}
 						hoveredId={hovered}
 						selectedId={selected}
 						onHover={setHovered}
@@ -699,7 +675,7 @@ export function ExploreClient({
 				<div
 					className={cn(
 						"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
-						viewMode === "list" && hasLoaded && shown.length === 0 && "hidden",
+						viewMode === "list" && ready && shown.length === 0 && "hidden",
 					)}
 				>
 					<button

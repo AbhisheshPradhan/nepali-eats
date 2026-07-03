@@ -107,7 +107,11 @@ export interface Facet {
   count: number;
 }
 
-export interface RestaurantPin {
+// The Explore payload row: ONE thin shape serves the map pin, the list card,
+// and every client-side filter, so the whole visible directory ships once
+// (~450 rows, CDN-cached) and pans/filters never refetch. Deliberately carries
+// NO menu data — dish search is a separate endpoint later.
+export interface ExploreSpot {
   id: number;
   slug: string;
   name: string;
@@ -116,11 +120,19 @@ export interface RestaurantPin {
   rating: number | null;
   reviewCount: number | null;
   venueType: VenueType | null;
+  priceLevel: number | null;
   priceRange: string | null;
   suburb: string | null;
   state: string | null;
   primaryPhoto: string | null;
+  logoKey: string | null;
+  openingHours: OpeningHours | null; // powers Open now + the card badge
   businessStatus: string | null; // so the popup card can show "Temporarily closed"
+  isFeatured: boolean;
+  featuredRank: number | null; // drives the Featured sort
+  popular: boolean;
+  tags: string[]; // coarse dish/style rollup — powers ?tag= scoping
+  flags: string[]; // true-only attribute tokens (FLAG_COLS keys) — filter chips
 }
 
 export interface Bbox {

@@ -141,15 +141,13 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   // corrected on first paint (count flip + reorder + set change = the flicker).
   // The server only sets the camera (above). The one exception is the focused
   // restaurant — it isn't viewport-dependent, so we render it instantly as the
-  // result; "you may also like" then fills in from the real viewport client-side.
+  // result; the rest of the list fills in from the client-fetched spots payload.
   const items = focused ? [focused] : [];
 
   return (
     <ExploreClient
       fixed={fixed}
       initialItems={items}
-      initialPins={[]}
-      initialTotal={focused ? 1 : 0}
       initialCenter={center}
       initialZoom={zoom}
       areaLabel={areaLabel}

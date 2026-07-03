@@ -207,13 +207,19 @@ select:focus-visible {
 	box-shadow: none;
 }
 
-/* Mapbox popup: strip default chrome, use our card styling */
+/* Mapbox popup: strip default chrome, use our card styling. Mapbox sets
+   `font: 12px/20px Helvetica Neue…` on .mapboxgl-map, which the popup's card
+   would inherit — restore the app's body font/scale so the popup PlaceCard
+   matches the list cards exactly. */
 .ne-popup .mapboxgl-popup-content {
 	padding: 0;
 	border-radius: var(--radius-lg);
 	overflow: hidden;
 	box-shadow: var(--shadow-lg);
 	background: #fff;
+	font-family: var(--font-body);
+	font-size: 17px;
+	line-height: 1.55;
 }
 .ne-popup .mapboxgl-popup-tip {
 	border-top-color: #fff;

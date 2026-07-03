@@ -5,8 +5,7 @@ import type {
 	RestaurantDetail,
 	Facet,
 	Photo,
-	RestaurantPin,
-	Bbox,
+	ExploreSpot,
 	MenuCategory,
 	MenuItem,
 } from "./types";
@@ -90,28 +89,19 @@ export interface ListOpts {
 	suburb?: string;
 	tag?: string;
 	venueType?: string;
-	bbox?: Bbox;
 	priceLevel?: number;
 	minRating?: number;
 	hasPhoto?: boolean;
 	featured?: boolean;
 	notFeatured?: boolean;
 	popular?: boolean;
-	// Boolean attribute filters (Places API columns). Pass allowlisted tokens from
-	// FLAG_COLS; each adds `AND <col>` (true-only, null/false excluded). Backend is
-	// ready; the Explore UI for these is still scaffolded/commented pending design.
-	flags?: string[];
 	limit?: number;
 	offset?: number;
 	orderBy?: "popular" | "rating" | "name" | "newest" | "featured";
-	// When true, sink photoless spots to the bottom: rows with a card image
-	// (logo, cover, or any gallery photo) sort ahead of those without, before the
-	// chosen `orderBy` applies within each group. Used by the Explore default view.
-	photosFirst?: boolean;
 }
 
-// Allowlist mapping filter token -> boolean column. Allowlisted so a token can
-// never inject SQL and only known columns are filterable.
+// Attribute-flag token -> boolean column. exploreSpots() emits the tokens whose
+// column is true, and the Explore filter chips match on them client-side.
 const FLAG_COLS: Record<string, string> = {
 	kid: "kid_friendly",
 	music: "live_music",
@@ -147,10 +137,6 @@ function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
 	if (o.tag) cond.push(`${p(o.tag)} = ANY(r.tags)`);
 	if (o.priceLevel) cond.push(`r.price_level = ${p(o.priceLevel)}`);
 	if (o.minRating) cond.push(`r.rating >= ${p(o.minRating)}`);
-	if (o.bbox)
-		cond.push(
-			`r.geom && ST_MakeEnvelope(${p(o.bbox.w)}, ${p(o.bbox.s)}, ${p(o.bbox.e)}, ${p(o.bbox.n)}, 4326)`,
-		);
 	if (o.hasPhoto)
 		cond.push(
 			"EXISTS (SELECT 1 FROM restaurant_photos p WHERE p.restaurant_id = r.id AND NOT p.removed)",
@@ -158,11 +144,6 @@ function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
 	if (o.featured) cond.push("r.featured_rank IS NOT NULL");
 	if (o.notFeatured) cond.push("r.featured_rank IS NULL");
 	if (o.popular) cond.push("r.popular");
-	if (o.flags)
-		for (const f of o.flags) {
-			const col = FLAG_COLS[f];
-			if (col) cond.push(`r.${col}`); // boolean column: true-only match
-		}
 	return { where: cond.length ? "WHERE " + cond.join(" AND ") : "", params };
 }
 
@@ -175,16 +156,9 @@ const ORDER: Record<string, string> = {
 		"r.featured_rank ASC NULLS LAST, r.review_count DESC NULLS LAST, r.rating DESC NULLS LAST",
 };
 
-// Leading ORDER key that pushes photoless spots to the bottom. Mirrors the card's
-// image source (logo -> cover -> first gallery photo); the alias `primary_photo`
-// can't be reused inside an ORDER expression, so the test is inlined.
-const HAS_IMAGE_DESC =
-	"(r.logo_key IS NOT NULL OR r.cover_key IS NOT NULL OR EXISTS (SELECT 1 FROM restaurant_photos p WHERE p.restaurant_id = r.id AND NOT p.removed)) DESC";
-
 export async function listRestaurants(o: ListOpts = {}): Promise<Restaurant[]> {
 	const { where, params } = buildWhere(o);
-	const sort = ORDER[o.orderBy || "popular"];
-	const order = o.photosFirst ? `${HAS_IMAGE_DESC}, ${sort}` : sort;
+	const order = ORDER[o.orderBy || "popular"];
 	// limit/offset are interpolated (not bound), so coerce to integers to keep
 	// them un-injectable even if a caller ever passes a non-numeric value.
 	const limit = Math.trunc(o.limit ?? 60);
@@ -210,21 +184,26 @@ export async function listSavedRestaurants(
 	return rows.map(mapRow);
 }
 
-// All venues whose geom falls in the current map bounds (for plotting every
-// visible pin). Lighter projection than the list; capped for safety.
-export async function pinsInBounds(o: ListOpts): Promise<RestaurantPin[]> {
-	const { where, params } = buildWhere(o);
+// The ENTIRE visible directory as thin Explore rows (pin + card + filter
+// fields). ~450 rows, one query, served CDN-cached by /api/explore/spots; the
+// client filters/sorts/paginates in memory, so map pans never hit the DB.
+export async function exploreSpots(): Promise<ExploreSpot[]> {
+	const flagCols = Object.values(FLAG_COLS)
+		.map((c) => `r.${c}`)
+		.join(", ");
 	const rows = await query(
 		`SELECT r.id, r.slug, r.name, r.lat, r.lng, r.rating, r.review_count,
-            r.venue_type, r.price_range, r.suburb, r.state, r.business_status,
+            r.venue_type, r.price_level, r.price_range, r.suburb, r.state,
+            r.logo_key, r.opening_hours, r.business_status, r.tags,
+            r.featured_rank, r.popular, ${flagCols},
             COALESCE(
               r.cover_key,
               (SELECT p.storage_key FROM restaurant_photos p
                  WHERE p.restaurant_id = r.id AND NOT p.removed
                  ORDER BY p.is_primary DESC, p.position ASC LIMIT 1)
             ) AS primary_photo
-       FROM restaurants r ${where} ORDER BY r.review_count DESC NULLS LAST LIMIT 3000`,
-		params,
+       FROM restaurants r
+      WHERE r.${NOT_CLOSED} AND r.lat IS NOT NULL AND r.lng IS NOT NULL`,
 	);
 	return rows.map((row: any) => ({
 		id: row.id,
@@ -235,11 +214,22 @@ export async function pinsInBounds(o: ListOpts): Promise<RestaurantPin[]> {
 		rating: row.rating != null ? Number(row.rating) : null,
 		reviewCount: row.review_count != null ? Number(row.review_count) : null,
 		venueType: row.venue_type,
+		priceLevel: row.price_level != null ? Number(row.price_level) : null,
 		priceRange: row.price_range,
 		suburb: row.suburb,
 		state: row.state,
 		primaryPhoto: row.primary_photo,
+		logoKey: row.logo_key,
+		openingHours: row.opening_hours,
 		businessStatus: row.business_status,
+		isFeatured: row.featured_rank != null,
+		featuredRank:
+			row.featured_rank != null ? Number(row.featured_rank) : null,
+		popular: !!row.popular,
+		tags: row.tags || [],
+		flags: Object.entries(FLAG_COLS)
+			.filter(([, col]) => row[col] === true)
+			.map(([token]) => token),
 	}));
 }
 
@@ -403,14 +393,6 @@ export async function deleteRestaurantBySlug(
 		[slug],
 	);
 	return rows.length ? rows[0] : null;
-}
-
-export async function featured(limit = 8): Promise<Restaurant[]> {
-	return listRestaurants({
-		hasPhoto: true,
-		orderBy: "popular",
-		limit,
-	});
 }
 
 // Homepage featured row, scoped to the visitor's state. Editorial picks only

@@ -12,7 +12,7 @@ import Map, {
 import type { GeoJSONSource } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { X } from "@phosphor-icons/react";
-import type { RestaurantPin, Bbox } from "@/lib/types";
+import type { ExploreSpot, Bbox } from "@/lib/types";
 import { PlaceCard } from "@/components/PlaceCard";
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -80,7 +80,7 @@ export default function MapView({
   zoom,
   active = true,
 }: {
-  pins: RestaurantPin[];
+  pins: ExploreSpot[];
   hoveredId: number | null;
   selectedId: number | null;
   onHover: (id: number | null) => void;
@@ -95,7 +95,7 @@ export default function MapView({
 }) {
   const mapRef = useRef<MapRef>(null);
   const [cursor, setCursor] = useState("");
-  const [popup, setPopup] = useState<RestaurantPin | null>(null);
+  const [popup, setPopup] = useState<ExploreSpot | null>(null);
   // Gallery for the open popup's carousel, lazy-loaded per spot (pins carry only
   // one photo). Cached by slug so reopening the same pin doesn't refetch.
   type Gallery = { logo: string | null; photos: string[] };
@@ -340,7 +340,7 @@ export default function MapView({
               <X size={14} weight="bold" />
             </button>
             <PlaceCard
-              r={{ ...popup, openingHours: null }}
+              r={popup}
               gallery={gallery.photos}
               galleryLogo={gallery.logo}
               className="w-[230px]"

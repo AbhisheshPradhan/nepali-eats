@@ -6,24 +6,37 @@ the line-level code review, whose items were all fixed and pushed 2026-07-03).
 dashboard access, or a prod-DB migration go-ahead. SEO content work is
 deliberately parked (Abhishesh's call, 2026-07-03).
 
-## 1. Explore is over-built for 437 rows — ship all pins once (Solo, discussed)
+## 1. Explore all-pins-once redesign — ✅ DONE 2026-07-03
 
-Every map pan re-runs a PostGIS bbox query and re-ships the pins in view, but
-the whole dataset is ~437 visible rows. Replace with ONE thin
-`/api/explore/spots` payload (pin + card + filter fields per row, CDN-cached);
-the client filters/sorts/paginates in memory. Pans become instant, the hottest
-DB query disappears, load-more and count drift disappear. Full design + payload
-math discussed 2026-07-03; scale ceiling ~5k rows, revisit then. Supersedes the
-old `pinsInBounds` note in ROADMAP.
+Shipped: `/api/explore/spots` (thin `ExploreSpot` rows: pin + card + filter
+fields, 438 rows ≈ ~40KB gzipped, CDN-cached), ExploreClient
+filters/sorts/paginates in memory (bbox fetch machinery deleted),
+`/api/restaurants` + `pinsInBounds` removed. Bonus: the map popup card now
+shows live open status (pins carry openingHours). Scale ceiling ~5k rows
+(shard by state then). The payload deliberately has NO menu data — dish search
+is a separate endpoint (schema verified ready 2026-07-03, see the menu-search
+investigation note below).
 
-- [ ] Build `/api/explore/spots` (thin shape: pin fields + openingHours,
-      logoKey, priceLevel, isFeatured, popular, tags, flag booleans)
-- [ ] ExploreClient: client-side viewport filter/sort/pagination; delete the
-      bbox fetch machinery (`run`/debounce/abort/load-more)
-- [ ] Delete `/api/restaurants` + `pinsInBounds` once nothing consumes them
-- Note: the current bbox API already exposes the full dataset in one
-  Australia-wide call, so this is NOT a new scraping exposure; Cloudflare bot
-  protection + rate rules remain the mitigation either way.
+- Note: the old bbox API already exposed the full dataset in one Australia-wide
+  call, so this is NOT a new scraping exposure; Cloudflare bot protection +
+  rate rules remain the mitigation either way.
+
+### Menu/dish search readiness (investigated 2026-07-03 — schema fully supports it)
+
+Verified against live Neon data, zero migrations needed:
+- Tag pick → restaurants + matched item names (the pills): `menu_item_tags`
+  joins work for `newari` (→ Yamari, Bara, Choila pills), `sekuwa` (→ Chicken
+  Sekuwa · Goat Sekuwa, variant labels give "Sekuwa Stick (Chicken/Lamb/Pork)").
+- `momo` matches all preps via materialized ancestors (153 restaurants, 959
+  items); protein filter (buff momo → 92 restaurants) and prep filter
+  (kothey-momo → 67) are one extra EXISTS each; facet counts per search are a
+  cheap GROUP BY (steamed 144 / chilli 119 / jhol 112 / fried 108 / kothey 67 /
+  sandheko 45; chicken 143 / veg 133 / buff 92 …).
+- Typo/alias lookup is seeded: `search_aliases` maps "c-momo"→Chilli Momo,
+  "dumpling"→Momo, "kukhura"→chicken, etc.
+- Coverage caveat: item-level search only sees the ~144 seeded menus. For the
+  rest, fall back to the coarse `restaurants.tags` rollup (two-tier results per
+  MENU-PLAN.md: "serves momo" without pills).
 
 ## 2. Vercel image optimization quota — launch risk (Needs A + Solo mitigation)
 

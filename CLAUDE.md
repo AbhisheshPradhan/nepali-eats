@@ -100,17 +100,21 @@ Remaining deploy checklist (details in `LAUNCH.md` §3 / `GO-LIVE-CHECKLIST.md`)
   NSW/Sydney): featured = rows with non-null `featured_rank`; popular = hand-set
   `popular` flag, never featured rows. Both self-hide when empty. Cards show
   distance from shared location or the state capital.
-- **Explore = map-driven, PostGIS-backed.** `GET /api/restaurants?bbox=…` →
-  page 1 returns `{items(30), total, pins(all in view)}`; later pages items
-  only. Mapbox GL JS (`react-map-gl` v8, `NEXT_PUBLIC_MAPBOX_TOKEN`) with native
-  clustering; pin click → popup card; list auto-refreshes on `moveend`
-  (debounced); hover/selection via data-driven paint (`activeId`), not DOM
-  markers. Initial centre: `?focus=<slug>` > `?lat&lng` > `?state/suburb/tag`
-  extent > IP-geo state capital > Sydney. `GET /api/search?q=` (3+ chars) powers
-  the shared SearchBox autocomplete. The `?flags=` filter maps allowlisted
-  attribute columns (`FLAG_COLS` in `lib/queries.ts`) to true-only WHERE
-  clauses; the filter UI (chips + Open now + Rating) is live in
-  `ExploreClient.tsx`.
+- **Explore = map-driven, all-client-side (rearchitected 2026-07-03).**
+  `GET /api/explore/spots` ships the ENTIRE visible directory once as thin
+  `ExploreSpot` rows (pin + card + filter fields, ~438 rows ≈ ~40KB gzipped,
+  CDN-cached `s-maxage=3600`); `ExploreClient` filters/sorts/paginates in
+  memory, so map pans and filter changes never refetch. There is NO bbox API
+  anymore (the old `/api/restaurants` + `pinsInBounds` were deleted); the map
+  viewport is just a client-side clip. Deliberately carries no menu data; dish
+  search will be a separate endpoint. Scale ceiling ~5k rows (shard by state
+  then). Map = Mapbox GL JS (`react-map-gl` v8, `NEXT_PUBLIC_MAPBOX_TOKEN`)
+  with native clustering; pin click → popup card (now shows live open status);
+  hover/selection via data-driven paint (`activeId`). Initial centre:
+  `?focus=<slug>` > `?lat&lng` > `?state/suburb/tag` extent > IP-geo state
+  capital > Sydney. `GET /api/search?q=` (3+ chars) powers the shared SearchBox
+  autocomplete. Filter chips match `ExploreSpot.flags` tokens (built from
+  `FLAG_COLS` in `lib/queries.ts`).
 - **Permanently-closed spots are hidden from every public surface** (explore,
   home, search, sitemap, facets) via `business_status IS DISTINCT FROM
   'CLOSED_PERMANENTLY'` (`NOT_CLOSED` in `lib/queries.ts`); detail pages still
