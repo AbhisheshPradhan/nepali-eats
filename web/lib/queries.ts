@@ -8,6 +8,10 @@ import type {
 	ExploreSpot,
 	MenuCategory,
 	MenuItem,
+	DishSuggestion,
+	DishSearchResult,
+	DishFacet,
+	DishItem,
 } from "./types";
 
 // Base column list + the hero photo via a correlated subquery.
@@ -487,6 +491,7 @@ export async function totalCount(): Promise<number> {
 }
 
 export interface Suggestion {
+	dishes: DishSuggestion[];
 	restaurants: {
 		slug: string;
 		name: string;
@@ -501,7 +506,92 @@ export interface Suggestion {
 	}[];
 }
 
-// Autocomplete: match restaurant names + suburb/postcode locations.
+// --- Dish autocomplete -------------------------------------------------------
+// Matches the query against the controlled dish vocabulary (names + the seeded
+// search_aliases, so "dumpling" finds Momo and "c momo" finds Chilli Momo).
+// Rules:
+//  - Show the LEAST specific tag the query distinguishes: "momo" matches Momo
+//    AND all nine "* Momo" preparations, so descendants of a matched tag are
+//    hidden (no flooding); "steamed" only matches Steamed Momo, so it shows.
+//  - Bare proteins never suggest (searching "chicken" means chicken dishes, not
+//    a tag), but a protein word COMBINED with a dish ("paneer momo", "chicken
+//    steamed momo") emits a compound suggestion = the dish tag + that protein
+//    pre-applied as an Explore filter.
+type DishRow = {
+	id: number;
+	slug: string;
+	name: string;
+	kind: string;
+	parent_id: number | null;
+	search_aliases: string[] | null;
+};
+
+function dishMatches(q: string, rows: DishRow[]): DishSuggestion[] {
+	const norm = (s: string) => s.toLowerCase().trim();
+	const text = norm(q);
+	if (!text) return [];
+	const byId = new Map(rows.map((r) => [r.id, r]));
+	const hit = (r: DishRow, t: string) =>
+		norm(r.name).includes(t) ||
+		(r.search_aliases ?? []).some((a) => norm(a).includes(t));
+	// exact/prefix name or alias matches rank above substring matches
+	const rank = (r: DishRow, t: string) => {
+		const names = [r.name, ...(r.search_aliases ?? [])].map(norm);
+		if (names.some((n) => n === t)) return 0;
+		if (names.some((n) => n.startsWith(t))) return 1;
+		return 2;
+	};
+
+	const searchable = rows.filter((r) => r.kind !== "protein");
+	let matched = searchable.filter((r) => hit(r, text));
+	// hide descendants when an ancestor also matched (momo hides its preps)
+	const matchedIds = new Set(matched.map((r) => r.id));
+	matched = matched.filter(
+		(r) => !(r.parent_id && matchedIds.has(r.parent_id)),
+	);
+	matched.sort((a, b) => rank(a, text) - rank(b, text));
+
+	const out: DishSuggestion[] = matched.slice(0, 3).map((r) => ({
+		slug: r.slug,
+		name: r.name,
+		kind: r.kind as DishSuggestion["kind"],
+	}));
+
+	// Compound: one token names a protein, the rest a dish/prep ("paneer momo",
+	// "chicken steamed momo"). Emitted first — it's the most specific intent.
+	// The protein token must EQUAL a protein name/alias: a substring/prefix match
+	// would turn "c momo" (the Chilli Momo alias) into a bogus Chicken compound.
+	const tokens = text.split(/\s+/);
+	if (tokens.length >= 2) {
+		const proteins = rows.filter((r) => r.kind === "protein");
+		for (let i = 0; i < tokens.length && out.length < 4; i++) {
+			const p = proteins.find((r) => rank(r, tokens[i]) === 0);
+			if (!p) continue;
+			const rest = tokens.filter((_, j) => j !== i).join(" ");
+			if (!rest) continue;
+			let dishes = searchable.filter((r) => hit(r, rest));
+			const ids = new Set(dishes.map((r) => r.id));
+			dishes = dishes.filter(
+				(r) => !(r.parent_id && ids.has(r.parent_id)),
+			);
+			dishes.sort((a, b) => rank(a, rest) - rank(b, rest));
+			const d = dishes[0];
+			if (!d) continue;
+			const compound: DishSuggestion = {
+				slug: d.slug,
+				name: `${p.name} ${d.name}`,
+				kind: d.kind as DishSuggestion["kind"],
+				protein: p.slug,
+			};
+			// compound leads; drop a duplicate plain suggestion for the same dish
+			out.unshift(compound);
+			break;
+		}
+	}
+	return out.slice(0, 3);
+}
+
+// Autocomplete: dish tags + restaurant names + suburb/postcode locations.
 export async function searchSuggest(q: string): Promise<Suggestion> {
 	// "Auburn, NSW" → name part + an optional trailing state filter, so a
 	// formatted location label (what the search box fills in on pick) round-trips
@@ -512,7 +602,10 @@ export async function searchSuggest(q: string): Promise<Suggestion> {
 	const like = `%${namePart}%`;
 	const pre = `${namePart}%`;
 	const stateLike = statePart ? `${statePart}%` : null;
-	const [restaurants, locations] = await Promise.all([
+	const [dishRows, restaurants, locations] = await Promise.all([
+		query<DishRow>(
+			`SELECT id, slug, name, kind, parent_id, search_aliases FROM dish_categories`,
+		),
 		query<{
 			slug: string;
 			name: string;
@@ -541,12 +634,91 @@ export async function searchSuggest(q: string): Promise<Suggestion> {
 		),
 	]);
 	return {
+		// dishes match on the WHOLE query (not the split name part): a comma in
+		// a dish query is unlikely, and the full text is what compounds need.
+		dishes: dishMatches(q, dishRows),
 		restaurants,
 		locations: locations.map((l) => ({
 			suburb: l.suburb,
 			state: l.state,
 			postcode: l.postcode,
 			count: Number(l.n),
+		})),
+	};
+}
+
+// --- Dish search matches ------------------------------------------------------
+// Every restaurant with menu items tagged <slug> (ancestors are materialised at
+// seed time, so "momo" flat-matches every preparation), each item carrying its
+// facet slugs (preparations under the searched tag + proteins) so Explore can
+// filter by chip client-side. Viewport-independent: caches per dish at the CDN.
+export async function dishRestaurants(
+	slug: string,
+): Promise<DishSearchResult | null> {
+	const tagRows = await query<{ id: number; slug: string; name: string }>(
+		`SELECT id, slug, name FROM dish_categories WHERE slug = $1`,
+		[slug],
+	);
+	const tag = tagRows[0];
+	if (!tag) return null;
+
+	const rows = await query<{
+		restaurant_id: number;
+		name: string;
+		slugs: string[] | null;
+	}>(
+		`SELECT mi.restaurant_id, mi.name,
+            ARRAY(
+              SELECT d2.slug FROM menu_item_tags t2
+                JOIN dish_categories d2 ON d2.id = t2.dish_category_id
+               WHERE t2.menu_item_id = mi.id
+                 AND (d2.kind = 'protein' OR d2.parent_id = $1)
+            ) AS slugs
+       FROM menu_items mi
+       JOIN restaurants r ON r.id = mi.restaurant_id
+      WHERE NOT mi.is_hidden
+        AND r.${NOT_CLOSED}
+        AND EXISTS (
+              SELECT 1 FROM menu_item_tags t
+               WHERE t.menu_item_id = mi.id AND t.dish_category_id = $1
+            )
+      ORDER BY mi.restaurant_id, mi.position, mi.id`,
+		[tag.id],
+	);
+
+	const byRestaurant = new Map<number, DishItem[]>();
+	const facetSlugs = new Set<string>();
+	for (const row of rows) {
+		const items = byRestaurant.get(row.restaurant_id) ?? [];
+		items.push({ name: row.name, slugs: row.slugs ?? [] });
+		byRestaurant.set(row.restaurant_id, items);
+		for (const s of row.slugs ?? []) facetSlugs.add(s);
+	}
+
+	// Resolve facet names/kinds; keep taxonomy order (preparations before
+	// proteins, then by display_order/id) so chips render in a stable order.
+	const facets: DishFacet[] = facetSlugs.size
+		? (
+				await query<{ slug: string; name: string; kind: string }>(
+					`SELECT slug, name, kind FROM dish_categories
+            WHERE slug = ANY($1) AND kind IN ('preparation','protein')
+            ORDER BY kind = 'protein', display_order, id`,
+					[[...facetSlugs]],
+				)
+			).map((f) => ({
+				slug: f.slug,
+				name: f.name,
+				kind: f.kind as DishFacet["kind"],
+			}))
+		: [];
+
+	return {
+		slug: tag.slug,
+		name: tag.name,
+		facets,
+		restaurants: [...byRestaurant.entries()].map(([id, items]) => ({
+			id,
+			items,
 		})),
 	};
 }

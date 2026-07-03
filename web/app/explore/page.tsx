@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ExploreClient } from "@/components/explore/ExploreClient";
 import { extentOf, getCardBySlug, type ListOpts } from "@/lib/queries";
 import type { Bbox } from "@/lib/types";
-import { STATE_CENTRE, capitalLatLng } from "@/lib/format";
+import { STATE_CENTRE, capitalLatLng, tagLabel } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { resolveState } from "@/lib/geo";
 
@@ -40,6 +40,8 @@ type SP = Promise<{
   lat?: string;
   lng?: string;
   focus?: string;
+  dish?: string; // dish/style/preparation tag slug (menu search)
+  protein?: string; // optional protein facet pre-applied with the dish
 }>;
 
 function zoomForSpan(span: number) {
@@ -128,13 +130,17 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   // SOFT navigation that re-renders the server props but does NOT remount the
   // client. ExploreClient watches this key to re-apply the new camera/scope when
   // it changes; same key = same view = leave the live map/filters untouched.
-  const viewKey = sp.focus
+  const baseKey = sp.focus
     ? `focus:${sp.focus}`
     : hasLatLng
       ? `ll:${qLat},${qLng}`
       : sp.suburb || sp.state || sp.tag || sp.venue
         ? `area:${sp.suburb ?? ""}|${sp.state ?? ""}|${sp.tag ?? ""}|${sp.venue ?? ""}`
         : "default";
+  // dish search rides on top of any camera; a dish change must re-apply too
+  const viewKey = sp.dish
+    ? `${baseKey}+dish:${sp.dish}|${sp.protein ?? ""}`
+    : baseKey;
 
   // The list/pins/count are CLIENT-OWNED: the server can't know the visitor's
   // viewport pixel size, so any SSR list would be scoped to a guessed bbox and get
@@ -147,6 +153,8 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   return (
     <ExploreClient
       fixed={fixed}
+      dish={sp.dish}
+      dishProtein={sp.protein}
       initialItems={items}
       initialCenter={center}
       initialZoom={zoom}
@@ -158,6 +166,12 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       viewKey={viewKey}
       initialQuery={
         focused?.name ??
+        (sp.dish
+          ? [sp.protein, sp.dish]
+              .filter((s): s is string => !!s)
+              .map(tagLabel)
+              .join(" ")
+          : undefined) ??
         (sp.suburb ? (sp.state ? `${sp.suburb}, ${sp.state}` : sp.suburb) : undefined) ??
         nearLabel ??
         ""

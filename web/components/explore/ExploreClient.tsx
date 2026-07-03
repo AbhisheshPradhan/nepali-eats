@@ -1,6 +1,7 @@
 "use client";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import {
 	NavigationArrow,
 	Clock,
@@ -10,6 +11,7 @@ import {
 	CookingPot,
 	CircleNotch,
 	SlidersHorizontal,
+	X,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import {
@@ -21,8 +23,8 @@ import {
 } from "@/components/shadcn/select";
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
-import type { Restaurant, ExploreSpot, Bbox } from "@/lib/types";
-import { isOpenNow } from "@/lib/format";
+import type { Restaurant, ExploreSpot, Bbox, DishSearchResult } from "@/lib/types";
+import { isOpenNow, tagLabel } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { cn } from "@/lib/cn";
 
@@ -101,6 +103,8 @@ const SORTS: Record<string, (a: ExploreSpot, b: ExploreSpot) => number> = {
 
 export function ExploreClient({
 	fixed,
+	dish,
+	dishProtein,
 	initialItems,
 	initialCenter,
 	initialZoom,
@@ -113,6 +117,10 @@ export function ExploreClient({
 	initialQuery = "",
 }: {
 	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
+	// dish search (menu-level): the picked dish/style/preparation tag slug, plus
+	// an optional protein facet pre-applied by a compound pick ("Paneer Momo").
+	dish?: string;
+	dishProtein?: string;
 	// SSR seed: just the focused restaurant (when any) so a ?focus= landing paints
 	// its result instantly; everything else renders from the spots payload.
 	initialItems: Restaurant[];
@@ -129,6 +137,7 @@ export function ExploreClient({
 	// initialQuery = what the search box shows (suburb, state / focused name)
 	initialQuery?: string;
 }) {
+	const router = useRouter();
 	// THE data: every visible spot, fetched once (CDN-cached). All filtering,
 	// sorting and pagination happen in memory — map pans never refetch.
 	const [spots, setSpots] = useState<ExploreSpot[] | null>(null);
@@ -143,6 +152,35 @@ export function ExploreClient({
 			});
 		return () => ctrl.abort();
 	}, []);
+
+	// Dish search matches: per-restaurant menu items tagged with the picked dish
+	// (viewport-independent, CDN-cached per dish). An unknown slug resolves to an
+	// empty result so the coarse restaurants.tags tier below still works.
+	const [dishData, setDishData] = useState<DishSearchResult | null>(null);
+	// One selection per facet kind: a momo preparation and/or a protein.
+	const [prepSel, setPrepSel] = useState<string | null>(null);
+	const [proteinSel, setProteinSel] = useState<string | null>(
+		dishProtein ?? null,
+	);
+
+	useEffect(() => {
+		setDishData(null);
+		if (!dish) return;
+		const ctrl = new AbortController();
+		fetch(`/api/explore/dishes?tag=${encodeURIComponent(dish)}`, {
+			signal: ctrl.signal,
+		})
+			.then((r) => (r.ok ? r.json() : null))
+			.then((d: DishSearchResult | null) =>
+				setDishData(
+					d ?? { slug: dish, name: tagLabel(dish), facets: [], restaurants: [] },
+				),
+			)
+			.catch((e) => {
+				if (e.name !== "AbortError") console.error(e);
+			});
+		return () => ctrl.abort();
+	}, [dish]);
 
 	// The search box is uncontrolled (SearchBox owns its text). To override it from
 	// "Near me", we bump boxKey to remount it with a fresh defaultValue.
@@ -206,7 +244,7 @@ export function ExploreClient({
 	// Pagination window, keyed to the current filter/viewport signature so any
 	// change resets it to one page (mirrors the old fetch-per-move behaviour)
 	// without a reset effect. "Load more" grows the count under the same key.
-	const pageKey = JSON.stringify([sort, flags, minRating, openOnly, areaScoped, viewBbox]);
+	const pageKey = JSON.stringify([sort, flags, minRating, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel]);
 	const [page, setPage] = useState({ key: pageKey, count: PAGE_SIZE });
 	const shownCount = page.key === pageKey ? page.count : PAGE_SIZE;
 	const showMore = () =>
@@ -257,6 +295,9 @@ export function ExploreClient({
 		setSelected(focusId ?? null);
 		setBoxValue(initialQuery);
 		setBoxKey((k) => k + 1);
+		// a new dish (or none) resets the facet chips to the URL's protein
+		setPrepSel(null);
+		setProteinSel(dishProtein ?? null);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
 
@@ -310,13 +351,38 @@ export function ExploreClient({
 
 	// ---- the in-memory pipeline: scope -> filter -> sort -> paginate ---------
 
+	// Dish mode: restaurantId -> matched item names (the card pills), narrowed by
+	// the selected preparation/protein chips. Items are the verified tier.
+	const dishItems = useMemo(() => {
+		if (!dish || !dishData) return null;
+		const m = new Map<number, string[]>();
+		for (const r of dishData.restaurants) {
+			const names = r.items
+				.filter(
+					(it) =>
+						(!prepSel || it.slugs.includes(prepSel)) &&
+						(!proteinSel || it.slugs.includes(proteinSel)),
+				)
+				.map((it) => it.name);
+			if (names.length) m.set(r.id, [...new Set(names)]);
+		}
+		return m;
+	}, [dish, dishData, prepSel, proteinSel]);
+
 	// Attribute/quality filters + the URL-seeded scope. tag/venue always apply;
 	// suburb/state are seed-only and drop once the visitor takes over the map.
+	// Dish mode is two-tier: menu-verified matches (with pills) plus, when no
+	// facet chip narrows it, spots whose coarse tag rollup carries the dish
+	// ("known for momo" but menu not seeded yet — no pills). A prep/protein chip
+	// needs item-level truth, so the coarse tier drops out while one is active.
 	const matches = useMemo(() => {
 		if (!spots) return [];
 		const suburb = fixed.suburb?.toLowerCase();
 		return spots.filter(
 			(s) =>
+				(!dish ||
+					dishItems?.has(s.id) ||
+					(!prepSel && !proteinSel && s.tags.includes(dish))) &&
 				(!fixed.tag || s.tags.includes(fixed.tag)) &&
 				(!fixed.venue || s.venueType === fixed.venue) &&
 				(areaScoped ||
@@ -326,7 +392,7 @@ export function ExploreClient({
 				(!minRating || (s.rating ?? 0) >= minRating) &&
 				(!openOnly || isOpenNow(s.openingHours, s.state) !== false),
 		);
-	}, [spots, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, minRating, openOnly, areaScoped]);
+	}, [spots, dish, dishItems, prepSel, proteinSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, minRating, openOnly, areaScoped]);
 
 	// only list spots whose pin is in the current viewport (matches what's on the map)
 	const inView = useMemo(() => {
@@ -340,10 +406,15 @@ export function ExploreClient({
 		);
 	}, [matches, viewBbox]);
 
-	const sorted = useMemo(
-		() => [...inView].sort(SORTS[sort] ?? SORTS.featured),
-		[inView, sort],
-	);
+	const sorted = useMemo(() => {
+		const cmp = SORTS[sort] ?? SORTS.featured;
+		// dish mode: menu-verified spots (they get pills) rank above coarse-tag
+		// matches, then the chosen sort applies within each tier.
+		const tier = (s: ExploreSpot) => (dishItems?.has(s.id) ? 0 : 1);
+		return [...inView].sort((a, b) =>
+			dish ? tier(a) - tier(b) || cmp(a, b) : cmp(a, b),
+		);
+	}, [inView, sort, dish, dishItems]);
 
 	// keep the searched (focused) restaurant pinned to the top
 	const ordered = useMemo(() => {
@@ -354,10 +425,13 @@ export function ExploreClient({
 			: sorted;
 	}, [sorted, focusId]);
 
-	// Ready = the payload landed AND the map reported its real viewport, so the
-	// list never flashes an un-clipped nationwide set before the bounds arrive.
-	const ready = spots !== null && viewBbox !== null;
+	// Ready = the payload landed AND the map reported its real viewport (and, in
+	// dish mode, the dish matches too), so the list never flashes a wrong set.
+	const ready =
+		spots !== null && viewBbox !== null && (!dish || dishData !== null);
 	const total = ordered.length;
+	const dishName = dish ? (dishData?.name ?? tagLabel(dish)) : null;
+	const clearDish = () => router.push("/explore");
 	// Until then, the SSR-seeded focused restaurant is the list.
 	const shown: (ExploreSpot | Restaurant)[] = ready
 		? ordered.slice(0, shownCount)
@@ -494,6 +568,47 @@ export function ExploreClient({
 						</button>
 					</div>
 
+					{/* Dish refine bar: what you searched + the preparation/protein
+					    chips found in the matched menus. One pick per kind; tapping
+					    the active chip clears it. All in-memory, instant. */}
+					{dish && (
+						<div className="mt-2.5 flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
+							<button
+								onClick={clearDish}
+								title="Clear dish search"
+								className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-chili-500 border-2 border-chili-500 text-white px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.9rem]"
+							>
+								<CookingPot weight="fill" size={15} />
+								{dishName}
+								<X size={13} weight="bold" />
+							</button>
+							{(dishData?.facets ?? []).map((f) => {
+								const active =
+									f.kind === "preparation"
+										? prepSel === f.slug
+										: proteinSel === f.slug;
+								const toggle = () =>
+									f.kind === "preparation"
+										? setPrepSel(active ? null : f.slug)
+										: setProteinSel(active ? null : f.slug);
+								return (
+									<button
+										key={f.slug}
+										onClick={toggle}
+										className={cn(
+											"shrink-0 border-2 rounded-full px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
+											active
+												? "bg-coriander-500 border-coriander-500 text-white"
+												: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+										)}
+									>
+										{f.name}
+									</button>
+								);
+							})}
+						</div>
+					)}
+
 					{showFilters && (
 						<div className="mt-2.5">
 							{/* Mobile only: Near me + Open now + Rating live in the panel
@@ -581,7 +696,7 @@ export function ExploreClient({
 								? areaLabel
 								: !ready
 									? "Finding spots…"
-									: `${total} ${total === 1 ? "spot" : "spots"} ${areaScoped ? "in the map area" : areaLabel}`}
+									: `${total} ${total === 1 ? "spot" : "spots"}${dishName ? ` serving ${dishName}` : ""} ${areaScoped ? "in the map area" : areaLabel}`}
 						</span>
 						{!ready && (
 							<CircleNotch
@@ -635,6 +750,7 @@ export function ExploreClient({
 											onHover={setHovered}
 											fallbackOrigin={distOrigin}
 											onViewMap={() => viewOnMap(r)}
+											pills={dishItems?.get(r.id)}
 										/>
 									</div>
 								</Fragment>

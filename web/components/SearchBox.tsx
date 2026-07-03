@@ -6,12 +6,14 @@ import {
 	ArrowRight,
 	MapPin,
 	ForkKnife,
+	CookingPot,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import type { Suggestion } from "@/lib/queries";
+import type { DishSuggestion } from "@/lib/types";
 import { cn } from "@/lib/cn";
 
-const EMPTY: Suggestion = { restaurants: [], locations: [] };
+const EMPTY: Suggestion = { dishes: [], restaurants: [], locations: [] };
 
 // useLayoutEffect warns when run during SSR; the dropdown only ever measures on
 // the client, so fall back to useEffect on the server to keep the console clean.
@@ -36,6 +38,7 @@ export function SearchBox({
 	const [selected, setSelected] = useState<
 		| { type: "restaurant"; slug: string }
 		| { type: "location"; suburb: string; state: string }
+		| { type: "dish"; dish: DishSuggestion }
 		| null
 	>(null);
 	const [sugg, setSugg] = useState<Suggestion>(EMPTY);
@@ -93,6 +96,11 @@ export function SearchBox({
 		router.push(`/explore?suburb=${enc(s.suburb)}&state=${enc(s.state)}`);
 	const gotoRestaurant = (slug: string) =>
 		router.push(`/explore?focus=${slug}`);
+	// a compound pick ("Paneer Momo") carries the protein as a pre-set filter
+	const gotoDish = (d: DishSuggestion) =>
+		router.push(
+			`/explore?dish=${enc(d.slug)}${d.protein ? `&protein=${enc(d.protein)}` : ""}`,
+		);
 
 	// typing clears any prior selection (back to free-text)
 	const change = (v: string) => {
@@ -110,11 +118,13 @@ export function SearchBox({
 		setOpen(false);
 		if (selected) {
 			if (selected.type === "restaurant") gotoRestaurant(selected.slug);
+			else if (selected.type === "dish") gotoDish(selected.dish);
 			else gotoSuburb(selected);
 			return;
 		}
 		if (value.trim().length >= 3) {
-			// dropdown lists locations first, so the top location wins, then names
+			// dropdown order wins: dishes first, then locations, then names
+			if (sugg.dishes[0]) return gotoDish(sugg.dishes[0]);
 			if (sugg.locations[0]) return gotoSuburb(sugg.locations[0]);
 			if (sugg.restaurants[0])
 				return gotoRestaurant(sugg.restaurants[0].slug);
@@ -137,6 +147,12 @@ export function SearchBox({
 		setOpen(false);
 		gotoRestaurant(r.slug);
 	};
+	const pickDish = (d: DishSuggestion) => {
+		setValue(d.name);
+		setSelected({ type: "dish", dish: d });
+		setOpen(false);
+		gotoDish(d);
+	};
 
 	const hero = variant === "hero";
 	// show whenever there's a real query, so a no-results state still gets a
@@ -145,26 +161,34 @@ export function SearchBox({
 	const noResults =
 		!loading &&
 		!selected &&
+		sugg.dishes.length === 0 &&
 		sugg.restaurants.length === 0 &&
 		sugg.locations.length === 0;
 	const trimmed = value.trim();
 	const isPostcode = /^\d{4}$/.test(trimmed);
 
 	// Flattened, in-render-order list of options the arrow keys walk through:
-	// locations, then restaurants, then the no-results fallback row. The index of
-	// each item here is its keyboard position (and aria-activedescendant target).
+	// dishes, then locations, then restaurants, then the no-results fallback row.
+	// The index of each item here is its keyboard position (and
+	// aria-activedescendant target).
 	type Opt =
+		| { kind: "dish"; d: DishSuggestion }
 		| { kind: "location"; loc: (typeof sugg.locations)[number] }
 		| { kind: "restaurant"; r: (typeof sugg.restaurants)[number] }
 		| { kind: "noResults" };
 	const flatOptions: Opt[] = [
+		...sugg.dishes.map((d) => ({ kind: "dish", d }) as const),
 		...sugg.locations.map((loc) => ({ kind: "location", loc }) as const),
 		...sugg.restaurants.map((r) => ({ kind: "restaurant", r }) as const),
 		...(noResults ? [{ kind: "noResults" } as const] : []),
 	];
+	// index offsets for the rendered sections below
+	const locOffset = sugg.dishes.length;
+	const restOffset = locOffset + sugg.locations.length;
 
 	const pickOption = (opt: Opt) => {
-		if (opt.kind === "location") pickLocation(opt.loc);
+		if (opt.kind === "dish") pickDish(opt.d);
+		else if (opt.kind === "location") pickLocation(opt.loc);
 		else if (opt.kind === "restaurant") pickRestaurant(opt.r);
 		else if (embedded) change(""); // no-results row: clear the filter in place
 		else {
@@ -317,12 +341,52 @@ export function SearchBox({
 							<span>Searching…</span>
 						</div>
 					)}
+					{sugg.dishes.length > 0 && (
+						<div className="eyebrow text-ink-500 px-4 pt-2 pb-1 bg-paper-50">
+							Dishes
+						</div>
+					)}
+					{sugg.dishes.map((d, i) => (
+						<button
+							type="button"
+							key={`${d.slug}-${d.protein ?? ""}`}
+							id={`searchbox-opt-${i}`}
+							role="option"
+							aria-selected={activeIndex === i}
+							data-opt-index={i}
+							onMouseMove={() => setActiveIndex(i)}
+							onClick={() => pickDish(d)}
+							className={cn(
+								"flex items-center gap-2.5 w-full text-left px-4 py-2.5 cursor-pointer",
+								activeIndex === i ? "bg-paper-100" : "hover:bg-paper-100",
+							)}
+						>
+							<CookingPot
+								className="text-marigold-700 shrink-0"
+								size={18}
+								weight="fill"
+							/>
+							<span className="min-w-0">
+								<span className="block font-semibold text-ink-900 truncate">
+									{d.name}
+								</span>
+								<span className="block text-[0.82rem] text-ink-500">
+									{d.kind === "style"
+										? "Cuisine · see spots that serve it"
+										: "Dish · see spots that serve it"}
+								</span>
+							</span>
+						</button>
+					))}
+
 					{sugg.locations.length > 0 && (
 						<div className="eyebrow text-ink-500 px-4 pt-2 pb-1 bg-paper-50">
 							Locations
 						</div>
 					)}
-					{sugg.locations.map((l, i) => (
+					{sugg.locations.map((l, li) => {
+						const i = locOffset + li;
+						return (
 						<button
 							type="button"
 							key={`${l.suburb}-${l.state}`}
@@ -352,7 +416,8 @@ export function SearchBox({
 								</span>
 							</span>
 						</button>
-					))}
+						);
+					})}
 
 					{sugg.restaurants.length > 0 && (
 						<div className="eyebrow text-ink-500 px-4 pt-2 pb-1 bg-paper-50">
@@ -360,7 +425,7 @@ export function SearchBox({
 						</div>
 					)}
 					{sugg.restaurants.map((r, i) => {
-						const idx = sugg.locations.length + i;
+						const idx = restOffset + i;
 						return (
 						<button
 							type="button"
@@ -397,19 +462,18 @@ export function SearchBox({
 					{noResults && (
 						<button
 							type="button"
-							id={`searchbox-opt-${sugg.locations.length + sugg.restaurants.length}`}
+							id={`searchbox-opt-${restOffset + sugg.restaurants.length}`}
 							role="option"
 							aria-selected={
 								activeIndex ===
-								sugg.locations.length + sugg.restaurants.length
+								restOffset + sugg.restaurants.length
 							}
 							data-opt-index={
-								sugg.locations.length + sugg.restaurants.length
+								restOffset + sugg.restaurants.length
 							}
 							onMouseMove={() =>
 								setActiveIndex(
-									sugg.locations.length +
-										sugg.restaurants.length,
+									restOffset + sugg.restaurants.length,
 								)
 							}
 							onClick={() => {
@@ -423,7 +487,7 @@ export function SearchBox({
 							className={cn(
 								"flex items-center gap-2.5 w-full text-left px-4 py-3 cursor-pointer",
 								activeIndex ===
-									sugg.locations.length + sugg.restaurants.length
+									restOffset + sugg.restaurants.length
 									? "bg-paper-100"
 									: "hover:bg-paper-100",
 							)}

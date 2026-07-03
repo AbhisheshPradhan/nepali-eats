@@ -141,3 +141,39 @@ export interface Bbox {
   e: number;
   n: number;
 }
+
+// --- Dish search ------------------------------------------------------------
+
+// An autocomplete dish row. `protein` is set on compound suggestions ("Paneer
+// Momo" = dish momo + protein paneer pre-applied as a filter on Explore).
+export interface DishSuggestion {
+  slug: string; // dish/style/preparation tag slug (the ?dish= value)
+  name: string; // display label ("Momo", "Paneer Momo", "Newari")
+  kind: "dish" | "style" | "preparation";
+  protein?: string; // protein slug to pre-select (?protein=)
+}
+
+// One facet chip on a dish search (a momo preparation or a protein present in
+// the matched items), for the refine bar.
+export interface DishFacet {
+  slug: string;
+  name: string;
+  kind: "preparation" | "protein";
+}
+
+// A matched menu item on a dish search. `slugs` = the item's facet tags
+// (preparations under the searched dish + proteins) so the client can filter
+// pills/spots by chip without refetching.
+export interface DishItem {
+  name: string;
+  slugs: string[];
+}
+
+// /api/explore/dishes payload: every restaurant with items matching the tag,
+// viewport-independent so it caches per dish at the CDN.
+export interface DishSearchResult {
+  slug: string;
+  name: string;
+  facets: DishFacet[];
+  restaurants: { id: number; items: DishItem[] }[];
+}

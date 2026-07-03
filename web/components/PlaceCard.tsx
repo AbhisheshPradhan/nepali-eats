@@ -68,7 +68,13 @@ export type PlaceCardProps = {
 	// optional brand logo, shown as the first (contained, not cropped) slide so
 	// the venue is instantly recognisable before the food photos.
 	galleryLogo?: string | null;
+	// matched menu-item names on a dish search ("Steamed Momo", "Jhol Momo"),
+	// shown as small pills so the user sees WHY this spot matched. Capped; the
+	// overflow shows as "+N more".
+	pills?: string[];
 };
+
+const MAX_PILLS = 4;
 
 // One card, two layouts:
 //   "card" — vertical (homepage featured, listings, map popup)
@@ -89,6 +95,7 @@ export function PlaceCard({
 	onViewMap,
 	gallery,
 	galleryLogo,
+	pills,
 }: PlaceCardProps) {
 	// Carousel slides = logo (if any) first, then the food photos.
 	const carouselSlides = galleryLogo
@@ -224,6 +231,25 @@ export function PlaceCard({
 						{distance && (
 							<span className="shrink-0 whitespace-nowrap">
 								· {distance}
+							</span>
+						)}
+					</div>
+				)}
+
+				{/* dish-search matches: the items that made this spot a result */}
+				{pills && pills.length > 0 && (
+					<div className="flex flex-wrap gap-1.5">
+						{pills.slice(0, MAX_PILLS).map((p) => (
+							<span
+								key={p}
+								className="inline-flex items-center font-body font-semibold text-[0.78rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
+							>
+								{p}
+							</span>
+						))}
+						{pills.length > MAX_PILLS && (
+							<span className="inline-flex items-center font-body font-semibold text-[0.78rem] text-ink-500 px-1 py-0.5">
+								+{pills.length - MAX_PILLS} more
 							</span>
 						)}
 					</div>
