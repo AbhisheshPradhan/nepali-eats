@@ -198,7 +198,7 @@ export async function exploreSpots(): Promise<ExploreSpot[]> {
 	const rows = await query(
 		`SELECT r.id, r.slug, r.name, r.lat, r.lng, r.rating, r.review_count,
             r.venue_type, r.price_level, r.price_range, r.suburb, r.state,
-            r.logo_key, r.opening_hours, r.business_status, r.tags,
+            r.logo_key, r.phone, r.opening_hours, r.business_status, r.tags,
             r.featured_rank, r.popular, ${flagCols},
             COALESCE(
               r.cover_key,
@@ -224,6 +224,7 @@ export async function exploreSpots(): Promise<ExploreSpot[]> {
 		state: row.state,
 		primaryPhoto: row.primary_photo,
 		logoKey: row.logo_key,
+		phone: row.phone,
 		openingHours: row.opening_hours,
 		businessStatus: row.business_status,
 		isFeatured: row.featured_rank != null,

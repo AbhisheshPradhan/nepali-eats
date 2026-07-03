@@ -126,6 +126,7 @@ export interface ExploreSpot {
   state: string | null;
   primaryPhoto: string | null;
   logoKey: string | null;
+  phone: string | null; // powers the Call action on the mobile detail sheet
   openingHours: OpeningHours | null; // powers Open now + the card badge
   businessStatus: string | null; // so the popup card can show "Temporarily closed"
   isFeatured: boolean;

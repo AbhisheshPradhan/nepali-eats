@@ -21,8 +21,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/shadcn/select";
+import { Drawer } from "vaul";
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
+import { SheetDetail } from "@/components/explore/SheetDetail";
 import type { Restaurant, ExploreSpot, Bbox, DishSearchResult } from "@/lib/types";
 import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
@@ -47,6 +49,14 @@ const FLAG_OPTIONS: [string, string][] = [
 ];
 
 const PAGE_SIZE = 30;
+
+// Sheet UI (mobile drawer) snap points: peek (handle + count), half (browse
+// list over the map), tall (almost-full list). Content height matches the top
+// snap so vaul's translate math lines up.
+const SNAP_PEEK = 0.14;
+const SNAP_HALF = 0.45;
+const SNAP_TALL = 0.88;
+const SNAPS = [SNAP_PEEK, SNAP_HALF, SNAP_TALL];
 
 const MapView = dynamic(() => import("./MapView"), {
 	ssr: false,
@@ -115,6 +125,7 @@ export function ExploreClient({
 	autoLocate = false,
 	viewKey,
 	cameraKey,
+	sheetUi = false,
 	initialQuery = "",
 }: {
 	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
@@ -138,6 +149,10 @@ export function ExploreClient({
 	// filters in place instead of recentring the map.
 	viewKey: string;
 	cameraKey: string;
+	// TEMP flag (?ui=sheet): mobile layout = full-bleed map + bottom drawer
+	// (list state / detail state) instead of the list/map toggle. Desktop is
+	// unchanged either way. Becomes the default once the feel is signed off.
+	sheetUi?: boolean;
 	// initialQuery = what the search box shows (suburb, state / focused name)
 	initialQuery?: string;
 }) {
@@ -322,16 +337,30 @@ export function ExploreClient({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
 
-	const onSelect = useCallback((id: number | null) => {
-		setSelected(id);
-		if (id == null) return; // deselect (popup closed) -> shrink the pin back
-		const el = document.getElementById(`row-${id}`);
-		if (el && listRef.current)
-			listRef.current.scrollTo({
-				top: el.offsetTop - 12,
-				behavior: "smooth",
-			});
-	}, []);
+	// Sheet UI: the drawer's snap position (peek / half / tall).
+	const [snap, setSnap] = useState<number | string | null>(SNAP_HALF);
+
+	const onSelect = useCallback(
+		(id: number | null) => {
+			setSelected(id);
+			if (id == null) return; // deselect (popup/sheet closed) -> shrink the pin back
+			if (sheetUi) {
+				// opening a spot: make sure the sheet is at least half-open so the
+				// detail is actually visible (a peeked sheet stays peeked otherwise)
+				setSnap((s) =>
+					typeof s === "number" && s < SNAP_HALF ? SNAP_HALF : s,
+				);
+				return;
+			}
+			const el = document.getElementById(`row-${id}`);
+			if (el && listRef.current)
+				listRef.current.scrollTo({
+					top: el.offsetTop - 12,
+					behavior: "smooth",
+				});
+		},
+		[sheetUi],
+	);
 
 	const nearMe = () => {
 		if (!navigator.geolocation) return;
@@ -511,6 +540,156 @@ export function ExploreClient({
 		setOpenOnly(false);
 		setMinRating(0);
 	};
+
+	// Sheet UI: the spot whose detail the drawer shows (pin tap sets `selected`).
+	const detailSpot =
+		sheetUi && selected != null
+			? (spots?.find((s) => s.id === selected) ?? null)
+			: null;
+
+	// ---- list pieces, shared by the side panel (md+/toggle UI) and the mobile
+	// drawer (sheet UI). Plain render helpers, not components — no hooks inside.
+	const headingRow = (
+		<div className="flex items-center justify-between px-0.5 pb-3">
+			<span className="font-display font-bold text-ink-700">
+				{isFocusView
+					? areaLabel
+					: !ready
+						? "Finding spots…"
+						: `${total} ${total === 1 ? "spot" : "spots"}${dishName ? ` serving ${dishName}` : ""} ${areaScoped ? "in the map area" : areaLabel}`}
+			</span>
+			{!ready && (
+				<CircleNotch
+					className="animate-spin text-chili-500"
+					size={18}
+				/>
+			)}
+		</div>
+	);
+
+	const listBanner = autoBanner ? (
+		<div className="mb-3 flex items-start gap-2.5 rounded-lg bg-marigold-100 px-3.5 py-2.5 text-[0.95rem] text-ink-700">
+			<CookingPot
+				weight="fill"
+				size={18}
+				className="text-marigold-700 shrink-0 mt-0.5"
+			/>
+			<span className="min-w-0">
+				No {dishName} spots near you. Showing the closest:{" "}
+				<strong className="text-ink-900">{autoBanner.name}</strong>
+				{autoBanner.suburb
+					? ` in ${autoBanner.suburb}${autoBanner.state ? `, ${autoBanner.state}` : ""}`
+					: ""}
+				.
+			</span>
+			<button
+				type="button"
+				aria-label="Dismiss"
+				onClick={() => setAutoBanner(null)}
+				className="ml-auto shrink-0 text-ink-500 hover:text-ink-900 cursor-pointer"
+			>
+				<X size={15} weight="bold" />
+			</button>
+		</div>
+	) : null;
+
+	const listBody = (inDrawer: boolean) => (
+		<>
+			{shown.length === 0 && !ready ? (
+				<div className="text-center py-12 text-ink-500">
+					<CircleNotch
+						size={28}
+						className="mx-auto mb-2 animate-spin text-chili-500"
+					/>
+					Finding spots in view…
+				</div>
+			) : shown.length === 0 ? (
+				<div className="text-center py-12 text-ink-500">
+					<CookingPot
+						size={36}
+						className="mx-auto mb-2"
+					/>
+					{dish && nearest ? (
+						<>
+							<p>
+								No {dishName} spots in this area. The closest
+								is{" "}
+								<strong className="text-ink-700">
+									{nearest.spot.name}
+								</strong>
+								{nearest.spot.suburb
+									? ` in ${nearest.spot.suburb}${nearest.spot.state ? `, ${nearest.spot.state}` : ""}`
+									: ""}
+								, {formatDistance(nearest.km)} away.
+							</p>
+							<button
+								onClick={() => viewOnMap(nearest.spot)}
+								className="mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
+							>
+								<NavigationArrow weight="fill" size={18} />
+								Take me there
+							</button>
+						</>
+					) : dish ? (
+						<p>
+							No spots serving {dishName} yet. Try another dish
+							or clear the search.
+						</p>
+					) : (
+						<>
+							<p>
+								No spots in this area.{" "}
+								{inDrawer
+									? "Pan the map or zoom out to find some nearby."
+									: "Open the map to find some nearby."}
+							</p>
+							{!inDrawer && (
+								<button
+									onClick={() => setViewMode("map")}
+									className="md:hidden mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
+								>
+									<MapTrifold size={20} />
+									Open map
+								</button>
+							)}
+						</>
+					)}
+				</div>
+			) : (
+				<div className="grid grid-cols-1 gap-3">
+					{shown.map((r, i) => (
+						<Fragment key={r.id}>
+							{isFocusView && i === 1 && (
+								<h2 className="font-display font-bold text-ink-700 pt-2 pb-0.5">
+									You may also like
+								</h2>
+							)}
+							<div id={inDrawer ? undefined : `row-${r.id}`}>
+								<PlaceCard
+									r={r}
+									variant="row"
+									hovered={hovered === r.id}
+									selected={selected === r.id}
+									onHover={setHovered}
+									fallbackOrigin={distOrigin}
+									onViewMap={() => viewOnMap(r)}
+									pills={dishItems?.get(r.id)}
+								/>
+							</div>
+						</Fragment>
+					))}
+				</div>
+			)}
+
+			{ready && shownCount < total && (
+				<div className="pt-4 text-center">
+					<Button variant="outline" onClick={showMore}>
+						{`Load more (${total - shownCount} left)`}
+					</Button>
+				</div>
+			)}
+		</>
+	);
 
 	return (
 		<div className="flex flex-col h-[calc(100dvh-57px)]">
@@ -744,154 +923,27 @@ export function ExploreClient({
 
 			{/* body */}
 			<div className="flex-1 min-h-0 relative flex">
+				{/* side list panel (md+ always; mobile only in the toggle UI) */}
 				<div
 					ref={listRef}
 					className={cn(
 						"w-full md:w-[540px] md:flex-none overflow-y-auto p-4 bg-paper-50 md:border-r md:border-paper-300",
-						viewMode === "map" ? "hidden md:block" : "block",
+						viewMode === "map" || sheetUi
+							? "hidden md:block"
+							: "block",
 					)}
 				>
-					{/* Auto-resolve banner: we moved the map for the user, say so. */}
-					{autoBanner && (
-						<div className="mb-3 flex items-start gap-2.5 rounded-lg bg-marigold-100 px-3.5 py-2.5 text-[0.95rem] text-ink-700">
-							<CookingPot
-								weight="fill"
-								size={18}
-								className="text-marigold-700 shrink-0 mt-0.5"
-							/>
-							<span className="min-w-0">
-								No {dishName} spots near you. Showing the
-								closest:{" "}
-								<strong className="text-ink-900">
-									{autoBanner.name}
-								</strong>
-								{autoBanner.suburb
-									? ` in ${autoBanner.suburb}${autoBanner.state ? `, ${autoBanner.state}` : ""}`
-									: ""}
-								.
-							</span>
-							<button
-								type="button"
-								aria-label="Dismiss"
-								onClick={() => setAutoBanner(null)}
-								className="ml-auto shrink-0 text-ink-500 hover:text-ink-900 cursor-pointer"
-							>
-								<X size={15} weight="bold" />
-							</button>
-						</div>
-					)}
-
-					<div className="flex items-center justify-between px-0.5 pb-3">
-						<span className="font-display font-bold text-ink-700">
-							{isFocusView
-								? areaLabel
-								: !ready
-									? "Finding spots…"
-									: `${total} ${total === 1 ? "spot" : "spots"}${dishName ? ` serving ${dishName}` : ""} ${areaScoped ? "in the map area" : areaLabel}`}
-						</span>
-						{!ready && (
-							<CircleNotch
-								className="animate-spin text-chili-500"
-								size={18}
-							/>
-						)}
-					</div>
-
-					{shown.length === 0 && !ready ? (
-						<div className="text-center py-12 text-ink-500">
-							<CircleNotch
-								size={28}
-								className="mx-auto mb-2 animate-spin text-chili-500"
-							/>
-							Finding spots in view…
-						</div>
-					) : shown.length === 0 ? (
-						<div className="text-center py-12 text-ink-500">
-							<CookingPot
-								size={36}
-								className="mx-auto mb-2"
-							/>
-							{dish && nearest ? (
-								<>
-									<p>
-										No {dishName} spots in this area. The
-										closest is{" "}
-										<strong className="text-ink-700">
-											{nearest.spot.name}
-										</strong>
-										{nearest.spot.suburb
-											? ` in ${nearest.spot.suburb}${nearest.spot.state ? `, ${nearest.spot.state}` : ""}`
-											: ""}
-										, {formatDistance(nearest.km)} away.
-									</p>
-									<button
-										onClick={() => viewOnMap(nearest.spot)}
-										className="mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
-									>
-										<NavigationArrow weight="fill" size={18} />
-										Take me there
-									</button>
-								</>
-							) : dish ? (
-								<p>
-									No spots serving {dishName} yet. Try
-									another dish or clear the search.
-								</p>
-							) : (
-								<>
-									<p>
-										No spots in this area. Open the map to
-										find some nearby.
-									</p>
-									<button
-										onClick={() => setViewMode("map")}
-										className="md:hidden mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
-									>
-										<MapTrifold size={20} />
-										Open map
-									</button>
-								</>
-							)}
-						</div>
-					) : (
-						<div className="grid grid-cols-1 gap-3">
-							{shown.map((r, i) => (
-								<Fragment key={r.id}>
-									{isFocusView && i === 1 && (
-										<h2 className="font-display font-bold text-ink-700 pt-2 pb-0.5">
-											You may also like
-										</h2>
-									)}
-									<div id={`row-${r.id}`}>
-										<PlaceCard
-											r={r}
-											variant="row"
-											hovered={hovered === r.id}
-											selected={selected === r.id}
-											onHover={setHovered}
-											fallbackOrigin={distOrigin}
-											onViewMap={() => viewOnMap(r)}
-											pills={dishItems?.get(r.id)}
-										/>
-									</div>
-								</Fragment>
-							))}
-						</div>
-					)}
-
-					{ready && shownCount < total && (
-						<div className="pt-4 text-center">
-							<Button variant="outline" onClick={showMore}>
-								{`Load more (${total - shownCount} left)`}
-							</Button>
-						</div>
-					)}
+					{listBanner}
+					{headingRow}
+					{listBody(false)}
 				</div>
 
 				<div
 					className={cn(
 						"flex-1 relative min-w-0",
-						viewMode === "list" ? "hidden md:block" : "block",
+						sheetUi || viewMode === "map"
+							? "block"
+							: "hidden md:block",
 					)}
 				>
 					<MapView
@@ -903,35 +955,85 @@ export function ExploreClient({
 						onBounds={onBounds}
 						center={center}
 						zoom={zoom}
-						active={viewMode === "map"}
+						active={sheetUi || viewMode === "map"}
+						cardless={sheetUi}
 					/>
 				</div>
 
-				{/* Hide the floating toggle while the list is empty (the empty
-				    state has its own "Open map" button) and while a spot card is
-				    open on the map (the docked card owns the bottom edge). */}
-				<div
-					className={cn(
-						"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
-						viewMode === "list" && ready && shown.length === 0 && "hidden",
-						viewMode === "map" && selected != null && "hidden",
-					)}
-				>
-					<button
-						onClick={() =>
-							setViewMode(viewMode === "map" ? "list" : "map")
-						}
-						className="inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg"
-					>
-						{viewMode === "map" ? (
-							<Rows size={20} />
-						) : (
-							<MapTrifold size={20} />
+				{/* Toggle UI only: the floating List/Map button. Hidden while the
+				    list is empty (the empty state has its own button) and while a
+				    spot card is open on the map (the docked card owns the bottom). */}
+				{!sheetUi && (
+					<div
+						className={cn(
+							"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
+							viewMode === "list" && ready && shown.length === 0 && "hidden",
+							viewMode === "map" && selected != null && "hidden",
 						)}
-						{viewMode === "map" ? "List" : "Map"}
-					</button>
-				</div>
+					>
+						<button
+							onClick={() =>
+								setViewMode(viewMode === "map" ? "list" : "map")
+							}
+							className="inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg"
+						>
+							{viewMode === "map" ? (
+								<Rows size={20} />
+							) : (
+								<MapTrifold size={20} />
+							)}
+							{viewMode === "map" ? "List" : "Map"}
+						</button>
+					</div>
+				)}
 			</div>
+
+			{/* Sheet UI: the mobile bottom drawer. LIST state = heading pinned
+			    under the handle (visible at peek) + the scrollable list; DETAIL
+			    state = the tapped spot's preview. The map stays interactive
+			    behind it (modal=false); it can't be dismissed, only peeked. */}
+			{sheetUi && (
+				<Drawer.Root
+					open
+					modal={false}
+					dismissible={false}
+					snapPoints={SNAPS}
+					activeSnapPoint={snap}
+					setActiveSnapPoint={setSnap}
+				>
+					<Drawer.Portal>
+						<Drawer.Content
+							aria-describedby={undefined}
+							className="md:hidden fixed inset-x-0 bottom-0 z-[1150] flex h-[88dvh] flex-col rounded-t-2xl border-t border-paper-300 bg-paper-50 outline-none shadow-[0_-10px_30px_rgba(43,26,18,0.18)]"
+						>
+							<Drawer.Title className="sr-only">
+								{detailSpot ? detailSpot.name : "Spots in view"}
+							</Drawer.Title>
+							<div
+								className="mx-auto mt-2.5 mb-1.5 h-1.5 w-10 shrink-0 rounded-full bg-sand-400"
+								aria-hidden
+							/>
+							{detailSpot ? (
+								<SheetDetail
+									spot={detailSpot}
+									pills={dishItems?.get(detailSpot.id)}
+									onClose={() => onSelect(null)}
+								/>
+							) : (
+								<>
+									<div className="px-4 shrink-0">
+										{headingRow}
+									</div>
+									<div className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+										{listBanner}
+										{listBody(true)}
+									</div>
+								</>
+							)}
+						</Drawer.Content>
+					</Drawer.Portal>
+				</Drawer.Root>
+			)}
 		</div>
 	);
 }

@@ -133,6 +133,38 @@ owner would see the panel and 403 on save. Fails closed (no hole today), but
 when claims land, widen the write routes to admin-or-owner (reuse `isOwnerOf`).
 Also: owner edit policy, claims queue, owner dashboard — see LAUNCH.md §8.
 
+## Explore mobile sheet — Stage 2 + follow-ups (post-launch)
+
+Stage 1 shipped 2026-07-04 behind `/explore?ui=sheet`: mobile = full-bleed map
++ vaul bottom drawer (peek/half/tall snaps), list state by default, pin tap
+swaps to a detail PREVIEW (photos, status, pills, Directions/Call/Full
+details). Pre-launch plan: gesture-test on a real phone, tune, then flip the
+sheet to the default mobile UI and DELETE the legacy toggle (`viewMode`, FAB,
+docked card, pin-nudge special cases) + the flag in one commit. After launch:
+
+- **Stage 2 — detail in-drawer via intercepting routes.** Tapping a spot
+  navigates to `/restaurant/[slug]` for real, but an intercepted parallel
+  route (`app/explore/@drawer/(.)restaurant/[slug]`) renders it INSIDE the
+  drawer; ExploreClient (map, spots, camera, filters) never unmounts; back
+  closes the drawer (`router.back()` → `default.tsx`). Hard loads/new tabs get
+  the full standalone page, so SEO (canonical, sitemap, JSON-LD, static
+  generation) is untouched — crawlers never see the intercept. The drawer
+  variant omits the embedded map section (the real map is behind the sheet);
+  the standalone page keeps it for Google arrivals with no context. Drawer's
+  tall snap ≈ reading the full page without leaving the map. ⚠️ Fiddliest
+  corner of Next routing; deliberately post-launch so edge cases can't hurt.
+- **Drawer-header chips (Google style).** Move Sort / Filters / dish refine
+  chips from the top bar into the drawer's list-state header (sticky above the
+  list), leaving only the search box floating over the map. Needs the chip row
+  redesigned for one context instead of the current desktop/mobile split.
+- **Sheet list rows open the in-drawer detail** (currently they navigate; only
+  pins open the detail state). Do together with Stage 2 so rows get real URLs.
+- **Desktop parity (Stage 3, data-gated).** Optional: Google-Maps-desktop
+  model where clicking a result swaps the LEFT PANEL to the detail (same
+  @drawer slot, panel chrome on md+, same-tab navigation). Current desktop
+  (new tab per spot) is good for comparison-shopping; only revisit with real
+  usage data after launch.
+
 ## Other deferred items
 
 - **Login / auth** — gates reviews, claims, saved spots (Clerk already in).

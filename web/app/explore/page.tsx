@@ -42,6 +42,7 @@ type SP = Promise<{
   focus?: string;
   dish?: string; // dish/style/preparation tag slug (menu search)
   protein?: string; // optional protein facet pre-applied with the dish
+  ui?: string; // TEMP: ?ui=sheet opts the mobile layout into the bottom drawer
 }>;
 
 function zoomForSpan(span: number) {
@@ -168,6 +169,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       autoLocate={autoLocate}
       viewKey={viewKey}
       cameraKey={cameraKey}
+      sheetUi={sp.ui === "sheet"}
       initialQuery={
         focused?.name ??
         (sp.dish

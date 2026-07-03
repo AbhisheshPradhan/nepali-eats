@@ -79,6 +79,7 @@ export default function MapView({
   center,
   zoom,
   active = true,
+  cardless = false,
 }: {
   pins: ExploreSpot[];
   hoveredId: number | null;
@@ -92,6 +93,10 @@ export default function MapView({
   // measures a zero-size container. When it becomes visible we must resize, or
   // the canvas keeps its old (short) height and tiles only cover part of it.
   active?: boolean;
+  // Sheet UI (mobile): the parent renders the spot detail in its bottom drawer,
+  // so pin taps only select (no popup/docked card here). Desktop keeps the
+  // pin-anchored popup regardless.
+  cardless?: boolean;
 }) {
   const mapRef = useRef<MapRef>(null);
   const [cursor, setCursor] = useState("");
@@ -182,7 +187,7 @@ export default function MapView({
     const pin = pins.find((p) => p.id === selectedId);
     if (!pin) return; // not loaded into view yet; reopen when it arrives
     lastAutoSelect.current = selectedId;
-    setPopup(pin);
+    if (!(cardless && dockCard)) setPopup(pin);
     nudgeAboveCard(pin.lng, pin.lat);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId, pins]);
@@ -248,7 +253,7 @@ export default function MapView({
     onSelect(id);
     const pin = pins.find((p) => p.id === id);
     if (pin) {
-      setPopup(pin);
+      if (!(cardless && dockCard)) setPopup(pin);
       nudgeAboveCard(pin.lng, pin.lat);
     }
   };
