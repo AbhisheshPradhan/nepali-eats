@@ -24,7 +24,7 @@ import {
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
 import type { Restaurant, ExploreSpot, Bbox, DishSearchResult } from "@/lib/types";
-import { isOpenNow, tagLabel } from "@/lib/format";
+import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { cn } from "@/lib/cn";
 
@@ -114,6 +114,7 @@ export function ExploreClient({
 	defaultUserLoc,
 	autoLocate = false,
 	viewKey,
+	cameraKey,
 	initialQuery = "",
 }: {
 	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
@@ -132,8 +133,11 @@ export function ExploreClient({
 	defaultUserLoc: [number, number];
 	autoLocate?: boolean;
 	// viewKey = signature of the server-resolved view; changes on a soft navigation
-	// to a new suburb/restaurant/area so the client can re-apply the new camera.
+	// so the client can resync the box/chips. cameraKey is its LOCATION part:
+	// only when THAT changes does the camera re-apply, so a dish-only search
+	// filters in place instead of recentring the map.
 	viewKey: string;
+	cameraKey: string;
 	// initialQuery = what the search box shows (suburb, state / focused name)
 	initialQuery?: string;
 }) {
@@ -163,8 +167,15 @@ export function ExploreClient({
 		dishProtein ?? null,
 	);
 
+	// "No {dish} nearby, showing the closest" banner (auto-resolve on untouched
+	// maps); cleared when the user takes the map over or the dish changes.
+	const [autoBanner, setAutoBanner] = useState<ExploreSpot | null>(null);
+	const autoResolvedRef = useRef<string | null>(null);
+
 	useEffect(() => {
 		setDishData(null);
+		setAutoBanner(null);
+		autoResolvedRef.current = null;
 		if (!dish) return;
 		const ctrl = new AbortController();
 		fetch(`/api/explore/dishes?tag=${encodeURIComponent(dish)}`, {
@@ -229,6 +240,7 @@ export function ExploreClient({
 	// the view this client last applied; starts at the mount value so the resync
 	// effect is a no-op on first render and only fires on later soft navigations.
 	const appliedViewKey = useRef(viewKey);
+	const appliedCameraKey = useRef(cameraKey);
 
 	// map bounds change → refilter the in-memory list (no fetch, no debounce).
 	const onBounds = useCallback((b: Bbox, userMoved: boolean) => {
@@ -236,9 +248,13 @@ export function ExploreClient({
 		// any real pan/zoom away from the seeded view (suburb/state, a lat/lng
 		// search, "Near me", or the default camera) → switch to map-area mode.
 		// Clear the box (don't show "Map area" as text); the "in the map area"
-		// context lives in the list heading below.
-		if (userMoved) enterAreaMode("");
-		 
+		// context lives in the list heading below. Taking the map over also
+		// retires the "showing the closest" banner — the user is driving now.
+		if (userMoved) {
+			enterAreaMode("");
+			setAutoBanner(null);
+		}
+
 	}, []);
 
 	// Pagination window, keyed to the current filter/viewport signature so any
@@ -288,10 +304,15 @@ export function ExploreClient({
 	useEffect(() => {
 		if (appliedViewKey.current === viewKey) return;
 		appliedViewKey.current = viewKey;
-		setCenter(initialCenter);
-		setZoom(initialZoom);
-		areaScopedRef.current = false;
-		setAreaScoped(false);
+		// the camera (and the seeded geo scope) re-apply ONLY when the location
+		// part changed — a dish-only search keeps the map where the user put it.
+		if (appliedCameraKey.current !== cameraKey) {
+			appliedCameraKey.current = cameraKey;
+			setCenter(initialCenter);
+			setZoom(initialZoom);
+			areaScopedRef.current = false;
+			setAreaScoped(false);
+		}
 		setSelected(focusId ?? null);
 		setBoxValue(initialQuery);
 		setBoxKey((k) => k + 1);
@@ -432,6 +453,46 @@ export function ExploreClient({
 	const total = ordered.length;
 	const dishName = dish ? (dishData?.name ?? tagLabel(dish)) : null;
 	const clearDish = () => router.push("/explore");
+
+	// Dish mode, nothing in view: the closest match measured from what the user
+	// is looking at (the viewport centre). Powers the auto-resolve banner and
+	// the "Take me there" empty state.
+	const nearest = useMemo(() => {
+		if (!dish || !viewBbox || inView.length > 0 || matches.length === 0)
+			return null;
+		const centre: [number, number] = [
+			(viewBbox.s + viewBbox.n) / 2,
+			(viewBbox.w + viewBbox.e) / 2,
+		];
+		let best: ExploreSpot | null = null;
+		let bestKm = Infinity;
+		for (const s of matches) {
+			const km = haversineKm(centre, s.lat, s.lng);
+			if (km < bestKm) {
+				bestKm = km;
+				best = s;
+			}
+		}
+		return best ? { spot: best, km: bestKm } : null;
+	}, [dish, viewBbox, inView.length, matches]);
+
+	// Auto-resolve, once per dish, ONLY while the map is untouched: a fresh dish
+	// landing with zero local matches flies to the closest spot and explains
+	// itself with a banner. Once the user pans (areaScoped) the map is theirs and
+	// the empty state's "Take me there" button takes over.
+	useEffect(() => {
+		if (!dish || !ready || areaScoped) return;
+		if (autoResolvedRef.current === dish) return;
+		if (inView.length > 0) {
+			autoResolvedRef.current = dish; // local matches exist; never auto-move
+			return;
+		}
+		if (!nearest) return;
+		autoResolvedRef.current = dish;
+		setAutoBanner(nearest.spot);
+		setCenter([nearest.spot.lat, nearest.spot.lng]);
+		setZoom(13);
+	}, [dish, ready, areaScoped, inView.length, nearest]);
 	// Until then, the SSR-seeded focused restaurant is the list.
 	const shown: (ExploreSpot | Restaurant)[] = ready
 		? ordered.slice(0, shownCount)
@@ -690,6 +751,36 @@ export function ExploreClient({
 						viewMode === "map" ? "hidden md:block" : "block",
 					)}
 				>
+					{/* Auto-resolve banner: we moved the map for the user, say so. */}
+					{autoBanner && (
+						<div className="mb-3 flex items-start gap-2.5 rounded-lg bg-marigold-100 px-3.5 py-2.5 text-[0.95rem] text-ink-700">
+							<CookingPot
+								weight="fill"
+								size={18}
+								className="text-marigold-700 shrink-0 mt-0.5"
+							/>
+							<span className="min-w-0">
+								No {dishName} spots near you. Showing the
+								closest:{" "}
+								<strong className="text-ink-900">
+									{autoBanner.name}
+								</strong>
+								{autoBanner.suburb
+									? ` in ${autoBanner.suburb}${autoBanner.state ? `, ${autoBanner.state}` : ""}`
+									: ""}
+								.
+							</span>
+							<button
+								type="button"
+								aria-label="Dismiss"
+								onClick={() => setAutoBanner(null)}
+								className="ml-auto shrink-0 text-ink-500 hover:text-ink-900 cursor-pointer"
+							>
+								<X size={15} weight="bold" />
+							</button>
+						</div>
+					)}
+
 					<div className="flex items-center justify-between px-0.5 pb-3">
 						<span className="font-display font-bold text-ink-700">
 							{isFocusView
@@ -720,17 +811,47 @@ export function ExploreClient({
 								size={36}
 								className="mx-auto mb-2"
 							/>
-							<p>
-								No spots in this area. Open the map to find
-								some nearby.
-							</p>
-							<button
-								onClick={() => setViewMode("map")}
-								className="md:hidden mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
-							>
-								<MapTrifold size={20} />
-								Open map
-							</button>
+							{dish && nearest ? (
+								<>
+									<p>
+										No {dishName} spots in this area. The
+										closest is{" "}
+										<strong className="text-ink-700">
+											{nearest.spot.name}
+										</strong>
+										{nearest.spot.suburb
+											? ` in ${nearest.spot.suburb}${nearest.spot.state ? `, ${nearest.spot.state}` : ""}`
+											: ""}
+										, {formatDistance(nearest.km)} away.
+									</p>
+									<button
+										onClick={() => viewOnMap(nearest.spot)}
+										className="mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
+									>
+										<NavigationArrow weight="fill" size={18} />
+										Take me there
+									</button>
+								</>
+							) : dish ? (
+								<p>
+									No spots serving {dishName} yet. Try
+									another dish or clear the search.
+								</p>
+							) : (
+								<>
+									<p>
+										No spots in this area. Open the map to
+										find some nearby.
+									</p>
+									<button
+										onClick={() => setViewMode("map")}
+										className="md:hidden mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
+									>
+										<MapTrifold size={20} />
+										Open map
+									</button>
+								</>
+							)}
 						</div>
 					) : (
 						<div className="grid grid-cols-1 gap-3">

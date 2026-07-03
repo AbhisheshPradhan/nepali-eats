@@ -130,17 +130,20 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   // SOFT navigation that re-renders the server props but does NOT remount the
   // client. ExploreClient watches this key to re-apply the new camera/scope when
   // it changes; same key = same view = leave the live map/filters untouched.
-  const baseKey = sp.focus
+  // cameraKey = the LOCATION part of the view (what moves the map); the full
+  // viewKey adds the dish so a dish pick still resyncs the search box + chips.
+  // Keeping them separate means searching a dish mid-browse filters the map you
+  // are looking at instead of teleporting you back to your IP metro.
+  const cameraKey = sp.focus
     ? `focus:${sp.focus}`
     : hasLatLng
       ? `ll:${qLat},${qLng}`
       : sp.suburb || sp.state || sp.tag || sp.venue
         ? `area:${sp.suburb ?? ""}|${sp.state ?? ""}|${sp.tag ?? ""}|${sp.venue ?? ""}`
         : "default";
-  // dish search rides on top of any camera; a dish change must re-apply too
   const viewKey = sp.dish
-    ? `${baseKey}+dish:${sp.dish}|${sp.protein ?? ""}`
-    : baseKey;
+    ? `${cameraKey}+dish:${sp.dish}|${sp.protein ?? ""}`
+    : cameraKey;
 
   // The list/pins/count are CLIENT-OWNED: the server can't know the visitor's
   // viewport pixel size, so any SSR list would be scoped to a guessed bbox and get
@@ -164,6 +167,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       defaultUserLoc={defaultUserLoc}
       autoLocate={autoLocate}
       viewKey={viewKey}
+      cameraKey={cameraKey}
       initialQuery={
         focused?.name ??
         (sp.dish
