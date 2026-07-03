@@ -26,6 +26,9 @@ const COLS = `
   r.live_music, r.kid_friendly, r.serves_vegetarian, r.parking,
   r.serves_alcohol, r.wheelchair_accessible,
   r.cover_key, r.cover_source, r.cover_attribution,
+  r.brand_id,
+  (SELECT b.name FROM brands b WHERE b.id = r.brand_id) AS brand_name,
+  (SELECT b.slug FROM brands b WHERE b.id = r.brand_id) AS brand_slug,
   (r.featured_rank IS NOT NULL) AS is_featured,
   -- Lead photo = the standalone cover, falling back to the first gallery photo
   -- for any restaurant that has photos but no cover set yet.
@@ -86,6 +89,9 @@ function mapRow(row: any): Restaurant {
 		servesAlcohol: row.serves_alcohol ?? null,
 		wheelchairAccessible: row.wheelchair_accessible ?? null,
 		parking: row.parking ?? null,
+		brandId: row.brand_id ?? null,
+		brandName: row.brand_name ?? null,
+		brandSlug: row.brand_slug ?? null,
 	};
 }
 
@@ -432,6 +438,66 @@ export async function popularByState(
 		orderBy: "popular",
 		limit,
 	});
+}
+
+// Other live locations in the same brand (e.g. the other 8848 branches), nearest
+// first when we have coordinates, else most-reviewed. Powers the "More {brand}
+// locations" internal-linking block on the detail page. Excludes self + closed.
+export async function brandSiblings(
+	restaurantId: number,
+	brandId: number,
+	lat: number | null,
+	lng: number | null,
+	limit = 8,
+): Promise<Restaurant[]> {
+	const order =
+		lat != null && lng != null
+			? "r.geom <-> ST_SetSRID(ST_MakePoint($3, $2), 4326)"
+			: "r.review_count DESC NULLS LAST, r.rating DESC NULLS LAST";
+	const rows = await query(
+		`SELECT ${COLS} FROM restaurants r
+      WHERE r.brand_id = $1 AND r.id <> $4 AND r.${NOT_CLOSED}
+      ORDER BY ${order}
+      LIMIT ${Math.trunc(limit)}`,
+		[brandId, lat, lng, restaurantId],
+	);
+	return rows.map(mapRow);
+}
+
+// Nearest OTHER Nepali spots to a restaurant, within maxKm, nearest first. Powers
+// the "Other Nepali spots nearby" internal-linking block. Excludes self, closed,
+// non-Nepali, and (when the current spot has a brand) its own brand siblings —
+// those get the dedicated brand block. Radius is a geography ST_DWithin; ordering
+// uses the planar KNN operator (fine at metro distances) off the GiST index.
+export async function nearbyRestaurants(
+	restaurantId: number,
+	lat: number,
+	lng: number,
+	opts: { brandId?: number | null; maxKm?: number; limit?: number } = {},
+): Promise<Restaurant[]> {
+	const maxKm = opts.maxKm ?? 50;
+	const limit = Math.trunc(opts.limit ?? 6);
+	const point = "ST_SetSRID(ST_MakePoint($2, $1), 4326)";
+	const cond: string[] = [
+		"r.id <> $3",
+		`r.${NOT_CLOSED}`,
+		"r.is_nepali IS NOT FALSE",
+		"r.geom IS NOT NULL",
+		`ST_DWithin(r.geom::geography, ${point}::geography, $4)`,
+	];
+	const params: unknown[] = [lat, lng, restaurantId, maxKm * 1000];
+	if (opts.brandId != null) {
+		params.push(opts.brandId);
+		cond.push(`(r.brand_id IS NULL OR r.brand_id <> $${params.length})`);
+	}
+	const rows = await query(
+		`SELECT ${COLS} FROM restaurants r
+      WHERE ${cond.join(" AND ")}
+      ORDER BY r.geom <-> ${point}
+      LIMIT ${limit}`,
+		params,
+	);
+	return rows.map(mapRow);
 }
 
 export async function allSlugs(): Promise<string[]> {

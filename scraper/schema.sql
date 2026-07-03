@@ -139,3 +139,24 @@ DROP TRIGGER IF EXISTS trg_set_restaurant_geom ON restaurants;
 CREATE TRIGGER trg_set_restaurant_geom
   BEFORE INSERT OR UPDATE OF lat, lng ON restaurants
   FOR EACH ROW EXECUTE FUNCTION set_restaurant_geom();
+
+-- ---------------------------------------------------------------------------
+-- Brands (franchise / multi-location grouping) — added 2026-07.
+-- PUBLIC, editorial grouping of locations under one name (e.g. 8848 Momo House
+-- ×15). For SEO + internal linking + nav ONLY; carries NO authz weight. Ownership
+-- (restaurant_owners) is a separate, per-restaurant system: one brand may be
+-- franchised across independent owners, and one owner may hold spots across
+-- brands, so ownership is NEVER derived from brand. See ROADMAP.md "Brands".
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS brands (
+  id          SERIAL PRIMARY KEY,
+  slug        TEXT UNIQUE NOT NULL,
+  name        TEXT NOT NULL,
+  description TEXT,
+  website     TEXT,
+  logo_key    TEXT,                       -- self-hosted brand logo (storage_key)
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS brand_id INTEGER REFERENCES brands(id);
+CREATE INDEX IF NOT EXISTS idx_restaurants_brand_id ON restaurants (brand_id);

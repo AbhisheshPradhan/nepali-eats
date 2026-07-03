@@ -36,8 +36,11 @@ import {
 	getRestaurantBySlug,
 	getRestaurantMenu,
 	restaurantSitemapEntries,
+	brandSiblings,
+	nearbyRestaurants,
 } from "@/lib/queries";
 import { RestaurantMenu } from "@/components/RestaurantMenu";
+import { RelatedRestaurants } from "@/components/RelatedRestaurants";
 import { mediaUrl } from "@/lib/media";
 import {
 	weekSchedule,
@@ -93,6 +96,24 @@ export default async function VenuePage({
 	const r = await getRestaurantBySlug(slug);
 	if (!r) notFound();
 	const menu = await getRestaurantMenu(r.id);
+
+	// Internal-linking blocks: other locations of the same brand, and nearest
+	// other Nepali spots (excluding this brand — those get the brand block).
+	const hasCoords = r.lat != null && r.lng != null;
+	const [siblings, nearby] = await Promise.all([
+		r.brandId
+			? brandSiblings(r.id, r.brandId, r.lat, r.lng, 8)
+			: Promise.resolve([]),
+		hasCoords
+			? nearbyRestaurants(r.id, r.lat!, r.lng!, {
+					brandId: r.brandId,
+					limit: 6,
+				})
+			: Promise.resolve([]),
+	]);
+	const origin: [number, number] | undefined = hasCoords
+		? [r.lat!, r.lng!]
+		: undefined;
 
 	const hero = mediaUrl(r.primaryPhoto);
 	// gallery = every photo except the hero, in saved order (admin-reorderable).
@@ -598,6 +619,25 @@ export default async function VenuePage({
 						)}
 					</aside>
 				</div>
+
+				{/* internal linking: sibling brand locations first, then nearby spots */}
+				{r.brandName && (
+					<RelatedRestaurants
+						title={`More ${r.brandName} locations`}
+						restaurants={siblings}
+						origin={origin}
+					/>
+				)}
+				<RelatedRestaurants
+					title="Other Nepali spots nearby"
+					subtitle={
+						r.suburb
+							? `More momo within reach of ${r.suburb}`
+							: undefined
+					}
+					restaurants={nearby}
+					origin={origin}
+				/>
 
 				{/* sticky mobile action bar — phone-only (md:hidden); mirrors the
           sidebar's primary CTAs so they stay reachable while scrolling. */}

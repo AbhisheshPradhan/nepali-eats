@@ -69,6 +69,10 @@ export interface Restaurant {
   servesAlcohol: boolean | null;
   wheelchairAccessible: boolean | null;
   parking: string | null; // friendly label: 'Free parking' | 'Paid parking'
+  // Brand (franchise/multi-location grouping) — PUBLIC/SEO only, no authz weight.
+  brandId: number | null;
+  brandName: string | null;
+  brandSlug: string | null;
 }
 
 export interface RestaurantDetail extends Restaurant {

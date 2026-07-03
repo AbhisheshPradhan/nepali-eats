@@ -122,11 +122,71 @@ generator (needs `ANTHROPIC_API_KEY`) writing 1-2 sentences in brand voice into
 a displayed column). Apply the human-copy standard. Skip non-NULL rows and
 non-Nepali leaks. Stage to a column or dry-run file for review before writing.
 
+## Brands (franchise grouping) + detail-page internal linking
+
+**Status: ACTIVE (launch-prep, not deferred).** Building now to fix the site's
+thin internal linking. Two detail-page blocks + a public brand grouping.
+
+**Concept split (locked):** a **brand** is a PUBLIC, editorial grouping of
+locations under one name (8848 Momo House ×15). It is for SEO + internal linking
++ nav ONLY — it carries **zero authz weight**. Ownership/claims are a SEPARATE,
+private, per-restaurant system (`restaurant_owners`). They are decoupled on
+purpose: one brand ≠ one owner (8848 is franchised, each branch may be
+independently owned, so claiming one branch must NOT grant the others), and one
+owner can hold restaurants across brands. Never derive ownership from brand.
+- Brand block is owner-friendly: it cross-promotes an owner's own network instead
+  of only surfacing nearby competitors.
+- The future owner dashboard ("restaurants I own") is keyed by **user account**
+  (`restaurant_owners.user_id`), NOT by brand — may span brands or be one spot.
+  Ships with the claim flow (see next section), not now.
+- "Same email → claim their other listings" is a claim-STREAMLINING signal only,
+  never an auto-grant (scraped `email` is spoofable): verify per restaurant, then
+  offer to batch-claim other listings sharing the contact.
+
+**Schema (additive, safe on shared Neon — nothing in prod reads it until UI ships,
+so deploy migration + code together):**
+```
+brands (id, slug, name, description?, website?, logo_key?)
+restaurants.brand_id  -> brands.id   (nullable FK) + index
+```
+
+**Populate:** 8848 ×15 first (unambiguous). Then a clustering script proposes
+other franchises (Momo Central, Heshela ×2, Falcha ×3, Chulho ×2, Aagaman ×3,
+Khukuri…) to a REVIEW file — never auto-commit. Generic tokens ("Himalayan",
+"Everest", "Momo Bar") over-cluster unrelated spots, so editorial confirm before
+setting `brand_id`.
+
+**Detail-page blocks (reuse `PlaceCard`; both below the menu, brand above nearby):**
+- **A. "More {brand} locations"** — live sibling branches, ordered by distance
+  from the current one. Render only when ≥1 sibling. Exclude self + closed.
+- **B. "Other Nepali spots nearby"** — KNN `geom <-> point` nearest **6**,
+  excluding self, **excluding same brand** (block A covers those), excluding
+  permanently-closed + `is_nepali IS FALSE` (reuse the `NOT_CLOSED` predicate).
+  **Cap ~50km: hide the block if nothing's within it** (so a lone regional spot
+  doesn't show an hour-away "nearby").
+
+**Locked build decisions:** (1) nearby count = 6; (2) distance cap ~50km, hide if
+empty; (3) label "Other Nepali spots nearby" (discovery tone, honest re:
+competitors); (4) `/brand/[slug]` hub page = FAST-FOLLOW, not now (bigger SEO
+asset but more build); (5) both blocks below the menu, brand above nearby.
+
+**Sequencing:** 8848 + both blocks now (proves the path end-to-end, improves all
+15 8848 pages + every page's nearby links). Defer multi-franchise clustering and
+the `/brand/[slug]` hub to fast-follows.
+
+**Brand + claims interactions (later, nice-to-have):** owner dashboard can group
+your restaurants by brand; brand membership can SUGGEST sibling claims (still
+per-location verified); a franchisor claiming a whole brand or brand-level menu
+editing (edit once → push to branches) needs a heavier brand-level ownership
+concept — defer.
+
 ## Claim a restaurant / owner editing
 
 Claim portal → verify → `grantOwnership` → `restaurant_owners`. The detail-page
 Edit button already shows for admins + owners (`/api/me?restaurantId` →
-`canEdit`). ⚠️ **Client/server authz mismatch to resolve in this work:** the
+`canEdit`). ⚠️ **Brand ≠ ownership** (see the Brands section above): brand
+membership grants no edit rights; claims stay per-restaurant. The owner dashboard
+"restaurants I own" is keyed by `restaurant_owners.user_id`, not `brand_id`. ⚠️ **Client/server authz mismatch to resolve in this work:** the
 edit UI reveals for `admin OR owner`, but every write route
 (`/api/admin/restaurants/[slug]/*`) is still `requireAdmin()` — a verified
 owner would see the panel and 403 on save. Fails closed (no hole today), but
