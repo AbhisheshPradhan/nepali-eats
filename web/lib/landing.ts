@@ -410,7 +410,7 @@ export function tagLanding(tag: string, list: Restaurant[]): LandingContent {
   return {
     breadcrumbs: [
       { label: "Home", href: "/" },
-      { label: "By dish", href: "/explore" },
+      { label: "Nepali food", href: "/nepali-food" },
       { label: label, href: isMomo ? "/momo" : `/nepali-food/${tag}` },
     ],
     eyebrow: copy?.eyebrow ?? "Eat by craving",
@@ -425,6 +425,229 @@ export function tagLanding(tag: string, list: Restaurant[]): LandingContent {
     faq: copy?.faq,
     crossLinks,
     exploreHref: isMomo ? "/explore?tag=momo" : `/explore?tag=${encodeURIComponent(tag)}`,
+    collectionName: title,
+  };
+}
+
+// --- Dish landing pages (national + per-state) -------------------------------
+// Bespoke, food-blog copy per dish. Only dishes with an entry here are treated
+// as index-ready (a generated one-liner would be thin). Extend this dictionary
+// to add more indexable dishes.
+
+export interface DishCopy {
+  title?: string;
+  lead: string[];
+  whatToOrder?: WhatToOrder[];
+  faq?: { q: string; a: string }[];
+}
+
+export const DISH_COPY: Record<string, DishCopy> = {
+  "steamed-momo": {
+    title: "Steamed momo in Australia",
+    lead: [
+      "Steamed momo is where everyone starts, and where a lot of us stay. A thin wheat wrapper pleated around spiced buff, chicken, veg or paneer, set over a steamer until the skin turns silky and the filling runs hot with juice. No crisp, no sauce to hide behind, just the truest taste of what a kitchen can do.",
+      "It is the honest test of a momo house. Get a plate, dunk each one in the tomato achaar, and eat it in a bite or two before the juice escapes. If the steamed momo is good here, everything else will be too.",
+    ],
+    whatToOrder: [
+      { dish: "Buff momo", note: "The traditional filling, rich and deeply savoury. What most Nepali regulars order." },
+      { dish: "Chicken momo", note: "The crowd-pleaser: lighter, juicy, hard to stop at ten." },
+      { dish: "Veg or paneer momo", note: "Cabbage, carrot and paneer, seasoned properly. Never an afterthought." },
+    ],
+    faq: [
+      { q: "What is the difference between steamed and fried momo?", a: "Steamed keeps the skin soft and the filling juicy, the purest version. Fried crisps the base. Most people order both." },
+      { q: "What do you dip momo in?", a: "Achaar, a tomato and chilli relish served on the side. It does most of the flavour work, so do not skip it." },
+    ],
+  },
+  "jhol-momo": {
+    title: "Jhol momo in Australia",
+    lead: [
+      "Jhol momo is the one people fall hardest for. Steamed momo dropped into a warm, nutty sesame-and-tomato soup spiced with timur and chilli, so you drink the jhol between bites and chase every last spoonful. On a cold night it is close to perfect.",
+      "The soup is the whole point, and every kitchen guards its own recipe. Some run it thin and fiery, some thick and rich with sesame. Order it, tip the bowl, and you will understand why this is the dish that turns first-timers into regulars.",
+    ],
+    whatToOrder: [
+      { dish: "Buff jhol momo", note: "The classic pairing. Rich soup, rich filling, they belong together." },
+      { dish: "Chicken jhol momo", note: "Lighter, if you want the soup to lead." },
+      { dish: "Extra jhol", note: "Ask if they will give you more soup. Most will." },
+    ],
+    faq: [
+      { q: "What is jhol momo?", a: "Steamed momo served in a spiced sesame-and-tomato soup called jhol. You eat the dumplings and drink the soup together." },
+      { q: "Is jhol momo spicy?", a: "It has a gentle heat from chilli and timur, the Nepali sichuan pepper, but it is more warming than fiery. Ask for it mild if you like." },
+    ],
+  },
+  "chilli-momo": {
+    title: "Chilli momo (C-momo) in Australia",
+    lead: [
+      "C-momo, short for chilli momo, is momo gone loud. Fried momo tossed hard in a sticky, hot, faintly sweet chilli sauce with onion and capsicum until every dumpling is glazed and glossy. It eats like the best bar snack you have ever had.",
+      "This is momo for a night out, sticky-fingered and moreish, made to share over drinks. If steamed momo is the quiet test of a kitchen, C-momo is the party.",
+    ],
+    whatToOrder: [
+      { dish: "Buff or chicken C-momo", note: "Either works. The sauce is the star." },
+      { dish: "Paneer C-momo", note: "The veg pick, and the sauce clings beautifully to it." },
+    ],
+    faq: [
+      { q: "What does the C in C-momo stand for?", a: "Chilli. C-momo is fried momo tossed in a sticky chilli sauce." },
+      { q: "How spicy is C-momo?", a: "Properly hot, with a little sweetness to balance it. It is the fieriest way most kitchens serve momo." },
+    ],
+  },
+  "fried-momo": {
+    title: "Fried momo in Australia",
+    lead: [
+      "Fried momo takes the steamed dumpling and gives it a crisp: pan-fried for a golden base, or deep-fried until the whole shell shatters. Same juicy filling, more crunch and a deeper, toastier flavour.",
+      "Order them when you want texture. The crisp holds the achaar beautifully, and there is something about a golden, blistered momo that is very hard to put down.",
+    ],
+    whatToOrder: [
+      { dish: "Pan-fried (kothey) momo", note: "Crisp on the base, steamed on top. The best of both." },
+      { dish: "Deep-fried momo", note: "Crunchy all over, great with a cold drink." },
+    ],
+    faq: [
+      { q: "Is fried or steamed momo better?", a: "Steamed for the purest taste, fried for crunch. Order a plate of each and decide for yourself." },
+    ],
+  },
+  "kothey-momo": {
+    title: "Kothey momo in Australia",
+    lead: [
+      "Kothey momo is the half-and-half: pan-fried on the base until it is crisp and golden, still soft and steamed up top. You get the crunch and the juice in the same bite, which is why a lot of people quietly think it is the best way to eat momo.",
+      "It is the potsticker of the Himalaya. Crisp side down, soft top dunked in achaar, and try to make the plate last.",
+    ],
+    whatToOrder: [
+      { dish: "Buff kothey momo", note: "Rich filling, crisp base. Hard to beat." },
+      { dish: "Chicken kothey momo", note: "Lighter, just as good." },
+    ],
+    faq: [
+      { q: "What is kothey momo?", a: "Pan-fried momo, crisp on the bottom and steamed on top, like a potsticker. Kothey means pan-fried." },
+    ],
+  },
+  "sandheko-momo": {
+    title: "Sandheko momo in Australia",
+    lead: [
+      "Sandheko momo is momo turned into a salad. Steamed or fried dumplings tossed with onion, tomato, coriander, chilli, timur and mustard oil until every piece is coated in a sharp, tangy dressing. Cold, zingy and completely addictive.",
+      "Sandheko just means tossed or pickled, the treatment Nepali kitchens give to everything good. On momo it is a revelation: bright, sour, hot, and a little oily in the best way.",
+    ],
+    whatToOrder: [
+      { dish: "Buff sandheko momo", note: "The tang cuts the richness perfectly." },
+      { dish: "Chicken sandheko momo", note: "Lighter and just as sharp." },
+    ],
+    faq: [
+      { q: "What is sandheko momo?", a: "Momo tossed in a spiced, tangy dressing of onion, tomato, chilli, timur and mustard oil. Sandheko means tossed or pickled." },
+    ],
+  },
+  choila: {
+    title: "Choila in Australia",
+    lead: [
+      "Choila is the Newari table at its smoky best: cooked meat, usually buff or chicken, grilled hard then tossed with mustard oil, garlic, ginger, chilli and a hit of timur. Sharp, smoky, oily and hot, it is built to eat with beaten rice and a cold drink.",
+      "It is one of the great Nepali dishes to order for a group. Get it with chiura, the beaten rice, let everyone pick at it, and you will understand why Newari food has such a following.",
+    ],
+    whatToOrder: [
+      { dish: "Buff choila", note: "The traditional cut, deeply smoky." },
+      { dish: "Chicken choila", note: "A lighter but no less punchy version." },
+      { dish: "Choila with chiura", note: "Beaten rice is the classic partner. Order both." },
+    ],
+    faq: [
+      { q: "What is choila?", a: "A Newari dish of grilled meat tossed with mustard oil, garlic, chilli and timur. Smoky, spicy and usually eaten with beaten rice." },
+      { q: "Is choila spicy?", a: "It has real heat and a numbing tingle from timur, but you can ask for it milder." },
+    ],
+  },
+  thukpa: {
+    title: "Thukpa in Australia",
+    lead: [
+      "Thukpa is the Himalayan answer to a cold day: a big bowl of noodles in a spiced broth, loaded with vegetables and your choice of chicken, buff or egg. It came down from Tibet and settled happily into Nepali kitchens, and it is pure comfort in a bowl.",
+      "Order it when you want something warming and brothy rather than heavy. The good versions build the stock properly, so it tastes deep and clean at once.",
+    ],
+    whatToOrder: [
+      { dish: "Chicken thukpa", note: "The most common, and a reliable warmer." },
+      { dish: "Veg thukpa", note: "Light, brothy and full of greens." },
+    ],
+    faq: [
+      { q: "What is thukpa?", a: "A Tibetan-Nepali noodle soup: noodles in a spiced broth with vegetables and meat or egg. Hearty and warming." },
+      { q: "What is the difference between thukpa and thenthuk?", a: "Thukpa uses long noodles; thenthuk uses hand-torn flat pieces of dough. Same comforting idea." },
+    ],
+  },
+};
+
+// Curated "more to eat" cross-links, shown on every dish page (self excluded).
+const MORE_DISHES: Crumb[] = [
+  { label: "Momo", href: "/momo" },
+  { label: "Jhol momo", href: "/nepali-food/jhol-momo" },
+  { label: "C-momo", href: "/nepali-food/chilli-momo" },
+  { label: "Kothey momo", href: "/nepali-food/kothey-momo" },
+  { label: "Choila", href: "/nepali-food/choila" },
+  { label: "Thukpa", href: "/nepali-food/thukpa" },
+];
+
+export function dishLanding(
+  dish: { slug: string; name: string; kind: string },
+  restaurants: Restaurant[],
+  state?: string,
+): LandingContent {
+  const copy = DISH_COPY[dish.slug];
+  const name = dish.name;
+  const selfHref = `/nepali-food/${dish.slug}`;
+  const stateName = state ? STATE_NAME[state] ?? state : null;
+  const metro = state ? metroFromState(state) : null;
+  const title = state
+    ? `${name} in ${metro}`
+    : copy?.title ?? `${name} in Australia`;
+
+  const states = topBy(restaurants, "state");
+  const suburbs = topBy(restaurants, "suburb");
+  const dataSentence = state
+    ? suburbs.length
+      ? `We have mapped ${restaurants.length} spots for ${name.toLowerCase()} in ${stateName}, with the most around ${proseList(suburbs.slice(0, 3).map((s) => s.value))}.`
+      : `We have mapped ${restaurants.length} spots for ${name.toLowerCase()} in ${stateName}.`
+    : states.length
+      ? `We have mapped ${restaurants.length} spots serving it, most across ${proseList(states.slice(0, 3).map((s) => STATE_NAME[s.value] ?? s.value))}.`
+      : `We have mapped ${restaurants.length} spots serving it across Australia.`;
+
+  const lead = copy?.lead ?? [
+    `The kitchens serving ${name.toLowerCase()} ${state ? `in ${metro} and ${stateName}` : "across Australia"}, gathered in one place.`,
+  ];
+
+  const crossLinks: CrossLinkGroup[] = [];
+  if (!state && states.length) {
+    crossLinks.push({
+      heading: `${name} by state`,
+      links: states
+        .filter((s) => s.count >= 3)
+        .slice(0, 8)
+        .map((s) => ({
+          label: `${name} in ${metroFromState(s.value)}`,
+          href: `${selfHref}/${s.value.toLowerCase()}`,
+        })),
+    });
+  }
+  if (state) {
+    crossLinks.push({
+      heading: `More in ${stateName}`,
+      links: [
+        { label: `All Nepali food in ${stateName}`, href: `/nepali-restaurants/${state.toLowerCase()}` },
+        { label: `${name} in other states`, href: selfHref },
+      ],
+    });
+  }
+  crossLinks.push({
+    heading: "More to eat",
+    links: MORE_DISHES.filter((l) => l.href !== selfHref).slice(0, 5),
+  });
+
+  const breadcrumbs: Crumb[] = [
+    { label: "Home", href: "/" },
+    { label: "Nepali food", href: "/nepali-food" },
+    { label: name, href: selfHref },
+  ];
+  if (state)
+    breadcrumbs.push({ label: stateName!, href: `${selfHref}/${state.toLowerCase()}` });
+
+  return {
+    breadcrumbs,
+    eyebrow: state ? `${name} · ${state}` : "Find your dish",
+    title,
+    intro: [...lead, dataSentence],
+    whatToOrder: copy?.whatToOrder,
+    faq: copy?.faq,
+    crossLinks,
+    exploreHref: state
+      ? `/explore?dish=${dish.slug}&state=${state}`
+      : `/explore?dish=${dish.slug}`,
     collectionName: title,
   };
 }

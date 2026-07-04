@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   MapTrifold,
   ForkKnife,
@@ -10,10 +11,14 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { renderInline, stripInline } from "@/components/inline";
 import type { Restaurant } from "@/lib/types";
 import type { LandingContent, LandingGroup } from "@/lib/landing";
+import type { FoodImage } from "@/lib/food";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
 
 const GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6";
+
+// Cards on dish pages carry matched menu-item names, shown as pills.
+type LandingRestaurant = Restaurant & { matches?: string[] };
 
 export function LandingPage({
   content,
@@ -21,15 +26,20 @@ export function LandingPage({
   groups,
   groupLabel = "spots",
   total,
+  heroImage,
+  gallery,
 }: {
   content: LandingContent;
-  restaurants: Restaurant[];
+  restaurants: LandingRestaurant[];
   // Curated dish hub (e.g. /momo): render top spots grouped by state instead of
   // one flat grid.
   groups?: LandingGroup[];
   groupLabel?: string;
   // Directory pages pass the true count so a capped grid can link to the rest.
   total?: number;
+  // Registry-driven imagery (falls back to no hero / no gallery when absent).
+  heroImage?: FoodImage;
+  gallery?: FoodImage[];
 }) {
   const {
     breadcrumbs,
@@ -101,6 +111,19 @@ export function LandingPage({
 
       <Breadcrumbs trail={breadcrumbs} />
 
+      {heroImage && (
+        <div className="relative aspect-[16/7] w-full rounded-xl overflow-hidden mb-6 bg-paper-200">
+          <Image
+            src={heroImage.src}
+            alt={heroImage.alt}
+            fill
+            priority
+            sizes="(max-width: 1180px) 100vw, 1180px"
+            className="object-cover"
+          />
+        </div>
+      )}
+
       <div className="flex items-end justify-between flex-wrap gap-3 mb-6">
         <div className="max-w-[720px]">
           <span className="eyebrow text-chili-500">{eyebrow}</span>
@@ -125,6 +148,25 @@ export function LandingPage({
           </Button>
         )}
       </div>
+
+      {gallery && gallery.length > 0 && (
+        <section className="mb-9 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {gallery.map((g) => (
+            <div
+              key={g.src}
+              className="relative aspect-[4/3] rounded-lg overflow-hidden bg-paper-200"
+            >
+              <Image
+                src={g.src}
+                alt={g.alt}
+                fill
+                sizes="(max-width: 640px) 50vw, 280px"
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </section>
+      )}
 
       {whatToOrder && whatToOrder.length > 0 && (
         <section className="mb-9 bg-paper-100 rounded-xl p-6 sm:p-7">
@@ -181,7 +223,7 @@ export function LandingPage({
         <>
           <div className={GRID}>
             {restaurants.map((r) => (
-              <PlaceCard key={r.id} r={r} />
+              <PlaceCard key={r.id} r={r} pills={r.matches} />
             ))}
           </div>
           {total != null && total > restaurants.length && content.exploreHref && (

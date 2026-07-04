@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LandingPage } from "@/components/LandingPage";
 import { tagLanding, groupByState } from "@/lib/landing";
 import { listRestaurants } from "@/lib/queries";
+import { foodImage } from "@/lib/food";
 
 export const revalidate = 3600;
 
@@ -23,6 +24,7 @@ export default async function MomoPage() {
       restaurants={list}
       groups={groups}
       groupLabel="momo"
+      heroImage={foodImage("momo")}
     />
   );
 }

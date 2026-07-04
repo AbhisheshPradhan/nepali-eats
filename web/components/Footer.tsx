@@ -68,7 +68,7 @@ export function Footer({
 					<Col
 						title="Explore"
 						items={[
-							{ label: "By cuisine", href: "/explore" },
+							{ label: "By cuisine", href: "/nepali-food" },
 							{ label: "By city", href: "/explore" },
 							{
 								label: "Food trucks",
@@ -82,6 +82,8 @@ export function Footer({
 						items={[
 							// Post-launch: { label: "Add a spot", href: "/add-a-spot" },
 							{ label: "Our story", href: "/stories" },
+							{ label: "Nepali food", href: "/nepali-food" },
+							{ label: "About", href: "/about" },
 							// Post-launch: { label: "For owners", href: "/add-a-spot" },
 						]}
 					/>
@@ -103,6 +105,18 @@ export function Footer({
 				}`}
 			>
 				Made with love for Nepali food in Australia · © 2026 NepaliEats ·{" "}
+					<Link href="/about" className="hover:text-white transition-colors">
+						About
+					</Link>{" "}
+					·{" "}
+					<Link href="/privacy" className="hover:text-white transition-colors">
+						Privacy
+					</Link>{" "}
+					·{" "}
+					<Link href="/terms" className="hover:text-white transition-colors">
+						Terms
+					</Link>{" "}
+					·{" "}
 					<Link
 						href="/disclaimer"
 						className="hover:text-white transition-colors"

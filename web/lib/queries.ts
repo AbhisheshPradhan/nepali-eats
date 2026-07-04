@@ -817,3 +817,85 @@ export async function dishRestaurants(
 		})),
 	};
 }
+
+// --- Dish / cuisine landing pages (menu-derived, server-rendered) -------------
+
+export type GeoCard = Restaurant & { matches: string[]; itemCount?: number };
+export interface GeoResult {
+	dish: { slug: string; name: string; kind: string };
+	restaurants: GeoCard[];
+}
+
+// React.cache: generateMetadata and the page body both resolve the slug.
+export const dishCategory = cache(async function dishCategory(
+	slug: string,
+): Promise<{ id: number; slug: string; name: string; kind: string } | null> {
+	const rows = await query<{
+		id: number;
+		slug: string;
+		name: string;
+		kind: string;
+	}>(`SELECT id, slug, name, kind FROM dish_categories WHERE slug = $1`, [slug]);
+	return rows[0] ?? null;
+});
+
+// Restaurants serving <slug>, optionally scoped to a state, sorted by popularity
+// (most-reviewed, then rating). Each row carries up to 6 matched menu-item names
+// for the card pills. Ancestors are materialised at seed time, so 'momo' matches
+// every preparation. Powers the dish landing pages.
+export async function dishInGeo(
+	slug: string,
+	state?: string,
+): Promise<GeoResult | null> {
+	const tag = await dishCategory(slug);
+	if (!tag) return null;
+	const params: unknown[] = [tag.id];
+	let stateCond = "";
+	if (state) {
+		params.push(state);
+		stateCond = `AND r.state = $${params.length}`;
+	}
+	const rows = await query(
+		`SELECT ${COLS},
+		   ARRAY(
+		     SELECT mi.name FROM menu_items mi
+		      WHERE mi.restaurant_id = r.id AND NOT mi.is_hidden
+		        AND EXISTS (SELECT 1 FROM menu_item_tags t
+		                     WHERE t.menu_item_id = mi.id AND t.dish_category_id = $1)
+		      ORDER BY mi.position, mi.id LIMIT 6
+		   ) AS matches
+		 FROM restaurants r
+		 WHERE r.${NOT_CLOSED} ${stateCond}
+		   AND EXISTS (
+		     SELECT 1 FROM menu_items mi
+		      JOIN menu_item_tags t ON t.menu_item_id = mi.id
+		     WHERE mi.restaurant_id = r.id AND NOT mi.is_hidden
+		       AND t.dish_category_id = $1
+		   )
+		 ORDER BY r.review_count DESC NULLS LAST, r.rating DESC NULLS LAST`,
+		params,
+	);
+	return {
+		dish: { slug: tag.slug, name: tag.name, kind: tag.kind },
+		restaurants: rows.map((r: any) => ({
+			...mapRow(r),
+			matches: r.matches || [],
+		})),
+	};
+}
+
+// (slug, state) -> venue count, for gating which dish x state pages are
+// index-ready. One scan; callers filter to their threshold.
+export async function dishGeoCounts(): Promise<
+	{ slug: string; state: string; n: number }[]
+> {
+	return query<{ slug: string; state: string; n: number }>(
+		`SELECT dc.slug, r.state, count(DISTINCT mi.restaurant_id)::int n
+		   FROM dish_categories dc
+		   JOIN menu_item_tags t ON t.dish_category_id = dc.id
+		   JOIN menu_items mi ON mi.id = t.menu_item_id AND NOT mi.is_hidden
+		   JOIN restaurants r ON r.id = mi.restaurant_id AND r.${NOT_CLOSED}
+		  WHERE dc.kind IN ('dish','preparation') AND r.state IS NOT NULL
+		  GROUP BY dc.slug, r.state`,
+	);
+}
