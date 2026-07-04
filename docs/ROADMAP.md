@@ -216,40 +216,42 @@ owner would see the panel and 403 on save. Fails closed (no hole today), but
 when claims land, widen the write routes to admin-or-owner (reuse `isOwnerOf`).
 Also: owner edit policy, claims queue, owner dashboard — see LAUNCH.md §8.
 
-## Explore mobile sheet — Stage 2 + follow-ups (post-launch)
+## ~~Explore mobile sheet — Stage 2 + follow-ups~~ (REDUNDANT — sheet abandoned 2026-07-04)
 
-Stage 1 shipped 2026-07-04 behind `/explore?ui=sheet`: mobile = full-bleed map
-+ vaul bottom drawer (peek/half/tall snaps), list state by default, pin tap
-swaps to a detail PREVIEW (photos, status, pills, Directions/Call/Full
-details). Pre-launch plan: gesture-test on a real phone, tune, then flip the
-sheet to the default mobile UI and DELETE the legacy toggle (`viewMode`, FAB,
-docked card, pin-nudge special cases) + the flag in one commit. After launch:
+**Decided out.** The Google-Maps-style bottom sheet (vaul drawer over a
+full-bleed map, Stage 1 behind `/explore?ui=sheet`) was abandoned and its
+components deleted. Mobile Explore is back to the **list/map toggle** — the
+compact flat list card (`ExploreListCard`, with a "View on map" CTA) plus the
+docked map card. Reason: copying a native-app sheet onto the web hit too many
+iOS Safari platform limits (an `<input>` layered over the Mapbox WebGL canvas
+won't take focus/taps; drag-gesture vs list-scroll arbitration; pull-to-refresh
+fighting the non-modal drawer). Not worth the friction pre-launch; a real
+mobile app is the better home for that UX if the product ever needs it.
 
-- **Stage 2 — detail in-drawer via intercepting routes.** Tapping a spot
-  navigates to `/restaurant/[slug]` for real, but an intercepted parallel
-  route (`app/explore/@drawer/(.)restaurant/[slug]`) renders it INSIDE the
-  drawer; ExploreClient (map, spots, camera, filters) never unmounts; back
-  closes the drawer (`router.back()` → `default.tsx`). Hard loads/new tabs get
-  the full standalone page, so SEO (canonical, sitemap, JSON-LD, static
-  generation) is untouched — crawlers never see the intercept. The drawer
-  variant omits the embedded map section (the real map is behind the sheet);
-  the standalone page keeps it for Google arrivals with no context. Drawer's
-  tall snap ≈ reading the full page without leaving the map. ⚠️ Fiddliest
-  corner of Next routing; deliberately post-launch so edge cases can't hurt.
-- **Drawer-header chips (Google style).** Move Sort / Filters / dish refine
-  chips from the top bar into the drawer's list-state header (sticky above the
-  list), leaving only the search box floating over the map. Needs the chip row
-  redesigned for one context instead of the current desktop/mobile split.
-- **Sheet list rows open the in-drawer detail** (currently they navigate; only
-  pins open the detail state). Do together with Stage 2 so rows get real URLs.
-- **Desktop parity (Stage 3, data-gated).** Optional: Google-Maps-desktop
-  model where clicking a result swaps the LEFT PANEL to the detail (same
-  @drawer slot, panel chrome on md+, same-tab navigation). Current desktop
-  (new tab per spot) is good for comparison-shopping; only revisit with real
-  usage data after launch.
+The one idea worth keeping if we ever revisit in-panel detail (desktop OR
+mobile), independent of the sheet: **detail via intercepting routes.** Tapping a
+spot navigates to `/restaurant/[slug]` for real, but an intercepted parallel
+route (`app/explore/@drawer/(.)restaurant/[slug]`) renders it inside a panel
+without unmounting ExploreClient (map/spots/camera/filters); hard loads and new
+tabs still get the full standalone page, so SEO (canonical, sitemap, JSON-LD,
+static generation) is untouched. Deferred and speculative — not planned work.
 
 ## Other deferred items
 
+- **Explore: sync the selected pin to `?focus=`** — pin tap / "View on map" is
+  pure client state (`selected` in `ExploreClient`), so refresh/share loses the
+  open card. The server already restores from `?focus=<slug>` (camera +
+  focusId + initialQuery), so the only missing piece is writing the param:
+  native `window.history.replaceState` (NOT `router.replace` — a router
+  navigation refetches the RSC payload, bumps viewKey and triggers the resync
+  effect), map id → slug via the in-memory `spots`, remove the param on
+  deselect, keep dish/protein params intact. replaceState only; no
+  pushState/popstate back-button handling. From the 2026-07-04 Explore review.
+- **Explore: popup can outlive its pin** — the popup/docked card holds a spot
+  object, so if a filter change (or the Open-now minute tick) drops the spot
+  from `matches`, the highlighted pin vanishes while its card stays open.
+  Low priority; close (or keep-alive) the popup when its spot leaves `matches`.
+  From the 2026-07-04 Explore review.
 - **Login / auth** — gates reviews, claims, saved spots (Clerk already in).
 - **Add a Spot** — `/add-a-spot` submission flow.
 - **API cache follow-ups** — `/api/search` + `/api/restaurants` now send

@@ -1,8 +1,8 @@
 # Advisor Review — NepaliEats
 
-*Strategic review, dated 2026-07-04. Author: Claude (acting as founding advisor).
+_Strategic review, dated 2026-07-04. Author: Claude (acting as founding advisor).
 Grounded in the planning docs (`LAUNCH.md`, `ROADMAP.md`, `MENU-PLAN.md`) and live
-Neon numbers pulled the same day.*
+Neon numbers pulled the same day._
 
 **One-line summary:** the data work is excellent and nearly done; the company work
 hasn't started. You've built a genuinely defensible asset. Stop polishing it in
@@ -74,8 +74,8 @@ food culture in Australia**, serving three constituencies: the diaspora (find yo
 people's food, festivals, jobs), curious Australians (decode an unfamiliar cuisine —
 your taxonomy literally does this), and the restaurants (customers, leads, staff,
 tools). The listing count is not the moat. The structured dish-level data plus
-community trust is. Judge every future product by: *does this deepen the data or the
-trust?*
+community trust is. Judge every future product by: _does this deepen the data or the
+trust?_
 
 ## Monetization, ranked
 
@@ -109,7 +109,7 @@ trust?*
    restaurants.
 
 **Tier 3 (skip / park):** reservations (OpenTable owns it; venues are walk-in),
-paid membership (weak; a "momo passport" as a *marketing* device is fine), first-party
+paid membership (weak; a "momo passport" as a _marketing_ device is fine), first-party
 reviews (brutal cold-start — use editorial "our picks" instead).
 
 ## What to do next, in order
@@ -135,6 +135,6 @@ until they know the site exists and see it sending customers. Manual approval ha
 launch volume (eyeball email/website, `grantOwnership` by hand — the plumbing exists).
 There's a known authz-mismatch bug in that path (edit UI shows for owners, write routes
 still `requireAdmin()` → 403), so "just turn it on" isn't trivial anyway. Ship only the
-claim *pathway* at launch: a "Own this restaurant? Claim it" link → short form/mailto
+claim _pathway_ at launch: a "Own this restaurant? Claim it" link → short form/mailto
 (an afternoon, an E-E-A-T trust signal, a warm-lead inbox). Build the real self-serve
 flow + owner dashboard post-launch, once you've processed 10–20 claims by hand.

@@ -93,5 +93,5 @@ photos (self-hosted WebP on R2), ~144 with full structured menus (~9k items). A
 Google Places API pass (2026-06-25) added full-week opening hours, business
 status, and attribute flags (vegetarian, takeout, delivery, dine-in, outdoor
 seating, wheelchair access, etc.), now surfaced as Explore filters.
-Phase 2: finish menu seeding (see `MENU-QUEUE.md`), launch tasks (`LAUNCH.md`),
-then auth/claims/reviews (`ROADMAP.md`).
+Phase 2: finish menu seeding (see `docs/MENU-QUEUE.md`), launch tasks (`docs/LAUNCH.md`),
+then auth/claims/reviews (`docs/ROADMAP.md`).

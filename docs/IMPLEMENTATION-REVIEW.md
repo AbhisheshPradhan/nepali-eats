@@ -93,12 +93,13 @@ section header, no `hasMenu`/`Menu` JSON-LD, and `price_min/max` is maintained
 but never shown ("Mains $18-24" on a card is a strong signal). The display
 layer is where the next user-visible menu value is.
 
-## 9. SEO internal linking — PARKED (Abhishesh will do SEO content later)
+## 9. SEO internal linking — 🔧 IN PROGRESS (2026-07)
 
-Still the top item in `LAUNCH.md` §2 when SEO work resumes: footer "By
-cuisine"/"By city" both point at `/explore`, detail pages link to
-`/explore?suburb=` instead of `/nepali-restaurants/[suburb]`, no breadcrumbs.
-Code-shaped (not content), so it can be picked up solo whenever unparked.
+No longer parked. Being built: a homepage `BrowseHub` (state/suburb/dish links)
+is live, and programmatic landing pages (`/nepali-food/[slug]`) are in flight
+(see `SEO-PROGRAMMATIC-PLAN.md`). Remaining to verify as it lands: footer "By
+cuisine"/"By city" and detail-page links routed to
+`/nepali-restaurants/[suburb]` (not `/explore?suburb=`), plus breadcrumbs.
 
 ## Smaller notes
 

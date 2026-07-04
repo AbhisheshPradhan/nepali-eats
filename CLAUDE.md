@@ -3,12 +3,12 @@
 Directory of **Nepali restaurants in Australia**: scraped from Google Maps,
 enriched, stored in Postgres (Neon), served by the Next.js app in `web/`.
 
-**Where things live:** launch/SEO/UX master plan → `LAUNCH.md` · frontend punch
-list → `GO-LIVE-CHECKLIST.md` · menu system design → `MENU-PLAN.md` · menu
-worklists → `MENU-SEEDING-PLAN.md` + `MENU-QUEUE.md` · post-launch backlog →
-`ROADMAP.md` · implementation review → `IMPLEMENTATION-REVIEW.md` · catering →
-`CATERING-BACKLOG.md` · copy → `VOICE_AND_TONE.md` + `COPY.md` · blog →
-`BLOG-PLAN.md`.
+**Where things live:** launch/SEO/UX master plan → `docs/LAUNCH.md` · frontend punch
+list → `docs/GO-LIVE-CHECKLIST.md` · menu system design → `docs/MENU-PLAN.md` · menu
+worklists → `docs/MENU-SEEDING-PLAN.md` + `docs/MENU-QUEUE.md` · post-launch backlog →
+`docs/ROADMAP.md` · implementation review → `docs/IMPLEMENTATION-REVIEW.md` · catering →
+`docs/CATERING-BACKLOG.md` · copy → `docs/VOICE_AND_TONE.md` + `docs/COPY.md` · blog →
+`docs/BLOG-PLAN.md`.
 
 ## Copywriting & content voice (READ BEFORE writing any user-facing text)
 
@@ -33,7 +33,14 @@ generator), you MUST:
     - Read it aloud: would a human say this to a friend about food?
       Do this automatically, without being asked. Voice = warm, human, food-obsessed;
       specific dish names over generic "cuisine"; AU spelling. Brand tagline:
-      **"Find your momo people."** Full guide: `VOICE_AND_TONE.md`.
+      **"Find your momo people."** Full guide: `docs/VOICE_AND_TONE.md`.
+3. **Sound like a food blogger, not a directory** (Abhishesh, 2026-07-05). EVERY
+   word — headings, subheadings, body, microcopy, link labels — must read like a
+   Nepali food-obsessed human who eats this food wrote it from lived experience.
+   Opinions, appetite and specifics (tastes, textures, rituals, what to order
+   first) beat categories and labels. "Directory", "browse", "listings" are
+   banned in user-facing copy. Test per word: would a food blogger write this?
+   If a heading could sit on any generic directory site, rewrite it.
 
 ## Dev server (do NOT start it)
 Do NOT run `npm run dev` / `next dev` (or `npm start`). Abhishesh runs the dev
@@ -68,7 +75,7 @@ is per-request: a "commit" on one change does NOT carry over to later changes.
   blanket-cache HTML (fights ISR) — cache static assets hard, respect origin
   headers for HTML.
 
-Remaining deploy checklist (details in `LAUNCH.md` §3 / `GO-LIVE-CHECKLIST.md`):
+Remaining deploy checklist (details in `docs/LAUNCH.md` §3 / `docs/GO-LIVE-CHECKLIST.md`):
 - [ ] Custom domain via Cloudflare DNS → Vercel (www→apex 301 in Cloudflare),
       then set `NEXT_PUBLIC_SITE_URL` so canonicals are right.
 - [ ] Cloudflare bot protection + cache rules (above).
@@ -227,7 +234,7 @@ Canonical menu schema is BUILT and applied (it also backs FoodHub later, a
 QR-menu/ordering upsell — keep menu CONTENT normalized + SQL-queryable, keep
 ordering concerns like carts/modifiers OUT of the shared core). **Don't
 redesign it — seed into it.** Full design + locked decisions + JSON contract:
-`MENU-PLAN.md` (read before menu work).
+`docs/MENU-PLAN.md` (read before menu work).
 
 - **Schema** (`scraper/schema-menu.sql`): `dish_categories` (controlled
   hierarchical vocab + `search_aliases`) → `menu_categories` → `menu_items` →
@@ -239,15 +246,15 @@ redesign it — seed into it.** Full design + locked decisions + JSON contract:
   momo has a preparation subtree; **protein is a cross-cutting facet** tagged
   alongside the dish. Unknown dish → add to `taxonomy.ts` + re-run seed (the
   menu seeder HARD-ERRORS on unknown slugs by design). Workers log gaps to
-  `MENU-TAXONOMY-TODO.md`; only the coordinator edits `taxonomy.ts`.
+  `docs/MENU-TAXONOMY-TODO.md`; only the coordinator edits `taxonomy.ts`.
 - **Seeding flow (one restaurant at a time):** `node scraper/menu-fetch.js
   <slug>` (resolves the own-site source, pdftotext first, rasterizes image-only
   scans) → transcribe to `scraper/menu-data/<slug>.json` → `node
   scraper/seed-menu.js <slug>` (dry-run) → `--commit`. Worker docs:
-  `MENU-WORKER-CHEATSHEET.md` (the one-pager) + `MENU-WORKER-PROMPT.md`.
-  Worklists: `MENU-SEEDING-PLAN.md` (menu_url buckets A/B/C) + `MENU-QUEUE.md`
-  (all remaining by popularity) + `MENU-SKIPPED-SOURCES.md` (why rows were
-  skipped) + `MENU-REMAINING-PLAN.md` (strategy for the rest). Progress:
+  `docs/MENU-WORKER-CHEATSHEET.md` (the one-pager) + `docs/MENU-WORKER-PROMPT.md`.
+  Worklists: `docs/MENU-SEEDING-PLAN.md` (menu_url buckets A/B/C) + `docs/MENU-QUEUE.md`
+  (all remaining by popularity) + `docs/MENU-SKIPPED-SOURCES.md` (why rows were
+  skipped) + `docs/MENU-REMAINING-PLAN.md` (strategy for the rest). Progress:
   `node scraper/menu-progress.js`.
 - **Hard source rule: the restaurant's OWN menu only** (own-domain page/PDF or
   physical-menu photos). Never ordering/delivery platforms (Uber Eats, Menulog,
@@ -257,7 +264,7 @@ redesign it — seed into it.** Full design + locked decisions + JSON contract:
 - Menu item descriptions are transcribed VERBATIM (the human-copy standard does
   NOT apply to them; it does apply to the blurb generator).
 - Bar/drinks ARE transcribed (`drinks`, item-level only); catering flyers are
-  SKIPPED (set `catering=true` instead; see `CATERING-BACKLOG.md`).
+  SKIPPED (set `catering=true` instead; see `docs/CATERING-BACKLOG.md`).
 - The detail page renders the menu when items exist (`RestaurantMenu`); dish
   search / dish×city SEO pages not built yet.
 
@@ -267,7 +274,7 @@ redesign it — seed into it.** Full design + locked decisions + JSON contract:
 address + lat/lng 100%, rating 99%, phone 95%, photos ~76% (self-hosted WebP
 under `media/photos/<id>/`), website 73%, menus ~144 restaurants (~9k items).
 Remaining data work: menu seeding (see queue docs), optional `review_needed`
-precision pass (`ROADMAP.md`).
+precision pass (`docs/ROADMAP.md`).
 
 ## Key learnings (don't re-discover these)
 
@@ -285,4 +292,4 @@ precision pass (`ROADMAP.md`).
 - Enrichment scripts are **idempotent + resumable** (drive off `WHERE ... IS NULL`).
 - CSV/JSON are exports/snapshots; **Postgres is the source of truth**.
 - Respect proxy rotation + asset blocking for any new Google scraping.
-- TODOs live in `ROADMAP.md` (post-launch) and the launch docs — not here.
+- TODOs live in `docs/ROADMAP.md` (post-launch) and the launch docs — not here.

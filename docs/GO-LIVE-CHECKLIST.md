@@ -69,6 +69,7 @@ Conformance audit:
 - [ ] **More blog posts** — write 1–2 additional stories before launch
 - [ ] **Mobile responsive audit** — full code review of every page against
       responsive / web-interface guidelines; fix tap targets, overflow, breakpoints, nav
+      (→ task 4 of `docs/PRE-LAUNCH-PLAN.md`)
 
 ## 🔎 Pre-flight (before deploy)
 
@@ -85,18 +86,17 @@ Conformance audit:
 - [x] **Media on R2** uploaded + `NEXT_PUBLIC_MEDIA_BASE` set (public reads serve 200)
 - [ ] **Canonical host** decided (apex vs www) + 301 redirect (still on `.vercel.app`)
 - [ ] **Sitemap/robots** verified live; submit to Search Console + Bing; GA4 installed
+      (GA4 + Search Console/Bing → task 2 of `docs/PRE-LAUNCH-PLAN.md`)
 
 ## 🔒 Security (before public launch)
 
-- [ ] **Rate-limit the public, unauthenticated DB routes** — `/api/search` and
-      `/api/restaurants` are open and each fire Postgres queries (the latter runs
-      up to 3 incl. a 3000-row PostGIS pin scan), with no throttle anywhere. That's
-      a cheap DoS / Neon-cost amplification vector. Cloudflare bot protection +
-      rate rules in front cover most of it, BUT the `.vercel.app` URL bypasses
-      Cloudflare entirely, so either (a) confirm Cloudflare rate rules are live and
-      the apex is the only reachable host, or (b) add an app-level limiter
-      (e.g. Upstash ratelimit) on those two routes. Do before the custom domain
-      goes public.
+- [ ] **Rate-limit the public, unauthenticated DB routes** — `/api/search`,
+      `/api/explore/spots` (full-table read), and `/api/explore/dishes` are open
+      and each fire Postgres queries with no throttle anywhere. That's a cheap DoS
+      / Neon-cost amplification vector. Cloudflare rate rules cover the apex, BUT
+      the `.vercel.app` URL bypasses Cloudflare, so add an app-level limiter
+      (Upstash) as defense-in-depth. Do before the custom domain goes public.
+      → **Now planned in detail as task 1 of `docs/PRE-LAUNCH-PLAN.md`.**
 
 ## ⚖️ Optional pre-launch polish (non-blocking)
 
