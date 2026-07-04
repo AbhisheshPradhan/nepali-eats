@@ -6,11 +6,11 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/Button";
 import { renderInline, stripInline } from "@/components/inline";
 import {
-  CUISINES,
-  DIETARY,
-  SIGNATURE_DISH,
+  FAMILIES,
+  EXTRAS,
   NEPALI_FOOD_FAQ,
   foodImage,
+  type FoodFamily,
   type FoodLink,
 } from "@/lib/food";
 
@@ -25,7 +25,75 @@ export const metadata: Metadata = {
 
 const HUES = [18, 168, 35, 4, 120, 45];
 
-function FoodCard({ item, hue }: { item: FoodLink; hue: number }) {
+// One dish family: heading, blogger intro, optional photo + "see all" link,
+// then its dishes as linked name-and-note rows (same pattern as the landing
+// pages' "What to order" blocks).
+function FamilySection({ family }: { family: FoodFamily }) {
+  const img = foodImage(family.slug);
+  return (
+    <section className="mb-12">
+      <h2 className="font-display font-extrabold text-[1.7rem] text-ink-900 mb-3">
+        {family.heading}
+      </h2>
+      <div
+        className={
+          img
+            ? "grid md:grid-cols-[minmax(0,360px)_1fr] gap-6 items-start mb-6"
+            : "mb-6"
+        }
+      >
+        {img && (
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-paper-200">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 360px"
+              className="object-cover"
+            />
+          </div>
+        )}
+        <div className="max-w-[680px]">
+          {family.blurb.map((p) => (
+            <p
+              key={p.slice(0, 24)}
+              className="text-ink-700 text-[1.08rem] leading-relaxed mb-3"
+            >
+              {p}
+            </p>
+          ))}
+          {family.href && family.linkLabel && (
+            <Link
+              href={family.href}
+              className="inline-flex items-center gap-1.5 text-chili-600 font-display font-bold hover:text-chili-700"
+            >
+              {family.linkLabel} <ArrowRight size={17} weight="bold" />
+            </Link>
+          )}
+        </div>
+      </div>
+      {family.dishes.length > 0 && (
+        <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+          {family.dishes.map((d) => (
+            <div key={d.slug}>
+              <h3 className="font-display font-bold text-[1.08rem]">
+                <Link
+                  href={d.href}
+                  className="text-ink-900 hover:text-chili-600 transition-colors"
+                >
+                  {d.name}
+                </Link>
+              </h3>
+              <p className="text-ink-700 leading-relaxed">{d.blurb}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ExtraCard({ item, hue }: { item: FoodLink; hue: number }) {
   const img = foodImage(item.slug);
   return (
     <Link
@@ -101,7 +169,7 @@ export default function NepaliFoodHub() {
         ]}
       />
 
-      <div className="max-w-[720px] mb-8">
+      <div className="max-w-[720px] mb-10">
         <span className="eyebrow text-chili-500">A field guide</span>
         <h1 className="text-[clamp(2rem,6vw,2.6rem)] text-ink-900 mt-1.5 mb-3">
           Nepali food, explained
@@ -113,53 +181,19 @@ export default function NepaliFoodHub() {
         </p>
       </div>
 
-      {/* Signature dish */}
-      <section className="mb-10">
-        <h2 className="eyebrow text-ink-500 mb-3">Start here</h2>
-        <Link
-          href={SIGNATURE_DISH.href}
-          className="group grid md:grid-cols-[1.1fr_1fr] bg-white rounded-xl overflow-hidden shadow-md"
-        >
-          <div
-            className="relative min-h-[220px]"
-            style={{
-              background:
-                "linear-gradient(135deg, hsl(18 82% 62%), hsl(4 78% 52%))",
-            }}
-          >
-            {foodImage(SIGNATURE_DISH.slug) && (
-              <Image
-                src={foodImage(SIGNATURE_DISH.slug)!.src}
-                alt={foodImage(SIGNATURE_DISH.slug)!.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 560px"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                priority
-              />
-            )}
-          </div>
-          <div className="p-7 flex flex-col justify-center">
-            <h3 className="font-display font-extrabold text-[2rem] text-ink-900 mb-2 group-hover:text-chili-600 transition-colors">
-              {SIGNATURE_DISH.name}
-            </h3>
-            <p className="text-ink-700 text-[1.1rem] leading-relaxed mb-4">
-              {SIGNATURE_DISH.blurb}
-            </p>
-            <span className="inline-flex items-center gap-1.5 text-chili-600 font-display font-bold">
-              Find the best momo <ArrowRight size={18} weight="bold" />
-            </span>
-          </div>
-        </Link>
-      </section>
+      {/* Dish families: momo, Newari, Thakali, Tibetan, the grill */}
+      {FAMILIES.map((f) => (
+        <FamilySection key={f.slug} family={f} />
+      ))}
 
-      {/* Cuisines & styles */}
+      {/* The audience filters that aren't cuisines */}
       <section className="mb-10">
-        <h2 className="font-display font-extrabold text-[1.6rem] text-ink-900 mb-4">
-          Cuisines and styles
+        <h2 className="font-display font-extrabold text-[1.7rem] text-ink-900 mb-4">
+          Also good to know
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...CUISINES, ...DIETARY].map((item, i) => (
-            <FoodCard key={item.slug} item={item} hue={HUES[i % HUES.length]} />
+          {EXTRAS.map((item, i) => (
+            <ExtraCard key={item.slug} item={item} hue={HUES[i % HUES.length]} />
           ))}
         </div>
       </section>

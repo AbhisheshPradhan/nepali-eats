@@ -13,6 +13,7 @@ import type {
 	DishSearchResult,
 	DishFacet,
 	DishItem,
+	DishPill,
 } from "./types";
 
 // Base column list + the hero photo via a correlated subquery.
@@ -99,6 +100,9 @@ export interface ListOpts {
 	state?: string;
 	suburb?: string;
 	tag?: string;
+	// serves_vegetarian flag (Places attribute); the vegetarian landing page
+	// filters on this, since no restaurant carries a "vegetarian" tag.
+	veg?: boolean;
 	venueType?: string;
 	priceLevel?: number;
 	minRating?: number;
@@ -146,6 +150,7 @@ function buildWhere(o: ListOpts): { where: string; params: unknown[] } {
 	if (o.suburb) cond.push(`lower(r.suburb) = lower(${p(o.suburb)})`);
 	if (o.venueType) cond.push(`r.venue_type = ${p(o.venueType)}`);
 	if (o.tag) cond.push(`${p(o.tag)} = ANY(r.tags)`);
+	if (o.veg) cond.push(`r.serves_vegetarian`);
 	if (o.priceLevel) cond.push(`r.price_level = ${p(o.priceLevel)}`);
 	if (o.minRating) cond.push(`r.rating >= ${p(o.minRating)}`);
 	if (o.hasPhoto)
@@ -754,6 +759,8 @@ export async function dishRestaurants(
 		restaurant_id: number;
 		name: string;
 		slugs: string[] | null;
+		price: string | number | null;
+		priced_count: string | number;
 	}>(
 		`SELECT mi.restaurant_id, mi.name,
             ARRAY(
@@ -761,7 +768,11 @@ export async function dishRestaurants(
                 JOIN dish_categories d2 ON d2.id = t2.dish_category_id
                WHERE t2.menu_item_id = mi.id
                  AND ${facetClause}
-            ) AS slugs
+            ) AS slugs,
+            (SELECT min(v.price) FROM menu_item_variants v
+              WHERE v.item_id = mi.id) AS price,
+            (SELECT count(v.price) FROM menu_item_variants v
+              WHERE v.item_id = mi.id) AS priced_count
        FROM menu_items mi
        JOIN restaurants r ON r.id = mi.restaurant_id
       WHERE NOT mi.is_hidden
@@ -778,7 +789,12 @@ export async function dishRestaurants(
 	const facetSlugs = new Set<string>();
 	for (const row of rows) {
 		const items = byRestaurant.get(row.restaurant_id) ?? [];
-		items.push({ name: row.name, slugs: row.slugs ?? [] });
+		items.push({
+			name: row.name,
+			slugs: row.slugs ?? [],
+			price: row.price == null ? null : Number(row.price),
+			priceFrom: Number(row.priced_count) > 1,
+		});
 		byRestaurant.set(row.restaurant_id, items);
 		for (const s of row.slugs ?? []) facetSlugs.add(s);
 	}
@@ -820,7 +836,7 @@ export async function dishRestaurants(
 
 // --- Dish / cuisine landing pages (menu-derived, server-rendered) -------------
 
-export type GeoCard = Restaurant & { matches: string[]; itemCount?: number };
+export type GeoCard = Restaurant & { matches: DishPill[]; itemCount?: number };
 export interface GeoResult {
 	dish: { slug: string; name: string; kind: string };
 	restaurants: GeoCard[];
@@ -857,13 +873,20 @@ export async function dishInGeo(
 	}
 	const rows = await query(
 		`SELECT ${COLS},
-		   ARRAY(
-		     SELECT mi.name FROM menu_items mi
-		      WHERE mi.restaurant_id = r.id AND NOT mi.is_hidden
-		        AND EXISTS (SELECT 1 FROM menu_item_tags t
-		                     WHERE t.menu_item_id = mi.id AND t.dish_category_id = $1)
-		      ORDER BY mi.position, mi.id LIMIT 6
-		   ) AS matches
+		   COALESCE((
+		     SELECT json_agg(m) FROM (
+		       SELECT mi.name AS label,
+		         (SELECT min(v.price) FROM menu_item_variants v
+		           WHERE v.item_id = mi.id) AS price,
+		         (SELECT count(v.price) FROM menu_item_variants v
+		           WHERE v.item_id = mi.id) AS priced_count
+		       FROM menu_items mi
+		        WHERE mi.restaurant_id = r.id AND NOT mi.is_hidden
+		          AND EXISTS (SELECT 1 FROM menu_item_tags t
+		                       WHERE t.menu_item_id = mi.id AND t.dish_category_id = $1)
+		        ORDER BY mi.position, mi.id LIMIT 6
+		     ) m
+		   ), '[]'::json) AS matches
 		 FROM restaurants r
 		 WHERE r.${NOT_CLOSED} ${stateCond}
 		   AND EXISTS (
@@ -879,9 +902,37 @@ export async function dishInGeo(
 		dish: { slug: tag.slug, name: tag.name, kind: tag.kind },
 		restaurants: rows.map((r: any) => ({
 			...mapRow(r),
-			matches: r.matches || [],
+			matches: ((r.matches || []) as {
+				label: string;
+				price: string | number | null;
+				priced_count: string | number;
+			}[]).map((m) => ({
+				label: m.label,
+				price: m.price == null ? null : Number(m.price),
+				priceFrom: Number(m.priced_count) > 1,
+			})),
 		})),
 	};
+}
+
+// Per-state venue counts for ONE dish, popular states first. Powers the state
+// filter chips on the dish landing pages (each chip links to the matching
+// /nepali-food/<slug>/<state> page); callers apply the MIN_RENDER threshold.
+export async function dishStateCounts(
+	slug: string,
+): Promise<{ state: string; n: number }[]> {
+	const tag = await dishCategory(slug);
+	if (!tag) return [];
+	return query<{ state: string; n: number }>(
+		`SELECT r.state, count(DISTINCT mi.restaurant_id)::int n
+		   FROM menu_item_tags t
+		   JOIN menu_items mi ON mi.id = t.menu_item_id AND NOT mi.is_hidden
+		   JOIN restaurants r ON r.id = mi.restaurant_id AND r.${NOT_CLOSED}
+		  WHERE t.dish_category_id = $1 AND r.state IS NOT NULL
+		  GROUP BY r.state
+		  ORDER BY n DESC`,
+		[tag.id],
+	);
 }
 
 // (slug, state) -> venue count, for gating which dish x state pages are

@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
-import { tagLanding, dishLanding, DISH_COPY } from "@/lib/landing";
-import { listRestaurants, tagFacets, dishCategory, dishInGeo } from "@/lib/queries";
+import { DishStateFilter } from "@/components/DishStateFilter";
+import { tagLanding, dishLanding, DISH_COPY, TAG_COPY } from "@/lib/landing";
+import {
+  listRestaurants,
+  tagFacets,
+  dishCategory,
+  dishInGeo,
+  dishStateCounts,
+} from "@/lib/queries";
 import { tagLabel } from "@/lib/format";
 import { foodImage, foodGallery } from "@/lib/food";
 
@@ -28,11 +35,14 @@ function isDishSlug(kind: string | undefined) {
 export async function generateStaticParams() {
   const tags = await tagFacets();
   const tagParams = tags
-    .filter((t) => t.value !== "momo")
+    // momo redirects to /momo; DISH_COPY slugs are emitted below.
+    .filter((t) => t.value !== "momo" && !(t.value in DISH_COPY))
     .map((t) => ({ slug: t.value }));
   // Index-ready dishes = those with bespoke copy.
   const dishParams = Object.keys(DISH_COPY).map((slug) => ({ slug }));
-  return [...tagParams, ...dishParams];
+  // vegetarian is flag-derived (serves_vegetarian), never a tag, so it is not
+  // in tagFacets; emit it explicitly.
+  return [...tagParams, { slug: "vegetarian" }, ...dishParams];
 }
 
 export async function generateMetadata({
@@ -61,7 +71,9 @@ export async function generateMetadata({
 
   const label = tagLabel(slug);
   return {
-    title: `${label} spots across Australia`,
+    // Match the on-page H1 where bespoke copy exists ("Newari food across
+    // Australia" targets the real query; "Newari spots" does not).
+    title: TAG_COPY[slug]?.title ?? `${label} spots across Australia`,
     description: INTRO[slug] || `Nepali ${label} food across Australia.`,
     alternates: { canonical },
   };
@@ -80,7 +92,10 @@ export default async function NepaliFoodPage({
 
   // Dish page (menu-derived, popularity-sorted, with matched-item pills).
   if (cat && isDishSlug(cat.kind)) {
-    const result = await dishInGeo(slug);
+    const [result, stateCounts] = await Promise.all([
+      dishInGeo(slug),
+      dishStateCounts(slug),
+    ]);
     if (!result || result.restaurants.length === 0) notFound();
     return (
       <LandingPage
@@ -89,12 +104,16 @@ export default async function NepaliFoodPage({
         total={result.restaurants.length}
         heroImage={foodImage(slug)}
         gallery={foodGallery(slug)}
+        stateFilter={<DishStateFilter slug={slug} counts={stateCounts} />}
       />
     );
   }
 
-  // Cuisine / dietary / tag page (broad, tag-derived).
-  const list = await listRestaurants({ tag: slug, limit: 500 });
+  // Cuisine / dietary / tag page (broad, tag-derived). "vegetarian" is not a
+  // tag; it filters on the serves_vegetarian attribute flag instead.
+  const list = await listRestaurants(
+    slug === "vegetarian" ? { veg: true, limit: 500 } : { tag: slug, limit: 500 }
+  );
   if (list.length === 0) notFound();
   return (
     <LandingPage

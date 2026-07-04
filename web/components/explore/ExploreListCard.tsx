@@ -9,8 +9,9 @@ import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import { Avatar } from "@/components/Avatar";
 import type { PlaceCardData } from "@/components/PlaceCard";
 import { mediaUrl } from "@/lib/media";
-import { haversineKm, formatDistance } from "@/lib/format";
+import { haversineKm, formatDistance, dishPrice } from "@/lib/format";
 import { useUserLocation, type LatLng } from "@/lib/useUserLocation";
+import type { DishPill } from "@/lib/types";
 
 // Compact Google-Maps-style row for the MOBILE Explore list (the desktop side
 // panel keeps the bigger PlaceCard). No card box — flat rows split by a bottom
@@ -24,7 +25,7 @@ export function ExploreListCard({
 	onViewMap,
 }: {
 	r: PlaceCardData;
-	pills?: string[];
+	pills?: DishPill[];
 	fallbackOrigin?: LatLng;
 	onViewMap?: () => void;
 }) {
@@ -102,10 +103,16 @@ export function ExploreListCard({
 				<div className="mt-2 flex gap-1.5 flex-nowrap overflow-x-auto scrollbar-hide">
 					{pills.map((p) => (
 						<span
-							key={p}
-							className="shrink-0 whitespace-nowrap inline-flex items-center font-body font-semibold text-[0.76rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
+							key={p.label}
+							className="shrink-0 whitespace-nowrap inline-flex items-center gap-1 font-body font-semibold text-[0.76rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
 						>
-							{p}
+							{p.label}
+							{p.price != null && (
+								<span className="text-chili-600">
+									· {p.priceFrom ? "from " : ""}
+									{dishPrice(p.price)}
+								</span>
+							)}
 						</span>
 					))}
 				</div>

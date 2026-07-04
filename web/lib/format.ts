@@ -70,6 +70,16 @@ export function priceString(
 	return "";
 }
 
+// Compact AUD price for dish-match pills: "$14", "$12.50" (drops trailing .00).
+export function dishPrice(price: number): string {
+	return new Intl.NumberFormat("en-AU", {
+		style: "currency",
+		currency: "AUD",
+	})
+		.format(price)
+		.replace(/\.00$/, "");
+}
+
 // 1–2 letter monogram for the logo fallback (Gmail-style avatar). Strips
 // apostrophes, punctuation and leading filler words ("The", "A") so e.g.
 // "Maya's Momo" -> "MM", "The Hungry Buddha" -> "HB".

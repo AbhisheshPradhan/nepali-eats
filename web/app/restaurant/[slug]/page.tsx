@@ -41,6 +41,8 @@ import {
 } from "@/lib/queries";
 import { RestaurantMenu } from "@/components/RestaurantMenu";
 import { RelatedRestaurants } from "@/components/RelatedRestaurants";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { STATE_LINK_NAME } from "@/lib/landing";
 import { mediaUrl } from "@/lib/media";
 import {
 	weekSchedule,
@@ -48,6 +50,7 @@ import {
 	directionsUrl,
 	hueFromId,
 	tagLabel,
+	suburbSlug,
 } from "@/lib/format";
 import { PriceLevel } from "@/components/ui/PriceLevel";
 
@@ -123,7 +126,6 @@ export default async function VenuePage({
 		.map((p) => mediaUrl(p.storageKey));
 	const week = weekSchedule(r.openingHours, r.state);
 	const hue = hueFromId(r.id);
-	const where = [r.suburb, r.state].filter(Boolean).join(", ");
 
 	// "Good to know" facts from the Google Places reconcile pass. Only render a
 	// row when the attribute is known and true (NULL = unknown stays hidden). Veg
@@ -191,8 +193,20 @@ export default async function VenuePage({
 			label: "Wheelchair accessible",
 		});
 
-	const jsonLd = {
-		"@context": "https://schema.org",
+	// Breadcrumb trail up the location hierarchy (LAUNCH.md §6): every detail
+	// page links its suburb + state landing pages, for users and crawlers both.
+	const crumbs = [
+		{ label: "Home", href: "/" },
+		...(r.state
+			? [{ label: r.state, href: `/nepali-restaurants/${r.state.toLowerCase()}` }]
+			: []),
+		...(r.suburb && r.state
+			? [{ label: r.suburb, href: `/nepali-restaurants/${suburbSlug(r.suburb, r.state)}` }]
+			: []),
+		{ label: r.name, href: `/restaurant/${r.slug}` },
+	];
+
+	const restaurantLd = {
 		"@type": "Restaurant",
 		name: r.name,
 		servesCuisine: "Nepalese",
@@ -229,6 +243,22 @@ export default async function VenuePage({
 		// LocalBusiness/Restaurant (a page rating itself), which risks a manual
 		// action. The rating and Google review count are still shown to users
 		// below; we just don't emit them as structured data.
+	};
+
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@graph": [
+			restaurantLd,
+			{
+				"@type": "BreadcrumbList",
+				itemListElement: crumbs.map((c, i) => ({
+					"@type": "ListItem",
+					position: i + 1,
+					name: c.label,
+					item: `${SITE}${c.href}`,
+				})),
+			},
+		],
 	};
 
 	const socials = [
@@ -308,6 +338,11 @@ export default async function VenuePage({
 						__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 					}}
 				/>
+
+				{/* visible breadcrumb trail (matches the BreadcrumbList JSON-LD) */}
+				<div className="px-4 sm:px-0 pt-3 sm:pt-0">
+					<Breadcrumbs trail={crumbs} />
+				</div>
 
 				{/* cover photo (Facebook-style: name + logo live in the strip below).
           16:9 standard, height-capped so it stays cinematic on desktop without
@@ -410,15 +445,18 @@ export default async function VenuePage({
 							)}
 						</div>
 
+						{/* tag pills link their dish/cuisine landing page (momo has
+						    its own hub), a contextual cross-link on every detail page */}
 						{r.tags.length > 0 && (
 							<div className="flex gap-2 flex-wrap mb-2">
 								{[...r.tags].sort().map((c) => (
-									<span
+									<Link
 										key={c}
-										className="inline-flex items-center font-body font-semibold text-[0.8rem] text-ink-700 bg-paper-200 px-2.5 py-1 rounded-md"
+										href={c === "momo" ? "/momo" : `/nepali-food/${c}`}
+										className="inline-flex items-center font-body font-semibold text-[0.8rem] text-ink-700 bg-paper-200 px-2.5 py-1 rounded-md hover:bg-chili-100 hover:text-chili-600 transition-colors"
 									>
 										{tagLabel(c)}
-									</span>
+									</Link>
 								))}
 							</div>
 						)}
@@ -605,9 +643,11 @@ export default async function VenuePage({
 							)}
 						</div>
 
-						{where && (
+						{/* location links route to the indexable landing pages,
+						    not the client-side map (LAUNCH.md §2) */}
+						{r.suburb && r.state && (
 							<Link
-								href={`/explore?suburb=${encodeURIComponent(r.suburb || "")}`}
+								href={`/nepali-restaurants/${suburbSlug(r.suburb, r.state)}`}
 								className="w-full bg-marigold-100 rounded-lg py-3.5 text-marigold-700 font-display font-bold inline-flex items-center justify-center gap-2 hover:bg-marigold-300/50 transition-colors"
 							>
 								<Storefront
@@ -615,6 +655,15 @@ export default async function VenuePage({
 									weight="fill"
 								/>{" "}
 								More spots in {r.suburb}
+							</Link>
+						)}
+						{r.state && (
+							<Link
+								href={`/nepali-restaurants/${r.state.toLowerCase()}`}
+								className="w-full mt-2.5 rounded-lg py-3 text-ink-700 font-display font-bold inline-flex items-center justify-center gap-2 bg-paper-100 hover:bg-paper-200 transition-colors"
+							>
+								Nepali restaurants in{" "}
+								{STATE_LINK_NAME[r.state] ?? r.state}
 							</Link>
 						)}
 					</aside>

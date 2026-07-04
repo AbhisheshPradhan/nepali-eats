@@ -1,4 +1,18 @@
 import Link from "next/link";
+import { cuisineLinks, STATE_CODES, STATE_LINK_NAME } from "@/lib/landing";
+import { suburbSlug } from "@/lib/format";
+
+// The busiest Nepali suburbs (suburbFacets order). Hardcoded because the footer
+// sits under a client boundary (SiteFooter); the ranking shifts slowly, so
+// refresh this list occasionally rather than plumb a query through the layout.
+const HOTSPOTS: { suburb: string; state: string }[] = [
+	{ suburb: "Auburn", state: "NSW" },
+	{ suburb: "Rockdale", state: "NSW" },
+	{ suburb: "Melbourne", state: "VIC" },
+	{ suburb: "Hurstville", state: "NSW" },
+	{ suburb: "Sydney", state: "NSW" },
+	{ suburb: "Glenroy", state: "VIC" },
+];
 
 const FLAGS = [
 	"bg-flag-blue",
@@ -61,38 +75,54 @@ export function Footer({
 					</div>
 					<p className="text-paper-200 leading-relaxed m-0">
 						Every plate of Nepali food in Australia, gathered with
-						love, from vibrant restaurants to food-truck queues.
+						love, from busy dining rooms to food-truck queues.
 					</p>
 				</div>
 				<div className="flex gap-12 flex-wrap">
 					<Col
-						title="Explore"
+						title="By state"
+						items={STATE_CODES.map((c) => ({
+							label: STATE_LINK_NAME[c] ?? c,
+							href: `/nepali-restaurants/${c.toLowerCase()}`,
+						}))}
+					/>
+					<Col
+						title="By dish"
 						items={[
-							{ label: "By cuisine", href: "/nepali-food" },
-							{ label: "By city", href: "/explore" },
+							// A spread, not just momo preparations (the derived
+							// list is momo-first); the hub page carries the rest.
+							{ label: "Momo", href: "/momo" },
+							{ label: "Jhol momo", href: "/nepali-food/jhol-momo" },
+							{ label: "Choila", href: "/nepali-food/choila" },
+							{ label: "Sekuwa", href: "/nepali-food/sekuwa" },
+							{ label: "Dal bhat", href: "/nepali-food/dal-bhat" },
+							{ label: "Thukpa", href: "/nepali-food/thukpa" },
+							{ label: "All dishes", href: "/nepali-food" },
+						]}
+					/>
+					<Col
+						title="By cuisine"
+						items={cuisineLinks().links}
+					/>
+					<Col
+						title="Momo hotspots"
+						items={HOTSPOTS.map((h) => ({
+							label: `${h.suburb}, ${h.state}`,
+							href: `/nepali-restaurants/${suburbSlug(h.suburb, h.state)}`,
+						}))}
+					/>
+					<Col
+						title="NepaliEats"
+						items={[
+							// Post-launch: { label: "Add a spot", href: "/add-a-spot" },
+							{ label: "Explore the map", href: "/explore" },
 							{
 								label: "Food trucks",
 								href: "/explore?venue=Food+Truck",
 							},
-							{ label: "Momo near you", href: "/momo" },
-						]}
-					/>
-					<Col
-						title="Community"
-						items={[
-							// Post-launch: { label: "Add a spot", href: "/add-a-spot" },
 							{ label: "Our story", href: "/stories" },
-							{ label: "Nepali food", href: "/nepali-food" },
 							{ label: "About", href: "/about" },
 							// Post-launch: { label: "For owners", href: "/add-a-spot" },
-						]}
-					/>
-					<Col
-						title="Hungry?"
-						items={[
-							{ label: "Momo guide", href: "/stories" },
-							{ label: "Where to eat thali", href: "/stories" },
-							{ label: "Festival eats", href: "/stories" },
 						]}
 					/>
 				</div>

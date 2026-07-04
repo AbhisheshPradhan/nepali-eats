@@ -169,10 +169,21 @@ export interface DishFacet {
 
 // A matched menu item on a dish search. `slugs` = the item's facet tags
 // (preparations under the searched dish + proteins) so the client can filter
-// pills/spots by chip without refetching.
+// pills/spots by chip without refetching. `price` = min priced variant (null
+// when the item has no priced variant); `priceFrom` = it has >1 priced variant
+// so the price is a "from" floor (mirrors the detail-page menu convention).
 export interface DishItem {
   name: string;
   slugs: string[];
+  price: number | null;
+  priceFrom: boolean;
+}
+
+// A rendered dish-match pill (label + its price, deduped by label client-side).
+export interface DishPill {
+  label: string;
+  price: number | null;
+  priceFrom: boolean;
 }
 
 // /api/explore/dishes payload: every restaurant with items matching the tag,

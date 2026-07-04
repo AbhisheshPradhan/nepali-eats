@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
+import { DishStateFilter } from "@/components/DishStateFilter";
 import { dishLanding, DISH_COPY } from "@/lib/landing";
-import { dishCategory, dishInGeo, dishGeoCounts } from "@/lib/queries";
+import { dishCategory, dishInGeo, dishGeoCounts, dishStateCounts } from "@/lib/queries";
 import { metroFromState } from "@/lib/format";
 import { foodImage, foodGallery } from "@/lib/food";
 
@@ -64,7 +65,10 @@ export default async function DishStatePage({
   const cat = await dishCategory(slug);
   if (!cat || !isDishSlug(cat.kind)) notFound();
 
-  const result = await dishInGeo(slug, STATE);
+  const [result, stateCounts] = await Promise.all([
+    dishInGeo(slug, STATE),
+    dishStateCounts(slug),
+  ]);
   if (!result || result.restaurants.length < MIN_RENDER) notFound();
 
   return (
@@ -74,6 +78,9 @@ export default async function DishStatePage({
       total={result.restaurants.length}
       heroImage={foodImage(slug)}
       gallery={foodGallery(slug)}
+      stateFilter={
+        <DishStateFilter slug={slug} counts={stateCounts} active={STATE} />
+      }
     />
   );
 }

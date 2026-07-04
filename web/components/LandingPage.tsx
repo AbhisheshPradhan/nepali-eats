@@ -9,7 +9,7 @@ import { PlaceCard } from "@/components/PlaceCard";
 import { Button } from "@/components/ui/Button";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { renderInline, stripInline } from "@/components/inline";
-import type { Restaurant } from "@/lib/types";
+import type { Restaurant, DishPill } from "@/lib/types";
 import type { LandingContent, LandingGroup } from "@/lib/landing";
 import type { FoodImage } from "@/lib/food";
 
@@ -17,8 +17,8 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
 
 const GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6";
 
-// Cards on dish pages carry matched menu-item names, shown as pills.
-type LandingRestaurant = Restaurant & { matches?: string[] };
+// Cards on dish pages carry matched menu items (name + price), shown as pills.
+type LandingRestaurant = Restaurant & { matches?: DishPill[] };
 
 export function LandingPage({
   content,
@@ -28,6 +28,7 @@ export function LandingPage({
   total,
   heroImage,
   gallery,
+  stateFilter,
 }: {
   content: LandingContent;
   restaurants: LandingRestaurant[];
@@ -40,6 +41,9 @@ export function LandingPage({
   // Registry-driven imagery (falls back to no hero / no gallery when absent).
   heroImage?: FoodImage;
   gallery?: FoodImage[];
+  // Optional row of filter chips rendered directly above the results grid
+  // (dish pages pass a state filter; most pages pass nothing).
+  stateFilter?: React.ReactNode;
 }) {
   const {
     breadcrumbs,
@@ -111,21 +115,17 @@ export function LandingPage({
 
       <Breadcrumbs trail={breadcrumbs} />
 
-      {heroImage && (
-        <div className="relative aspect-[16/7] w-full rounded-xl overflow-hidden mb-6 bg-paper-200">
-          <Image
-            src={heroImage.src}
-            alt={heroImage.alt}
-            fill
-            priority
-            sizes="(max-width: 1180px) 100vw, 1180px"
-            className="object-cover"
-          />
-        </div>
-      )}
-
-      <div className="flex items-end justify-between flex-wrap gap-3 mb-6">
-        <div className="max-w-[720px]">
+      {/* Hero: text left, food photo right (the photos are 4:3; a full-bleed
+          16:7 banner butchers them). Without a photo the text relaxes wider so
+          there's no dead gap. The map button sits under the intro either way. */}
+      <div
+        className={
+          heroImage
+            ? "grid md:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] gap-6 lg:gap-10 items-center mb-8"
+            : "mb-6"
+        }
+      >
+        <div className={heroImage ? undefined : "max-w-[900px]"}>
           <span className="eyebrow text-chili-500">{eyebrow}</span>
           <h1 className="text-[clamp(2rem,6vw,2.6rem)] text-ink-900 mt-1.5 mb-3">
             {title}
@@ -137,15 +137,29 @@ export function LandingPage({
               </p>
             ))}
           </div>
+          {exploreHref && (
+            <div className="mt-5">
+              <Button
+                href={exploreHref}
+                variant="outline"
+                iconLeft={<MapTrifold size={18} />}
+              >
+                View on map
+              </Button>
+            </div>
+          )}
         </div>
-        {exploreHref && (
-          <Button
-            href={exploreHref}
-            variant="outline"
-            iconLeft={<MapTrifold size={18} />}
-          >
-            View on map
-          </Button>
+        {heroImage && (
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-paper-200">
+            <Image
+              src={heroImage.src}
+              alt={heroImage.alt}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 420px"
+              className="object-cover"
+            />
+          </div>
         )}
       </div>
 
@@ -188,6 +202,8 @@ export function LandingPage({
           </div>
         </section>
       )}
+
+      {stateFilter}
 
       {groups ? (
         <div className="flex flex-col gap-10">

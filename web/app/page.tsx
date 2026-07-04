@@ -4,11 +4,13 @@ import { Bunting } from "@/components/Bunting";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CravingCarousel } from "@/components/CravingCarousel";
 import { StateRow } from "@/components/StateRow";
+import { MomoHotspots } from "@/components/MomoHotspots";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import {
 	featuredByState,
 	popularByState,
+	suburbFacets,
 	tagFacets,
 	totalCount,
 } from "@/lib/queries";
@@ -20,11 +22,12 @@ export default async function HomePage() {
 	// -> IP geo -> NSW fallback), same as Explore.
 	const state = await resolveState();
 
-	const [gems, popular, tags, total] = await Promise.all([
+	const [gems, popular, tags, total, suburbs] = await Promise.all([
 		featuredByState(state, 5),
 		popularByState(state, 5),
 		tagFacets(),
 		totalCount(),
+		suburbFacets(),
 	]);
 
 	// Round down to the nearest 50 so the headline stat stays clean and only
@@ -113,6 +116,10 @@ export default async function HomePage() {
 					</div>
 				</div>
 			</section>
+
+			{/* SUBURB HOTSPOTS — in-content links to the suburb landing pages
+			    (states/dishes/cuisines live in the footer; no duplication) */}
+			<MomoHotspots suburbs={suburbs} />
 		</div>
 	);
 }

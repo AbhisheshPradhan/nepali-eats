@@ -31,6 +31,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dishStateUrls = dishCounts.filter(
     (c) => dishSlugs.has(c.slug) && c.n >= 8,
   );
+  // Any dish/preparation slug renders as a dish page, which is noindexed until
+  // it has bespoke copy. Keep those out of the tag URLs below so the sitemap
+  // never lists a noindexed page (sekuwa and dal-bhat are both tag and dish).
+  const dishKindSlugs = new Set(dishCounts.map((c) => c.slug));
 
   // The freshest restaurant change drives lastModified for the data-driven
   // landing pages (home, explore, state/suburb/tag), since their content is
@@ -63,7 +67,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((s) => s.count >= 2)
       .map((s) => url(`/nepali-restaurants/${suburbSlug(s.value, s.state)}`, 0.7)),
     // momo has its own canonical /momo page, so it's excluded here.
-    ...tags.filter((t) => t.value !== "momo").map((t) => url(`/nepali-food/${t.value}`, 0.6)),
+    ...tags
+      .filter((t) => t.value !== "momo" && !dishKindSlugs.has(t.value))
+      .map((t) => url(`/nepali-food/${t.value}`, 0.6)),
+    // Flag-derived (serves_vegetarian), so it never appears in tagFacets.
+    url("/nepali-food/vegetarian", 0.6),
     // Dish hubs (national) + their qualifying state variants.
     ...Object.keys(DISH_COPY).map((slug) => url(`/nepali-food/${slug}`, 0.7)),
     ...dishStateUrls.map((c) => url(`/nepali-food/${c.slug}/${c.state.toLowerCase()}`, 0.6)),

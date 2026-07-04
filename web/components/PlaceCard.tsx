@@ -9,9 +9,9 @@ import { PriceLevel } from "@/components/ui/PriceLevel";
 import { Avatar } from "@/components/Avatar";
 import { CardCarousel } from "@/components/CardCarousel";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
-import type { Restaurant } from "@/lib/types";
+import type { Restaurant, DishPill } from "@/lib/types";
 import { mediaUrl } from "@/lib/media";
-import { hueFromId, haversineKm, formatDistance } from "@/lib/format";
+import { hueFromId, haversineKm, formatDistance, dishPrice } from "@/lib/format";
 import { useUserLocation, type LatLng } from "@/lib/useUserLocation";
 import { cn } from "@/lib/cn";
 
@@ -68,10 +68,10 @@ export type PlaceCardProps = {
 	// optional brand logo, shown as the first (contained, not cropped) slide so
 	// the venue is instantly recognisable before the food photos.
 	galleryLogo?: string | null;
-	// matched menu-item names on a dish search ("Steamed Momo", "Jhol Momo"),
-	// shown as small pills so the user sees WHY this spot matched. Capped; the
-	// overflow shows as "+N more".
-	pills?: string[];
+	// matched menu items on a dish search ("Steamed Momo", "Jhol Momo") with
+	// their price, shown as small pills so the user sees WHY this spot matched
+	// and what it costs. Capped; the overflow shows as "+N more".
+	pills?: DishPill[];
 };
 
 const MAX_PILLS = 4;
@@ -241,10 +241,18 @@ export function PlaceCard({
 					<div className="flex flex-wrap gap-1.5">
 						{pills.slice(0, MAX_PILLS).map((p) => (
 							<span
-								key={p}
-								className="inline-flex items-center font-body font-semibold text-[0.78rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
+								key={p.label}
+								className="inline-flex items-center gap-1 max-w-full font-body font-semibold text-[0.78rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
 							>
-								{p}
+								<span className="truncate min-w-0">
+									{p.label}
+								</span>
+								{p.price != null && (
+									<span className="shrink-0 whitespace-nowrap text-chili-600">
+										· {p.priceFrom ? "from " : ""}
+										{dishPrice(p.price)}
+									</span>
+								)}
 							</span>
 						))}
 						{pills.length > MAX_PILLS && (

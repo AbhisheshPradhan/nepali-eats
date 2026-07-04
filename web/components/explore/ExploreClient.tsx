@@ -24,10 +24,17 @@ import {
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
 import { ExploreListCard } from "@/components/explore/ExploreListCard";
-import type { Restaurant, ExploreSpot, Bbox, DishSearchResult } from "@/lib/types";
+import type {
+	Restaurant,
+	ExploreSpot,
+	Bbox,
+	DishSearchResult,
+	DishPill,
+} from "@/lib/types";
 import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { cn } from "@/lib/cn";
+import { Z } from "@/lib/z";
 
 // Attribute chips shown behind the "Filters" toggle. Tokens must match FLAG_COLS
 // in lib/queries.ts; labels are AU-facing. Ordered by usefulness for eating out.
@@ -387,21 +394,24 @@ export function ExploreClient({
 
 	// ---- the in-memory pipeline: scope -> filter -> sort -> paginate ---------
 
-	// Dish mode: restaurantId -> matched item names (the card pills), narrowed by
-	// the selected preparation/protein chips. Items are the verified tier.
+	// Dish mode: restaurantId -> matched item pills (name + price), narrowed by
+	// the selected preparation/protein chips. Items are the verified tier. Deduped
+	// by label, keeping the first (menu-ordered) occurrence's price.
 	const dishItems = useMemo(() => {
 		if (!dish || !dishData) return null;
-		const m = new Map<number, string[]>();
+		const m = new Map<number, DishPill[]>();
 		for (const r of dishData.restaurants) {
-			const names = r.items
-				.filter(
-					(it) =>
-						(!prepSel || it.slugs.includes(prepSel)) &&
-						(!proteinSel || it.slugs.includes(proteinSel)) &&
-						(!dishRefineSel || it.slugs.includes(dishRefineSel)),
-				)
-				.map((it) => it.name);
-			if (names.length) m.set(r.id, [...new Set(names)]);
+			const seen = new Set<string>();
+			const pills: DishPill[] = [];
+			for (const it of r.items) {
+				if (prepSel && !it.slugs.includes(prepSel)) continue;
+				if (proteinSel && !it.slugs.includes(proteinSel)) continue;
+				if (dishRefineSel && !it.slugs.includes(dishRefineSel)) continue;
+				if (seen.has(it.name)) continue;
+				seen.add(it.name);
+				pills.push({ label: it.name, price: it.price, priceFrom: it.priceFrom });
+			}
+			if (pills.length) m.set(r.id, pills);
 		}
 		return m;
 	}, [dish, dishData, prepSel, proteinSel, dishRefineSel]);
@@ -789,7 +799,10 @@ export function ExploreClient({
 	return (
 		<div className="flex flex-col h-[calc(100dvh-57px)]">
 			{/* top bar: search band + the filter/sort controls above the map. */}
-			<div className="relative z-[1200] px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100">
+			<div
+				className="relative px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100"
+				style={{ zIndex: Z.topBar }}
+			>
 				<div className="flex items-center gap-3">
 					{/* flex-1 + min-w-0 lets the box shrink so "Near me" stays on the
 					    same line on narrow phones (instead of wrapping to a 2nd row). */}
@@ -997,8 +1010,9 @@ export function ExploreClient({
 				    empty (the empty state has its own button) and while a spot
 				    card is open on the map (the docked card owns the bottom). */}
 				<div
+					style={{ zIndex: Z.mapOverlay }}
 					className={cn(
-						"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
+						"absolute bottom-6 left-1/2 -translate-x-1/2 md:hidden",
 						viewMode === "list" && ready && shown.length === 0 && "hidden",
 						viewMode === "map" && selected != null && "hidden",
 					)}

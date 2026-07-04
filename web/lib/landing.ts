@@ -41,7 +41,14 @@ const STATE_NAME: Record<string, string> = {
   TAS: "Tasmania",
   NT: "the Northern Territory",
 };
-const STATE_CODES = ["NSW", "VIC", "QLD", "WA", "SA", "ACT", "TAS", "NT"];
+// Anchor-friendly variants for nav/footer/hub links ("ACT", not the prose
+// "the ACT" used mid-sentence above).
+export const STATE_LINK_NAME: Record<string, string> = {
+  ...STATE_NAME,
+  ACT: "ACT",
+  NT: "Northern Territory",
+};
+export const STATE_CODES = ["NSW", "VIC", "QLD", "WA", "SA", "ACT", "TAS", "NT"];
 
 // Count occurrences of a field across the list, sorted most-common first.
 function topBy(
@@ -132,7 +139,7 @@ interface TagCopy {
   whatToOrder?: WhatToOrder[];
   faq?: { q: string; a: string }[];
 }
-const TAG_COPY: Record<string, TagCopy> = {
+export const TAG_COPY: Record<string, TagCopy> = {
   momo: {
     eyebrow: "Find your momo people",
     title: "Best momo in Australia",
@@ -141,10 +148,10 @@ const TAG_COPY: Record<string, TagCopy> = {
       "Order them steamed for the truest taste, fried for crisp edges, jhol for a warm spiced soup you drink between bites, or C-momo tossed in sticky chilli sauce. Buff is the traditional filling, chicken the crowd-pleaser, and veg and paneer are everywhere and genuinely good.",
     ],
     whatToOrder: [
-      { dish: "Steamed momo", note: "The classic. Soft, juicy, the truest taste of the filling." },
-      { dish: "Jhol momo", note: "Served swimming in a warm, nutty, spiced soup. Order this when it is cold out." },
-      { dish: "C-momo", note: "Chilli momo, tossed in a sticky, hot, slightly sweet sauce." },
-      { dish: "Fried momo", note: "Pan or deep fried for golden, crunchy edges." },
+      { dish: "Steamed momo", note: "The classic. Soft, juicy, the truest taste of the filling. [Steamed momo spots](/nepali-food/steamed-momo)." },
+      { dish: "Jhol momo", note: "Served swimming in a warm, nutty, spiced soup. Order this when it is cold out. [Who does jhol](/nepali-food/jhol-momo)." },
+      { dish: "C-momo", note: "Chilli momo, tossed in a sticky, hot, slightly sweet sauce. [Find C-momo](/nepali-food/chilli-momo)." },
+      { dish: "Fried momo", note: "Pan or deep fried for golden, crunchy edges. [Fried momo spots](/nepali-food/fried-momo)." },
     ],
     faq: [
       { q: "What does momo taste like?", a: "Savoury, juicy and aromatic, with the heat coming from the achaar on the side." },
@@ -231,18 +238,47 @@ const TAG_COPY: Record<string, TagCopy> = {
   },
 };
 
-// Shared cross-link group linking the main dish hubs, minus whichever tag is
-// the current page.
-function dishLinks(exclude?: string): CrossLinkGroup {
+// Shared cross-link group linking the cuisine/style hubs, minus whichever is
+// the current page. Also feeds the homepage browse hub and the footer.
+export function cuisineLinks(exclude?: string): CrossLinkGroup {
   const all: Crumb[] = [
-    { label: "Momo", href: "/momo" },
     { label: "Thakali dal bhat", href: "/nepali-food/thakali" },
     { label: "Newari", href: "/nepali-food/newari" },
     { label: "Vegetarian", href: "/nepali-food/vegetarian" },
     { label: "Tibetan", href: "/nepali-food/tibetan" },
     { label: "Nepali-Indian", href: "/nepali-food/nepali-indian" },
   ];
-  const links = all.filter(
+  return {
+    heading: "By cuisine",
+    links: all.filter((l) => l.href !== `/nepali-food/${exclude}`),
+  };
+}
+
+// Display labels for the dish pages (tagLabel would title-case every word).
+const DISH_LABEL: Record<string, string> = {
+  "steamed-momo": "Steamed momo",
+  "jhol-momo": "Jhol momo",
+  "chilli-momo": "C-momo",
+  "fried-momo": "Fried momo",
+  "kothey-momo": "Kothey momo",
+  "sandheko-momo": "Sandheko momo",
+  choila: "Choila",
+  sekuwa: "Sekuwa",
+  "dal-bhat": "Dal bhat",
+  thukpa: "Thukpa",
+};
+
+// Every indexable dish page, derived from DISH_COPY so a new dish is linked
+// everywhere the moment its copy ships (no orphan pages). Momo leads. Also
+// feeds the homepage browse hub and the footer.
+export function dishPageLinks(exclude?: string): CrossLinkGroup {
+  const links: Crumb[] = [
+    { label: "Momo", href: "/momo" },
+    ...Object.keys(DISH_COPY).map((s) => ({
+      label: DISH_LABEL[s] ?? tagLabel(s),
+      href: `/nepali-food/${s}`,
+    })),
+  ].filter(
     (l) => l.href !== (exclude === "momo" ? "/momo" : `/nepali-food/${exclude}`)
   );
   return { heading: "By dish", links };
@@ -283,7 +319,8 @@ export function stateLanding(state: string, list: Restaurant[]): LandingContent 
   const crossLinks: CrossLinkGroup[] = [];
   if (suburbLinks.length)
     crossLinks.push({ heading: `Suburbs in ${name}`, links: suburbLinks });
-  crossLinks.push(dishLinks());
+  crossLinks.push(dishPageLinks());
+  crossLinks.push(cuisineLinks());
   crossLinks.push(stateLinks(state));
 
   return {
@@ -347,7 +384,8 @@ export function suburbLanding(
           { label: `All of ${name}`, href: `/nepali-restaurants/${state.toLowerCase()}` },
         ],
       },
-      dishLinks(),
+      dishPageLinks(),
+      cuisineLinks(),
     ],
     exploreHref: `/explore?suburb=${encodeURIComponent(suburb)}`,
     collectionName: `Nepali restaurants in ${suburb}, ${state}`,
@@ -404,7 +442,8 @@ export function tagLanding(tag: string, list: Restaurant[]): LandingContent {
 
   const crossLinks: CrossLinkGroup[] = [
     stateLinks(undefined, topStateCodes),
-    dishLinks(tag),
+    dishPageLinks(isMomo ? "momo" : tag),
+    cuisineLinks(tag),
   ];
 
   return {
@@ -424,7 +463,13 @@ export function tagLanding(tag: string, list: Restaurant[]): LandingContent {
     whatToOrder: copy?.whatToOrder,
     faq: copy?.faq,
     crossLinks,
-    exploreHref: isMomo ? "/explore?tag=momo" : `/explore?tag=${encodeURIComponent(tag)}`,
+    // Explore has no URL seed for the veg attribute flag, so the vegetarian
+    // page links the plain map rather than an empty ?tag=vegetarian result.
+    exploreHref: isMomo
+      ? "/explore?tag=momo"
+      : tag === "vegetarian"
+        ? "/explore"
+        : `/explore?tag=${encodeURIComponent(tag)}`,
     collectionName: title,
   };
 }
@@ -547,6 +592,38 @@ export const DISH_COPY: Record<string, DishCopy> = {
       { q: "Is choila spicy?", a: "It has real heat and a numbing tingle from timur, but you can ask for it milder." },
     ],
   },
+  sekuwa: {
+    title: "Sekuwa in Australia",
+    lead: [
+      "Sekuwa is Nepali barbecue: chunks of lamb, chicken, pork or buff rubbed with spices and mustard oil, threaded onto skewers and grilled over flame until the edges char. In Nepal it is street food, eaten straight off the grill with beaten rice and raw onion. Here it lands as a starter, a bar snack, and the reason the table orders another round.",
+      "The good versions taste of the fire as much as the marinade. Order it with chiura and a wedge of lemon, and if the menu offers pork sekuwa, that is usually the kitchen showing off.",
+    ],
+    whatToOrder: [
+      { dish: "Lamb sekuwa", note: "The most common cut in Australia. Charred outside, juicy inside." },
+      { dish: "Chicken sekuwa", note: "Lighter, and it takes the marinade beautifully." },
+      { dish: "Pork sekuwa", note: "Richer and smokier. Order it wherever you see it." },
+    ],
+    faq: [
+      { q: "What is sekuwa?", a: "Nepali grilled meat: marinated chunks of lamb, chicken, pork or buff cooked on skewers over flame. Nepal's answer to barbecue." },
+      { q: "Is sekuwa spicy?", a: "Warm rather than fiery. The marinade brings spice and smoke, and the heat mostly comes from the achaar served alongside." },
+    ],
+  },
+  "dal-bhat": {
+    title: "Dal bhat in Australia",
+    lead: [
+      "Dal bhat is the meal Nepal runs on: lentil soup and rice with tarkari, greens, pickles and often a curry on the side. Most Nepali homes eat it twice a day, and every trekker comes home repeating the same line about dal bhat power lasting 24 hours, because it does.",
+      "At a restaurant it arrives as a set, and the good ones keep refilling the rice, dal and sides until you surrender. If a [Thakali kitchen](/nepali-food/thakali) is doing the set, expect a darker black dal and a longer row of pickles.",
+    ],
+    whatToOrder: [
+      { dish: "Dal bhat set with meat", note: "Usually a goat or chicken curry alongside the dal, rice and sides." },
+      { dish: "Veg dal bhat set", note: "Dal, tarkari, greens and pickles. A full meal with nothing missing." },
+      { dish: "Gundruk", note: "Fermented greens, sour and moreish. Ask for it if it is not on the plate." },
+    ],
+    faq: [
+      { q: "What is dal bhat?", a: "Nepal's national meal: lentil soup (dal) over rice (bhat) with vegetable curry, greens and pickles. Most restaurants serve it as a set with refills." },
+      { q: "What is the difference between dal bhat and Thakali dal bhat?", a: "Thakali is the deluxe version: a darker black dal, gundruk and more sides on the plate. Any dal bhat is a full meal; the Thakali set is the one worth crossing town for." },
+    ],
+  },
   thukpa: {
     title: "Thukpa in Australia",
     lead: [
@@ -563,16 +640,6 @@ export const DISH_COPY: Record<string, DishCopy> = {
     ],
   },
 };
-
-// Curated "more to eat" cross-links, shown on every dish page (self excluded).
-const MORE_DISHES: Crumb[] = [
-  { label: "Momo", href: "/momo" },
-  { label: "Jhol momo", href: "/nepali-food/jhol-momo" },
-  { label: "C-momo", href: "/nepali-food/chilli-momo" },
-  { label: "Kothey momo", href: "/nepali-food/kothey-momo" },
-  { label: "Choila", href: "/nepali-food/choila" },
-  { label: "Thukpa", href: "/nepali-food/thukpa" },
-];
 
 export function dishLanding(
   dish: { slug: string; name: string; kind: string },
@@ -626,7 +693,7 @@ export function dishLanding(
   }
   crossLinks.push({
     heading: "More to eat",
-    links: MORE_DISHES.filter((l) => l.href !== selfHref).slice(0, 5),
+    links: dishPageLinks(dish.slug).links,
   });
 
   const breadcrumbs: Crumb[] = [
