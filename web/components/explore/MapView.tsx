@@ -76,11 +76,9 @@ export default function MapView({
   onHover,
   onSelect,
   onBounds,
-  onInteractStart,
   center,
   zoom,
   active = true,
-  cardless = false,
 }: {
   pins: ExploreSpot[];
   hoveredId: number | null;
@@ -88,19 +86,12 @@ export default function MapView({
   onHover: (id: number | null) => void;
   onSelect: (id: number | null) => void;
   onBounds: (b: Bbox, userMoved: boolean) => void;
-  // Fired the instant a USER map gesture begins (drag/pinch/scroll-zoom), not on
-  // programmatic flyTo. Lets the sheet collapse as the user grabs the map.
-  onInteractStart?: () => void;
   center: [number, number];
   zoom: number;
   // On mobile the map is display:none while the list is showing, so Mapbox
   // measures a zero-size container. When it becomes visible we must resize, or
   // the canvas keeps its old (short) height and tiles only cover part of it.
   active?: boolean;
-  // Sheet UI (mobile): the parent renders the spot detail in its bottom drawer,
-  // so pin taps only select (no popup/docked card here). Desktop keeps the
-  // pin-anchored popup regardless.
-  cardless?: boolean;
 }) {
   const mapRef = useRef<MapRef>(null);
   const [cursor, setCursor] = useState("");
@@ -155,17 +146,7 @@ export default function MapView({
   };
 
   useEffect(() => {
-    const m = mapRef.current;
-    if (!m) return;
-    // Sheet UI on MOBILE: the bottom drawer covers the lower ~half of the map,
-    // so lift the target into the visible upper region instead of the geometric
-    // centre — otherwise a recentred pin lands under the sheet. Gated on dockCard
-    // (mobile) so desktop centring is untouched even though cardless is on there.
-    const offsetY =
-      cardless && dockCard
-        ? -Math.round(m.getContainer().clientHeight * 0.24)
-        : 0;
-    m.flyTo({ center: [center[1], center[0]], zoom, offset: [0, offsetY], duration: 800 });
+    mapRef.current?.flyTo({ center: [center[1], center[0]], zoom, duration: 800 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [center, zoom]);
 
@@ -202,10 +183,8 @@ export default function MapView({
     const pin = pins.find((p) => p.id === selectedId);
     if (!pin) return; // not loaded into view yet; reopen when it arrives
     lastAutoSelect.current = selectedId;
-    if (!(cardless && dockCard)) setPopup(pin);
-    // Cardless (sheet): the parent recentres the pin via flyTo (offset above the
-    // drawer), so skip the nudge — it's only for the toggle UI's docked card.
-    if (!cardless) nudgeAboveCard(pin.lng, pin.lat);
+    setPopup(pin);
+    nudgeAboveCard(pin.lng, pin.lat);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId, pins]);
 
@@ -270,9 +249,8 @@ export default function MapView({
     onSelect(id);
     const pin = pins.find((p) => p.id === id);
     if (pin) {
-      if (!(cardless && dockCard)) setPopup(pin);
-      // Cardless (sheet): the parent recentres via flyTo; nudge is toggle-UI only.
-      if (!cardless) nudgeAboveCard(pin.lng, pin.lat);
+      setPopup(pin);
+      nudgeAboveCard(pin.lng, pin.lat);
     }
   };
 
@@ -338,12 +316,6 @@ export default function MapView({
       // Stops once the user takes over, so it doesn't double-fetch on interaction.
       onIdle={() => {
         if (!userMovedRef.current) emitBounds(false);
-      }}
-      // Interaction BEGIN: fire onInteractStart for user gestures only
-      // (originalEvent present; flyTo/easeTo omit it) so the sheet collapses the
-      // instant the user grabs the map, not when the move settles.
-      onMoveStart={(e) => {
-        if ((e as { originalEvent?: unknown }).originalEvent) onInteractStart?.();
       }}
       // originalEvent is present only for user-driven moves; flyTo/easeTo omit it.
       // (Not surfaced on react-map-gl's ViewStateChangeEvent type, but it's there.)

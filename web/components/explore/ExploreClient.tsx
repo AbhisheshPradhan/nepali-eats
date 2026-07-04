@@ -23,12 +23,7 @@ import {
 } from "@/components/shadcn/select";
 import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
-import {
-	SheetDetailHeader,
-	SheetDetailBody,
-} from "@/components/explore/SheetDetail";
-import { ExploreSheet } from "@/components/explore/ExploreSheet";
-import { SheetListCard } from "@/components/explore/SheetListCard";
+import { ExploreListCard } from "@/components/explore/ExploreListCard";
 import type { Restaurant, ExploreSpot, Bbox, DishSearchResult } from "@/lib/types";
 import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
 import { reverseGeocodeSuburb } from "@/lib/geocode";
@@ -122,7 +117,6 @@ export function ExploreClient({
 	autoLocate = false,
 	viewKey,
 	cameraKey,
-	sheetUi = false,
 	initialQuery = "",
 }: {
 	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
@@ -146,10 +140,6 @@ export function ExploreClient({
 	// filters in place instead of recentring the map.
 	viewKey: string;
 	cameraKey: string;
-	// TEMP flag (?ui=sheet): mobile layout = full-bleed map + bottom drawer
-	// (list state / detail state) instead of the list/map toggle. Desktop is
-	// unchanged either way. Becomes the default once the feel is signed off.
-	sheetUi?: boolean;
 	// initialQuery = what the search box shows (suburb, state / focused name)
 	initialQuery?: string;
 }) {
@@ -266,31 +256,6 @@ export function ExploreClient({
 	const appliedViewKey = useRef(viewKey);
 	const appliedCameraKey = useRef(cameraKey);
 
-	// Sheet UI: distance from the viewport top to the bottom of the search bar,
-	// so the drawer's fully-expanded height stops just under it (search stays
-	// visible; the sheet's controls row never clips behind it).
-	const topBarRef = useRef<HTMLDivElement>(null);
-	const [topInset, setTopInset] = useState(125);
-	useEffect(() => {
-		if (!sheetUi) return;
-		const measure = () => {
-			const el = topBarRef.current;
-			if (el) setTopInset(Math.round(el.getBoundingClientRect().bottom));
-		};
-		measure();
-		window.addEventListener("resize", measure);
-		return () => window.removeEventListener("resize", measure);
-	}, [sheetUi]);
-
-	// Sheet UI: bumped the instant a real map gesture BEGINS (movestart), so a
-	// half-open sheet drops to peek right as the user grabs the map — not after
-	// the gesture settles. A half-open sheet reveals the map immediately.
-	const [collapseSignal, setCollapseSignal] = useState(0);
-	const onMapInteractStart = useCallback(
-		() => setCollapseSignal((n) => n + 1),
-		[],
-	);
-
 	// map bounds change (moveEND) → refilter the in-memory list (no fetch, no
 	// debounce).
 	const onBounds = useCallback((b: Bbox, userMoved: boolean) => {
@@ -372,37 +337,16 @@ export function ExploreClient({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
 
-	const onSelect = useCallback(
-		(id: number | null) => {
-			setSelected(id);
-			if (id == null) return; // deselect -> shrink the pin back
-			if (sheetUi) {
-				// Sheet UI: recentre the map on the selected spot (MapView lifts it
-				// above the drawer). The drawer itself raises to half (ExploreSheet).
-				const s = spots?.find((x) => x.id === id);
-				if (s) setCenter([s.lat, s.lng]);
-				return;
-			}
-			const el = document.getElementById(`row-${id}`);
-			if (el && listRef.current)
-				listRef.current.scrollTo({
-					top: el.offsetTop - 12,
-					behavior: "smooth",
-				});
-		},
-		[sheetUi, spots],
-	);
-
-	// Sheet UI: tapping a list card opens the detail AND zooms the map in on the
-	// spot (like the desktop "View on map"). onSelect recentres; this adds zoom.
-	// Ignore taps until the spots payload has landed — otherwise the selection
-	// can't resolve to a detailSpot yet and the sheet pops open by itself when
-	// the fetch finishes (a real window on slow mobile connections).
-	const openFromList = (r: { id: number; lat: number | null }) => {
-		if (!spots) return;
-		onSelect(r.id);
-		if (sheetUi && r.lat != null) setZoom((z) => Math.max(z, 15));
-	};
+	const onSelect = useCallback((id: number | null) => {
+		setSelected(id);
+		if (id == null) return; // deselect -> shrink the pin back
+		const el = document.getElementById(`row-${id}`);
+		if (el && listRef.current)
+			listRef.current.scrollTo({
+				top: el.offsetTop - 12,
+				behavior: "smooth",
+			});
+	}, []);
 
 	const nearMe = () => {
 		if (!navigator.geolocation) return;
@@ -591,14 +535,8 @@ export function ExploreClient({
 		setMinRating(0);
 	};
 
-	// Sheet UI: the spot whose detail the drawer shows (pin tap sets `selected`).
-	const detailSpot =
-		sheetUi && selected != null
-			? (spots?.find((s) => s.id === selected) ?? null)
-			: null;
-
-	// ---- list pieces, shared by the side panel (md+/toggle UI) and the mobile
-	// drawer (sheet UI). Plain render helpers, not components — no hooks inside.
+	// ---- list pieces (heading, banner, body). Plain render helpers, not
+	// components — no hooks inside.
 	const headingRow = (
 		<div className="flex items-center justify-between px-0.5 pb-3">
 			<span className="font-display font-bold text-ink-700">
@@ -655,7 +593,7 @@ export function ExploreClient({
 		</div>
 	) : null;
 
-	const listBody = (inDrawer: boolean) => (
+	const listBody = (
 		<>
 			{shown.length === 0 && spotsError ? (
 				<div className="text-center py-12 text-ink-500">
@@ -711,40 +649,18 @@ export function ExploreClient({
 					) : (
 						<>
 							<p>
-								No spots in this area.{" "}
-								{inDrawer
-									? "Pan the map or zoom out to find some nearby."
-									: "Open the map to find some nearby."}
+								No spots in this area. Open the map to find
+								some nearby.
 							</p>
-							{!inDrawer && (
-								<button
-									onClick={() => setViewMode("map")}
-									className="md:hidden mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
-								>
-									<MapTrifold size={20} />
-									Open map
-								</button>
-							)}
+							<button
+								onClick={() => setViewMode("map")}
+								className="md:hidden mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
+							>
+								<MapTrifold size={20} />
+								Open map
+							</button>
 						</>
 					)}
-				</div>
-			) : inDrawer ? (
-				<div className="flex flex-col">
-					{shown.map((r, i) => (
-						<Fragment key={r.id}>
-							{isFocusView && i === 1 && (
-								<h2 className="font-display font-bold text-ink-700 pt-3 pb-0.5">
-									You may also like
-								</h2>
-							)}
-							<SheetListCard
-								r={r}
-								pills={dishItems?.get(r.id)}
-								fallbackOrigin={distOrigin}
-								onOpen={() => openFromList(r)}
-							/>
-						</Fragment>
-					))}
 				</div>
 			) : (
 				<div className="grid grid-cols-1 gap-3">
@@ -756,16 +672,29 @@ export function ExploreClient({
 								</h2>
 							)}
 							<div id={`row-${r.id}`}>
-								<PlaceCard
-									r={r}
-									variant="row"
-									hovered={hovered === r.id}
-									selected={selected === r.id}
-									onHover={setHovered}
-									fallbackOrigin={distOrigin}
-									onViewMap={() => viewOnMap(r)}
-									pills={dishItems?.get(r.id)}
-								/>
+								{/* Mobile: compact card (whole card links to detail;
+								    "View on map" jumps to the map). Desktop side panel:
+								    the bigger PlaceCard row. */}
+								<div className="md:hidden">
+									<ExploreListCard
+										r={r}
+										pills={dishItems?.get(r.id)}
+										fallbackOrigin={distOrigin}
+										onViewMap={() => viewOnMap(r)}
+									/>
+								</div>
+								<div className="hidden md:block">
+									<PlaceCard
+										r={r}
+										variant="row"
+										hovered={hovered === r.id}
+										selected={selected === r.id}
+										onHover={setHovered}
+										fallbackOrigin={distOrigin}
+										onViewMap={() => viewOnMap(r)}
+										pills={dishItems?.get(r.id)}
+									/>
+								</div>
 							</div>
 						</Fragment>
 					))}
@@ -857,96 +786,10 @@ export function ExploreClient({
 		</div>
 	);
 
-	// Sheet UI: one horizontally-scrollable controls row inside the drawer's
-	// list header (Google-Maps style) — Near me, Sort, Open now, Rating and the
-	// Filters toggle all live here on mobile, leaving only the search box over
-	// the map.
-	const sheetControls = (
-		<div className="-mx-4 px-4 pb-2.5 flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide">
-			<Button
-				size="sm"
-				onClick={nearMe}
-				iconLeft={<NavigationArrow weight="fill" size={15} />}
-				className="shrink-0 whitespace-nowrap"
-			>
-				Near me
-			</Button>
-			<Select value={sort} onValueChange={setSort}>
-				<SelectTrigger className="shrink-0 rounded-full border-2 border-sand-400 bg-white px-3.5 font-display font-bold text-[0.9rem] text-ink-900 shadow-none">
-					<SelectValue />
-				</SelectTrigger>
-				<SelectContent
-					position="popper"
-					sideOffset={6}
-					align="start"
-					className="rounded-lg z-[1300]"
-				>
-					<SelectItem value="featured">Featured</SelectItem>
-					<SelectItem value="rating">Highest rated</SelectItem>
-					<SelectItem value="nearest">Nearest</SelectItem>
-				</SelectContent>
-			</Select>
-			<button
-				onClick={() => setOpenOnly((o) => !o)}
-				aria-pressed={openOnly}
-				className={cn(
-					"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-					openOnly
-						? "bg-coriander-500 border-coriander-500 text-white"
-						: "bg-white border-sand-400 text-ink-700",
-				)}
-			>
-				<Clock weight="fill" size={16} />
-				Open now
-			</button>
-			<Seg
-				value={minRating}
-				onChange={setMinRating}
-				options={[
-					[0, "Any"],
-					[4, "★ 4.0+"],
-					[4.5, "★ 4.5+"],
-				]}
-			/>
-			<button
-				onClick={() => setShowFilters((s) => !s)}
-				aria-pressed={showFilters}
-				className={cn(
-					"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-					activeFilterCount > 0 || showFilters
-						? "bg-coriander-500 border-coriander-500 text-white"
-						: "bg-white border-sand-400 text-ink-700",
-				)}
-			>
-				<SlidersHorizontal size={16} />
-				Filters
-				{activeFilterCount > 0 && (
-					<span className="inline-grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-white/90 text-coriander-600 text-[0.72rem] leading-none">
-						{activeFilterCount}
-					</span>
-				)}
-				<CaretDown
-					className={cn(
-						"transition-transform",
-						showFilters && "rotate-180",
-					)}
-					size={14}
-				/>
-			</button>
-		</div>
-	);
-
 	return (
 		<div className="flex flex-col h-[calc(100dvh-57px)]">
-			{/* top bar: a solid search band above the map (in normal flow). We tried
-			    floating the pill over the map (Google style) but an <input> layered
-			    over the Mapbox WebGL canvas doesn't reliably receive taps/focus on
-			    iOS Safari, so the band sits above the canvas instead. In sheet UI
-			    the filter row moves into the drawer, so the band holds only search. */}
-			<div
-				ref={topBarRef}
-				className="relative z-[1200] px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100"
-			>
+			{/* top bar: search band + the filter/sort controls above the map. */}
+			<div className="relative z-[1200] px-4 sm:px-6 py-3 border-b border-paper-300 bg-paper-100">
 				<div className="flex items-center gap-3">
 					{/* flex-1 + min-w-0 lets the box shrink so "Near me" stays on the
 					    same line on narrow phones (instead of wrapping to a 2nd row). */}
@@ -979,9 +822,8 @@ export function ExploreClient({
 				</div>
 
 				{/* Filter bar: primary controls always visible; attribute chips live
-				    behind the Filters toggle. Everything filters in memory, instantly.
-				    Sheet UI moves ALL of this into the drawer header on mobile. */}
-				<div className={cn("mt-3", sheetUi && "max-md:hidden")}>
+				    behind the Filters toggle. Everything filters in memory, instantly. */}
+				<div className="mt-3">
 					{/* Mobile: one horizontally-scrollable row (bleeds to the screen
 					    edges) so the controls stay on a single thumb-swipeable line
 					    instead of eating two rows above the map. Desktop: plain wrap. */}
@@ -1118,27 +960,24 @@ export function ExploreClient({
 
 			{/* body */}
 			<div className="flex-1 min-h-0 relative flex">
-				{/* side list panel (md+ always; mobile only in the toggle UI) */}
+				{/* list panel: the desktop side panel (always), and the mobile
+				    list when the toggle is on List. */}
 				<div
 					ref={listRef}
 					className={cn(
 						"w-full md:w-[540px] md:flex-none overflow-y-auto p-4 bg-paper-50 md:border-r md:border-paper-300",
-						viewMode === "map" || sheetUi
-							? "hidden md:block"
-							: "block",
+						viewMode === "map" ? "hidden md:block" : "block",
 					)}
 				>
 					{listBanner}
 					{headingRow}
-					{listBody(false)}
+					{listBody}
 				</div>
 
 				<div
 					className={cn(
 						"flex-1 relative min-w-0",
-						sheetUi || viewMode === "map"
-							? "block"
-							: "hidden md:block",
+						viewMode === "map" ? "block" : "hidden md:block",
 					)}
 				>
 					<MapView
@@ -1148,90 +987,37 @@ export function ExploreClient({
 						onHover={setHovered}
 						onSelect={onSelect}
 						onBounds={onBounds}
-						onInteractStart={onMapInteractStart}
 						center={center}
 						zoom={zoom}
-						active={sheetUi || viewMode === "map"}
-						cardless={sheetUi}
+						active={viewMode === "map"}
 					/>
 				</div>
 
-				{/* Toggle UI only: the floating List/Map button. Hidden while the
-				    list is empty (the empty state has its own button) and while a
-				    spot card is open on the map (the docked card owns the bottom). */}
-				{!sheetUi && (
-					<div
-						className={cn(
-							"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
-							viewMode === "list" && ready && shown.length === 0 && "hidden",
-							viewMode === "map" && selected != null && "hidden",
-						)}
+				{/* Floating List/Map toggle (mobile). Hidden while the list is
+				    empty (the empty state has its own button) and while a spot
+				    card is open on the map (the docked card owns the bottom). */}
+				<div
+					className={cn(
+						"absolute bottom-6 left-1/2 -translate-x-1/2 z-[1100] md:hidden",
+						viewMode === "list" && ready && shown.length === 0 && "hidden",
+						viewMode === "map" && selected != null && "hidden",
+					)}
+				>
+					<button
+						onClick={() =>
+							setViewMode(viewMode === "map" ? "list" : "map")
+						}
+						className="inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg"
 					>
-						<button
-							onClick={() =>
-								setViewMode(viewMode === "map" ? "list" : "map")
-							}
-							className="inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg"
-						>
-							{viewMode === "map" ? (
-								<Rows size={20} />
-							) : (
-								<MapTrifold size={20} />
-							)}
-							{viewMode === "map" ? "List" : "Map"}
-						</button>
-					</div>
-				)}
+						{viewMode === "map" ? (
+							<Rows size={20} />
+						) : (
+							<MapTrifold size={20} />
+						)}
+						{viewMode === "map" ? "List" : "Map"}
+					</button>
+				</div>
 			</div>
-
-			{/* Sheet UI: the mobile bottom drawer (LIST state = heading + controls
-			    pinned under the handle + the scrollable list; DETAIL state = the
-			    tapped spot's preview). The map stays interactive behind it; it
-			    can't be dismissed, only peeked. Snap state lives INSIDE
-			    ExploreSheet so drag-settle doesn't re-render the map/list. */}
-			{sheetUi && (
-				<ExploreSheet
-					title={detailSpot ? detailSpot.name : "Spots in view"}
-					resetKey={detailSpot ? detailSpot.id : "list"}
-					topInset={topInset}
-					collapseSignal={collapseSignal}
-					isDetail={!!detailSpot}
-					showClear={!detailSpot && (activeFilterCount > 0 || !!dish)}
-					onClearAll={() => {
-						clearAllFilters();
-						setShowFilters(false);
-						if (dish) clearDish();
-					}}
-					peekHeader={
-						detailSpot ? (
-							<SheetDetailHeader
-								spot={detailSpot}
-								pills={dishItems?.get(detailSpot.id)}
-								onClose={() => onSelect(null)}
-							/>
-						) : (
-							<>
-								{headingRow}
-								{sheetControls}
-								{showFilters && (
-									<div className="pb-2.5">{flagsWrap}</div>
-								)}
-								{dish && <div className="pb-2.5">{dishBar}</div>}
-							</>
-						)
-					}
-					body={
-						detailSpot ? (
-							<SheetDetailBody spot={detailSpot} />
-						) : (
-							<>
-								{listBanner}
-								{listBody(true)}
-							</>
-						)
-					}
-				/>
-			)}
 		</div>
 	);
 }
