@@ -124,8 +124,10 @@ non-Nepali leaks. Stage to a column or dry-run file for review before writing.
 
 ## Brands (franchise grouping) + detail-page internal linking
 
-**Status: ACTIVE (launch-prep, not deferred).** Building now to fix the site's
-thin internal linking. Two detail-page blocks + a public brand grouping.
+**Status: CORE SHIPPED (2026-07).** Schema, both detail-page blocks, and the
+first 9 brands are live. Remaining work = **brand backfilling (POST-LAUNCH)** +
+the `/brand/[slug]` hub-page fast-follow. See "Seeded so far" / "POST-LAUNCH"
+below.
 
 **Concept split (locked):** a **brand** is a PUBLIC, editorial grouping of
 locations under one name (8848 Momo House ×15). It is for SEO + internal linking
@@ -155,6 +157,27 @@ other franchises (Momo Central, Heshela ×2, Falcha ×3, Chulho ×2, Aagaman ×3
 Khukuri…) to a REVIEW file — never auto-commit. Generic tokens ("Himalayan",
 "Everest", "Momo Bar") over-cluster unrelated spots, so editorial confirm before
 setting `brand_id`.
+
+**Seeded so far (2026-07 — 9 brands, 37 restaurants tagged, live on Neon):**
+8848 Momo House (15), Falcha (4), Aagaman Indian Nepalese (3), Khukuri (3),
+Momo Central (4), Chulho (2), Chulesi (2), Heshela Newa Khaja Ghar (2),
+The Momos Hub (2). All tagged by explicit per-branch slug lists with a count
+guard, disambiguated by hand from name-similar-but-unrelated spots (e.g. Chulho ≠
+Chulo Perth / Fresh Chulo / Chulo on Wheels; The Momos Hub ≠ Chautari Momo Hub /
+365 Momo Hub).
+
+**⚠️ POST-LAUNCH: continue brand backfilling.** Only ~37 of 437 visible spots are
+grouped. Keep tagging franchises as they surface:
+- Known next candidates: **Kalapani** (Ingleburn, Town Hall), **Mayalu**
+  (Hurstville, Strathfield). Verify branches before tagging.
+- Longer tail: run the clustering script (full normalized-name prefix, NOT first
+  token — first-token grouping is mostly noise: "the"/"momo"/"himalayan"/"namaste"
+  /"kathmandu"/"everest"/"cafe" span unrelated businesses) → REVIEW file →
+  editorial confirm → set `brand_id`. Same per-branch-slug + count-guard method.
+- Ambiguous names ("Kathmandu Momo House", "Namaste" ×several) need a human eye —
+  same name may be different operators; only group confirmed same-brand.
+- Ownership stays decoupled (brand ≠ authz), so backfilling is low-risk and can
+  run incrementally after launch.
 
 **Detail-page blocks (reuse `PlaceCard`; both below the menu, brand above nearby):**
 - **A. "More {brand} locations"** — live sibling branches, ordered by distance

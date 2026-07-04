@@ -1,0 +1,167 @@
+{
+  "slug": "chulesi-sydney-auburn",
+  "source": "admin",
+  "price_source": "page",
+  "currency": "AUD",
+  "categories": [
+    {
+      "name": "Entree - Non-Vegetarian",
+      "items": [
+        { "name": "Bhutan Set", "description": "Pan fried goat tripes, tongue, fatty intestine, served with Bhatmas Sadheko, tomato achar, salad and puffed rice.", "tags": ["bhutan"], "variants": [{ "label": null, "price": 24, "protein": "goat" }] },
+        { "name": "Buff Sukuti Set", "description": "Deep fried buffalo meat, onion, tomatoes, and spices served with puffed rice, bhatmas sadheko, salad and tomato achar.", "tags": ["sukuti"], "variants": [{ "label": null, "price": 26, "protein": "buff" }] },
+        { "name": "Pork Sekuwa Set", "description": "Marinated pork meat deep fried in spices and herbs served with puffed rice, bhatmas sadheko, salad and tomato achar.", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 26, "protein": "pork" }] },
+        { "name": "Khaja Set", "description": "Beaten rice, chicken choila, bhatmas sadheko, aloo fry, bhutan, black eyed beans, egg bara and aloo tama.", "tags": ["khaja"], "variants": [{ "label": null, "price": 33, "protein": "chicken" }] },
+        { "name": "Giblets Sadheko Set", "description": "Fried chicken giblets marinated in herbs and spices served with puffed rice bhatmas sadheko, tomato achar and salad.", "tags": ["sandheko"], "variants": [{ "label": null, "price": 23, "protein": "chicken" }] },
+        { "name": "Chicken Choila", "description": "Char grilled chicken pieces marinated in a delectable mix of herbs and spices.", "tags": ["choila"], "variants": [{ "label": null, "price": 18, "protein": "chicken" }] },
+        { "name": "Chicken Sausage", "description": "Deep fried chicken, tomato sauce, spices and herbs. (2 pcs.)", "tags": ["sausage"], "variants": [{ "label": null, "price": 10, "protein": "chicken" }] },
+        { "name": "Chicken Chilli", "description": "Deep fried chicken, tomato sauce, onion, capsicum, spices and herbs.", "tags": ["chilli"], "variants": [{ "label": null, "price": 19, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Entree - Vegetarian",
+      "items": [
+        { "name": "Pani Puri", "description": "Fried plain flour balls, spicy mashed potatoes, mint, coriander, and home made tangy water.", "is_vegetarian": true, "tags": ["pani-puri"], "variants": [{ "label": null, "price": 7, "protein": "veg" }] },
+        { "name": "Chana Chatpate", "description": "Noodles, puffed rice, onion, tomato, boiled potatoes, black chickpeas, lemon juice, and spices.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 11, "protein": "veg" }] },
+        { "name": "Namkin Chat", "description": "Namkin, mashed potatoes, aloo chanam spices and yoghurt.", "is_vegetarian": true, "tags": ["chaat"], "variants": [{ "label": null, "price": 13, "protein": "veg" }] },
+        { "name": "Chips Chilli", "description": "Deep fried chips, tomato sauce, onion, capsicum, spices and herbs.", "is_vegetarian": true, "tags": ["chilli"], "variants": [{ "label": null, "price": 13, "protein": "veg" }] },
+        { "name": "Aloo Chop", "description": "Chopped boiled potatoes battered and fried.", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 12, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Momo - Chicken / Veggie",
+      "items": [
+        { "name": "Full Momo Platter", "description": "Dumpling 4 ways - steamed, fried, chilli, and sadheko. Served on a platter (32 pcs). Choice of filling: Chicken / Veggies.", "tags": ["momo"], "variants": [{ "label": "Chicken", "price": 50, "protein": "chicken" }, { "label": "Veggies", "price": 50, "protein": "veg" }] },
+        { "name": "Half Momo Platter", "description": "Dumpling 4 ways - steamed, fried, chilli, and sadheko. Served on a platter (20 pcs). Choice of filling: Chicken / Veggies.", "tags": ["momo"], "variants": [{ "label": "Chicken", "price": 30, "protein": "chicken" }, { "label": "Veggies", "price": 30, "protein": "veg" }] },
+        { "name": "Steam Momo", "description": "Steamed Nepali dumplings with your choice of filling: Chicken / Veggies served with tomato achar and chilli paste.", "tags": ["steamed-momo"], "variants": [{ "label": "Chicken", "price": 13, "protein": "chicken" }, { "label": "Veggies", "price": 13, "protein": "veg" }] },
+        { "name": "Kothe Momo", "description": "Steamed and pan fried Nepali dumplings with chicken filling.", "tags": ["kothey-momo"], "variants": [{ "label": null, "price": 15, "protein": "chicken" }] },
+        { "name": "Chilli Momo", "description": "Steamed Nepali dumplings with your choice of filling: Chicken / Veggies sauteed with capsicum, tomato and chilli sauce.", "tags": ["chilli-momo"], "variants": [{ "label": "Chicken", "price": 16, "protein": "chicken" }, { "label": "Veggies", "price": 16, "protein": "veg" }] },
+        { "name": "Fried Momo", "description": "Fried Nepali dumplings with your choice of filling: Chicken / Veggies.", "tags": ["fried-momo"], "variants": [{ "label": "Chicken", "price": 16, "protein": "chicken" }, { "label": "Veggies", "price": 16, "protein": "veg" }] },
+        { "name": "Jhol Momo", "description": "Steamed Nepali dumplings with your choice of filling: Chicken / Veggies. Served with hot tomato soup. Sesame Soup (cold) +$1.00, Mutton Soup (hot) +$2.00.", "tags": ["jhol-momo"], "variants": [{ "label": "Chicken", "price": 17, "protein": "chicken" }, { "label": "Veggies", "price": 17, "protein": "veg" }] },
+        { "name": "Fried Chilli Momo", "description": "Deep fried Nepali dumplings with your choice of filling: Chicken / Veggies sauteed with capsicum, tomato and chilli sauce. Comes dry.", "tags": ["fried-momo", "chilli-momo"], "variants": [{ "label": "Chicken", "price": 17, "protein": "chicken" }, { "label": "Veggies", "price": 17, "protein": "veg" }] },
+        { "name": "Chicken Sadheko Momo", "description": "Steamed momos marinated in selection of traditional spices topped with onion tomato sauce coriander and chilli.", "tags": ["sandheko-momo"], "variants": [{ "label": null, "price": 16, "protein": "chicken" }] }
+      ]
+    },
+    {
+      "name": "Momo - Buff",
+      "items": [
+        { "name": "Buff Steam Momo", "description": "Steamed Nepalese dumplings filled with buffalo mince and fresh veggies served with tomato achar and chilli paste.", "tags": ["steamed-momo"], "variants": [{ "label": null, "price": 17, "protein": "buff" }] },
+        { "name": "Buff Jhol Momo", "description": "Steamed Nepali dumplings filled with buffalo mince and fresh veggies, served with hot tomato soup. Sesame Soup (cold) +$1.00, Mutton Soup (hot) +$2.00.", "tags": ["jhol-momo"], "variants": [{ "label": null, "price": 20, "protein": "buff" }] }
+      ]
+    },
+    {
+      "name": "Fried Rice",
+      "items": [
+        { "name": "Fried Rice", "description": "Cooked rice with fresh veggies, herbs and spices with the choice of the following.", "tags": ["fried-rice"], "variants": [{ "label": "Chicken", "price": 17, "protein": "chicken" }, { "label": "Vegetarian", "price": 17, "protein": "veg" }, { "label": "Buff", "price": 19, "protein": "buff" }, { "label": "Mixed (egg, chicken and buff)", "price": 23 }] }
+      ]
+    },
+    {
+      "name": "Curry",
+      "items": [
+        { "name": "Chicken Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 19, "protein": "chicken" }] },
+        { "name": "Goat Curry", "tags": ["curry"], "variants": [{ "label": null, "price": 21, "protein": "goat" }] },
+        { "name": "Butter Chicken", "tags": ["butter-chicken"], "variants": [{ "label": null, "price": 21, "protein": "chicken" }] },
+        { "name": "Aloo Chana", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 14, "protein": "veg" }] },
+        { "name": "Aloo Tama", "is_vegetarian": true, "tags": ["curry"], "variants": [{ "label": null, "price": 14, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Thukpa",
+      "items": [
+        { "name": "Thukpa", "description": "Boiled noodles with fresh veggies, herbs and spices in a soup with the choice of.", "tags": ["thukpa"], "variants": [{ "label": "Chicken", "price": 17, "protein": "chicken" }, { "label": "Vegetarian", "price": 17, "protein": "veg" }, { "label": "Buff", "price": 19, "protein": "buff" }, { "label": "Mixed", "price": 23 }] }
+      ]
+    },
+    {
+      "name": "Chowmein",
+      "items": [
+        { "name": "Chowmien", "description": "Stir-fried noodles with fresh veggies, herbs and spices with the choice of.", "tags": ["chowmein"], "variants": [{ "label": "Chicken", "price": 17, "protein": "chicken" }, { "label": "Vegetarian", "price": 17, "protein": "veg" }, { "label": "Buff", "price": 19, "protein": "buff" }, { "label": "Mixed (egg, chicken and buff)", "price": 23 }] }
+      ]
+    },
+    {
+      "name": "Thali",
+      "items": [
+        { "name": "Thali", "description": "This set comes with rice, saag, lentils, ghee, aloo fry, tomato achar, salad, papad, and a curry of choice.", "tags": ["thali"], "variants": [{ "label": "Chicken Curry", "price": 25, "protein": "chicken" }, { "label": "Butter Chicken", "price": 26, "protein": "chicken" }, { "label": "Goat Curry", "price": 26, "protein": "goat" }, { "label": "Aloo Chana", "price": 25, "protein": "veg" }, { "label": "Aloo Tama", "price": 25, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Curry with Rice",
+      "items": [
+        { "name": "Curry with Rice", "description": "Choice of any curries from below served with rice, daal, achar.", "tags": ["curry"], "variants": [{ "label": "Chicken Curry", "price": 20, "protein": "chicken" }, { "label": "Butter Chicken", "price": 20, "protein": "chicken" }, { "label": "Goat Curry", "price": 20, "protein": "goat" }, { "label": "Aloo Chana", "price": 20, "protein": "veg" }, { "label": "Aloo Tama", "price": 20, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        { "name": "Tomato Soup", "is_vegetarian": true, "tags": ["soup"], "variants": [{ "label": null, "price": 5, "protein": "veg" }] },
+        { "name": "Cold Soup", "tags": ["soup"], "variants": [{ "label": null, "price": 5 }] },
+        { "name": "Mutton Soup", "tags": ["soup"], "variants": [{ "label": null, "price": 6, "protein": "goat" }] },
+        { "name": "Rice", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 3.5, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Delectables",
+      "items": [
+        { "name": "Pork Sekuwa", "tags": ["sekuwa"], "variants": [{ "label": null, "price": 21, "protein": "pork" }] },
+        { "name": "Bhutan", "tags": ["bhutan"], "variants": [{ "label": null, "price": 19, "protein": "goat" }] },
+        { "name": "Giblets", "tags": [], "variants": [{ "label": null, "price": 17, "protein": "chicken" }] },
+        { "name": "Chicken Chhoila", "tags": ["choila"], "variants": [{ "label": null, "price": 19, "protein": "chicken" }] },
+        { "name": "Buff Sukuti", "tags": ["sukuti"], "variants": [{ "label": null, "price": 21, "protein": "buff" }] }
+      ]
+    },
+    {
+      "name": "For Kids",
+      "items": [
+        { "name": "Fried and Nuggets", "tags": [], "variants": [{ "label": null, "price": 10, "protein": "chicken" }] },
+        { "name": "Nuggets", "tags": [], "variants": [{ "label": null, "price": 6, "protein": "chicken" }] },
+        { "name": "Fries", "is_vegetarian": true, "tags": [], "variants": [{ "label": null, "price": 5, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Chulesi Special",
+      "items": [
+        { "name": "Chulesi Special", "description": "Chicken Chhoila, Bhutan, Bhatmas Sadheko, Bara, Egg, Black Eyed Beans, Beaten Rice, Steam Momo, Chilli Momo, Fried Momo, and Sadheko Momo (20 pcs.) served with Tomato Achar, Chilli Paste, and 2 bowls of soup.", "tags": ["khaja"], "variants": [{ "label": null, "price": 65 }] }
+      ]
+    },
+    {
+      "name": "Dessert",
+      "items": [
+        { "name": "Gulab Jamun", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 7, "protein": "veg" }] },
+        { "name": "Rasbari", "is_vegetarian": true, "tags": ["dessert"], "variants": [{ "label": null, "price": 7, "protein": "veg" }] }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Soft Drink", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Mango Lassi", "tags": ["drinks"], "variants": [{ "label": null, "price": 6 }] },
+        { "name": "Nepali Tea", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] },
+        { "name": "Water", "tags": ["drinks"], "variants": [{ "label": null, "price": 3.5 }] }
+      ]
+    },
+    {
+      "name": "Wines",
+      "items": [
+        { "name": "Red Wine", "tags": ["drinks"], "variants": [{ "label": "Per Serve", "price": 12 }, { "label": "Per Bottle", "price": 55 }] },
+        { "name": "White Wine", "tags": ["drinks"], "variants": [{ "label": "Per Serve", "price": 12 }, { "label": "Per Bottle", "price": 55 }] }
+      ]
+    },
+    {
+      "name": "Beer",
+      "items": [
+        { "name": "Corona", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "Nepalese Beer", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] }
+      ]
+    },
+    {
+      "name": "Hard Drinks",
+      "items": [
+        { "name": "Khukuri Rum", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Old Durbar BC", "tags": ["drinks"], "variants": [{ "label": null, "price": 13 }] },
+        { "name": "Chivas Regal 12", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Vodka", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] },
+        { "name": "Jack Daniels", "tags": ["drinks"], "variants": [{ "label": null, "price": 12 }] },
+        { "name": "Tequila", "tags": ["drinks"], "variants": [{ "label": null, "price": 10 }] },
+        { "name": "White Rum", "tags": ["drinks"], "variants": [{ "label": null, "price": 11 }] }
+      ]
+    }
+  ]
+}
