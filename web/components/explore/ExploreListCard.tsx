@@ -12,10 +12,11 @@ import { mediaUrl } from "@/lib/media";
 import { haversineKm, formatDistance } from "@/lib/format";
 import { useUserLocation, type LatLng } from "@/lib/useUserLocation";
 
-// Compact Google-Maps-style list card for the MOBILE Explore list (the desktop
-// side panel keeps the bigger PlaceCard). Text left, square photo right; the
-// whole card links to the detail page, and a "View on map" CTA in the bottom
-// row jumps to the map view centred on the spot without navigating.
+// Compact Google-Maps-style row for the MOBILE Explore list (the desktop side
+// panel keeps the bigger PlaceCard). No card box — flat rows split by a bottom
+// border. Text left, square photo right; the whole row links to the detail
+// page, and a "View on map" CTA in the bottom row jumps to the map centred on
+// the spot without navigating.
 export function ExploreListCard({
 	r,
 	pills,
@@ -39,7 +40,7 @@ export function ExploreListCard({
 	return (
 		<Link
 			href={`/restaurant/${r.slug}`}
-			className="block rounded-lg border-2 border-paper-300 bg-white p-3 active:bg-paper-100 transition-colors"
+			className="block py-3.5 border-b border-paper-300 active:bg-paper-100 transition-colors"
 		>
 			<div className="flex items-start gap-3">
 				<div className="min-w-0 flex-1 flex flex-col gap-1">
@@ -71,23 +72,6 @@ export function ExploreListCard({
 					<div className="flex items-center gap-2.5 min-w-0">
 						<VenueType type={r.venueType} />
 					</div>
-					{pills && pills.length > 0 && (
-						<div className="flex flex-wrap gap-1.5 pt-0.5">
-							{pills.slice(0, 3).map((p) => (
-								<span
-									key={p}
-									className="inline-flex items-center font-body font-semibold text-[0.76rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
-								>
-									{p}
-								</span>
-							))}
-							{pills.length > 3 && (
-								<span className="inline-flex items-center font-body font-semibold text-[0.76rem] text-ink-500">
-									+{pills.length - 3}
-								</span>
-							)}
-						</div>
-					)}
 				</div>
 				<div className="relative w-[92px] h-[92px] shrink-0 rounded-lg overflow-hidden bg-paper-200">
 					{img ? (
@@ -110,6 +94,22 @@ export function ExploreListCard({
 					)}
 				</div>
 			</div>
+
+			{/* dish-search matches: one horizontally-scrollable row (scrollbar
+			    hidden). TODO: when per-dish photos land, swap the pills for a photo
+			    carousel of the matched items. */}
+			{pills && pills.length > 0 && (
+				<div className="mt-2 flex gap-1.5 flex-nowrap overflow-x-auto scrollbar-hide">
+					{pills.map((p) => (
+						<span
+							key={p}
+							className="shrink-0 whitespace-nowrap inline-flex items-center font-body font-semibold text-[0.76rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
+						>
+							{p}
+						</span>
+					))}
+				</div>
+			)}
 
 			{/* bottom row: live open status + the "View on map" CTA */}
 			<div className="mt-2.5 flex items-center justify-between gap-2 min-w-0">

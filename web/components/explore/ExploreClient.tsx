@@ -663,7 +663,7 @@ export function ExploreClient({
 					)}
 				</div>
 			) : (
-				<div className="grid grid-cols-1 gap-3">
+				<div className="grid grid-cols-1 md:gap-3">
 					{shown.map((r, i) => (
 						<Fragment key={r.id}>
 							{isFocusView && i === 1 && (
