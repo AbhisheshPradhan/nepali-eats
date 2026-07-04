@@ -157,12 +157,14 @@ export default function MapView({
   useEffect(() => {
     const m = mapRef.current;
     if (!m) return;
-    // Sheet UI (cardless): the bottom drawer covers the lower ~half of the map,
+    // Sheet UI on MOBILE: the bottom drawer covers the lower ~half of the map,
     // so lift the target into the visible upper region instead of the geometric
-    // centre — otherwise a recentred pin lands under the sheet.
-    const offsetY = cardless
-      ? -Math.round(m.getContainer().clientHeight * 0.24)
-      : 0;
+    // centre — otherwise a recentred pin lands under the sheet. Gated on dockCard
+    // (mobile) so desktop centring is untouched even though cardless is on there.
+    const offsetY =
+      cardless && dockCard
+        ? -Math.round(m.getContainer().clientHeight * 0.24)
+        : 0;
     m.flyTo({ center: [center[1], center[0]], zoom, offset: [0, offsetY], duration: 800 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [center, zoom]);
