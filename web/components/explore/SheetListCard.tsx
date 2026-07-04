@@ -40,9 +40,12 @@ export function SheetListCard({
 			className="w-full text-left flex items-start gap-3 py-3.5 border-b border-paper-300 last:border-0 cursor-pointer active:bg-paper-100 transition-colors"
 		>
 			<div className="min-w-0 flex-1 flex flex-col gap-1">
-				<h3 className="font-display font-bold text-[1.05rem] text-ink-900 leading-tight truncate m-0">
+				{/* span, not h3: this is inside a <button> (h3 is invalid there);
+				    line-clamp-2 so long Nepali names ("Everest Momo House & Bar")
+				    wrap instead of truncating mid-word. */}
+				<span className="font-display font-bold text-[1.05rem] text-ink-900 leading-tight line-clamp-2">
 					{r.name}
-				</h3>
+				</span>
 				<div className="flex items-center gap-2 min-w-0">
 					{r.rating != null && (
 						<Rating

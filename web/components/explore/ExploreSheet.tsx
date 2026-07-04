@@ -46,6 +46,7 @@ const PEEK_REVEAL = 22;
 
 export function ExploreSheet({
 	title,
+	resetKey,
 	peekHeader,
 	body,
 	isDetail = false,
@@ -55,6 +56,10 @@ export function ExploreSheet({
 	onClearAll,
 }: {
 	title: string;
+	// Identity of the current body content (spot id in detail, "list" otherwise).
+	// Scroll resets on THIS, not `title`, so tapping between two same-named
+	// branches (Momo Central Glenroy/Brunswick, the 8848 chain) still resets.
+	resetKey: string | number;
 	// the always-visible block; PEEK is sized to this. LIST: count + controls.
 	// DETAIL: spot title + details + CTA.
 	peekHeader: ReactNode;
@@ -144,9 +149,11 @@ export function ExploreSheet({
 	}, [collapseSignal]);
 
 	// New content (spot opened/closed or a different spot) -> back to the top.
+	// Keyed on resetKey (spot id), not the display title, so same-named spots
+	// still reset scroll on switch.
 	useEffect(() => {
 		scrollRef.current?.scrollTo({ top: 0 });
-	}, [isDetail, title]);
+	}, [resetKey]);
 
 	const bodyClass = cn(
 		"flex-1 min-h-0 px-4 pb-[calc(1rem+env(safe-area-inset-bottom))]",

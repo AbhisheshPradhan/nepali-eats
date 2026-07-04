@@ -78,6 +78,7 @@ function Seg<T extends string | number>({
 				<button
 					key={String(val)}
 					onClick={() => onChange(val)}
+					aria-pressed={value === val}
 					className={cn(
 						"px-3.5 py-[5px] font-display font-bold text-[0.9rem] cursor-pointer transition-colors",
 						value === val
@@ -156,17 +157,27 @@ export function ExploreClient({
 	// THE data: every visible spot, fetched once (CDN-cached). All filtering,
 	// sorting and pagination happen in memory — map pans never refetch.
 	const [spots, setSpots] = useState<ExploreSpot[] | null>(null);
+	// Bumped by the Retry button; re-runs the fetch. `spotsError` shows a retry
+	// state instead of an eternal "Finding spots…" spinner when the fetch fails.
+	const [spotsError, setSpotsError] = useState(false);
+	const [reloadSpots, setReloadSpots] = useState(0);
 
 	useEffect(() => {
 		const ctrl = new AbortController();
+		setSpotsError(false);
 		fetch("/api/explore/spots", { signal: ctrl.signal })
-			.then((r) => r.json())
+			.then((r) => {
+				if (!r.ok) throw new Error(`spots ${r.status}`);
+				return r.json();
+			})
 			.then((d: { spots?: ExploreSpot[] }) => setSpots(d.spots ?? []))
 			.catch((e) => {
-				if (e.name !== "AbortError") console.error(e);
+				if (e.name === "AbortError") return;
+				console.error(e);
+				setSpotsError(true);
 			});
 		return () => ctrl.abort();
-	}, []);
+	}, [reloadSpots]);
 
 	// Dish search matches: per-restaurant menu items tagged with the picked dish
 	// (viewport-independent, CDN-cached per dish). An unknown slug resolves to an
@@ -384,7 +395,11 @@ export function ExploreClient({
 
 	// Sheet UI: tapping a list card opens the detail AND zooms the map in on the
 	// spot (like the desktop "View on map"). onSelect recentres; this adds zoom.
+	// Ignore taps until the spots payload has landed — otherwise the selection
+	// can't resolve to a detailSpot yet and the sheet pops open by itself when
+	// the fetch finishes (a real window on slow mobile connections).
 	const openFromList = (r: { id: number; lat: number | null }) => {
+		if (!spots) return;
 		onSelect(r.id);
 		if (sheetUi && r.lat != null) setZoom((z) => Math.max(z, 15));
 	};
@@ -587,17 +602,29 @@ export function ExploreClient({
 	const headingRow = (
 		<div className="flex items-center justify-between px-0.5 pb-3">
 			<span className="font-display font-bold text-ink-700">
-				{isFocusView
-					? areaLabel
-					: !ready
-						? "Finding spots…"
-						: `${total} ${total === 1 ? "spot" : "spots"}${dishName ? ` serving ${dishName}` : ""} ${areaScoped ? "in the map area" : areaLabel}`}
+				{spotsError
+					? "Couldn't load spots"
+					: isFocusView
+						? areaLabel
+						: !ready
+							? "Finding spots…"
+							: `${total} ${total === 1 ? "spot" : "spots"}${dishName ? ` serving ${dishName}` : ""} ${areaScoped ? "in the map area" : areaLabel}`}
 			</span>
-			{!ready && (
-				<CircleNotch
-					className="animate-spin text-chili-500"
-					size={18}
-				/>
+			{spotsError ? (
+				<button
+					type="button"
+					onClick={() => setReloadSpots((n) => n + 1)}
+					className="shrink-0 font-display font-bold text-[0.85rem] text-chili-600 hover:underline cursor-pointer"
+				>
+					Retry
+				</button>
+			) : (
+				!ready && (
+					<CircleNotch
+						className="animate-spin text-chili-500"
+						size={18}
+					/>
+				)
 			)}
 		</div>
 	);
@@ -630,7 +657,18 @@ export function ExploreClient({
 
 	const listBody = (inDrawer: boolean) => (
 		<>
-			{shown.length === 0 && !ready ? (
+			{shown.length === 0 && spotsError ? (
+				<div className="text-center py-12 text-ink-500">
+					<CookingPot size={36} className="mx-auto mb-2" />
+					<p>Couldn&apos;t load spots. Check your connection.</p>
+					<button
+						onClick={() => setReloadSpots((n) => n + 1)}
+						className="mt-4 inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3 cursor-pointer font-display font-bold shadow-lg"
+					>
+						Retry
+					</button>
+				</div>
+			) : shown.length === 0 && !ready ? (
 				<div className="text-center py-12 text-ink-500">
 					<CircleNotch
 						size={28}
@@ -774,6 +812,7 @@ export function ExploreClient({
 					<button
 						key={f.slug}
 						onClick={toggle}
+						aria-pressed={active}
 						className={cn(
 							"shrink-0 border-2 rounded-full px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
 							active
@@ -796,6 +835,7 @@ export function ExploreClient({
 				<button
 					key={token}
 					onClick={() => toggleFlag(token)}
+					aria-pressed={flags.includes(token)}
 					className={cn(
 						"border-2 rounded-full px-3.5 py-1 cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
 						flags.includes(token)
@@ -848,6 +888,7 @@ export function ExploreClient({
 			</Select>
 			<button
 				onClick={() => setOpenOnly((o) => !o)}
+				aria-pressed={openOnly}
 				className={cn(
 					"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
 					openOnly
@@ -869,6 +910,7 @@ export function ExploreClient({
 			/>
 			<button
 				onClick={() => setShowFilters((s) => !s)}
+				aria-pressed={showFilters}
 				className={cn(
 					"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
 					activeFilterCount > 0 || showFilters
@@ -946,6 +988,7 @@ export function ExploreClient({
 					<div className="flex items-center gap-2.5 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:gap-x-4 md:gap-y-2 md:overflow-visible">
 						<button
 							onClick={() => setOpenOnly((o) => !o)}
+							aria-pressed={openOnly}
 							className={cn(
 								"max-md:hidden shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
 								openOnly
@@ -995,6 +1038,7 @@ export function ExploreClient({
 
 						<button
 							onClick={() => setShowFilters((s) => !s)}
+							aria-pressed={showFilters}
 							className={cn(
 								"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
 								activeFilterCount > 0 || showFilters
@@ -1039,6 +1083,7 @@ export function ExploreClient({
 								</Button>
 								<button
 									onClick={() => setOpenOnly((o) => !o)}
+									aria-pressed={openOnly}
 									className={cn(
 										"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
 										openOnly
@@ -1147,6 +1192,7 @@ export function ExploreClient({
 			{sheetUi && (
 				<ExploreSheet
 					title={detailSpot ? detailSpot.name : "Spots in view"}
+					resetKey={detailSpot ? detailSpot.id : "list"}
 					topInset={topInset}
 					collapseSignal={collapseSignal}
 					isDetail={!!detailSpot}
