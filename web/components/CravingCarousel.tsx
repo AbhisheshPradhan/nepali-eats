@@ -2,17 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { Carousel } from "@/components/Carousel";
 import { tagLabel } from "@/lib/format";
+import { foodImage, type FoodImage } from "@/lib/food";
 
 const HUES = [18, 35, 350, 168, 4, 45, 205, 120, 28];
 
-// Tags with a curated tile image in /public/cravings/<tag>.jpg. Tags without an
-// image are skipped entirely (no gradient-only fallback tiles).
-const HAS_IMAGE = new Set(["momo", "newari", "tibetan", "vegetarian"]);
-
-// Each tile shows a curated category image from /public/cravings/<tag>.jpg.
-// The gradient sits behind the image while it loads. Images crop to the 4:3
-// tile standard.
-function CravingTile({ tag, hue }: { tag: string; hue: number }) {
+// Each tile shows a category's hero from categories/<tag>/cover.<ext> (resolved
+// by foodImage). The gradient sits behind the image while it loads. Images crop
+// to the 4:3 tile standard. Tags whose category has no cover image are skipped
+// entirely (no gradient-only fallback tiles).
+function CravingTile({
+	tag,
+	src,
+	alt,
+	hue,
+}: {
+	tag: string;
+	src: string;
+	alt: string;
+	hue: number;
+}) {
 	const label = tagLabel(tag);
 	const href = tag === "momo" ? "/momo" : `/nepali-food/${tag}`;
 	return (
@@ -27,8 +35,8 @@ function CravingTile({ tag, hue }: { tag: string; hue: number }) {
 				}}
 			>
 				<Image
-					src={`/cravings/${tag}.jpg`}
-					alt={label}
+					src={src}
+					alt={alt}
 					fill
 					sizes="230px"
 					className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -42,7 +50,9 @@ function CravingTile({ tag, hue }: { tag: string; hue: number }) {
 }
 
 export function CravingCarousel({ tags }: { tags: string[] }) {
-	const withImage = tags.filter((t) => HAS_IMAGE.has(t));
+	const withImage = tags
+		.map((tag) => ({ tag, img: foodImage(tag) }))
+		.filter((t): t is { tag: string; img: FoodImage } => Boolean(t.img));
 	if (withImage.length === 0) return null;
 	return (
 		<Carousel
@@ -51,10 +61,12 @@ export function CravingCarousel({ tags }: { tags: string[] }) {
 			title="What are you hungry for?"
 			trackClassName="gap-[18px] px-2 pt-1 pb-2.5"
 		>
-			{withImage.map((t, i) => (
+			{withImage.map(({ tag, img }, i) => (
 				<CravingTile
-					key={t}
-					tag={t}
+					key={tag}
+					tag={tag}
+					src={img.src}
+					alt={img.alt}
 					hue={HUES[i % HUES.length]}
 				/>
 			))}

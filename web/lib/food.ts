@@ -11,22 +11,22 @@ export interface FoodImage {
   credit?: string;
 }
 
-// Curated entries win (they carry hand-written alt text). Everything else is
-// convention-based: drop web/public/food/<slug>.jpg (or .webp/.png) and the
-// hero appears on the next render, no code change. Add an alt line to FOOD_ALT
-// when you add a photo; the slug label is the fallback.
-export const FOOD_IMAGES: Record<string, FoodImage> = {
-  momo: { src: "/cravings/momo.jpg", alt: "Steamed momo in a spiced jhol soup" },
-  newari: { src: "/cravings/newari.jpg", alt: "A Newari samay baji spread" },
-  tibetan: { src: "/cravings/tibetan.jpg", alt: "Tibetan laphing noodles" },
-  vegetarian: {
-    src: "/cravings/vegetarian.jpg",
-    alt: "A vegetarian Nepali plate",
-  },
-};
-
-// Alt text for convention-loaded photos, written ahead of the photos landing.
+// Photos live under web/public/categories/<category>/, mirroring the FAMILIES
+// hierarchy below: each category's hero is `cover.<ext>`, each dish is
+// `<dish-slug>.<ext>` (full slug, so filename == registry slug). Drop a file in
+// the right folder and the hero appears on the next render, no code change.
+// Add an alt line to FOOD_ALT when you add a photo; the slug label is the
+// fallback.
 const FOOD_ALT: Record<string, string> = {
+  // Category heroes
+  momo: "Steamed momo in a spiced jhol soup",
+  newari: "A Newari samay baji spread",
+  tibetan: "Tibetan laphing noodles",
+  vegetarian: "A vegetarian Nepali plate",
+  thakali: "A full Thakali dal bhat set",
+  grill: "Sekuwa skewers charring over the grill",
+  "nepali-indian": "Curries and naan alongside a plate of momo",
+  // Dishes
   "steamed-momo": "A plate of fresh steamed momo with tomato achaar",
   "jhol-momo": "Jhol momo sitting in a spiced sesame soup",
   "chilli-momo": "C-momo glazed in sticky chilli sauce",
@@ -37,16 +37,34 @@ const FOOD_ALT: Record<string, string> = {
   sekuwa: "Sekuwa skewers charring over the grill",
   "dal-bhat": "A dal bhat set: rice, black dal, greens and pickles",
   thukpa: "A steaming bowl of thukpa noodle soup",
-  thakali: "A full Thakali dal bhat set",
-  "nepali-indian": "Curries and naan alongside a plate of momo",
 };
 
 const FOOD_EXTS = ["jpg", "jpeg", "webp", "png"];
 
+// slug -> relative path base (no extension), derived once from the hierarchy.
+// Category slug -> categories/<slug>/cover; dish slug -> categories/<parent>/<slug>.
+let SLUG_PATHS: Record<string, string> | null = null;
+function slugPaths(): Record<string, string> {
+  if (SLUG_PATHS) return SLUG_PATHS;
+  const map: Record<string, string> = {};
+  for (const fam of FAMILIES) {
+    map[fam.slug] = `categories/${fam.slug}/cover`;
+    for (const dish of fam.dishes) {
+      map[dish.slug] = `categories/${fam.slug}/${dish.slug}`;
+    }
+  }
+  for (const extra of EXTRAS) {
+    map[extra.slug] = `categories/${extra.slug}/cover`;
+  }
+  SLUG_PATHS = map;
+  return map;
+}
+
 export function foodImage(slug: string): FoodImage | undefined {
-  if (FOOD_IMAGES[slug]) return FOOD_IMAGES[slug];
+  const base = slugPaths()[slug];
+  if (!base) return undefined;
   for (const ext of FOOD_EXTS) {
-    const rel = `/food/${slug}.${ext}`;
+    const rel = `/${base}.${ext}`;
     if (fs.existsSync(path.join(process.cwd(), "public", rel))) {
       return { src: rel, alt: FOOD_ALT[slug] ?? slug.replace(/-/g, " ") };
     }
@@ -55,8 +73,9 @@ export function foodImage(slug: string): FoodImage | undefined {
 }
 
 // Extra photos per slug for the on-page gallery (hero is `foodImage`). Empty for
-// now: drop images in /public/food/<slug>-1.jpg etc. and list them here. The
-// gallery UI hides itself when a slug has none.
+// now: drop images in the slug's category folder (e.g.
+// categories/momo/steamed-momo-1.jpg) and list them here. The gallery UI hides
+// itself when a slug has none.
 export const FOOD_GALLERIES: Record<string, FoodImage[]> = {};
 
 export function foodGallery(slug: string): FoodImage[] {
