@@ -7,6 +7,8 @@ import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { StoryImage } from "@/components/StoryImage";
 import { StoryBody } from "@/components/StoryBody";
+import { getCardBySlug } from "@/lib/queries";
+import type { Restaurant } from "@/lib/types";
 import { STORIES, getStory, formatStoryDate, storyFaq } from "@/lib/stories";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
@@ -48,6 +50,18 @@ export default async function StoryPage({
 
 	const faq = storyFaq(s);
 	const stripLinks = (t: string) => t.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+
+	// Resolve any place-card blocks to live restaurant rows (server-side), so the
+	// card grid shows current photo, rating and open status.
+	const placeSlugs = [
+		...new Set(s.body.flatMap((b) => (b.type === "places" ? b.slugs : []))),
+	];
+	const placeRows = await Promise.all(placeSlugs.map((sl) => getCardBySlug(sl)));
+	const places: Record<string, Restaurant> = {};
+	placeSlugs.forEach((sl, idx) => {
+		const r = placeRows[idx];
+		if (r) places[sl] = r;
+	});
 
 	const jsonLd = {
 		"@context": "https://schema.org",
@@ -134,13 +148,13 @@ export default async function StoryPage({
 				hue={s.hue}
 				src={s.heroImage}
 				alt={s.title}
-				className="h-[320px] rounded-xl"
+				className="aspect-[4/3] rounded-xl"
 				iconSize={48}
 			/>
 			<p className="text-[1.4rem] leading-[1.5] text-ink-900 font-medium mt-7 mb-5">
 				{s.dek}
 			</p>
-			<StoryBody blocks={s.body} />
+			<StoryBody blocks={s.body} places={places} />
 
 			{s.tags.length > 0 && (
 				<div className="flex flex-wrap gap-2 mt-9">

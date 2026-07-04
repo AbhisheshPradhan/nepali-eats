@@ -1,7 +1,16 @@
+import Image from "next/image";
 import type { StoryBlock } from "@/lib/stories";
 import { renderInline } from "@/components/inline";
+import { PlaceCard } from "@/components/PlaceCard";
+import type { Restaurant } from "@/lib/types";
 
-export function StoryBody({ blocks }: { blocks: StoryBlock[] }) {
+export function StoryBody({
+  blocks,
+  places,
+}: {
+  blocks: StoryBlock[];
+  places?: Record<string, Restaurant>;
+}) {
   return (
     <>
       {blocks.map((b, i) => {
@@ -34,6 +43,48 @@ export function StoryBody({ blocks }: { blocks: StoryBlock[] }) {
               ))}
             </ul>
           );
+        if (b.type === "image")
+          return (
+            <figure key={i} className="my-7">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-paper-200">
+                <Image
+                  src={b.src}
+                  alt={b.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 760px"
+                  className="object-cover"
+                  loading="lazy"
+                />
+              </div>
+              {(b.caption || b.credit) && (
+                <figcaption className="text-ink-500 text-[0.9rem] mt-2 leading-relaxed">
+                  {b.caption}
+                  {b.caption && b.credit ? " · " : ""}
+                  {b.credit}
+                </figcaption>
+              )}
+            </figure>
+          );
+        if (b.type === "places") {
+          const rs = b.slugs
+            .map((sl) => places?.[sl])
+            .filter((r): r is Restaurant => Boolean(r));
+          if (!rs.length) return null;
+          return (
+            <div key={i} className="my-7">
+              {b.title && (
+                <h2 className="font-display font-extrabold text-[1.7rem] text-ink-900 mt-9 mb-3">
+                  {b.title}
+                </h2>
+              )}
+              <div className="grid sm:grid-cols-2 gap-4">
+                {rs.map((r) => (
+                  <PlaceCard key={r.id} r={r} />
+                ))}
+              </div>
+            </div>
+          );
+        }
         if (b.type === "faq")
           return (
             <div key={i} className="mt-10">

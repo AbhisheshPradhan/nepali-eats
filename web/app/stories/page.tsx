@@ -25,6 +25,14 @@ export default function StoriesPage() {
 				we love.
 			</p>
 
+			{!featured && (
+				<p className="text-ink-700 text-[1.1rem] bg-white rounded-xl shadow-sm px-6 py-10 mb-10">
+					New stories are on the way. In the meantime, open the map and
+					find your closest plate.
+				</p>
+			)}
+
+			{featured && (
 			<Link
 				href={`/stories/${featured.slug}`}
 				className="grid md:grid-cols-[1.2fr_1fr] gap-7 bg-white rounded-xl overflow-hidden shadow-md mb-10 group"
@@ -74,6 +82,7 @@ export default function StoriesPage() {
 					</div>
 				</div>
 			</Link>
+			)}
 
 			<div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 pb-2">
 				{rest.map((p) => (

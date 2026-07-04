@@ -19,6 +19,7 @@ import { cn } from "@/lib/cn";
 const NAV = [
 	{ href: "/explore", label: "Explore" },
 	{ href: "/nepali-food", label: "What to eat" },
+	{ href: "/stories", label: "Stories" },
 ];
 
 // Post-launch features — flip to true to re-enable "Add a spot".

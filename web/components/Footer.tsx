@@ -120,7 +120,7 @@ export function Footer({
 								label: "Food trucks",
 								href: "/explore?venue=Food+Truck",
 							},
-							{ label: "Our story", href: "/stories" },
+							{ label: "Stories", href: "/stories" },
 							{ label: "About", href: "/about" },
 							// Post-launch: { label: "For owners", href: "/add-a-spot" },
 						]}
