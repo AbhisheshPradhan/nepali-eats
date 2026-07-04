@@ -110,6 +110,7 @@ export default async function VenuePage({
 		hasCoords
 			? nearbyRestaurants(r.id, r.lat!, r.lng!, {
 					brandId: r.brandId,
+					maxKm: 5,
 					limit: 6,
 				})
 			: Promise.resolve([]),
