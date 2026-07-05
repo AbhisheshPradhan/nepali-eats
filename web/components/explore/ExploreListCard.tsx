@@ -13,11 +13,13 @@ import { haversineKm, formatDistance, dishPrice } from "@/lib/format";
 import { useUserLocation, type LatLng } from "@/lib/useUserLocation";
 import type { DishPill } from "@/lib/types";
 
-// Compact Google-Maps-style row for the MOBILE Explore list (the desktop side
-// panel keeps the bigger PlaceCard). No card box — flat rows split by a bottom
-// border. Text left, square photo right; the whole row links to the detail
-// page, and a "View on map" CTA in the bottom row jumps to the map centred on
-// the spot without navigating.
+// ARCHIVED (2026-07-06): Explore now renders the unified ExploreCard at every
+// width; this compact Google-Maps-style row (its direct ancestor) is kept for
+// the playground's "Classic (archived)" design and possible future use — do
+// not delete. No card box — flat rows split by a bottom border. Text left,
+// square photo right; the whole row links to the detail page, and a "View on
+// map" CTA in the bottom row jumps to the map centred on the spot without
+// navigating.
 export function ExploreListCard({
 	r,
 	pills,
@@ -37,6 +39,7 @@ export function ExploreListCard({
 			: undefined;
 	const img = mediaUrl(r.logoKey) ?? mediaUrl(r.primaryPhoto);
 	const location = [r.suburb, r.state].filter(Boolean).join(", ");
+	const priceLevel = r.priceLevel ? Math.min(4, r.priceLevel) : 0;
 
 	return (
 		<Link
@@ -48,18 +51,24 @@ export function ExploreListCard({
 					<span className="font-display font-bold text-[1.05rem] text-ink-900 leading-tight line-clamp-2">
 						{r.name}
 					</span>
-					<div className="flex items-center gap-2 min-w-0">
-						{r.rating != null && (
+					{r.rating != null && (
+						<div className="flex items-center gap-2 min-w-0">
 							<Rating
 								value={r.rating}
 								count={r.reviewCount}
 								size={14}
 							/>
-						)}
-						<PriceLevel level={r.priceLevel ?? 0} />
-					</div>
-					{(location || distance) && (
+						</div>
+					)}
+					{/* meta line, same shape as the desktop card: "$$ · Suburb, STATE
+					    · 4.2 km" — price pips live here (muted row size), NOT beside
+					    the rating. */}
+					{(priceLevel > 0 || location || distance) && (
 						<div className="flex items-center gap-1.5 text-ink-500 text-[0.9rem] min-w-0">
+							<PriceLevel level={priceLevel} />
+							{priceLevel > 0 && location && (
+								<span className="shrink-0">·</span>
+							)}
 							{location && (
 								<span className="truncate min-w-0">{location}</span>
 							)}

@@ -779,6 +779,7 @@ export async function dishRestaurants(
 		slugs: string[] | null;
 		price: string | number | null;
 		priced_count: string | number;
+		variants: { label: string; price: string | number }[] | null;
 	}>(
 		`SELECT mi.restaurant_id, mi.name,
             ARRAY(
@@ -790,7 +791,12 @@ export async function dishRestaurants(
             (SELECT min(v.price) FROM menu_item_variants v
               WHERE v.item_id = mi.id) AS price,
             (SELECT count(v.price) FROM menu_item_variants v
-              WHERE v.item_id = mi.id) AS priced_count
+              WHERE v.item_id = mi.id) AS priced_count,
+            (SELECT json_agg(json_build_object('label', v.label, 'price', v.price)
+                             ORDER BY v.position, v.id)
+               FROM menu_item_variants v
+              WHERE v.item_id = mi.id
+                AND v.label IS NOT NULL AND v.price IS NOT NULL) AS variants
        FROM menu_items mi
        JOIN restaurants r ON r.id = mi.restaurant_id
       WHERE NOT mi.is_hidden
@@ -812,6 +818,15 @@ export async function dishRestaurants(
 			slugs: row.slugs ?? [],
 			price: row.price == null ? null : Number(row.price),
 			priceFrom: Number(row.priced_count) > 1,
+			// only shipped when the menu actually labels its variants
+			...(row.variants?.length
+				? {
+						variants: row.variants.map((v) => ({
+							label: v.label,
+							price: Number(v.price),
+						})),
+					}
+				: {}),
 		});
 		byRestaurant.set(row.restaurant_id, items);
 		for (const s of row.slugs ?? []) facetSlugs.add(s);

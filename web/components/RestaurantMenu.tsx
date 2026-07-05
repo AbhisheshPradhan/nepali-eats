@@ -30,6 +30,9 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
   const toolbarRef = useRef<HTMLDivElement>(null);
   const chipBarRef = useRef<HTMLDivElement>(null);
   const lastActive = useRef<number | null>(menu[0]?.id ?? null);
+  // A chip-click smooth scroll in flight: the clicked category is already
+  // highlighted, so the spy stands down until the scroll lands (or times out).
+  const jumpTarget = useRef<{ id: number; until: number } | null>(null);
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
@@ -56,6 +59,22 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
       for (const cat of filtered) {
         const el = sections.current.get(cat.id);
         if (el && el.getBoundingClientRect().top <= threshold) current = cat.id;
+      }
+      // At the very bottom the last category counts even if its top can't
+      // reach the toolbar (short final section) — otherwise its chip could
+      // never light up.
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2
+      ) {
+        current = filtered[filtered.length - 1]?.id ?? current;
+      }
+      // Mid-flight after a chip click: don't flip the highlight to the
+      // categories scrolling past; resume once we arrive (or give up).
+      const jt = jumpTarget.current;
+      if (jt) {
+        if (current === jt.id || Date.now() > jt.until) jumpTarget.current = null;
+        else return;
       }
       if (current === lastActive.current) return;
       lastActive.current = current;
@@ -89,8 +108,20 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
     updateArrows();
   }, [filtered, updateArrows]);
 
+  // Jump to a category. The landing offset is computed from the MEASURED
+  // toolbar height (+ the 48px sticky header it hangs under), matching the
+  // scroll-spy's threshold — a fixed scroll-margin drifted a few px below it,
+  // which left the PREVIOUS category highlighted after every click. The chip
+  // highlights immediately; the spy is suppressed while the scroll flies.
   const jump = useCallback((id: number) => {
-    sections.current.get(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = sections.current.get(id);
+    if (!el) return;
+    jumpTarget.current = { id, until: Date.now() + 1200 };
+    lastActive.current = id;
+    setActive(id);
+    const tbH = toolbarRef.current?.offsetHeight ?? 110;
+    const top = el.getBoundingClientRect().top + window.scrollY - 48 - tbH - 4;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }, []);
   const nudge = (dir: 1 | -1) =>
     chipBarRef.current?.scrollBy({ left: dir * 220, behavior: "smooth" });
@@ -193,7 +224,6 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
                 if (el) sections.current.set(cat.id, el);
                 else sections.current.delete(cat.id);
               }}
-              className="scroll-mt-52 sm:scroll-mt-44"
             >
               <h3 className="font-display font-bold text-[1.15rem] tracking-tight text-chili-700 mb-2.5 text-balance">
                 {cat.name}

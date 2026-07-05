@@ -136,7 +136,8 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "chilli-momo", kind: "preparation", parent: "momo", name: "Chilli Momo (C-Momo)", synonyms: ["c-momo", "c momo", "chili momo", "chilly momo"] },
   { slug: "poleko-momo", kind: "preparation", parent: "momo", name: "Poleko Momo", synonyms: ["poleko momo", "grilled momo"] },
   { slug: "choila-momo", kind: "preparation", parent: "momo", name: "Choila Momo", synonyms: ["choyla momo", "chhoila momo"] },
-  { slug: "tapari-momo", kind: "preparation", parent: "momo", name: "Tapari Momo", synonyms: ["tapari momo", "tapari"] },
+  // NOT a preparation: "tapari momo" is plain momo served in a tapari (leaf
+  // plate) — tag it as momo. (Removed 2026-07-06; also a restaurant name.)
   // (protein is NOT a momo child — see the cross-cutting protein facet below)
 
   // --- Protein: cross-cutting facet (NOT children of any dish) ---------------

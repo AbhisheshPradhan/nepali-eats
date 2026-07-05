@@ -46,6 +46,9 @@ export function SearchBox({
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const abortRef = useRef<AbortController | null>(null);
+	// true once the user actually types; a URL-prefilled defaultValue (Explore's
+	// dish/suburb chips) must NOT trigger a suggestion fetch on mount.
+	const touchedRef = useRef(false);
 	const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const rootRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -55,6 +58,7 @@ export function SearchBox({
 
 	// fetch suggestions after 3 chars (debounced)
 	useEffect(() => {
+		if (!touchedRef.current) return;
 		const q = value.trim();
 		if (q.length < 3) {
 			setSugg(EMPTY);
@@ -105,6 +109,7 @@ export function SearchBox({
 
 	// typing clears any prior selection (back to free-text)
 	const change = (v: string) => {
+		touchedRef.current = true;
 		setValue(v);
 		setSelected(null);
 		setOpen(true);

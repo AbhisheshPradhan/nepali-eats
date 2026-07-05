@@ -392,7 +392,10 @@ export default function MapView({
           fights the pin anchor); the highlighted pin still shows WHERE it is. */}
       {popup && dockCard && (
         <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center pointer-events-none">
-          <div className="relative pointer-events-auto rounded-lg shadow-xl">
+          {/* font restore mirrors `.ne-popup .mapboxgl-popup-content`: this sits
+              inside .mapboxgl-map, whose Helvetica `font:` shorthand the card
+              would otherwise inherit */}
+          <div className="relative pointer-events-auto rounded-lg shadow-xl font-body text-[17px] leading-[1.55]">
             <CloseCard
               onClose={() => {
                 setPopup(null);

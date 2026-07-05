@@ -21,9 +21,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/shadcn/select";
-import { PlaceCard } from "@/components/PlaceCard";
 import { SearchBox } from "@/components/SearchBox";
-import { ExploreListCard } from "@/components/explore/ExploreListCard";
+import { ExploreCard } from "@/components/explore/ExploreCard";
 import type {
 	Restaurant,
 	ExploreSpot,
@@ -406,7 +405,12 @@ export function ExploreClient({
 				if (!selectedFacets.every((s) => it.slugs.includes(s))) continue;
 				if (seen.has(it.name)) continue;
 				seen.add(it.name);
-				pills.push({ label: it.name, price: it.price, priceFrom: it.priceFrom });
+				pills.push({
+					label: it.name,
+					price: it.price,
+					priceFrom: it.priceFrom,
+					variants: it.variants,
+				});
 			}
 			if (pills.length) m.set(r.id, pills);
 		}
@@ -675,30 +679,21 @@ export function ExploreClient({
 									You may also like
 								</h2>
 							)}
-							<div id={`row-${r.id}`}>
-								{/* Mobile: compact card (whole card links to detail;
-								    "View on map" jumps to the map). Desktop side panel:
-								    the bigger PlaceCard row. */}
-								<div className="md:hidden">
-									<ExploreListCard
-										r={r}
-										pills={dishItems?.get(r.id)}
-										fallbackOrigin={distOrigin}
-										onViewMap={() => viewOnMap(r)}
-									/>
-								</div>
-								<div className="hidden md:block">
-									<PlaceCard
-										r={r}
-										variant="row"
-										hovered={hovered === r.id}
-										selected={selected === r.id}
-										onHover={setHovered}
-										fallbackOrigin={distOrigin}
-										onViewMap={() => viewOnMap(r)}
-										pills={dishItems?.get(r.id)}
-									/>
-								</div>
+							{/* ONE card for every width: @container lets ExploreCard
+							    read the row's width and render the flat list row when
+							    narrow or the side-panel card when wide, instead of
+							    rendering two cards and hiding one per breakpoint. */}
+							<div id={`row-${r.id}`} className="@container">
+								<ExploreCard
+									r={r}
+									pills={dishItems?.get(r.id)}
+									dishName={dishName ?? undefined}
+									hovered={hovered === r.id}
+									selected={selected === r.id}
+									onHover={setHovered}
+									fallbackOrigin={distOrigin}
+									onViewMap={() => viewOnMap(r)}
+								/>
 							</div>
 						</Fragment>
 					))}

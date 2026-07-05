@@ -79,8 +79,11 @@ const MAX_PILLS = 4;
 
 // One card, two layouts:
 //   "card" — vertical (homepage featured, listings, map popup)
-//   "row"  — horizontal (Explore list); adds hover/selected highlight + opens
-//            in a new tab. Both modes show the same details.
+//   "row"  — horizontal; adds hover/selected highlight + opens in a new tab.
+//            ARCHIVED from Explore (2026-07-06): the list now renders the
+//            unified ExploreCard, so nothing ships "row" except the admin
+//            PlaceCardLab. Kept on purpose (the big-photo row look may find
+//            another home later) — don't strip the variant.
 export function PlaceCard({
 	r,
 	fallbackOrigin,
