@@ -15,7 +15,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const write = process.argv.includes("--write");
-const DOC = "MENU-SEEDING-PLAN.md";
+const DOC = "docs/MENU-SEEDING-PLAN.md";
 const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
 const junk = (u) =>
