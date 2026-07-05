@@ -36,9 +36,11 @@ import { reverseGeocodeSuburb } from "@/lib/geocode";
 import { cn } from "@/lib/cn";
 import { Z } from "@/lib/z";
 
-// Attribute chips shown behind the "Filters" toggle. Tokens must match FLAG_COLS
-// in lib/queries.ts; labels are AU-facing. Ordered by usefulness for eating out.
+// Attribute chips shown behind the "Filters" toggle. Tokens must match the
+// flags emitted by exploreSpots() in lib/queries.ts ("menu" + the FLAG_COLS
+// keys); labels are AU-facing. Ordered by usefulness for eating out.
 const FLAG_OPTIONS: [string, string][] = [
+	["menu", "Menu on here"],
 	["veg", "Vegetarian"],
 	["takeout", "Takeaway"],
 	["delivery", "Delivery"],
@@ -54,6 +56,19 @@ const FLAG_OPTIONS: [string, string][] = [
 	["wheelchair", "Wheelchair access"],
 ];
 
+// Our-food category chips on the primary bar: one-tap entry points into the
+// dish search (identical to picking the tag in the SearchBox). Clicking one
+// lists the dishes we actually matched inside it via the facet bar below
+// (Newari -> choila, bara, chatamari…; Momo -> its preparations). Curated set,
+// biggest menu coverage first; slugs are dish_categories slugs.
+const CATEGORY_CHIPS: [string, string][] = [
+	["momo", "Momo"],
+	["newari", "Newari"],
+	["sekuwa", "Sekuwa"],
+	["tibetan", "Tibetan"],
+	["thakali", "Thakali"],
+];
+
 const PAGE_SIZE = 30;
 
 const MapView = dynamic(() => import("./MapView"), {
@@ -64,36 +79,6 @@ const MapView = dynamic(() => import("./MapView"), {
 		</div>
 	),
 });
-
-function Seg<T extends string | number>({
-	value,
-	onChange,
-	options,
-}: {
-	value: T;
-	onChange: (v: T) => void;
-	options: [T, string][];
-}) {
-	return (
-		<div className="flex border-2 border-sand-400 rounded-full overflow-hidden shrink-0">
-			{options.map(([val, label]) => (
-				<button
-					key={String(val)}
-					onClick={() => onChange(val)}
-					aria-pressed={value === val}
-					className={cn(
-						"px-3.5 py-[5px] font-display font-bold text-[0.9rem] cursor-pointer transition-colors",
-						value === val
-							? "bg-chili-500 text-white"
-							: "bg-transparent text-ink-700 hover:bg-paper-100",
-					)}
-				>
-					{label}
-				</button>
-			))}
-		</div>
-	);
-}
 
 // Client-side equivalents of the old SQL ORDER BY clauses. `featured` also
 // floats spots with a card image (logo or photo) above photoless ones; the
@@ -219,7 +204,6 @@ export function ExploreClient({
 	const [boxValue, setBoxValue] = useState(initialQuery);
 	const [boxKey, setBoxKey] = useState(0);
 	const [openOnly, setOpenOnly] = useState(false);
-	const [minRating, setMinRating] = useState(0);
 	const [sort, setSort] = useState("featured");
 	// selected attribute-flag tokens (see FLAG_OPTIONS / FLAG_COLS)
 	const [flags, setFlags] = useState<string[]>([]);
@@ -281,7 +265,7 @@ export function ExploreClient({
 	// Pagination window, keyed to the current filter/viewport signature so any
 	// change resets it to one page (mirrors the old fetch-per-move behaviour)
 	// without a reset effect. "Load more" grows the count under the same key.
-	const pageKey = JSON.stringify([sort, flags, minRating, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel, dishRefineSel]);
+	const pageKey = JSON.stringify([sort, flags, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel, dishRefineSel]);
 	const [page, setPage] = useState({ key: pageKey, count: PAGE_SIZE });
 	const shownCount = page.key === pageKey ? page.count : PAGE_SIZE;
 	const showMore = () =>
@@ -436,10 +420,9 @@ export function ExploreClient({
 					((!fixed.state || s.state === fixed.state) &&
 						(!suburb || s.suburb?.toLowerCase() === suburb))) &&
 				flags.every((f) => s.flags.includes(f)) &&
-				(!minRating || (s.rating ?? 0) >= minRating) &&
 				(!openOnly || isOpenNow(s.openingHours, s.state) !== false),
 		);
-	}, [spots, dish, dishItems, prepSel, proteinSel, dishRefineSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, minRating, openOnly, areaScoped]);
+	}, [spots, dish, dishItems, prepSel, proteinSel, dishRefineSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
 
 	// only list spots whose pin is in the current viewport (matches what's on the map)
 	const inView = useMemo(() => {
@@ -535,14 +518,12 @@ export function ExploreClient({
 	const isFocusView = focusId != null && shown[0]?.id === focusId;
 
 	// Count every active filter the "Filters" button stands for. On mobile Open
-	// now + Rating live inside its panel; on desktop they sit in the bar but still
-	// count as active filters, so the badge is a consistent total either way.
-	const activeFilterCount =
-		flags.length + (openOnly ? 1 : 0) + (minRating > 0 ? 1 : 0);
+	// lives inside its panel; on desktop it sits in the bar but still counts as
+	// an active filter, so the badge is a consistent total either way.
+	const activeFilterCount = flags.length + (openOnly ? 1 : 0);
 	const clearAllFilters = () => {
 		setFlags([]);
 		setOpenOnly(false);
-		setMinRating(0);
 	};
 
 	// ---- list pieces (heading, banner, body). Plain render helpers, not
@@ -852,23 +833,34 @@ export function ExploreClient({
 							)}
 						>
 							<Clock weight="fill" size={16} />
-							Open now
+							Open
 						</button>
 
-						<label className="max-md:hidden flex items-center gap-2 shrink-0">
-							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
-								Rating
-							</span>
-							<Seg
-								value={minRating}
-								onChange={setMinRating}
-								options={[
-									[0, "Any"],
-									[4, "★ 4.0+"],
-									[4.5, "★ 4.5+"],
-								]}
-							/>
-						</label>
+						{/* Category chips: one-tap dish search (same navigation as
+						    picking the tag in the SearchBox); tapping the active one
+						    clears it. The facet bar below then lists the dishes we
+						    matched inside the category. */}
+						{CATEGORY_CHIPS.map(([slug, label]) => (
+							<button
+								key={slug}
+								onClick={() =>
+									router.push(
+										dish === slug
+											? "/explore"
+											: `/explore?dish=${slug}`,
+									)
+								}
+								aria-pressed={dish === slug}
+								className={cn(
+									"shrink-0 border-2 rounded-full px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
+									dish === slug
+										? "bg-chili-500 border-chili-500 text-white"
+										: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+								)}
+							>
+								{label}
+							</button>
+						))}
 
 						<div className="flex items-center gap-2 shrink-0">
 							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
@@ -923,7 +915,7 @@ export function ExploreClient({
 
 					{showFilters && (
 						<div className="mt-2.5">
-							{/* Mobile only: Near me + Open now + Rating live in the panel
+							{/* Mobile only: Near me + Open now live in the panel
 							    (desktop keeps them in the bar above). */}
 							<div className="md:hidden flex flex-wrap items-center gap-2 pb-3 mb-3 border-b border-paper-300">
 								<Button
@@ -949,20 +941,6 @@ export function ExploreClient({
 									<Clock weight="fill" size={16} />
 									Open now
 								</button>
-								<label className="flex items-center gap-2">
-									<span className="font-display font-bold text-ink-700 text-[0.9rem]">
-										Rating
-									</span>
-									<Seg
-										value={minRating}
-										onChange={setMinRating}
-										options={[
-											[0, "Any"],
-											[4, "★ 4.0+"],
-											[4.5, "★ 4.5+"],
-										]}
-									/>
-								</label>
 							</div>
 
 							{flagsWrap}

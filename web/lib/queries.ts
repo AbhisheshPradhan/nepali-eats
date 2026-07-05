@@ -212,6 +212,7 @@ export async function exploreSpots(): Promise<ExploreSpot[]> {
             r.venue_type, r.price_level, r.price_range, r.suburb, r.state,
             r.logo_key, r.phone, r.opening_hours, r.business_status, r.tags,
             r.featured_rank, r.popular, ${flagCols},
+            r.menu_item_count > 0 AS has_menu,
             COALESCE(
               r.cover_key,
               (SELECT p.storage_key FROM restaurant_photos p
@@ -244,9 +245,15 @@ export async function exploreSpots(): Promise<ExploreSpot[]> {
 			row.featured_rank != null ? Number(row.featured_rank) : null,
 		popular: !!row.popular,
 		tags: row.tags || [],
-		flags: Object.entries(FLAG_COLS)
-			.filter(([, col]) => row[col] === true)
-			.map(([token]) => token),
+		hasMenu: !!row.has_menu,
+		// "menu" is a synthetic flag token (no FLAG_COLS column) so the
+		// "Menu on here" chip filters through the same flags mechanism.
+		flags: [
+			...(row.has_menu ? ["menu"] : []),
+			...Object.entries(FLAG_COLS)
+				.filter(([, col]) => row[col] === true)
+				.map(([token]) => token),
+		],
 	}));
 }
 
@@ -635,7 +642,11 @@ function dishMatches(q: string, rows: DishRow[]): DishSuggestion[] {
 	// The protein token must EQUAL a protein name/alias: a substring/prefix match
 	// would turn "c momo" (the Chilli Momo alias) into a bogus Chicken compound.
 	const tokens = text.split(/\s+/);
-	if (tokens.length >= 2) {
+	// A query that IS a dish name needs no compound: its protein word belongs
+	// to the name, and re-tokenising invents dishes ("fried fish" → protein
+	// Fish + rest "fried" → bogus "Fish Fried Rice").
+	const exact = matched[0] && rank(matched[0], text) === 0;
+	if (tokens.length >= 2 && !exact) {
 		const proteins = rows.filter((r) => r.kind === "protein");
 		for (let i = 0; i < tokens.length && out.length < 4; i++) {
 			const p = proteins.find((r) => rank(r, tokens[i]) === 0);
@@ -650,6 +661,11 @@ function dishMatches(q: string, rows: DishRow[]): DishSuggestion[] {
 			dishes.sort((a, b) => rank(a, rest) - rank(b, rest));
 			const d = dishes[0];
 			if (!d) continue;
+			// A protein word that's part of the dish's own name isn't a facet:
+			// "butter chicken" tokenises to protein Chicken + dish Butter Chicken,
+			// which would emit a bogus "Chicken Butter Chicken" (ditto Fried Fish,
+			// Chicken 65). The plain suggestion already covers these.
+			if (norm(d.name).split(/\s+/).includes(tokens[i])) continue;
 			const compound: DishSuggestion = {
 				slug: d.slug,
 				name: `${p.name} ${d.name}`,

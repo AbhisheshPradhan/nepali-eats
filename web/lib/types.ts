@@ -137,7 +137,8 @@ export interface ExploreSpot {
   featuredRank: number | null; // drives the Featured sort
   popular: boolean;
   tags: string[]; // coarse dish/style rollup — powers ?tag= scoping
-  flags: string[]; // true-only attribute tokens (FLAG_COLS keys) — filter chips
+  flags: string[]; // true-only attribute tokens (FLAG_COLS keys + "menu") — filter chips
+  hasMenu: boolean; // menu seeded on the site — powers the card "See the menu" link
 }
 
 export interface Bbox {

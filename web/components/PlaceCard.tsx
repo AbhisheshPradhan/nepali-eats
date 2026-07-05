@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { MapTrifold } from "@phosphor-icons/react";
+import { BookOpenText, MapTrifold } from "@phosphor-icons/react";
 import { FeaturedBadge, PopularBadge } from "@/components/ui/PlaceBadges";
 import { Rating } from "@/components/ui/Rating";
 import { VenueType } from "@/components/ui/VenueType";
@@ -39,6 +39,7 @@ export type PlaceCardData = Pick<
 	priceLevel?: number | null;
 	priceRange?: string | null;
 	businessStatus?: string | null;
+	hasMenu?: boolean; // menu seeded on the site -> "See the menu" action
 };
 
 // The full prop contract, exported so UI-Playground mockups can be typed as
@@ -270,7 +271,7 @@ export function PlaceCard({
 
 				{/* Bottom row: live open/closed status (hidden until mounted / when no
             hours), plus the Explore "View on map" action pinned to the right. */}
-				<div className="flex items-center justify-between gap-2 min-w-0">
+				<div className="flex flex-wrap items-center justify-between gap-2 min-w-0">
 					<OpenStatusBadge
 						openingHours={r.openingHours}
 						state={r.state}
@@ -279,23 +280,48 @@ export function PlaceCard({
 						className="min-w-0 max-w-full"
 					/>
 
-					{onViewMap && (
-						<button
-							type="button"
-							onClick={(e) => {
-								// sits inside the card's <Link>; don't navigate, just move the map
-								e.preventDefault();
-								e.stopPropagation();
-								onViewMap();
-							}}
-							className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-2 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
-						>
-							<MapTrifold
-								size={15}
-								weight="fill"
-							/>
-							View on map
-						</button>
+					{(r.hasMenu || onViewMap) && (
+						<div className="shrink-0 flex items-center gap-1.5">
+							{r.hasMenu && (
+								<button
+									type="button"
+									onClick={(e) => {
+										// inside the card's <Link> (no nested anchors):
+										// open the detail page at the menu in a new tab so
+										// the Explore state stays put.
+										e.preventDefault();
+										e.stopPropagation();
+										window.open(
+											`/restaurant/${r.slug}#menu`,
+											"_blank",
+											"noopener,noreferrer",
+										);
+									}}
+									className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-2 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
+								>
+									<BookOpenText size={15} weight="fill" />
+									See the menu
+								</button>
+							)}
+							{onViewMap && (
+								<button
+									type="button"
+									onClick={(e) => {
+										// sits inside the card's <Link>; don't navigate, just move the map
+										e.preventDefault();
+										e.stopPropagation();
+										onViewMap();
+									}}
+									className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-2 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
+								>
+									<MapTrifold
+										size={15}
+										weight="fill"
+									/>
+									View on map
+								</button>
+							)}
+						</div>
 					)}
 				</div>
 			</div>

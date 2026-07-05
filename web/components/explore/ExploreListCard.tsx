@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { MapTrifold } from "@phosphor-icons/react";
+import { BookOpenText, MapTrifold } from "@phosphor-icons/react";
 import { Rating } from "@/components/ui/Rating";
 import { PriceLevel } from "@/components/ui/PriceLevel";
 import { VenueType } from "@/components/ui/VenueType";
@@ -118,8 +118,8 @@ export function ExploreListCard({
 				</div>
 			)}
 
-			{/* bottom row: live open status + the "View on map" CTA */}
-			<div className="mt-2.5 flex items-center justify-between gap-2 min-w-0">
+			{/* bottom row: live open status + the "See the menu" / "View on map" CTAs */}
+			<div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 min-w-0">
 				<OpenStatusBadge
 					openingHours={r.openingHours}
 					state={r.state}
@@ -127,6 +127,27 @@ export function ExploreListCard({
 					size="sm"
 					className="min-w-0 max-w-full"
 				/>
+				<div className="shrink-0 flex items-center gap-1.5 ml-auto">
+				{r.hasMenu && (
+					<button
+						type="button"
+						onClick={(e) => {
+							// inside the card's <Link> (no nested anchors): open the
+							// detail page at the menu in a new tab so Explore stays put.
+							e.preventDefault();
+							e.stopPropagation();
+							window.open(
+								`/restaurant/${r.slug}#menu`,
+								"_blank",
+								"noopener,noreferrer",
+							);
+						}}
+						className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-3 py-1.5 transition-colors hover:bg-chili-500 hover:text-white active:bg-chili-500 active:text-white cursor-pointer"
+					>
+						<BookOpenText size={15} weight="fill" />
+						See the menu
+					</button>
+				)}
 				{onViewMap && (
 					<button
 						type="button"
@@ -142,6 +163,7 @@ export function ExploreListCard({
 						View on map
 					</button>
 				)}
+				</div>
 			</div>
 		</Link>
 	);

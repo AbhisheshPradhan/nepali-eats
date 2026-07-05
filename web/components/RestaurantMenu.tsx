@@ -98,7 +98,9 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
   if (!menu.length) return null;
 
   return (
-    <section className="mb-8">
+    // id="menu" anchors /restaurant/[slug]#menu links (Explore "See the menu");
+    // scroll-mt clears the sticky site header.
+    <section id="menu" className="mb-8 scroll-mt-12">
       {/* sticky toolbar — heading + search (wraps on mobile) + category chips */}
       <div ref={toolbarRef} className="sticky top-12 z-20 bg-paper-50 pt-4 pb-3">
         <div className="flex items-center justify-between flex-wrap gap-x-4 gap-y-2">
