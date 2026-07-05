@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS dish_categories (
   id            BIGSERIAL PRIMARY KEY,
   slug          TEXT UNIQUE NOT NULL,            -- momo, jhol-momo, chicken-momo, newari, bara…
   name          TEXT NOT NULL,                   -- "Momo", "Jhol Momo", "Chicken Momo"
-  kind          TEXT NOT NULL CHECK (kind IN ('dish','preparation','protein','style')),
+  kind          TEXT NOT NULL CHECK (kind IN ('dish','preparation','protein','style','diet')),
   parent_id     BIGINT REFERENCES dish_categories(id) ON DELETE SET NULL,
   -- Alternate names the search dropdown matches on, so "dumpling" surfaces Momo,
   -- "c-momo" surfaces Chilli Momo, "kothey" surfaces Kothey Momo. Seeded from the

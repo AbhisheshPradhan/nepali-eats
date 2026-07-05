@@ -155,7 +155,7 @@ export interface Bbox {
 export interface DishSuggestion {
   slug: string; // dish/style/preparation tag slug (the ?dish= value)
   name: string; // display label ("Momo", "Paneer Momo", "Newari")
-  kind: "dish" | "style" | "preparation";
+  kind: "dish" | "style" | "preparation" | "diet";
   protein?: string; // protein slug to pre-select (?protein=)
 }
 
@@ -165,7 +165,7 @@ export interface DishSuggestion {
 export interface DishFacet {
   slug: string;
   name: string;
-  kind: "preparation" | "protein" | "dish";
+  kind: "preparation" | "protein" | "dish" | "diet";
 }
 
 // A matched menu item on a dish search. `slugs` = the item's facet tags

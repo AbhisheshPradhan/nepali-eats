@@ -57,11 +57,17 @@ nullable, never guessed.
 - **Restaurant-level (near-term):** `ALTER TABLE restaurants ADD COLUMN vegan
   boolean, ADD COLUMN gluten_free boolean;` — mirrors the vegetarian dual model
   (`serves_vegetarian` = "has options" vs `menu_items.is_vegetarian` = per-dish).
-- **Item-level (enable now, populate over time):** add `vegan` + `gluten-free`
-  as cross-cutting facet tags in `web/lib/menu/taxonomy.ts` (same pattern as the
-  `veg` protein tag). Populated ONLY when a menu explicitly marks a dish —
-  accrues via normal seeding, no back-scan. "Gluten-free momo in <city>" landing
-  pages are a LATER deliverable gated on real item coverage.
+- **Item-level — DONE 2026-07-05:** `vegan` (kind protein, parent `veg`, so the
+  seeder's ancestor materialisation keeps vegan ⊂ veg) + `gluten-free` (new kind
+  `diet`) live in `web/lib/menu/taxonomy.ts`; `dish_categories.kind` CHECK
+  widened to include 'diet'. Backfill over the pre-existing ~144 seeded menus =
+  `scraper/retag-dietary.js` (dry-run default; explicit menu marks only, with
+  reviewed exclusions for "option available"/"contains gluten"/ingredient
+  mentions). Forward accrual via normal seeding (worker rules in
+  `MENU-WORKER-CHEATSHEET.md`). Explore shows a "check with the venue" note when
+  a vegan/gluten-free chip is active. "Gluten-free momo in <city>" landing pages
+  are a LATER deliverable gated on real item coverage (gate: 3+ spots with
+  confirmed items per page; Melbourne qualifies first for vegan).
 
 ⚠️ Gluten-free is effectively a MEDICAL claim (coeliac): never infer, set true
 only from an explicit menu/site statement, frame as "gluten-free OPTIONS /

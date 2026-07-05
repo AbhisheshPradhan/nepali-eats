@@ -16,13 +16,14 @@
 //    goat curry -> [curry, goat]. Search = dish (primary) + optional protein filter.
 //
 // `kind`:   dish | style | preparation (momo only) | protein (cross-cutting facet)
-// `parent`: parent dish slug (momo preparation subtree only); absent = top-level
+//           | diet (cross-cutting dietary facet, e.g. gluten-free)
+// `parent`: parent slug (momo preparation subtree + vegan -> veg); absent = top-level
 // `synonyms`: alternate printed names that canonicalize TO this slug at
 //             transcription time (e.g. "kothey" -> fried-momo). They never create
 //             new rows — they collapse spelling/naming variants onto the canonical.
 // `featured`: surface on landing / hub pages (drives is_featured).
 
-export type DishKind = "dish" | "style" | "preparation" | "protein";
+export type DishKind = "dish" | "style" | "preparation" | "protein" | "diet";
 
 export interface DishCategory {
   slug: string;
@@ -138,6 +139,11 @@ export const DISH_CATEGORIES: DishCategory[] = [
   // = GOAT in Nepali restaurant usage, distinct from lamb (bheda/sheep).
   { slug: "chicken", kind: "protein", name: "Chicken", synonyms: ["kukhura", "kukhura ko masu"] },
   { slug: "veg", kind: "protein", name: "Veg", synonyms: ["vegetable", "vegetarian"] },
+  // vegan is a strict SUBSET of veg (parent: veg), so the seeder's ancestor
+  // materialisation auto-adds veg to every vegan item and the Veg filter never
+  // loses vegan dishes. Tag ONLY when the menu explicitly says vegan/plant-based
+  // (it's a dietary claim: ghee/cream/paneer hide everywhere) — never inferred.
+  { slug: "vegan", kind: "protein", parent: "veg", name: "Vegan", synonyms: ["plant-based", "plant based"] },
   { slug: "egg", kind: "protein", name: "Egg", synonyms: ["anda", "phul"] },
   { slug: "lamb", kind: "protein", name: "Lamb", synonyms: ["bheda", "bheda ko masu", "sheep"] },
   { slug: "goat", kind: "protein", name: "Goat", synonyms: ["mutton", "khasi", "khasi ko masu"] },
@@ -151,6 +157,13 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "fish", kind: "protein", name: "Fish", synonyms: ["machha"] },
   { slug: "prawn", kind: "protein", name: "Prawn", synonyms: ["shrimp", "jhinge", "king prawn"] },
   { slug: "paneer", kind: "protein", name: "Paneer", synonyms: ["cottage cheese"] },
+
+  // --- Diet: cross-cutting dietary facet (NOT a protein) ---------------------
+  // Tagged alongside the dish + protein (a dish can be chicken AND gluten-free,
+  // so it can't live on the protein axis). Same hard rule as vegan: tag ONLY
+  // when the menu explicitly marks it (gluten-free/GF) — coeliac is effectively
+  // a medical claim, so never infer, and UI copy says to check with the venue.
+  { slug: "gluten-free", kind: "diet", name: "Gluten Free", synonyms: ["gluten-free", "gf", "gluten friendly"] },
 ];
 
 export const CATEGORY_SLUGS = DISH_CATEGORIES.map((c) => c.slug);

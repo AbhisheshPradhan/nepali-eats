@@ -397,7 +397,9 @@ export function SearchBox({
 								<span className="block text-[0.82rem] text-ink-500">
 									{d.kind === "style"
 										? "Cuisine · see spots that serve it"
-										: "Dish · see spots that serve it"}
+										: d.kind === "diet"
+											? "Dietary · see spots with marked dishes"
+											: "Dish · see spots that serve it"}
 								</span>
 							</span>
 						</button>

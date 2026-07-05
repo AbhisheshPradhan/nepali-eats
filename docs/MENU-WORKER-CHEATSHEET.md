@@ -54,9 +54,15 @@ Modelling (locked):
   (Steamed/Jhol/Kothey/Fried/Chilli/Sandheko), protein as variants.
 - **Consolidate protein-only items:** "Chicken Curry / Goat Curry / Lamb Curry" → ONE `curry`
   item with three variants. "Choice of X/Y/Z" → variants.
-- **tags = controlled slugs ONLY** (dish/style/momo-prep). `node scraper/seed-menu.js --list-tags`.
+- **tags = controlled slugs ONLY** (dish/style/momo-prep + dietary, rules below).
+  `node scraper/seed-menu.js --list-tags`.
   **Protein is NOT a tag** — it lives on `variant.protein` (chicken momo → `tags:["momo"]` +
   `variant.protein:"chicken"`). A momo prep tag rolls up to `momo` automatically.
+- **Dietary tags (`vegan`, `gluten-free`): ONLY when the menu explicitly marks the dish**
+  ("Vegan Butter Chicken", "(GF)", "All Our Curry Is Gluten Free"). Whole item marked → add the
+  slug to `tags` (vegan rolls up to veg automatically); a vegan VARIANT → `variant.protein:"vegan"`.
+  Never infer — these are dietary claims. "Vegan/GF option available", "can be made vegan" and
+  ingredient mentions ("vegan feta", "contains gluten") do NOT count.
 - **Descriptions VERBATIM** from the menu (no rewriting — human-copy standard does NOT apply here).
 - Include drinks/desserts as categories (`tags:["drinks"]` / `["dessert"]`, item-level only).
 - Unknown dish with no slug → tag `[]`, append a line to `MENU-TAXONOMY-TODO.md`

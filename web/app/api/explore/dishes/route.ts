@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { dishRestaurants } from "@/lib/queries";
 
-// Dish search matches for Explore: ?tag=<dish/style/preparation slug> returns
-// every restaurant with menu items carrying that tag, each item with its facet
-// slugs (momo preparations + proteins) so the client filters by chip in memory.
+// Dish search matches for Explore: ?tag=<dish/style/preparation/diet slug>
+// returns every restaurant with menu items carrying that tag, each item with
+// its facet slugs (momo preparations + proteins + diet tags) so the client
+// filters by chip in memory.
 // Viewport-independent and near-static: one CDN-cached payload per dish.
 export async function GET(request: Request) {
   const tag = (new URL(request.url).searchParams.get("tag") || "").trim();

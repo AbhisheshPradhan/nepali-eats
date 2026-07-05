@@ -239,7 +239,9 @@ target). Reference example: `scraper/menu-data/sample-menu.json`.
       "description": "...",
       "is_vegetarian": true,                    // optional; from a (V) marker
       "spice_level": 3,                         // optional 0-3
-      "tags": ["steamed-momo"],                 // controlled slugs: dish/style/momo-prep ONLY
+      "tags": ["steamed-momo"],                 // controlled slugs: dish/style/momo-prep, plus
+                                                //  dietary (vegan, gluten-free) when the menu
+                                                //  explicitly marks the dish — never inferred
       "variants": [                             // priced versions; protein lives HERE
         { "label": "Chicken", "price": 17.00, "protein": "chicken" },
         { "label": "Vegetable", "price": 17.00, "protein": "veg", "is_vegetarian": true }

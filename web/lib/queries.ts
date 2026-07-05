@@ -768,7 +768,9 @@ export async function dishRestaurants(
 	// its proteins + preparations under the searched dish. $2 carries whichever.
 	const facetClause = isStyle
 		? `d2.slug = ANY($2)`
-		: `(d2.kind = 'protein' OR d2.parent_id = $2)`;
+		: // exclude the searched tag itself: searching gluten-free (kind diet)
+			// would otherwise echo itself back as a facet chip on every item
+			`(d2.kind IN ('protein','diet') OR d2.parent_id = $2) AND d2.id <> $2`;
 	const facetParam = isStyle ? memberDishes : tag.id;
 
 	const rows = await query<{
@@ -820,10 +822,10 @@ export async function dishRestaurants(
 	// so chips render stably.
 	const facetKindClause = isStyle
 		? `kind = 'dish'`
-		: `kind IN ('preparation','protein')`;
+		: `kind IN ('preparation','protein','diet')`;
 	const facetOrder = isStyle
 		? `display_order, id`
-		: `kind = 'protein', display_order, id`;
+		: `kind = 'diet', kind = 'protein', display_order, id`;
 	const facets: DishFacet[] = facetSlugs.size
 		? (
 				await query<{ slug: string; name: string; kind: string }>(

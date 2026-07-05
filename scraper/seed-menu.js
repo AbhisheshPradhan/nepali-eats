@@ -25,13 +25,16 @@ const { Pool } = pg;
 // So a worker can list valid tags without reading web/lib/menu/taxonomy.ts (cheaper),
 // and the hard-error path can show what's allowed. No DB needed.
 function printTaxonomy() {
-  const kinds = ["dish", "style", "preparation", "protein"];
+  const kinds = ["dish", "style", "preparation", "protein", "diet"];
   for (const k of kinds) {
     const slugs = DISH_CATEGORIES.filter((c) => c.kind === k).map((c) => c.slug);
     console.log(`${k} (${slugs.length}): ${slugs.join(", ")}`);
   }
   console.log(
-    "\nprotein goes on variant.protein (not tags); momo preparation tags roll up to momo.",
+    "\nprotein goes on variant.protein (not tags); momo preparation tags roll up to momo." +
+      "\ndietary tags (vegan, gluten-free) ONLY when the menu explicitly marks the dish:" +
+      "\nwhole item marked -> item tags; a vegan variant -> variant.protein:\"vegan\"." +
+      "\n\"option available\" / \"can be made vegan\" does NOT count.",
   );
 }
 
@@ -107,7 +110,8 @@ async function main() {
       const variants = it.variants?.length ? it.variants : [{ label: null, price: it.price ?? null }];
       const tagset = withAncestors(it.tags || []);
       for (const v of variants) {
-        if (v.protein) tagset.add(v.protein);
+        // ancestors here too so variant.protein:"vegan" rolls up to veg
+        if (v.protein) for (const a of withAncestors([v.protein])) tagset.add(a);
         if (v.price != null) prices.push(Number(v.price));
       }
       tagLinks += tagset.size;
@@ -167,7 +171,7 @@ async function main() {
         const tagset = withAncestors(it.tags || []);
         for (let vi = 0; vi < variants.length; vi++) {
           const v = variants[vi];
-          if (v.protein) tagset.add(v.protein);
+          if (v.protein) for (const a of withAncestors([v.protein])) tagset.add(a);
           await client.query(
             "insert into menu_item_variants (item_id, label, price, currency, is_vegetarian, position) values ($1,$2,$3,$4,$5,$6)",
             [itemId, v.label ?? null, v.price ?? null, v.currency ?? menu.currency ?? "AUD", v.is_vegetarian ?? null, vi],

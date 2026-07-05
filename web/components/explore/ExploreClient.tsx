@@ -145,32 +145,42 @@ export function ExploreClient({
 	const [reloadSpots, setReloadSpots] = useState(0);
 
 	useEffect(() => {
-		const ctrl = new AbortController();
+		// Stale flag, NOT AbortController: aborting saves nothing (tiny CDN-cached
+		// payload) and the AbortError trips Next's dev unhandled-rejection
+		// forwarding on every strict-mode remount / Fast Refresh even though our
+		// own chain catches it. Letting it settle and ignoring is quieter.
+		let stale = false;
 		setSpotsError(false);
-		fetch("/api/explore/spots", { signal: ctrl.signal })
+		fetch("/api/explore/spots")
 			.then((r) => {
 				if (!r.ok) throw new Error(`spots ${r.status}`);
 				return r.json();
 			})
-			.then((d: { spots?: ExploreSpot[] }) => setSpots(d.spots ?? []))
+			.then((d: { spots?: ExploreSpot[] }) => {
+				if (!stale) setSpots(d.spots ?? []);
+			})
 			.catch((e) => {
-				if (e.name === "AbortError") return;
+				if (stale) return;
 				console.error(e);
 				setSpotsError(true);
 			});
-		return () => ctrl.abort();
+		return () => {
+			stale = true;
+		};
 	}, [reloadSpots]);
 
 	// Dish search matches: per-restaurant menu items tagged with the picked dish
 	// (viewport-independent, CDN-cached per dish). An unknown slug resolves to an
 	// empty result so the coarse restaurants.tags tier below still works.
 	const [dishData, setDishData] = useState<DishSearchResult | null>(null);
-	// One selection per facet kind: a momo preparation and/or a protein (dish
-	// search), or a member dish (style search, e.g. Newari -> Choila).
+	// One selection per facet kind: a momo preparation and/or a protein and/or a
+	// diet tag (dish search), or a member dish (style search, e.g. Newari ->
+	// Choila). Diet is its own slot so Chicken + Gluten Free can combine.
 	const [prepSel, setPrepSel] = useState<string | null>(null);
 	const [proteinSel, setProteinSel] = useState<string | null>(
 		dishProtein ?? null,
 	);
+	const [dietSel, setDietSel] = useState<string | null>(null);
 	const [dishRefineSel, setDishRefineSel] = useState<string | null>(null);
 
 	// "No {dish} nearby, showing the closest" banner (auto-resolve on untouched
@@ -183,20 +193,22 @@ export function ExploreClient({
 		setAutoBanner(null);
 		autoResolvedRef.current = null;
 		if (!dish) return;
-		const ctrl = new AbortController();
-		fetch(`/api/explore/dishes?tag=${encodeURIComponent(dish)}`, {
-			signal: ctrl.signal,
-		})
+		// stale flag over AbortController: see the spots fetch above
+		let stale = false;
+		fetch(`/api/explore/dishes?tag=${encodeURIComponent(dish)}`)
 			.then((r) => (r.ok ? r.json() : null))
-			.then((d: DishSearchResult | null) =>
+			.then((d: DishSearchResult | null) => {
+				if (stale) return;
 				setDishData(
 					d ?? { slug: dish, name: tagLabel(dish), facets: [], restaurants: [] },
-				),
-			)
+				);
+			})
 			.catch((e) => {
-				if (e.name !== "AbortError") console.error(e);
+				if (!stale) console.error(e);
 			});
-		return () => ctrl.abort();
+		return () => {
+			stale = true;
+		};
 	}, [dish]);
 
 	// The search box is uncontrolled (SearchBox owns its text). To override it from
@@ -265,7 +277,7 @@ export function ExploreClient({
 	// Pagination window, keyed to the current filter/viewport signature so any
 	// change resets it to one page (mirrors the old fetch-per-move behaviour)
 	// without a reset effect. "Load more" grows the count under the same key.
-	const pageKey = JSON.stringify([sort, flags, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel, dishRefineSel]);
+	const pageKey = JSON.stringify([sort, flags, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel, dietSel, dishRefineSel]);
 	const [page, setPage] = useState({ key: pageKey, count: PAGE_SIZE });
 	const shownCount = page.key === pageKey ? page.count : PAGE_SIZE;
 	const showMore = () =>
@@ -324,6 +336,7 @@ export function ExploreClient({
 		// a new dish (or none) resets the facet chips to the URL's protein
 		setPrepSel(null);
 		setProteinSel(dishProtein ?? null);
+		setDietSel(null);
 		setDishRefineSel(null);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
@@ -390,6 +403,7 @@ export function ExploreClient({
 			for (const it of r.items) {
 				if (prepSel && !it.slugs.includes(prepSel)) continue;
 				if (proteinSel && !it.slugs.includes(proteinSel)) continue;
+				if (dietSel && !it.slugs.includes(dietSel)) continue;
 				if (dishRefineSel && !it.slugs.includes(dishRefineSel)) continue;
 				if (seen.has(it.name)) continue;
 				seen.add(it.name);
@@ -398,7 +412,7 @@ export function ExploreClient({
 			if (pills.length) m.set(r.id, pills);
 		}
 		return m;
-	}, [dish, dishData, prepSel, proteinSel, dishRefineSel]);
+	}, [dish, dishData, prepSel, proteinSel, dietSel, dishRefineSel]);
 
 	// Attribute/quality filters + the URL-seeded scope. tag/venue always apply;
 	// suburb/state are seed-only and drop once the visitor takes over the map.
@@ -413,7 +427,7 @@ export function ExploreClient({
 			(s) =>
 				(!dish ||
 					dishItems?.has(s.id) ||
-					(!prepSel && !proteinSel && !dishRefineSel && s.tags.includes(dish))) &&
+					(!prepSel && !proteinSel && !dietSel && !dishRefineSel && s.tags.includes(dish))) &&
 				(!fixed.tag || s.tags.includes(fixed.tag)) &&
 				(!fixed.venue || s.venueType === fixed.venue) &&
 				(areaScoped ||
@@ -422,7 +436,7 @@ export function ExploreClient({
 				flags.every((f) => s.flags.includes(f)) &&
 				(!openOnly || isOpenNow(s.openingHours, s.state) !== false),
 		);
-	}, [spots, dish, dishItems, prepSel, proteinSel, dishRefineSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
+	}, [spots, dish, dishItems, prepSel, proteinSel, dietSel, dishRefineSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
 
 	// only list spots whose pin is in the current viewport (matches what's on the map)
 	const inView = useMemo(() => {
@@ -702,9 +716,13 @@ export function ExploreClient({
 		</>
 	);
 
-	// Dish refine chips: the searched dish (x clears) + preparation/protein
+	// Dish refine chips: the searched dish (x clears) + preparation/protein/diet
 	// facets. Rendered in the top bar (desktop) and the sheet header (mobile).
+	// Vegan/gluten-free picks get a "check with the venue" line: those tags come
+	// from menu wording only, and for a coeliac or strict vegan that isn't enough.
+	const dietaryNote = dietSel || proteinSel === "vegan";
 	const dishBar = (
+		<>
 		<div className="flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
 			<button
 				onClick={clearDish}
@@ -721,13 +739,17 @@ export function ExploreClient({
 						? prepSel === f.slug
 						: f.kind === "dish"
 							? dishRefineSel === f.slug
-							: proteinSel === f.slug;
+							: f.kind === "diet"
+								? dietSel === f.slug
+								: proteinSel === f.slug;
 				const toggle = () =>
 					f.kind === "preparation"
 						? setPrepSel(active ? null : f.slug)
 						: f.kind === "dish"
 							? setDishRefineSel(active ? null : f.slug)
-							: setProteinSel(active ? null : f.slug);
+							: f.kind === "diet"
+								? setDietSel(active ? null : f.slug)
+								: setProteinSel(active ? null : f.slug);
 				return (
 					<button
 						key={f.slug}
@@ -745,6 +767,13 @@ export function ExploreClient({
 				);
 			})}
 		</div>
+		{dietaryNote && (
+			<p className="mt-1.5 text-[0.8rem] text-ink-500">
+				Tagged from each restaurant's own menu. Menus change, so check
+				with the venue before you order.
+			</p>
+		)}
+		</>
 	);
 
 	// Attribute-flag chips + Clear all (the expanded "Filters" panel), shared by
