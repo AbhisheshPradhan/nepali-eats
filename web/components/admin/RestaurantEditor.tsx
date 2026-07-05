@@ -5,7 +5,6 @@ import Image from "next/image";
 import { mediaUrl } from "@/lib/media";
 import { parsePastedHours } from "@/lib/admin/parseHours";
 import { CropModal } from "./CropModal";
-import { autoBlurb } from "@/lib/format";
 import type { RestaurantDetail, OpeningHours, VenueType } from "@/lib/types";
 import type { AdminPhoto } from "@/lib/admin/queries";
 
@@ -107,7 +106,6 @@ export function RestaurantEditor({
   const [menuFiles, setMenuFiles] = useState<string[]>(initialMenuFiles);
   const [menuUrl, setMenuUrl] = useState<string | null>(restaurant.menuUrl);
   const [desc, setDesc] = useState(restaurant.description ?? "");
-  const autoDesc = autoBlurb(restaurant);
   const [logo, setLogo] = useState<string | null>(restaurant.logoKey);
   const [cover, setCover] = useState<string | null>(restaurant.coverKey);
   const [busy, setBusy] = useState<string | null>(null);
@@ -644,7 +642,7 @@ export function RestaurantEditor({
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
           rows={4}
-          placeholder={autoDesc}
+          placeholder="Write a short blurb: what the kitchen is known for, in the site voice."
           className="border border-ink-200 rounded-md px-3 py-2 text-sm w-full leading-relaxed"
         />
         <div className="flex items-center gap-3 mt-2">
@@ -657,7 +655,7 @@ export function RestaurantEditor({
           </button>
           {desc.trim() === "" ? (
             <span className="text-xs text-ink-400">
-              Empty → auto-generated: <span className="italic">{autoDesc}</span>
+              Empty → the page ships no blurb or meta description.
             </span>
           ) : (
             <button
@@ -665,7 +663,7 @@ export function RestaurantEditor({
               onClick={() => setDesc("")}
               className="text-xs text-ink-400 hover:text-ink-700"
             >
-              Clear (use auto-generated)
+              Clear description
             </button>
           )}
         </div>

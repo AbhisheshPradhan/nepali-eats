@@ -73,6 +73,9 @@ export function Footer({
 							<span className="text-white">Eats</span>
 						</span>
 					</div>
+					<p className="font-display font-bold text-marigold-500 text-[1.05rem] m-0 mb-2">
+						Find your momo people.
+					</p>
 					<p className="text-paper-200 leading-relaxed m-0">
 						Every plate of Nepali food in Australia, gathered with
 						love, from busy dining rooms to food-truck queues.

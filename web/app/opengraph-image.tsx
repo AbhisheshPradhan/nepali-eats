@@ -70,6 +70,17 @@ export default async function Image() {
 							400+ spots across Australia
 						</div>
 					</div>
+					<div
+						style={{
+							display: "flex",
+							marginTop: 26,
+							fontSize: 27,
+							fontWeight: 700,
+							color: OG.marigold,
+						}}
+					>
+						Find your momo people.
+					</div>
 				</div>
 			</div>
 		),

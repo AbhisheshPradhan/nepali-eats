@@ -61,7 +61,7 @@ export interface Restaurant {
   isFeatured: boolean; // editorial pick — shows the Featured tab + border
   featuredRank: number | null; // raw editorial rank (asc); null = not featured
   popular: boolean; // editorial flag — shows a "Popular" tag on the card
-  description: string | null; // editorial blurb; falls back to autoBlurb when empty
+  description: string | null; // editorial blurb; empty = no blurb, no meta description
   // Google Places reconciled attributes (NULL = unknown). See reconcile-places.js.
   liveMusic: boolean | null;
   kidFriendly: boolean | null;

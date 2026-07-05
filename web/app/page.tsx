@@ -1,8 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Bunting } from "@/components/Bunting";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CravingCarousel } from "@/components/CravingCarousel";
+import { HomeStories } from "@/components/HomeStories";
 import { StateRow } from "@/components/StateRow";
 import { MomoHotspots } from "@/components/MomoHotspots";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +18,30 @@ import {
 } from "@/lib/queries";
 import { metroFromState } from "@/lib/format";
 import { resolveState } from "@/lib/geo";
+
+// The first-timer's order, step by step. Copy owned by the copy lead; dish
+// spellings follow the house glossary (choila, achaar, timur).
+const FIRST_PLATE: { title: string; body: string; cta: string; href: string }[] =
+	[
+		{
+			title: "Start with momo",
+			body: "Steamed first, achaar on the side. One plate tells you everything about a kitchen.",
+			cta: "Find great momo",
+			href: "/momo",
+		},
+		{
+			title: "Then the full set",
+			body: "Thakali dal bhat: black dal, rice, gundruk and refills until you tap out.",
+			cta: "See the Thakali kitchens",
+			href: "/nepali-food/thakali",
+		},
+		{
+			title: "Go past the dumplings",
+			body: "Smoky choila, charred sekuwa, a big bowl of thukpa. The menu runs deeper than momo.",
+			cta: "Meet the rest of the menu",
+			href: "/nepali-food",
+		},
+	];
 
 export default async function HomePage() {
 	// Featured is state-scoped. Resolve the visitor's state (admin override cookie
@@ -46,7 +72,7 @@ export default async function HomePage() {
 						{countLabel} restaurants, food trucks and caterers
 					</span>
 					<h1 className="text-[clamp(2.4rem,5.2vw,3.6rem)] leading-[1.02] text-ink-900 mt-2">
-						Find authentic{" "}
+						Find Authentic{" "}
 						<span className="text-chili-500">Nepali </span>food{" "}
 						across Australia{" "}
 					</h1>
@@ -76,6 +102,9 @@ export default async function HomePage() {
 			<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pb-6">
 				<CravingCarousel tags={tags.map((t) => t.value)} />
 			</section>
+
+			{/* LATEST STORIES (self-hides when lib/stories.ts is empty) */}
+			<HomeStories />
 
 			{/* STORY STRIP */}
 			<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-14">
@@ -114,6 +143,41 @@ export default async function HomePage() {
 							className="opacity-95"
 						/>
 					</div>
+				</div>
+			</section>
+
+			{/* FIRST PLATE — the order we give first-timers, linking the dish hubs */}
+			<section className="max-w-[1180px] mx-auto px-4 sm:px-6 pt-14">
+				<span className="eyebrow text-marigold-700">Start here</span>
+				<h2 className="font-display font-extrabold text-[1.6rem] text-ink-900 mt-1 mb-1.5">
+					Never eaten Nepali before?
+				</h2>
+				<p className="text-ink-700 mb-6 max-w-[640px]">
+					Lucky you, the first plate only happens once. This is the
+					order we give friends we are converting.
+				</p>
+				<div className="grid sm:grid-cols-3 gap-5">
+					{FIRST_PLATE.map((step, i) => (
+						<Link
+							key={step.href}
+							href={step.href}
+							className="bg-white rounded-xl shadow-sm p-6 group hover:shadow-md hover:-translate-y-1 transition"
+						>
+							<span className="inline-grid place-items-center w-9 h-9 rounded-full bg-chili-100 text-chili-600 font-display font-extrabold text-[1.05rem]">
+								{i + 1}
+							</span>
+							<h3 className="font-display font-bold text-[1.25rem] text-ink-900 mt-3 group-hover:text-chili-600 transition-colors">
+								{step.title}
+							</h3>
+							<p className="text-ink-700 mt-1.5 leading-snug">
+								{step.body}
+							</p>
+							<span className="inline-flex items-center gap-1.5 text-chili-600 font-display font-semibold mt-3.5">
+								{step.cta}
+								<ArrowRight size={16} />
+							</span>
+						</Link>
+					))}
 				</div>
 			</section>
 

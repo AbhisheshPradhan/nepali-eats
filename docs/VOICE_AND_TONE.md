@@ -79,7 +79,16 @@ Nothing we publish should read as AI-generated.
 | near you, around the corner, all over Australia | nationwide solutions                        |
 
 Note on "authentic": it is overused and hollow. Show it instead. "The dal bhat
-comes with endless refills" beats "authentic dal bhat".
+comes with endless refills" beats "authentic dal bhat". **One sanctioned
+exception (Abhishesh, 2026-07-05):** the homepage hero H1 ("Find authentic
+Nepali food across Australia") keeps it as a niche-cuisine signal and search
+term. Everywhere else the ban stands.
+
+**House dish spellings (one spelling per dish, site-wide):** choila (not
+chhwela/chwela), achaar (not achar), timur (not timmur; Abhishesh's call,
+2026-07-05), momo for singular and plural (never "momos" in headings or
+titles). When two romanizations are common, the spelling already shipped in
+site URLs wins.
 
 ## 7. CTAs
 

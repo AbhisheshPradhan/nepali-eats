@@ -302,28 +302,6 @@ export function capitalLatLng(
 	return STATE_CAPITAL[(state || "NSW").toUpperCase()] || STATE_CAPITAL.NSW;
 }
 
-export function autoBlurb(r: {
-	name: string;
-	venueType: string | null;
-	suburb: string | null;
-	state: string | null;
-	tags: string[];
-}): string {
-	const kind = (r.venueType || "spot").toLowerCase();
-	const where = [r.suburb, r.state].filter(Boolean).join(", ");
-	const foods =
-		r.tags.length > 0
-			? r.tags
-					.map((t) =>
-						t === "nepali-indian" ? "Nepali-Indian" : t.replace(/-/g, " "),
-					)
-					.slice(0, 3)
-					.join(", ")
-			: "momo and Nepali home cooking";
-	const place = where ? `in ${where}` : "in Australia";
-	return `${r.name} is a Nepali ${kind} ${place}, known for ${foods}.`;
-}
-
 // Coordinates win when we have them (exact pin); the address/name is the
 // fallback only. Never send both — Google keeps just one `destination`.
 export function directionsUrl(r: {

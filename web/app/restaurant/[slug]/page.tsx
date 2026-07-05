@@ -46,7 +46,6 @@ import { STATE_LINK_NAME } from "@/lib/landing";
 import { mediaUrl } from "@/lib/media";
 import {
 	weekSchedule,
-	autoBlurb,
 	directionsUrl,
 	hueFromId,
 	tagLabel,
@@ -77,7 +76,9 @@ export async function generateMetadata({
 	if (!r) return { title: "Spot not found" };
 	const where = [r.suburb, r.state].filter(Boolean).join(", ");
 	const title = `${r.name} - Nepali ${(r.venueType || "restaurant").toLowerCase()} in ${where}`;
-	const blurb = r.description?.trim() || autoBlurb(r);
+	// No templated fallback (deleted 2026-07-05): pages without an editorial
+	// description ship no meta description and search engines pick the snippet.
+	const blurb = r.description?.trim() || undefined;
 	return {
 		title,
 		description: blurb,

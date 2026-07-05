@@ -47,7 +47,7 @@ export function HeroSearch() {
 				<span>
 					{locating
 						? "Finding spots near you…"
-						: "Explore nearby restaurants"}
+						: "Find spots near me"}
 				</span>
 			</button>
 		</div>
