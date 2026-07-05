@@ -166,6 +166,9 @@ export interface DishFacet {
   slug: string;
   name: string;
   kind: "preparation" | "protein" | "dish" | "diet";
+  // dietary claim (vegan, gluten-free): menu-wording provenance, so the client
+  // shows a "check with the venue" note while this facet is selected
+  dietary?: boolean;
 }
 
 // A matched menu item on a dish search. `slugs` = the item's facet tags

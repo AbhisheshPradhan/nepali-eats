@@ -60,13 +60,14 @@ const GF_DESC_SQL = `(
 const GF_NOT_SQL = `
   mi.description !~* 'contains [^.]*gluten|chopped gluten|gluten[- ]?free (option|on request|available)|gluten[- ]free /'`;
 
-async function candidates(where) {
+async function candidates(where, params = []) {
   const { rows } = await pool.query(
     `SELECT mi.id, mi.name, left(coalesce(mi.description,''), 100) AS descr,
             r.slug AS restaurant
        FROM menu_items mi JOIN restaurants r ON r.id = mi.restaurant_id
       WHERE ${where}
       ORDER BY mi.id`,
+    params,
   );
   return rows;
 }
@@ -101,10 +102,8 @@ async function main() {
   );
   const gf = await candidates(
     `(${GF_NAME_SQL} OR (${GF_DESC_SQL} AND ${GF_NOT_SQL}))
-     AND NOT mi.id = ANY($$IDS$$)`.replace(
-      "$$IDS$$",
-      `ARRAY[${GF_VETO_IDS.join(",")}]::bigint[]`,
-    ),
+     AND NOT mi.id = ANY($1::bigint[])`,
+    [GF_VETO_IDS],
   );
 
   console.log(`VEGAN → vegan + veg (${vegan.length} items):`);

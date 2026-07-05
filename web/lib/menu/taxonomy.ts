@@ -35,7 +35,14 @@ export interface DishCategory {
   style?: string; // cuisine this dish belongs to (style slug); the seeder adds this
   //                 style tag wherever the dish appears, so the dish rolls up to its
   //                 cuisine instead of being its own restaurant tag (thukpa -> tibetan).
+  dietary?: boolean; // dietary claim (vegan, gluten-free): tags come from menu wording
+  //                 only, so UI shows a "check with the venue" note when one is picked.
 }
+
+// Facet-chip display order on a dish search (preparations, then proteins, then
+// dietary tags). Style-search facets are all kind "dish" so they sort equal and
+// keep their taxonomy order.
+export const FACET_KIND_ORDER: DishKind[] = ["dish", "preparation", "protein", "diet"];
 
 export const DISH_CATEGORIES: DishCategory[] = [
   // --- Dishes (flat, top-level) ---------------------------------------------
@@ -143,7 +150,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   // materialisation auto-adds veg to every vegan item and the Veg filter never
   // loses vegan dishes. Tag ONLY when the menu explicitly says vegan/plant-based
   // (it's a dietary claim: ghee/cream/paneer hide everywhere) — never inferred.
-  { slug: "vegan", kind: "protein", parent: "veg", name: "Vegan", synonyms: ["plant-based", "plant based"] },
+  { slug: "vegan", kind: "protein", parent: "veg", name: "Vegan", synonyms: ["plant-based", "plant based"], dietary: true },
   { slug: "egg", kind: "protein", name: "Egg", synonyms: ["anda", "phul"] },
   { slug: "lamb", kind: "protein", name: "Lamb", synonyms: ["bheda", "bheda ko masu", "sheep"] },
   { slug: "goat", kind: "protein", name: "Goat", synonyms: ["mutton", "khasi", "khasi ko masu"] },
@@ -163,7 +170,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   // so it can't live on the protein axis). Same hard rule as vegan: tag ONLY
   // when the menu explicitly marks it (gluten-free/GF) — coeliac is effectively
   // a medical claim, so never infer, and UI copy says to check with the venue.
-  { slug: "gluten-free", kind: "diet", name: "Gluten Free", synonyms: ["gluten-free", "gf", "gluten friendly"] },
+  { slug: "gluten-free", kind: "diet", name: "Gluten Free", synonyms: ["gluten-free", "gf", "gluten friendly"], dietary: true },
 ];
 
 export const CATEGORY_SLUGS = DISH_CATEGORIES.map((c) => c.slug);

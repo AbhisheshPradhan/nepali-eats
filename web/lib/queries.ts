@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { query } from "./db";
-import { DISH_CATEGORIES } from "./menu/taxonomy";
+import { DISH_CATEGORIES, FACET_KIND_ORDER } from "./menu/taxonomy";
 import type {
 	Restaurant,
 	RestaurantDetail,
@@ -817,28 +817,36 @@ export async function dishRestaurants(
 		for (const s of row.slugs ?? []) facetSlugs.add(s);
 	}
 
-	// Resolve facet names/kinds. Styles surface member dishes; dishes surface
-	// preparations then proteins. Either way keep taxonomy order (display_order/id)
-	// so chips render stably.
+	// Resolve facet names/kinds. Kind order comes from FACET_KIND_ORDER in the
+	// taxonomy (preparations, proteins, diet); within a kind, taxonomy order
+	// (display_order/id) keeps chips stable. Sorted here (stable sort over the
+	// SQL row order) so the priority lives in one declarative place.
 	const facetKindClause = isStyle
 		? `kind = 'dish'`
 		: `kind IN ('preparation','protein','diet')`;
-	const facetOrder = isStyle
-		? `display_order, id`
-		: `kind = 'diet', kind = 'protein', display_order, id`;
+	const dietarySlugs = new Set(
+		DISH_CATEGORIES.filter((c) => c.dietary).map((c) => c.slug),
+	);
 	const facets: DishFacet[] = facetSlugs.size
 		? (
 				await query<{ slug: string; name: string; kind: string }>(
 					`SELECT slug, name, kind FROM dish_categories
             WHERE slug = ANY($1) AND ${facetKindClause}
-            ORDER BY ${facetOrder}`,
+            ORDER BY display_order, id`,
 					[[...facetSlugs]],
 				)
-			).map((f) => ({
-				slug: f.slug,
-				name: f.name,
-				kind: f.kind as DishFacet["kind"],
-			}))
+			)
+				.sort(
+					(a, b) =>
+						FACET_KIND_ORDER.indexOf(a.kind as DishFacet["kind"]) -
+						FACET_KIND_ORDER.indexOf(b.kind as DishFacet["kind"]),
+				)
+				.map((f) => ({
+					slug: f.slug,
+					name: f.name,
+					kind: f.kind as DishFacet["kind"],
+					...(dietarySlugs.has(f.slug) ? { dietary: true } : {}),
+				}))
 		: [];
 
 	return {

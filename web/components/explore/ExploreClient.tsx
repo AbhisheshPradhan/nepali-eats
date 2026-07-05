@@ -29,6 +29,7 @@ import type {
 	ExploreSpot,
 	Bbox,
 	DishSearchResult,
+	DishFacet,
 	DishPill,
 } from "@/lib/types";
 import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
@@ -80,16 +81,17 @@ const MapView = dynamic(() => import("./MapView"), {
 	),
 });
 
-// Client-side equivalents of the old SQL ORDER BY clauses. `featured` also
-// floats spots with a card image (logo or photo) above photoless ones; the
-// explicit Rating sort stays pure so a top pick isn't buried for lacking a
-// photo. `nearest` needs the distance origin, so it's built in the component.
+// Client-side equivalents of the old SQL ORDER BY clauses. `popular` leads
+// with the hand-set popular flag, then floats spots with a card image (logo
+// or photo) above photoless ones; the explicit Rating sort stays pure so a
+// top pick isn't buried for lacking a photo. `nearest` needs the distance
+// origin, so it's built in the component.
 const hasImage = (s: ExploreSpot) => !!(s.logoKey || s.primaryPhoto);
 const desc = (a: number | null, b: number | null) => (b ?? -1) - (a ?? -1);
 const SORTS: Record<string, (a: ExploreSpot, b: ExploreSpot) => number> = {
-	featured: (a, b) =>
+	popular: (a, b) =>
+		Number(b.popular) - Number(a.popular) ||
 		Number(hasImage(b)) - Number(hasImage(a)) ||
-		(a.featuredRank ?? Infinity) - (b.featuredRank ?? Infinity) ||
 		desc(a.reviewCount, b.reviewCount) ||
 		desc(a.rating, b.rating),
 	rating: (a, b) => desc(a.rating, b.rating) || desc(a.reviewCount, b.reviewCount),
@@ -173,15 +175,18 @@ export function ExploreClient({
 	// (viewport-independent, CDN-cached per dish). An unknown slug resolves to an
 	// empty result so the coarse restaurants.tags tier below still works.
 	const [dishData, setDishData] = useState<DishSearchResult | null>(null);
-	// One selection per facet kind: a momo preparation and/or a protein and/or a
-	// diet tag (dish search), or a member dish (style search, e.g. Newari ->
-	// Choila). Diet is its own slot so Chicken + Gluten Free can combine.
-	const [prepSel, setPrepSel] = useState<string | null>(null);
-	const [proteinSel, setProteinSel] = useState<string | null>(
-		dishProtein ?? null,
+	// One selection per facet kind, keyed by kind: a momo preparation and/or a
+	// protein and/or a diet tag (dish search), or a member dish (style search,
+	// e.g. Newari -> Choila). Separate slots per kind mean Chicken + Gluten Free
+	// combine, and a new facet kind needs no new state or dispatch code. protein
+	// is URL-seedable (?protein= from a compound search pick).
+	const [facetSel, setFacetSel] = useState<
+		Partial<Record<DishFacet["kind"], string | null>>
+	>({ protein: dishProtein ?? null });
+	const selectedFacets = useMemo(
+		() => Object.values(facetSel).filter((v): v is string => !!v),
+		[facetSel],
 	);
-	const [dietSel, setDietSel] = useState<string | null>(null);
-	const [dishRefineSel, setDishRefineSel] = useState<string | null>(null);
 
 	// "No {dish} nearby, showing the closest" banner (auto-resolve on untouched
 	// maps); cleared when the user takes the map over or the dish changes.
@@ -216,7 +221,7 @@ export function ExploreClient({
 	const [boxValue, setBoxValue] = useState(initialQuery);
 	const [boxKey, setBoxKey] = useState(0);
 	const [openOnly, setOpenOnly] = useState(false);
-	const [sort, setSort] = useState("featured");
+	const [sort, setSort] = useState("popular");
 	// selected attribute-flag tokens (see FLAG_OPTIONS / FLAG_COLS)
 	const [flags, setFlags] = useState<string[]>([]);
 	// whether the attribute-chip panel is expanded
@@ -277,7 +282,7 @@ export function ExploreClient({
 	// Pagination window, keyed to the current filter/viewport signature so any
 	// change resets it to one page (mirrors the old fetch-per-move behaviour)
 	// without a reset effect. "Load more" grows the count under the same key.
-	const pageKey = JSON.stringify([sort, flags, openOnly, areaScoped, viewBbox, dish, prepSel, proteinSel, dietSel, dishRefineSel]);
+	const pageKey = JSON.stringify([sort, flags, openOnly, areaScoped, viewBbox, dish, facetSel]);
 	const [page, setPage] = useState({ key: pageKey, count: PAGE_SIZE });
 	const shownCount = page.key === pageKey ? page.count : PAGE_SIZE;
 	const showMore = () =>
@@ -334,10 +339,7 @@ export function ExploreClient({
 		setBoxValue(initialQuery);
 		setBoxKey((k) => k + 1);
 		// a new dish (or none) resets the facet chips to the URL's protein
-		setPrepSel(null);
-		setProteinSel(dishProtein ?? null);
-		setDietSel(null);
-		setDishRefineSel(null);
+		setFacetSel({ protein: dishProtein ?? null });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
 
@@ -401,10 +403,7 @@ export function ExploreClient({
 			const seen = new Set<string>();
 			const pills: DishPill[] = [];
 			for (const it of r.items) {
-				if (prepSel && !it.slugs.includes(prepSel)) continue;
-				if (proteinSel && !it.slugs.includes(proteinSel)) continue;
-				if (dietSel && !it.slugs.includes(dietSel)) continue;
-				if (dishRefineSel && !it.slugs.includes(dishRefineSel)) continue;
+				if (!selectedFacets.every((s) => it.slugs.includes(s))) continue;
 				if (seen.has(it.name)) continue;
 				seen.add(it.name);
 				pills.push({ label: it.name, price: it.price, priceFrom: it.priceFrom });
@@ -412,7 +411,7 @@ export function ExploreClient({
 			if (pills.length) m.set(r.id, pills);
 		}
 		return m;
-	}, [dish, dishData, prepSel, proteinSel, dietSel, dishRefineSel]);
+	}, [dish, dishData, selectedFacets]);
 
 	// Attribute/quality filters + the URL-seeded scope. tag/venue always apply;
 	// suburb/state are seed-only and drop once the visitor takes over the map.
@@ -427,7 +426,7 @@ export function ExploreClient({
 			(s) =>
 				(!dish ||
 					dishItems?.has(s.id) ||
-					(!prepSel && !proteinSel && !dietSel && !dishRefineSel && s.tags.includes(dish))) &&
+					(selectedFacets.length === 0 && s.tags.includes(dish))) &&
 				(!fixed.tag || s.tags.includes(fixed.tag)) &&
 				(!fixed.venue || s.venueType === fixed.venue) &&
 				(areaScoped ||
@@ -436,7 +435,7 @@ export function ExploreClient({
 				flags.every((f) => s.flags.includes(f)) &&
 				(!openOnly || isOpenNow(s.openingHours, s.state) !== false),
 		);
-	}, [spots, dish, dishItems, prepSel, proteinSel, dietSel, dishRefineSel, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
+	}, [spots, dish, dishItems, selectedFacets, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
 
 	// only list spots whose pin is in the current viewport (matches what's on the map)
 	const inView = useMemo(() => {
@@ -458,7 +457,7 @@ export function ExploreClient({
 				? (a: ExploreSpot, b: ExploreSpot) =>
 						haversineKm(distOrigin, a.lat, a.lng) -
 						haversineKm(distOrigin, b.lat, b.lng)
-				: (SORTS[sort] ?? SORTS.featured);
+				: (SORTS[sort] ?? SORTS.popular);
 		// dish mode: menu-verified spots (they get pills) rank above coarse-tag
 		// matches, then the chosen sort applies within each tier.
 		const tier = (s: ExploreSpot) => (dishItems?.has(s.id) ? 0 : 1);
@@ -717,10 +716,13 @@ export function ExploreClient({
 	);
 
 	// Dish refine chips: the searched dish (x clears) + preparation/protein/diet
-	// facets. Rendered in the top bar (desktop) and the sheet header (mobile).
-	// Vegan/gluten-free picks get a "check with the venue" line: those tags come
-	// from menu wording only, and for a coeliac or strict vegan that isn't enough.
-	const dietaryNote = dietSel || proteinSel === "vegan";
+	// facets, one selection slot per kind. Rendered in the top bar (desktop) and
+	// the sheet header (mobile). A selected dietary facet (vegan, gluten-free)
+	// gets a "check with the venue" line: those tags come from menu wording
+	// only, and for a coeliac or strict vegan that isn't enough.
+	const dietaryNote = (dishData?.facets ?? []).some(
+		(f) => f.dietary && facetSel[f.kind] === f.slug,
+	);
 	const dishBar = (
 		<>
 		<div className="flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
@@ -734,22 +736,9 @@ export function ExploreClient({
 				<X size={13} weight="bold" />
 			</button>
 			{(dishData?.facets ?? []).map((f) => {
-				const active =
-					f.kind === "preparation"
-						? prepSel === f.slug
-						: f.kind === "dish"
-							? dishRefineSel === f.slug
-							: f.kind === "diet"
-								? dietSel === f.slug
-								: proteinSel === f.slug;
+				const active = facetSel[f.kind] === f.slug;
 				const toggle = () =>
-					f.kind === "preparation"
-						? setPrepSel(active ? null : f.slug)
-						: f.kind === "dish"
-							? setDishRefineSel(active ? null : f.slug)
-							: f.kind === "diet"
-								? setDietSel(active ? null : f.slug)
-								: setProteinSel(active ? null : f.slug);
+					setFacetSel((cur) => ({ ...cur, [f.kind]: active ? null : f.slug }));
 				return (
 					<button
 						key={f.slug}
@@ -904,8 +893,9 @@ export function ExploreClient({
 									sideOffset={6}
 									align="start"
 									className="rounded-lg"
+									style={{ zIndex: Z.popover }}
 								>
-									<SelectItem value="featured">Featured</SelectItem>
+									<SelectItem value="popular">Popular</SelectItem>
 									<SelectItem value="rating">Highest rated</SelectItem>
 									<SelectItem value="nearest">Nearest</SelectItem>
 								</SelectContent>
