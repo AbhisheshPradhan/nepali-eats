@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpenText, MapTrifold } from "@phosphor-icons/react";
 import { FeaturedBadge, PopularBadge } from "@/components/ui/PlaceBadges";
 import { Rating } from "@/components/ui/Rating";
+import { CardMeta } from "@/components/ui/CardMeta";
+import { CardActions } from "@/components/ui/CardActions";
 import { VenueType } from "@/components/ui/VenueType";
-import { PriceLevel } from "@/components/ui/PriceLevel";
 import { Avatar } from "@/components/Avatar";
 import { CardCarousel } from "@/components/CardCarousel";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
@@ -110,8 +110,6 @@ export function PlaceCard({
 	const openNewTab = newTab ?? row;
 	// Prefer the brand logo as the card image; fall back to the hero photo.
 	const img = mediaUrl(r.logoKey) ?? mediaUrl(r.primaryPhoto);
-	// Price as a 4-pip dollar scale: the level's signs filled, the rest muted.
-	const priceLevel = r.priceLevel ? Math.min(4, r.priceLevel) : 0;
 	const hue = hueFromId(r.id);
 	const location = [r.suburb, hideState ? null : r.state]
 		.filter(Boolean)
@@ -220,25 +218,12 @@ export function PlaceCard({
 					/>
 				)}
 
-				{/* Meta line: "$$ · Sydney · 4.2 km". Price (dollar signs) and
-            distance each show only when known; suburb truncates so distance
-            (the valuable bit) stays pinned. */}
-				{(priceLevel > 0 || location || distance) && (
-					<div className="flex items-center gap-1.5 text-ink-500 text-[0.95rem] min-w-0">
-						<PriceLevel level={priceLevel} />
-						{priceLevel > 0 && location && (
-							<span className="shrink-0">·</span>
-						)}
-						{location && (
-							<span className="truncate min-w-0">{location}</span>
-						)}
-						{distance && (
-							<span className="shrink-0 whitespace-nowrap">
-								· {distance}
-							</span>
-						)}
-					</div>
-				)}
+				<CardMeta
+					priceLevel={r.priceLevel}
+					location={location}
+					distance={distance}
+					className="text-[0.95rem]"
+				/>
 
 				{/* dish-search matches: the items that made this spot a result */}
 				{pills && pills.length > 0 && (
@@ -283,49 +268,12 @@ export function PlaceCard({
 						className="min-w-0 max-w-full"
 					/>
 
-					{(r.hasMenu || onViewMap) && (
-						<div className="shrink-0 flex items-center gap-1.5">
-							{r.hasMenu && (
-								<button
-									type="button"
-									onClick={(e) => {
-										// inside the card's <Link> (no nested anchors):
-										// open the detail page at the menu in a new tab so
-										// the Explore state stays put.
-										e.preventDefault();
-										e.stopPropagation();
-										window.open(
-											`/restaurant/${r.slug}#menu`,
-											"_blank",
-											"noopener,noreferrer",
-										);
-									}}
-									className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-2 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
-								>
-									<BookOpenText size={15} weight="fill" />
-									See the menu
-								</button>
-							)}
-							{onViewMap && (
-								<button
-									type="button"
-									onClick={(e) => {
-										// sits inside the card's <Link>; don't navigate, just move the map
-										e.preventDefault();
-										e.stopPropagation();
-										onViewMap();
-									}}
-									className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-2 py-1 transition-colors hover:bg-chili-500 hover:text-white cursor-pointer"
-								>
-									<MapTrifold
-										size={15}
-										weight="fill"
-									/>
-									View on map
-								</button>
-							)}
-						</div>
-					)}
+					<CardActions
+						slug={r.slug}
+						hasMenu={r.hasMenu}
+						onViewMap={onViewMap}
+						compact
+					/>
 				</div>
 			</div>
 		</Link>

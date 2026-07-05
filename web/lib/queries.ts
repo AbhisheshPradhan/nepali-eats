@@ -788,17 +788,21 @@ export async function dishRestaurants(
                WHERE t2.menu_item_id = mi.id
                  AND ${facetClause}
             ) AS slugs,
-            (SELECT min(v.price) FROM menu_item_variants v
-              WHERE v.item_id = mi.id) AS price,
-            (SELECT count(v.price) FROM menu_item_variants v
-              WHERE v.item_id = mi.id) AS priced_count,
-            (SELECT json_agg(json_build_object('label', v.label, 'price', v.price)
-                             ORDER BY v.position, v.id)
-               FROM menu_item_variants v
-              WHERE v.item_id = mi.id
-                AND v.label IS NOT NULL AND v.price IS NOT NULL) AS variants
+            vs.price, vs.priced_count, vs.variants
        FROM menu_items mi
        JOIN restaurants r ON r.id = mi.restaurant_id
+       -- one variants scan per item: min price, priced count, and the
+       -- labelled-variant JSON in a single lateral aggregate
+       LEFT JOIN LATERAL (
+         SELECT min(v.price) AS price,
+                count(v.price) AS priced_count,
+                json_agg(json_build_object('label', v.label, 'price', v.price)
+                         ORDER BY v.position, v.id)
+                  FILTER (WHERE v.label IS NOT NULL AND v.price IS NOT NULL)
+                  AS variants
+           FROM menu_item_variants v
+          WHERE v.item_id = mi.id
+       ) vs ON true
       WHERE NOT mi.is_hidden
         AND r.${NOT_CLOSED}
         AND EXISTS (

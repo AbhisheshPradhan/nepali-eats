@@ -108,19 +108,23 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
     updateArrows();
   }, [filtered, updateArrows]);
 
-  // Jump to a category. The landing offset is computed from the MEASURED
-  // toolbar height (+ the 48px sticky header it hangs under), matching the
-  // scroll-spy's threshold — a fixed scroll-margin drifted a few px below it,
-  // which left the PREVIOUS category highlighted after every click. The chip
-  // highlights immediately; the spy is suppressed while the scroll flies.
+  // Jump to a category. The landing offset is MEASURED from the toolbar (its
+  // height + its computed sticky `top`, i.e. the site-header clearance from
+  // the stylesheet), matching the scroll-spy's threshold — a fixed
+  // scroll-margin drifted a few px below it, which left the PREVIOUS category
+  // highlighted after every click. The chip highlights immediately; the spy
+  // is suppressed while the scroll flies.
   const jump = useCallback((id: number) => {
     const el = sections.current.get(id);
     if (!el) return;
     jumpTarget.current = { id, until: Date.now() + 1200 };
     lastActive.current = id;
     setActive(id);
-    const tbH = toolbarRef.current?.offsetHeight ?? 110;
-    const top = el.getBoundingClientRect().top + window.scrollY - 48 - tbH - 4;
+    const tb = toolbarRef.current;
+    const stuckTop = tb ? parseFloat(getComputedStyle(tb).top) || 0 : 48;
+    const tbH = tb?.offsetHeight ?? 110;
+    const top =
+      el.getBoundingClientRect().top + window.scrollY - stuckTop - tbH - 4;
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }, []);
   const nudge = (dir: 1 | -1) =>

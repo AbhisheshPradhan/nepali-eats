@@ -1,11 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpenText, MapTrifold } from "@phosphor-icons/react";
 import { FeaturedBadge, PopularBadge } from "@/components/ui/PlaceBadges";
 import { Rating } from "@/components/ui/Rating";
-import { PriceLevel } from "@/components/ui/PriceLevel";
+import { CardMeta } from "@/components/ui/CardMeta";
+import { CardActions } from "@/components/ui/CardActions";
 import { VenueType } from "@/components/ui/VenueType";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import { Avatar } from "@/components/Avatar";
@@ -13,6 +12,7 @@ import type { PlaceCardData } from "@/components/PlaceCard";
 import { mediaUrl } from "@/lib/media";
 import { haversineKm, formatDistance, dishPrice } from "@/lib/format";
 import { useUserLocation, type LatLng } from "@/lib/useUserLocation";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import type { DishPill } from "@/lib/types";
 import { cn } from "@/lib/cn";
 
@@ -60,16 +60,12 @@ export function ExploreCard({
 			: undefined;
 	const img = mediaUrl(r.logoKey) ?? mediaUrl(r.primaryPhoto);
 	const location = [r.suburb, r.state].filter(Boolean).join(", ");
-	const priceLevel = r.priceLevel ? Math.min(4, r.priceLevel) : 0;
 	const hi = hovered || selected;
 
 	// Open in a new tab only when the map side panel exists (real desktop
-	// viewport): the Explore state is worth keeping there. Mounted default =
-	// same-tab, so mobile/SSR behaviour never flashes.
-	const [newTab, setNewTab] = useState(false);
-	useEffect(() => {
-		setNewTab(window.matchMedia("(min-width: 768px)").matches);
-	}, []);
+	// viewport): the Explore state is worth keeping there. Shared subscription;
+	// SSR/first render is same-tab, so mobile behaviour never flashes.
+	const newTab = useMediaQuery("(min-width: 768px)");
 
 	return (
 		<Link
@@ -111,23 +107,12 @@ export function ExploreCard({
 							/>
 						</div>
 					)}
-					{/* meta line: "$$ · Suburb, STATE · 4.2 km" */}
-					{(priceLevel > 0 || location || distance) && (
-						<div className="flex items-center gap-1.5 text-ink-500 text-[0.9rem] min-w-0">
-							<PriceLevel level={priceLevel} />
-							{priceLevel > 0 && location && (
-								<span className="shrink-0">·</span>
-							)}
-							{location && (
-								<span className="truncate min-w-0">{location}</span>
-							)}
-							{distance && (
-								<span className="shrink-0 whitespace-nowrap">
-									· {distance}
-								</span>
-							)}
-						</div>
-					)}
+					<CardMeta
+						priceLevel={r.priceLevel}
+						location={location}
+						distance={distance}
+						className="text-[0.9rem]"
+					/>
 					<div className="flex items-center gap-2.5 min-w-0">
 						<VenueType type={r.venueType} />
 					</div>
@@ -201,43 +186,11 @@ export function ExploreCard({
 					size="sm"
 					className="min-w-0 max-w-full"
 				/>
-				<div className="shrink-0 flex items-center gap-1.5 ml-auto">
-					{r.hasMenu && (
-						<button
-							type="button"
-							onClick={(e) => {
-								// inside the card's <Link> (no nested anchors): open the
-								// detail page at the menu in a new tab so Explore stays put.
-								e.preventDefault();
-								e.stopPropagation();
-								window.open(
-									`/restaurant/${r.slug}#menu`,
-									"_blank",
-									"noopener,noreferrer",
-								);
-							}}
-							className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-3 py-1.5 transition-colors hover:bg-chili-500 hover:text-white active:bg-chili-500 active:text-white cursor-pointer"
-						>
-							<BookOpenText size={15} weight="fill" />
-							See the menu
-						</button>
-					)}
-					{onViewMap && (
-						<button
-							type="button"
-							onClick={(e) => {
-								// inside the card's <Link>: don't navigate, just move the map
-								e.preventDefault();
-								e.stopPropagation();
-								onViewMap();
-							}}
-							className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-chili-500 text-chili-600 font-display font-bold text-[0.85rem] px-3 py-1.5 transition-colors hover:bg-chili-500 hover:text-white active:bg-chili-500 active:text-white cursor-pointer"
-						>
-							<MapTrifold size={15} weight="fill" />
-							View on map
-						</button>
-					)}
-				</div>
+				<CardActions
+					slug={r.slug}
+					hasMenu={r.hasMenu}
+					onViewMap={onViewMap}
+				/>
 			</div>
 		</Link>
 	);
