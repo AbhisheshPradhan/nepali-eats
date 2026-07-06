@@ -53,7 +53,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "sukuti", kind: "dish", name: "Sukuti", synonyms: ["sukuti sandeko"], style: "newari" },
   { slug: "chatamari", kind: "dish", name: "Chatamari", synonyms: ["newari pizza", "chatamari pizza"], style: "newari" },
   { slug: "bara", kind: "dish", name: "Bara", synonyms: ["wo", "woh", "bara newari"], style: "newari" },
-  { slug: "sel-roti", kind: "dish", name: "Sel roti", synonyms: ["selroti", "sel"] },
+  { slug: "sel-roti", kind: "dish", name: "Sel roti", synonyms: ["selroti", "sel"], style: "newari" },
   { slug: "dal-bhat", kind: "dish", name: "Dal bhat", synonyms: ["daal bhat", "dal bhat tarkari", "khana set"], featured: true },
   { slug: "thali", kind: "dish", name: "Thali / set", synonyms: ["thali set", "set menu", "platter"] },
   { slug: "thakali-set", kind: "dish", name: "Thakali Set", synonyms: ["thakali thali", "thakali khana", "thakali khana set", "thakali dal bhat", "thakali khaja set"], style: "thakali" },
@@ -182,3 +182,34 @@ export const CATEGORY_SLUGS = DISH_CATEGORIES.map((c) => c.slug);
 export const COARSE_SLUGS = DISH_CATEGORIES
   .filter((c) => c.kind === "dish" || c.kind === "style")
   .map((c) => c.slug);
+
+const BY_SLUG = new Map(DISH_CATEGORIES.map((c) => [c.slug, c]));
+
+// Normalize a dish-search tag to the "cuisine bucket" Explore filters by, plus
+// the specific facet to pre-select. A momo preparation (steamed-momo) becomes
+// momo + a preparation facet; a styled member dish (choila → newari, thukpa →
+// tibetan) becomes its cuisine style + a dish facet; a top-level dish/style
+// (momo, sekuwa, newari, curry) stays itself. This lets a typed search light up
+// the Category / Dish type dropdowns instead of landing on a leaf tag that has
+// no sibling facets. Both normalized cases target tags that never appear in
+// restaurants.tags anyway, so the result set is unchanged.
+export function normalizeDishTag(slug: string): {
+  dish: string;
+  facet?: { kind: "preparation" | "dish"; slug: string };
+} {
+  const entry = BY_SLUG.get(slug);
+  if (!entry) return { dish: slug };
+  if (entry.parent && entry.kind === "preparation") {
+    let top: DishCategory = entry;
+    while (top.parent) {
+      const p = BY_SLUG.get(top.parent);
+      if (!p) break;
+      top = p;
+    }
+    return { dish: top.slug, facet: { kind: "preparation", slug: entry.slug } };
+  }
+  if (entry.style) {
+    return { dish: entry.style, facet: { kind: "dish", slug: entry.slug } };
+  }
+  return { dish: slug };
+}

@@ -55,6 +55,51 @@ limiter failure falls open; a load test on `spots` is throttled.
 
 ---
 
+## 1b. Anti-scraping posture (data exposure)
+
+**The concern:** `/api/explore/spots` ships the ENTIRE visible directory in one
+clean JSON on page load — a competitor can inspect the response and copy the
+whole listing in a single request. That's inherent to the client-side Explore
+architecture (one payload → instant client-side filtering), not a bug.
+
+**Reality check — do NOT "encrypt the JSON".** You can't cryptographically
+protect data the browser has to render: the client holds both the payload and
+the decrypt key/logic (in the JS bundle), and the rendered DOM is readable
+regardless. Client-side encryption is obfuscation, not protection — a speed bump
+that costs us complexity + CPU for no real barrier. Skip it.
+
+**The moat isn't the pin list.** Names + coords + ratings are Google-Maps-derived
+*public* data — a competitor can just re-scrape Google like we did. The
+defensible value is the enrichment: the ~9k **menu items** (real transcription
+work), curation, editorial, blurbs, brand. Protect *that*, not the pin list.
+
+**Real levers, best ROI first (mostly already planned):**
+1. **Cloudflare in front + kill the `.vercel.app` bypass.** Block / deindex
+   direct `.vercel.app` access so all traffic goes through the CF-proxied custom
+   domain (Super Bot Fight Mode, managed challenges). Without this, everything
+   below is moot — they just hit the origin. (Ties to the canonical-host task in
+   `GO-LIVE-CHECKLIST.md`.)
+2. **Per-IP rate limiting** on the explore endpoints — task 1 above. Caps
+   one-request-grabs-everything and burst harvesting.
+3. **Keep the bulk payload thin.** `spots` stays pins + minimal card fields; the
+   richer stuff (contact, socials, and especially menus) lives on the
+   per-restaurant detail page / on-demand endpoints — one-at-a-time and
+   rate-limitable to harvest, never bulk-shipped.
+4. **Protect menus hardest.** They already load on-demand per dish
+   (`/api/explore/dishes`), never in bulk — keep it that way, rate-limited. This
+   is where the protection budget belongs.
+5. **Optional — short-lived signed-token gate.** Mint an HMAC token server-side
+   on page load that the explore APIs require, so a naked `curl /api/explore/spots`
+   fails and a scraper must drive a headless browser (much higher cost). Filters
+   out the lazy 95%; a headless browser still defeats it. **Only build this if the
+   logs actually show scraping** — real work for a bar that's ultimately clearable.
+
+**Recommendation:** #1 + #2 at launch (already on the list), keep menus
+on-demand (#3/#4). Revisit #5 only if scraping shows up in analytics. No
+encryption.
+
+---
+
 ## 2. Analytics + Search Console / Bing (needs IDs from Abhishesh)
 
 **Why:** can't run the launch/SEO plan blind — GA4 is the instrument panel;

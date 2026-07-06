@@ -192,17 +192,18 @@ export function BarRow({
 // how much height each design leaves the map.
 export function BarShell({
 	mobile,
-	action,
+	sheet,
 	children,
 }: {
 	mobile: boolean;
-	// optional desktop-only control rendered to the right of "Near me"
-	// (e.g. a Clear filters button). Hidden on mobile.
-	action?: ReactNode;
+	// optional full-cover overlay (scrim + bottom sheet) rendered over the whole
+	// frame. Used by the mobile mockups; the map placeholder grows to leave the
+	// sheet room. Positioned absolute inset-0 by the shell.
+	sheet?: ReactNode;
 	children: ReactNode;
 }) {
 	return (
-		<div className="rounded-xl border border-paper-300 overflow-hidden bg-white">
+		<div className="relative rounded-xl border border-paper-300 overflow-hidden bg-white">
 			<div className="px-4 py-3 border-b border-paper-300 bg-paper-100">
 				<div className="flex items-center gap-3">
 					<div className="flex-1 min-w-0 max-w-[560px] h-11 rounded-full border border-sand-400 bg-white flex items-center gap-2 px-4 text-ink-400 text-[0.95rem]">
@@ -211,19 +212,32 @@ export function BarShell({
 							Search a dish, restaurant, or suburb
 						</span>
 					</div>
-					{!mobile && (
+					{mobile ? (
+						// icon-only on mobile so the search box keeps the row
+						<span
+							aria-label="Near me"
+							className="shrink-0 grid place-items-center w-11 h-11 rounded-full bg-chili-500 text-white"
+						>
+							<NavigationArrow weight="fill" size={18} />
+						</span>
+					) : (
 						<span className="shrink-0 inline-flex items-center gap-2 h-11 rounded-full bg-chili-500 text-white px-5 font-display font-bold text-[0.95rem]">
 							<NavigationArrow weight="fill" size={16} />
 							Near me
 						</span>
 					)}
-					{!mobile && action}
 				</div>
 				{children}
 			</div>
-			<div className="h-[150px] bg-paper-200 grid place-items-center text-ink-400 font-display font-bold">
+			<div
+				className={cn(
+					"bg-paper-200 grid place-items-center text-ink-400 font-display font-bold",
+					sheet ? "h-[460px]" : "h-[150px]",
+				)}
+			>
 				Map
 			</div>
+			{sheet && <div className="absolute inset-0">{sheet}</div>}
 		</div>
 	);
 }

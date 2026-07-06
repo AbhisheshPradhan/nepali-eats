@@ -12,11 +12,17 @@ import Map, {
 import type { GeoJSONSource } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { X } from "@phosphor-icons/react";
-import type { ExploreSpot, Bbox } from "@/lib/types";
+import type { ExploreSpot, Bbox, DishPill } from "@/lib/types";
+import type { LatLng } from "@/lib/useUserLocation";
 import { PlaceCard } from "@/components/PlaceCard";
+import { ExploreCard } from "@/components/explore/ExploreCard";
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const STYLE = "mapbox://styles/mapbox/streets-v12";
+
+// Docked-card height + bottom margin, roughly — the vertical space the mobile
+// card occupies at the bottom of the map.
+const CARD_SPACE = 360;
 
 const clusterLayer: LayerProps = {
   id: "clusters",
@@ -79,6 +85,9 @@ export default function MapView({
   center,
   zoom,
   active = true,
+  dishPills,
+  dishName,
+  distOrigin,
 }: {
   pins: ExploreSpot[];
   hoveredId: number | null;
@@ -88,6 +97,12 @@ export default function MapView({
   onBounds: (b: Bbox, userMoved: boolean) => void;
   center: [number, number];
   zoom: number;
+  // Dish-search context: when active, the pin card becomes the Explore list
+  // card so the matched dishes + prices show on the map (same as the list). Off
+  // dish search these are absent and the compact PlaceCard renders instead.
+  dishPills?: Map<number, DishPill[]>;
+  dishName?: string;
+  distOrigin?: LatLng;
   // On mobile the map is display:none while the list is showing, so Mapbox
   // measures a zero-size container. When it becomes visible we must resize, or
   // the canvas keeps its old (short) height and tiles only cover part of it.
@@ -146,7 +161,28 @@ export default function MapView({
   };
 
   useEffect(() => {
-    mapRef.current?.flyTo({ center: [center[1], center[0]], zoom, duration: 800 });
+    const m = mapRef.current;
+    if (!m) return;
+    // When this recenter is opening a card (a selected pin — "View on map", a
+    // focus search), lift the pin toward the upper area so the card sits BELOW
+    // it instead of covering it: a docked card at the bottom on mobile, an
+    // anchored popup hanging under the pin on desktop. A plain recenter (suburb
+    // search, Near me) centres normally. `offset` is a one-shot pixel shift
+    // (negative y = pin higher), so it never persists onto later moves.
+    let offset: [number, number] | undefined;
+    if (selectedId != null) {
+      const h = m.getContainer().clientHeight;
+      if (h >= 320)
+        offset = [0, -(dockCard ? CARD_SPACE / 2 : Math.min(h * 0.22, 170))];
+    }
+    // Only include `offset` when set — Mapbox's flyTo tries to Point.convert it
+    // and throws on an explicit `offset: undefined`.
+    m.flyTo({
+      center: [center[1], center[0]],
+      zoom,
+      duration: 800,
+      ...(offset ? { offset } : {}),
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [center, zoom]);
 
@@ -154,7 +190,6 @@ export default function MapView({
   // ease it up into the free space above the card so you can still see WHICH
   // spot you opened. Skips while the camera is animating (projection would be
   // mid-flight) and when the map is hidden/too short to matter.
-  const CARD_SPACE = 360; // docked card height + bottom margin, roughly
   const nudgeAboveCard = (lng: number, lat: number) => {
     const m = mapRef.current;
     if (!m || !dockCard || m.isMoving()) return;
@@ -276,6 +311,36 @@ export default function MapView({
     );
   }
 
+  // The open pin's card. In dish-search mode with matched items, render the
+  // Explore list card so the matched dishes + prices show on the map (shared
+  // with the list); otherwise the compact PlaceCard. `wide` widens the popup to
+  // fit the list card.
+  const popupPills = popup && dishName ? dishPills?.get(popup.id) : undefined;
+  const wide = !!(popupPills && popupPills.length);
+  const cardEl = popup ? (
+    wide ? (
+      // [&>a]:border-b-0 drops ExploreCard's list-row separator — this is a
+      // standalone popup card, not a list row.
+      <div className="@container w-[320px] max-w-[calc(100vw-1.5rem)] rounded-2xl bg-white overflow-hidden p-3 [&>a]:border-b-0">
+        <ExploreCard
+          r={popup}
+          pills={popupPills}
+          dishName={dishName}
+          fallbackOrigin={distOrigin}
+        />
+      </div>
+    ) : (
+      <PlaceCard
+        r={popup}
+        gallery={gallery.photos}
+        galleryLogo={gallery.logo}
+        className="w-[230px]"
+        newTab
+        noHover
+      />
+    )
+  ) : null;
+
   return (
     <Map
       ref={mapRef}
@@ -367,7 +432,7 @@ export default function MapView({
             onSelect(null);
           }}
           className="ne-popup"
-          maxWidth="240px"
+          maxWidth={wide ? "340px" : "240px"}
         >
           <div className="relative">
             <CloseCard
@@ -376,14 +441,7 @@ export default function MapView({
                 onSelect(null);
               }}
             />
-            <PlaceCard
-              r={popup}
-              gallery={gallery.photos}
-              galleryLogo={gallery.logo}
-              className="w-[230px]"
-              newTab
-              noHover
-            />
+            {cardEl}
           </div>
         </Popup>
       )}
@@ -402,14 +460,7 @@ export default function MapView({
                 onSelect(null);
               }}
             />
-            <PlaceCard
-              r={popup}
-              gallery={gallery.photos}
-              galleryLogo={gallery.logo}
-              className="w-[240px]"
-              newTab
-              noHover
-            />
+            {cardEl}
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 "use client";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
 	NavigationArrow,
 	Clock,
@@ -12,17 +12,30 @@ import {
 	CircleNotch,
 	SlidersHorizontal,
 	X,
+	GlobeHemisphereWest,
+	BowlSteam,
+	BowlFood,
+	ForkKnife,
+	Flame,
+	ArrowsDownUp,
+	Check,
+	type Icon,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/shadcn/select";
+import { Popover } from "radix-ui";
 import { SearchBox } from "@/components/SearchBox";
 import { ExploreCard } from "@/components/explore/ExploreCard";
+import {
+	FilterTrigger,
+	FilterPanel,
+	MenuRow,
+	SingleSelectMenu,
+	FilterSheet,
+	SheetChip,
+	SheetSection,
+	SheetShowButton,
+	SheetTextButton,
+} from "@/components/explore/FilterControls";
 import type {
 	Restaurant,
 	ExploreSpot,
@@ -32,29 +45,9 @@ import type {
 	DishPill,
 } from "@/lib/types";
 import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
-import { reverseGeocodeSuburb } from "@/lib/geocode";
+import { withDish, withoutDish, type ExploreParams } from "@/lib/explore-url";
 import { cn } from "@/lib/cn";
 import { Z } from "@/lib/z";
-
-// Attribute chips shown behind the "Filters" toggle. Tokens must match the
-// flags emitted by exploreSpots() in lib/queries.ts ("menu" + the FLAG_COLS
-// keys); labels are AU-facing. Ordered by usefulness for eating out.
-const FLAG_OPTIONS: [string, string][] = [
-	["menu", "Menu on here"],
-	["veg", "Vegetarian"],
-	["takeout", "Takeaway"],
-	["delivery", "Delivery"],
-	["dinein", "Dine-in"],
-	["alcohol", "Licensed"],
-	["outdoor", "Outdoor seating"],
-	["kid", "Kid-friendly"],
-	["groups", "Good for groups"],
-	["reservable", "Takes bookings"],
-	["cocktails", "Cocktails"],
-	["music", "Live music"],
-	["dogs", "Dog-friendly"],
-	["wheelchair", "Wheelchair access"],
-];
 
 // Our-food category chips on the primary bar: one-tap entry points into the
 // dish search (identical to picking the tag in the SearchBox). Clicking one
@@ -68,6 +61,71 @@ const CATEGORY_CHIPS: [string, string][] = [
 	["tibetan", "Tibetan"],
 	["thakali", "Thakali"],
 ];
+
+// One icon per cuisine for the Category dropdown rows (desktop).
+const CUISINE_ICON: Record<string, Icon> = {
+	momo: BowlSteam,
+	newari: ForkKnife,
+	sekuwa: Flame,
+	tibetan: BowlFood,
+	thakali: CookingPot,
+};
+
+// Attribute flags for the Features dropdown, grouped. Tokens must match the
+// flags emitted by exploreSpots() in lib/queries.ts ("menu" + the FLAG_COLS
+// keys); labels are AU-facing. Every flag appears in exactly one group.
+const FLAG_GROUPS: { label: string; items: [string, string][] }[] = [
+	{
+		label: "Service",
+		items: [
+			["menu", "Menu on here"],
+			["takeout", "Takeaway"],
+			["delivery", "Delivery"],
+			["dinein", "Dine-in"],
+		],
+	},
+	{
+		label: "Good to know",
+		items: [
+			["veg", "Vegetarian"],
+			["alcohol", "Licensed"],
+			["cocktails", "Cocktails"],
+			["outdoor", "Outdoor seating"],
+			["kid", "Kid-friendly"],
+			["groups", "Good for groups"],
+			["reservable", "Takes bookings"],
+			["music", "Live music"],
+		],
+	},
+	{
+		label: "Access",
+		items: [
+			["dogs", "Dog-friendly"],
+			["wheelchair", "Wheelchair access"],
+		],
+	},
+];
+
+// Dish-refine dropdowns: one per facet kind present, in this order/label.
+const FACET_KIND_LABEL: Record<DishFacet["kind"], string> = {
+	preparation: "Dish type",
+	dish: "Dish",
+	protein: "Protein",
+	diet: "Dietary",
+};
+const FACET_KIND_ORDER: DishFacet["kind"][] = [
+	"preparation",
+	"dish",
+	"protein",
+	"diet",
+];
+
+const SORT_ENTRIES: [string, string][] = [
+	["popular", "Popular"],
+	["rating", "Highest rated"],
+	["nearest", "Nearest"],
+];
+const SORT_LABELS: Record<string, string> = Object.fromEntries(SORT_ENTRIES);
 
 const PAGE_SIZE = 30;
 
@@ -100,6 +158,7 @@ export function ExploreClient({
 	fixed,
 	dish,
 	dishProtein,
+	dishFacet,
 	initialItems,
 	initialCenter,
 	initialZoom,
@@ -113,10 +172,14 @@ export function ExploreClient({
 	initialQuery = "",
 }: {
 	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
-	// dish search (menu-level): the picked dish/style/preparation tag slug, plus
+	// dish search (menu-level): the cuisine-normalized dish/style tag slug, plus
 	// an optional protein facet pre-applied by a compound pick ("Paneer Momo").
 	dish?: string;
 	dishProtein?: string;
+	// A facet pre-selected by normalizing a leaf-tag search server-side: a momo
+	// preparation ("steamed momo" → dish momo + preparation steamed-momo) or a
+	// styled member dish ("choila" → dish newari + dish choila). See page.tsx.
+	dishFacet?: { kind: DishFacet["kind"]; slug: string };
 	// SSR seed: just the focused restaurant (when any) so a ?focus= landing paints
 	// its result instantly; everything else renders from the spots payload.
 	initialItems: Restaurant[];
@@ -137,6 +200,14 @@ export function ExploreClient({
 	initialQuery?: string;
 }) {
 	const router = useRouter();
+	// Current URL params, so every filter change MERGES (keeps the other
+	// dimension) instead of replacing the whole query — a dish pick keeps the
+	// location, a location pick keeps the dish. See lib/explore-url.
+	const searchParams = useSearchParams();
+	const currentParams: ExploreParams = useMemo(
+		() => Object.fromEntries(searchParams.entries()),
+		[searchParams],
+	);
 	// THE data: every visible spot, fetched once (CDN-cached). All filtering,
 	// sorting and pagination happen in memory — map pans never refetch.
 	const [spots, setSpots] = useState<ExploreSpot[] | null>(null);
@@ -170,6 +241,26 @@ export function ExploreClient({
 		};
 	}, [reloadSpots]);
 
+	// The filter catalog: every Category cuisine → its served dish-type / protein
+	// facets. Fetched ONCE (location-independent, hard-cached) so the refine chips
+	// render instantly from here instead of waiting on the per-dish fetch — no
+	// flicker. Falls back to dishData.facets for non-catalog dishes (search box).
+	const [catalog, setCatalog] = useState<Record<string, DishFacet[]> | null>(
+		null,
+	);
+	useEffect(() => {
+		let stale = false;
+		fetch("/api/explore/facets")
+			.then((r) => (r.ok ? r.json() : null))
+			.then((d: { catalog?: Record<string, DishFacet[]> } | null) => {
+				if (!stale && d?.catalog) setCatalog(d.catalog);
+			})
+			.catch(() => {});
+		return () => {
+			stale = true;
+		};
+	}, []);
+
 	// Dish search matches: per-restaurant menu items tagged with the picked dish
 	// (viewport-independent, CDN-cached per dish). An unknown slug resolves to an
 	// empty result so the coarse restaurants.tags tier below still works.
@@ -181,7 +272,10 @@ export function ExploreClient({
 	// is URL-seedable (?protein= from a compound search pick).
 	const [facetSel, setFacetSel] = useState<
 		Partial<Record<DishFacet["kind"], string | null>>
-	>({ protein: dishProtein ?? null });
+	>(() => ({
+		protein: dishProtein ?? null,
+		...(dishFacet ? { [dishFacet.kind]: dishFacet.slug } : {}),
+	}));
 	const selectedFacets = useMemo(
 		() => Object.values(facetSel).filter((v): v is string => !!v),
 		[facetSel],
@@ -221,10 +315,13 @@ export function ExploreClient({
 	const [boxKey, setBoxKey] = useState(0);
 	const [openOnly, setOpenOnly] = useState(false);
 	const [sort, setSort] = useState("popular");
-	// selected attribute-flag tokens (see FLAG_OPTIONS / FLAG_COLS)
+	// selected attribute-flag tokens (see FLAG_GROUPS / FLAG_COLS)
 	const [flags, setFlags] = useState<string[]>([]);
-	// whether the attribute-chip panel is expanded
-	const [showFilters, setShowFilters] = useState(false);
+	// whether the desktop Features dropdown is open
+	const [featOpen, setFeatOpen] = useState(false);
+	// mobile: which bottom sheet is open, and (for the dish sheet) its stage
+	const [sheet, setSheet] = useState<null | "dish" | "features" | "sort">(null);
+	const [dishStage, setDishStage] = useState<"category" | "refine">("category");
 	const toggleFlag = (token: string) =>
 		setFlags((f) =>
 			f.includes(token) ? f.filter((t) => t !== token) : [...f, token],
@@ -337,8 +434,12 @@ export function ExploreClient({
 		setSelected(focusId ?? null);
 		setBoxValue(initialQuery);
 		setBoxKey((k) => k + 1);
-		// a new dish (or none) resets the facet chips to the URL's protein
-		setFacetSel({ protein: dishProtein ?? null });
+		// a new dish (or none) resets the facet chips to the URL-seeded facets
+		// (compound protein + any normalized preparation/dish facet)
+		setFacetSel({
+			protein: dishProtein ?? null,
+			...(dishFacet ? { [dishFacet.kind]: dishFacet.slug } : {}),
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
 
@@ -356,18 +457,15 @@ export function ExploreClient({
 	const nearMe = () => {
 		if (!navigator.geolocation) return;
 		navigator.geolocation.getCurrentPosition(
-			async (p) => {
+			(p) => {
 				const lat = p.coords.latitude;
 				const lng = p.coords.longitude;
 				setUserLoc([lat, lng]);
 				setCenter([lat, lng]);
 				setZoom(13);
+				// Near me only moves the map. It doesn't navigate, so the dish
+				// filter (URL-owned) is untouched, and the search box stays empty.
 				enterAreaMode(); // relocating: drop any seeded suburb scope, bbox takes over
-				// reflect the detected suburb in the search box
-				const label =
-					(await reverseGeocodeSuburb(lat, lng)) ?? "Near you";
-				setBoxValue(label);
-				setBoxKey((k) => k + 1);
 			},
 			() => {},
 			{ timeout: 6000 },
@@ -485,7 +583,19 @@ export function ExploreClient({
 		spots !== null && viewBbox !== null && (!dish || dishData !== null);
 	const total = ordered.length;
 	const dishName = dish ? (dishData?.name ?? tagLabel(dish)) : null;
-	const clearDish = () => router.push("/explore");
+	// clearing the dish keeps the location (map stays where it is)
+	const clearDish = () => router.push(withoutDish(currentParams));
+	// picking a dish keeps the location; the map holds and the dish lands in the
+	// filters below. (Toggling the active one off = clear.)
+	const pickDish = (slug: string) =>
+		router.push(
+			dish === slug ? withoutDish(currentParams) : withDish(currentParams, { dish: slug }),
+		);
+	// Is the active dish one of the 5 Category cuisines? If so the Category
+	// dropdown + facet chips already represent it; if not (curry, biryani, a
+	// search-box dish) it shows as its own standalone active-dish chip so EVERY
+	// dish is visible in the filter row, never orphaned in the Category trigger.
+	const dishIsCategory = !!dish && CATEGORY_CHIPS.some(([slug]) => slug === dish);
 
 	// Dish mode, nothing in view: the closest match measured from what the user
 	// is looking at (the viewport centre). Powers the auto-resolve banner and
@@ -715,79 +825,219 @@ export function ExploreClient({
 	// the sheet header (mobile). A selected dietary facet (vegan, gluten-free)
 	// gets a "check with the venue" line: those tags come from menu wording
 	// only, and for a coeliac or strict vegan that isn't enough.
-	const dietaryNote = (dishData?.facets ?? []).some(
+	// Facet options for the current dish: prefer the pre-loaded catalog (instant,
+	// no flicker) for a Category cuisine, else the per-dish response (search-box
+	// dishes not in the catalog). Same DishFacet[] shape either way.
+	const facetList: DishFacet[] =
+		(dish ? catalog?.[dish] : undefined) ?? dishData?.facets ?? [];
+	const dietaryNote = facetList.some(
 		(f) => f.dietary && facetSel[f.kind] === f.slug,
 	);
-	const dishBar = (
-		<>
-		<div className="flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
-			<button
-				onClick={clearDish}
-				title="Clear dish search"
-				className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-chili-500 border-2 border-chili-500 text-white px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.9rem]"
-			>
-				<CookingPot weight="fill" size={15} />
-				{dishName}
-				<X size={13} weight="bold" />
-			</button>
-			{(dishData?.facets ?? []).map((f) => {
-				const active = facetSel[f.kind] === f.slug;
-				const toggle = () =>
-					setFacetSel((cur) => ({ ...cur, [f.kind]: active ? null : f.slug }));
-				return (
-					<button
-						key={f.slug}
-						onClick={toggle}
-						aria-pressed={active}
-						className={cn(
-							"shrink-0 border-2 rounded-full px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
-							active
-								? "bg-coriander-500 border-coriander-500 text-white"
-								: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
+	// Facets grouped by kind, in dropdown order — one desktop dropdown per kind
+	// present (momo → Dish type + Protein; Newari → Dish; a diet facet → Dietary).
+	const facetGroups = FACET_KIND_ORDER.map(
+		(kind) => [kind, facetList.filter((f) => f.kind === kind)] as const,
+	).filter(([, fs]) => fs.length > 0);
+	// Names of the currently-selected facets (for the mobile Dish pill label).
+	const selectedFacetNames = facetList
+		.filter((f) => facetSel[f.kind] === f.slug)
+		.map((f) => f.name);
+	// Mobile Dish pill: dish name + any active refinements (truncates if long).
+	const dishPillLabel = !dish
+		? "Dish"
+		: selectedFacetNames.length
+			? `${dishName} · ${selectedFacetNames.join(", ")}`
+			: (dishName ?? "Dish");
+	const DishPillIcon = (dish && CUISINE_ICON[dish]) || CookingPot;
+	const closeSheet = (o: boolean) => {
+		if (!o) setSheet(null);
+	};
+	// The three mobile bottom sheets (Dish multi-stage, Features, Sort). Rendered
+	// once near the top bar; portalled, so they only show when opened on mobile.
+	const dishSheet = (
+		<FilterSheet
+			open={sheet === "dish"}
+			onOpenChange={closeSheet}
+			title={dishStage === "refine" && dish ? "Dish type" : "Category"}
+			subtitle={dishStage === "refine" && dish ? (dishName ?? undefined) : undefined}
+			onBack={
+				dishStage === "refine" && dish
+					? () => setDishStage("category")
+					: undefined
+			}
+			footer={
+				<>
+					<SheetTextButton disabled={!dish} onClick={() => {
+						clearDish();
+						setDishStage("category");
+					}}>
+						{dishStage === "refine" ? "Clear" : "Reset"}
+					</SheetTextButton>
+					<SheetShowButton n={total} onClick={() => setSheet(null)} />
+				</>
+			}
+		>
+			{dishStage === "refine" && dish ? (
+				facetGroups.length ? (
+					<>
+						{facetGroups.map(([kind, fs]) => (
+							<SheetSection key={kind} label={FACET_KIND_LABEL[kind]}>
+								{fs.map((f) => {
+									const active = facetSel[kind] === f.slug;
+									return (
+										<SheetChip
+											key={f.slug}
+											active={active}
+											label={f.name}
+											onClick={() =>
+												setFacetSel((c) => ({
+													...c,
+													[kind]: active ? null : f.slug,
+												}))
+											}
+										/>
+									);
+								})}
+							</SheetSection>
+						))}
+						{dietaryNote && (
+							<p className="text-[0.82rem] text-ink-500 leading-snug">
+								Tagged from each restaurant&apos;s own menu. Menus change,
+								so check with the venue before you order.
+							</p>
 						)}
-					>
-						{f.name}
-					</button>
-				);
-			})}
-		</div>
-		{dietaryNote && (
-			<p className="mt-1.5 text-[0.8rem] text-ink-500">
-				Tagged from each restaurant's own menu. Menus change, so check
-				with the venue before you order.
-			</p>
-		)}
-		</>
+					</>
+				) : (
+					<p className="py-6 text-center text-ink-500 font-display">
+						{(dish && catalog?.[dish]) || dishData
+							? "No refinements for this one."
+							: "Loading dishes…"}
+					</p>
+				)
+			) : (
+				<>
+					<div className="flex flex-col gap-1.5">
+						{[["", "All categories"] as [string, string], ...CATEGORY_CHIPS].map(
+							([slug, label]) => {
+								const selected = slug ? dish === slug : !dish;
+								const IconC = slug ? (CUISINE_ICON[slug] ?? CookingPot) : GlobeHemisphereWest;
+								return (
+									<button
+										key={slug || "all"}
+										type="button"
+										onClick={() => {
+											// keep the location (map holds); dish lands in the filters
+											router.push(
+												slug
+													? withDish(currentParams, { dish: slug })
+													: withoutDish(currentParams),
+											);
+											setDishStage(slug ? "refine" : "category");
+										}}
+										className={cn(
+											"flex items-center gap-3 rounded-2xl px-3 py-3.5 cursor-pointer text-left border-2 transition-colors",
+											selected
+												? "bg-chili-50 border-chili-200"
+												: "bg-transparent border-transparent hover:bg-paper-100",
+										)}
+									>
+										<span className="text-chili-500">
+											<IconC size={24} />
+										</span>
+										<span
+											className={cn(
+												"font-display font-bold text-[1.05rem]",
+												selected ? "text-chili-600" : "text-ink-800",
+											)}
+										>
+											{label}
+										</span>
+										<span
+											className={cn(
+												"ml-auto grid place-items-center w-7 h-7 rounded-full border-2 transition-colors",
+												selected
+													? "bg-chili-500 border-chili-500 text-white"
+													: "border-sand-400 text-transparent",
+											)}
+										>
+											<Check size={15} weight="bold" />
+										</span>
+									</button>
+								);
+							},
+						)}
+					</div>
+					<div className="mt-4 flex items-start gap-2 rounded-xl border border-marigold-300 bg-marigold-100/60 px-3.5 py-3 text-marigold-700">
+						<CookingPot weight="fill" size={16} className="mt-0.5 shrink-0" />
+						<span className="font-display font-bold text-[0.95rem] leading-snug">
+							Pick a category to unlock its dishes and proteins.
+						</span>
+					</div>
+				</>
+			)}
+		</FilterSheet>
 	);
 
-	// Attribute-flag chips + Clear all (the expanded "Filters" panel), shared by
-	// the top bar (desktop) and the sheet header (mobile).
-	const flagsWrap = (
-		<div className="flex flex-wrap gap-2 items-center">
-			{FLAG_OPTIONS.map(([token, label]) => (
-				<button
-					key={token}
-					onClick={() => toggleFlag(token)}
-					aria-pressed={flags.includes(token)}
-					className={cn(
-						"border-2 rounded-full px-3.5 py-1 cursor-pointer font-display font-bold text-[0.85rem] transition-colors",
-						flags.includes(token)
-							? "bg-coriander-500 border-coriander-500 text-white"
-							: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
-					)}
-				>
-					{label}
-				</button>
+	const featuresSheet = (
+		<FilterSheet
+			open={sheet === "features"}
+			onOpenChange={closeSheet}
+			title="Features"
+			footer={
+				<>
+					<SheetTextButton
+						disabled={activeFilterCount === 0}
+						onClick={clearAllFilters}
+					>
+						Clear
+					</SheetTextButton>
+					<SheetShowButton n={total} onClick={() => setSheet(null)} />
+				</>
+			}
+		>
+			<SheetSection label="Availability">
+				<SheetChip
+					active={openOnly}
+					label="Open now"
+					onClick={() => setOpenOnly((o) => !o)}
+				/>
+			</SheetSection>
+			{FLAG_GROUPS.map((g) => (
+				<SheetSection key={g.label} label={g.label}>
+					{g.items.map(([token, label]) => (
+						<SheetChip
+							key={token}
+							active={flags.includes(token)}
+							label={label}
+							onClick={() => toggleFlag(token)}
+						/>
+					))}
+				</SheetSection>
 			))}
-			{activeFilterCount > 0 && (
-				<button
-					onClick={clearAllFilters}
-					className="px-2 font-display font-bold text-[0.85rem] text-chili-600 cursor-pointer hover:underline"
-				>
-					Clear all
-				</button>
-			)}
-		</div>
+		</FilterSheet>
+	);
+
+	const sortSheet = (
+		<FilterSheet
+			open={sheet === "sort"}
+			onOpenChange={closeSheet}
+			title="Sort by"
+			footer={<SheetShowButton n={total} onClick={() => setSheet(null)} />}
+		>
+			<div className="flex flex-col gap-1">
+				{SORT_ENTRIES.map(([slug, label]) => (
+					<MenuRow
+						key={slug}
+						selected={sort === slug}
+						label={label}
+						onSelect={() => {
+							setSort(slug);
+							setSheet(null);
+						}}
+					/>
+				))}
+			</div>
+		</FilterSheet>
 	);
 
 	return (
@@ -809,10 +1059,11 @@ export function ExploreClient({
 							variant="bar"
 							embedded
 							defaultValue={boxValue}
+							current={currentParams}
 						/>
 					</div>
-					{/* Desktop: Near me sits beside the search box. On mobile it moves
-					    into the Filters panel so the search input owns the whole row. */}
+					{/* Desktop: Near me sits beside the search box with its label.
+					    Mobile: an icon-only button so the search input owns the row. */}
 					<Button
 						size="sm"
 						onClick={nearMe}
@@ -826,141 +1077,295 @@ export function ExploreClient({
 					>
 						Near me
 					</Button>
+					<button
+						type="button"
+						onClick={nearMe}
+						aria-label="Near me"
+						className="md:hidden shrink-0 grid place-items-center w-11 h-11 rounded-full bg-chili-500 text-white cursor-pointer"
+					>
+						<NavigationArrow weight="fill" size={18} />
+					</button>
 				</div>
 
-				{/* Filter bar: primary controls always visible; attribute chips live
-				    behind the Filters toggle. Everything filters in memory, instantly. */}
-				<div className="mt-3">
-					{/* Mobile: one horizontally-scrollable row (bleeds to the screen
-					    edges) so the controls stay on a single thumb-swipeable line
-					    instead of eating two rows above the map. Desktop: plain wrap. */}
-					<div className="flex items-center gap-2.5 flex-nowrap overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:gap-x-4 md:gap-y-2 md:overflow-visible">
-						<button
-							onClick={() => setOpenOnly((o) => !o)}
-							aria-pressed={openOnly}
-							className={cn(
-								"max-md:hidden shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-								openOnly
-									? "bg-coriander-500 border-coriander-500 text-white"
-									: "bg-white border-sand-400 text-ink-700",
-							)}
-						>
-							<Clock weight="fill" size={16} />
-							Open
-						</button>
+				{/* Desktop filter bar: a single row of dropdowns. Category (dish
+				    search) + one refine dropdown per facet kind, then Features
+				    (attributes + Open now) and Sort. Mobile keeps the chip row below. */}
+				<div className="max-md:hidden mt-3 flex items-center gap-2.5 flex-wrap gap-y-2">
+					<SingleSelectMenu
+						eyebrow="Category"
+						value={dishIsCategory ? (dishName ?? "All categories") : "All categories"}
+						active={dishIsCategory}
+					>
+						{(close) => (
+							<>
+								<MenuRow
+									selected={!dish}
+									icon={<GlobeHemisphereWest size={19} />}
+									label="All categories"
+									onSelect={() => {
+										clearDish();
+										close();
+									}}
+								/>
+								{CATEGORY_CHIPS.map(([slug, label]) => {
+									const IconC = CUISINE_ICON[slug] ?? CookingPot;
+									return (
+										<MenuRow
+											key={slug}
+											selected={dish === slug}
+											icon={<IconC size={19} />}
+											label={label}
+											onSelect={() => {
+												pickDish(slug);
+												close();
+											}}
+										/>
+									);
+								})}
+							</>
+						)}
+					</SingleSelectMenu>
 
-						{/* Category chips: one-tap dish search (same navigation as
-						    picking the tag in the SearchBox); tapping the active one
-						    clears it. The facet bar below then lists the dishes we
-						    matched inside the category. */}
-						{CATEGORY_CHIPS.map(([slug, label]) => (
-							<button
-								key={slug}
-								onClick={() =>
-									router.push(
-										dish === slug
-											? "/explore"
-											: `/explore?dish=${slug}`,
-									)
-								}
-								aria-pressed={dish === slug}
-								className={cn(
-									"shrink-0 border-2 rounded-full px-3.5 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-									dish === slug
-										? "bg-chili-500 border-chili-500 text-white"
-										: "bg-white border-sand-400 text-ink-700 hover:bg-paper-100",
-								)}
-							>
-								{label}
-							</button>
-						))}
-
-						<div className="flex items-center gap-2 shrink-0">
-							<span className="font-display font-bold text-ink-700 text-[0.9rem]">
-								Sort
+					{/* Standalone active-dish chip: any active dish that ISN'T one of
+					    the 5 Category cuisines (curry, biryani, a search-box dish) shows
+					    here so it's a visible, removable filter instead of an orphan in
+					    the Category trigger. Category dishes are already shown by the
+					    dropdown above. */}
+					{dish && !dishIsCategory && (
+						<div className="shrink-0 inline-flex items-center gap-2 border-2 border-chili-400 bg-white rounded-full pl-3.5 pr-1.5 py-[7px] font-display">
+							<DishPillIcon size={16} className="text-chili-500 shrink-0" />
+							<span className="font-bold text-[0.9rem] text-ink-900 max-w-[11rem] truncate">
+								{dishName}
 							</span>
-							<Select value={sort} onValueChange={setSort}>
-								<SelectTrigger className="rounded-full border-2 border-sand-400 bg-white px-3.5 font-display font-bold text-[0.9rem] text-ink-900 shadow-none">
-									<SelectValue />
-								</SelectTrigger>
-								<SelectContent
-									position="popper"
-									sideOffset={6}
-									align="start"
-									className="rounded-lg"
-									style={{ zIndex: Z.popover }}
-								>
-									<SelectItem value="popular">Popular</SelectItem>
-									<SelectItem value="rating">Highest rated</SelectItem>
-									<SelectItem value="nearest">Nearest</SelectItem>
-								</SelectContent>
-							</Select>
-						</div>
-
-						<button
-							onClick={() => setShowFilters((s) => !s)}
-							aria-pressed={showFilters}
-							className={cn(
-								"shrink-0 inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-								activeFilterCount > 0 || showFilters
-									? "bg-coriander-500 border-coriander-500 text-white"
-									: "bg-white border-sand-400 text-ink-700",
-							)}
-						>
-							<SlidersHorizontal size={16} />
-							Filters
-							{activeFilterCount > 0 && (
-								<span className="inline-grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-white/90 text-coriander-600 text-[0.72rem] leading-none">
-									{activeFilterCount}
-								</span>
-							)}
-							<CaretDown
-								className={cn(
-									"transition-transform",
-									showFilters && "rotate-180",
-								)}
-								size={14}
-							/>
-						</button>
-					</div>
-
-					{/* Dish refine bar (see dishBar above): one pick per kind. */}
-					{dish && <div className="mt-2.5">{dishBar}</div>}
-
-					{showFilters && (
-						<div className="mt-2.5">
-							{/* Mobile only: Near me + Open now live in the panel
-							    (desktop keeps them in the bar above). */}
-							<div className="md:hidden flex flex-wrap items-center gap-2 pb-3 mb-3 border-b border-paper-300">
-								<Button
-									size="sm"
-									onClick={nearMe}
-									iconLeft={
-										<NavigationArrow weight="fill" size={16} />
-									}
-									className="shrink-0"
-								>
-									Near me
-								</Button>
-								<button
-									onClick={() => setOpenOnly((o) => !o)}
-									aria-pressed={openOnly}
-									className={cn(
-										"inline-flex items-center gap-2 border-2 rounded-full px-4 py-[5px] cursor-pointer font-display font-bold text-[0.9rem] transition-colors",
-										openOnly
-											? "bg-coriander-500 border-coriander-500 text-white"
-											: "bg-white border-sand-400 text-ink-700",
-									)}
-								>
-									<Clock weight="fill" size={16} />
-									Open now
-								</button>
-							</div>
-
-							{flagsWrap}
+							<button
+								type="button"
+								onClick={clearDish}
+								aria-label={`Clear ${dishName}`}
+								className="grid place-items-center w-5 h-5 rounded-full text-ink-400 hover:bg-paper-200 hover:text-ink-900 cursor-pointer"
+							>
+								<X size={13} weight="bold" />
+							</button>
 						</div>
 					)}
+
+					{/* One refine dropdown per facet kind present (single-select). */}
+					{facetGroups.map(([kind, fs]) => {
+						const sel = facetSel[kind] ?? null;
+						const selName = fs.find((f) => f.slug === sel)?.name ?? "Any";
+						const kindLabel = FACET_KIND_LABEL[kind];
+						return (
+							<SingleSelectMenu
+								key={kind}
+								eyebrow={kindLabel}
+								value={selName}
+								active={!!sel}
+							>
+								{(close) => (
+									<>
+										<MenuRow
+											selected={!sel}
+											label={`Any ${kindLabel.toLowerCase()}`}
+											onSelect={() => {
+												setFacetSel((c) => ({ ...c, [kind]: null }));
+												close();
+											}}
+										/>
+										{fs.map((f) => (
+											<MenuRow
+												key={f.slug}
+												selected={sel === f.slug}
+												label={f.name}
+												onSelect={() => {
+													setFacetSel((c) => ({
+														...c,
+														[kind]: sel === f.slug ? null : f.slug,
+													}));
+													close();
+												}}
+											/>
+										))}
+									</>
+								)}
+							</SingleSelectMenu>
+						);
+					})}
+
+					{/* Clear dish: right of the dish dropdowns, clears the dish search
+					    (and its facets), not the attribute Features. Only for Category
+					    dishes — non-category dishes clear via their chip's ✕ above. */}
+					{dish && dishIsCategory && (
+						<button
+							type="button"
+							onClick={clearDish}
+							className="shrink-0 inline-flex items-center gap-1.5 font-display font-bold text-[0.9rem] text-ink-500 px-1.5 cursor-pointer hover:text-ink-900 transition-colors"
+						>
+							<X size={14} weight="bold" />
+							Clear dish
+						</button>
+					)}
+
+					{/* push Features + Sort to the right */}
+					<div className="ml-auto" />
+
+					{/* Features: grouped attributes + Open now, multi-select. */}
+					<Popover.Root open={featOpen} onOpenChange={setFeatOpen}>
+						<FilterTrigger
+							value="Features"
+							icon={<SlidersHorizontal size={16} />}
+							active={activeFilterCount > 0}
+							open={featOpen}
+							count={activeFilterCount}
+						/>
+						<FilterPanel align="end">
+							<div className="max-h-[320px] overflow-y-auto px-1 pt-1 min-w-[230px]">
+								<div className="mb-1.5">
+									<div className="eyebrow text-ink-400 text-[10px] px-2.5 pt-1.5 pb-1">
+										Availability
+									</div>
+									<MenuRow
+										selected={openOnly}
+										icon={<Clock weight="fill" size={17} />}
+										label="Open now"
+										onSelect={() => setOpenOnly((o) => !o)}
+									/>
+								</div>
+								{FLAG_GROUPS.map((g) => (
+									<div key={g.label} className="mb-1.5">
+										<div className="eyebrow text-ink-400 text-[10px] px-2.5 pt-1.5 pb-1">
+											{g.label}
+										</div>
+										{g.items.map(([token, label]) => (
+											<MenuRow
+												key={token}
+												selected={flags.includes(token)}
+												label={label}
+												onSelect={() => toggleFlag(token)}
+											/>
+										))}
+									</div>
+								))}
+							</div>
+							<div className="flex items-center justify-between gap-3 border-t border-paper-200 mt-1 px-2 pt-2">
+								<button
+									type="button"
+									onClick={clearAllFilters}
+									disabled={activeFilterCount === 0}
+									className="font-display font-bold text-[0.85rem] text-ink-500 cursor-pointer hover:underline disabled:opacity-40"
+								>
+									Clear all
+								</button>
+								<Popover.Close asChild>
+									<button
+										type="button"
+										className="rounded-full bg-chili-500 text-white px-5 py-1.5 font-display font-bold text-[0.85rem] cursor-pointer hover:bg-chili-600 transition-colors"
+									>
+										Done
+										{activeFilterCount ? ` (${activeFilterCount})` : ""}
+									</button>
+								</Popover.Close>
+							</div>
+						</FilterPanel>
+					</Popover.Root>
+
+					{/* Sort */}
+					<div className="shrink-0 inline-flex items-center gap-2">
+						<span className="font-display font-bold text-ink-500 text-[0.9rem]">
+							Sort
+						</span>
+						<SingleSelectMenu
+							value={SORT_LABELS[sort] ?? "Popular"}
+							align="end"
+							active={sort !== "popular"}
+						>
+							{(close) =>
+								SORT_ENTRIES.map(([slug, label]) => (
+									<MenuRow
+										key={slug}
+										selected={sort === slug}
+										label={label}
+										onSelect={() => {
+											setSort(slug);
+											close();
+										}}
+									/>
+								))
+							}
+						</SingleSelectMenu>
+					</div>
 				</div>
+				{dish && dietaryNote && (
+					<p className="max-md:hidden mt-1.5 text-[0.8rem] text-ink-500">
+						Tagged from each restaurant&apos;s own menu. Menus change, so
+						check with the venue before you order.
+					</p>
+				)}
+
+				{/* Filter bar (mobile): primary controls always visible; attribute
+				    chips live behind the Filters toggle. Filters in memory, instantly. */}
+				{/* Mobile filter bar: Dish pill on the left; Features + Sort are
+				    icon-only, grouped on the right. All 44px tall to match the
+				    search input + Near me. */}
+				<div className="mt-3 md:hidden flex items-center gap-2.5">
+					<button
+						type="button"
+						onClick={() => {
+							setDishStage(dish ? "refine" : "category");
+							setSheet("dish");
+						}}
+						className={cn(
+							"inline-flex items-center gap-2 border-2 rounded-full px-4 h-11 cursor-pointer font-display font-bold text-[0.9rem] transition-colors min-w-0",
+							dish
+								? "bg-white border-chili-400 text-ink-900"
+								: "bg-white border-sand-400 text-ink-700",
+						)}
+					>
+						<DishPillIcon size={17} className="text-chili-500 shrink-0" />
+						<span className="truncate min-w-0">{dishPillLabel}</span>
+						<CaretDown
+							size={14}
+							weight="bold"
+							className="text-ink-400 shrink-0"
+						/>
+					</button>
+
+					<button
+						type="button"
+						onClick={() => setSheet("features")}
+						aria-label={`Features${activeFilterCount ? ` (${activeFilterCount})` : ""}`}
+						className={cn(
+							"relative ml-auto shrink-0 grid place-items-center w-11 h-11 rounded-full border-2 cursor-pointer transition-colors",
+							activeFilterCount > 0
+								? "bg-white border-chili-400 text-ink-900"
+								: "bg-white border-sand-400 text-ink-700",
+						)}
+					>
+						<SlidersHorizontal size={18} />
+						{activeFilterCount > 0 && (
+							<span className="absolute -top-1 -right-1 inline-grid place-items-center min-w-[18px] h-[18px] px-1 rounded-full bg-chili-500 text-white text-[0.72rem] leading-none">
+								{activeFilterCount}
+							</span>
+						)}
+					</button>
+
+					<button
+						type="button"
+						onClick={() => setSheet("sort")}
+						aria-label={`Sort: ${SORT_LABELS[sort] ?? "Popular"}`}
+						className={cn(
+							"shrink-0 grid place-items-center w-11 h-11 rounded-full border-2 cursor-pointer transition-colors",
+							sort !== "popular"
+								? "bg-white border-chili-400 text-chili-600"
+								: "bg-white border-sand-400 text-ink-700",
+						)}
+					>
+						<ArrowsDownUp size={18} weight="bold" />
+					</button>
+				</div>
+
+				{/* mobile bottom sheets (portalled; only open on mobile) */}
+				{dishSheet}
+				{featuresSheet}
+				{sortSheet}
 			</div>
 
 			{/* body */}
@@ -995,6 +1400,9 @@ export function ExploreClient({
 						center={center}
 						zoom={zoom}
 						active={viewMode === "map"}
+						dishPills={dishItems ?? undefined}
+						dishName={dishName ?? undefined}
+						distOrigin={distOrigin}
 					/>
 				</div>
 

@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import type { Suggestion } from "@/lib/queries";
 import type { DishSuggestion } from "@/lib/types";
+import { withDish, withLocation, type ExploreParams } from "@/lib/explore-url";
 import { cn } from "@/lib/cn";
 
 const EMPTY: Suggestion = { dishes: [], restaurants: [], locations: [] };
@@ -26,6 +27,7 @@ export function SearchBox({
 	placeholder = "Search a dish, restaurant, or suburb",
 	defaultValue = "",
 	embedded = false,
+	current,
 }: {
 	variant?: "hero" | "bar";
 	placeholder?: string;
@@ -33,6 +35,10 @@ export function SearchBox({
 	// embedded = the box lives on the Explore page, so the empty state clears the
 	// search instead of redirecting to /explore.
 	embedded?: boolean;
+	// Explore only: the current URL params, so a pick MERGES (keeps the other
+	// dimension — a location pick keeps the dish, a dish pick keeps the location)
+	// instead of replacing the whole query. Omitted elsewhere = plain fresh nav.
+	current?: ExploreParams;
 }) {
 	const router = useRouter();
 	const [value, setValue] = useState(defaultValue);
@@ -95,17 +101,18 @@ export function SearchBox({
 		return () => clearTimeout(t);
 	}, [value, selected]);
 
-	const enc = encodeURIComponent;
+	// Every pick MERGES onto the current Explore params (see lib/explore-url):
+	// a location keeps the active dish, a dish keeps the location. `current` is
+	// only set on the Explore bar; elsewhere it's undefined -> a plain fresh nav.
+	const base = current ?? {};
 	// carry the state so "Auburn, NSW" doesn't collide with Auburn VIC/SA
 	const gotoSuburb = (s: { suburb: string; state: string }) =>
-		router.push(`/explore?suburb=${enc(s.suburb)}&state=${enc(s.state)}`);
+		router.push(withLocation(base, { suburb: s.suburb, state: s.state }));
 	const gotoRestaurant = (slug: string) =>
-		router.push(`/explore?focus=${slug}`);
+		router.push(withLocation(base, { focus: slug }));
 	// a compound pick ("Paneer Momo") carries the protein as a pre-set filter
 	const gotoDish = (d: DishSuggestion) =>
-		router.push(
-			`/explore?dish=${enc(d.slug)}${d.protein ? `&protein=${enc(d.protein)}` : ""}`,
-		);
+		router.push(withDish(base, { dish: d.slug, protein: d.protein }));
 
 	// typing clears any prior selection (back to free-text)
 	const change = (v: string) => {
@@ -134,6 +141,9 @@ export function SearchBox({
 	const submit = (e?: React.FormEvent) => {
 		e?.preventDefault();
 		setOpen(false);
+		// empty the box on submit too (it's a transient entry point); the closure
+		// still reads the pre-clear `value`/`sugg` below to decide where to go.
+		setValue("");
 		if (selected) {
 			if (selected.type === "restaurant") gotoRestaurant(selected.slug);
 			else if (selected.type === "dish") gotoDish(selected.dish);
@@ -151,23 +161,25 @@ export function SearchBox({
 		else router.push("/explore");
 	};
 
-	// picking an option resolves intent immediately (fill the box + navigate),
-	// so the user never has to click Search after choosing a row.
+	// Picking an option resolves intent immediately (navigate) and EMPTIES the box:
+	// the search bar is a transient entry point, not a state display. The picked
+	// dish lands in the filters and the picked location moves the map, so leaving
+	// the box empty lets the user immediately search the other dimension.
 	const pickLocation = (loc: { suburb: string; state: string }) => {
-		setValue(`${loc.suburb}, ${loc.state}`);
-		setSelected({ type: "location", suburb: loc.suburb, state: loc.state });
+		setValue("");
+		setSelected(null);
 		setOpen(false);
 		gotoSuburb(loc);
 	};
 	const pickRestaurant = (r: { slug: string; name: string }) => {
-		setValue(r.name);
-		setSelected({ type: "restaurant", slug: r.slug });
+		setValue("");
+		setSelected(null);
 		setOpen(false);
 		gotoRestaurant(r.slug);
 	};
 	const pickDish = (d: DishSuggestion) => {
-		setValue(d.name);
-		setSelected({ type: "dish", dish: d });
+		setValue("");
+		setSelected(null);
 		setOpen(false);
 		gotoDish(d);
 	};

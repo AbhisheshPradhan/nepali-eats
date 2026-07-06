@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ExploreClient } from "@/components/explore/ExploreClient";
 import { extentOf, getCardBySlug, type ListOpts } from "@/lib/queries";
 import type { Bbox } from "@/lib/types";
-import { STATE_CENTRE, capitalLatLng, tagLabel } from "@/lib/format";
-import { reverseGeocodeSuburb } from "@/lib/geocode";
+import { STATE_CENTRE, capitalLatLng } from "@/lib/format";
 import { resolveState } from "@/lib/geo";
+import { normalizeDishTag } from "@/lib/menu/taxonomy";
 
 export const metadata: Metadata = {
   title: "Explore Nepali food near you",
@@ -55,6 +55,11 @@ function zoomForSpan(span: number) {
 export default async function ExplorePage({ searchParams }: { searchParams: SP }) {
   const sp = await searchParams;
   const fixed = { tag: sp.tag, state: sp.state, suburb: sp.suburb, venue: sp.venue };
+  // Normalize the dish tag to its cuisine bucket + a pre-selected facet, so a
+  // leaf-tag search ("steamed momo", "choila") lights up the Category / Dish
+  // type dropdowns instead of landing on a tag with no sibling facets. The raw
+  // sp.dish still drives the search-box text + viewKey below.
+  const norm = sp.dish ? normalizeDishTag(sp.dish) : undefined;
   const filters: ListOpts = {
     tag: sp.tag,
     state: sp.state,
@@ -73,7 +78,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   let areaLabel = "in this area";
   let focusId: number | undefined;
   let userLoc: [number, number] | undefined;
-  let nearLabel: string | undefined; // reverse-geocoded suburb for ?lat&lng landings
   let autoLocate = false; // default view: try the visitor's real location client-side
 
   // searching a restaurant centres the map on it and pins it to the top of the list
@@ -98,7 +102,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     userLoc = [qLat, qLng];
     zoom = 13;
     areaLabel = "near you";
-    nearLabel = (await reverseGeocodeSuburb(qLat, qLng)) ?? "Near you";
   } else if (sp.tag || sp.state || sp.suburb || sp.venue) {
     const ext = await extentOf(filters);
     if (ext) {
@@ -156,8 +159,9 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
   return (
     <ExploreClient
       fixed={fixed}
-      dish={sp.dish}
+      dish={norm?.dish ?? sp.dish}
       dishProtein={sp.protein}
+      dishFacet={norm?.facet}
       initialItems={items}
       initialCenter={center}
       initialZoom={zoom}
@@ -168,18 +172,10 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       autoLocate={autoLocate}
       viewKey={viewKey}
       cameraKey={cameraKey}
-      initialQuery={
-        focused?.name ??
-        (sp.dish
-          ? [sp.protein, sp.dish]
-              .filter((s): s is string => !!s)
-              .map(tagLabel)
-              .join(" ")
-          : undefined) ??
-        (sp.suburb ? (sp.state ? `${sp.suburb}, ${sp.state}` : sp.suburb) : undefined) ??
-        nearLabel ??
-        ""
-      }
+      // The search box is a transient entry point that always starts empty: the
+      // active location shows on the map + list heading, the active dish in the
+      // filter chips. So it never pre-fills with the current suburb/dish/name.
+      initialQuery=""
     />
   );
 }

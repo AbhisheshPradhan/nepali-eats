@@ -879,6 +879,93 @@ export async function dishRestaurants(
 	};
 }
 
+// The Explore "Category" filter cuisines (mirrors CATEGORY_CHIPS in
+// ExploreClient). The facet catalog is built for exactly these, since they're
+// what the Category dropdown / sheet drills into.
+const CATALOG_CATEGORIES = ["momo", "newari", "sekuwa", "tibetan", "thakali"];
+
+// The served facet axes for one category — the same DishFacet[] dishRestaurants
+// returns, but computed WITHOUT the per-restaurant items (we only need which
+// facets exist). A DISH refines by momo preparations + proteins; a STYLE by its
+// member dishes. Only facets actually present on a seeded menu are returned.
+async function categoryFacets(slug: string): Promise<DishFacet[]> {
+	const tagRows = await query<{ id: number; kind: string }>(
+		`SELECT id, kind FROM dish_categories WHERE slug = $1`,
+		[slug],
+	);
+	const tag = tagRows[0];
+	if (!tag) return [];
+
+	const isStyle = tag.kind === "style";
+	const memberDishes = isStyle
+		? DISH_CATEGORIES.filter((c) => c.kind === "dish" && c.style === slug).map(
+				(c) => c.slug,
+			)
+		: [];
+	const facetClause = isStyle
+		? `d2.slug = ANY($2)`
+		: `(d2.kind IN ('protein','diet') OR d2.parent_id = $2) AND d2.id <> $2`;
+	const facetParam = isStyle ? memberDishes : tag.id;
+
+	// distinct facet slugs present on non-hidden items tagged with this category
+	const slugRows = await query<{ slug: string }>(
+		`SELECT DISTINCT d2.slug
+       FROM menu_items mi
+       JOIN restaurants r ON r.id = mi.restaurant_id
+       JOIN menu_item_tags t2 ON t2.menu_item_id = mi.id
+       JOIN dish_categories d2 ON d2.id = t2.dish_category_id
+      WHERE NOT mi.is_hidden
+        AND r.${NOT_CLOSED}
+        AND EXISTS (
+              SELECT 1 FROM menu_item_tags t
+               WHERE t.menu_item_id = mi.id AND t.dish_category_id = $1
+            )
+        AND ${facetClause}`,
+		[tag.id, facetParam],
+	);
+	const facetSlugs = slugRows.map((r) => r.slug);
+	if (!facetSlugs.length) return [];
+
+	const facetKindClause = isStyle
+		? `kind = 'dish'`
+		: `kind IN ('preparation','protein','diet')`;
+	const dietarySlugs = new Set(
+		DISH_CATEGORIES.filter((c) => c.dietary).map((c) => c.slug),
+	);
+	return (
+		await query<{ slug: string; name: string; kind: string }>(
+			`SELECT slug, name, kind FROM dish_categories
+        WHERE slug = ANY($1) AND ${facetKindClause}
+        ORDER BY display_order, id`,
+			[facetSlugs],
+		)
+	)
+		.sort(
+			(a, b) =>
+				FACET_KIND_ORDER.indexOf(a.kind as DishFacet["kind"]) -
+				FACET_KIND_ORDER.indexOf(b.kind as DishFacet["kind"]),
+		)
+		.map((f) => ({
+			slug: f.slug,
+			name: f.name,
+			kind: f.kind as DishFacet["kind"],
+			...(dietarySlugs.has(f.slug) ? { dietary: true } : {}),
+		}));
+}
+
+// The Explore filter catalog: every Category cuisine → its served facet axes.
+// Location-independent and near-static (changes only when a menu is seeded), so
+// it's fetched ONCE and cached hard. Lets the filter UI render dish-type /
+// protein chips instantly, with no per-category fetch and no flicker.
+export async function facetCatalog(): Promise<Record<string, DishFacet[]>> {
+	const entries = await Promise.all(
+		CATALOG_CATEGORIES.map(
+			async (slug) => [slug, await categoryFacets(slug)] as const,
+		),
+	);
+	return Object.fromEntries(entries);
+}
+
 // --- Dish / cuisine landing pages (menu-derived, server-rendered) -------------
 
 export type GeoCard = Restaurant & { matches: DishPill[]; itemCount?: number };

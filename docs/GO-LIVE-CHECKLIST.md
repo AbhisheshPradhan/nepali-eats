@@ -97,6 +97,12 @@ Conformance audit:
       the `.vercel.app` URL bypasses Cloudflare, so add an app-level limiter
       (Upstash) as defense-in-depth. Do before the custom domain goes public.
       → **Now planned in detail as task 1 of `docs/PRE-LAUNCH-PLAN.md`.**
+- [ ] **Anti-scraping posture** — `/api/explore/spots` hands the whole directory
+      to any caller in one JSON. Decisions: NO client-side encryption (obfuscation,
+      not protection); the moat is the menus/curation, not the Google-derived pin
+      list; real levers = Cloudflare in front + kill the `.vercel.app` bypass,
+      per-IP rate limiting, keep menus on-demand (never bulk), optional signed-token
+      gate only if logs show scraping. → **task 1b of `docs/PRE-LAUNCH-PLAN.md`.**
 
 ## ⚖️ Optional pre-launch polish (non-blocking)
 
