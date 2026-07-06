@@ -1,0 +1,186 @@
+# ARCHITECTURE.md - how the site works
+
+The running record of technical decisions and how the frontend behaves: what
+each surface does, why it works that way, and the rules that must survive
+refactors. Update this in the same pass as the decision (like VOICE_AND_TONE.md
+for copy). The root `CLAUDE.md` keeps the terse agent-facing summary; this doc
+is the explanation.
+
+Related docs: menu system design -> `MENU-PLAN.md` · infra/stack -> root
+`CLAUDE.md` §Stack.
+
+---
+
+## Big picture
+
+- Scraper (Node + Playwright) -> Neon Postgres (PostGIS) -> Next.js 16 App
+  Router app in `web/` (RSC + ISR, no ORM, raw `node-postgres` in
+  `lib/queries.ts`). Photos on R2 via `mediaUrl()`.
+- Postgres is the source of truth; JSON/CSV are exports. Directory query:
+  `is_nepali IS NOT FALSE` + `NOT_CLOSED` (permanently-closed rows are hidden
+  from every public surface but their detail pages still resolve).
+- Live open/closed status is computed in the BROWSER (`OpenStatusBadge`):
+  pages are ISR-cached, so server-rendered status would go stale.
+
+## Explore page
+
+### Data model: everything client-side
+
+`GET /api/explore/spots` ships the entire visible directory once as thin
+`ExploreSpot` rows (~438 rows, ~40KB gzipped, CDN-cached `s-maxage=3600`).
+`ExploreClient` filters, sorts and paginates in memory; map pans and filter
+changes never refetch. There is no bbox API; the map viewport is a client-side
+clip (`inView`). Scale ceiling ~5k rows (shard by state then).
+
+Two more fetches, both CDN-cached and viewport-independent:
+
+- `GET /api/explore/dishes?dish=` -> per-restaurant matched menu items
+  (`dishItems`: id -> pills) for the active dish search.
+- `GET /api/explore/facets` -> the facet catalog: each Category cuisine's
+  served dish-type/protein/diet axes, fetched once so refine dropdowns render
+  instantly with no flicker. Only changes when a menu is seeded.
+
+### The URL model: two dimensions, one query string
+
+The Explore URL carries two independent dimensions (`lib/explore-url.ts`):
+
+- **LOCATION** = what the map shows: `suburb`, `state`, `lat`, `lng`, `focus`,
+  `venue`.
+- **DISH** = what the food filters show: `dish`, `protein`, `diet`. `dish`
+  carries the most specific dish/preparation slug picked (a leaf like
+  `steamed-momo` or `choila`); the server's `normalizeDishTag` splits it into
+  the cuisine bucket + a pre-selected facet.
+
+Every control MERGES its change onto the current params so the dimensions
+never clobber each other: a dish pick keeps your location (map holds), a
+location pick keeps your dish. `withLocation` replaces the location keys
+wholesale (a new suburb drops an old focus/lat-lng) and preserves the dish;
+`withDish`/`withoutDish` do the reverse. The SearchBox gets `current` only on
+the Explore page; everywhere else it does a plain fresh nav.
+
+**`tag` vs `dish` are mutually exclusive (decided 2026-07-06).** `tag` filters
+restaurant-level `restaurants.tags` ("known for", name-derived + coarse menu
+rollup); `dish` is the menu-level search. They are two tiers of the SAME
+what-food axis, so ANDing them collapses the list to a near-empty
+intersection. Rules:
+
+- `tag` is in NEITHER key list: it's an entry-only landing scope (from `/tag/…`
+  and state landing pages). It seeds the map extent and list; the first filter
+  change of either dimension sheds it.
+- Belt and braces: `app/explore/page.tsx` ignores `sp.tag` whenever `sp.dish`
+  is set (filters, extent seeding, areaLabel, cameraKey), so a stale URL
+  carrying both never ANDs them.
+- `venue` stays a location key on purpose: venue ∩ dish is a meaningful
+  combination (momo from a food truck), like the attribute flags.
+
+### The focused restaurant bypasses every filter (decided 2026-07-06)
+
+Picking a restaurant by name from the search box means "show me this place".
+`focus` is a location key, so the pick keeps the active dish, and the focused
+spot could fail the dish filter. Rules:
+
+- In `matches()` the focused spot (`s.id === focusId`) bypasses ALL filter
+  predicates (dish, tag, venue, flags, Open now). Only the viewport clip still
+  applies, so panning away drops it naturally; the existing `ordered` logic
+  pins it to the top of the list while present.
+- When it doesn't match the active dish, its card explains the miss in the
+  menu-excerpt slot (`noDishMatch` on `ExploreCard`), two variants by
+  `hasMenu`: menu seeded -> "No {dish} on their menu, but the rest is worth a
+  look."; no menu -> "We don't have their menu yet, so ask them about {dish}."
+- The map popup tells the same story: MapView takes `focusId` and renders the
+  focused pin's popup as the list card with the note, not the bare PlaceCard.
+- The note only renders once `dishItems` has resolved, so it never flashes on
+  a restaurant that does serve the dish.
+
+### Dish search: menu is the source of truth (decided 2026-07-06)
+
+`restaurants.tags` and the dish filter are different products and must not be
+confused:
+
+- **`restaurants.tags`** is a restaurant-level, cuisine-level vocabulary for
+  SEO landing pages and interlinking ONLY. As of 2026-07-06 it holds exactly 7
+  slugs directory-wide (momo, nepali-indian, newari, sekuwa, tibetan,
+  dal-bhat, thakali), never leaf dishes: choila is on 109 seeded menus and in
+  zero tag arrays.
+- **The dish filter's source of truth is the menu** (seeded `menu_items` +
+  `menu_item_tags`). We assume full menu coverage soon.
+
+Match tiers today:
+
+- **Menu-verified** (tier 0): restaurants with non-hidden menu items tagged
+  with the dish; they get menu-excerpt pills (name + price) and rank above
+  tier 1 in every sort.
+- **Coarse** (tier 1, TEMPORARY bridge): `restaurants.tags` contains the dish
+  slug ("known for momo", menu not seeded). These tags are NAME-DERIVED: a
+  spot called "Momo House" gets the momo tag, so tier 1 is an assumption
+  ("their name says momo, they surely serve it"), not verified menu data.
+  Only fires for the 7 cuisine-level slugs (leaf dishes are never in tags)
+  and only while NO facet chip is selected: a refinement needs item-level
+  truth, so the tier drops out. Kept while seeding completes so the flagship
+  searches don't thin out (momo: 221 tagged vs 157 menu-verified at time of
+  writing). **Remove this guard once menu coverage is in** (momo gap closed):
+  delete the coarse branch in `matches()` + the tier sort in ExploreClient,
+  and dish search becomes purely menu-verified. Unseeded "known for" places
+  keep their SEO surface via the `/tag` landing pages.
+
+Facet selections (`facetSel`, one slot per kind) are DERIVED from the URL,
+never client state (decided 2026-07-07): every facet pick navigates via
+`setFacet` in ExploreClient. The dish/preparation slot rides the `?dish=` leaf
+slug (round-trips through `normalizeDishTag`); protein and diet ride their own
+params. So refinements survive location changes, URLs are shareable, and the
+back button undoes filter steps. `viewKey` keys on the normalized BUCKET, so a
+facet-only navigation never resets the map selection or refetches dish data.
+The dish empty states name the most specific active thing (`dishSearchLabel`:
+facet name with diet/protein qualifiers, taxonomy-label fallback for a facet
+not yet served on any seeded menu).
+
+### Camera and view keys
+
+Explore is one route, so suburb/restaurant/dish picks are SOFT navigations:
+server props re-render, the client does not remount. `cameraKey` identifies
+the LOCATION part (what moves the map); `viewKey` = cameraKey + dish (what
+resyncs the search box and facet chips). Separate keys mean a dish search
+mid-browse filters the map you are looking at instead of teleporting you back
+to your IP metro.
+
+Initial centre priority: `?focus=<slug>` > `?lat&lng` > `?state/suburb/tag`
+extent > IP-geo state capital > Sydney.
+
+### Search box is transient (decided with `5cfb3a8`)
+
+The box is an entry point, not a state display: it always starts empty and
+empties itself on every pick/submit. Active state shows where it belongs (the
+location on the map + list heading, the dish in the filter chips), which
+leaves the box free to immediately search the other dimension.
+
+### Filters UI
+
+- Desktop: labelled dropdowns (Category, one refine dropdown per facet kind
+  present, Features = grouped attribute flags + Open now, Sort), built on the
+  shared primitives in `components/explore/FilterControls.tsx`.
+- Mobile: Dish pill + icon-only Features/Sort buttons opening bottom sheets
+  (Radix Dialog); the dish sheet is two-stage (category -> refine).
+- Flag tokens must match what `exploreSpots()` emits (`FLAG_COLS` keys +
+  `"menu"`); labels are AU-facing.
+- The Category cuisines live in ONE shared list, `lib/menu/categories.ts`
+  (`EXPLORE_CATEGORIES`: momo, newari, sekuwa, tibetan, thakali,
+  nepali-indian, editorial Nepali-first order): the dropdown/sheet, the
+  icons and the facet catalog all derive from it — add a cuisine there and
+  every surface picks it up. Member-dish dropdowns render alphabetised.
+- A dish not in the Category cuisines shows as its own removable chip so
+  every active dish is visible in the filter row.
+
+## Other surfaces (short form; agent brief lives in root CLAUDE.md)
+
+- **Home:** featured + popular rows are state-scoped (IP-geo -> state, default
+  NSW). Featured = non-null `featured_rank`; popular = hand-set flag, never
+  overlapping featured. Both self-hide when empty.
+- **Detail page:** renders the seeded menu when items exist; admins get the
+  Edit Details slide-over (`components/edit/RestaurantEditPanel.tsx`).
+- **Search:** `GET /api/search?q=` (3+ chars) powers the shared SearchBox
+  autocomplete (dishes, restaurants, locations).
+- **Admin:** Clerk-gated `/admin` (+ per-page `assertAdmin`), media triage,
+  state switcher via `ne_admin_state` cookie (honored only for admins).
+- **Mockups lab:** `/admin/playground/mockups` hosts card/filter-bar
+  candidates as deliberate copies of the real components; the port direction
+  is mockup -> real when a design wins.

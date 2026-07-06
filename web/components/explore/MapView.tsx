@@ -88,6 +88,7 @@ export default function MapView({
   dishPills,
   dishName,
   distOrigin,
+  focusId,
 }: {
   pins: ExploreSpot[];
   hoveredId: number | null;
@@ -103,6 +104,10 @@ export default function MapView({
   dishPills?: Map<number, DishPill[]>;
   dishName?: string;
   distOrigin?: LatLng;
+  // the searched-by-name restaurant: its pin is force-included past the dish
+  // filter, so its popup renders the list card with the dish-miss note (same
+  // story as its list row) instead of a bare PlaceCard.
+  focusId?: number;
   // On mobile the map is display:none while the list is showing, so Mapbox
   // measures a zero-size container. When it becomes visible we must resize, or
   // the canvas keeps its old (short) height and tiles only cover part of it.
@@ -316,7 +321,11 @@ export default function MapView({
   // with the list); otherwise the compact PlaceCard. `wide` widens the popup to
   // fit the list card.
   const popupPills = popup && dishName ? dishPills?.get(popup.id) : undefined;
-  const wide = !!(popupPills && popupPills.length);
+  // the force-included focus pin in dish mode: no pills, but it still gets the
+  // list card so the dish-miss note shows (same story as its list row)
+  const popupDishMiss =
+    !!popup && !!dishName && popup.id === focusId && !popupPills?.length;
+  const wide = !!(popupPills && popupPills.length) || popupDishMiss;
   const cardEl = popup ? (
     wide ? (
       // [&>a]:border-b-0 drops ExploreCard's list-row separator — this is a
@@ -326,6 +335,7 @@ export default function MapView({
           r={popup}
           pills={popupPills}
           dishName={dishName}
+          noDishMatch={popupDishMiss}
           fallbackOrigin={distOrigin}
         />
       </div>

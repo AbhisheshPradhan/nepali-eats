@@ -99,9 +99,9 @@
     {
       "name": "Pulao",
       "items": [
-        { "name": "Kashmiri Pulao", "description": "Basmati rice cooked with nuts and dried fruit.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] },
-        { "name": "Pea Pulao", "description": "Basmati rice cooked with green peas.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] },
-        { "name": "Vegetable Pulao", "description": "Basmati rice cooked with vegetables.", "is_vegetarian": true, "tags": [], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] }
+        { "name": "Kashmiri Pulao", "description": "Basmati rice cooked with nuts and dried fruit.", "is_vegetarian": true, "tags": ["pulao"], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] },
+        { "name": "Pea Pulao", "description": "Basmati rice cooked with green peas.", "is_vegetarian": true, "tags": ["pulao"], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] },
+        { "name": "Vegetable Pulao", "description": "Basmati rice cooked with vegetables.", "is_vegetarian": true, "tags": ["pulao"], "variants": [ { "label": "Small", "price": 9.90, "protein": "veg" }, { "label": "Large", "price": 11.90, "protein": "veg" } ] }
       ]
     },
     {
@@ -140,8 +140,8 @@
     {
       "name": "Fish & Chips - Fish (Beer Battered)",
       "items": [
-        { "name": "Flake (Beer Battered)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Fish only", "price": 11.90, "protein": "fish" }, { "label": "With chips", "price": 17.90, "protein": "fish" } ] },
-        { "name": "Flathead (Beer Battered)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Fish only", "price": 12.90, "protein": "fish" }, { "label": "With chips", "price": 18.90, "protein": "fish" } ] },
+        { "name": "Flake (Beer Battered)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": ["fried-fish"], "variants": [ { "label": "Fish only", "price": 11.90, "protein": "fish" }, { "label": "With chips", "price": 17.90, "protein": "fish" } ] },
+        { "name": "Flathead (Beer Battered)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": ["fried-fish"], "variants": [ { "label": "Fish only", "price": 12.90, "protein": "fish" }, { "label": "With chips", "price": 18.90, "protein": "fish" } ] },
         { "name": "Crumbed Squid Rings (6)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Squid only", "price": 14.90 }, { "label": "With chips", "price": 20.90 } ] },
         { "name": "Prawn Cutlet (6)", "description": "Served with a side chips, lemon and tartare sauce.", "tags": [], "variants": [ { "label": "Prawn only", "price": 12.90, "protein": "prawn" }, { "label": "With chips", "price": 17.90, "protein": "prawn" } ] },
         { "name": "Kids Meal (Fish)", "description": "Two beer battered flathead strips and chips, served with lemon and tartare sauce.", "tags": [], "variants": [ { "label": null, "price": 14.90, "protein": "fish" } ] },

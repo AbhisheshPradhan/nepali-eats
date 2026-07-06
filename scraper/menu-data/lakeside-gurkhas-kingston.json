@@ -2386,7 +2386,7 @@
           "name": "Dosa (Plain)",
           "description": "Made from rice and urad dal batter, served with coconut chutney and sambar.",
           "is_vegetarian": true,
-          "tags": [],
+          "tags": ["dosa"],
           "variants": [
             {
               "label": null,
@@ -2400,7 +2400,7 @@
           "name": "Dosa (Masala)",
           "description": "Made from rice and urad dal batter, filled with spiced potato masala, served with coconut chutney and sambar.",
           "is_vegetarian": true,
-          "tags": [],
+          "tags": ["dosa"],
           "variants": [
             {
               "label": null,
@@ -2414,7 +2414,7 @@
           "name": "Dosa (Mysore Masala)",
           "description": "Made from rice and urad dal batter, smeared with spicy Mysore chutney and filled with potato masala, served with coconut chutney and sambar.",
           "is_vegetarian": true,
-          "tags": [],
+          "tags": ["dosa"],
           "variants": [
             {
               "label": null,

@@ -17,6 +17,7 @@ import {
 	BowlFood,
 	ForkKnife,
 	Flame,
+	Pepper,
 	ArrowsDownUp,
 	Check,
 	type Icon,
@@ -46,21 +47,16 @@ import type {
 } from "@/lib/types";
 import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
 import { withDish, withoutDish, type ExploreParams } from "@/lib/explore-url";
+import { EXPLORE_CATEGORIES, FACET_KIND_ORDER } from "@/lib/menu/categories";
 import { cn } from "@/lib/cn";
 import { Z } from "@/lib/z";
 
 // Our-food category chips on the primary bar: one-tap entry points into the
 // dish search (identical to picking the tag in the SearchBox). Clicking one
-// lists the dishes we actually matched inside it via the facet bar below
-// (Newari -> choila, bara, chatamari…; Momo -> its preparations). Curated set,
-// biggest menu coverage first; slugs are dish_categories slugs.
-const CATEGORY_CHIPS: [string, string][] = [
-	["momo", "Momo"],
-	["newari", "Newari"],
-	["sekuwa", "Sekuwa"],
-	["tibetan", "Tibetan"],
-	["thakali", "Thakali"],
-];
+// lists the dishes we actually matched inside it via the facet dropdowns
+// (Newari -> choila, bara, chatamari…; Momo -> its preparations). The list
+// itself is shared with the facet catalog: lib/menu/categories.ts.
+const CATEGORY_CHIPS = EXPLORE_CATEGORIES;
 
 // One icon per cuisine for the Category dropdown rows (desktop).
 const CUISINE_ICON: Record<string, Icon> = {
@@ -69,6 +65,7 @@ const CUISINE_ICON: Record<string, Icon> = {
 	sekuwa: Flame,
 	tibetan: BowlFood,
 	thakali: CookingPot,
+	"nepali-indian": Pepper,
 };
 
 // Attribute flags for the Features dropdown, grouped. Tokens must match the
@@ -106,19 +103,15 @@ const FLAG_GROUPS: { label: string; items: [string, string][] }[] = [
 	},
 ];
 
-// Dish-refine dropdowns: one per facet kind present, in this order/label.
+// Dish-refine dropdowns: one per facet kind present, labelled here; the kind
+// ORDER is the shared FACET_KIND_ORDER (lib/menu/categories, same source the
+// SQL facet sort uses).
 const FACET_KIND_LABEL: Record<DishFacet["kind"], string> = {
 	preparation: "Dish type",
 	dish: "Dish",
 	protein: "Protein",
 	diet: "Dietary",
 };
-const FACET_KIND_ORDER: DishFacet["kind"][] = [
-	"preparation",
-	"dish",
-	"protein",
-	"diet",
-];
 
 const SORT_ENTRIES: [string, string][] = [
 	["popular", "Popular"],
@@ -126,6 +119,12 @@ const SORT_ENTRIES: [string, string][] = [
 	["nearest", "Nearest"],
 ];
 const SORT_LABELS: Record<string, string> = Object.fromEntries(SORT_ENTRIES);
+
+// Shown when a dietary facet (vegan, gluten-free) is selected: those tags come
+// from menu wording only, and for a coeliac or strict vegan that isn't enough.
+// One string, rendered in the desktop bar AND the mobile dish sheet.
+const DIETARY_NOTE =
+	"Tagged from each restaurant's own menu. Menus change, so check with the venue before you order.";
 
 const PAGE_SIZE = 30;
 
@@ -158,6 +157,7 @@ export function ExploreClient({
 	fixed,
 	dish,
 	dishProtein,
+	dishDiet,
 	dishFacet,
 	initialItems,
 	initialCenter,
@@ -169,13 +169,14 @@ export function ExploreClient({
 	autoLocate = false,
 	viewKey,
 	cameraKey,
-	initialQuery = "",
 }: {
 	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
 	// dish search (menu-level): the cuisine-normalized dish/style tag slug, plus
 	// an optional protein facet pre-applied by a compound pick ("Paneer Momo").
 	dish?: string;
 	dishProtein?: string;
+	// diet facet from ?diet= (vegan, gluten-free), same URL contract as protein
+	dishDiet?: string;
 	// A facet pre-selected by normalizing a leaf-tag search server-side: a momo
 	// preparation ("steamed momo" → dish momo + preparation steamed-momo) or a
 	// styled member dish ("choila" → dish newari + dish choila). See page.tsx.
@@ -196,8 +197,6 @@ export function ExploreClient({
 	// filters in place instead of recentring the map.
 	viewKey: string;
 	cameraKey: string;
-	// initialQuery = what the search box shows (suburb, state / focused name)
-	initialQuery?: string;
 }) {
 	const router = useRouter();
 	// Current URL params, so every filter change MERGES (keeps the other
@@ -268,14 +267,20 @@ export function ExploreClient({
 	// One selection per facet kind, keyed by kind: a momo preparation and/or a
 	// protein and/or a diet tag (dish search), or a member dish (style search,
 	// e.g. Newari -> Choila). Separate slots per kind mean Chicken + Gluten Free
-	// combine, and a new facet kind needs no new state or dispatch code. protein
-	// is URL-seedable (?protein= from a compound search pick).
-	const [facetSel, setFacetSel] = useState<
-		Partial<Record<DishFacet["kind"], string | null>>
-	>(() => ({
-		protein: dishProtein ?? null,
-		...(dishFacet ? { [dishFacet.kind]: dishFacet.slug } : {}),
-	}));
+	// combine. DERIVED from the URL, never state: every facet pick navigates
+	// (see setFacet below), so selections survive location changes, are
+	// shareable, and the back button undoes them. The dish/preparation slot
+	// arrives via the ?dish= leaf slug (normalizeDishTag splits it into the
+	// bucket + this facet server-side); protein/diet have their own params.
+	const facetSel = useMemo<Partial<Record<DishFacet["kind"], string | null>>>(
+		() => ({
+			protein: dishProtein ?? null,
+			diet: dishDiet ?? null,
+			...(dishFacet ? { [dishFacet.kind]: dishFacet.slug } : {}),
+		}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[dishProtein, dishDiet, dishFacet?.kind, dishFacet?.slug],
+	);
 	const selectedFacets = useMemo(
 		() => Object.values(facetSel).filter((v): v is string => !!v),
 		[facetSel],
@@ -309,9 +314,10 @@ export function ExploreClient({
 		};
 	}, [dish]);
 
-	// The search box is uncontrolled (SearchBox owns its text). To override it from
-	// "Near me", we bump boxKey to remount it with a fresh defaultValue.
-	const [boxValue, setBoxValue] = useState(initialQuery);
+	// The search box is uncontrolled (SearchBox owns its text) and TRANSIENT: it
+	// always starts empty (active location shows on the map + heading, active
+	// dish in the filters). Bumping boxKey remounts it, wiping any half-typed
+	// text on navigation / map takeover.
 	const [boxKey, setBoxKey] = useState(0);
 	const [openOnly, setOpenOnly] = useState(false);
 	const [sort, setSort] = useState("popular");
@@ -343,15 +349,12 @@ export function ExploreClient({
 	// everything in the bounds, relabelling the view as "in the map area".
 	const [areaScoped, setAreaScoped] = useState(false);
 	const areaScopedRef = useRef(false);
-	const enterAreaMode = (label?: string) => {
+	const enterAreaMode = (clearBox = false) => {
 		if (!areaScopedRef.current) {
 			areaScopedRef.current = true;
 			setAreaScoped(true);
 		}
-		if (label !== undefined) {
-			setBoxValue(label);
-			setBoxKey((k) => k + 1);
-		}
+		if (clearBox) setBoxKey((k) => k + 1);
 	};
 
 	const listRef = useRef<HTMLDivElement>(null);
@@ -370,7 +373,7 @@ export function ExploreClient({
 		// context lives in the list heading below. Taking the map over also
 		// retires the "showing the closest" banner — the user is driving now.
 		if (userMoved) {
-			enterAreaMode("");
+			enterAreaMode(true);
 			setAutoBanner(null);
 		}
 	}, []);
@@ -432,14 +435,9 @@ export function ExploreClient({
 			setAreaScoped(false);
 		}
 		setSelected(focusId ?? null);
-		setBoxValue(initialQuery);
 		setBoxKey((k) => k + 1);
-		// a new dish (or none) resets the facet chips to the URL-seeded facets
-		// (compound protein + any normalized preparation/dish facet)
-		setFacetSel({
-			protein: dishProtein ?? null,
-			...(dishFacet ? { [dishFacet.kind]: dishFacet.slug } : {}),
-		});
+		// facet chips need no reset here: facetSel is DERIVED from the URL props,
+		// so it re-syncs on every navigation by construction.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [viewKey]);
 
@@ -526,7 +524,13 @@ export function ExploreClient({
 		const suburb = fixed.suburb?.toLowerCase();
 		return spots.filter(
 			(s) =>
-				(!dish ||
+				// The searched-by-name (focused) restaurant bypasses every filter:
+				// picking a place from the search box means "show me this place",
+				// so it must never fly the map to a spot with no pin. Only the
+				// viewport clip (inView) still applies. Its card explains a dish
+				// miss instead (noDishMatch on ExploreCard).
+				s.id === focusId ||
+				((!dish ||
 					dishItems?.has(s.id) ||
 					(selectedFacets.length === 0 && s.tags.includes(dish))) &&
 				(!fixed.tag || s.tags.includes(fixed.tag)) &&
@@ -535,9 +539,9 @@ export function ExploreClient({
 					((!fixed.state || s.state === fixed.state) &&
 						(!suburb || s.suburb?.toLowerCase() === suburb))) &&
 				flags.every((f) => s.flags.includes(f)) &&
-				(!openOnly || isOpenNow(s.openingHours, s.state) !== false),
+				(!openOnly || isOpenNow(s.openingHours, s.state) !== false)),
 		);
-	}, [spots, dish, dishItems, selectedFacets, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
+	}, [spots, focusId, dish, dishItems, selectedFacets, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
 
 	// only list spots whose pin is in the current viewport (matches what's on the map)
 	const inView = useMemo(() => {
@@ -591,11 +595,51 @@ export function ExploreClient({
 		router.push(
 			dish === slug ? withoutDish(currentParams) : withDish(currentParams, { dish: slug }),
 		);
+	// Facet picks NAVIGATE (facetSel is URL-derived, never client state): the
+	// dish/preparation slot rides the ?dish= leaf slug, which the server
+	// re-normalizes into bucket + facet (normalizeDishTag); protein/diet ride
+	// their own params. withDish preserves the location keys, so refinements
+	// survive suburb searches / Near me and the URL is shareable.
+	const setFacet = (kind: DishFacet["kind"], slug: string | null) => {
+		const next = { ...facetSel, [kind]: slug };
+		const leaf = next.dish ?? next.preparation ?? dish;
+		router.push(
+			withDish(currentParams, {
+				dish: leaf ?? undefined,
+				protein: next.protein ?? undefined,
+				diet: next.diet ?? undefined,
+			}),
+		);
+	};
 	// Is the active dish one of the 5 Category cuisines? If so the Category
 	// dropdown + facet chips already represent it; if not (curry, biryani, a
 	// search-box dish) it shows as its own standalone active-dish chip so EVERY
 	// dish is visible in the filter row, never orphaned in the Category trigger.
 	const dishIsCategory = !!dish && CATEGORY_CHIPS.some(([slug]) => slug === dish);
+
+	// Facet options for the current dish: prefer the pre-loaded catalog (instant,
+	// no flicker) for a Category cuisine, else the per-dish response (search-box
+	// dishes not in the catalog). Same DishFacet[] shape either way. (Defined
+	// before the list body: the empty states name facets via facetName below.)
+	const facetList: DishFacet[] =
+		(dish ? catalog?.[dish] : undefined) ?? dishData?.facets ?? [];
+	// A facet's display name; falls back to the taxonomy label for a facet that
+	// was URL-seeded (normalizeDishTag) but isn't served on any seeded menu yet.
+	const facetName = (slug: string) =>
+		facetList.find((f) => f.slug === slug)?.name ?? tagLabel(slug);
+	// The most specific name for what the dish search is filtering by, for the
+	// empty states: a dish/preparation facet REPLACES the bucket name (searching
+	// "kachila" must say kachila, not Newari; "Steamed Momo" already carries the
+	// dish), and diet/protein picks qualify it ("Vegan Chicken Momo").
+	const dishSearchLabel = (() => {
+		if (!dish) return null;
+		const leaf = facetSel.dish ?? facetSel.preparation;
+		const base = leaf ? facetName(leaf) : (dishName ?? tagLabel(dish));
+		const quals = [facetSel.diet, facetSel.protein]
+			.filter((s): s is string => !!s)
+			.map(facetName);
+		return [...quals, base].join(" ");
+	})();
 
 	// Dish mode, nothing in view: the closest match measured from what the user
 	// is looking at (the viewport centre). Powers the auto-resolve banner and
@@ -741,7 +785,7 @@ export function ExploreClient({
 					{dish && nearest ? (
 						<>
 							<p>
-								No {dishName} spots in this area. The closest
+								No {dishSearchLabel} spots in this area. The closest
 								is{" "}
 								<strong className="text-ink-700">
 									{nearest.spot.name}
@@ -760,9 +804,12 @@ export function ExploreClient({
 							</button>
 						</>
 					) : dish ? (
+						// zero matches ANYWHERE in Australia (nearest is national), so
+						// name the exact thing searched, not the cuisine bucket
 						<p>
-							No spots serving {dishName} yet. Try another dish
-							or clear the search.
+							No {dishSearchLabel} on any menu here yet. Menus are
+							still rolling in, so try another dish or check back
+							soon.
 						</p>
 					) : (
 						<>
@@ -797,6 +844,13 @@ export function ExploreClient({
 								<ExploreCard
 									r={r}
 									pills={dishItems?.get(r.id)}
+									// dish miss note: only the searched-by-name card, and only
+									// once dishItems resolved (never while the fetch is in flight)
+									noDishMatch={
+										r.id === focusId &&
+										dishItems !== null &&
+										!dishItems.has(r.id)
+									}
 									dishName={dishName ?? undefined}
 									hovered={hovered === r.id}
 									selected={selected === r.id}
@@ -825,19 +879,18 @@ export function ExploreClient({
 	// the sheet header (mobile). A selected dietary facet (vegan, gluten-free)
 	// gets a "check with the venue" line: those tags come from menu wording
 	// only, and for a coeliac or strict vegan that isn't enough.
-	// Facet options for the current dish: prefer the pre-loaded catalog (instant,
-	// no flicker) for a Category cuisine, else the per-dish response (search-box
-	// dishes not in the catalog). Same DishFacet[] shape either way.
-	const facetList: DishFacet[] =
-		(dish ? catalog?.[dish] : undefined) ?? dishData?.facets ?? [];
 	const dietaryNote = facetList.some(
 		(f) => f.dietary && facetSel[f.kind] === f.slug,
 	);
 	// Facets grouped by kind, in dropdown order — one desktop dropdown per kind
 	// present (momo → Dish type + Protein; Newari → Dish; a diet facet → Dietary).
-	const facetGroups = FACET_KIND_ORDER.map(
-		(kind) => [kind, facetList.filter((f) => f.kind === kind)] as const,
-	).filter(([, fs]) => fs.length > 0);
+	// Member-dish lists read like a menu index, so they're alphabetised; the
+	// other kinds keep their curated taxonomy order (Steamed before Jhol).
+	const facetGroups = FACET_KIND_ORDER.map((kind) => {
+		const fs = facetList.filter((f) => f.kind === kind);
+		if (kind === "dish") fs.sort((a, b) => a.name.localeCompare(b.name));
+		return [kind, fs] as const;
+	}).filter(([, fs]) => fs.length > 0);
 	// Names of the currently-selected facets (for the mobile Dish pill label).
 	const selectedFacetNames = facetList
 		.filter((f) => facetSel[f.kind] === f.slug)
@@ -889,12 +942,7 @@ export function ExploreClient({
 											key={f.slug}
 											active={active}
 											label={f.name}
-											onClick={() =>
-												setFacetSel((c) => ({
-													...c,
-													[kind]: active ? null : f.slug,
-												}))
-											}
+											onClick={() => setFacet(kind, active ? null : f.slug)}
 										/>
 									);
 								})}
@@ -902,8 +950,7 @@ export function ExploreClient({
 						))}
 						{dietaryNote && (
 							<p className="text-[0.82rem] text-ink-500 leading-snug">
-								Tagged from each restaurant&apos;s own menu. Menus change,
-								so check with the venue before you order.
+								{DIETARY_NOTE}
 							</p>
 						)}
 					</>
@@ -1024,7 +1071,8 @@ export function ExploreClient({
 			title="Sort by"
 			footer={<SheetShowButton n={total} onClick={() => setSheet(null)} />}
 		>
-			<div className="flex flex-col gap-1">
+			{/* role=menu: the rows are menuitemradio and need a menu ancestor */}
+			<div role="menu" aria-orientation="vertical" className="flex flex-col gap-1">
 				{SORT_ENTRIES.map(([slug, label]) => (
 					<MenuRow
 						key={slug}
@@ -1053,12 +1101,12 @@ export function ExploreClient({
 					<div className="flex-1 min-w-0 max-w-[560px]">
 						{/* Same component as the homepage hero. Pure navigation: pick a
                 suburb (recenters, shows all its spots) or a restaurant (focus).
-                Pre-filled with the current area; empty state clears, not redirects. */}
+                Transient, always starts empty (boxKey remounts to clear);
+                empty-state submit clears the search, not redirects. */}
 						<SearchBox
 							key={boxKey}
 							variant="bar"
 							embedded
-							defaultValue={boxValue}
 							current={currentParams}
 						/>
 					</div>
@@ -1166,7 +1214,7 @@ export function ExploreClient({
 											selected={!sel}
 											label={`Any ${kindLabel.toLowerCase()}`}
 											onSelect={() => {
-												setFacetSel((c) => ({ ...c, [kind]: null }));
+												setFacet(kind, null);
 												close();
 											}}
 										/>
@@ -1176,10 +1224,7 @@ export function ExploreClient({
 												selected={sel === f.slug}
 												label={f.name}
 												onSelect={() => {
-													setFacetSel((c) => ({
-														...c,
-														[kind]: sel === f.slug ? null : f.slug,
-													}));
+													setFacet(kind, sel === f.slug ? null : f.slug);
 													close();
 												}}
 											/>
@@ -1200,7 +1245,7 @@ export function ExploreClient({
 							className="shrink-0 inline-flex items-center gap-1.5 font-display font-bold text-[0.9rem] text-ink-500 px-1.5 cursor-pointer hover:text-ink-900 transition-colors"
 						>
 							<X size={14} weight="bold" />
-							Clear dish
+							Clear
 						</button>
 					)}
 
@@ -1226,6 +1271,7 @@ export function ExploreClient({
 										selected={openOnly}
 										icon={<Clock weight="fill" size={17} />}
 										label="Open now"
+										multi
 										onSelect={() => setOpenOnly((o) => !o)}
 									/>
 								</div>
@@ -1239,6 +1285,7 @@ export function ExploreClient({
 												key={token}
 												selected={flags.includes(token)}
 												label={label}
+												multi
 												onSelect={() => toggleFlag(token)}
 											/>
 										))}
@@ -1295,8 +1342,7 @@ export function ExploreClient({
 				</div>
 				{dish && dietaryNote && (
 					<p className="max-md:hidden mt-1.5 text-[0.8rem] text-ink-500">
-						Tagged from each restaurant&apos;s own menu. Menus change, so
-						check with the venue before you order.
+						{DIETARY_NOTE}
 					</p>
 				)}
 
@@ -1403,6 +1449,7 @@ export function ExploreClient({
 						dishPills={dishItems ?? undefined}
 						dishName={dishName ?? undefined}
 						distOrigin={distOrigin}
+						focusId={focusId}
 					/>
 				</div>
 

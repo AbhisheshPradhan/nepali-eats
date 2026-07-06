@@ -546,8 +546,8 @@ export function SearchBox({
 										<>No food spots found in {trimmed}.</>
 									) : (
 										<>
-											No spots match &ldquo;{trimmed}
-											&rdquo;.
+											No spots or dishes match &ldquo;{trimmed}
+											&rdquo; yet.
 										</>
 									)}
 								</span>

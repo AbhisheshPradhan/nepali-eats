@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { query } from "./db";
 import { DISH_CATEGORIES, FACET_KIND_ORDER } from "./menu/taxonomy";
+import { EXPLORE_CATEGORIES } from "./menu/categories";
 import type {
 	Restaurant,
 	RestaurantDetail,
@@ -737,6 +738,70 @@ export async function searchSuggest(q: string): Promise<Suggestion> {
 }
 
 // --- Dish search matches ------------------------------------------------------
+
+// The facet AXIS for a searched tag: how items tagged with it refine. A DISH
+// refines by its momo preparation subtree + cross-cutting proteins/diet; a
+// STYLE (Newari, Tibetan…) refines by its MEMBER DISHES (choila, yomari…) —
+// protein is a meaningless axis for a cuisine, so it's swapped out. Member
+// slugs come from the taxonomy `style` field. Shared by dishRestaurants (the
+// per-dish payload) and categoryFacets (the catalog) so the two responses can
+// never disagree on what counts as a facet.
+function facetAxis(tag: { id: number; kind: string }, slug: string) {
+	const isStyle = tag.kind === "style";
+	const memberDishes = isStyle
+		? DISH_CATEGORIES.filter((c) => c.kind === "dish" && c.style === slug).map(
+				(c) => c.slug,
+			)
+		: [];
+	return {
+		isStyle,
+		// Per-item facet slugs: for a style, the item's member-dish tags; for a
+		// dish, its proteins/diet + preparations under the searched dish. The
+		// searched tag itself is excluded: searching gluten-free (kind diet)
+		// would otherwise echo itself back as a facet chip on every item.
+		facetClause: isStyle
+			? `d2.slug = ANY($2)`
+			: `(d2.kind IN ('protein','diet') OR d2.parent_id = $2) AND d2.id <> $2`,
+		facetParam: (isStyle ? memberDishes : tag.id) as string[] | number,
+	};
+}
+
+// Resolve served facet slugs to the ordered DishFacet[] the UI renders: kinds
+// in FACET_KIND_ORDER, taxonomy order (display_order/id) within a kind (the
+// stable sort preserves it), dietary flag from the taxonomy. Shared tail of
+// dishRestaurants + categoryFacets.
+async function resolveFacets(
+	facetSlugs: string[],
+	isStyle: boolean,
+): Promise<DishFacet[]> {
+	if (!facetSlugs.length) return [];
+	const facetKindClause = isStyle
+		? `kind = 'dish'`
+		: `kind IN ('preparation','protein','diet')`;
+	const dietarySlugs = new Set(
+		DISH_CATEGORIES.filter((c) => c.dietary).map((c) => c.slug),
+	);
+	return (
+		await query<{ slug: string; name: string; kind: string }>(
+			`SELECT slug, name, kind FROM dish_categories
+        WHERE slug = ANY($1) AND ${facetKindClause}
+        ORDER BY display_order, id`,
+			[facetSlugs],
+		)
+	)
+		.sort(
+			(a, b) =>
+				FACET_KIND_ORDER.indexOf(a.kind as DishFacet["kind"]) -
+				FACET_KIND_ORDER.indexOf(b.kind as DishFacet["kind"]),
+		)
+		.map((f) => ({
+			slug: f.slug,
+			name: f.name,
+			kind: f.kind as DishFacet["kind"],
+			...(dietarySlugs.has(f.slug) ? { dietary: true } : {}),
+		}));
+}
+
 // Every restaurant with menu items tagged <slug> (ancestors are materialised at
 // seed time, so "momo" flat-matches every preparation), each item carrying its
 // facet slugs (preparations under the searched tag + proteins) so Explore can
@@ -753,25 +818,9 @@ export async function dishRestaurants(
 	const tag = tagRows[0];
 	if (!tag) return null;
 
-	// Facet axis depends on the searched tag's kind. A DISH refines by its momo
-	// preparation subtree + cross-cutting proteins; a STYLE (Newari, Tibetan…)
-	// refines by its MEMBER DISHES (choila, yomari, sukuti…) — protein is a
-	// meaningless axis for a cuisine, so we swap it out. Member slugs come from
-	// the taxonomy `style` field (the seeder tags each dish's style alongside it).
-	const isStyle = tag.kind === "style";
-	const memberDishes = isStyle
-		? DISH_CATEGORIES.filter((c) => c.kind === "dish" && c.style === slug).map(
-				(c) => c.slug,
-			)
-		: [];
-	// Per-item facet slugs: for a style, the item's member-dish tags; for a dish,
-	// its proteins + preparations under the searched dish. $2 carries whichever.
-	const facetClause = isStyle
-		? `d2.slug = ANY($2)`
-		: // exclude the searched tag itself: searching gluten-free (kind diet)
-			// would otherwise echo itself back as a facet chip on every item
-			`(d2.kind IN ('protein','diet') OR d2.parent_id = $2) AND d2.id <> $2`;
-	const facetParam = isStyle ? memberDishes : tag.id;
+	// Facet axis depends on the searched tag's kind (see facetAxis above); $2
+	// carries member dishes (style) or the tag id (dish).
+	const { isStyle, facetClause, facetParam } = facetAxis(tag, slug);
 
 	const rows = await query<{
 		restaurant_id: number;
@@ -836,37 +885,7 @@ export async function dishRestaurants(
 		for (const s of row.slugs ?? []) facetSlugs.add(s);
 	}
 
-	// Resolve facet names/kinds. Kind order comes from FACET_KIND_ORDER in the
-	// taxonomy (preparations, proteins, diet); within a kind, taxonomy order
-	// (display_order/id) keeps chips stable. Sorted here (stable sort over the
-	// SQL row order) so the priority lives in one declarative place.
-	const facetKindClause = isStyle
-		? `kind = 'dish'`
-		: `kind IN ('preparation','protein','diet')`;
-	const dietarySlugs = new Set(
-		DISH_CATEGORIES.filter((c) => c.dietary).map((c) => c.slug),
-	);
-	const facets: DishFacet[] = facetSlugs.size
-		? (
-				await query<{ slug: string; name: string; kind: string }>(
-					`SELECT slug, name, kind FROM dish_categories
-            WHERE slug = ANY($1) AND ${facetKindClause}
-            ORDER BY display_order, id`,
-					[[...facetSlugs]],
-				)
-			)
-				.sort(
-					(a, b) =>
-						FACET_KIND_ORDER.indexOf(a.kind as DishFacet["kind"]) -
-						FACET_KIND_ORDER.indexOf(b.kind as DishFacet["kind"]),
-				)
-				.map((f) => ({
-					slug: f.slug,
-					name: f.name,
-					kind: f.kind as DishFacet["kind"],
-					...(dietarySlugs.has(f.slug) ? { dietary: true } : {}),
-				}))
-		: [];
+	const facets = await resolveFacets([...facetSlugs], isStyle);
 
 	return {
 		slug: tag.slug,
@@ -879,33 +898,21 @@ export async function dishRestaurants(
 	};
 }
 
-// The Explore "Category" filter cuisines (mirrors CATEGORY_CHIPS in
-// ExploreClient). The facet catalog is built for exactly these, since they're
-// what the Category dropdown / sheet drills into.
-const CATALOG_CATEGORIES = ["momo", "newari", "sekuwa", "tibetan", "thakali"];
+// The Explore "Category" filter cuisines, from the shared single source
+// (lib/menu/categories.ts — also drives the Category dropdown/sheet + icons).
+// The facet catalog is built for exactly these.
+const CATALOG_CATEGORIES = EXPLORE_CATEGORIES.map(([slug]) => slug);
 
 // The served facet axes for one category — the same DishFacet[] dishRestaurants
 // returns, but computed WITHOUT the per-restaurant items (we only need which
-// facets exist). A DISH refines by momo preparations + proteins; a STYLE by its
-// member dishes. Only facets actually present on a seeded menu are returned.
-async function categoryFacets(slug: string): Promise<DishFacet[]> {
-	const tagRows = await query<{ id: number; kind: string }>(
-		`SELECT id, kind FROM dish_categories WHERE slug = $1`,
-		[slug],
-	);
-	const tag = tagRows[0];
-	if (!tag) return [];
-
-	const isStyle = tag.kind === "style";
-	const memberDishes = isStyle
-		? DISH_CATEGORIES.filter((c) => c.kind === "dish" && c.style === slug).map(
-				(c) => c.slug,
-			)
-		: [];
-	const facetClause = isStyle
-		? `d2.slug = ANY($2)`
-		: `(d2.kind IN ('protein','diet') OR d2.parent_id = $2) AND d2.id <> $2`;
-	const facetParam = isStyle ? memberDishes : tag.id;
+// facets exist; axis + resolution logic shared via facetAxis/resolveFacets).
+// Only facets actually present on a seeded menu are returned.
+async function categoryFacets(tag: {
+	id: number;
+	kind: string;
+	slug: string;
+}): Promise<DishFacet[]> {
+	const { isStyle, facetClause, facetParam } = facetAxis(tag, tag.slug);
 
 	// distinct facet slugs present on non-hidden items tagged with this category
 	const slugRows = await query<{ slug: string }>(
@@ -923,34 +930,10 @@ async function categoryFacets(slug: string): Promise<DishFacet[]> {
         AND ${facetClause}`,
 		[tag.id, facetParam],
 	);
-	const facetSlugs = slugRows.map((r) => r.slug);
-	if (!facetSlugs.length) return [];
-
-	const facetKindClause = isStyle
-		? `kind = 'dish'`
-		: `kind IN ('preparation','protein','diet')`;
-	const dietarySlugs = new Set(
-		DISH_CATEGORIES.filter((c) => c.dietary).map((c) => c.slug),
+	return resolveFacets(
+		slugRows.map((r) => r.slug),
+		isStyle,
 	);
-	return (
-		await query<{ slug: string; name: string; kind: string }>(
-			`SELECT slug, name, kind FROM dish_categories
-        WHERE slug = ANY($1) AND ${facetKindClause}
-        ORDER BY display_order, id`,
-			[facetSlugs],
-		)
-	)
-		.sort(
-			(a, b) =>
-				FACET_KIND_ORDER.indexOf(a.kind as DishFacet["kind"]) -
-				FACET_KIND_ORDER.indexOf(b.kind as DishFacet["kind"]),
-		)
-		.map((f) => ({
-			slug: f.slug,
-			name: f.name,
-			kind: f.kind as DishFacet["kind"],
-			...(dietarySlugs.has(f.slug) ? { dietary: true } : {}),
-		}));
 }
 
 // The Explore filter catalog: every Category cuisine → its served facet axes.
@@ -958,10 +941,13 @@ async function categoryFacets(slug: string): Promise<DishFacet[]> {
 // it's fetched ONCE and cached hard. Lets the filter UI render dish-type /
 // protein chips instantly, with no per-category fetch and no flicker.
 export async function facetCatalog(): Promise<Record<string, DishFacet[]>> {
+	// one lookup for all category ids, then the per-category scans in parallel
+	const tags = await query<{ id: number; kind: string; slug: string }>(
+		`SELECT id, kind, slug FROM dish_categories WHERE slug = ANY($1)`,
+		[CATALOG_CATEGORIES],
+	);
 	const entries = await Promise.all(
-		CATALOG_CATEGORIES.map(
-			async (slug) => [slug, await categoryFacets(slug)] as const,
-		),
+		tags.map(async (tag) => [tag.slug, await categoryFacets(tag)] as const),
 	);
 	return Object.fromEntries(entries);
 }

@@ -75,6 +75,15 @@ wrap, tacos, nachos, salad, chips.
 BACKFILL (retag+reseed at end): Laltin(makai,fried-fish), Himalayan Tandoor(pulao,
 fried-fish), Lahana(kati-roll,fokso,chopsuey,poleko/choila-momo), Tusa(kachila,saag,
 chokha,thenthuk,batuk), Lababdar(dosa,crab,scallop,calamari).
+✅ BACKFILL DONE 2026-07-06: all of the above re-tagged in the menu-data JSONs and
+reseeded (--commit), plus Heshela ×2 (Choila Momo → choila-momo) and Lakeside
+Gurkhas (3 dosas) found in the same sweep. Zero-coverage taxonomy slugs now: none.
+Tusa's restaurants.tags rollup grew {sekuwa} → {newari,sekuwa,tibetan} as a result.
+NOT done: scallop/calamari on Lababdar's two mixed-seafood items (schema allows one
+protein per variant; prawn/fish already set — would need fake variants). The ROUND-2
+backfill queue below (Indus GC, Momos Hub, Chilli Everest, Spice Mix, Kathmandu
+Newa) is still pending; its slugs have coverage from later menus, so nothing is
+zero-coverage, but those restaurants' fallback-tagged items are still imprecise.
 
 ## RESOLVED round 2 (2026-07-01)
 ADDED: chicken-65, manchurian, dal, gundruk, dhido, rajma, nimki, puri, chaap,

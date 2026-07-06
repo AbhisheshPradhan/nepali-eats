@@ -42,6 +42,7 @@ type SP = Promise<{
   focus?: string;
   dish?: string; // dish/style/preparation tag slug (menu search)
   protein?: string; // optional protein facet pre-applied with the dish
+  diet?: string; // optional diet facet (vegan, gluten-free), same contract
 }>;
 
 function zoomForSpan(span: number) {
@@ -54,14 +55,19 @@ function zoomForSpan(span: number) {
 
 export default async function ExplorePage({ searchParams }: { searchParams: SP }) {
   const sp = await searchParams;
-  const fixed = { tag: sp.tag, state: sp.state, suburb: sp.suburb, venue: sp.venue };
+  // tag and dish are two tiers of the same what-food axis, so they're mutually
+  // exclusive: dish (menu-level) wins and tag is ignored. The URL layer already
+  // sheds tag on any filter change (lib/explore-url); this guards hand-crafted
+  // or stale links carrying both, which would AND two cuisine filters.
+  const tag = sp.dish ? undefined : sp.tag;
+  const fixed = { tag, state: sp.state, suburb: sp.suburb, venue: sp.venue };
   // Normalize the dish tag to its cuisine bucket + a pre-selected facet, so a
   // leaf-tag search ("steamed momo", "choila") lights up the Category / Dish
   // type dropdowns instead of landing on a tag with no sibling facets. The raw
   // sp.dish still drives the search-box text + viewKey below.
   const norm = sp.dish ? normalizeDishTag(sp.dish) : undefined;
   const filters: ListOpts = {
-    tag: sp.tag,
+    tag,
     state: sp.state,
     suburb: sp.suburb,
     venueType: sp.venue,
@@ -102,7 +108,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     userLoc = [qLat, qLng];
     zoom = 13;
     areaLabel = "near you";
-  } else if (sp.tag || sp.state || sp.suburb || sp.venue) {
+  } else if (tag || sp.state || sp.suburb || sp.venue) {
     const ext = await extentOf(filters);
     if (ext) {
       center = [ext.avgLat, ext.avgLng];
@@ -113,8 +119,8 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       ? `in ${sp.suburb}`
       : sp.state
         ? `in ${sp.state}`
-        : sp.tag
-          ? `for ${sp.tag}`
+        : tag
+          ? `for ${tag}`
           : "in this area";
   } else {
     // no explicit location: open the map on the resolved AU state metro centre
@@ -141,11 +147,16 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
     ? `focus:${sp.focus}`
     : hasLatLng
       ? `ll:${qLat},${qLng}`
-      : sp.suburb || sp.state || sp.tag || sp.venue
-        ? `area:${sp.suburb ?? ""}|${sp.state ?? ""}|${sp.tag ?? ""}|${sp.venue ?? ""}`
+      : sp.suburb || sp.state || tag || sp.venue
+        ? `area:${sp.suburb ?? ""}|${sp.state ?? ""}|${tag ?? ""}|${sp.venue ?? ""}`
         : "default";
+  // viewKey uses the NORMALIZED bucket, not the raw leaf: a facet-only change
+  // (?dish=steamed-momo, ?protein=, ?diet=) must not re-run the client's
+  // view-reset effect (map selection, search box) — facet state is derived
+  // from the URL props directly. Only a real bucket change or camera change
+  // re-syncs the view.
   const viewKey = sp.dish
-    ? `${cameraKey}+dish:${sp.dish}|${sp.protein ?? ""}`
+    ? `${cameraKey}+dish:${norm?.dish ?? sp.dish}`
     : cameraKey;
 
   // The list/pins/count are CLIENT-OWNED: the server can't know the visitor's
@@ -161,6 +172,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       fixed={fixed}
       dish={norm?.dish ?? sp.dish}
       dishProtein={sp.protein}
+      dishDiet={sp.diet}
       dishFacet={norm?.facet}
       initialItems={items}
       initialCenter={center}
@@ -172,10 +184,6 @@ export default async function ExplorePage({ searchParams }: { searchParams: SP }
       autoLocate={autoLocate}
       viewKey={viewKey}
       cameraKey={cameraKey}
-      // The search box is a transient entry point that always starts empty: the
-      // active location shows on the map + list heading, the active dish in the
-      // filter chips. So it never pre-fills with the current suburb/dish/name.
-      initialQuery=""
     />
   );
 }

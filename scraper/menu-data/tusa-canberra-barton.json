@@ -7,11 +7,11 @@
     {
       "name": "Small Plates",
       "items": [
-        { "name": "Beef Kachila & Toasted Rice Cracker", "description": "Marinated lean beef with herbs & spices", "tags": [],
+        { "name": "Beef Kachila & Toasted Rice Cracker", "description": "Marinated lean beef with herbs & spices", "tags": ["kachila"],
           "variants": [ { "label": null, "price": 16.00, "protein": "beef" } ] },
-        { "name": "Batuk Chukhauni", "description": "Crispy fried lentil with seasonal vegetables and yoghurt", "is_vegetarian": true, "tags": [],
+        { "name": "Batuk Chukhauni", "description": "Crispy fried lentil with seasonal vegetables and yoghurt", "is_vegetarian": true, "tags": ["batuk"],
           "variants": [ { "label": null, "price": 14.00, "protein": "veg", "is_vegetarian": true } ] },
-        { "name": "Goat Thenduk", "description": "Hearty Himalayan soup with seasonal root vegetables & flour dough", "tags": ["soup"],
+        { "name": "Goat Thenduk", "description": "Hearty Himalayan soup with seasonal root vegetables & flour dough", "tags": ["soup", "thenthuk"],
           "variants": [ { "label": null, "price": 18.00, "protein": "goat" } ] },
         { "name": "Chicken Sekuwa", "description": "BBQed spiced chicken thigh with seasonal salad", "tags": ["sekuwa"],
           "variants": [ { "label": null, "price": 16.00, "protein": "chicken" } ] },
@@ -22,7 +22,7 @@
     {
       "name": "Large Plates",
       "items": [
-        { "name": "Chicken Saag", "description": "Lightly marinated chicken breast with seasonal greens", "tags": [],
+        { "name": "Chicken Saag", "description": "Lightly marinated chicken breast with seasonal greens", "tags": ["saag"],
           "variants": [ { "label": null, "price": 26.00, "protein": "chicken" } ] },
         { "name": "Slow Cooked Lamb Ribs", "description": "Braised lamb ribs with marinated cabbage and linseed", "tags": [],
           "variants": [ { "label": null, "price": 28.00, "protein": "lamb" } ] },
@@ -41,7 +41,7 @@
       "items": [
         { "name": "Seasonal Green Salad", "description": "Buttermilk dressing & spiced soybean", "is_vegetarian": true, "tags": [],
           "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
-        { "name": "Potato Chokha", "description": "Marinated mashed potato with onion, garlic and mustard oil", "is_vegetarian": true, "tags": [],
+        { "name": "Potato Chokha", "description": "Marinated mashed potato with onion, garlic and mustard oil", "is_vegetarian": true, "tags": ["chokha"],
           "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
         { "name": "Roasted Sweet Potato", "description": "Brunt butter, spices", "is_vegetarian": true, "tags": [],
           "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },

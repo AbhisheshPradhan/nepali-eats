@@ -39,10 +39,9 @@ export interface DishCategory {
   //                 only, so UI shows a "check with the venue" note when one is picked.
 }
 
-// Facet-chip display order on a dish search (preparations, then proteins, then
-// dietary tags). Style-search facets are all kind "dish" so they sort equal and
-// keep their taxonomy order.
-export const FACET_KIND_ORDER: DishKind[] = ["dish", "preparation", "protein", "diet"];
+// Facet-kind display order lives in ./categories (the client-safe shared
+// module); re-exported here so the SQL layer keeps one import site.
+export { FACET_KIND_ORDER } from "./categories";
 
 export const DISH_CATEGORIES: DishCategory[] = [
   // --- Dishes (flat, top-level) ---------------------------------------------
@@ -108,6 +107,7 @@ export const DISH_CATEGORIES: DishCategory[] = [
   { slug: "chicken-65", kind: "dish", name: "Chicken 65", synonyms: ["chicken sixty five", "sixty five 65"] },
   { slug: "manchurian", kind: "dish", name: "Manchurian", synonyms: ["manchuria", "munchurian", "gobi manchurian"] },
   { slug: "dal", kind: "dish", name: "Dal", synonyms: ["daal", "dahl", "lentils", "tadka dal", "dal tadka", "dal makhani", "jhaneko daal"] },
+  { slug: "kwati", kind: "dish", name: "Kwati", synonyms: ["kwanti", "quati", "kwati soup", "nine bean soup", "mixed bean soup", "sprouted bean soup"], style: "newari" },
   { slug: "gundruk", kind: "dish", name: "Gundruk", synonyms: ["gundruk bhatmas"] },
   { slug: "dhido", kind: "dish", name: "Dhido", synonyms: ["dhindo", "dhido ko thali"] },
   { slug: "rajma", kind: "dish", name: "Rajma", synonyms: ["kidney bean curry"] },

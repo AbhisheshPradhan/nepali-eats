@@ -25,7 +25,7 @@
         { "name": "Prawn Kaliwada", "description": "Tender prawns marinated in a zesty batter, deep-fried to a golden crisp, capturing the vibrant essence of Mumbai coastal cuisine.", "tags": ["pakora"], "variants": [ { "label": null, "price": 23.9, "protein": "prawn" } ] },
         { "name": "Spicy Chilli Chicken", "description": "Crispy chicken tossed in a spicy chilli sauce.", "spice_level": 3, "tags": ["chilli"], "variants": [ { "label": null, "price": 21.9, "protein": "chicken" } ] },
         { "name": "Lemon Garlic Lamb Chops", "description": "Lamb cutlets marinated with spice, ginger and garlic, and cooked to perfection in the tandoor.", "tags": ["tandoori"], "variants": [ { "label": "2pcs", "price": 19.9, "protein": "lamb" }, { "label": "4pcs", "price": 38.9, "protein": "lamb" } ] },
-        { "name": "Crab Pitta", "description": "Crab meat mixed with rice flour, coconut, and South Indian spices.", "tags": [], "variants": [ { "label": null, "price": 22.9 } ] },
+        { "name": "Crab Pitta", "description": "Crab meat mixed with rice flour, coconut, and South Indian spices.", "tags": [], "variants": [ { "label": null, "price": 22.9, "protein": "crab" } ] },
         { "name": "Spicy Chilli Prawns, Scallops & Calamari", "description": "Prawn, scallops & calamari cooked in chilli sauce.", "spice_level": 3, "tags": ["chilli"], "variants": [ { "label": null, "price": 23.9, "protein": "prawn" } ] },
         { "name": "Famous Gilafi Seekh Kebab", "description": "Skewered lamb mince, glazed with coriander, mint, green chilli, then cooked in the tandoor and served with mint chutney.", "tags": ["seekh-kebab"], "variants": [ { "label": null, "price": 21.9, "protein": "lamb" } ] },
         { "name": "Punjabi Fish Fry", "description": "Fish marinated in medium-spicy batter, then fried till crispy - a famous dish from the streets of Amritsar.", "tags": ["pakora"], "variants": [ { "label": null, "price": 20.9, "protein": "fish" } ] },
@@ -35,12 +35,12 @@
     {
       "name": "Dosa",
       "items": [
-        { "name": "Plain Dosa", "description": "Light & crisp rice flour pancake served with sambhar.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 20.9, "protein": "veg" } ] },
-        { "name": "Masala Dosa", "description": "Light and crisp rice flour pancake served with sambhar and onion chutney with a filling of spiced potato & onion.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 22.9, "protein": "veg" } ] },
-        { "name": "Keema Dosa", "description": "Light and crisp rice flour pancakes served with sambhar and onion chutney with a filling of pounded lamb and cheese.", "tags": [], "variants": [ { "label": null, "price": 24.9, "protein": "lamb" } ] },
-        { "name": "Paneer Dosa", "description": "Light and crisp rice flour pancakes served with sambhar and onion chutney with a filling of paneer.", "is_vegetarian": true, "tags": ["paneer"], "variants": [ { "label": null, "price": 23.9, "protein": "paneer", "is_vegetarian": true } ] },
-        { "name": "Rawa Dosa", "description": "Light & crisp semolina pancake served with sambhar & a filling of spicy potato & onions.", "is_vegetarian": true, "tags": [], "variants": [ { "label": null, "price": 28.9, "protein": "veg" } ] },
-        { "name": "Chicken & Cheese Dosa", "description": "Light & crisp rice flour pancake served with sambhar & a filling of chicken and cheese.", "tags": [], "variants": [ { "label": null, "price": 25.9, "protein": "chicken" } ] }
+        { "name": "Plain Dosa", "description": "Light & crisp rice flour pancake served with sambhar.", "is_vegetarian": true, "tags": ["dosa"], "variants": [ { "label": null, "price": 20.9, "protein": "veg" } ] },
+        { "name": "Masala Dosa", "description": "Light and crisp rice flour pancake served with sambhar and onion chutney with a filling of spiced potato & onion.", "is_vegetarian": true, "tags": ["dosa"], "variants": [ { "label": null, "price": 22.9, "protein": "veg" } ] },
+        { "name": "Keema Dosa", "description": "Light and crisp rice flour pancakes served with sambhar and onion chutney with a filling of pounded lamb and cheese.", "tags": ["dosa"], "variants": [ { "label": null, "price": 24.9, "protein": "lamb" } ] },
+        { "name": "Paneer Dosa", "description": "Light and crisp rice flour pancakes served with sambhar and onion chutney with a filling of paneer.", "is_vegetarian": true, "tags": ["paneer", "dosa"], "variants": [ { "label": null, "price": 23.9, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Rawa Dosa", "description": "Light & crisp semolina pancake served with sambhar & a filling of spicy potato & onions.", "is_vegetarian": true, "tags": ["dosa"], "variants": [ { "label": null, "price": 28.9, "protein": "veg" } ] },
+        { "name": "Chicken & Cheese Dosa", "description": "Light & crisp rice flour pancake served with sambhar & a filling of chicken and cheese.", "tags": ["dosa"], "variants": [ { "label": null, "price": 25.9, "protein": "chicken" } ] }
       ]
     },
     {
@@ -109,7 +109,7 @@
         { "name": "Spicy Shrimp Vinadloo", "description": "A spicy dish from the exotic beaches of Goa made using a unique blend of hot, aromatic spices & vinegar to give it a flavour.", "spice_level": 4, "tags": ["curry"], "variants": [ { "label": null, "price": 34.9, "protein": "prawn" } ] },
         { "name": "Prawn Madras", "description": "A traditional South Indian dish with coconut and fresh tamarind, mustard and dry red chilli.", "tags": ["curry"], "variants": [ { "label": null, "price": 34.9, "protein": "prawn" } ] },
         { "name": "Malabari Mix Seafood Curry", "description": "Fish fillet, prawns, scallops, calamari cooked with rich coconut gravy flavoured with a special blend of spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 44.9, "protein": "fish" } ] },
-        { "name": "Khelala (Crab) Curry", "description": "Crab meat cooked in a Maharashtrian style curry with coconut cream & a blend of spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 35.9 } ] }
+        { "name": "Khelala (Crab) Curry", "description": "Crab meat cooked in a Maharashtrian style curry with coconut cream & a blend of spices.", "tags": ["curry"], "variants": [ { "label": null, "price": 35.9, "protein": "crab" } ] }
       ]
     },
     {

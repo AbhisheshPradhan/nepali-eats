@@ -33,6 +33,7 @@ export function ExploreCard({
 	r,
 	pills,
 	dishName,
+	noDishMatch = false,
 	fallbackOrigin,
 	onViewMap,
 	hovered = false,
@@ -44,6 +45,11 @@ export function ExploreCard({
 	// searched dish's display name for the "+N more" line
 	pills?: DishPill[];
 	dishName?: string;
+	// dish mode, force-included focus card (searched by name, no dish match):
+	// the excerpt slot explains the miss instead of sitting empty. Which line it
+	// shows depends on r.hasMenu: a seeded menu makes "not on the menu" a fact;
+	// without one we can only say we don't have the menu.
+	noDishMatch?: boolean;
 	fallbackOrigin?: LatLng;
 	// centres the map on this spot instead of navigating
 	onViewMap?: () => void;
@@ -175,6 +181,15 @@ export function ExploreCard({
 						</span>
 					)}
 				</div>
+			)}
+
+			{/* the focused card's dish miss: same slot as the menu excerpt */}
+			{noDishMatch && !(pills && pills.length > 0) && dishName && (
+				<p className="mt-2.5 rounded-lg bg-paper-100 px-3 py-2 text-[0.85rem] text-ink-500">
+					{r.hasMenu
+						? `No ${dishName} on their menu, but the rest is worth a look.`
+						: `We don't have their menu yet, so ask them about ${dishName}.`}
+				</p>
 			)}
 
 			{/* bottom row: live open status + the CTAs */}

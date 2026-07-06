@@ -3,7 +3,8 @@
 Directory of **Nepali restaurants in Australia**: scraped from Google Maps,
 enriched, stored in Postgres (Neon), served by the Next.js app in `web/`.
 
-**Where things live:** launch/SEO/UX master plan → `docs/LAUNCH.md` · frontend punch
+**Where things live:** how the site works / technical decisions (Explore filter
+model, URL rules) → `docs/ARCHITECTURE.md` · launch/SEO/UX master plan → `docs/LAUNCH.md` · frontend punch
 list → `docs/GO-LIVE-CHECKLIST.md` · menu system design → `docs/MENU-PLAN.md` · menu
 worklists → `docs/MENU-SEEDING-PLAN.md` + `docs/MENU-QUEUE.md` · post-launch backlog →
 `docs/ROADMAP.md` · implementation review → `docs/IMPLEMENTATION-REVIEW.md` · catering →
@@ -121,7 +122,9 @@ Remaining deploy checklist (details in `docs/LAUNCH.md` §3 / `docs/GO-LIVE-CHEC
   `?focus=<slug>` > `?lat&lng` > `?state/suburb/tag` extent > IP-geo state
   capital > Sydney. `GET /api/search?q=` (3+ chars) powers the shared SearchBox
   autocomplete. Filter chips match `ExploreSpot.flags` tokens (built from
-  `FLAG_COLS` in `lib/queries.ts`).
+  `FLAG_COLS` in `lib/queries.ts`). Filter/URL rules (LOCATION vs DISH merge
+  keys, tag↔dish exclusivity, focused-restaurant filter bypass):
+  `docs/ARCHITECTURE.md` §Explore — read it before touching Explore filters.
 - **Permanently-closed spots are hidden from every public surface** (explore,
   home, search, sitemap, facets) via `business_status IS DISTINCT FROM
   'CLOSED_PERMANENTLY'` (`NOT_CLOSED` in `lib/queries.ts`); detail pages still

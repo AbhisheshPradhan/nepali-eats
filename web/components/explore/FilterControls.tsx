@@ -85,6 +85,9 @@ export function FilterPanel({
 			<Popover.Content
 				align={align}
 				sideOffset={8}
+				role="menu"
+				aria-orientation="vertical"
+				onKeyDown={menuKeyNav}
 				style={{ zIndex: Z.popover }}
 				className="min-w-[200px] rounded-2xl border border-paper-300 bg-white p-1.5 shadow-xl shadow-ink-900/10"
 			>
@@ -94,21 +97,51 @@ export function FilterPanel({
 	);
 }
 
-// One selectable row: check indicator + optional icon + label.
+// Roving arrow-key focus across a menu's rows. The Radix Select these
+// dropdowns replaced had listbox keyboard support built in; a bare Popover of
+// buttons has none, so keyboard users would be stuck tabbing.
+function menuKeyNav(e: React.KeyboardEvent<HTMLElement>) {
+	if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
+	const items = Array.from(
+		e.currentTarget.querySelectorAll<HTMLElement>('[role^="menuitem"]'),
+	);
+	if (!items.length) return;
+	e.preventDefault();
+	const i = items.indexOf(document.activeElement as HTMLElement);
+	const next =
+		e.key === "Home" || (i === -1 && e.key === "ArrowDown")
+			? 0
+			: e.key === "End" || (i === -1 && e.key === "ArrowUp")
+				? items.length - 1
+				: e.key === "ArrowDown"
+					? (i + 1) % items.length
+					: (i - 1 + items.length) % items.length;
+	items[next]?.focus();
+}
+
+// One selectable row: check indicator + optional icon + label. Announced to AT
+// as a radio-style menu item (or checkbox-style when `multi`), with the
+// selection carried by aria-checked — the visual check icon alone says nothing
+// to a screen reader.
 export function MenuRow({
 	selected,
 	icon,
 	label,
+	multi = false,
 	onSelect,
 }: {
 	selected: boolean;
 	icon?: ReactNode;
 	label: ReactNode;
+	// multi-select row (Features): toggles without closing -> menuitemcheckbox
+	multi?: boolean;
 	onSelect: () => void;
 }) {
 	return (
 		<button
 			type="button"
+			role={multi ? "menuitemcheckbox" : "menuitemradio"}
+			aria-checked={selected}
 			onClick={onSelect}
 			className={cn(
 				"w-full flex items-center gap-3 rounded-xl px-2.5 py-2 cursor-pointer text-left font-display transition-colors",

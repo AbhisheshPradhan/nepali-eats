@@ -8,6 +8,12 @@
 // `withLocation` replaces the location keys wholesale (a new suburb drops the old
 // focus/lat-lng) but preserves the dish; `withDish` replaces the dish keys but
 // preserves the location; `withoutDish` clears the dish and keeps the location.
+//
+// `tag` (restaurant-level "known for", from /tag and state landing pages) is in
+// NEITHER list on purpose: it's the coarse tier of the same what-food axis as
+// `dish`, so the two are mutually exclusive (page.tsx ignores tag when dish is
+// set). Entry-only scope: it seeds the landing view, and the first filter
+// change of either dimension sheds it.
 
 export const LOCATION_KEYS = [
 	"suburb",
@@ -15,10 +21,12 @@ export const LOCATION_KEYS = [
 	"lat",
 	"lng",
 	"focus",
-	"tag",
 	"venue",
 ] as const;
-export const DISH_KEYS = ["dish", "protein"] as const;
+// `dish` carries the most specific dish/preparation slug the user picked (a
+// leaf like steamed-momo or choila; the server normalizes it into the cuisine
+// bucket + a pre-selected facet). protein/diet are the cross-cutting facets.
+export const DISH_KEYS = ["dish", "protein", "diet"] as const;
 
 export type ExploreParams = Record<string, string | undefined>;
 
