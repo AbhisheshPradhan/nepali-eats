@@ -981,8 +981,12 @@ export function ExploreClient({
 											);
 											setDishStage(slug ? "refine" : "category");
 										}}
+										// py-2.5 (not 3.5): all 7 rows must fit the sheet body on a
+										// 390x664 phone — at py-3.5 the last row (Nepali-Indian) sat
+										// exactly below the scroll fold with no visible cue that the
+										// list continues (found in the 2026-07-08 mobile QA pass)
 										className={cn(
-											"flex items-center gap-3 rounded-2xl px-3 py-3.5 cursor-pointer text-left border-2 transition-colors",
+											"flex items-center gap-3 rounded-2xl px-3 py-2.5 cursor-pointer text-left border-2 transition-colors",
 											selected
 												? "bg-chili-50 border-chili-200"
 												: "bg-transparent border-transparent hover:bg-paper-100",
