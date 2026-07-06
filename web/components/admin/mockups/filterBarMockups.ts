@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { FilterBarMockupProps } from "./filter-bar/shared";
+import { DropdownBar } from "./filter-bar/DropdownBar";
 import { GroupedFiltersBar } from "./filter-bar/GroupedFiltersBar";
 import { TwoRowBar } from "./filter-bar/TwoRowBar";
 
@@ -15,6 +16,7 @@ export type FilterBarMockup = {
 };
 
 export const FILTER_BAR_MOCKUPS: FilterBarMockup[] = [
+	{ id: "dropdown", label: "Dropdown bar", Component: DropdownBar },
 	{ id: "grouped", label: "Grouped panel", Component: GroupedFiltersBar },
 	{ id: "two-row", label: "Two-row budget", Component: TwoRowBar },
 ];

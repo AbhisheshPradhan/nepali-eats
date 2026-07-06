@@ -192,9 +192,13 @@ export function BarRow({
 // how much height each design leaves the map.
 export function BarShell({
 	mobile,
+	action,
 	children,
 }: {
 	mobile: boolean;
+	// optional desktop-only control rendered to the right of "Near me"
+	// (e.g. a Clear filters button). Hidden on mobile.
+	action?: ReactNode;
 	children: ReactNode;
 }) {
 	return (
@@ -213,6 +217,7 @@ export function BarShell({
 							Near me
 						</span>
 					)}
+					{!mobile && action}
 				</div>
 				{children}
 			</div>
