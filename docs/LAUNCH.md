@@ -605,3 +605,300 @@ First-party events into our own Postgres for future per-restaurant owner insight
 1. Admin polish: what actually slows you down day to day? (guess: bulk multi-select
    edits + faster inline saves on the `/admin` list).
 2. Canonical domain: apex (`nepalieats.com.au`) or www?
+
+---
+
+<!-- ================= Appendix A: was LAUNCH.md (pre-launch appendix) (merged 2026-07-07) ================= -->
+
+# Pre-launch engineering plan (the last bits)
+
+The final, launch-gating engineering tasks — to run **after** the current
+priorities land. SEO internal linking + the Explore page are the important work
+right now and are owned elsewhere; **do not start anything here until Abhishesh
+says go.** Context lives in `LAUNCH.md` (master plan) and `LAUNCH.md (go-live appendix)`;
+this doc is just the executable task list for these four items.
+
+Guardrails for all tasks: `npx tsc --noEmit` + `npm run build` clean before
+handing back; never `git commit`/`git push` without an explicit go; any
+user-facing text follows the human-copy standard (no em/en dashes, AU spelling,
+copywriting skill). Stay out of files another session is actively editing
+(`components/explore/*`, `PlaceCard`, the landing/`LandingPage`/`landing.ts`
+files) until they're committed.
+
+Recommended order: **1 → 2 → 3 → 4** (rate limiting is isolated and can start
+first; the responsive pass is last so it doesn't collide with in-flight UI work).
+
+---
+
+## 1. Rate-limit the public API routes (launch-critical, isolated)
+
+**Why:** `/api/explore/spots`, `/api/explore/dishes`, and `/api/search` are
+unauthenticated and each hit Postgres on a cache miss, with no throttle. That's
+a cheap DoS / Neon-cost amplification vector. Cloudflare rate rules cover the
+custom domain, **but the `.vercel.app` host bypasses Cloudflare**, so we want an
+app-level limiter too. `LAUNCH.md (go-live appendix)` flags this as "before the custom
+domain goes public."
+
+**Scope (routes, heaviest first):**
+- `/api/explore/spots` — full-table read (~440 rows). Highest priority.
+- `/api/explore/dishes` — per-dish menu join.
+- `/api/search` — per-query autocomplete.
+- (Lower priority, small + already CDN-cached: `/api/featured`, `/api/popular`,
+  `/api/restaurants/[slug]/photos`. Include only if cheap.)
+
+**Approach:** `@upstash/ratelimit` + `@upstash/redis` (Upstash free tier), sliding
+window, keyed by client IP (`x-forwarded-for` / Vercel's `x-real-ip`). Suggested
+limits: ~60 req/min per IP on `spots`/`dishes`, ~120/min on `search` (it fires
+per keystroke-batch). **Fail open** — if the limiter/Redis errors, serve the
+request (never take the site down to protect the DB). Return `429` +
+`Retry-After` on limit. Note: the CDN cache (`s-maxage`) already absorbs most
+repeat traffic, so the limiter only guards cache-miss abuse.
+
+**Need from Abhishesh:** create an Upstash Redis DB (free), set
+`UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` in Vercel + local `.env`.
+
+**Decision point:** if we instead lock the `.vercel.app` host down (Cloudflare in
+front of the apex only, block direct Vercel access), Cloudflare rate rules alone
+could suffice and we skip the app limiter. Recommend doing the app limiter
+regardless as defense-in-depth — it's cheap and host-independent.
+
+**Done when:** exceeding the limit returns `429`; normal browsing is unaffected;
+limiter failure falls open; a load test on `spots` is throttled.
+
+---
+
+## 1b. Anti-scraping posture (data exposure)
+
+**The concern:** `/api/explore/spots` ships the ENTIRE visible directory in one
+clean JSON on page load — a competitor can inspect the response and copy the
+whole listing in a single request. That's inherent to the client-side Explore
+architecture (one payload → instant client-side filtering), not a bug.
+
+**Reality check — do NOT "encrypt the JSON".** You can't cryptographically
+protect data the browser has to render: the client holds both the payload and
+the decrypt key/logic (in the JS bundle), and the rendered DOM is readable
+regardless. Client-side encryption is obfuscation, not protection — a speed bump
+that costs us complexity + CPU for no real barrier. Skip it.
+
+**The moat isn't the pin list.** Names + coords + ratings are Google-Maps-derived
+*public* data — a competitor can just re-scrape Google like we did. The
+defensible value is the enrichment: the ~9k **menu items** (real transcription
+work), curation, editorial, blurbs, brand. Protect *that*, not the pin list.
+
+**Real levers, best ROI first (mostly already planned):**
+1. **Cloudflare in front + kill the `.vercel.app` bypass.** Block / deindex
+   direct `.vercel.app` access so all traffic goes through the CF-proxied custom
+   domain (Super Bot Fight Mode, managed challenges). Without this, everything
+   below is moot — they just hit the origin. (Ties to the canonical-host task in
+   `LAUNCH.md (go-live appendix)`.)
+2. **Per-IP rate limiting** on the explore endpoints — task 1 above. Caps
+   one-request-grabs-everything and burst harvesting.
+3. **Keep the bulk payload thin.** `spots` stays pins + minimal card fields; the
+   richer stuff (contact, socials, and especially menus) lives on the
+   per-restaurant detail page / on-demand endpoints — one-at-a-time and
+   rate-limitable to harvest, never bulk-shipped.
+4. **Protect menus hardest.** They already load on-demand per dish
+   (`/api/explore/dishes`), never in bulk — keep it that way, rate-limited. This
+   is where the protection budget belongs.
+5. **Optional — short-lived signed-token gate.** Mint an HMAC token server-side
+   on page load that the explore APIs require, so a naked `curl /api/explore/spots`
+   fails and a scraper must drive a headless browser (much higher cost). Filters
+   out the lazy 95%; a headless browser still defeats it. **Only build this if the
+   logs actually show scraping** — real work for a bar that's ultimately clearable.
+
+**Recommendation:** #1 + #2 at launch (already on the list), keep menus
+on-demand (#3/#4). Revisit #5 only if scraping shows up in analytics. No
+encryption.
+
+---
+
+## 2. Analytics + Search Console / Bing (needs IDs from Abhishesh)
+
+**Why:** can't run the launch/SEO plan blind — GA4 is the instrument panel;
+GSC/Bing are how Google/Bing report indexing. `LAUNCH.md` §2/§7.
+
+**Scope:**
+- **GA4:** lazy-load in `app/layout.tsx`, gated on `NEXT_PUBLIC_GA_ID` and prod
+  only (use `@next/third-parties/google` `GoogleAnalytics`, or a minimal
+  `next/script afterInteractive`). Later: suppress admin/own traffic (see
+  `LAUNCH.md` §8 event note) — not needed for v1.
+- **Search Console + Bing verification:** simplest is the verification `<meta>`
+  tag via Next `metadata.verification` (or a DNS TXT record through Cloudflare).
+- **Submit the sitemap** in GSC + Bing (manual, Abhishesh).
+
+**Need from Abhishesh:** `G-XXXXXXXXXX` (GA4), GSC verification token, Bing token.
+
+**Done when:** GA4 realtime shows prod pageviews; GSC + Bing verified; sitemap
+submitted.
+
+---
+
+## 3. Home structured data (coordinate with the SEO lane)
+
+**Why:** `LAUNCH.md` §5 — home currently emits no `WebSite`/`Organization`
+JSON-LD. These help sitelinks + brand knowledge panel.
+
+**Scope (MINE — isolated to home/layout):**
+- `WebSite` JSON-LD on the homepage.
+- `Organization` JSON-LD (name, logo, `url`, `sameAs` socials).
+- `SearchAction` (sitelinks search box) — **only if** we expose a query-string
+  search results URL (`/search?q=` or `/explore?q=`). We don't have one today
+  (search navigates to suburb/restaurant), so this may need a small results
+  route first. Defer if it's not trivial; `WebSite` + `Organization` are the
+  safe wins.
+
+**Coordinate (SEO lane may own these):** `BreadcrumbList` on detail/listing
+pages, `ItemList`/`CollectionPage` on listing pages, and mapping the detail
+page's `@type` from `Restaurant` to the right `FoodEstablishment` subtype
+(Café/Food Truck/etc.). Confirm with the SEO session before touching
+`restaurant/[slug]/page.tsx` or the listing pages so we don't double up.
+
+**Done when:** Rich Results Test passes for the homepage with no errors.
+
+---
+
+## 4. Mobile responsive polish pass (do LAST)
+
+**Why:** `LAUNCH.md` §7 site-wide mobile items. The Explore-specific ones
+(`100dvh`, filter layout) are already handled; these are the rest. Do this last,
+after Explore + landing settle, to avoid collisions.
+
+**Scope:**
+- Replace the hardcoded `57px` header height with a `--header-h` CSS variable
+  referenced everywhere (A5).
+- `clamp()` the fixed large H1s that don't scale on small phones — detail page,
+  `ListingGrid`, `add-a-spot` (B1). Homepage H1 already uses `clamp()`.
+- Bump sub-44px tap targets on the most-tapped controls to ≥44px on mobile (A3).
+- Verify colour contrast of small `ink-500` text on tinted `paper-100/200`
+  surfaces; bump to `ink-700` where it fails 4.5:1 (B4).
+- (Footer duplicate/placeholder links, B6 — likely handled by the SEO
+  internal-linking work; confirm before touching `Footer.tsx`.)
+
+**Done when:** a real-device pass (iOS Safari + Android Chrome) on Home, a
+restaurant, a city page, Explore looks right; Lighthouse mobile a11y improved.
+
+---
+
+## Not in this plan (tracked elsewhere, decided out)
+- **Custom domain + Cloudflare setup** — Abhishesh has the domain; DNS/Cloudflare
+  is his infra step (`LAUNCH.md` §3). Rate limiting above is written to be
+  host-independent so it doesn't block on this.
+- **Places API re-run** — optional refresh, not a blocker (skip unless a stale
+  rating bugs us at launch). See `CLAUDE.md` re-run reminder.
+- **SEO internal linking + landing pages** — the current priority, owned by the
+  SEO/landing session.
+
+---
+
+<!-- ================= Appendix B: was LAUNCH.md (go-live appendix) (merged 2026-07-07) ================= -->
+
+# NepaliEats — Frontend Go-Live Checklist
+
+A focused punch list for getting the frontend (the "client") ready to launch.
+The master plan lives in `LAUNCH.md`; this is the working frontend checklist.
+
+## ✅ Done
+
+- [x] Homepage stat is computed live, rounded down to the nearest 50
+      (`web/app/page.tsx`); with 522 visible it now renders **500+**.
+- [x] Static `<title>`/description in `web/app/layout.tsx` now say **500+**,
+      matching the live homepage stat.
+
+## 📐 Photo aspect-ratio standard (DECIDED)
+
+Mirrors how UberEats/DoorDash handle photos: squarer tiles in lists, wide banners
+for heroes, everything `object-cover` center-cropped to a fixed box (no re-encoding
+of source files needed).
+
+- **Cards / tiles / thumbnails → 4:3** (`aspect-[4/3]`). Matches ~64% of our photos
+  (least cropping), food-friendly. Applies to: PlaceCard, craving tiles, story
+  list cards, gallery thumbs.
+- **Full-bleed heroes → 16:9** (`aspect-[16/9]`). Applies to: restaurant detail
+  hero, blog hero (featured + detail), OG image.
+- Always `object-cover` so any source shape conforms via crop. Reversible (display
+  box only).
+- **Cover photo (DONE):** a dedicated standalone field, like the logo. `cover_key`
+  (+ `cover_source`, `cover_attribution`) on `restaurants`, with its own `/admin`
+  upload slot, stored under `media/covers/<id>/`. Serves both the 4:3 card and the
+  16:9 hero; the read path resolves `COALESCE(cover_key, first gallery photo)` and
+  the gallery excludes the cover (no duplicate). Backfilled from each restaurant's
+  former primary photo; the redundant gallery rows were hard-deleted and the files
+  moved into `covers/`. New uploads set `cover_source='upload'`.
+
+Recommended image sizes (guidance, NOT enforced):
+
+- **Craving tile** — 4:3, **640×480** (JPG or WebP). Small homepage tiles only.
+- **Restaurant photo** — 4:3, **1600×1200** (one photo feeds the 4:3 card and the
+  16:9 hero crop; keep the subject centred). Min ~1200×900 before the hero softens.
+- **Cover/hero photo** — 16:9 framing, **~1600×900** (landscape works best).
+- These are recommendations shown as hints in `/admin`, not validated/blocked.
+  `object-cover` makes any size render; smaller just looks softer.
+
+Conformance audit:
+
+- [x] PlaceCard grid cards — already `aspect-[4/3]`
+- [x] Restaurant-detail gallery thumbs — already `aspect-[4/3]`
+- [ ] Craving tiles — set explicit `aspect-[4/3]` when real photos go in
+- [ ] Story list thumbs — switch `h-[170px]` → `aspect-[4/3]`
+- [ ] Restaurant-detail hero — switch `h-[280px]` → `aspect-[16/9]`
+- [ ] Story featured + detail hero — switch fixed height → `aspect-[16/9]`
+
+## 🎨 Brand assets (Abhishesh)
+
+- [x] **App icon** — custom `app/icon.png` added (default `favicon.ico` removed).
+- [ ] **Apple touch icon** — add `app/apple-icon.png` for iOS home-screen.
+- [x] **OG image** — programmatic OG cards live for home, restaurant, and
+      location pages (`app/opengraph-image.tsx` + per-route variants)
+
+## 🛠 Build items
+
+- [ ] **Food images on craving tiles** — swap the single generic `Cookie` icon for
+      real DB photos per category (`web/components/CravingCarousel.tsx`).
+      momo / Newari / Tibetan / veg / Nepali-Indian have photos; Thakali keeps the
+      gradient fallback
+- [ ] **Blog hero images** — all 3 posts fall back to a fork icon; assign real
+      photos via `heroImage` (`web/lib/stories.ts`)
+- [ ] **Blog copy review** — run each post through copy-editing + the human-copy standard
+- [ ] **Blog layout/readability** — tighten the `/stories/[slug]` template typography/spacing
+- [ ] **More blog posts** — write 1–2 additional stories before launch
+- [ ] **Mobile responsive audit** — full code review of every page against
+      responsive / web-interface guidelines; fix tap targets, overflow, breakpoints, nav
+      (→ task 4 of `docs/LAUNCH.md (pre-launch appendix)`)
+
+## 🔎 Pre-flight (before deploy)
+
+- [ ] `npx tsc --noEmit` clean
+- [ ] `npm run build` clean
+- [ ] Click through Home, Explore, a restaurant, a city/suburb, /momo, a tag, Stories
+      on a phone viewport
+
+## 🚀 Config to go live (frontend-facing parts of LAUNCH.md §3)
+
+- [x] **Env vars on Vercel:** `DATABASE_URL` (Neon), `NEXT_PUBLIC_MAPBOX_TOKEN`,
+      Clerk keys, `NEXT_PUBLIC_MEDIA_BASE` (R2), `ADMIN_USER_IDS` set. ⚠️
+      `NEXT_PUBLIC_SITE_URL` still `localhost` — set it when the custom domain lands.
+- [x] **Media on R2** uploaded + `NEXT_PUBLIC_MEDIA_BASE` set (public reads serve 200)
+- [ ] **Canonical host** decided (apex vs www) + 301 redirect (still on `.vercel.app`)
+- [ ] **Sitemap/robots** verified live; submit to Search Console + Bing; GA4 installed
+      (GA4 + Search Console/Bing → task 2 of `docs/LAUNCH.md (pre-launch appendix)`)
+
+## 🔒 Security (before public launch)
+
+- [ ] **Rate-limit the public, unauthenticated DB routes** — `/api/search`,
+      `/api/explore/spots` (full-table read), and `/api/explore/dishes` are open
+      and each fire Postgres queries with no throttle anywhere. That's a cheap DoS
+      / Neon-cost amplification vector. Cloudflare rate rules cover the apex, BUT
+      the `.vercel.app` URL bypasses Cloudflare, so add an app-level limiter
+      (Upstash) as defense-in-depth. Do before the custom domain goes public.
+      → **Now planned in detail as task 1 of `docs/LAUNCH.md (pre-launch appendix)`.**
+- [ ] **Anti-scraping posture** — `/api/explore/spots` hands the whole directory
+      to any caller in one JSON. Decisions: NO client-side encryption (obfuscation,
+      not protection); the moat is the menus/curation, not the Google-derived pin
+      list; real levers = Cloudflare in front + kill the `.vercel.app` bypass,
+      per-IP rate limiting, keep menus on-demand (never bulk), optional signed-token
+      gate only if logs show scraping. → **task 1b of `docs/LAUNCH.md (pre-launch appendix)`.**
+
+## ⚖️ Optional pre-launch polish (non-blocking)
+
+- [ ] ~237 visible listings are `review_needed` (may not all be Nepali) — spot-check
+- [ ] Photos at ~76% — roughly 1 in 4 listings has no image

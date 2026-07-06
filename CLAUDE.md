@@ -4,12 +4,26 @@ Directory of **Nepali restaurants in Australia**: scraped from Google Maps,
 enriched, stored in Postgres (Neon), served by the Next.js app in `web/`.
 
 **Where things live:** how the site works / technical decisions (Explore filter
-model, URL rules) → `docs/ARCHITECTURE.md` · launch/SEO/UX master plan → `docs/LAUNCH.md` · frontend punch
-list → `docs/GO-LIVE-CHECKLIST.md` · menu system design → `docs/MENU-PLAN.md` · menu
-worklists → `docs/MENU-SEEDING-PLAN.md` + `docs/MENU-QUEUE.md` · post-launch backlog →
-`docs/ROADMAP.md` · implementation review → `docs/IMPLEMENTATION-REVIEW.md` · catering →
+model, URL rules) → `docs/ARCHITECTURE.md` · launch/SEO/UX master plan + pre-launch
+and go-live checklists → `docs/LAUNCH.md` · menu system design → `docs/MENU-PLAN.md` ·
+menu worklists/queue/skip-log → `docs/MENU-SEEDING.md` · menu worker onboarding →
+`docs/MENU-WORKERS.md` · post-launch backlog (incl. the implementation-review and
+image-wishlist appendices) → `docs/ROADMAP.md` · catering →
 `docs/CATERING-BACKLOG.md` · copy → `docs/VOICE_AND_TONE.md` + `docs/COPY.md` · blog →
-`docs/BLOG-PLAN.md`.
+`docs/BLOG-PLAN.md`. (Docs consolidated 2026-07-07: 20 → 12 files, content
+preserved verbatim as parts/appendices inside the survivors.)
+
+## Engineering (READ BEFORE writing or reviewing any code)
+
+Any code task on this repo (features, fixes, refactors, reviews, debugging, DB
+work, architecture decisions) MUST invoke the **albert** skill
+(`.claude/skills/albert/`) first. Albert is the engineering persona and process:
+evidence before claims (quote the line, query Neon read-only before asserting
+data shape), discuss-then-do for product-shaped decisions, verify every change
+(tsc/build), record decisions in `docs/ARCHITECTURE.md` in the same pass, and
+the git/dev-server guardrails. He reviews diffs via `/code-review` and verifies
+its findings against reality before presenting them. Code = Albert; words =
+Aasha (below).
 
 ## Copywriting & content voice (READ BEFORE writing any user-facing text)
 
@@ -76,7 +90,7 @@ is per-request: a "commit" on one change does NOT carry over to later changes.
   blanket-cache HTML (fights ISR) — cache static assets hard, respect origin
   headers for HTML.
 
-Remaining deploy checklist (details in `docs/LAUNCH.md` §3 / `docs/GO-LIVE-CHECKLIST.md`):
+Remaining deploy checklist (details in `docs/LAUNCH.md` §3 + its go-live appendix):
 - [ ] Custom domain via Cloudflare DNS → Vercel (www→apex 301 in Cloudflare),
       then set `NEXT_PUBLIC_SITE_URL` so canonicals are right.
 - [ ] Cloudflare bot protection + cache rules (above).
@@ -254,11 +268,9 @@ redesign it — seed into it.** Full design + locked decisions + JSON contract:
   <slug>` (resolves the own-site source, pdftotext first, rasterizes image-only
   scans) → transcribe to `scraper/menu-data/<slug>.json` → `node
   scraper/seed-menu.js <slug>` (dry-run) → `--commit`. Worker docs:
-  `docs/MENU-WORKER-CHEATSHEET.md` (the one-pager) + `docs/MENU-WORKER-PROMPT.md`.
-  Worklists: `docs/MENU-SEEDING-PLAN.md` (menu_url buckets A/B/C) + `docs/MENU-QUEUE.md`
-  (all remaining by popularity) + `docs/MENU-SKIPPED-SOURCES.md` (why rows were
-  skipped) + `docs/MENU-REMAINING-PLAN.md` (strategy for the rest). Progress:
-  `node scraper/menu-progress.js`.
+  `docs/MENU-WORKERS.md` (cheatsheet + prompt). Worklists: `docs/MENU-SEEDING.md`
+  (buckets A/B/C + full queue by popularity + remaining-strategy + skip log,
+  merged 2026-07-07). Progress: `node scraper/menu-progress.js`.
 - **Hard source rule: the restaurant's OWN menu only** (own-domain page/PDF or
   physical-menu photos). Never ordering/delivery platforms (Uber Eats, Menulog,
   yumbojumbo, square.site, Foodhub white-labels, …): marked-up prices, subset

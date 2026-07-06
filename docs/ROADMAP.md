@@ -4,7 +4,7 @@ Deferred work, moved out of CLAUDE.md so the working notes stay short. Nothing
 here blocks launch. Each entry keeps the decisions already made so they aren't
 re-litigated later. Related docs: `LAUNCH.md` (launch/SEO/UX master plan),
 `CATERING-BACKLOG.md` (catering venue list + `catering_sets` design),
-`MENU-REMAINING-PLAN.md` (menu coverage for the remaining ~300 spots).
+`MENU-SEEDING.md` (menu coverage for the remaining ~300 spots).
 
 ## Catering model (`catering_sets`)
 
@@ -64,7 +64,7 @@ nullable, never guessed.
   `scraper/retag-dietary.js` (dry-run default; explicit menu marks only, with
   reviewed exclusions for "option available"/"contains gluten"/ingredient
   mentions). Forward accrual via normal seeding (worker rules in
-  `MENU-WORKER-CHEATSHEET.md`). Explore shows a "check with the venue" note when
+  `MENU-WORKERS.md`). Explore shows a "check with the venue" note when
   a vegan/gluten-free chip is active. "Gluten-free momo in <city>" landing pages
   are a LATER deliverable gated on real item coverage (gate: 3+ spots with
   confirmed items per page; Melbourne qualifies first for vegan).
@@ -284,3 +284,177 @@ static generation) is untouched. Deferred and speculative — not planned work.
   (268) + `indian_likely` (152) buckets; reversible via `relevance`.
 - **Event analytics pipeline + owner admin** — first-party events →
   `restaurant_stats_daily` rollups; see LAUNCH.md §8 for the full design.
+
+---
+
+<!-- ================= Appendix: was ROADMAP.md (image appendix) (merged 2026-07-07) ================= -->
+
+# Food image wishlist
+
+**Aspect ratio: 4:3 landscape. Minimum 1200x900px. jpg or webp.**
+
+Every file goes in `web/public/categories/<category>/` and the filename must
+match exactly (it equals the slug in `web/lib/food.ts`). Drop the file in and
+the tile/hero appears on the next render, no code change. Missing files
+self-hide, so ship these in any order.
+
+**What makes a good shot (applies to all of them):**
+
+- Real photos of real plates. No AI renders, no watermarked stock.
+- Natural light, shot from above or at about 45 degrees, food filling the
+  frame. Phone photos are fine if the light is good.
+- Steam is gold. A blurred hand, a torn momo, a dipped spoon all help. A
+  sterile studio plate on white does not.
+- The image gets centre-cropped in some slots, so keep the hero of the shot
+  (the food) in the middle of the frame.
+- If the photo is a restaurant's, get their OK and note the credit so we can
+  attribute it.
+
+## Priority 1: category covers (unlock homepage carousel tiles + landing heroes)
+
+| File                      | The shot I want                                                                                                                                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `thakali/cover.jpg`       | A full Thakali dal bhat set from above: the plate ringed with small bowls, black dal front and centre, gundruk and pickles visible, rice still steaming. The whole spread in one frame, it should look like abundance. |
+| `grill/cover.jpg`         | Sekuwa skewers over the coals, char on the edges, ideally a little smoke. Fire in frame beats plated here.                                                                                                             |
+| `nepali-indian/cover.jpg` | One table, both menus: a plate of momo beside a curry and naan or biryani. The point of the category in a single frame.                                                                                                |
+
+## Priority 2: momo dish shots (heroes for the /nepali-food momo pages)
+
+| File                     | The shot I want                                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `momo/steamed-momo.jpg`  | A fresh steamed plate, skins glossy and slightly translucent, the achaar bowl in frame. One momo lifted or dipped if possible. |
+| `momo/jhol-momo.jpg`     | Momo half-sunk in the sesame-tomato jhol, a spoon in the bowl. The soup should look drinkable, not like a garnish.             |
+| `momo/chilli-momo.jpg`   | C-momo glazed deep red and glossy, onion and capsicum in the toss. Shine is everything here.                                   |
+| `momo/fried-momo.jpg`    | Golden and blistered, one broken open so the juicy filling shows against the crisp shell.                                      |
+| `momo/kothey-momo.jpg`   | Crisp base facing the camera, soft steamed top visible. The two-texture contrast is the shot.                                  |
+| `momo/sandheko-momo.jpg` | Momo tossed and coated in the red dressing, coriander and raw onion through it, a little oil sheen.                            |
+
+## Priority 3: the other dish heroes
+
+| File                   | The shot I want                                                                                                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `newari/choila.jpg`    | Smoky choila piled dark and glistening, chiura (beaten rice) beside it. Should look fierce, not tidy.                                                            |
+| `thakali/dal-bhat.jpg` | A closer, simpler frame than the Thakali cover: dal pouring or poured over rice, a curry and pickle at the edge. Everyday comfort rather than the full ceremony. |
+| `grill/sekuwa.jpg`     | Plated skewers, charred edges and raw onion, lemon wedge. Different from the cover: this one is on the table, not on the fire.                                   |
+| `tibetan/thukpa.jpg`   | A steaming bowl, noodles mid-lift on a fork or chopsticks, broth and veg visible. Cold-day food.                                                                 |
+
+## Already covered (no action)
+
+Covers for momo, newari, tibetan and vegetarian are in. The kwati story has
+both its photos. Extra gallery shots per dish are a nice-to-have later
+(`FOOD_GALLERIES` in `web/lib/food.ts` is wired but empty).
+
+---
+
+<!-- ================= Appendix: was ROADMAP.md (implementation-review appendix) (merged 2026-07-07; item 1 was DONE, items 2-9 remain open backlog) ================= -->
+
+# Implementation review — 2026-07-03
+
+Architecture/product-level findings from a full pass over `web/` (separate from
+the line-level code review, whose items were all fixed and pushed 2026-07-03).
+"Solo" = Claude can do it without Abhishesh; "Needs A" = needs a decision,
+dashboard access, or a prod-DB migration go-ahead. SEO content work is
+deliberately parked (Abhishesh's call, 2026-07-03).
+
+## 1. Explore all-pins-once redesign — ✅ DONE 2026-07-03
+
+Shipped: `/api/explore/spots` (thin `ExploreSpot` rows: pin + card + filter
+fields, 438 rows ≈ ~40KB gzipped, CDN-cached), ExploreClient
+filters/sorts/paginates in memory (bbox fetch machinery deleted),
+`/api/restaurants` + `pinsInBounds` removed. Bonus: the map popup card now
+shows live open status (pins carry openingHours). Scale ceiling ~5k rows
+(shard by state then). The payload deliberately has NO menu data — dish search
+is a separate endpoint (schema verified ready 2026-07-03, see the menu-search
+investigation note below).
+
+- Note: the old bbox API already exposed the full dataset in one Australia-wide
+  call, so this is NOT a new scraping exposure; Cloudflare bot protection +
+  rate rules remain the mitigation either way.
+
+### Menu/dish search readiness (investigated 2026-07-03 — schema fully supports it)
+
+Verified against live Neon data, zero migrations needed:
+- Tag pick → restaurants + matched item names (the pills): `menu_item_tags`
+  joins work for `newari` (→ Yamari, Bara, Choila pills), `sekuwa` (→ Chicken
+  Sekuwa · Goat Sekuwa, variant labels give "Sekuwa Stick (Chicken/Lamb/Pork)").
+- `momo` matches all preps via materialized ancestors (153 restaurants, 959
+  items); protein filter (buff momo → 92 restaurants) and prep filter
+  (kothey-momo → 67) are one extra EXISTS each; facet counts per search are a
+  cheap GROUP BY (steamed 144 / chilli 119 / jhol 112 / fried 108 / kothey 67 /
+  sandheko 45; chicken 143 / veg 133 / buff 92 …).
+- Typo/alias lookup is seeded: `search_aliases` maps "c-momo"→Chilli Momo,
+  "dumpling"→Momo, "kukhura"→chicken, etc.
+- Coverage caveat: item-level search only sees the ~144 seeded menus. For the
+  rest, fall back to the coarse `restaurants.tags` rollup (two-tier results per
+  MENU-PLAN.md: "serves momo" without pills).
+
+## 2. Vercel image optimization quota — launch risk (Needs A + Solo mitigation)
+
+Every `next/image` on R2 photos goes through Vercel's optimizer; Hobby caps
+optimized SOURCE images at 1,000/month and we have ~1,125 photos + covers +
+logos. Crossing the cap degrades image serving mid-month.
+
+- [ ] Abhishesh: check Image Optimization usage on the Vercel dashboard
+- [ ] Decide: `unoptimized` for R2 images (they're already pre-sized WebP) vs a
+      custom loader on Cloudflare Image Resizing (already planned for crops)
+- [ ] Also fix `sizes="1180px"` on the detail hero (phones fetch desktop size)
+
+## 3. Four sources of truth for the visitor's location (Solo)
+
+`UserLocationProvider` (localStorage + event), Explore's local `userLoc`,
+`?lat&lng`, and server IP-geo don't talk to each other: Explore's "Near me"
+never calls `storeLoc()`, so the homepage rows don't learn a location Explore
+already has. Route all location acquisition through `storeLoc()` and have
+Explore read the provider.
+
+## 4. State-granular scoping reads broken outside the capitals (Solo)
+
+Home featured/popular rows key on AU state, so a Newcastle/Wollongong visitor
+gets Sydney picks with 80+ km distance labels. PostGIS is already there: rank
+by distance from the visitor's point (state as fallback) instead of a pure
+state filter.
+
+## 5. Search has no typo tolerance (Needs A for the migration)
+
+Autocomplete is `ILIKE '%q%'`; "momos"/"thakli"/"hurstvile" miss, and Nepali
+romanizations are unstable (kothey/kothe, chhoila/choila/choyla). `pg_trgm` +
+a GIN index + `similarity()` ordering fixes it cheaply. ⚠️ Needs a shared-Neon
+migration (`CREATE EXTENSION pg_trgm` + index), so explicit go required; code
+can be prepped first.
+
+## 6. Revalidation is half-built; the claim flow is the trigger (Later)
+
+PATCH/DELETE revalidate the detail page, but home rows / tag / location pages /
+sitemap refresh hourly. Fine while admin-only edits; owner edits will make the
+staleness visible. Move to `revalidateTag` when the claim flow lands (also in
+ROADMAP).
+
+## 7. Zero tests; format.ts deserves the only ones (Solo)
+
+`format.ts` does timezone math across 8 AU zones with DST, past-midnight close
+spillover, and week wraparound; a wrong "Open now" badge is a silent
+trust-killer. One vitest file (~15 cases: Perth vs Sydney, a 1am close, `[]`
+vs missing day) locks it down. Don't test anything else yet.
+
+## 8. Menus are seeded but under-leveraged on the page (Solo)
+
+A 195-item menu renders as one long scroll: no category anchor nav / sticky
+section header, no `hasMenu`/`Menu` JSON-LD, and `price_min/max` is maintained
+but never shown ("Mains $18-24" on a card is a strong signal). The display
+layer is where the next user-visible menu value is.
+
+## 9. SEO internal linking — 🔧 IN PROGRESS (2026-07)
+
+No longer parked. Being built: a homepage `BrowseHub` (state/suburb/dish links)
+is live, and programmatic landing pages (`/nepali-food/[slug]`) are in flight
+(see `SEO-PROGRAMMATIC-PLAN.md`). Remaining to verify as it lands: footer "By
+cuisine"/"By city" and detail-page links routed to
+`/nepali-restaurants/[suburb]` (not `/explore?suburb=`), plus breadcrumbs.
+
+## Smaller notes
+
+- Hardcoded `57px` header height still assumed in ExploreClient (LAUNCH UX A5).
+- Admin triage menu mode does an R2 `ListObjects` per row (~24/page); fine
+  admin-only, a `menu_files` table is the eventual clean shape.
+- No app-level error tracking (Sentry etc.); Vercel logs only. Revisit after
+  launch if debugging blind gets painful.

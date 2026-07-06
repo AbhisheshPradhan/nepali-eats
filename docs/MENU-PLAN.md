@@ -22,7 +22,7 @@ Agent-parsed, script-seeded. No LLM API, no parse UI, **no file storage**.
    do the judgement pass (price-typo sanity, schema fit).
 3. A deterministic, idempotent seeder writes the rows + rebuilds the rollups.
 
-One restaurant at a time — you're the queue. Full worker flow: `MENU-WORKER-CHEATSHEET.md`.
+One restaurant at a time — you're the queue. Full worker flow: `MENU-WORKERS.md`.
 
 ## The model
 

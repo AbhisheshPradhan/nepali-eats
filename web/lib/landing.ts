@@ -387,7 +387,8 @@ export function suburbLanding(
       dishPageLinks(),
       cuisineLinks(),
     ],
-    exploreHref: `/explore?suburb=${encodeURIComponent(suburb)}`,
+    // state disambiguates cross-state suburb name collisions (Claremont TAS/WA)
+    exploreHref: `/explore?suburb=${encodeURIComponent(suburb)}&state=${state}`,
     collectionName: `Nepali restaurants in ${suburb}, ${state}`,
   };
 }

@@ -681,6 +681,22 @@ function dishMatches(q: string, rows: DishRow[]): DishSuggestion[] {
 	return out.slice(0, 3);
 }
 
+// The dish vocabulary for autocomplete matching: the whole (small) table, but
+// near-static — it only changes when the taxonomy is reseeded — so it's cached
+// in-process instead of refetched on every distinct search prefix. TTL keeps a
+// long-lived serverless instance from going stale after a taxonomy reseed.
+let dishRowCache: { rows: DishRow[]; at: number } | null = null;
+const DISH_ROW_TTL = 10 * 60 * 1000;
+async function dishVocab(): Promise<DishRow[]> {
+	if (dishRowCache && Date.now() - dishRowCache.at < DISH_ROW_TTL)
+		return dishRowCache.rows;
+	const rows = await query<DishRow>(
+		`SELECT id, slug, name, kind, parent_id, search_aliases FROM dish_categories`,
+	);
+	dishRowCache = { rows, at: Date.now() };
+	return rows;
+}
+
 // Autocomplete: dish tags + restaurant names + suburb/postcode locations.
 export async function searchSuggest(q: string): Promise<Suggestion> {
 	// "Auburn, NSW" → name part + an optional trailing state filter, so a
@@ -693,9 +709,7 @@ export async function searchSuggest(q: string): Promise<Suggestion> {
 	const pre = `${namePart}%`;
 	const stateLike = statePart ? `${statePart}%` : null;
 	const [dishRows, restaurants, locations] = await Promise.all([
-		query<DishRow>(
-			`SELECT id, slug, name, kind, parent_id, search_aliases FROM dish_categories`,
-		),
+		dishVocab(),
 		query<{
 			slug: string;
 			name: string;

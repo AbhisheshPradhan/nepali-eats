@@ -1,6 +1,6 @@
 // Live menu-seeding progress, driven by the DB (source of truth = menu_item_count),
 // so the checklist can never drift from what's actually seeded. Prints a status
-// summary; `--write` regenerates the "## Checklist" section of MENU-SEEDING-PLAN.md
+// summary; `--write` regenerates the "## Checklist" section of MENU-SEEDING.md
 // (everything above that heading — the strategy/notes — is preserved).
 //
 //   node scraper/menu-progress.js            # print live status
@@ -8,14 +8,14 @@
 //
 // Classifies each visible spot's menu_url into pdf / ownpage / aggregator (junk +
 // social are dropped: CSS files, http://menu/, logos, FB/IG). A row is "done" when
-// menu_item_count > 0. See MENU-SEEDING-PLAN.md.
+// menu_item_count > 0. See MENU-SEEDING.md.
 import fs from "fs";
 import pg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
 
 const write = process.argv.includes("--write");
-const DOC = "docs/MENU-SEEDING-PLAN.md";
+const DOC = "docs/MENU-SEEDING.md";
 const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
 const junk = (u) =>
@@ -56,7 +56,7 @@ async function main() {
     console.log(`  ${k}: ${v.filter((r) => r.mic > 0).length}/${v.length} done`);
 
   if (!write) {
-    console.log("\n(run with --write to refresh MENU-SEEDING-PLAN.md)");
+    console.log("\n(run with --write to refresh MENU-SEEDING.md)");
     return pool.end();
   }
 
