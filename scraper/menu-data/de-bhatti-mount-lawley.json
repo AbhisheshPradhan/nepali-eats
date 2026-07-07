@@ -1,0 +1,156 @@
+{
+  "slug": "de-bhatti-mount-lawley",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    { "name": "Entree to Share",
+      "items": [
+        { "name": "Chips", "description": "Potato chips served with capsicum aioli", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 10.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Wedges", "description": "Deep fried chunkey cut potatoes served with sweet chilli and sour cream sauce", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 12.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Wings", "description": "Half kilo chicken wings, choice of sauce (GF): buffalo style chilli, smokey BBQ sauce, or piro Nepalese chicken wings", "tags": [],
+          "variants": [ { "label": null, "price": 16.50, "protein": "chicken" } ] },
+        { "name": "Potato (2 Stick)", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 8.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Sausages (2 Stick)", "tags": [],
+          "variants": [ { "label": null, "price": 10.50, "protein": "chicken" } ] },
+        { "name": "Machha Tareko", "description": "Nepalese style fried fish with Bhatti house made chutney and mix leaf", "tags": ["fried-fish"],
+          "variants": [ { "label": null, "price": 15.00, "protein": "fish" } ] },
+        { "name": "Bhatti Chicken Bites", "description": "Tossed with fresh onion and coriander with house made Nepalese dip and salad", "tags": [],
+          "variants": [ { "label": null, "price": 15.00, "protein": "chicken" } ] },
+        { "name": "Chicken Tacos", "description": "Shreded chicken tacos, cilantro, com salsa with chipotle sauce", "tags": [],
+          "variants": [ { "label": null, "price": 16.00, "protein": "chicken" } ] }
+      ] },
+    { "name": "Amilo Piro Chwassa",
+      "items": [
+        { "name": "Wai Wai Sadheko", "description": "Dried instant noodles, fresh coriander (cilantro), tomato, cucumber, onion, lemon juice, fresh chillies and spices", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 13.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chatpatey", "description": "Puffed rice, chickpeas, fresh coriander (cilantro), tomato, cucumber, onion, potato, peanut, lemon juice, fresh chillies, and spices", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 13.00, "protein": "veg", "is_vegetarian": true } ] }
+      ] },
+    { "name": "Mains",
+      "items": [
+        { "name": "Chowmein", "tags": ["chowmein"],
+          "variants": [
+            { "label": "Veg", "price": 16.00, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 18.00, "protein": "chicken" },
+            { "label": "Buff", "price": 21.00, "protein": "buff" } ] },
+        { "name": "Fried Rice", "tags": ["fried-rice"],
+          "variants": [
+            { "label": "Veg", "price": 11.00, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 13.00, "protein": "chicken" },
+            { "label": "Buff", "price": 15.00, "protein": "buff" } ] }
+      ] },
+    { "name": "Bhatti Set",
+      "items": [
+        { "name": "Bhatti Khaja Set", "description": "Roasted soybean, choilla, roasted beaten puff rice, mixed potato pickle, aalu bodi tama tarkari, Bhatti house made chutney, radish pickle (mula ko aachar), mix salad, fried eggs and prawn cracker", "tags": ["choila"],
+          "variants": [
+            { "label": "Chicken", "price": 24.00, "protein": "chicken" },
+            { "label": "Lamb", "price": 27.00, "protein": "lamb" } ] },
+        { "name": "Bhatti Khana Set", "description": "Steamed rice (bhaat), choice of curry, lentil (daal), spinach (saag), radish pickle (mula ko achaar), Bhatti house made pickle, pappadums assorted with ghee (optional) and house desserts", "tags": ["dal-bhat"],
+          "variants": [
+            { "label": "Veg", "price": 22.50, "protein": "veg", "is_vegetarian": true },
+            { "label": "Chicken", "price": 24.50, "protein": "chicken" },
+            { "label": "Goat", "price": 26.50, "protein": "goat" } ] },
+        { "name": "Choilla Set", "description": "Marinated meat, grilled and mixed with Nepalese spices, onions, chillies, ginger and served with beaten rice/puffed rice, mixed potato pickle, Bhatti house made chutney, radish pickle (mula ko achaar), mix salads & prawn cracker", "tags": ["choila"],
+          "variants": [
+            { "label": "Chicken", "price": 20.00, "protein": "chicken" },
+            { "label": "Lamb", "price": 23.00, "protein": "lamb" } ] },
+        { "name": "Sekuwa Set", "description": "Choice of meat, roasted soybean, roasted beaten puff rice, Bhatti house made chutney and salad", "tags": ["sekuwa"],
+          "variants": [
+            { "label": "Chicken", "price": 20.00, "protein": "chicken" },
+            { "label": "Lamb", "price": 23.00, "protein": "lamb" } ] },
+        { "name": "Buff Sukuti Set", "description": "Nepalese traditional snacks platter served with beaten rice/puffed rice, Bhatti house made chutney, mix salads, pan fried buff jerky, onions, garlic, ginger and house made spices", "tags": ["sukuti"],
+          "variants": [ { "label": null, "price": 24.00, "protein": "buff" } ] }
+      ] },
+    { "name": "Momo",
+      "items": [
+        { "name": "Steam Momo", "tags": ["steamed-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 14.90, "protein": "chicken" },
+            { "label": "Buff", "price": 16.90, "protein": "buff" },
+            { "label": "Veg", "price": 14.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Jhol Momo", "tags": ["jhol-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 15.90, "protein": "chicken" },
+            { "label": "Buff", "price": 17.90, "protein": "buff" },
+            { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Fried Momo", "tags": ["fried-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 15.90, "protein": "chicken" },
+            { "label": "Buff", "price": 17.90, "protein": "buff" },
+            { "label": "Veg", "price": 15.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "C. Momo", "tags": ["chilli-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 16.90, "protein": "chicken" },
+            { "label": "Buff", "price": 18.90, "protein": "buff" },
+            { "label": "Veg", "price": 16.90, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Kothey Momo", "tags": ["kothey-momo"],
+          "variants": [
+            { "label": "Chicken", "price": 15.90, "protein": "chicken" },
+            { "label": "Buff", "price": 17.90, "protein": "buff" },
+            { "label": "Veg", "price": 15.00, "protein": "veg", "is_vegetarian": true } ] }
+      ] },
+    { "name": "Sharing Platter",
+      "items": [
+        { "name": "Momo Platter", "tags": ["momo"],
+          "variants": [ { "label": null, "price": 28.00 } ] },
+        { "name": "Bhatti Platter for 2", "tags": [],
+          "variants": [ { "label": null, "price": 38.00 } ] }
+      ] },
+    { "name": "Burgers on Bhatti",
+      "items": [
+        { "name": "Siracha Chicken Burger", "tags": [],
+          "variants": [ { "label": null, "price": 22.00, "protein": "chicken" } ] },
+        { "name": "Beff Burger", "tags": [],
+          "variants": [ { "label": null, "price": 23.00, "protein": "beef" } ] },
+        { "name": "Haloumi Burger", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 21.00, "protein": "veg", "is_vegetarian": true } ] }
+      ] },
+    { "name": "Jhaneko Pork",
+      "items": [
+        { "name": "Jhaneko Pork", "description": "Grilled boneless pork meat marinated with Nepalese herbs, Szechuan seasoned with ginger and garlic, served with fresh Bhatti house made chutney and salad", "tags": ["sekuwa"],
+          "variants": [ { "label": null, "price": 22.00, "protein": "pork" } ] }
+      ] },
+    { "name": "Fish and Chips",
+      "items": [
+        { "name": "Fish and Chips", "description": "Fresh battered fish with chips and salad with house made tartar sauce and lemon", "tags": ["fried-fish"],
+          "variants": [ { "label": null, "price": 22.00, "protein": "fish" } ] }
+      ] },
+    { "name": "Chicken Parmigiana",
+      "items": [
+        { "name": "Chicken Parmigiana", "description": "Chicken schnitzel, homemade napolitana sauce, ham, cheese and served with chips and salads", "tags": [],
+          "variants": [ { "label": null, "price": 28.00, "protein": "chicken" } ] }
+      ] },
+    { "name": "Kids Menu",
+      "items": [
+        { "name": "Chips and Nuggets", "tags": [],
+          "variants": [ { "label": null, "price": 9.00 } ] },
+        { "name": "Fish and Chips (Kids)", "tags": [],
+          "variants": [ { "label": null, "price": 9.00, "protein": "fish" } ] }
+      ] },
+    { "name": "Nachos",
+      "items": [
+        { "name": "Bean Chilli Nachos (Vego)", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": 21.00, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Nachos", "tags": [],
+          "variants": [ { "label": null, "price": 24.00, "protein": "chicken" } ] }
+      ] },
+    { "name": "Dessert",
+      "items": [
+        { "name": "Gulab Janum", "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 7.00 } ] },
+        { "name": "Milk Kulfi", "description": "Plain khoya with nuts/pistacho/saffron and almond/vanilla/strawberry/mango", "tags": ["dessert"],
+          "variants": [ { "label": null, "price": 7.00 } ] }
+      ] },
+    { "name": "Tat-Tat-To",
+      "items": [
+        { "name": "Matka Chiya", "description": "Nepalese masala tea", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 3.00 } ] },
+        { "name": "Hot Lemon with Honey", "tags": ["drinks"],
+          "variants": [ { "label": null, "price": 4.50 } ] }
+      ] }
+  ]
+}

@@ -428,3 +428,23 @@ Onion Pakora $9.50, veg steamed momo $12.99, thali $22.99-25.99). Range $2.50-$2
 - pangra (dish, fried chicken giblets/gizzards; distinct from bhutan=goat offal) — Namaste Ashfield (Pangra Fry, Pangra Set) — currently tagged []
 - piro aalu (dish, Nepalese spicy potato) — Avatar Bundoora (tagged [] for now)
 - aloo bodi tama / tama (dish, bamboo-shoot + black-eyed-pea curry) — Avatar Bundoora (tagged [curry] for now)
+
+## Session 2026-07-08 (Fable's last: 2 seeded, 2 skipped)
+- de-bhatti-mount-lawley — SEEDED (38 items, own-site HTML menu at bhatti.com.au/menus/;
+  site was back up after the 522 deferral). Notes: menu-fetch.js text extraction MISSED
+  the priced content on this WP theme (nav-only output) — extracted via raw HTML strip
+  instead. Veg Kothey printed "$15.0" → seeded 15.00 (siblings 15.90; possible menu typo,
+  confirm if a claim lands). Wings/tacos/burgers/nachos/parmi/kids → [] by rule.
+  Wai Wai Sadheko + Chatpatey → [] (chatpate slug STILL not in vocab — queued many times).
+  /wines/ drinks page NOT transcribed (time); revisit for the drinks tag.
+- khaja-villawood — SEEDED (28 items, NO prices printed — Aagaman precedent). Source:
+  3 menu scan JPGs on own site (khaja.com.au/menu/; the page's HTML prices are theme-demo
+  junk — ignore them). Tag gaps hit again: aloo-dum, sadheko (bhatmas/peanut), chiura,
+  furandana, achar — all left [].
+- everest-function-centre-rockdale — SKIPPED (own-domain PDF is a FUNCTION/catering
+  package menu: zero prices, "DJ | Decoration | Mandap | Fireworks", per-table notes).
+  Set catering=true per rule. Also the ROADMAP venue_hire slam-dunk — flag it when that
+  column lands.
+- bhok-laagyo-franklin — SKIPPED (bhoklaagyocanberra.com.au is a thin teaser microsite:
+  4 unpriced items + cart shell; momo-central/yuvi-kitchen pattern). Claim released.
+  NOTE: plain curl gets 403 (bot protection) — probe with Playwright + real UA.

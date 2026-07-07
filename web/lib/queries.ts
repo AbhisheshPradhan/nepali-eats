@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { query } from "./db";
-import { DISH_CATEGORIES, FACET_KIND_ORDER } from "./menu/taxonomy";
-import { EXPLORE_CATEGORIES } from "./menu/categories";
+import { DISH_CATEGORIES } from "./menu/taxonomy";
+import { EXPLORE_CATEGORIES, FACET_KIND_ORDER } from "./menu/categories";
 import type {
 	Restaurant,
 	RestaurantDetail,

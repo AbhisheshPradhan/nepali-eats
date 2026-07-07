@@ -1,0 +1,79 @@
+{
+  "slug": "khaja-villawood",
+  "source": "admin",
+  "price_source": "website",
+  "currency": "AUD",
+  "categories": [
+    { "name": "Entree",
+      "items": [
+        { "name": "Fried Chicken", "description": "Deep-fried marinated whole chicken pieces", "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Samosa Chat", "description": "Mashed Samosa with Sweet and Spicy Sauce topped with creamy Yogurt", "is_vegetarian": true, "tags": ["samosa", "chaat"],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Pakoda", "description": "Deep-fried Mixed Vegetable Fritter", "is_vegetarian": true, "tags": ["pakora"],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Aloo Dum", "description": "Skinned and Slow Cooked Potato based curry mixed with spiced gravy", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Choila", "description": "Grilled Boneless Chicken marinated with Spices", "tags": ["choila"],
+          "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Mix Achar", "description": "Assorted Veggies marinated with Spices", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Bhatmas Sadheko", "description": "Spicy and Tangy roasted Soybean", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Peanut Sadheko", "description": "Spicy and Tangy roasted Peanuts", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Prawn Crackers", "description": "Deep fried snack", "tags": [],
+          "variants": [ { "label": null, "price": null } ] },
+        { "name": "Chiura", "description": "Beaten Rice", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Furandana", "description": "Deep fried spicy Nepalese snack made of rice flakes, potato sticks, chickpeas, mung beans, spiced nuts, peanuts, sunflower seeds.", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ] },
+    { "name": "Mains",
+      "items": [
+        { "name": "Pulau", "description": "Steamed Basmati Rice flavoured with Whole Spices and Dry Nuts", "is_vegetarian": true, "tags": ["pulao"],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Plain Rice", "description": "Steam Exotic Basmati Rice", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Dal", "description": "Tempered Mixed Lentil with Nepalese Spices", "is_vegetarian": true, "tags": ["dal"],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Rajma", "description": "Slow cooked Kidney Beans seasoned with Nepalese Spices", "is_vegetarian": true, "tags": ["rajma"],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Chicken Curry", "description": "A typical Nepalese curry simmered in tomato-based sauce flavoured with various Spices", "tags": ["curry"],
+          "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Goat Curry", "description": "Slow cooked Goat Stew with homemade spices simmered in tomato-based sauce", "tags": ["curry"],
+          "variants": [ { "label": null, "price": null, "protein": "goat" } ] },
+        { "name": "Paneer Kerau", "description": "Cottage cheese and peas cooked with creamy tomato sauce and fresh herbs", "is_vegetarian": true, "tags": ["curry"],
+          "variants": [ { "label": null, "price": null, "protein": "paneer", "is_vegetarian": true } ] },
+        { "name": "Aloo Kauli", "description": "Sautéed Cauliflower and Potato", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] },
+        { "name": "Tomato Achar", "description": "Spicy Tomato Chutney", "is_vegetarian": true, "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "veg", "is_vegetarian": true } ] }
+      ] },
+    { "name": "Kids Menu",
+      "items": [
+        { "name": "Chicken Meatballs and Mash", "description": "Pan fried Ground Chicken meat rolled with spices", "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Pastas", "description": "Tomato based sauce with chicken mince and herbs", "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Chicken Schntzel & Fries", "description": "Deep-fried battered Chicken Breast and Fries", "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "chicken" } ] },
+        { "name": "Chicken Nuggets & Fries", "tags": [],
+          "variants": [ { "label": null, "price": null, "protein": "chicken" } ] }
+      ] },
+    { "name": "Hot Special",
+      "items": [
+        { "name": "Mo:Mo", "description": "10 pieces a box", "tags": ["momo"],
+          "variants": [ { "label": null, "price": null } ] }
+      ] },
+    { "name": "Desserts",
+      "items": [
+        { "name": "Dudhbari", "description": "Soft Cottage Cheese in a creamy and milky syrup", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": null, "is_vegetarian": true } ] },
+        { "name": "Gajarko Haluwa", "description": "Slow Cooked grated Carrot in Milk with Nuts and Herbs", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": null, "is_vegetarian": true } ] },
+        { "name": "Lalmohan", "description": "Deep-fried dough balls soaked in flavoured Sugar syrup", "is_vegetarian": true, "tags": ["dessert"],
+          "variants": [ { "label": null, "price": null, "is_vegetarian": true } ] }
+      ] }
+  ]
+}

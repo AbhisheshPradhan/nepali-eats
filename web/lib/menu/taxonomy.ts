@@ -39,9 +39,11 @@ export interface DishCategory {
   //                 only, so UI shows a "check with the venue" note when one is picked.
 }
 
-// Facet-kind display order lives in ./categories (the client-safe shared
-// module); re-exported here so the SQL layer keeps one import site.
-export { FACET_KIND_ORDER } from "./categories";
+// ⚠️ This file is ALSO executed by the scraper scripts (seed-menu,
+// seed-taxonomy) under plain `node`, which resolves ESM imports strictly —
+// keep it free of imports (an extensionless re-export broke every seeder,
+// caught 2026-07-08). Facet-kind display order lives in ./categories; the
+// SQL layer imports it from there directly.
 
 export const DISH_CATEGORIES: DishCategory[] = [
   // --- Dishes (flat, top-level) ---------------------------------------------

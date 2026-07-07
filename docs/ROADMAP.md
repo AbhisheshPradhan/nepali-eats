@@ -6,6 +6,20 @@ re-litigated later. Related docs: `LAUNCH.md` (launch/SEO/UX master plan),
 `CATERING-BACKLOG.md` (catering venue list + `catering_sets` design),
 `MENU-SEEDING.md` (menu coverage for the remaining ~300 spots).
 
+## Own reviews (media-rich) — decided 2026-07-08, AFTER launch
+
+Google ratings stay for launch (display-only; we deliberately emit NO
+aggregateRating structured data — self-serving review markup risks a manual
+action — and the July Places re-run refreshes the stored values). Post-launch,
+build first-party reviews as the signup incentive and differentiator:
+
+- Photos + video per review (R2, same media pipeline as listing photos).
+- Display BOTH side by side ("Google rating 4.5 (2,448)" attribution + our
+  reviews) — solves the cold start; 437 spots with 0 native reviews must not
+  look emptier than Google.
+- Needs: review schema, moderation/spam plan, Clerk-gated posting. Design the
+  incentive loop (why sign up) before building.
+
 ## Catering model (`catering_sets`)
 
 See `CATERING-BACKLOG.md` for the venue list AND the locked design. Summary:
