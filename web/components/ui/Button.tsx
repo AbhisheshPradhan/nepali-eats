@@ -37,6 +37,13 @@ interface ButtonProps {
   "aria-label"?: string;
 }
 
+// Pressed-state recipe for interactive elements that are NOT <Button>s (chips,
+// pills, icon buttons, menu rows). CSS :active fires the instant the finger
+// lands, so a tap reads as registered even when the action it triggers (a map
+// wake-up, a soft navigation) takes a few hundred ms. Mobile has no hover, so
+// without this a raw <button> gives zero feedback.
+export const pressable = "transition active:scale-[0.97]";
+
 export function Button({
   children,
   variant = "primary",

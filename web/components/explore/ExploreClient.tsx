@@ -22,7 +22,7 @@ import {
 	Check,
 	type Icon,
 } from "@phosphor-icons/react";
-import { Button } from "@/components/ui/Button";
+import { Button, pressable } from "@/components/ui/Button";
 import { Popover } from "radix-ui";
 import { SearchBox } from "@/components/SearchBox";
 import { ExploreCard } from "@/components/explore/ExploreCard";
@@ -349,6 +349,18 @@ export function ExploreClient({
 	// everything in the bounds, relabelling the view as "in the map area".
 	const [areaScoped, setAreaScoped] = useState(false);
 	const areaScopedRef = useRef(false);
+	// Has the visitor physically panned/zoomed? Distinct from areaScoped (which
+	// Near me also sets): this is the consent gate for the zero-results zoom-out
+	// below — before any gesture the frame is ours to widen, after one it's
+	// theirs and the empty state's "Take me there" button asks first.
+	const [mapTouched, setMapTouched] = useState(false);
+	// One-shot fit request for the zero-results zoom-out, [[swLng,swLat],
+	// [neLng,neLat]]: Mapbox computes the zoom against the REAL viewport (a
+	// hand-rolled span→zoom table underestimated and cropped both endpoints
+	// out of the frame — 2026-07-08 QA).
+	const [fitBounds, setFitBounds] = useState<
+		[[number, number], [number, number]] | null
+	>(null);
 	const enterAreaMode = (clearBox = false) => {
 		if (!areaScopedRef.current) {
 			areaScopedRef.current = true;
@@ -358,6 +370,9 @@ export function ExploreClient({
 	};
 
 	const listRef = useRef<HTMLDivElement>(null);
+	// current dish, readable inside async callbacks (geolocation)
+	const dishRef = useRef(dish);
+	dishRef.current = dish;
 	// the view this client last applied; starts at the mount value so the resync
 	// effect is a no-op on first render and only fires on later soft navigations.
 	const appliedViewKey = useRef(viewKey);
@@ -373,6 +388,7 @@ export function ExploreClient({
 		// context lives in the list heading below. Taking the map over also
 		// retires the "showing the closest" banner — the user is driving now.
 		if (userMoved) {
+			setMapTouched(true); // a gesture: the visitor owns the frame now
 			enterAreaMode(true);
 			setAutoBanner(null);
 		}
@@ -400,6 +416,11 @@ export function ExploreClient({
 			navigator.geolocation.getCurrentPosition(
 				(p) => {
 					setUserLoc([p.coords.latitude, p.coords.longitude]);
+					// In dish mode the results own the camera (a zero-local-match
+					// search zoom-out fits visitor + closest; racing a zoom-13
+					// recentre against it produced a zoom-in/out/in dance). The
+					// dot + distances still come from the location above.
+					if (dishRef.current) return;
 					setCenter([p.coords.latitude, p.coords.longitude]);
 					setZoom(13);
 				},
@@ -433,6 +454,8 @@ export function ExploreClient({
 			setZoom(initialZoom);
 			areaScopedRef.current = false;
 			setAreaScoped(false);
+			setMapTouched(false); // a new seeded view = a fresh, untouched frame
+			setFitBounds(null);
 		}
 		setSelected(focusId ?? null);
 		setBoxKey((k) => k + 1);
@@ -663,23 +686,35 @@ export function ExploreClient({
 		return best ? { spot: best, km: bestKm } : null;
 	}, [dish, viewBbox, inView.length, matches]);
 
-	// Auto-resolve, once per dish, ONLY while the map is untouched: a fresh dish
-	// landing with zero local matches flies to the closest spot and explains
-	// itself with a banner. Once the user pans (areaScoped) the map is theirs and
-	// the empty state's "Take me there" button takes over.
+	// Zero local matches, once per dish, ONLY before the visitor's first map
+	// gesture: ZOOM OUT so the frame holds both the visitor (their blue dot, or
+	// the viewport centre) AND the closest match, and say so in the banner. The
+	// camera widens around the user instead of teleporting to the match (the old
+	// behaviour) so their context stays on screen. After a gesture the map is
+	// theirs: the empty state's "Take me there" button asks first instead.
 	useEffect(() => {
-		if (!dish || !ready || areaScoped) return;
+		if (!dish || !ready || mapTouched) return;
 		if (autoResolvedRef.current === dish) return;
 		if (inView.length > 0) {
 			autoResolvedRef.current = dish; // local matches exist; never auto-move
 			return;
 		}
-		if (!nearest) return;
+		if (!nearest || !viewBbox) return;
 		autoResolvedRef.current = dish;
 		setAutoBanner(nearest.spot);
-		setCenter([nearest.spot.lat, nearest.spot.lng]);
-		setZoom(13);
-	}, [dish, ready, areaScoped, inView.length, nearest]);
+		const anchor: [number, number] = userLoc ?? [
+			(viewBbox.s + viewBbox.n) / 2,
+			(viewBbox.w + viewBbox.e) / 2,
+		];
+		const t = nearest.spot;
+		setFitBounds([
+			[Math.min(anchor[1], t.lng), Math.min(anchor[0], t.lat)],
+			[Math.max(anchor[1], t.lng), Math.max(anchor[0], t.lat)],
+		]);
+		// userLoc/viewBbox are read, not watched: refitting on every pan-less
+		// bbox report would fight the camera we just set
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [dish, ready, mapTouched, inView.length, nearest]);
 	// Until then, the SSR-seeded focused restaurant is the list.
 	const shown: (ExploreSpot | Restaurant)[] = ready
 		? ordered.slice(0, shownCount)
@@ -737,7 +772,7 @@ export function ExploreClient({
 				className="text-marigold-700 shrink-0 mt-0.5"
 			/>
 			<span className="min-w-0">
-				No {dishName} spots near you. Showing the closest:{" "}
+				No {dishSearchLabel} spots near you. Zoomed out to the closest:{" "}
 				<strong className="text-ink-900">{autoBanner.name}</strong>
 				{autoBanner.suburb
 					? ` in ${autoBanner.suburb}${autoBanner.state ? `, ${autoBanner.state}` : ""}`
@@ -986,7 +1021,7 @@ export function ExploreClient({
 										// exactly below the scroll fold with no visible cue that the
 										// list continues (found in the 2026-07-08 mobile QA pass)
 										className={cn(
-											"flex items-center gap-3 rounded-2xl px-3 py-2.5 cursor-pointer text-left border-2 transition-colors",
+											"flex items-center gap-3 rounded-2xl px-3 py-2.5 cursor-pointer text-left border-2 transition-colors active:bg-paper-200",
 											selected
 												? "bg-chili-50 border-chili-200"
 												: "bg-transparent border-transparent hover:bg-paper-100",
@@ -1133,7 +1168,7 @@ export function ExploreClient({
 						type="button"
 						onClick={nearMe}
 						aria-label="Near me"
-						className="md:hidden shrink-0 grid place-items-center w-11 h-11 rounded-full bg-chili-500 text-white cursor-pointer"
+						className={cn("md:hidden shrink-0 grid place-items-center w-11 h-11 rounded-full bg-chili-500 text-white cursor-pointer active:bg-chili-600", pressable)}
 					>
 						<NavigationArrow weight="fill" size={18} />
 					</button>
@@ -1193,7 +1228,7 @@ export function ExploreClient({
 								type="button"
 								onClick={clearDish}
 								aria-label={`Clear ${dishName}`}
-								className="grid place-items-center w-5 h-5 rounded-full text-ink-400 hover:bg-paper-200 hover:text-ink-900 cursor-pointer"
+								className={cn("grid place-items-center w-5 h-5 rounded-full text-ink-400 hover:bg-paper-200 hover:text-ink-900 cursor-pointer", pressable)}
 							>
 								<X size={13} weight="bold" />
 							</button>
@@ -1246,7 +1281,7 @@ export function ExploreClient({
 						<button
 							type="button"
 							onClick={clearDish}
-							className="shrink-0 inline-flex items-center gap-1.5 font-display font-bold text-[0.9rem] text-ink-500 px-1.5 cursor-pointer hover:text-ink-900 transition-colors"
+							className={cn("shrink-0 inline-flex items-center gap-1.5 font-display font-bold text-[0.9rem] text-ink-500 px-1.5 cursor-pointer hover:text-ink-900 transition-colors", pressable)}
 						>
 							<X size={14} weight="bold" />
 							Clear
@@ -1364,6 +1399,7 @@ export function ExploreClient({
 						}}
 						className={cn(
 							"inline-flex items-center gap-2 border-2 rounded-full px-4 h-11 cursor-pointer font-display font-bold text-[0.9rem] transition-colors min-w-0",
+						pressable,
 							dish
 								? "bg-white border-chili-400 text-ink-900"
 								: "bg-white border-sand-400 text-ink-700",
@@ -1384,6 +1420,7 @@ export function ExploreClient({
 						aria-label={`Features${activeFilterCount ? ` (${activeFilterCount})` : ""}`}
 						className={cn(
 							"relative ml-auto shrink-0 grid place-items-center w-11 h-11 rounded-full border-2 cursor-pointer transition-colors",
+						pressable,
 							activeFilterCount > 0
 								? "bg-white border-chili-400 text-ink-900"
 								: "bg-white border-sand-400 text-ink-700",
@@ -1403,6 +1440,7 @@ export function ExploreClient({
 						aria-label={`Sort: ${SORT_LABELS[sort] ?? "Popular"}`}
 						className={cn(
 							"shrink-0 grid place-items-center w-11 h-11 rounded-full border-2 cursor-pointer transition-colors",
+						pressable,
 							sort !== "popular"
 								? "bg-white border-chili-400 text-chili-600"
 								: "bg-white border-sand-400 text-ink-700",
@@ -1454,6 +1492,8 @@ export function ExploreClient({
 						dishName={dishName ?? undefined}
 						distOrigin={distOrigin}
 						focusId={focusId}
+						userLoc={userLoc}
+						fitBounds={fitBounds}
 					/>
 				</div>
 
@@ -1472,7 +1512,10 @@ export function ExploreClient({
 						onClick={() =>
 							setViewMode(viewMode === "map" ? "list" : "map")
 						}
-						className="inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg"
+						className={cn(
+							"inline-flex items-center gap-2 bg-chili-500 text-white rounded-full px-6 py-3.5 cursor-pointer font-display font-bold text-[1.02rem] shadow-lg active:bg-chili-600",
+							pressable,
+						)}
 					>
 						{viewMode === "map" ? (
 							<Rows size={20} />

@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
 	MagnifyingGlass,
+	CircleNotch,
 	ArrowRight,
 	MapPin,
 	ForkKnife,
@@ -41,6 +42,12 @@ export function SearchBox({
 	current?: ExploreParams;
 }) {
 	const router = useRouter();
+	// Navigation feedback: picks wrap router.push in a transition so the box can
+	// show a spinner while the target page's server render is in flight. Without
+	// it a pick gives zero acknowledgement until the page swaps (the "dead
+	// pause" after choosing a suggestion).
+	const [navPending, startNav] = useTransition();
+	const nav = (href: string) => startNav(() => router.push(href));
 	const [value, setValue] = useState(defaultValue);
 	const [selected, setSelected] = useState<
 		| { type: "restaurant"; slug: string }
@@ -55,6 +62,7 @@ export function SearchBox({
 	// true once the user actually types; a URL-prefilled defaultValue (Explore's
 	// dish/suburb chips) must NOT trigger a suggestion fetch on mount.
 	const touchedRef = useRef(false);
+	const prefetchedRef = useRef(false);
 	const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const rootRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -107,12 +115,12 @@ export function SearchBox({
 	const base = current ?? {};
 	// carry the state so "Auburn, NSW" doesn't collide with Auburn VIC/SA
 	const gotoSuburb = (s: { suburb: string; state: string }) =>
-		router.push(withLocation(base, { suburb: s.suburb, state: s.state }));
+		nav(withLocation(base, { suburb: s.suburb, state: s.state }));
 	const gotoRestaurant = (slug: string) =>
-		router.push(withLocation(base, { focus: slug }));
+		nav(withLocation(base, { focus: slug }));
 	// a compound pick ("Paneer Momo") carries the protein as a pre-set filter
 	const gotoDish = (d: DishSuggestion) =>
-		router.push(withDish(base, { dish: d.slug, protein: d.protein }));
+		nav(withDish(base, { dish: d.slug, protein: d.protein }));
 
 	// typing clears any prior selection (back to free-text)
 	const change = (v: string) => {
@@ -158,7 +166,7 @@ export function SearchBox({
 				return gotoRestaurant(sugg.restaurants[0].slug);
 		}
 		if (embedded) change("");
-		else router.push("/explore");
+		else nav("/explore");
 	};
 
 	// Picking an option resolves intent immediately (navigate) and EMPTIES the box:
@@ -223,7 +231,7 @@ export function SearchBox({
 		else if (embedded) change(""); // no-results row: clear the filter in place
 		else {
 			setOpen(false);
-			router.push("/explore");
+			nav("/explore");
 		}
 	};
 
@@ -294,15 +302,30 @@ export function SearchBox({
 						: "h-11 pl-4 pr-1.5 shadow-sm",
 				)}
 			>
-				<MagnifyingGlass
-					className="text-ink-500 shrink-0"
-					size={hero ? 22 : 18}
-				/>
+				{navPending ? (
+					<CircleNotch
+						className="text-chili-500 shrink-0 animate-spin"
+						size={hero ? 22 : 18}
+					/>
+				) : (
+					<MagnifyingGlass
+						className="text-ink-500 shrink-0"
+						size={hero ? 22 : 18}
+					/>
+				)}
 				<input
 					ref={inputRef}
 					value={value}
 					onChange={(e) => change(e.target.value)}
-					onFocus={() => setOpen(true)}
+					onFocus={() => {
+							setOpen(true);
+							// warm /explore (RSC payload + JS chunks) while they type;
+							// programmatic router.push never prefetches on its own
+							if (!embedded && !prefetchedRef.current) {
+								prefetchedRef.current = true;
+								router.prefetch("/explore");
+							}
+						}}
 					onBlur={() => {
 						blurTimer.current = setTimeout(
 							() => setOpen(false),
@@ -524,7 +547,7 @@ export function SearchBox({
 									change(""); // already on the map; just reset the filter
 								} else {
 									setOpen(false);
-									router.push("/explore");
+									nav("/explore");
 								}
 							}}
 							className={cn(

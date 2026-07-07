@@ -4,6 +4,7 @@ import Map, {
   Source,
   Layer,
   Popup,
+  Marker,
   NavigationControl,
   type MapRef,
   type MapMouseEvent,
@@ -89,6 +90,8 @@ export default function MapView({
   dishName,
   distOrigin,
   focusId,
+  userLoc,
+  fitBounds,
 }: {
   pins: ExploreSpot[];
   hoveredId: number | null;
@@ -108,6 +111,13 @@ export default function MapView({
   // filter, so its popup renders the list card with the dish-miss note (same
   // story as its list row) instead of a bare PlaceCard.
   focusId?: number;
+  // The visitor's REAL located position (Near me / granted geolocation /
+  // ?lat&lng) — never the state-capital fallback. Rendered as the blue
+  // you-are-here dot so distances and "near you" have a visible anchor.
+  userLoc?: LatLng | null;
+  // One-shot bounds-fit request ([[swLng,swLat],[neLng,neLat]]): the
+  // zero-results zoom-out. Mapbox picks the zoom for the real viewport.
+  fitBounds?: [[number, number], [number, number]] | null;
   // On mobile the map is display:none while the list is showing, so Mapbox
   // measures a zero-size container. When it becomes visible we must resize, or
   // the canvas keeps its old (short) height and tiles only cover part of it.
@@ -190,6 +200,17 @@ export default function MapView({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [center, zoom]);
+
+  // Zero-results zoom-out: widen to hold the visitor AND the closest match.
+  // maxZoom stops a very-near match from zooming IN past street level.
+  useEffect(() => {
+    if (!fitBounds) return;
+    mapRef.current?.fitBounds(fitBounds, {
+      padding: 80,
+      duration: 1000,
+      maxZoom: 13,
+    });
+  }, [fitBounds]);
 
   // Mobile dock: if the opened pin sits where the bottom card will cover it,
   // ease it up into the free space above the card so you can still see WHICH
@@ -412,6 +433,15 @@ export default function MapView({
           is the (max-width:767px) media-query state. */}
       {!dockCard && (
         <NavigationControl position="top-right" showCompass={false} />
+      )}
+
+      {/* You-are-here dot: map-convention blue (not brand chili, which is the
+          restaurant-pin colour), white ring + soft halo, no pulse animation
+          (battery + distraction on a marker that never moves). */}
+      {userLoc && (
+        <Marker latitude={userLoc[0]} longitude={userLoc[1]} anchor="center">
+          <span className="block w-4 h-4 rounded-full bg-[#4285F4] border-2 border-white shadow-[0_0_0_4px_rgba(66,133,244,0.25),0_1px_4px_rgba(0,0,0,0.3)]" />
+        </Marker>
       )}
       <Source
         id="restaurants"

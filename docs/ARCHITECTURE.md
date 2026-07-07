@@ -170,6 +170,41 @@ leaves the box free to immediately search the other dimension.
 - A dish not in the Category cuisines shows as its own removable chip so
   every active dish is visible in the filter row.
 
+### Zero-results camera behaviour (decided 2026-07-08)
+
+A dish search with no matches in view resolves by CONSENT tier, gated on
+whether the visitor has physically panned/zoomed (`mapTouched`, NOT
+`areaScoped` — Near me sets the latter, and both "near me" paths must behave
+identically):
+
+- **Untouched map**: zoom OUT once per dish so the frame holds both the
+  visitor (blue you-are-here dot, else viewport centre) and the closest
+  match, with a banner naming it. Never teleport-recenter: the visitor's
+  context must stay on screen.
+- **After a gesture**: the map is theirs. The empty state names the closest
+  match + distance and offers "Take me there" (a tap is consent to
+  recentre).
+
+The you-are-here dot renders only from real located positions (Near me,
+granted geolocation, ?lat&lng), never the state-capital fallback.
+
+### Interaction feedback (decided 2026-07-08)
+
+Perceived performance is handled in three layers; keep them when touching
+these surfaces:
+
+- **Pressed states**: every interactive that isn't a `<Button>` gets the
+  shared `pressable` recipe (exported from `components/ui/Button.tsx`,
+  `active:scale-[0.97]`) or an `active:bg-*` flash for full-width rows.
+  Mobile has no hover, so a raw button with neither gives zero tap feedback.
+- **`app/explore/loading.tsx`**: skeleton streamed on entry into /explore
+  from another page (the dynamic render + Mapbox chunk take a beat).
+  Same-route filter changes are transitions and keep the live UI.
+- **SearchBox navigations** run through `useTransition`: the magnifier icon
+  becomes a spinner while the target render is in flight, and the first
+  focus prefetches `/explore` (programmatic `router.push` never prefetches
+  on its own).
+
 ## Other surfaces (short form; agent brief lives in root CLAUDE.md)
 
 - **Home:** featured + popular rows are state-scoped (IP-geo -> state, default

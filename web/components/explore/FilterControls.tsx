@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { Popover, Dialog } from "radix-ui";
 import { CaretDown, CaretLeft, Check, X } from "@phosphor-icons/react";
 import { cn } from "@/lib/cn";
+import { pressable } from "@/components/ui/Button";
 import { Z } from "@/lib/z";
 
 // Shared dropdown primitives for the Explore filter bar (desktop). A labelled
@@ -36,6 +37,7 @@ export function FilterTrigger({
 				type="button"
 				className={cn(
 					"shrink-0 inline-flex items-center gap-2 border-2 rounded-full cursor-pointer font-display transition-colors",
+					pressable,
 					eyebrow ? "px-3.5 py-1.5" : "px-4 py-[7px]",
 					active || open
 						? "bg-white border-chili-400 text-ink-900"
@@ -144,7 +146,7 @@ export function MenuRow({
 			aria-checked={selected}
 			onClick={onSelect}
 			className={cn(
-				"w-full flex items-center gap-3 rounded-xl px-2.5 py-2 cursor-pointer text-left font-display transition-colors",
+				"w-full flex items-center gap-3 rounded-xl px-2.5 py-2 cursor-pointer text-left font-display transition-colors active:bg-paper-200",
 				selected ? "text-chili-600" : "text-ink-800 hover:bg-paper-100",
 			)}
 		>
@@ -241,7 +243,7 @@ export function FilterSheet({
 								type="button"
 								onClick={onBack}
 								aria-label="Back"
-								className="grid place-items-center w-8 h-8 rounded-full text-ink-700 hover:bg-paper-200 cursor-pointer -ml-1"
+								className={cn("grid place-items-center w-8 h-8 rounded-full text-ink-700 hover:bg-paper-200 cursor-pointer -ml-1", pressable)}
 							>
 								<CaretLeft size={18} weight="bold" />
 							</button>
@@ -261,7 +263,7 @@ export function FilterSheet({
 							<button
 								type="button"
 								aria-label="Close"
-								className="ml-auto grid place-items-center w-9 h-9 rounded-full bg-paper-200 text-ink-700 hover:bg-sand-400 cursor-pointer shrink-0"
+								className={cn("ml-auto grid place-items-center w-9 h-9 rounded-full bg-paper-200 text-ink-700 hover:bg-sand-400 cursor-pointer shrink-0", pressable)}
 							>
 								<X size={16} weight="bold" />
 							</button>
@@ -294,6 +296,7 @@ export function SheetChip({
 			onClick={onClick}
 			className={cn(
 				"border-2 rounded-full px-4 py-2 cursor-pointer font-display font-bold text-[0.92rem] transition-colors",
+				pressable,
 				active
 					? "bg-marigold-500 border-marigold-500 text-ink-900"
 					: "bg-white border-sand-400 text-ink-800 hover:bg-paper-100",
@@ -337,7 +340,7 @@ export function SheetShowButton({
 		<button
 			type="button"
 			onClick={onClick}
-			className="flex-1 rounded-full bg-chili-500 text-white px-5 py-3 font-display font-bold text-[1rem] cursor-pointer hover:bg-chili-600 transition-colors"
+			className={cn("flex-1 rounded-full bg-chili-500 text-white px-5 py-3 font-display font-bold text-[1rem] cursor-pointer hover:bg-chili-600 transition-colors", pressable)}
 		>
 			Show {n} {n === 1 ? "place" : "places"}
 		</button>
@@ -359,7 +362,7 @@ export function SheetTextButton({
 			type="button"
 			onClick={onClick}
 			disabled={disabled}
-			className="shrink-0 font-display font-bold text-[0.95rem] text-ink-500 px-2 cursor-pointer hover:text-ink-900 disabled:opacity-40 transition-colors"
+			className={cn("shrink-0 font-display font-bold text-[0.95rem] text-ink-500 px-2 cursor-pointer hover:text-ink-900 disabled:opacity-40 transition-colors", pressable)}
 		>
 			{children}
 		</button>
