@@ -247,10 +247,46 @@ export default async function VenuePage({
 		// below; we just don't emit them as structured data.
 	};
 
+	// Menu structured data: the seeded menu is what separates us from every
+	// other directory, so tell crawlers it exists. Names/descriptions verbatim
+	// (transcription rule), one Offer per priced variant, vegetarian marks via
+	// suitableForDiet. Gated on menu.length like the visible menu; gzip keeps
+	// even a 190-item blob cheap on the wire.
+	const menuLd = menu.length
+		? {
+				"@type": "Menu",
+				name: `${r.name} menu`,
+				hasMenuSection: menu.map((c) => ({
+					"@type": "MenuSection",
+					name: c.name,
+					...(c.description ? { description: c.description } : {}),
+					hasMenuItem: c.items.map((it) => {
+						const offers = (it.variants ?? [])
+							.filter((v) => v.price != null)
+							.map((v) => ({
+								"@type": "Offer",
+								...(v.label ? { name: v.label } : {}),
+								price: Number(v.price).toFixed(2),
+								priceCurrency: v.currency || "AUD",
+							}));
+						return {
+							"@type": "MenuItem",
+							name: it.name,
+							...(it.description ? { description: it.description } : {}),
+							...(it.isVegetarian
+								? { suitableForDiet: "https://schema.org/VegetarianDiet" }
+								: {}),
+							...(offers.length ? { offers } : {}),
+						};
+					}),
+				})),
+			}
+		: null;
+
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@graph": [
-			restaurantLd,
+			menuLd ? { ...restaurantLd, hasMenu: menuLd } : restaurantLd,
 			{
 				"@type": "BreadcrumbList",
 				itemListElement: crumbs.map((c, i) => ({
@@ -361,7 +397,9 @@ export default async function VenuePage({
 							alt={r.name}
 							fill
 							priority
-							sizes="1180px"
+							// render width by viewport, so phones fetch a phone-sized
+							// variant instead of the 1180px desktop file
+							sizes="(max-width: 1180px) 100vw, 1180px"
 							className="object-cover"
 						/>
 					) : (
