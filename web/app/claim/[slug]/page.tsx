@@ -27,9 +27,8 @@ export async function generateMetadata({
 	);
 	const name = rows[0]?.name;
 	return {
-		title: name
-			? `Claim ${name} - NepaliEats`
-			: "Claim your restaurant - NepaliEats",
+		// no manual suffix: the layout's title template appends "- NepaliEats"
+		title: name ? `Claim ${name}` : "Claim your restaurant",
 		robots: { index: false, follow: false },
 	};
 }
