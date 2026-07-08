@@ -21,7 +21,7 @@ import {
 	Wine,
 	Wheelchair,
 } from "@phosphor-icons/react/dist/ssr";
-import { FeaturedBadge, PopularBadge } from "@/components/ui/PlaceBadges";
+import { FeaturedBadge, PopularBadge, OwnerVerifiedBadge } from "@/components/ui/PlaceBadges";
 import { VenueType } from "@/components/ui/VenueType";
 import { Rating } from "@/components/ui/Rating";
 import { Button } from "@/components/ui/Button";
@@ -39,6 +39,7 @@ import {
 	brandSiblings,
 	nearbyRestaurants,
 } from "@/lib/queries";
+import { query } from "@/lib/db";
 import { RestaurantMenu } from "@/components/RestaurantMenu";
 import { RelatedRestaurants } from "@/components/RelatedRestaurants";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -64,7 +65,7 @@ export async function generateStaticParams() {
 	return rows.map((r) => ({ slug: r.slug }));
 }
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
+import { SITE } from "@/lib/site";
 
 export async function generateMetadata({
 	params,
@@ -119,6 +120,16 @@ export default async function VenuePage({
 	const origin: [number, number] | undefined = hasCoords
 		? [r.lat!, r.lng!]
 		: undefined;
+
+	// Unclaimed pages carry a quiet owner entry point into the claim flow
+	// (docs/CLAIM-FLOW.md); claimed pages drop it.
+	const claimed =
+		(
+			await query(
+				`SELECT 1 FROM restaurant_owners WHERE restaurant_id = $1`,
+				[r.id],
+			)
+		).length > 0;
 
 	const hero = mediaUrl(r.primaryPhoto);
 	// gallery = every photo except the hero, in saved order (admin-reorderable).
@@ -200,10 +211,20 @@ export default async function VenuePage({
 	const crumbs = [
 		{ label: "Home", href: "/" },
 		...(r.state
-			? [{ label: r.state, href: `/nepali-restaurants/${r.state.toLowerCase()}` }]
+			? [
+					{
+						label: r.state,
+						href: `/nepali-restaurants/${r.state.toLowerCase()}`,
+					},
+				]
 			: []),
 		...(r.suburb && r.state
-			? [{ label: r.suburb, href: `/nepali-restaurants/${suburbSlug(r.suburb, r.state)}` }]
+			? [
+					{
+						label: r.suburb,
+						href: `/nepali-restaurants/${suburbSlug(r.suburb, r.state)}`,
+					},
+				]
 			: []),
 		{ label: r.name, href: `/restaurant/${r.slug}` },
 	];
@@ -272,9 +293,14 @@ export default async function VenuePage({
 						return {
 							"@type": "MenuItem",
 							name: it.name,
-							...(it.description ? { description: it.description } : {}),
+							...(it.description
+								? { description: it.description }
+								: {}),
 							...(it.isVegetarian
-								? { suitableForDiet: "https://schema.org/VegetarianDiet" }
+								? {
+										suitableForDiet:
+											"https://schema.org/VegetarianDiet",
+									}
 								: {}),
 							...(offers.length ? { offers } : {}),
 						};
@@ -378,7 +404,7 @@ export default async function VenuePage({
 				/>
 
 				{/* visible breadcrumb trail (matches the BreadcrumbList JSON-LD) */}
-				<div className="px-4 sm:px-0 pt-3 sm:pt-0">
+				<div className="px-4 sm:px-0 pt-3">
 					<Breadcrumbs trail={crumbs} />
 				</div>
 
@@ -449,6 +475,7 @@ export default async function VenuePage({
 						<div className="flex items-center gap-2.5 mb-2 flex-wrap">
 							{r.isFeatured && <FeaturedBadge />}
 							{r.popular && <PopularBadge />}
+							{claimed && <OwnerVerifiedBadge />}
 						</div>
 					</div>
 				</div>
@@ -492,7 +519,11 @@ export default async function VenuePage({
 								{[...r.tags].sort().map((c) => (
 									<Link
 										key={c}
-										href={c === "momo" ? "/momo" : `/nepali-food/${c}`}
+										href={
+											c === "momo"
+												? "/momo"
+												: `/nepali-food/${c}`
+										}
 										className="inline-flex items-center font-body font-semibold text-[0.8rem] text-ink-700 bg-paper-200 px-2.5 py-1 rounded-md hover:bg-chili-100 hover:text-chili-600 transition-colors"
 									>
 										{tagLabel(c)}
@@ -697,6 +728,7 @@ export default async function VenuePage({
 								More spots in {r.suburb}
 							</Link>
 						)}
+
 						{r.state && (
 							<Link
 								href={`/nepali-restaurants/${r.state.toLowerCase()}`}
@@ -704,6 +736,23 @@ export default async function VenuePage({
 							>
 								Nepali restaurants in{" "}
 								{STATE_LINK_NAME[r.state] ?? r.state}
+							</Link>
+						)}
+
+						{/* owner entry point (Aasha's label): a footnote of the card,
+						    below the location pills so they stay a pair. Separator +
+						    icon anchor it; only while unclaimed. */}
+						{!claimed && (
+							<Link
+								href={`/claim/${r.slug}`}
+								className="mt-4 pt-3.5 border-t border-paper-300 flex items-center justify-center gap-1.5 text-ink-500 text-[0.9rem] font-display font-semibold hover:text-chili-600 transition-colors"
+							>
+								<Storefront
+									size={15}
+									weight="fill"
+									className="shrink-0"
+								/>
+								Run this kitchen? Claim it, free.
 							</Link>
 						)}
 					</aside>

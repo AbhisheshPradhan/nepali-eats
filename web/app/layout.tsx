@@ -67,7 +67,7 @@ const mukta = Mukta({
 	display: "swap",
 });
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
 	metadataBase: new URL(SITE),

@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { Popover, Dialog } from "radix-ui";
-import { CaretDown, CaretLeft, Check, X } from "@phosphor-icons/react";
+import { CaretDown, CaretLeft, X } from "@phosphor-icons/react";
 import { cn } from "@/lib/cn";
 import { pressable } from "@/components/ui/Button";
 import { Z } from "@/lib/z";
@@ -73,102 +73,11 @@ export function FilterTrigger({
 	);
 }
 
-// The floating panel. Portalled (escapes the top bar's overflow) and above the
-// map + overlays via Z.popover.
-export function FilterPanel({
-	align = "start",
-	children,
-}: {
-	align?: "start" | "end";
-	children: ReactNode;
-}) {
-	return (
-		<Popover.Portal>
-			<Popover.Content
-				align={align}
-				sideOffset={8}
-				role="menu"
-				aria-orientation="vertical"
-				onKeyDown={menuKeyNav}
-				style={{ zIndex: Z.popover }}
-				className="min-w-[200px] rounded-2xl border border-paper-300 bg-white p-1.5 shadow-xl shadow-ink-900/10"
-			>
-				{children}
-			</Popover.Content>
-		</Popover.Portal>
-	);
-}
-
-// Roving arrow-key focus across a menu's rows. The Radix Select these
-// dropdowns replaced had listbox keyboard support built in; a bare Popover of
-// buttons has none, so keyboard users would be stuck tabbing.
-function menuKeyNav(e: React.KeyboardEvent<HTMLElement>) {
-	if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
-	const items = Array.from(
-		e.currentTarget.querySelectorAll<HTMLElement>('[role^="menuitem"]'),
-	);
-	if (!items.length) return;
-	e.preventDefault();
-	const i = items.indexOf(document.activeElement as HTMLElement);
-	const next =
-		e.key === "Home" || (i === -1 && e.key === "ArrowDown")
-			? 0
-			: e.key === "End" || (i === -1 && e.key === "ArrowUp")
-				? items.length - 1
-				: e.key === "ArrowDown"
-					? (i + 1) % items.length
-					: (i - 1 + items.length) % items.length;
-	items[next]?.focus();
-}
-
-// One selectable row: check indicator + optional icon + label. Announced to AT
-// as a radio-style menu item (or checkbox-style when `multi`), with the
-// selection carried by aria-checked — the visual check icon alone says nothing
-// to a screen reader.
-export function MenuRow({
-	selected,
-	icon,
-	label,
-	multi = false,
-	onSelect,
-}: {
-	selected: boolean;
-	icon?: ReactNode;
-	label: ReactNode;
-	// multi-select row (Features): toggles without closing -> menuitemcheckbox
-	multi?: boolean;
-	onSelect: () => void;
-}) {
-	return (
-		<button
-			type="button"
-			role={multi ? "menuitemcheckbox" : "menuitemradio"}
-			aria-checked={selected}
-			onClick={onSelect}
-			className={cn(
-				"w-full flex items-center gap-3 rounded-xl px-2.5 py-2 cursor-pointer text-left font-display transition-colors active:bg-paper-200",
-				selected ? "text-chili-600" : "text-ink-800 hover:bg-paper-100",
-			)}
-		>
-			<span
-				className={cn(
-					"grid place-items-center w-[22px] h-[22px] rounded-md border-2 shrink-0 transition-colors",
-					selected
-						? "bg-chili-500 border-chili-500 text-white"
-						: "border-sand-400 text-transparent",
-				)}
-			>
-				<Check size={13} weight="bold" />
-			</span>
-			{icon && (
-				<span className={selected ? "text-chili-500" : "text-ink-400"}>
-					{icon}
-				</span>
-			)}
-			<span className="font-bold text-[0.95rem]">{label}</span>
-		</button>
-	);
-}
+// The panel, rows and keyboard nav are the SITE-WIDE dropdown primitives now
+// (promoted to components/ui/SelectMenu, 2026-07-08); re-exported here so the
+// Explore call sites keep their names.
+import { MenuPanel, MenuRow, menuKeyNav } from "@/components/ui/SelectMenu";
+export { MenuPanel as FilterPanel, MenuRow, menuKeyNav };
 
 // A single-select menu that closes on pick. Controlled so a row can close it.
 export function SingleSelectMenu({
@@ -196,7 +105,7 @@ export function SingleSelectMenu({
 				active={active}
 				open={open}
 			/>
-			<FilterPanel align={align}>{children(() => setOpen(false))}</FilterPanel>
+			<MenuPanel align={align}>{children(() => setOpen(false))}</MenuPanel>
 		</Popover.Root>
 	);
 }

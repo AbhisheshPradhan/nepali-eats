@@ -14,7 +14,7 @@ import {
   type FoodLink,
 } from "@/lib/food";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Nepali food explained: dishes, cuisines and where to eat them",

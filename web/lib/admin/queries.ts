@@ -489,6 +489,13 @@ export async function getRestaurantIdBySlug(slug: string): Promise<number | null
   return rows[0]?.id ?? null;
 }
 
+// Inverse lookup for routes keyed by photo id: they resolve the restaurant id
+// from the photo row but need the slug to revalidate /restaurant/[slug].
+export async function getRestaurantSlugById(restaurantId: number): Promise<string | null> {
+  const rows = await query<{ slug: string }>(`SELECT slug FROM restaurants WHERE id = $1`, [restaurantId]);
+  return rows[0]?.slug ?? null;
+}
+
 // Point an existing photo row at a NEW storage_key after a re-crop wrote a fresh
 // file. Returns the previous key (to delete) + the restaurant id (to repoint a
 // cover that referenced it). A new key avoids CDN cache staleness from

@@ -188,6 +188,16 @@ identically):
 The you-are-here dot renders only from real located positions (Near me,
 granted geolocation, ?lat&lng), never the state-capital fallback.
 
+### The site dropdown (decided 2026-07-08)
+
+`components/ui/SelectMenu.tsx` is THE dropdown for public and owner-facing
+surfaces: white rounded-2xl panel, chili check-circle rows, menu-pattern
+a11y (promoted from the Explore filter bar; Explore's FilterControls
+re-exports these primitives, so the two can't drift). `SelectMenu` is the
+form-field variant (input-shaped trigger, panel matches trigger width). The
+shadcn Select is ADMIN-TOOLING ONLY; the RestaurantEditPanel's venue/price
+selects still use it and should migrate when the panel is next touched.
+
 ### Interaction feedback (decided 2026-07-08)
 
 Perceived performance is handled in three layers; keep them when touching
@@ -219,3 +229,43 @@ these surfaces:
 - **Mockups lab:** `/admin/playground/mockups` hosts card/filter-bar
   candidates as deliberate copies of the real components; the port direction
   is mockup -> real when a design wins.
+- **Client identity:** `useMe()` (`web/lib/useMe.ts`) is THE way client UI
+  asks "who am I" (isAdmin/owned): one module-cached `/api/me` request per
+  page, keyed by Clerk user id so modal sign-in/out refetches. Header and
+  AppUserButton share it; EditModeProvider keeps its own
+  `/api/me?restaurantId=` call (different question: canEdit for one
+  restaurant), and that variant skips the ownership-list query server-side.
+- **Site URL:** `SITE` in `web/lib/site.ts` (from `NEXT_PUBLIC_SITE_URL`,
+  localhost fallback) is the ONLY source of the absolute site URL
+  (canonicals, sitemap, OG, email links). Decided 2026-07-08 after the claim
+  review found 10 per-file copies with two different hardcoded fallback
+  domains: never hardcode a hostname next to a usage — a domain move must be
+  a one-line env change in Vercel. Corollary: `NEXT_PUBLIC_SITE_URL` must be
+  set in the Vercel project env (build-time inlined) or prod falls back to
+  localhost.
+
+---
+
+## Architecture review (Fable, 2026-07-08 — parting assessment)
+
+**Protect these strengths:** the data discipline (Postgres as single truth,
+idempotent scripts, the taxonomy validator that HARD-ERRORS on unknown slugs —
+why 9k+ items stayed clean); Explore's ship-once model with URL-derived state
+(the drift bug class is structurally gone); the menu as the moat (normalized,
+SQL-queryable, now in structured data); the decision-log habit (this file).
+
+**Risks, ranked:**
+1. Dev + prod share one Neon DB. Use Neon BRANCHING for risky schema work:
+   branch, test the migration, apply to main with the code deploy.
+2. APIs are unprotected until Cloudflare lands (downstream of the domain).
+3. ExploreClient.tsx (~1,500 lines) is at the split point — extract the
+   sheets/list body next time it's touched; don't refactor for sport.
+4. Tests cover only format.ts. Next cheapest wins: explore-url.ts merge rules
+   + normalizeDishTag (pure functions guarding the URL contract).
+5. menu-fetch.js text extraction silently missed a seedable menu (De Bhatti,
+   theme-dependent) — add a Playwright innerText fallback.
+
+**Sequence:** domain/Cloudflare/Search Console first (distribution, not
+construction, is the remaining work) → spend the menu moat on dish×city SEO
+pages → owner claims (the flywheel that ends manual seeding and opens
+FoodHub) → pg_trgm typo tolerance → media-rich reviews.

@@ -180,10 +180,10 @@ export default function DisclaimerPage() {
 					your listing, or if you are a user with questions about this
 					disclaimer, please contact us at{" "}
 					<a
-						href="mailto:support@nepalieats.com.au"
+						href="mailto:hello@nepalieats.com.au"
 						className="text-chili-500 font-semibold hover:underline"
 					>
-						support@nepalieats.com.au
+						hello@nepalieats.com.au
 					</a>
 					.
 				</p>

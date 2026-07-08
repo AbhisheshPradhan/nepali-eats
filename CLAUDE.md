@@ -9,7 +9,8 @@ and go-live checklists → `docs/LAUNCH.md` · menu system design → `docs/MENU
 menu worklists/queue/skip-log → `docs/MENU-SEEDING.md` · menu worker onboarding →
 `docs/MENU-WORKERS.md` · post-launch backlog (incl. the implementation-review and
 image-wishlist appendices) → `docs/ROADMAP.md` · catering →
-`docs/CATERING-BACKLOG.md` · copy → `docs/VOICE_AND_TONE.md` + `docs/COPY.md` · blog →
+`docs/CATERING-BACKLOG.md` · owner claim flow (AS BUILT 2026-07-08, needs
+review + RESEND_API_KEY) → `docs/CLAIM-FLOW.md` · copy → `docs/VOICE_AND_TONE.md` + `docs/COPY.md` · blog →
 `docs/BLOG-PLAN.md`. (Docs consolidated 2026-07-07: 20 → 12 files, content
 preserved verbatim as parts/appendices inside the survivors.)
 
@@ -97,6 +98,9 @@ Remaining deploy checklist (details in `docs/LAUNCH.md` §3 + its go-live append
 - [ ] Rate-limit `/api/search` + `/api/restaurants` (or confirm Cloudflare rules
       cover it; the `.vercel.app` host bypasses Cloudflare).
 - [ ] Search Console + Bing + GA4; submit sitemap.
+- [ ] Create the **hello@nepalieats.com.au** mailbox/alias (referenced live by the
+      claim flow's disputed-claim block) + verify the domain in Resend and set
+      RESEND_API_KEY / EMAIL_FROM so owner-facing claim emails deliver.
 - [ ] Editorial admin for `featured_rank` + descriptions (small `/admin` or Neon
       SQL editor).
 

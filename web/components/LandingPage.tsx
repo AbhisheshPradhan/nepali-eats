@@ -13,7 +13,7 @@ import type { Restaurant, DishPill } from "@/lib/types";
 import type { LandingContent, LandingGroup } from "@/lib/landing";
 import type { FoodImage } from "@/lib/food";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
+import { SITE } from "@/lib/site";
 
 const GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6";
 

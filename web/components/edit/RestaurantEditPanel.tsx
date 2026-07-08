@@ -21,6 +21,7 @@ import {
 import { cn } from "@/lib/cn";
 import { mediaUrl } from "@/lib/media";
 import { parsePastedHours } from "@/lib/admin/parseHours";
+import { useEditMode } from "./EditModeProvider";
 import { CropModal } from "@/components/admin/CropModal";
 import {
 	Sheet,
@@ -71,8 +72,8 @@ const VENUES: VenueType[] = [
 ];
 const PRICE: [string, string][] = [
 	["1", "$ (under $20)"],
-	["2", "$$ ($20–40)"],
-	["3", "$$$ ($40–60)"],
+	["2", "$$ ($20-40)"],
+	["3", "$$$ ($40-60)"],
 	["4", "$$$$ ($60+)"],
 ];
 // Radix Select can't use "" as an item value, so an explicit clear option needs
@@ -124,7 +125,7 @@ type Tab = "general" | "photos" | "menu";
 // The inline "Edit Restaurant" drawer (shadcn Sheet). General holds every batched
 // field behind one Save (a single PATCH); Photos and Menu are instant uploads.
 //
-// All writes hit /api/admin/restaurants/[slug], gated by Clerk auth +
+// All writes hit /api/editor/restaurants/[slug]: admins pass whole, owners get
 // ADMIN_USER_IDS (proxy.ts middleware + per-route requireAdmin).
 export function RestaurantEditPanel({
 	restaurant,
@@ -138,7 +139,8 @@ export function RestaurantEditPanel({
 	const router = useRouter();
 	const { confirm, confirmDialog } = useConfirm();
 	const slug = restaurant.slug;
-	const base = `/api/admin/restaurants/${slug}`;
+	const { isAdmin } = useEditMode();
+	const base = `/api/editor/restaurants/${slug}`;
 
 	const [tab, setTab] = useState<Tab>("general");
 
@@ -352,7 +354,7 @@ export function RestaurantEditPanel({
 	}
 	async function makePrimary(id: number) {
 		try {
-			await api(`/api/admin/photos/${id}`, {
+			await api(`/api/editor/photos/${id}`, {
 				method: "PATCH",
 				headers: { "content-type": "application/json" },
 				body: JSON.stringify({ primary: true }),
@@ -375,7 +377,7 @@ export function RestaurantEditPanel({
 		)
 			return;
 		try {
-			await api(`/api/admin/photos/${id}`, { method: "DELETE" });
+			await api(`/api/editor/photos/${id}`, { method: "DELETE" });
 			setPhotos((ps) => ps.filter((p) => p.id !== id));
 			router.refresh();
 		} catch (e) {
@@ -385,7 +387,7 @@ export function RestaurantEditPanel({
 	function reframePhoto(p: AdminPhoto) {
 		// Load through the same-origin admin proxy, not the cross-origin R2 URL:
 		// the cropper draws to a <canvas> for export, which CORS would block.
-		const src = `/api/admin/media?key=${encodeURIComponent(p.storageKey)}`;
+		const src = `/api/editor/media?key=${encodeURIComponent(p.storageKey)}`;
 		if (!p.storageKey) return;
 		setCropper({
 			src,
@@ -396,7 +398,7 @@ export function RestaurantEditPanel({
 				const fd = new FormData();
 				fd.append("file", blob, "photo.jpg");
 				try {
-					const data = await api(`/api/admin/photos/${p.id}`, {
+					const data = await api(`/api/editor/photos/${p.id}`, {
 						method: "PUT",
 						body: fd,
 					});
@@ -454,7 +456,7 @@ export function RestaurantEditPanel({
 	function reframeCover() {
 		if (!cover) return;
 		setCropper({
-			src: `/api/admin/media?key=${encodeURIComponent(cover)}`,
+			src: `/api/editor/media?key=${encodeURIComponent(cover)}`,
 			aspect: 16 / 9,
 			title: "Re-frame cover photo (16:9)",
 			onConfirm: uploadCoverBlob,
@@ -564,7 +566,7 @@ export function RestaurantEditPanel({
 		const { hours: parsed, matched } = parsePastedHours(hoursPaste);
 		if (!matched) {
 			toast.error(
-				"Couldn't read any days. Try lines like: Monday 11 am–9 pm",
+				"Couldn't read any days. Try lines like: Monday 11 am-9 pm",
 			);
 			return;
 		}
@@ -585,7 +587,7 @@ export function RestaurantEditPanel({
 		});
 		setDirty(true);
 		toast.success(
-			`Parsed ${matched} day${matched > 1 ? "s" : ""} — review, then Save`,
+			`Parsed ${matched} day${matched > 1 ? "s" : ""}. Review, then Save.`,
 		);
 	}
 
@@ -761,15 +763,20 @@ export function RestaurantEditPanel({
 										</Select>
 									</Field>
 								</div>
-								<Field label="Tags (comma separated)">
-									<Input
-										value={form.tags}
-										onChange={(e) =>
-											set("tags", e.target.value)
-										}
-										placeholder="e.g. momo, thakali"
-									/>
-								</Field>
+								{/* Tags are the SEO vocabulary (landing pages + coarse
+								    rollup, seeder-managed) — admin-only; the server
+								    allowlist drops them from owner PATCHes regardless. */}
+								{isAdmin && (
+									<Field label="Tags (comma separated)">
+										<Input
+											value={form.tags}
+											onChange={(e) =>
+												set("tags", e.target.value)
+											}
+											placeholder="e.g. momo, thakali"
+										/>
+									</Field>
+								)}
 							</Group>
 
 							<Group title="Hours">
@@ -830,7 +837,7 @@ export function RestaurantEditPanel({
 																	}
 																/>
 																<span className="text-muted-foreground">
-																	–
+																	to
 																</span>
 																<TimeField
 																	value={
@@ -953,7 +960,7 @@ export function RestaurantEditPanel({
 											}
 											rows={3}
 											placeholder={
-												"Monday 11 am–9 pm\nTuesday 11 am–9 pm…"
+												"Monday 11 am-9 pm\nTuesday 11 am-9 pm…"
 											}
 											className="text-xs"
 										/>
@@ -970,11 +977,16 @@ export function RestaurantEditPanel({
 							</Group>
 
 							<Group title="Contact & links">
+								{/* email is the instant-claim verification anchor:
+								    admin-only, mirroring the server allowlist (which
+								    drops it from owner PATCHes regardless) */}
 								{(
 									[
 										["phone", "Phone"],
 										["website", "Website"],
-										["email", "Email"],
+										...(isAdmin
+											? ([["email", "Email"]] as const)
+											: []),
 										["facebook", "Facebook"],
 										["instagram", "Instagram"],
 										["tiktok", "TikTok"],
@@ -1084,7 +1096,7 @@ export function RestaurantEditPanel({
 											</div>
 										) : (
 											<p className="text-sm text-muted-foreground italic">
-												No cover set — the primary photo
+												No cover set. The primary photo
 												is used.
 											</p>
 										)}
@@ -1259,8 +1271,9 @@ export function RestaurantEditPanel({
 							) : (
 								<Group title="Menu files">
 									<p className="text-xs text-muted-foreground">
-										Upload menu photos or PDFs. These save
-										instantly.
+										{isAdmin
+											? "Upload menu photos or PDFs. These save instantly."
+											: "Upload your latest menu (photos or PDFs) and we'll update the dishes on your page for you, usually within a few days. Editing dishes here yourself is coming soon. Urgent change? Email hello@nepalieats.com.au with your new menu."}
 									</p>
 									{menuFiles.length > 0 && (
 										<ul className="space-y-2">
@@ -1320,6 +1333,21 @@ export function RestaurantEditPanel({
 						</TabsContent>
 					</div>
 				</Tabs>
+
+				{/* owner support line: the panel can't do everything (address
+				    changes, disputes) and owners need a door that isn't a dead end */}
+				{!isAdmin && (
+					<p className="px-5 pt-2 text-xs text-muted-foreground">
+						Something you can&apos;t change here? Email{" "}
+						<a
+							href="mailto:hello@nepalieats.com.au"
+							className="font-semibold text-chili-600 hover:underline"
+						>
+							hello@nepalieats.com.au
+						</a>{" "}
+						and we&apos;ll sort it out.
+					</p>
+				)}
 
 				{/* footer: the one Save (governs General; media is instant) */}
 				<SheetFooter className="flex-row items-center gap-3 px-5 py-3.5 border-t border-border">

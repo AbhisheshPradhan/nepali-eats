@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage, Section } from "@/components/legal";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
+import { SITE } from "@/lib/site";
 const CONTACT = "hello@nepalieats.com.au";
 
 export const metadata: Metadata = {

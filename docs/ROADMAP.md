@@ -6,6 +6,16 @@ re-litigated later. Related docs: `LAUNCH.md` (launch/SEO/UX master plan),
 `CATERING-BACKLOG.md` (catering venue list + `catering_sets` design),
 `MENU-SEEDING.md` (menu coverage for the remaining ~300 spots).
 
+## Socials backfill (post-launch, when claim volume justifies)
+
+The facebook/instagram columns only hold what the restaurants' own websites
+linked (43% coverage) — most of the rest have pages we never captured (small
+spots often have ONLY a Facebook). Per-claim manual lookup + save-back is the
+interim (see CLAIM-FLOW.md channel policy). Bulk option later: a search-driven
+enrichment pass in the usual shape (candidates -> REVIEW file -> editorial
+confirm -> commit), never auto-commit; verify each profile by address/phone
+match before saving.
+
 ## Own reviews (media-rich) — decided 2026-07-08, AFTER launch
 
 Google ratings stay for launch (display-only; we deliberately emit NO

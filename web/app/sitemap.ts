@@ -10,7 +10,7 @@ import { STORIES } from "@/lib/stories";
 import { DISH_COPY } from "@/lib/landing";
 import { suburbSlug } from "@/lib/format";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
+import { SITE } from "@/lib/site";
 const STATE_SLUG: Record<string, string> = {
   NSW: "nsw", VIC: "vic", QLD: "qld", WA: "wa",
   SA: "sa", ACT: "act", TAS: "tas", NT: "nt",

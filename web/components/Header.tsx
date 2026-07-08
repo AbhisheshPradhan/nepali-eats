@@ -8,10 +8,12 @@ import {
 	ShieldCheck,
 	Gear,
 	Heart,
+	Storefront,
 	SignOut,
 } from "@phosphor-icons/react";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { AppUserButton } from "@/components/AppUserButton";
+import { useMe } from "@/lib/useMe";
 import { AdminStateSwitcher } from "@/components/AdminStateSwitcher";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
@@ -30,24 +32,10 @@ export function Header() {
 	const [open, setOpen] = useState(false);
 	const { isSignedIn, user } = useUser();
 	const { openSignIn, openUserProfile, signOut } = useClerk();
-
-	// Show the Admin link only to admins. Checked client-side (via /api/me) so
-	// content pages stay statically cacheable; the real gate is in proxy.ts.
-	const [isAdmin, setIsAdmin] = useState(false);
-	useEffect(() => {
-		if (!isSignedIn) {
-			setIsAdmin(false);
-			return;
-		}
-		let active = true;
-		fetch("/api/me")
-			.then((r) => r.json())
-			.then((d) => active && setIsAdmin(!!d.isAdmin))
-			.catch(() => {});
-		return () => {
-			active = false;
-		};
-	}, [isSignedIn]);
+	// One shared /api/me fetch (lib/useMe.ts) drives both the admin link and
+	// the owner-only "My restaurants" item. Checked client-side so content
+	// pages stay statically cacheable; the real gate is in proxy.ts.
+	const { isAdmin, owned: ownedAny } = useMe();
 
 	// Lock body scroll + close on Escape while the slide-out panel is open.
 	useEffect(() => {
@@ -305,6 +293,16 @@ export function Header() {
 									<Heart size={20} />
 									Saved restaurants
 								</Link>
+								{ownedAny && (
+									<Link
+										href="/my-restaurants"
+										onClick={() => setOpen(false)}
+										className="flex items-center gap-3 px-4 py-3 rounded-xl text-ink-900 font-display font-semibold text-[1.05rem] hover:bg-paper-100"
+									>
+										<Storefront size={20} />
+										My restaurants
+									</Link>
+								)}
 								<button
 									onClick={() => {
 										setOpen(false);

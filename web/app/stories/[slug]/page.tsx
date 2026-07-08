@@ -11,7 +11,7 @@ import { getCardBySlug } from "@/lib/queries";
 import type { Restaurant } from "@/lib/types";
 import { STORIES, getStory, formatStoryDate, storyFaq } from "@/lib/stories";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://nepalieats.com.au";
+import { SITE } from "@/lib/site";
 
 export function generateStaticParams() {
 	return STORIES.map((s) => ({ slug: s.slug }));

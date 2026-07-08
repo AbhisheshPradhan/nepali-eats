@@ -18,6 +18,9 @@ import { useUser } from "@clerk/nextjs";
 // the detail page stays a plain cached page for visitors.
 interface EditModeValue {
 	canEdit: boolean;
+	// true only for allowlisted admins; owners get canEdit without isAdmin.
+	// Drives the role-restricted editor UI (e.g. the Tags field is admin-only).
+	isAdmin: boolean;
 	editMode: boolean;
 	setEditMode: (on: boolean) => void;
 	slug: string;
@@ -43,11 +46,13 @@ export function EditModeProvider({
 }) {
 	const { isSignedIn } = useUser();
 	const [canEdit, setCanEdit] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 
 	useEffect(() => {
 		if (!isSignedIn) {
 			setCanEdit(false);
+			setIsAdmin(false);
 			setEditMode(false);
 			return;
 		}
@@ -55,7 +60,10 @@ export function EditModeProvider({
 		fetch(`/api/me?restaurantId=${restaurantId}`)
 			.then((r) => (r.ok ? r.json() : { canEdit: false }))
 			.then((d) => {
-				if (active) setCanEdit(!!d.canEdit);
+				if (active) {
+					setCanEdit(!!d.canEdit);
+					setIsAdmin(!!d.isAdmin);
+				}
 			})
 			.catch(() => {});
 		return () => {
@@ -67,6 +75,7 @@ export function EditModeProvider({
 		<Ctx.Provider
 			value={{
 				canEdit,
+				isAdmin,
 				// editMode is meaningless without edit rights; clamp it so a stale
 				// true can never expose inputs to a signed-out/permission-lost user.
 				editMode: editMode && canEdit,
