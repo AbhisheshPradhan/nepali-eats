@@ -306,6 +306,16 @@ NepaliEats. Want the keys?"):**
 
 ## Test plan (dev)
 
+> **DEFERRED TO POST-LAUNCH (Abhishesh, 2026-07-08).** Launch proceeds
+> without the signed-in click test; it's tracked in ROADMAP.md §Claim flow.
+> What IS already verified on prod (deploy cde3685, 2026-07-08 smoke): claim
+> page 200 + noindex + single-suffix title, detail-page claim footnote, all
+> write APIs 401 unauthenticated, media proxy 403, /my-restaurants redirects
+> signed-out, canonicals/sitemap on NEXT_PUBLIC_SITE_URL. The steps below
+> need a second (non-admin) Clerk account and write real rows to the shared
+> Neon DB — clean up after with:
+> `DELETE FROM restaurant_owners; DELETE FROM claims;` (or scope by id).
+
 1. Unclaimed detail page -> "Run this kitchen? Claim it, free." -> pitch.
 2. Signed out -> button opens the Clerk modal; sign in -> form appears.
 3. Submit with a non-matching email -> pending state; server console shows

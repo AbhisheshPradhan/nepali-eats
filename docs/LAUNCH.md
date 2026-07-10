@@ -577,17 +577,17 @@ First-party events into our own Postgres for future per-restaurant owner insight
   rollup `restaurant_stats_daily`. Owner dashboards read only the rollup.
 - **Rollup job:** `scraper/rollup-events.js` (cron, like the hours pass).
 
-## Owner admin + claim flow (post-launch)
+## Owner admin + claim flow — ✅ BUILT 2026-07-08 (superseded sketch)
 
-- **Auth:** Clerk (same layer as the admin gate; free Hobby covers it). Use **Clerk
-  Organizations** to model "one owner owns many restaurants" + roles (`admin` vs
-  `owner`), mapping onto a `restaurant_owners` M:N table.
-- **Claim verification:** manual approval at launch volume (eyeball business
-  email/website/socials, approve via a `claims` queue); add phone OTP only if volume
-  grows.
-- **Edit policy:** safe fields go live immediately (description, hours, phone, website,
-  socials, price range, menu, photos); sensitive fields (name, tags, venue type) queue
-  for review; locked forever: rating, review_count, lat/lng, slug. Keep an audit trail.
+Shipped before launch after all; the AS-BUILT record is `docs/CLAIM-FLOW.md`.
+Where the build diverged from this sketch: no Clerk Organizations (a plain
+`restaurant_owners` table + `users.role`, one owner per restaurant enforced
+by unique index); verification is an instant verified-email match plus a
+manual socials-verified queue (no phone OTP); no per-field review queue —
+owners edit an allowlist live (`OWNER_FIELDS`; email/tags/address are
+admin-only, rating/slug untouchable). End-to-end click test is deliberately
+POST-launch (ROADMAP.md §Claim). Still deferred from the original sketch:
+
 - **Owner dashboard:** reads `restaurant_stats_daily`, the hook that makes owners claim.
 - **Optional owner perk:** a verified owner pastes their own GA4 measurement ID
   (validated `G-XXXXXXXXXX`, never a script/GTM), rendered lazily only on their own

@@ -233,18 +233,29 @@ per-location verified); a franchisor claiming a whole brand or brand-level menu
 editing (edit once → push to branches) needs a heavier brand-level ownership
 concept — defer.
 
-## Claim a restaurant / owner editing
+## Claim a restaurant / owner editing — ✅ BUILT + DEPLOYED 2026-07-08
 
-Claim portal → verify → `grantOwnership` → `restaurant_owners`. The detail-page
-Edit button already shows for admins + owners (`/api/me?restaurantId` →
-`canEdit`). ⚠️ **Brand ≠ ownership** (see the Brands section above): brand
-membership grants no edit rights; claims stay per-restaurant. The owner dashboard
-"restaurants I own" is keyed by `restaurant_owners.user_id`, not `brand_id`. ⚠️ **Client/server authz mismatch to resolve in this work:** the
-edit UI reveals for `admin OR owner`, but every write route
-(`/api/admin/restaurants/[slug]/*`) is still `requireAdmin()` — a verified
-owner would see the panel and 403 on save. Fails closed (no hole today), but
-when claims land, widen the write routes to admin-or-owner (reuse `isOwnerOf`).
-Also: owner edit policy, claims queue, owner dashboard — see LAUNCH.md §8.
+Shipped (commits 5aad4fb + cde3685): claim pitch page + form, instant
+verified-email lane, `/admin/claims` queue, `/api/editor` owner surface with
+OWNER_FIELDS allowlist, `/my-restaurants`, verified badge. Full decision
+record: `docs/CLAIM-FLOW.md`. The authz mismatch flagged below was resolved
+in the same work (write routes widened to admin-or-owner via
+`requireEditorBySlug`). ⚠️ **Brand ≠ ownership** still applies: brand
+membership grants no edit rights; claims stay per-restaurant.
+
+Remaining, post-launch:
+
+- [ ] **End-to-end click test on prod** (Abhishesh, 2026-07-08: launch
+      first, test after). Steps in `docs/CLAIM-FLOW.md` §Test plan: needs a
+      second NON-admin Clerk account; submit claim -> approve in
+      /admin/claims -> owner powers (My restaurants, badge, edit panel
+      without Email/Tags, link validation, photo upload revalidation).
+      Cleanup SQL is in the same section. Emails stay console-noop until
+      RESEND_API_KEY is set.
+- [ ] **v1.1 invite links** (spec'd for Albert in CLAIM-FLOW.md): cold
+      bearer invites for DM outreach, Approve/Block challenge links,
+      admin Copy-invite + revoke buttons.
+- [ ] Owner dashboard stats + optional GA4 perk (LAUNCH.md §8 sketch).
 
 ## ~~Explore mobile sheet — Stage 2 + follow-ups~~ (REDUNDANT — sheet abandoned 2026-07-04)
 
