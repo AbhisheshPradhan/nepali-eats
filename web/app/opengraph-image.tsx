@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { OG, OG_SIZE, OG_CONTENT_TYPE, ogFonts, ogMomo } from "@/lib/og";
 
 export const runtime = "nodejs";
-export const alt = "NepaliEats - Find Nepali food near you across Australia";
+export const alt = "NepaliEats - Find Authentic Nepali food across Australia";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
@@ -52,8 +52,8 @@ export default async function Image() {
 						}}
 					>
 						<span style={{ color: OG.ink }}>Find&nbsp;</span>
-						<span style={{ color: OG.chili }}>momo, dal bhat and Newari feasts&nbsp;</span>
-						<span style={{ color: OG.ink }}>near you</span>
+						<span style={{ color: OG.chili }}>Authentic Nepali food&nbsp;</span>
+						<span style={{ color: OG.ink }}>across Australia</span>
 					</div>
 					<div style={{ display: "flex", marginTop: 28 }}>
 						<div
@@ -67,7 +67,7 @@ export default async function Image() {
 								fontWeight: 700,
 							}}
 						>
-							400+ spots across Australia
+							400+ spots
 						</div>
 					</div>
 					<div

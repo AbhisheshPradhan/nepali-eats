@@ -56,7 +56,7 @@ export const STORIES: Story[] = [
       { type: "h2", text: "Why nine beans, and why the monsoon" },
       {
         type: "p",
-        text: "Kwati belongs to Janai Purnima, the full-moon day of Saaun (around August), when men change the sacred thread they wear and everyone, thread or not, eats a bowl of kwati. Newars call the same day Kwati Punhi, the full moon of kwati. It lands deep in the monsoon, the season of damp, aches and sluggish digestion, and the soup is the old answer to all three.",
+        text: "Kwati belongs to Janai Purnima, the full-moon day of Saaun (in 2026 it falls on Friday 28 August), when men change the sacred thread they wear and everyone, thread or not, eats a bowl of kwati. Newars call the same day Kwati Punhi, the full moon of kwati. It lands deep in the monsoon, the season of damp, aches and sluggish digestion, and the soup is the old answer to all three.",
       },
       {
         type: "p",
@@ -141,7 +141,7 @@ export const STORIES: Story[] = [
       },
       {
         type: "p",
-        text: "At Spice Mix in Brunswick East it hides on the menu as a sprouted mixed-lentil bowl, so look for that. If none of these are near you, the next best thing is a Newari kitchen. The same cooks who make kwati for Kwati Punhi also do [choila](/nepali-food/choila), bara and samay baji. Start with [Newari food](/nepali-food/newari), or open the [map](/explore) and find your closest Nepali kitchen. Around Janai Purnima in August it is worth ringing ahead to ask if they are running a pot.",
+        text: "At Spice Mix in Brunswick East it hides on the menu as a sprouted mixed-lentil bowl, so look for that. If none of these are near you, the next best thing is a Newari kitchen. The same cooks who make kwati for Kwati Punhi also do [choila](/nepali-food/choila), bara and samay baji. Start with [Newari food](/nepali-food/newari), or open the [map](/explore) and find your closest Nepali kitchen. Around Janai Purnima, Friday 28 August in 2026, it is worth ringing ahead to ask if they are running a pot.",
       },
       {
         type: "faq",
@@ -152,7 +152,7 @@ export const STORIES: Story[] = [
           },
           {
             q: "When do Nepalis eat kwati?",
-            a: "On Janai Purnima, the full moon of Saaun (around August), also called Kwati Punhi. It falls in the monsoon, and the soup is considered warming and good for you in the wet season.",
+            a: "On Janai Purnima, the full moon of Saaun, also called Kwati Punhi. In 2026 that is Friday 28 August. It falls in the monsoon, and the soup is considered warming and good for you in the wet season.",
           },
           {
             q: "Is kwati vegetarian?",

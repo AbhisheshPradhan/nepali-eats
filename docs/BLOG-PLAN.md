@@ -94,6 +94,23 @@ Never assert a "Nepali hub" from memory. Query the DB first. Lessons already lea
   directory pages → FAQ.
 - Every post: hero image + 1-2 inline dish photos (from `media/`), real human author
   byline, FAQ block, internal links up to the hub and out to directory pages.
+- **Gloss every event at first mention, in ANY post type** (Abhishesh +
+  Aasha, 2026-07-10, after the kwati post named Janai Purnima without saying
+  when it is). The trigger is the mention, not the post type: a dish post,
+  city guide or how-to that names a festival gives it a newspaper-style first-
+  reference gloss covering what it is, when it is this year with the year
+  spelled out ("in 2026 it falls on Friday 28 August", never a bare "this
+  year"), and what that means for the reader in Australia. Repeat the date
+  wherever the reader acts (the ring-ahead line) and in the FAQ ("when is X"
+  is the search query). Verify dates against a reliable source, never from
+  memory; lunar dates shift yearly and tourism blogs disagree.
+- **Cap: one sentence of event context in a non-festival post.** If the event
+  needs more than a sentence, that's a separate festival post the dish post
+  links to (dish post owns "what is kwati"; festival post owns "when is Janai
+  Purnima"); keeps the cannibalisation rule intact.
+- **Yearly date refresh (every July):** re-check and update the year-stamped
+  festival dates in `web/lib/stories.ts`. Currently dated: kwati post = Janai
+  Purnima, Friday 28 Aug 2026 (verified 2026-07-10; 2027 lands mid-August).
 
 ## Imagery (food blog = image-rich, not text-heavy)
 

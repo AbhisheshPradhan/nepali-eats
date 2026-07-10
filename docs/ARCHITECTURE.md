@@ -235,6 +235,28 @@ these surfaces:
   AppUserButton share it; EditModeProvider keeps its own
   `/api/me?restaurantId=` call (different question: canEdit for one
   restaurant), and that variant skips the ownership-list query server-side.
+- **Rate limiting:** `web/lib/ratelimit.ts` — fixed-window counters on
+  Upstash Redis via raw REST (INCR + EXPIRE NX, one pipelined call; no SDK,
+  same no-dependency pattern as lib/email). FAIL-OPEN on missing env, HTTP
+  errors, per-command {error} slots (an EXPIRE failure would otherwise mean a
+  counter that never resets = permanent block), timeouts, and outages — each
+  fail-open logs a `[ratelimit]` warn so a dead limiter is visible in Vercel
+  logs. It's abuse control, never a security boundary or availability risk.
+  Applied 2026-07-10 to `/api/search` (60 novel queries/min per IP; repeats
+  are CDN-cached; 429 returns the full empty Suggestion shape because
+  SearchBox reads `.dishes` unguarded), `/api/explore/spots` +
+  `/api/explore/dishes` (60/min per IP, anti-bulk-harvest; ExploreClient
+  treats non-OK as retryable/empty), and `/api/claims` (5/h per account
+  keyed by Clerk id BEFORE any DB read, then 10/h per IP only if the account
+  check passes, so a blocked account can't drain a shared office/CGNAT IP).
+  Client IP = `cf-connecting-ip` first (behind Cloudflare, Vercel's
+  x-real-ip is the edge). ACCEPTED RISKS: direct-to-origin requests can
+  spoof cf-connecting-ip and rotate per-IP buckets (per-account limits and
+  Cloudflare carry the real weight); a sustained attack burns the Upstash
+  free tier (500k commands/mo ≈ 3 days at full throttle) after which the
+  limiter fails open — the durable backstop is a Cloudflare WAF
+  rate-limiting rule, post-launch. Functions, Neon, and Upstash are all
+  Sydney (`web/vercel.json` pins syd1), so the limiter costs ~1ms.
 - **Site URL:** `SITE` in `web/lib/site.ts` (from `NEXT_PUBLIC_SITE_URL`,
   localhost fallback) is the ONLY source of the absolute site URL
   (canonicals, sitemap, OG, email links). Decided 2026-07-08 after the claim

@@ -4,6 +4,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { query } from "@/lib/db";
 import { ensureCurrentUser, grantOwnership, isOwnerOf } from "@/lib/users";
 import { sendEmail, notifyAdmin, escapeHtml } from "@/lib/email";
+import { rateLimit, clientIp } from "@/lib/ratelimit";
 import { SITE } from "@/lib/site";
 
 // POST /api/claims — an owner requesting their restaurant (docs/CLAIM-FLOW.md).
@@ -19,6 +20,25 @@ export async function POST(request: Request) {
 	const { userId } = await auth();
 	if (!userId)
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+	// Every claim writes rows and sends up to two emails, so it's metered
+	// tighter than search: per ACCOUNT (keyed by Clerk id so it runs BEFORE
+	// ensureCurrentUser's DB read — limited retries never touch Postgres) and
+	// per IP (blunts many-accounts-one-machine spam). Account first, IP only
+	// if that passes: a blocked account retrying must not drain the shared
+	// budget of an office/CGNAT IP other owners may be behind.
+	const byUser = await rateLimit(`claims:u:${userId}`, 5, 3600);
+	const byIp = byUser.ok
+		? await rateLimit(`claims:ip:${clientIp(request)}`, 10, 3600)
+		: byUser;
+	if (!byUser.ok || !byIp.ok)
+		return NextResponse.json(
+			{
+				error:
+					"That's a lot of claims in one go. Give it an hour and try again, or email hello@nepalieats.com.au.",
+			},
+			{ status: 429, headers: { "Retry-After": "3600" } },
+		);
+
 	const user = await ensureCurrentUser();
 	if (!user)
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
