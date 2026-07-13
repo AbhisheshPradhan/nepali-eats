@@ -49,6 +49,7 @@ export function ListingGrid({
 						<PlaceCard
 							key={r.id}
 							r={r}
+							surface="listing"
 						/>
 					))}
 				</div>

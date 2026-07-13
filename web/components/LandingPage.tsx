@@ -225,7 +225,7 @@ export function LandingPage({
               </div>
               <div className={GRID}>
                 {g.spots.map((r) => (
-                  <PlaceCard key={r.id} r={r} />
+                  <PlaceCard key={r.id} r={r} surface="landing" />
                 ))}
               </div>
             </section>
@@ -239,7 +239,7 @@ export function LandingPage({
         <>
           <div className={GRID}>
             {restaurants.map((r) => (
-              <PlaceCard key={r.id} r={r} pills={r.matches} />
+              <PlaceCard key={r.id} r={r} pills={r.matches} surface="landing" />
             ))}
           </div>
           {total != null && total > restaurants.length && content.exploreHref && (

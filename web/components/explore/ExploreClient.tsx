@@ -878,6 +878,7 @@ export function ExploreClient({
 							<div id={`row-${r.id}`} className="@container">
 								<ExploreCard
 									r={r}
+									surface="explore_list"
 									pills={dishItems?.get(r.id)}
 									// dish miss note: only the searched-by-name card, and only
 									// once dishItems resolved (never while the fetch is in flight)

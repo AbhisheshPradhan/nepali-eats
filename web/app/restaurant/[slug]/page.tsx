@@ -618,6 +618,9 @@ export default async function VenuePage({
 									/>
 								}
 								className="mb-2.5"
+								data-ph-event="contact_clicked"
+								data-ph-kind="directions"
+								data-ph-slug={r.slug}
 							>
 								Get directions
 							</Button>
@@ -627,6 +630,9 @@ export default async function VenuePage({
 									block
 									variant="outline"
 									iconLeft={<Phone size={18} />}
+									data-ph-event="contact_clicked"
+									data-ph-kind="call"
+									data-ph-slug={r.slug}
 								>
 									Call the kitchen
 								</Button>
@@ -705,6 +711,9 @@ export default async function VenuePage({
 												: {})}
 											aria-label={c.label}
 											title={c.label}
+											data-ph-event="contact_clicked"
+											data-ph-kind={c.label.toLowerCase()}
+											data-ph-slug={r.slug}
 											className="w-10 h-10 rounded-full grid place-items-center bg-paper-100 text-ink-700 hover:bg-chili-100 hover:text-chili-600 transition-colors"
 										>
 											{c.icon}
@@ -786,6 +795,9 @@ export default async function VenuePage({
 							block
 							variant="outline"
 							iconLeft={<Phone size={18} />}
+							data-ph-event="contact_clicked"
+							data-ph-kind="call"
+							data-ph-slug={r.slug}
 						>
 							Call
 						</Button>
@@ -800,6 +812,9 @@ export default async function VenuePage({
 								weight="fill"
 							/>
 						}
+						data-ph-event="contact_clicked"
+						data-ph-kind="directions"
+						data-ph-slug={r.slug}
 					>
 						Directions
 					</Button>

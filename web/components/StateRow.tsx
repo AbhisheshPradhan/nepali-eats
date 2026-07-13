@@ -88,6 +88,7 @@ export function StateRow({
 							r={r}
 							fallbackOrigin={fallbackLoc}
 							hideState
+							surface={`home_${kind}`}
 						/>
 					</div>
 				))}

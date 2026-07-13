@@ -79,7 +79,7 @@ export function StoryBody({
               )}
               <div className="grid sm:grid-cols-2 gap-4">
                 {rs.map((r) => (
-                  <PlaceCard key={r.id} r={r} />
+                  <PlaceCard key={r.id} r={r} surface="story" />
                 ))}
               </div>
             </div>

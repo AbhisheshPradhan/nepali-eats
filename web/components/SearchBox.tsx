@@ -15,6 +15,7 @@ import type { Suggestion } from "@/lib/queries";
 import type { DishSuggestion } from "@/lib/types";
 import { withDish, withLocation, type ExploreParams } from "@/lib/explore-url";
 import { cn } from "@/lib/cn";
+import { trackEvent } from "@/lib/analytics";
 
 const EMPTY: Suggestion = { dishes: [], restaurants: [], locations: [] };
 
@@ -42,6 +43,8 @@ export function SearchBox({
 	current?: ExploreParams;
 }) {
 	const router = useRouter();
+	// analytics surface for the search_* events
+	const searchSurface = embedded ? "explore" : variant === "hero" ? "hero" : "header";
 	// Navigation feedback: picks wrap router.push in a transition so the box can
 	// show a spinner while the target page's server render is in flight. Without
 	// it a pick gives zero acknowledgement until the page swaps (the "dead
@@ -100,7 +103,19 @@ export function SearchBox({
 				signal: ctrl.signal,
 			})
 				.then((r) => r.json())
-				.then((d: Suggestion) => setSugg(d))
+				.then((d: Suggestion) => {
+					setSugg(d);
+					// content-gap signal: what people want that we can't answer
+					if (
+						d.dishes.length === 0 &&
+						d.restaurants.length === 0 &&
+						d.locations.length === 0
+					)
+						trackEvent("search_no_results", {
+							query: norm,
+							surface: searchSurface,
+						});
+				})
 				.catch((e) => {
 					if (e.name !== "AbortError") setSugg(EMPTY);
 				})
@@ -113,14 +128,28 @@ export function SearchBox({
 	// a location keeps the active dish, a dish keeps the location. `current` is
 	// only set on the Explore bar; elsewhere it's undefined -> a plain fresh nav.
 	const base = current ?? {};
+	// what the user had typed when they picked (the pick handlers clear the
+	// input via setValue, but this render's closure still holds the query)
+	const pickProps = (kind: string, target: string) => ({
+		kind,
+		target,
+		query: value.trim(),
+		surface: searchSurface,
+	});
 	// carry the state so "Auburn, NSW" doesn't collide with Auburn VIC/SA
-	const gotoSuburb = (s: { suburb: string; state: string }) =>
+	const gotoSuburb = (s: { suburb: string; state: string }) => {
+		trackEvent("search_picked", pickProps("location", `${s.suburb}, ${s.state}`));
 		nav(withLocation(base, { suburb: s.suburb, state: s.state }));
-	const gotoRestaurant = (slug: string) =>
+	};
+	const gotoRestaurant = (slug: string) => {
+		trackEvent("search_picked", pickProps("restaurant", slug));
 		nav(withLocation(base, { focus: slug }));
+	};
 	// a compound pick ("Paneer Momo") carries the protein as a pre-set filter
-	const gotoDish = (d: DishSuggestion) =>
+	const gotoDish = (d: DishSuggestion) => {
+		trackEvent("search_picked", pickProps("dish", d.slug));
 		nav(withDish(base, { dish: d.slug, protein: d.protein }));
+	};
 
 	// typing clears any prior selection (back to free-text)
 	const change = (v: string) => {

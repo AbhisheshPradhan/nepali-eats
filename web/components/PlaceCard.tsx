@@ -73,6 +73,10 @@ export type PlaceCardProps = {
 	// their price, shown as small pills so the user sees WHY this spot matched
 	// and what it costs. Capped; the overflow shows as "+N more".
 	pills?: DishPill[];
+	// analytics: where this card sits ("home_row", "map_popup", "related",
+	// ...). Set = clicks emit restaurant_card_clicked via the delegated
+	// listener in lib/analytics; unset = untracked.
+	surface?: string;
 };
 
 const MAX_PILLS = 4;
@@ -100,6 +104,7 @@ export function PlaceCard({
 	gallery,
 	galleryLogo,
 	pills,
+	surface,
 }: PlaceCardProps) {
 	// Carousel slides = logo (if any) first, then the food photos.
 	const carouselSlides = galleryLogo
@@ -136,6 +141,13 @@ export function PlaceCard({
 				: {})}
 			onMouseEnter={onHover ? () => onHover(r.id) : undefined}
 			onMouseLeave={onHover ? () => onHover(null) : undefined}
+			{...(surface
+				? {
+						"data-ph-event": "restaurant_card_clicked",
+						"data-ph-slug": r.slug,
+						"data-ph-surface": surface,
+					}
+				: {})}
 			className={cn(
 				"group bg-white overflow-hidden rounded-lg transition",
 				row

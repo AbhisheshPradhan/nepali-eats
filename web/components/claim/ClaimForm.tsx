@@ -7,6 +7,7 @@ import { CircleNotch, SealCheck, Clock } from "@phosphor-icons/react";
 import { Button, pressable } from "@/components/ui/Button";
 import { SelectMenu } from "@/components/ui/SelectMenu";
 import { cn } from "@/lib/cn";
+import { trackEvent } from "@/lib/analytics";
 
 // The claim form (docs/CLAIM-FLOW.md). Pitch is public; auth happens HERE on
 // the button (value before commitment). Submits to /api/claims, which decides
@@ -48,6 +49,10 @@ export function ClaimForm({
 				return;
 			}
 			setResult(data.status === "approved" ? "approved" : "pending");
+			trackEvent("claim_submitted", {
+				slug,
+				status: data.status === "approved" ? "approved" : "pending",
+			});
 		} finally {
 			setBusy(false);
 		}

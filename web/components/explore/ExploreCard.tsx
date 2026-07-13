@@ -39,6 +39,7 @@ export function ExploreCard({
 	hovered = false,
 	selected = false,
 	onHover,
+	surface,
 }: {
 	r: PlaceCardData;
 	// dish-search matches (name + price) rendered as a menu excerpt, plus the
@@ -57,6 +58,9 @@ export function ExploreCard({
 	hovered?: boolean;
 	selected?: boolean;
 	onHover?: (id: number | null) => void;
+	// analytics: where this card sits ("explore_list", "map_popup"). Set =
+	// clicks emit restaurant_card_clicked (lib/analytics); unset = untracked.
+	surface?: string;
 }) {
 	const userLoc = useUserLocation();
 	const distOrigin = userLoc ?? fallbackOrigin ?? null;
@@ -77,6 +81,13 @@ export function ExploreCard({
 		<Link
 			href={`/restaurant/${r.slug}`}
 			{...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+			{...(surface
+				? {
+						"data-ph-event": "restaurant_card_clicked",
+						"data-ph-slug": r.slug,
+						"data-ph-surface": surface,
+					}
+				: {})}
 			onMouseEnter={onHover ? () => onHover(r.id) : undefined}
 			onMouseLeave={onHover ? () => onHover(null) : undefined}
 			className={cn(

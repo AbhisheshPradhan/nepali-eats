@@ -257,6 +257,51 @@ these surfaces:
   limiter fails open — the durable backstop is a Cloudflare WAF
   rate-limiting rule, post-launch. Functions, Neon, and Upstash are all
   Sydney (`web/vercel.json` pins syd1), so the limiter costs ~1ms.
+- **Analytics (PostHog, added 2026-07-13, hardened same day after
+  /code-review):** `web/instrumentation-client.ts` (Next 16's pre-hydration
+  hook) dynamically imports the SLIM posthog-js build (39KB gzip vs 74KB
+  full) inside the guard, so hydration is never blocked and a build without
+  the env vars ships 0 analytics bytes. The `defaults: "2026-06-25"` snapshot
+  auto-captures SPA pageviews on history changes (no per-route component);
+  `autocapture: false` + `disable_session_recording: true` because every
+  event transits the Vercel proxy — clicks would 5-10x request volume for
+  data nothing reads yet, and replay must stay a code decision, not a PostHog
+  dashboard toggle that silently pushes MBs/session through Hobby's caps. EU
+  cloud. HOSTS: `web/lib/posthog.ts` is the single source of the three-host
+  topology (ingest/assets/UI, all derived from `NEXT_PUBLIC_POSTHOG_HOST`);
+  it normalizes trailing slashes and validates the host shape, and because
+  `next.config.ts` imports it, a wrong value (e.g. the app host
+  `eu.posthog.com` pasted instead of ingest `eu.i.posthog.com`) FAILS THE
+  BUILD instead of silently dropping every event. Events post to same-origin
+  `/ingest`, reverse-proxied by rewrites in `next.config.ts` so ad blockers
+  that blocklist `*.posthog.com` don't drop them. Env guard: either var
+  UNSET = analytics off, no rewrite, stock trailing-slash behaviour; dev is
+  excluded via NODE_ENV and Vercel PREVIEWS via `NEXT_PUBLIC_VERCEL_ENV`
+  (scope the Vercel vars to Production only anyway; local `next build +
+  start` still captures, which is how to test events). TRAILING-SLASH TRADE:
+  PostHog endpoints need their trailing slashes, so
+  `skipTrailingSlashRedirect` (keyed to POSTHOG_ENABLED) disables Next's
+  site-wide `/foo/ -> /foo` 308; `proxy.ts` re-creates it for all non-ingest
+  paths, including a dedicated matcher entry for static-extension paths with
+  a trailing slash (`/logo.png/`), which the main matcher's extension
+  exclusion would otherwise turn into 404s. Change the flag and the proxy.ts
+  redirect together or not at all. `/ingest/` is excluded from the middleware
+  matcher (high volume, no auth needed). CUSTOM EVENTS live in
+  `web/lib/analytics.tsx`: `trackEvent()` for client components, or
+  `data-ph-event` + `data-ph-<prop>` attributes on ANY element (server
+  components too; one delegated listener, `<AnalyticsClicks/>` in the root
+  layout, picks them up — property names must be single words because the DOM
+  dataset camel-cases hyphens away; the shared `Button` forwards data-*).
+  Catalogue (2026-07-13): `search_picked` {kind, target, query, surface:
+  hero|header|explore}, `search_no_results` {query, surface} (content-gap
+  signal), `restaurant_card_clicked` {slug, surface: home_featured|
+  home_popular|explore_list|map_popup|landing|listing|related|story} (surface
+  is an opt-in prop on PlaceCard/ExploreCard; unset = untracked),
+  `contact_clicked` {kind: call|directions|website|facebook|instagram|tiktok|
+  whatsapp|email, slug} (detail page CTAs + icon row), `claim_submitted`
+  {slug, status}. Everything else (acquisition, landing pages, journeys) is
+  the automatic pageview capture; users stay anonymous (no identify() until a
+  question needs it).
 - **Site URL:** `SITE` in `web/lib/site.ts` (from `NEXT_PUBLIC_SITE_URL`,
   localhost fallback) is the ONLY source of the absolute site URL
   (canonicals, sitemap, OG, email links). Decided 2026-07-08 after the claim

@@ -30,6 +30,7 @@ export function RelatedRestaurants({
 						key={r.id}
 						r={r}
 						fallbackOrigin={origin}
+						surface="related"
 					/>
 				))}
 			</div>

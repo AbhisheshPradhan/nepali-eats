@@ -358,6 +358,7 @@ export default function MapView({
           dishName={dishName}
           noDishMatch={popupDishMiss}
           fallbackOrigin={distOrigin}
+          surface="map_popup"
         />
       </div>
     ) : (
@@ -368,6 +369,7 @@ export default function MapView({
         className="w-[230px]"
         newTab
         noHover
+        surface="map_popup"
       />
     )
   ) : null;

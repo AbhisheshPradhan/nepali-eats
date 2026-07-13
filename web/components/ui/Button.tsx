@@ -35,6 +35,9 @@ interface ButtonProps {
   type?: "button" | "submit";
   disabled?: boolean;
   "aria-label"?: string;
+  // data-* passthrough (e.g. the data-ph-* analytics attributes read by the
+  // delegated listener in lib/analytics.tsx), usable from server components.
+  [dataAttr: `data-${string}`]: string | undefined;
 }
 
 // Pressed-state recipe for interactive elements that are NOT <Button>s (chips,
@@ -74,11 +77,13 @@ export function Button({
     </>
   );
   if (href) {
+    // forward the data-* attributes (button-only props stay behind)
+    const { type: _type, disabled: _disabled, onClick: _onClick, ...linkRest } = rest;
     return (
       <Link
         href={href}
         className={cls}
-        aria-label={rest["aria-label"]}
+        {...linkRest}
         {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {inner}
