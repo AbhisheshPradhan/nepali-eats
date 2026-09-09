@@ -110,7 +110,10 @@ Never assert a "Nepali hub" from memory. Query the DB first. Lessons already lea
   Purnima"); keeps the cannibalisation rule intact.
 - **Yearly date refresh (every July):** re-check and update the year-stamped
   festival dates in `web/lib/stories.ts`. Currently dated: kwati post = Janai
-  Purnima, Friday 28 Aug 2026 (verified 2026-07-10; 2027 lands mid-August).
+  Purnima, Friday 28 Aug 2026 (verified 2026-07-10; 2027 lands mid-August);
+  Dashain post = Ghatasthapana Sun 11 Oct + tika Wed 21 Oct 2026, Tihar post =
+  Kaag Tihar Sat 7 Nov + Mha Puja Tue 10 Nov + Bhai Tika Wed 11 Nov 2026 (both
+  verified 2026-09-03), plus every spoke in the Dashain & Tihar cluster below.
 
 ## Imagery (food blog = image-rich, not text-heavy)
 
@@ -192,6 +195,103 @@ Eight is the sweet spot: covers all four pillars and the two flagship cities, ev
 Cadence rule: lead each week with a Cities post (the traffic driver), pair with a
 cheaper Dishes/How-to post (topical authority). Time Culture/seasonal posts to the
 real festivals (Dashain/Tihar land Sept-Nov) for a traffic + social spike.
+
+---
+
+## Dashain & Tihar cluster 2026 (Aasha, planned 2026-09-03)
+
+Six posts, mid-September to late October, covering the two festivals that carry
+Nepali food more than any others. Two evergreen **anchors** (Dashain, Tihar) that
+get re-dated every July, plus four **spokes**. Every post owns exactly one query
+so they never compete with each other or with a directory page.
+
+### Verified 2026 dates (checked against two sources each, 2026-09-03)
+
+**Dashain** (15 days): Ghatasthapana Sunday 11 October, Phulpati Saturday 17,
+Maha Ashtami Sunday 18, **Bijaya Dashami (tika) Wednesday 21 October**,
+Kojagrat Purnima Sunday 25.
+
+**Tihar** (5 days): Kaag Tihar Saturday 7 November, Kukur Tihar + Laxmi Puja
+Sunday 8, Gai Tihar Monday 9, **Mha Puja / Nepal Sambat 1147 Tuesday 10**,
+**Bhai Tika Wednesday 11 November**.
+
+> Sources: nepalhikingteam.com and magicalnepal.com (cross-checked; timeanddate
+> blocks fetching). Re-verify in July 2027, lunar dates shift.
+
+**The editorial spine of the whole cluster:** both tika days fall midweek, so
+families in Australia do the real feast on the weekend either side. Nobody
+writing from Kathmandu says this, and it is the single most useful line we have
+for a reader here. Say it in every post.
+
+### The six posts
+
+| # | Post | Slug | Owns | Publish |
+| - | ---- | ---- | ---- | ------- |
+| 1 | Dashain in Australia (ANCHOR) | `dashain-in-australia` | "dashain 2026", "when is dashain" | wk 8 Sep |
+| 2 | Khasi ko masu | `khasi-ko-masu` | "khasi ko masu", "nepali goat curry" | wk 15 Sep |
+| 3 | Feeding twenty for Dashain (catering) | `nepali-catering-australia` | "nepali catering [city]" | wk 22 Sep |
+| 4 | Where to get sel roti in Australia | `sel-roti-australia` | "sel roti near me" | wk 6 Oct |
+| 5 | Tihar in Australia (ANCHOR) | `tihar-in-australia` | "tihar 2026", "bhai tika" | wk 13 Oct |
+| 6 | Mha Puja and Nepal Sambat | `mha-puja-nepal-sambat` | "mha puja", "nepal sambat" | wk 27 Oct |
+
+Ordering logic: anchors publish 3 to 5 weeks ahead of the festival so they are
+indexed before search ramps. The catering post must be live before 11 October
+(people book a feast 2 to 4 weeks out). Sel roti sits between the two festivals
+because it belongs to both. **If the cluster has to shrink to four, drop 2 and 6:**
+khasi ko masu folds into post 1 as a section, and Mha Puja is day four of Tihar
+so the anchor covers it honestly.
+
+**Not doing this year:** a "Dashain events near you" roundup. The ROADMAP wants a
+What's On layer, but we have no event data and will not publish dates we cannot
+verify.
+
+### What the DB supports (queried 2026-09-03, seeded menus only)
+
+- **Goat: 36+ venues** with goat curry / khasi ko masu, in every state and
+  territory. Post 1 and 2 are safe.
+- **Sel roti: 11 venues**, six of them in **Perth** (Little Magic Momo x3, Tasty
+  Momo Cloverdale, MoMo Planet, Funky Momo), the rest NSW/ACT (Heshela x2, Mul
+  Chowk x2, Jerysolti x2). **Zero in VIC or QLD.** That absence is the story:
+  sel roti here is takeaway-counter food, not restaurant food.
+- **Samay baji / yomari:** Heshela (Hurstville + Rockdale), Jhigu Bhoye Chhen
+  (Coorparoo), Bhoye Chhen (Edwardstown), Falcha x3, Newari Kitchen (Seven
+  Hills), Rolling Flavors (Subiaco), Lahana (Hurstville), Momonbitez (Oakleigh).
+  Enough for post 6.
+- **`catering = true` on 28 venues** (Prisha Catering, Everest Function Centre,
+  Anu Kitchen and others). Null on the other 408, so post 3 says "these ones we
+  know cater, ring the rest", never "only these cater".
+
+**Standing caveat for every post:** only ~144 of 437 menus are transcribed. A
+dish missing from our data does not mean the kitchen does not cook it. Write
+coverage claims as "on the menus we have", never as a complete census.
+`halal_status` is still unknown on every row: never assert halal, tell the
+reader to ring and ask.
+
+### Distinctions to get right (they are different dishes)
+
+- **Khasi ko masu** = goat curry, the Dashain centrepiece.
+- **Khasi ko bhutan** = boiled then pan-fried goat offal (stomach, intestine,
+  liver). Common on menus here and NOT the same dish. Do not conflate them.
+- Several kitchens sell **"khasi" that is actually lamb** (Namaste Parkside's
+  "Khasiko Masu (Goat or Lamb Curry)", Himalayan Perth's khasi sekuwa is lamb
+  cutlets). If we name a venue for goat, check the menu description first.
+
+### Build dependencies (Albert, small)
+
+- `dateModified` is hardcoded to `datePublished` in
+  `web/app/stories/[slug]/page.tsx`. These posts get re-dated every July, so the
+  refresh is invisible to Google until this is real.
+- Author is emitted as `Organization`, should be a `Person` with a bio. Festival
+  content lives or dies on lived experience (E-E-A-T).
+- **Hero images:** we have none for Dashain or Tihar. Posts fall back to the
+  gradient. Sourcing decision still open (see Imagery above).
+
+### Stale link targets (fixed in this cluster, fix elsewhere too)
+
+Dish pages moved from `/tag/[tag]` to **`/nepali-food/[slug]`** (commit 06fa684).
+Valid slugs: `momo`, `newari`, `choila`, `thakali`, `dal-bhat`, `tibetan`,
+`thukpa`, `grill`, `sekuwa`, `nepali-indian`, `vegetarian`, plus the momo
+subtypes. The briefs earlier in this doc still say `/tag/*` and are wrong.
 
 ---
 
