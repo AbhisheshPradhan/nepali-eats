@@ -127,7 +127,23 @@ export default async function Image({
 									fontWeight: 800,
 								}}
 							>
-								{`★ ${rating}${reviews ? ` (${reviews})` : ""}`}
+								{/* Inline SVG, not the ★ glyph: Baloo 2 doesn't cover it, and
+								    next/og's fallback network-fetches a covering font — a
+								    fetch that was failing (Status: 400) and silently
+								    rendering a blank "tofu" box in its place. An SVG has no
+								    font dependency, so it can't fail the same way. */}
+								<svg
+									width={26}
+									height={26}
+									viewBox="0 0 24 24"
+									style={{ marginRight: 10 }}
+								>
+									<path
+										d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+										fill={OG.ink}
+									/>
+								</svg>
+								{`${rating}${reviews ? ` (${reviews})` : ""}`}
 							</div>
 						</div>
 					) : null}
