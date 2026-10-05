@@ -13,7 +13,8 @@ const MIN_RENDER = 5;
 // Prerender + index the combos that clear this.
 const MIN_INDEX = 8;
 
-export const revalidate = 86400;
+// No `revalidate` export: cached indefinitely (Next's default) until a
+// redeploy. See the same note on app/restaurant/[slug]/page.tsx.
 
 const STATE_CODE: Record<string, string> = {
   nsw: "NSW", vic: "VIC", qld: "QLD", wa: "WA",

@@ -5,8 +5,8 @@ import { stateLanding, suburbLanding } from "@/lib/landing";
 import { listRestaurants, suburbFacets } from "@/lib/queries";
 import { suburbSlug } from "@/lib/format";
 
-export const revalidate = 3600;
-
+// No `revalidate` export: cached indefinitely (Next's default) until a
+// redeploy. See the same note on app/restaurant/[slug]/page.tsx.
 const CAP = 30;
 
 const STATE_CODE: Record<string, string> = {

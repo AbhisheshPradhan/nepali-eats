@@ -4,7 +4,8 @@ import { tagLanding, groupByState } from "@/lib/landing";
 import { listRestaurants } from "@/lib/queries";
 import { foodImage } from "@/lib/food";
 
-export const revalidate = 3600;
+// No `revalidate` export: cached indefinitely (Next's default) until a
+// redeploy. See the same note on app/restaurant/[slug]/page.tsx.
 
 export const metadata: Metadata = {
   title: "Best momo in Australia",

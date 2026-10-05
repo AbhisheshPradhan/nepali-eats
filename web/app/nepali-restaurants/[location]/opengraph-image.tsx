@@ -18,6 +18,17 @@ const STATE_NAME: Record<string, string> = {
 	ACT: "the ACT", TAS: "Tasmania", NT: "the Northern Territory",
 };
 
+// Prerender every indexed location's OG image at build, mirroring page.tsx's
+// generateStaticParams in this segment (same no-revalidate rationale there).
+export async function generateStaticParams() {
+	const states = Object.keys(STATE_CODE).map((location) => ({ location }));
+	const subs = await suburbFacets();
+	const suburbs = subs
+		.filter((s) => s.count >= 2)
+		.map((s) => ({ location: suburbSlug(s.value, s.state) }));
+	return [...states, ...suburbs];
+}
+
 async function resolve(location: string) {
 	const code = location.toLowerCase();
 	if (STATE_CODE[code]) {

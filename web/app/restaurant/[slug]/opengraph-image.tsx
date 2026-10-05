@@ -1,12 +1,20 @@
 import { ImageResponse } from "next/og";
 import { OG, OG_SIZE, OG_CONTENT_TYPE, ogFonts, ogMomo, pngDataUrl } from "@/lib/og";
-import { getCardBySlug } from "@/lib/queries";
+import { getCardBySlug, restaurantSitemapEntries } from "@/lib/queries";
 import { mediaUrl } from "@/lib/media";
 
 export const runtime = "nodejs";
 export const alt = "NepaliEats restaurant";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
+
+// Prerender every restaurant's OG image at build, same as page.tsx in this
+// segment: no `revalidate` export, so it's cached indefinitely until an
+// owner/admin edit (revalidatePath) or a redeploy.
+export async function generateStaticParams() {
+	const rows = await restaurantSitemapEntries();
+	return rows.map((r) => ({ slug: r.slug }));
+}
 
 export default async function Image({
 	params,

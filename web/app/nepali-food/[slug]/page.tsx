@@ -15,7 +15,8 @@ import { foodImage, foodGallery } from "@/lib/food";
 
 const CAP = 30;
 
-export const revalidate = 86400;
+// No `revalidate` export: cached indefinitely (Next's default) until a
+// redeploy. See the same note on app/restaurant/[slug]/page.tsx.
 
 // Short meta descriptions for the cuisine/tag pages (distinct from the on-page body).
 const INTRO: Record<string, string> = {

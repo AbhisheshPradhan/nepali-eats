@@ -54,12 +54,12 @@ import {
 } from "@/lib/format";
 import { PriceLevel } from "@/components/ui/PriceLevel";
 
-export const revalidate = 3600;
-
 // Prerender every visible restaurant as static HTML at build (mirrors the
-// tag/location pages). Without this the route falls back to on-demand rendering.
-// New/edited spots not in this list still render at request time (dynamicParams
-// defaults true) and cache per `revalidate`.
+// tag/location pages). No `revalidate` export: the data only changes via an
+// owner/admin edit (every mutation route already calls revalidatePath on this
+// path) or a redeploy, so Next's default (cache indefinitely, no time-based
+// expiry) is exactly right. New spots not in this list still render on first
+// request (dynamicParams defaults true) and then cache the same way.
 export async function generateStaticParams() {
 	const rows = await restaurantSitemapEntries();
 	return rows.map((r) => ({ slug: r.slug }));
