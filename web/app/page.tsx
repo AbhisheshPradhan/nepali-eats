@@ -17,7 +17,16 @@ import {
 	totalCount,
 } from "@/lib/queries";
 import { metroFromState } from "@/lib/format";
-import { resolveState } from "@/lib/geo";
+
+// Featured/popular are state-scoped, but there's no more server-side IP-geo
+// or admin preview — every visitor gets the NSW/Sydney picks server-rendered
+// (same fallback the old resolveState() used when it couldn't detect AU, which
+// in practice included every crawler: Googlebot doesn't request from an AU IP,
+// so this is also exactly what search engines already indexed). StateRow then
+// upgrades client-side, per visitor, if their shared location resolves to a
+// different state (see components/StateRow.tsx) — no server dynamism needed
+// for that either, so the page stays fully static.
+const STATE = "NSW";
 
 // The first-timer's order, step by step. Copy owned by the copy lead; dish
 // spellings follow the house glossary (choila, achaar, timur).
@@ -44,13 +53,9 @@ const FIRST_PLATE: { title: string; body: string; cta: string; href: string }[] 
 	];
 
 export default async function HomePage() {
-	// Featured is state-scoped. Resolve the visitor's state (admin override cookie
-	// -> IP geo -> NSW fallback), same as Explore.
-	const state = await resolveState();
-
 	const [gems, popular, tags, total, suburbs] = await Promise.all([
-		featuredByState(state, 5),
-		popularByState(state, 5),
+		featuredByState(STATE, 5),
+		popularByState(STATE, 5),
 		tagFacets(),
 		totalCount(),
 		suburbFacets(),
@@ -60,7 +65,7 @@ export default async function HomePage() {
 	// ever climbs ("550+", then "600+"), never showing an awkward live number.
 	const countLabel = `${Math.floor(total / 50) * 50}+`;
 
-	const metro = metroFromState(state);
+	const metro = metroFromState(STATE);
 
 	return (
 		<div>
@@ -88,13 +93,13 @@ export default async function HomePage() {
 			<StateRow
 				kind="featured"
 				items={gems}
-				state={state}
+				state={STATE}
 				metro={metro}
 			/>
 			<StateRow
 				kind="popular"
 				items={popular}
-				state={state}
+				state={STATE}
 				metro={metro}
 			/>
 

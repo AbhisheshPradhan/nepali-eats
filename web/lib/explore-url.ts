@@ -22,6 +22,13 @@ export const LOCATION_KEYS = [
 	"lng",
 	"focus",
 	"venue",
+	// clat/clng/zoom = the live map CAMERA position (written by panning, see
+	// ExploreClient's onBounds), distinct from lat/lng which mean the visitor's
+	// REAL location (home page's Near Me) and render the "you are here" dot.
+	// A pan never claims to know where the visitor is, only where they're looking.
+	"clat",
+	"clng",
+	"zoom",
 ] as const;
 // `dish` carries the most specific dish/preparation slug the user picked (a
 // leaf like steamed-momo or choila; the server normalizes it into the cuisine

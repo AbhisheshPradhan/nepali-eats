@@ -219,7 +219,17 @@ export async function exploreSpots(): Promise<ExploreSpot[]> {
               (SELECT p.storage_key FROM restaurant_photos p
                  WHERE p.restaurant_id = r.id AND NOT p.removed
                  ORDER BY p.is_primary DESC, p.position ASC LIMIT 1)
-            ) AS primary_photo
+            ) AS primary_photo,
+            -- Whether the map-popup gallery carousel (logo + photos) would
+            -- actually show 2+ slides. Lets the client skip fetching the full
+            -- gallery on a pin click when it wouldn't render differently from
+            -- primary_photo/logo_key above.
+            COALESCE(
+              (SELECT count(*) >= 2 OR (r.logo_key IS NOT NULL AND count(*) >= 1)
+                 FROM restaurant_photos p
+                WHERE p.restaurant_id = r.id AND NOT p.removed),
+              false
+            ) AS has_gallery
        FROM restaurants r
       WHERE r.${NOT_CLOSED} AND r.lat IS NOT NULL AND r.lng IS NOT NULL`,
 	);
@@ -247,6 +257,7 @@ export async function exploreSpots(): Promise<ExploreSpot[]> {
 		popular: !!row.popular,
 		tags: row.tags || [],
 		hasMenu: !!row.has_menu,
+		hasGallery: !!row.has_gallery,
 		// "menu" is a synthetic flag token (no FLAG_COLS column) so the
 		// "Menu on here" chip filters through the same flags mechanism.
 		flags: [
@@ -265,27 +276,6 @@ export async function countRestaurants(o: ListOpts = {}): Promise<number> {
 		params,
 	);
 	return Number(rows[0].n);
-}
-
-// Geographic extent of a filtered set (for centring the map on SSR).
-export async function extentOf(o: ListOpts) {
-	const { where, params } = buildWhere(o);
-	const rows = await query<Record<string, string | null>>(
-		`SELECT min(lat) minlat, max(lat) maxlat, min(lng) minlng, max(lng) maxlng,
-            avg(lat) avglat, avg(lng) avglng
-       FROM restaurants r ${where}`,
-		params,
-	);
-	const x = rows[0];
-	if (!x || x.minlat == null) return null;
-	return {
-		minLat: Number(x.minlat),
-		maxLat: Number(x.maxlat),
-		minLng: Number(x.minlng),
-		maxLng: Number(x.maxlng),
-		avgLat: Number(x.avglat),
-		avgLng: Number(x.avglng),
-	};
 }
 
 // React.cache: generateMetadata and the page body both call this per render;

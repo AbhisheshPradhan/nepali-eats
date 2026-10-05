@@ -38,18 +38,41 @@ import {
 	SheetTextButton,
 } from "@/components/explore/FilterControls";
 import type {
-	Restaurant,
 	ExploreSpot,
 	Bbox,
 	DishSearchResult,
 	DishFacet,
 	DishPill,
 } from "@/lib/types";
-import { isOpenNow, tagLabel, haversineKm, formatDistance } from "@/lib/format";
-import { withDish, withoutDish, type ExploreParams } from "@/lib/explore-url";
+import {
+	isOpenNow,
+	tagLabel,
+	haversineKm,
+	formatDistance,
+	STATE_CENTRE,
+	capitalLatLng,
+} from "@/lib/format";
+import { withDish, withoutDish, withLocation, type ExploreParams } from "@/lib/explore-url";
 import { EXPLORE_CATEGORIES, FACET_KIND_ORDER } from "@/lib/menu/categories";
+import { normalizeDishTag } from "@/lib/menu/taxonomy";
 import { cn } from "@/lib/cn";
 import { Z } from "@/lib/z";
+
+// Default map camera: Greater Sydney. No more server-resolved IP-geo state
+// capital (dropped 2026-10: it was the one piece of camera logic that needed
+// the visitor's IP, which the client can't derive from the restaurant
+// dataset — everything else here already comes from data the client holds).
+// Browser geolocation (if already granted) still upgrades this, same as before.
+const SYDNEY = STATE_CENTRE.NSW;
+const defaultUserLoc = capitalLatLng(undefined); // fixed Sydney distance-origin fallback
+
+function zoomForSpan(span: number) {
+	if (span < 0.15) return 14;
+	if (span < 0.5) return 12;
+	if (span < 2) return 10;
+	if (span < 6) return 8;
+	return 6;
+}
 
 // Our-food category chips on the primary bar: one-tap entry points into the
 // dish search (identical to picking the tag in the SearchBox). Clicking one
@@ -153,51 +176,7 @@ const SORTS: Record<string, (a: ExploreSpot, b: ExploreSpot) => number> = {
 	rating: (a, b) => desc(a.rating, b.rating) || desc(a.reviewCount, b.reviewCount),
 };
 
-export function ExploreClient({
-	fixed,
-	dish,
-	dishProtein,
-	dishDiet,
-	dishFacet,
-	initialItems,
-	initialCenter,
-	initialZoom,
-	areaLabel,
-	focusId,
-	initialUserLoc,
-	defaultUserLoc,
-	autoLocate = false,
-	viewKey,
-	cameraKey,
-}: {
-	fixed: { tag?: string; state?: string; suburb?: string; venue?: string };
-	// dish search (menu-level): the cuisine-normalized dish/style tag slug, plus
-	// an optional protein facet pre-applied by a compound pick ("Paneer Momo").
-	dish?: string;
-	dishProtein?: string;
-	// diet facet from ?diet= (vegan, gluten-free), same URL contract as protein
-	dishDiet?: string;
-	// A facet pre-selected by normalizing a leaf-tag search server-side: a momo
-	// preparation ("steamed momo" → dish momo + preparation steamed-momo) or a
-	// styled member dish ("choila" → dish newari + dish choila). See page.tsx.
-	dishFacet?: { kind: DishFacet["kind"]; slug: string };
-	// SSR seed: just the focused restaurant (when any) so a ?focus= landing paints
-	// its result instantly; everything else renders from the spots payload.
-	initialItems: Restaurant[];
-	initialCenter: [number, number];
-	initialZoom: number;
-	areaLabel: string;
-	focusId?: number;
-	initialUserLoc?: [number, number];
-	defaultUserLoc: [number, number];
-	autoLocate?: boolean;
-	// viewKey = signature of the server-resolved view; changes on a soft navigation
-	// so the client can resync the box/chips. cameraKey is its LOCATION part:
-	// only when THAT changes does the camera re-apply, so a dish-only search
-	// filters in place instead of recentring the map.
-	viewKey: string;
-	cameraKey: string;
-}) {
+export function ExploreClient() {
 	const router = useRouter();
 	// Current URL params, so every filter change MERGES (keeps the other
 	// dimension) instead of replacing the whole query — a dish pick keeps the
@@ -206,6 +185,36 @@ export function ExploreClient({
 	const currentParams: ExploreParams = useMemo(
 		() => Object.fromEntries(searchParams.entries()),
 		[searchParams],
+	);
+
+	// tag and dish are two tiers of the same what-food axis, so they're mutually
+	// exclusive: dish (menu-level) wins and tag is ignored. The URL layer already
+	// sheds tag on any filter change (lib/explore-url); this guards hand-crafted
+	// or stale links carrying both, which would AND two cuisine filters.
+	const tag = currentParams.dish ? undefined : currentParams.tag;
+	// Normalize the dish tag to its cuisine bucket + a pre-selected facet, so a
+	// leaf-tag search ("steamed momo", "choila") lights up the Category / Dish
+	// type dropdowns instead of landing on a tag with no sibling facets. The raw
+	// currentParams.dish still drives the search-box text + viewKey below.
+	const norm = currentParams.dish ? normalizeDishTag(currentParams.dish) : undefined;
+	// dish search (menu-level): the cuisine-normalized dish/style tag slug, plus
+	// an optional protein facet pre-applied by a compound pick ("Paneer Momo").
+	const dish = norm?.dish ?? currentParams.dish;
+	const dishProtein = currentParams.protein;
+	// diet facet from ?diet= (vegan, gluten-free), same URL contract as protein
+	const dishDiet = currentParams.diet;
+	// A facet pre-selected by normalizing a leaf-tag search: a momo preparation
+	// ("steamed momo" → dish momo + preparation steamed-momo) or a styled member
+	// dish ("choila" → dish newari + dish choila).
+	const dishFacet = norm?.facet;
+	const fixed = useMemo(
+		() => ({
+			tag,
+			state: currentParams.state,
+			suburb: currentParams.suburb,
+			venue: currentParams.venue,
+		}),
+		[tag, currentParams.state, currentParams.suburb, currentParams.venue],
 	);
 	// THE data: every visible spot, fetched once (CDN-cached). All filtering,
 	// sorting and pagination happen in memory — map pans never refetch.
@@ -239,6 +248,122 @@ export function ExploreClient({
 			stale = true;
 		};
 	}, [reloadSpots]);
+
+	// The initial map camera + focus restaurant, derived entirely from the spots
+	// payload already in memory (no server round-trip). null until spots lands —
+	// the map stays unmounted until this resolves (see the MapView render below),
+	// so there's never a default-camera flash before snapping to the right place.
+	// Mirrors the old server-side page.tsx logic 1:1, with extentOf()'s SQL
+	// bounding-box query replaced by a filter + min/max over the in-memory array,
+	// and getCardBySlug(focus) replaced by an array lookup.
+	const resolvedView = useMemo(() => {
+		if (!spots) return null;
+
+		const qLat = currentParams.lat ? Number(currentParams.lat) : NaN;
+		const qLng = currentParams.lng ? Number(currentParams.lng) : NaN;
+		const hasLatLng = Number.isFinite(qLat) && Number.isFinite(qLng);
+		// clat/clng/zoom = a shared map CAMERA position (written by panning, see
+		// onBounds below) — distinct from lat/lng, which mean the visitor's real
+		// location. A pasted camera link reopens at the exact pan/zoom, but never
+		// lights up the "you are here" dot — it's a viewport, not a location claim.
+		const qCLat = currentParams.clat ? Number(currentParams.clat) : NaN;
+		const qCLng = currentParams.clng ? Number(currentParams.clng) : NaN;
+		const qZoom = currentParams.zoom ? Number(currentParams.zoom) : NaN;
+		const hasCameraPos =
+			Number.isFinite(qCLat) && Number.isFinite(qCLng) && Number.isFinite(qZoom);
+		const focused = currentParams.focus
+			? (spots.find((s) => s.slug === currentParams.focus) ?? null)
+			: null;
+
+		let center: [number, number] = SYDNEY;
+		let zoom = 11;
+		let areaLabel = "in this area";
+		let focusId: number | undefined;
+		let userLoc: [number, number] | undefined;
+		let autoLocate = false;
+
+		if (focused) {
+			// searching a restaurant centres the map on it and pins it to the top
+			// of the list
+			center = [focused.lat, focused.lng];
+			// past clusterMaxZoom (14) so the searched spot shows as its own pin,
+			// centred, instead of being swallowed into a cluster in dense areas.
+			zoom = 16;
+			areaLabel = `Search result for "${focused.name}"`;
+			focusId = focused.id;
+		} else if (hasLatLng) {
+			center = [qLat, qLng];
+			userLoc = [qLat, qLng];
+			zoom = 13;
+			areaLabel = "near you";
+		} else if (hasCameraPos) {
+			// a shared/reopened pan — not userLoc, this is just where the map is
+			// looking, not where the visitor is
+			center = [qCLat, qCLng];
+			zoom = qZoom;
+			areaLabel = "in the map area";
+		} else if (tag || fixed.state || fixed.suburb || fixed.venue) {
+			const suburb = fixed.suburb?.toLowerCase();
+			const matching = spots.filter(
+				(s) =>
+					(!tag || s.tags.includes(tag)) &&
+					(!fixed.venue || s.venueType === fixed.venue) &&
+					(!fixed.state || s.state === fixed.state) &&
+					(!suburb || s.suburb?.toLowerCase() === suburb),
+			);
+			if (matching.length) {
+				const lats = matching.map((s) => s.lat);
+				const lngs = matching.map((s) => s.lng);
+				const minLat = Math.min(...lats);
+				const maxLat = Math.max(...lats);
+				const minLng = Math.min(...lngs);
+				const maxLng = Math.max(...lngs);
+				center = [(minLat + maxLat) / 2, (minLng + maxLng) / 2];
+				zoom = zoomForSpan(Math.max(maxLat - minLat, maxLng - minLng));
+			}
+			areaLabel = fixed.suburb
+				? `in ${fixed.suburb}`
+				: fixed.state
+					? `in ${fixed.state}`
+					: tag
+						? `for ${tag}`
+						: "in this area";
+		} else {
+			// no explicit location: open the map on the default Sydney camera;
+			// the autoLocate effect below silently upgrades this to the visitor's
+			// real location if they've already granted it (never prompts fresh).
+			center = SYDNEY;
+			zoom = 11;
+			areaLabel = "in the map area";
+			autoLocate = true;
+		}
+
+		// Identifies the resolved view (which branch above set the camera). The
+		// Explore route is the same on every search, so a suburb/restaurant pick is
+		// a SOFT navigation — this component never remounts. The apply-view effect
+		// below watches this key to re-apply the new camera/scope when it changes;
+		// same key = same view = leave the live map/filters untouched.
+		// cameraKey = the LOCATION part of the view (what moves the map); the full
+		// viewKey adds the dish so a dish pick still resyncs the search box + chips.
+		// Keeping them separate means searching a dish mid-browse filters the map
+		// you are looking at instead of teleporting you back to the default camera.
+		const cameraKey = currentParams.focus
+			? `focus:${currentParams.focus}`
+			: hasLatLng
+				? `ll:${qLat},${qLng}`
+				: hasCameraPos
+					? `cam:${qCLat},${qCLng},${qZoom}`
+					: fixed.suburb || fixed.state || tag || fixed.venue
+						? `area:${fixed.suburb ?? ""}|${fixed.state ?? ""}|${tag ?? ""}|${fixed.venue ?? ""}`
+						: "default";
+		// viewKey uses the NORMALIZED bucket, not the raw leaf: a facet-only change
+		// (?dish=steamed-momo, ?protein=, ?diet=) must not re-run the apply-view
+		// effect (map selection, search box) — facet state is derived from the URL
+		// props directly. Only a real bucket change or camera change re-syncs the view.
+		const viewKey = currentParams.dish ? `${cameraKey}+dish:${dish ?? currentParams.dish}` : cameraKey;
+
+		return { center, zoom, areaLabel, focusId, userLoc, autoLocate, cameraKey, viewKey };
+	}, [spots, currentParams, tag, fixed, dish]);
 
 	// The filter catalog: every Category cuisine → its served dish-type / protein
 	// facets. Fetched ONCE (location-independent, hard-cached) so the refine chips
@@ -334,13 +459,14 @@ export function ExploreClient({
 		);
 
 	const [hovered, setHovered] = useState<number | null>(null);
-	const [selected, setSelected] = useState<number | null>(focusId ?? null);
+	const [selected, setSelected] = useState<number | null>(null);
 	const [viewMode, setViewMode] = useState<"map" | "list">("list");
-	const [center, setCenter] = useState(initialCenter);
-	const [zoom, setZoom] = useState(initialZoom);
-	const [userLoc, setUserLoc] = useState<[number, number] | null>(
-		initialUserLoc ?? null,
-	);
+	// null until resolvedView lands (see the apply-view effect below) — the map
+	// stays unmounted until then, so it never flashes a default camera before
+	// snapping to the right place.
+	const [center, setCenter] = useState<[number, number] | null>(null);
+	const [zoom, setZoom] = useState<number | null>(null);
+	const [userLoc, setUserLoc] = useState<[number, number] | null>(null);
 	// the map's live viewport — the sole geographic filter for the list.
 	const [viewBbox, setViewBbox] = useState<Bbox | null>(null);
 
@@ -373,26 +499,59 @@ export function ExploreClient({
 	// current dish, readable inside async callbacks (geolocation)
 	const dishRef = useRef(dish);
 	dishRef.current = dish;
-	// the view this client last applied; starts at the mount value so the resync
-	// effect is a no-op on first render and only fires on later soft navigations.
-	const appliedViewKey = useRef(viewKey);
-	const appliedCameraKey = useRef(cameraKey);
+	// the view this client last applied. null sentinel so the apply-view effect
+	// below fires on the FIRST resolution (spots landing) as well as every later
+	// soft navigation, instead of needing a separate mount-time seed.
+	const appliedViewKey = useRef<string | null>(null);
+	const appliedCameraKey = useRef<string | null>(null);
 
 	// map bounds change (moveEND) → refilter the in-memory list (no fetch, no
 	// debounce).
-	const onBounds = useCallback((b: Bbox, userMoved: boolean) => {
-		setViewBbox(b);
-		// any real pan/zoom away from the seeded view (suburb/state, a lat/lng
-		// search, "Near me", or the default camera) → switch to map-area mode.
-		// Clear the box (don't show "Map area" as text); the "in the map area"
-		// context lives in the list heading below. Taking the map over also
-		// retires the "showing the closest" banner — the user is driving now.
-		if (userMoved) {
-			setMapTouched(true); // a gesture: the visitor owns the frame now
-			enterAreaMode(true);
-			setAutoBanner(null);
-		}
-	}, []);
+	const onBounds = useCallback(
+		(b: Bbox, userMoved: boolean, view: { lat: number; lng: number; zoom: number }) => {
+			setViewBbox(b);
+			// any real pan/zoom away from the seeded view (suburb/state, a lat/lng
+			// search, "Near me", or the default camera) → switch to map-area mode.
+			// Clear the box (don't show "Map area" as text); the "in the map area"
+			// context lives in the list heading below. Taking the map over also
+			// retires the "showing the closest" banner — the user is driving now.
+			if (userMoved) {
+				setMapTouched(true); // a gesture: the visitor owns the frame now
+				enterAreaMode(true);
+				setAutoBanner(null);
+
+				// Mirror the live camera into the URL (clat/clng/zoom, see
+				// resolvedView's hasCameraPos branch) so this exact view is
+				// shareable/reload-safe. window.history.replaceState, NOT
+				// router.replace: the router methods are real Next.js navigations
+				// and fetch that route's RSC payload from the server on every call
+				// (confirmed in Next's own docs — its "Native History API" guide
+				// reaches for the raw history API for this exact "sync UI state to
+				// the URL" case, not router.replace). replaceState still syncs with
+				// useSearchParams() so resolvedView/the apply-view effect below see
+				// it, it just never asks the server for anything, so a pan never
+				// shows up as a GET in the network tab.
+				// Mark the applied-view refs with the SAME key resolvedView will
+				// compute for it, right now rather than waiting for the round trip
+				// through searchParams — so when resolvedView recomputes, the
+				// apply-view effect recognizes this as already-applied and no-ops
+				// instead of re-seeding (and re-flying) the camera we just moved.
+				const clat = view.lat.toFixed(5);
+				const clng = view.lng.toFixed(5);
+				const zoomStr = view.zoom.toFixed(2);
+				const newCameraKey = `cam:${Number(clat)},${Number(clng)},${Number(zoomStr)}`;
+				const newViewKey = dish ? `${newCameraKey}+dish:${dish}` : newCameraKey;
+				appliedCameraKey.current = newCameraKey;
+				appliedViewKey.current = newViewKey;
+				window.history.replaceState(
+					null,
+					"",
+					withLocation(currentParams, { clat, clng, zoom: zoomStr }),
+				);
+			}
+		},
+		[dish, currentParams],
+	);
 
 	// Pagination window, keyed to the current filter/viewport signature so any
 	// change resets it to one page (mirrors the old fetch-per-move behaviour)
@@ -404,7 +563,8 @@ export function ExploreClient({
 		setPage({ key: pageKey, count: shownCount + PAGE_SIZE });
 
 	// Default view: if the visitor already granted location, recentre on them
-	// ("near me" by default). Otherwise keep the SSR state-capital / Sydney centre.
+	// ("near me" by default). Otherwise keep the default Sydney centre.
+	const autoLocate = resolvedView?.autoLocate ?? false;
 	useEffect(() => {
 		if (
 			!autoLocate ||
@@ -437,32 +597,46 @@ export function ExploreClient({
 		}
 	}, [autoLocate]);
 
-	// Searching from the Explore page navigates to /explore?suburb=… which is a SOFT
-	// navigation: the server re-renders with a new camera but React keeps this client
-	// instance, so center/zoom/scope (seeded only at mount) would otherwise go stale
-	// and the map never moves. When the server-resolved viewKey changes, re-apply the
-	// new view: recentre (MapView flyTo → onBounds refilter), re-seed the geo scope so
-	// the new suburb/state filter applies, and resync the search box.
+	// Apply the resolved view whenever it changes — this fires twice over: once
+	// when spots first lands (there's nothing to apply before then, so the map
+	// stays unmounted, see the MapView render below) and again on every later
+	// soft navigation. Searching from the Explore page navigates to
+	// /explore?suburb=… which is a SOFT navigation: this component never
+	// remounts, so center/zoom/scope would otherwise go stale and the map never
+	// move. Re-apply the new view: recentre (MapView flyTo → onBounds refilter),
+	// re-seed the geo scope so the new suburb/state filter applies, and resync
+	// the search box.
 	useEffect(() => {
-		if (appliedViewKey.current === viewKey) return;
-		appliedViewKey.current = viewKey;
+		if (!resolvedView) return; // spots not loaded yet — nothing to apply
+		if (appliedViewKey.current === resolvedView.viewKey) return;
+		const firstApply = appliedViewKey.current === null;
+		appliedViewKey.current = resolvedView.viewKey;
 		// the camera (and the seeded geo scope) re-apply ONLY when the location
 		// part changed — a dish-only search keeps the map where the user put it.
-		if (appliedCameraKey.current !== cameraKey) {
-			appliedCameraKey.current = cameraKey;
-			setCenter(initialCenter);
-			setZoom(initialZoom);
+		if (appliedCameraKey.current !== resolvedView.cameraKey) {
+			appliedCameraKey.current = resolvedView.cameraKey;
+			setCenter(resolvedView.center);
+			setZoom(resolvedView.zoom);
+			// userLoc is seeded once, on the first resolution, same as the old
+			// mount-time seed from a server prop — later lat/lng navigations move
+			// the camera but (as before) don't re-seed the shared-location dot.
+			if (firstApply) setUserLoc(resolvedView.userLoc ?? null);
 			areaScopedRef.current = false;
 			setAreaScoped(false);
 			setMapTouched(false); // a new seeded view = a fresh, untouched frame
 			setFitBounds(null);
 		}
-		setSelected(focusId ?? null);
+		setSelected(resolvedView.focusId ?? null);
 		setBoxKey((k) => k + 1);
 		// facet chips need no reset here: facetSel is DERIVED from the URL props,
 		// so it re-syncs on every navigation by construction.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [viewKey]);
+	}, [resolvedView]);
+
+	// Read directly off resolvedView (always current), not the applied snapshot
+	// above — `selected` is the user-adjustable pin highlight; these two drive
+	// filtering/labelling and must track the latest URL, not the last-applied one.
+	const focusId = resolvedView?.focusId;
+	const areaLabel = resolvedView?.areaLabel ?? "in this area";
 
 	const onSelect = useCallback((id: number | null) => {
 		setSelected(id);
@@ -715,10 +889,10 @@ export function ExploreClient({
 		// bbox report would fight the camera we just set
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dish, ready, mapTouched, inView.length, nearest]);
-	// Until then, the SSR-seeded focused restaurant is the list.
-	const shown: (ExploreSpot | Restaurant)[] = ready
-		? ordered.slice(0, shownCount)
-		: initialItems;
+	// Until ready (spots + viewport, and dish matches in dish mode), nothing to show —
+	// there's no more SSR-seeded focused restaurant to paint early now that the
+	// focus lookup itself depends on the spots payload.
+	const shown: ExploreSpot[] = ready ? ordered.slice(0, shownCount) : [];
 	// focus view = the searched restaurant sits at the top (shown as the result).
 	// "You may also like" only renders when the viewport adds more (length > 1).
 	const isFocusView = focusId != null && shown[0]?.id === focusId;
@@ -1479,23 +1653,33 @@ export function ExploreClient({
 						viewMode === "map" ? "block" : "hidden md:block",
 					)}
 				>
-					<MapView
-						pins={ready ? matches : []}
-						hoveredId={hovered}
-						selectedId={selected}
-						onHover={setHovered}
-						onSelect={onSelect}
-						onBounds={onBounds}
-						center={center}
-						zoom={zoom}
-						active={viewMode === "map"}
-						dishPills={dishItems ?? undefined}
-						dishName={dishName ?? undefined}
-						distOrigin={distOrigin}
-						focusId={focusId}
-						userLoc={userLoc}
-						fitBounds={fitBounds}
-					/>
+					{/* Don't mount the map until the camera is resolved (spots loaded +
+					    the view computed from them, see resolvedView above) — otherwise
+					    it would paint at a default camera and then visibly jump once the
+					    real position lands. One loading beat instead of a jump. */}
+					{center !== null && zoom !== null ? (
+						<MapView
+							pins={ready ? matches : []}
+							hoveredId={hovered}
+							selectedId={selected}
+							onHover={setHovered}
+							onSelect={onSelect}
+							onBounds={onBounds}
+							center={center}
+							zoom={zoom}
+							active={viewMode === "map"}
+							dishPills={dishItems ?? undefined}
+							dishName={dishName ?? undefined}
+							distOrigin={distOrigin}
+							focusId={focusId}
+							userLoc={userLoc}
+							fitBounds={fitBounds}
+						/>
+					) : (
+						<div className="absolute inset-0 grid place-items-center bg-paper-100 text-ink-500">
+							Finding your spot…
+						</div>
+					)}
 				</div>
 
 				{/* Floating List/Map toggle (mobile). Hidden while the list is

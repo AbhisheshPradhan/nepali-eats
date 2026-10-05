@@ -139,6 +139,11 @@ export interface ExploreSpot {
   tags: string[]; // coarse dish/style rollup — powers ?tag= scoping
   flags: string[]; // true-only attribute tokens (FLAG_COLS keys + "menu") — filter chips
   hasMenu: boolean; // menu seeded on the site — powers the card "See the menu" link
+  // true only when a map-popup carousel would actually show 2+ slides (2+
+  // gallery photos, or a logo plus 1+ photo). Most restaurants don't clear
+  // this bar — gates the lazy gallery fetch in MapView so a pin click doesn't
+  // round-trip for a carousel that would render identically to primaryPhoto.
+  hasGallery: boolean;
 }
 
 export interface Bbox {

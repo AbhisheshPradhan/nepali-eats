@@ -14,7 +14,6 @@ import {
 import { useUser, useClerk } from "@clerk/nextjs";
 import { AppUserButton } from "@/components/AppUserButton";
 import { useMe } from "@/lib/useMe";
-import { AdminStateSwitcher } from "@/components/AdminStateSwitcher";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -109,17 +108,14 @@ export function Header() {
 
 					<div className="hidden min-[880px]:flex items-center gap-3">
 						{isAdmin && (
-							<>
-								<AdminStateSwitcher />
-								<Button
-									href="/admin"
-									size="sm"
-									variant="outline"
-									iconLeft={<ShieldCheck size={16} />}
-								>
-									Admin
-								</Button>
-							</>
+							<Button
+								href="/admin"
+								size="sm"
+								variant="outline"
+								iconLeft={<ShieldCheck size={16} />}
+							>
+								Admin
+							</Button>
 						)}
 						{isSignedIn ? (
 							<AppUserButton />
@@ -235,7 +231,6 @@ export function Header() {
 					<div className="mt-auto pt-10">
 						{isAdmin && (
 							<div className="mb-3 flex flex-col gap-3">
-								<AdminStateSwitcher variant="mobile" />
 								<Link
 									href="/admin"
 									onClick={() => setOpen(false)}

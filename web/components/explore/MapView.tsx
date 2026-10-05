@@ -98,7 +98,14 @@ export default function MapView({
   selectedId: number | null;
   onHover: (id: number | null) => void;
   onSelect: (id: number | null) => void;
-  onBounds: (b: Bbox, userMoved: boolean) => void;
+  // view = the map's exact current center/zoom (Mapbox's own getCenter/getZoom,
+  // not derived from the bbox), so the caller can mirror a real pan/zoom into
+  // the URL for shareability without approximating from the viewport rectangle.
+  onBounds: (
+    b: Bbox,
+    userMoved: boolean,
+    view: { lat: number; lng: number; zoom: number },
+  ) => void;
   center: [number, number];
   zoom: number;
   // Dish-search context: when active, the pin card becomes the Explore list
@@ -172,7 +179,13 @@ export default function MapView({
     const m = mapRef.current;
     if (!m) return;
     const b = m.getBounds();
-    if (b) onBounds({ w: b.getWest(), s: b.getSouth(), e: b.getEast(), n: b.getNorth() }, userMoved);
+    if (!b) return;
+    const c = m.getCenter();
+    onBounds(
+      { w: b.getWest(), s: b.getSouth(), e: b.getEast(), n: b.getNorth() },
+      userMoved,
+      { lat: c.lat, lng: c.lng, zoom: m.getZoom() },
+    );
   };
 
   useEffect(() => {
@@ -249,10 +262,15 @@ export default function MapView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId, pins]);
 
-  // Lazy-load the open spot's gallery for the popup carousel.
+  // Lazy-load the open spot's gallery for the popup carousel — but ONLY when
+  // it would actually show one (2+ slides). hasGallery is precomputed in the
+  // spots payload we already have; most restaurants don't clear that bar (one
+  // or zero photos), and PlaceCard's own single-image fallback already renders
+  // the identical result from primaryPhoto/logoKey — no fetch needed to get
+  // there, let alone an extra round trip that lands on the same picture.
   useEffect(() => {
     const slug = popup?.slug;
-    if (!slug) {
+    if (!slug || !popup.hasGallery) {
       setGallery({ logo: null, photos: [] });
       return;
     }
@@ -275,7 +293,7 @@ export default function MapView({
     return () => {
       cancelled = true;
     };
-  }, [popup?.slug]);
+  }, [popup?.slug, popup?.hasGallery]);
 
   // When the map becomes visible (mobile list→map toggle), the container has just
   // gone from display:none to its full height. Resize on the next frame so the
