@@ -59,7 +59,11 @@ export function StateRow({
 						: { items: d.items ?? [], state: d.state!, metro: d.metro! },
 				);
 			})
-			.catch(() => {}); // network/parse/abort: keep the SSR'd view
+			.catch((e) => {
+				// aborting on deps-change/unmount is expected (not an error worth
+				// logging); anything else (network/parse) is worth seeing
+				if (e.name !== "AbortError") console.error(e);
+			});
 		return () => ctrl.abort();
 	}, [kind, lat, lng]);
 
