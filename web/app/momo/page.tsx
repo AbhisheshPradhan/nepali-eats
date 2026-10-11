@@ -8,9 +8,9 @@ import { foodImage } from "@/lib/food";
 // redeploy. See the same note on app/restaurant/[slug]/page.tsx.
 
 export const metadata: Metadata = {
-  title: "Best momo in Australia",
+  title: "Best momo restaurants in Australia",
   description:
-    "Find the best momo across Australia: steamed, fried, jhol and C-momo from restaurants, trucks and weekend stalls.",
+    "The best momo restaurants in Australia, state by state. Steamed, fried, jhol and C-momo, with ratings, hours and maps to your nearest plate.",
   alternates: { canonical: "/momo" },
 };
 

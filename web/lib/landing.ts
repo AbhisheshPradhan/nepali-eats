@@ -142,7 +142,7 @@ interface TagCopy {
 export const TAG_COPY: Record<string, TagCopy> = {
   momo: {
     eyebrow: "Find your momo people",
-    title: "Best momo in Australia",
+    title: "Best momo restaurants in Australia",
     lead: [
       "Momo are the dish that put Nepali food on the map in Australia. Soft dumplings, a punchy tomato achaar, and a queue out the door on a Sunday. Nearly every Nepali kitchen in the country does them, and the good ones do them brilliantly.",
       "Order them steamed for the truest taste, fried for crisp edges, jhol for a warm spiced soup you drink between bites, or C-momo tossed in sticky chilli sauce. Buff is the traditional filling, chicken the crowd-pleaser, and veg and paneer are everywhere and genuinely good.",

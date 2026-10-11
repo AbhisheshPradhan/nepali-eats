@@ -210,7 +210,10 @@ the current one-liners.
 
 This is your highest-volume term. Give it the most content.
 
-- **H1 (KEEP):** `Best momo in Australia`
+- **H1 (CHANGED 2026-10-11):** `Best momo restaurants in Australia` (was `Best
+  momo in Australia`; added "restaurants" to match the "best momo restaurant"
+  query, which the page was ranking page 3 for with the old title). Meta
+  description updated to match (`web/app/momo/page.tsx`).
 - **Eyebrow (KEEP):** `Find your momo people`
 - **Intro paragraph 1 (KEEP, lightly trimmed):**
   `Steamed, fried, jhol or C-momo. These are the kitchens, cafes and trucks fogging up their windows with great momo across the country. Follow the queues and never skip the achaar.`

@@ -73,6 +73,15 @@ export function LandingPage({
         "@type": "CollectionPage",
         name: collectionName,
         description: intro[0] ? stripInline(intro[0]) : collectionName,
+        ...(heroImage
+          ? {
+              primaryImageOfPage: {
+                "@type": "ImageObject",
+                url: `${SITE}${heroImage.src}`,
+                caption: heroImage.alt,
+              },
+            }
+          : {}),
         mainEntity: {
           "@type": "ItemList",
           numberOfItems: restaurants.length,
