@@ -1,5 +1,6 @@
 import { metroFromState, tagLabel, suburbSlug } from "./format";
 import type { Restaurant } from "./types";
+import { stripInline } from "@/components/inline";
 
 // Content model for the enriched landing pages (state / suburb / tag / momo).
 // Hand-written local copy is merged with facts derived from the real restaurant
@@ -44,6 +45,7 @@ export interface LandingContent {
 // Location pages lead with the count once it reads as a real number: a "2" in
 // a title makes the page look empty.
 export const COUNT_MIN = 3;
+const META_MAX = 155;
 
 function locationTitle(count: number, place: string): string {
   return count >= COUNT_MIN
@@ -136,7 +138,7 @@ const NEPALI_CLASSICS: WhatToOrder[] = [
 // builder appends a data sentence with the real count + cluster suburbs.
 const STATE_LEAD: Record<string, string[]> = {
   NSW: [
-    "Sydney is the beating heart of Nepali food in Australia. Head west and the momo capital reveals itself: Harris Park and Parramatta run thick with dumpling houses, and you will find Thakali kitchens and buff momo through Auburn, Rockdale and Liverpool.",
+    "Sydney has more Nepali kitchens than anywhere else in Australia. Head west to Harris Park and Parramatta for momo on almost every corner, then work through Auburn, Rockdale and Liverpool for Thakali sets and buff momo.",
     "It is the densest, most competitive Nepali food scene in the country, which is good news for your dinner. The food follows the students and families too, so there are good spots in Wollongong, Newcastle and the coast.",
   ],
   VIC: [
@@ -684,13 +686,47 @@ export const DISH_COPY: Record<string, DishCopy> = {
   },
 };
 
+// Dish name in house casing. Taxonomy names are title-cased ("Jhol Momo");
+// the bespoke national title carries the spelling we want everywhere.
+export function dishDisplayName(dish: { slug: string; name: string }): string {
+  return DISH_COPY[dish.slug]?.title?.replace(/ in Australia$/, "") ?? dish.name;
+}
+
+// Dish first, count after, brand appended by the root title template:
+// "Sandheko momo in Australia: 48 spots". The description is the first full
+// sentence of the lead (never a mid-sentence cut) plus the count and the map.
+export function dishMeta(
+  dish: { slug: string; name: string },
+  count: number,
+  place: string
+): LandingMeta {
+  const name = dishDisplayName(dish);
+  const where = place === "Australia" ? "" : ` in ${place}`;
+  const tail =
+    count === 1
+      ? `1 spot${where} has it on the menu, all on one map.`
+      : `${count} spots${where} have it on the menu, all on one map.`;
+  // Google cuts descriptions around 155 chars. Use the lead's first sentence;
+  // if that runs long, end it at its colon ("Dal bhat is the meal Nepal runs
+  // on."); if still long, fall back to a plain opener.
+  const lead = DISH_COPY[dish.slug]?.lead[0];
+  const sentence = lead ? stripInline(lead).match(/^.+?[.!?](?=\s|$)/)?.[0] : undefined;
+  const clause = sentence?.includes(":") ? `${sentence.split(":")[0]}.` : undefined;
+  const fits = (s?: string) => !!s && s.length + 1 + tail.length <= META_MAX;
+  const opener = [sentence, clause].find(fits) ?? `Where to eat ${name.toLowerCase()}${where || " in Australia"}.`;
+  return {
+    title: `${name} in ${place}: ${count} ${count === 1 ? "spot" : "spots"}`,
+    description: `${opener} ${tail}`,
+  };
+}
+
 export function dishLanding(
   dish: { slug: string; name: string; kind: string },
   restaurants: Restaurant[],
   state?: string,
 ): LandingContent {
   const copy = DISH_COPY[dish.slug];
-  const name = dish.name;
+  const name = dishDisplayName(dish);
   const selfHref = `/nepali-food/${dish.slug}`;
   const stateName = state ? STATE_NAME[state] ?? state : null;
   const metro = state ? metroFromState(state) : null;
@@ -758,6 +794,7 @@ export function dishLanding(
     exploreHref: state
       ? `/explore?dish=${dish.slug}&state=${state}`
       : `/explore?dish=${dish.slug}`,
+    exploreLabel: mapLabel(restaurants.length),
     collectionName: title,
   };
 }

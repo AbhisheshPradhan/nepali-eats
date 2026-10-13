@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound, redirect } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
 import { DishStateFilter } from "@/components/DishStateFilter";
-import { tagLanding, dishLanding, DISH_COPY, TAG_COPY } from "@/lib/landing";
+import { tagLanding, dishLanding, dishMeta, DISH_COPY, TAG_COPY } from "@/lib/landing";
 import {
   listRestaurants,
   tagFacets,
@@ -14,6 +15,10 @@ import { tagLabel } from "@/lib/format";
 import { foodImage, foodGallery } from "@/lib/food";
 
 const CAP = 30;
+
+// One dish result per request, shared by generateMetadata and the page, so
+// the count in the title matches the listing.
+const loadDish = cache((slug: string) => dishInGeo(slug));
 
 // No `revalidate` export: cached indefinitely (Next's default) until a
 // redeploy. See the same note on app/restaurant/[slug]/page.tsx.
@@ -58,12 +63,9 @@ export async function generateMetadata({
 
   if (cat && isDishSlug(cat.kind)) {
     const copy = DISH_COPY[slug];
-    const title = copy?.title ?? `${cat.name} in Australia`;
+    const result = await loadDish(slug);
     return {
-      title,
-      description:
-        copy?.lead[0]?.slice(0, 155) ??
-        `Where to eat ${cat.name.toLowerCase()} across Australia.`,
+      ...dishMeta(cat, result?.restaurants.length ?? 0, "Australia"),
       alternates: { canonical },
       // Dishes without bespoke copy are too thin to index yet.
       ...(copy ? {} : { robots: { index: false, follow: true } }),
@@ -94,7 +96,7 @@ export default async function NepaliFoodPage({
   // Dish page (menu-derived, popularity-sorted, with matched-item pills).
   if (cat && isDishSlug(cat.kind)) {
     const [result, stateCounts] = await Promise.all([
-      dishInGeo(slug),
+      loadDish(slug),
       dishStateCounts(slug),
     ]);
     if (!result || result.restaurants.length === 0) notFound();

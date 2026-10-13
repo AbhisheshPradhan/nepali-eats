@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
 import { DishStateFilter } from "@/components/DishStateFilter";
-import { dishLanding, DISH_COPY } from "@/lib/landing";
+import { dishLanding, dishMeta, DISH_COPY } from "@/lib/landing";
 import { dishCategory, dishInGeo, dishGeoCounts, dishStateCounts } from "@/lib/queries";
 import { metroFromState } from "@/lib/format";
 import { foodImage, foodGallery } from "@/lib/food";
 
 const CAP = 30;
+
+// Shared by generateMetadata and the page so the title count matches the list.
+const loadDish = cache((slug: string, state: string) => dishInGeo(slug, state));
 // Render on-demand down to this many venues; below it a state page is too thin.
 const MIN_RENDER = 5;
 // Prerender + index the combos that clear this.
@@ -42,13 +46,10 @@ export async function generateMetadata({
   const STATE = STATE_CODE[state.toLowerCase()];
   const cat = STATE ? await dishCategory(slug) : null;
   if (!STATE || !cat || !isDishSlug(cat.kind)) return { title: "Not found" };
-  const metro = metroFromState(STATE);
   const copy = DISH_COPY[slug];
+  const result = await loadDish(slug, STATE);
   return {
-    title: `${cat.name} in ${metro}`,
-    description:
-      copy?.lead[0]?.slice(0, 150) ??
-      `Where to eat ${cat.name.toLowerCase()} in ${metro}.`,
+    ...dishMeta(cat, result?.restaurants.length ?? 0, metroFromState(STATE)),
     alternates: { canonical: `/nepali-food/${slug}/${state.toLowerCase()}` },
     // Dishes without bespoke copy stay out of the index.
     ...(copy ? {} : { robots: { index: false, follow: true } }),
@@ -67,7 +68,7 @@ export default async function DishStatePage({
   if (!cat || !isDishSlug(cat.kind)) notFound();
 
   const [result, stateCounts] = await Promise.all([
-    dishInGeo(slug, STATE),
+    loadDish(slug, STATE),
     dishStateCounts(slug),
   ]);
   if (!result || result.restaurants.length < MIN_RENDER) notFound();

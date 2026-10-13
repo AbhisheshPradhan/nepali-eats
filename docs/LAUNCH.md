@@ -272,9 +272,13 @@ These target the strongest commercial terms but have almost no unique content.
 
 **Round 2 (dish + cuisine pages):**
 
-- [ ] National dish hubs: count in title, full-sentence descriptions (today the
-      lead is cut at 155 chars mid-sentence), consistent dish-name casing
-      ("Jhol Momo" on state pages vs "Jhol momo").
+- [x] National + state dish pages: "Jhol momo in Sydney: 42 spots" titles,
+      full-sentence descriptions <= 155 chars (`dishMeta`), house casing via
+      `dishDisplayName`, map button with the count. (2026-10-14)
+- [ ] **Momo x state is noindexed** (found 2026-10-14): `/nepali-food/momo/nsw`
+      ("Momo in Sydney") carries `noindex` and is absent from the sitemap,
+      because the dish route indexes only slugs with `DISH_COPY` and momo's copy
+      lives in `TAG_COPY` (/momo). Fix with the cuisine x state template below.
 - [ ] State dish pages (49): count in title, own intro + city FAQ built from
       data (today they reuse the national lead/FAQ verbatim).
 - [ ] Cuisine x state pages (19, >= 5 spots): Newari/Tibetan/Nepali-Indian/
