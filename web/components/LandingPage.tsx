@@ -7,6 +7,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { PlaceCard } from "@/components/PlaceCard";
 import { MapPill } from "@/components/MapPill";
+import { ShowMore } from "@/components/ShowMore";
 import { Button } from "@/components/ui/Button";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { renderInline, stripInline } from "@/components/inline";
@@ -17,6 +18,8 @@ import type { FoodImage } from "@/lib/food";
 import { SITE } from "@/lib/site";
 
 const GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6";
+// Nearby cards shown before "Show N more".
+const NEARBY_SHOWN = 12;
 
 // Cards on dish pages carry matched menu items (name + price), shown as pills.
 type LandingRestaurant = Restaurant & { matches?: DishPill[] };
@@ -260,12 +263,21 @@ export function LandingPage({
           <h2 className="font-display font-extrabold text-[1.5rem] text-ink-900 mb-4">
             {nearby.heading}
           </h2>
+          {/* distance reads from the suburb unless the visitor shared theirs */}
           <div className={GRID}>
-            {nearby.restaurants.map((r) => (
-              // distance reads from the suburb unless the visitor shared theirs
+            {nearby.restaurants.slice(0, NEARBY_SHOWN).map((r) => (
               <PlaceCard key={r.id} r={r} fallbackOrigin={nearby.origin} surface="landing" />
             ))}
           </div>
+          {nearby.restaurants.length > NEARBY_SHOWN && (
+            <ShowMore label={`Show ${nearby.restaurants.length - NEARBY_SHOWN} more`}>
+              <div className={`${GRID} mt-6`}>
+                {nearby.restaurants.slice(NEARBY_SHOWN).map((r) => (
+                  <PlaceCard key={r.id} r={r} fallbackOrigin={nearby.origin} surface="landing" />
+                ))}
+              </div>
+            </ShowMore>
+          )}
         </section>
       )}
 

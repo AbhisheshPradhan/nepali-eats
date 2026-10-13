@@ -477,8 +477,8 @@ export function suburbLanding(
     nearby:
       showNearby && near.origin
         ? {
-            heading: `More within ${NEARBY_KM} km of ${suburb}`,
-            restaurants: near.restaurants.slice(0, 12),
+            heading: `${nearCount} more nearby`,
+            restaurants: near.restaurants,
             origin: near.origin,
           }
         : undefined,
