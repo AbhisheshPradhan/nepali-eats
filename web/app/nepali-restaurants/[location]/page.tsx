@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
-import { stateLanding, suburbLanding } from "@/lib/landing";
+import { stateLanding, suburbLanding, locationMeta, STATE_NAME } from "@/lib/landing";
 import { listRestaurants, suburbFacets } from "@/lib/queries";
 import { suburbSlug } from "@/lib/format";
 
@@ -12,11 +13,6 @@ const CAP = 30;
 const STATE_CODE: Record<string, string> = {
   nsw: "NSW", vic: "VIC", qld: "QLD", wa: "WA",
   sa: "SA", act: "ACT", tas: "TAS", nt: "NT",
-};
-const STATE_NAME: Record<string, string> = {
-  NSW: "New South Wales", VIC: "Victoria", QLD: "Queensland",
-  WA: "Western Australia", SA: "South Australia",
-  ACT: "the ACT", TAS: "Tasmania", NT: "the Northern Territory",
 };
 
 type Resolved =
@@ -31,6 +27,18 @@ async function resolve(location: string): Promise<Resolved> {
   const match = subs.find((s) => suburbSlug(s.value, s.state) === location);
   return match ? { type: "suburb", suburb: match.value, state: match.state } : null;
 }
+
+// One list per request, shared by generateMetadata and the page, so the count
+// in the title, H1 and map button always agree.
+const load = cache(async (location: string) => {
+  const r = await resolve(location);
+  if (!r) return null;
+  const list =
+    r.type === "state"
+      ? await listRestaurants({ state: r.state, limit: 500 })
+      : await listRestaurants({ suburb: r.suburb, state: r.state, limit: 200 });
+  return { r, list };
+});
 
 export async function generateStaticParams() {
   const states = Object.keys(STATE_CODE).map((location) => ({ location }));
@@ -47,18 +55,14 @@ export async function generateMetadata({
   params: Promise<{ location: string }>;
 }): Promise<Metadata> {
   const { location } = await params;
-  const r = await resolve(location);
-  if (!r) return { title: "Not found" };
-  const title =
-    r.type === "state"
-      ? `Nepali restaurants in ${STATE_NAME[r.state] || r.state}`
-      : `Nepali restaurants in ${r.suburb}, ${r.state}`;
+  const loaded = await load(location);
+  if (!loaded) return { title: "Not found" };
+  const { r, list } = loaded;
+  const place =
+    r.type === "state" ? STATE_NAME[r.state] ?? r.state : `${r.suburb}, ${r.state}`;
+  const meta = locationMeta(place, list.length);
   return {
-    title,
-    description:
-      r.type === "state"
-        ? `Every Nepali restaurant, cafe, food truck and stall across ${STATE_NAME[r.state] || r.state}. Momo, dal bhat, sel roti and more.`
-        : `The best Nepali food in ${r.suburb}, ${r.state}: momo, Thakali dal bhat and Newari feasts, gathered in one place.`,
+    ...meta,
     alternates: { canonical: `/nepali-restaurants/${location}` },
   };
 }
@@ -69,26 +73,27 @@ export default async function LocationPage({
   params: Promise<{ location: string }>;
 }) {
   const { location } = await params;
-  const r = await resolve(location);
-  if (!r) notFound();
+  const loaded = await load(location);
+  if (!loaded) notFound();
+  const { r, list } = loaded;
 
   if (r.type === "state") {
-    const list = await listRestaurants({ state: r.state, limit: 500 });
     return (
       <LandingPage
         content={stateLanding(r.state, list)}
         restaurants={list.slice(0, CAP)}
         total={list.length}
+        mapPill
       />
     );
   }
 
-  const list = await listRestaurants({ suburb: r.suburb, state: r.state, limit: 200 });
   return (
     <LandingPage
       content={suburbLanding(r.suburb, r.state, list)}
       restaurants={list.slice(0, CAP)}
       total={list.length}
+      mapPill
     />
   );
 }

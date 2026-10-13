@@ -6,6 +6,7 @@ import {
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 import { PlaceCard } from "@/components/PlaceCard";
+import { MapPill } from "@/components/MapPill";
 import { Button } from "@/components/ui/Button";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { renderInline, stripInline } from "@/components/inline";
@@ -29,6 +30,7 @@ export function LandingPage({
   heroImage,
   gallery,
   stateFilter,
+  mapPill = false,
 }: {
   content: LandingContent;
   restaurants: LandingRestaurant[];
@@ -44,6 +46,9 @@ export function LandingPage({
   // Optional row of filter chips rendered directly above the results grid
   // (dish pages pass a state filter; most pages pass nothing).
   stateFilter?: React.ReactNode;
+  // Mobile floating map pill once the hero map button scrolls away
+  // (location pages; the map is the reason to pick us over a list).
+  mapPill?: boolean;
 }) {
   const {
     breadcrumbs,
@@ -54,6 +59,8 @@ export function LandingPage({
     faq,
     crossLinks,
     exploreHref,
+    exploreLabel = "View on map",
+    areas,
     collectionName,
   } = content;
 
@@ -150,11 +157,11 @@ export function LandingPage({
             <div className="mt-5">
               <Button
                 href={exploreHref}
-                variant="outline"
-                iconLeft={<MapTrifold size={18} />}
+                iconLeft={<MapTrifold size={18} weight="fill" />}
               >
-                View on map
+                {exploreLabel}
               </Button>
+              {mapPill && <MapPill href={exploreHref} label="See the map" />}
             </div>
           )}
         </div>
@@ -188,27 +195,6 @@ export function LandingPage({
               />
             </div>
           ))}
-        </section>
-      )}
-
-      {whatToOrder && whatToOrder.length > 0 && (
-        <section className="mb-9 bg-paper-100 rounded-xl p-6 sm:p-7">
-          <h2 className="flex items-center gap-2 font-display font-extrabold text-[1.4rem] text-ink-900 mb-4">
-            <ForkKnife size={22} weight="fill" className="text-chili-500" />
-            What to order
-          </h2>
-          <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
-            {whatToOrder.map((w) => (
-              <div key={w.dish}>
-                <h3 className="font-display font-bold text-[1.08rem] text-ink-900">
-                  {w.dish}
-                </h3>
-                <p className="text-ink-700 leading-relaxed">
-                  {renderInline(w.note)}
-                </p>
-              </div>
-            ))}
-          </div>
         </section>
       )}
 
@@ -264,6 +250,48 @@ export function LandingPage({
             </p>
           )}
         </>
+      )}
+
+      {areas && areas.links.length > 0 && (
+        <section className="mt-12">
+          <h2 className="font-display font-extrabold text-[1.5rem] text-ink-900 mb-4">
+            {areas.heading}
+          </h2>
+          <ul className="flex flex-wrap gap-2">
+            {areas.links.map((a) => (
+              <li key={a.href}>
+                <Link
+                  href={a.href}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-paper-300 bg-white px-3.5 py-1.5 font-semibold text-ink-700 transition hover:border-chili-500 hover:text-chili-600 active:scale-[0.97]"
+                >
+                  {a.label}
+                  <span className="text-ink-500 font-normal">{a.count}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {whatToOrder && whatToOrder.length > 0 && (
+        <section className="mt-12 bg-paper-100 rounded-xl p-6 sm:p-7">
+          <h2 className="flex items-center gap-2 font-display font-extrabold text-[1.4rem] text-ink-900 mb-4">
+            <ForkKnife size={22} weight="fill" className="text-chili-500" />
+            What to order
+          </h2>
+          <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+            {whatToOrder.map((w) => (
+              <div key={w.dish}>
+                <h3 className="font-display font-bold text-[1.08rem] text-ink-900">
+                  {w.dish}
+                </h3>
+                <p className="text-ink-700 leading-relaxed">
+                  {renderInline(w.note)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       {faq && faq.length > 0 && (

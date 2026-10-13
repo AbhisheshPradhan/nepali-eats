@@ -217,6 +217,16 @@ these surfaces:
 
 ## Other surfaces (short form; agent brief lives in root CLAUDE.md)
 
+- **Landing pages (location/dish/cuisine), decided 2026-10-13/14:**
+  restaurants first, "What to order" below the listing on every page.
+  Location titles lead with the count (`locationTitle`, omitted below
+  `COUNT_MIN` = 3); `generateMetadata` and the page share one `cache()`d list
+  so title, H1 and map button can't disagree. State pages link EVERY suburb
+  page (same >= 2 bar as `generateStaticParams` + sitemap; an unlinked suburb
+  page lost "hornsby" to the NSW page). Page hierarchy: specific dish at
+  state level, cuisine at state level, suburb = Nepali restaurants only.
+  Plan + checklist: `docs/LAUNCH.md` §4a.
+
 - **Home:** featured + popular rows are state-scoped (IP-geo -> state, default
   NSW). Featured = non-null `featured_rank`; popular = hand-set flag, never
   overlapping featured. Both self-hide when empty.

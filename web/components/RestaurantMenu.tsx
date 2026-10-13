@@ -22,7 +22,15 @@ const VARIANT_ROW_THRESHOLD = 24;
 
 // Detail-page menu: a sticky toolbar (heading + search + category jump-nav) over the
 // rendered sections. Filtering is client-side (the menu is already loaded).
-export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
+export function RestaurantMenu({
+  menu,
+  name,
+}: {
+  menu: MenuCategory[];
+  // Named in the sticky heading: "See the menu" deep-links straight to #menu,
+  // past the H1, so the heading is the only place the reader sees whose menu.
+  name: string;
+}) {
   const [q, setQ] = useState("");
   const [active, setActive] = useState<number | null>(menu[0]?.id ?? null);
   const [arrows, setArrows] = useState({ left: false, right: false });
@@ -137,10 +145,13 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
     // scroll-mt clears the sticky site header.
     <section id="menu" className="mb-8 scroll-mt-12">
       {/* sticky toolbar — heading + search (wraps on mobile) + category chips */}
-      <div ref={toolbarRef} className="sticky top-12 z-20 bg-paper-50 pt-4 pb-3">
-        <div className="flex items-center justify-between flex-wrap gap-x-4 gap-y-2">
-          <h2 className="font-display font-extrabold text-[1.5rem] text-balance m-0">
-            The menu
+      <div ref={toolbarRef} className="sticky top-12 z-20 bg-paper-50 pt-6 pb-4">
+        <div className="flex items-center justify-between flex-wrap gap-x-4 gap-y-4">
+          <h2
+            title={`The menu at ${name}`}
+            className="font-display font-extrabold text-[1.5rem] leading-tight m-0 min-w-0 max-w-full truncate"
+          >
+            The menu at {name}
           </h2>
           <div className="relative w-full sm:w-72">
             <MagnifyingGlass
@@ -170,7 +181,7 @@ export function RestaurantMenu({ menu }: { menu: MenuCategory[] }) {
         </div>
 
         {filtered.length > 1 && (
-          <div className="mt-3 flex items-center gap-1.5">
+          <div className="mt-4 flex items-center gap-1.5">
             {arrows.left && (
               <button
                 type="button"

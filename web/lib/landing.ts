@@ -15,6 +15,11 @@ export interface CrossLinkGroup {
   heading: string;
   links: Crumb[];
 }
+export interface AreaLink {
+  label: string;
+  href: string;
+  count: number;
+}
 export interface WhatToOrder {
   dish: string;
   note: string; // inline links supported
@@ -28,10 +33,44 @@ export interface LandingContent {
   faq?: { q: string; a: string }[];
   crossLinks?: CrossLinkGroup[];
   exploreHref?: string;
+  // Every suburb page in this area, rendered as its own section under the
+  // listing (state pages). Internal links are how Google finds them.
+  areas?: { heading: string; links: AreaLink[] };
+  // Label for the hero map button; LandingPage falls back to "View on map".
+  exploreLabel?: string;
   collectionName: string;
 }
 
-const STATE_NAME: Record<string, string> = {
+// Location pages lead with the count once it reads as a real number: a "2" in
+// a title makes the page look empty.
+export const COUNT_MIN = 3;
+
+function locationTitle(count: number, place: string): string {
+  return count >= COUNT_MIN
+    ? `${count} Nepali restaurants in ${place}`
+    : `Nepali restaurants in ${place}`;
+}
+
+function mapLabel(count: number): string {
+  if (count >= COUNT_MIN) return `See all ${count} on the map`;
+  return count === 1 ? "See it on the map" : "See them on the map";
+}
+
+export interface LandingMeta {
+  title: string;
+  description: string;
+}
+
+// One meta pattern for every state and suburb page.
+export function locationMeta(place: string, count: number): LandingMeta {
+  const title = locationTitle(count, place);
+  return {
+    title,
+    description: `${title}, all on one map. Search by dish or cuisine to find momo, dal bhat and more near you.`,
+  };
+}
+
+export const STATE_NAME: Record<string, string> = {
   NSW: "New South Wales",
   VIC: "Victoria",
   QLD: "Queensland",
@@ -105,7 +144,7 @@ const STATE_LEAD: Record<string, string[]> = {
     "The city does everything from weekend jhol momo to full Thakali sets and Newari feasts. It is second only to Sydney for choice, and closing the gap.",
   ],
   QLD: [
-    "Brisbane carries Queensland's Nepali food, with the biggest clusters around Sunnybank, Moorooka and the southern suburbs. The Gold Coast has its own growing handful of momo kitchens and Nepali-Indian diners.",
+    "Brisbane carries Queensland's Nepali food, and most of it is around Sunnybank, Moorooka and the southern suburbs. The Gold Coast has its own growing handful of momo kitchens and Nepali-Indian diners.",
     "Expect proper momo, generous Thakali sets and the kind of warm service that makes you a regular.",
   ],
   WA: [
@@ -121,7 +160,7 @@ const STATE_LEAD: Record<string, string[]> = {
     "For a small city, there is a lot of good eating here.",
   ],
   TAS: [
-    "Tasmania's Nepali kitchens cluster in Hobart and Launceston, run by a small but growing community. Not many spots, but the ones here take their momo seriously.",
+    "Tasmania's Nepali kitchens are mostly in Hobart and Launceston, run by a small but growing community. Not many spots, but the ones here take their momo seriously.",
     "Worth the trip if you find yourself down south and craving dumplings.",
   ],
   NT: [
@@ -299,26 +338,22 @@ export function stateLanding(state: string, list: Restaurant[]): LandingContent 
   const name = STATE_NAME[state] ?? state;
   const metro = metroFromState(state);
   const suburbs = topBy(list, "suburb");
-  const clusters = suburbs.slice(0, 3).map((s) => s.value);
+  const topSuburbs = suburbs.slice(0, 3).map((s) => s.value);
   const lead = STATE_LEAD[state] ?? [
     `Every kitchen, cafe and takeaway serving Nepali food across ${name}. Momo, Thakali dal bhat, Newari plates and more, gathered in one place.`,
   ];
-  const dataSentence =
-    clusters.length > 0
-      ? `We have mapped ${list.length} Nepali spots across ${name}, with the biggest clusters in ${proseList(clusters)}.`
-      : `We have mapped ${list.length} Nepali spots across ${name}.`;
 
-  const suburbLinks: Crumb[] = suburbs
+  // Same >= 2 bar as generateStaticParams + the sitemap, so every suburb page
+  // that exists is linked and no link points at a page that doesn't.
+  const suburbLinks: AreaLink[] = suburbs
     .filter((s) => s.count >= 2)
-    .slice(0, 8)
     .map((s) => ({
-      label: `${s.value} (${s.count})`,
+      label: s.value,
       href: `/nepali-restaurants/${suburbSlug(s.value, state)}`,
+      count: s.count,
     }));
 
   const crossLinks: CrossLinkGroup[] = [];
-  if (suburbLinks.length)
-    crossLinks.push({ heading: `Suburbs in ${name}`, links: suburbLinks });
   crossLinks.push(dishPageLinks());
   crossLinks.push(cuisineLinks());
   crossLinks.push(stateLinks(state));
@@ -330,14 +365,14 @@ export function stateLanding(state: string, list: Restaurant[]): LandingContent 
       { label: name, href: `/nepali-restaurants/${state.toLowerCase()}` },
     ],
     eyebrow: `All across ${state}`,
-    title: `Nepali restaurants in ${name}`,
-    intro: [...lead, dataSentence],
+    title: locationTitle(list.length, name),
+    intro: lead,
     whatToOrder: NEPALI_CLASSICS,
     faq: [
       {
         q: `Where is the best Nepali food in ${metro}?`,
-        a: clusters.length
-          ? `The densest clusters are in ${proseList(clusters)}. Sort any list by rating to see local favourites, or open the map to find your closest plate.`
+        a: topSuburbs.length
+          ? `Most of them are in ${proseList(topSuburbs)}. Sort any list by rating to see local favourites, or open the map to find your closest plate.`
           : `Sort the list by rating to see local favourites, or open the map to find your closest plate.`,
       },
       {
@@ -351,6 +386,10 @@ export function stateLanding(state: string, list: Restaurant[]): LandingContent 
     ],
     crossLinks,
     exploreHref: `/explore?state=${state}`,
+    exploreLabel: mapLabel(list.length),
+    areas: suburbLinks.length
+      ? { heading: "Momo near you, suburb by suburb", links: suburbLinks }
+      : undefined,
     collectionName: `Nepali restaurants in ${name}`,
   };
 }
@@ -369,12 +408,14 @@ export function suburbLanding(
       { label: suburb, href: `/nepali-restaurants/${suburbSlug(suburb, state)}` },
     ],
     eyebrow: `${suburb}, ${state}`,
-    title: `Nepali restaurants in ${suburb}`,
+    title: locationTitle(count, suburb),
     intro: [
       `The kitchens, cafes and takeaways serving Nepali food in ${suburb}, ${state}. Momo, Thakali dal bhat and more, all close to home.`,
-      count > 0
-        ? `We have ${count} Nepali ${count === 1 ? "spot" : "spots"} mapped in ${suburb}. Sort by rating to find the local favourite, or open the map for the closest plate.`
-        : `Open the map to find Nepali food near ${suburb}.`,
+      count >= COUNT_MIN
+        ? `Sort by rating to find the local favourite, or open the map for the closest plate.`
+        : count > 0
+          ? `We have ${count} Nepali ${count === 1 ? "spot" : "spots"} mapped in ${suburb}. Sort by rating to find the local favourite, or open the map for the closest plate.`
+          : `Open the map to find Nepali food near ${suburb}.`,
     ],
     whatToOrder: NEPALI_CLASSICS,
     crossLinks: [
@@ -389,6 +430,7 @@ export function suburbLanding(
     ],
     // state disambiguates cross-state suburb name collisions (Claremont TAS/WA)
     exploreHref: `/explore?suburb=${encodeURIComponent(suburb)}&state=${state}`,
+    exploreLabel: mapLabel(count),
     collectionName: `Nepali restaurants in ${suburb}, ${state}`,
   };
 }

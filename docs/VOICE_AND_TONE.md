@@ -77,6 +77,7 @@ Nothing we publish should read as AI-generated.
 | find, eat, order, try                           | discover, explore (overused), savour        |
 | real, proper, near you                          | authentic, genuine, curated                 |
 | near you, around the corner, all over Australia | nationwide solutions                        |
+| mostly in, most of them are in                  | cluster(s) (Abhishesh, 2026-10-13)          |
 
 Note on "authentic": it is overused and hollow. Show it instead. "The dal bhat
 comes with endless refills" beats "authentic dal bhat". **One sanctioned
@@ -98,16 +99,24 @@ Plain, active, say what they get. No "Submit", "Learn more", "Click here".
 | -------------- | ------------------------------------------------------------ |
 | Log in         | Save your spots (only once auth exists; until then, hide it) |
 | View on map    | See it on the map                                            |
-| See all spots  | Browse all Nepali spots                                      |
+| See all spots  | See every Nepali spot                                        |
 | Add a spot     | Add a spot you love                                          |
 | Get directions | Get directions                                               |
 
 ## 8. Meta copy pattern
 
 - **Title:** primary term + place, under 60 characters, brand suffix only if it fits.
-  Example: "Nepali restaurants in Melbourne | NepaliEats".
+  Example: "Nepali restaurants in Melbourne - NepaliEats" (hyphen separator, never a
+  pipe or a dash).
+- **Location pages lead with the count** once there are 3 or more spots:
+  "184 Nepali restaurants in New South Wales". Below 3, drop the number (a "2"
+  makes the page look empty). Keep the word "restaurants" in the title even though
+  the count includes cafes and takeaways: it is the search term.
 - **Description:** what you will find + a dish or two + a reason to click, around
   150 characters. Written for a human scanning a results page, not stuffed.
+- **Location page descriptions use one pattern (Abhishesh, 2026-10-13):**
+  "{title}, all on one map. Search by dish or cuisine to find momo, dal bhat and
+  more near you." Keep it simple: no per-page menu counts or suburb lists.
 
 ## 9. The brand line, applied
 

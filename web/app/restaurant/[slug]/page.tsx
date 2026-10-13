@@ -560,7 +560,7 @@ export default async function VenuePage({
 						)}
 
 						{/* menu — renders only when items have been seeded for this restaurant */}
-						<RestaurantMenu menu={menu} />
+						<RestaurantMenu menu={menu} name={r.name} />
 
 						{/* where to find it */}
 						{r.lat != null && r.lng != null && (

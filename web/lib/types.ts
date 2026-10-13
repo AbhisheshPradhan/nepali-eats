@@ -50,6 +50,7 @@ export interface Restaurant {
   whatsapp: string | null;
   menuUrl: string | null;
   menuSource: string | null;
+  hasMenu: boolean; // menu seeded on the site -> card "See the menu" action
   logoKey: string | null; // self-hosted brand logo (storage_key)
   coverKey: string | null; // standalone cover/hero photo (storage_key), like logoKey
   coverSource: string | null; // cover provenance: 'website' | 'google' | 'upload'

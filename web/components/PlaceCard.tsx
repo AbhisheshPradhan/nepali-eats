@@ -285,6 +285,7 @@ export function PlaceCard({
 						hasMenu={r.hasMenu}
 						onViewMap={onViewMap}
 						compact
+						newTab={openNewTab}
 					/>
 				</div>
 			</div>

@@ -243,6 +243,57 @@ These target the strongest commercial terms but have almost no unique content.
   but only combos with enough venues (apply the same `count ≥ 2` discipline already on
   suburbs). Don't mass-produce empty combo pages.
 
+### §4a. Landing pages: CTR + map pass (planned 2026-10-13, Abhishesh + Albert)
+
+**Rules (decided 2026-10-13/14):**
+
+- **Restaurants first on every landing page.** "What to order" sits below the
+  listing, never above it.
+- **Deeper location = wider food.** Australia: specific-dish hubs (light touch).
+  State/city: specific dish + cuisine + momo (the main SEO targets). Suburb:
+  "Nepali restaurants" only, no dish/cuisine x suburb pages.
+- **Titles carry the count.** Location: "184 Nepali restaurants in New South
+  Wales" (number dropped below 3). Dish/cuisine: dish first, count after, brand
+  last: "Sandheko momo in Australia: 48 spots - NepaliEats".
+- One description pattern for location pages (`locationMeta`). No price line.
+
+**Round 1 (location pages): DONE 2026-10-14, uncommitted**
+
+- [x] Count in title + meta + H1 + map button (`locationTitle`/`locationMeta`).
+- [x] "Cluster" removed from copy (banned in VOICE_AND_TONE).
+- [x] State page lists EVERY suburb page (>= 2 spots, same bar as
+      generateStaticParams + sitemap) as its own section under the listing.
+      Trigger: Google showed the NSW page for "hornsby" with "Missing: hornsby"
+      because nothing linked the Hornsby page.
+- [x] "What to order" below the listing (all landing pages, shared component).
+- [x] Map button primary (filled); mobile `MapPill` once the hero button
+      scrolls off (location pages).
+- [x] "See the menu" on cards with a seeded menu (`Restaurant.hasMenu`).
+
+**Round 2 (dish + cuisine pages):**
+
+- [ ] National dish hubs: count in title, full-sentence descriptions (today the
+      lead is cut at 155 chars mid-sentence), consistent dish-name casing
+      ("Jhol Momo" on state pages vs "Jhol momo").
+- [ ] State dish pages (49): count in title, own intro + city FAQ built from
+      data (today they reuse the national lead/FAQ verbatim).
+- [ ] Cuisine x state pages (19, >= 5 spots): Newari/Tibetan/Nepali-Indian/
+      Thakali, e.g. "Newari food in Sydney: 45 spots". Cards show that
+      cuisine's dishes as pills. Aasha writes intros for the Sydney + Melbourne
+      big four.
+
+**Round 3: Nearby + suburb expansion.**
+
+- Suburb page exists when own spots + spots within **5 km** >= **3**. 65 -> ~154
+  pages (3 km gives 112, 10 km gives 189 but stretches "near" too far).
+- "Nearby" section: sorted by distance, km shown, <= 12 cards.
+- **Title rule (in vs near):** own >= 3 -> "24 Nepali restaurants in Auburn";
+  own < 3 -> "8 Nepali restaurants near Harris Park" (own + nearby).
+
+**Parked:** hero images on location pages (Google currently uses a restaurant
+logo as the NSW thumbnail); static map preview (Mapbox Static Images, ~free if
+fetched at build and self-served).
+
 ## §5. Structured data gaps (Med)
 
 Current: only `Restaurant` on detail pages. Add:

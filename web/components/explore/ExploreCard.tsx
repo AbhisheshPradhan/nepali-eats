@@ -216,6 +216,7 @@ export function ExploreCard({
 					slug={r.slug}
 					hasMenu={r.hasMenu}
 					onViewMap={onViewMap}
+					newTab={newTab}
 				/>
 			</div>
 		</Link>
