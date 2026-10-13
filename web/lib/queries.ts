@@ -1062,15 +1062,15 @@ export async function dishStateCounts(
 // index-ready. One scan; callers filter to their threshold.
 export async function dishGeoCounts(
 	kinds: string[] = ["dish", "preparation"],
-): Promise<{ slug: string; state: string; n: number }[]> {
-	return query<{ slug: string; state: string; n: number }>(
-		`SELECT dc.slug, r.state, count(DISTINCT mi.restaurant_id)::int n
+): Promise<{ slug: string; kind: string; state: string; n: number }[]> {
+	return query<{ slug: string; kind: string; state: string; n: number }>(
+		`SELECT dc.slug, dc.kind, r.state, count(DISTINCT mi.restaurant_id)::int n
 		   FROM dish_categories dc
 		   JOIN menu_item_tags t ON t.dish_category_id = dc.id
 		   JOIN menu_items mi ON mi.id = t.menu_item_id AND NOT mi.is_hidden
 		   JOIN restaurants r ON r.id = mi.restaurant_id AND r.${NOT_CLOSED}
 		  WHERE dc.kind = ANY($1) AND r.state IS NOT NULL
-		  GROUP BY dc.slug, r.state`,
+		  GROUP BY dc.slug, dc.kind, r.state`,
 		[kinds],
 	);
 }

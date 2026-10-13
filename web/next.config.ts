@@ -39,6 +39,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/tag/:slug", destination: "/nepali-food/:slug", permanent: true },
+      // momo's hub is /momo; the dish route only builds the other dishes.
+      { source: "/nepali-food/momo", destination: "/momo", permanent: true },
     ];
   },
   async rewrites() {

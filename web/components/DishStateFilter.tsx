@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { STATE_PAGE_MIN } from "@/lib/landing";
 
-// States below this many venues have no dish x state page (see MIN_RENDER in
-// app/nepali-food/[slug]/[state]/page.tsx), so we never link a chip that 404s.
-const MIN = 5;
+// States below STATE_PAGE_MIN have no dish x state page, so we never link a
+// chip that 404s.
+const MIN = STATE_PAGE_MIN;
 const ORDER = ["NSW", "VIC", "QLD", "WA", "SA", "ACT", "TAS", "NT"];
 
 // Row of state pills above a dish page's results. Each links to the (indexable)
@@ -36,7 +37,8 @@ export function DishStateFilter({
 		<div className="mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
 			<div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap">
 				<Link
-					href={`/nepali-food/${slug}`}
+					// momo's national hub is /momo
+					href={slug === "momo" ? "/momo" : `/nepali-food/${slug}`}
 					className={`${base} ${active ? off : on}`}
 					aria-current={active ? undefined : "page"}
 				>

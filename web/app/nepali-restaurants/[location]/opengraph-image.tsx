@@ -20,12 +20,12 @@ const STATE_NAME: Record<string, string> = {
 
 // Prerender every indexed location's OG image at build, mirroring page.tsx's
 // generateStaticParams in this segment (same no-revalidate rationale there).
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
 	const states = Object.keys(STATE_CODE).map((location) => ({ location }));
 	const subs = await suburbFacets();
-	const suburbs = subs
-		.filter((s) => s.count >= 2)
-		.map((s) => ({ location: suburbSlug(s.value, s.state) }));
+	const suburbs = subs.map((s) => ({ location: suburbSlug(s.value, s.state) }));
 	return [...states, ...suburbs];
 }
 

@@ -3,13 +3,14 @@ import { cache } from "react";
 import { notFound, redirect } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
 import { DishStateFilter } from "@/components/DishStateFilter";
-import { tagLanding, dishLanding, dishMeta, isStateTopic, DISH_COPY, TAG_COPY } from "@/lib/landing";
+import { tagLanding, dishLanding, dishMeta, dishPageSlugs, isStateTopic, TAG_COPY } from "@/lib/landing";
 import {
   listRestaurants,
   tagFacets,
   dishCategory,
   dishInGeo,
   dishStateCounts,
+  dishGeoCounts,
 } from "@/lib/queries";
 import { tagLabel } from "@/lib/format";
 import { foodImage, foodGallery } from "@/lib/food";
@@ -32,23 +33,27 @@ const INTRO: Record<string, string> = {
   "nepali-indian": "Nepali-Indian kitchens doing curries, tandoor and momo under one roof.",
 };
 
-// A slug is a "dish page" when it's a dish/preparation in the taxonomy AND has
-// bespoke copy. Dishes without copy resolve but are held out of the index (thin).
+// A slug is a "dish page" when it's a dish/preparation in the taxonomy.
 function isDishSlug(kind: string | undefined) {
   return kind === "dish" || kind === "preparation";
 }
 
+// Every page is built on deploy; anything else is a 404 with no DB hit.
+// /nepali-food/momo is a permanent redirect to /momo in next.config.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-  const tags = await tagFacets();
+  const [tags, counts] = await Promise.all([tagFacets(), dishGeoCounts()]);
+  const dishSlugs = dishPageSlugs(counts);
+  const isDish = new Set(dishSlugs);
   const tagParams = tags
-    // momo redirects to /momo; DISH_COPY slugs are emitted below.
-    .filter((t) => t.value !== "momo" && !(t.value in DISH_COPY))
+    // momo lives at /momo; slugs that are also dishes (sekuwa, dal-bhat)
+    // render as dish pages, emitted below.
+    .filter((t) => t.value !== "momo" && !isDish.has(t.value))
     .map((t) => ({ slug: t.value }));
-  // Index-ready dishes = those with bespoke copy.
-  const dishParams = Object.keys(DISH_COPY).map((slug) => ({ slug }));
   // vegetarian is flag-derived (serves_vegetarian), never a tag, so it is not
   // in tagFacets; emit it explicitly.
-  return [...tagParams, { slug: "vegetarian" }, ...dishParams];
+  return [...tagParams, { slug: "vegetarian" }, ...dishSlugs.map((slug) => ({ slug }))];
 }
 
 export async function generateMetadata({
@@ -62,13 +67,10 @@ export async function generateMetadata({
   const canonical = `/nepali-food/${slug}`;
 
   if (cat && isDishSlug(cat.kind)) {
-    const copy = DISH_COPY[slug];
     const result = await loadDish(slug);
     return {
       ...dishMeta(cat, result?.restaurants.length ?? 0, "Australia"),
       alternates: { canonical },
-      // Dishes without bespoke copy are too thin to index yet.
-      ...(copy ? {} : { robots: { index: false, follow: true } }),
     };
   }
 

@@ -6,8 +6,9 @@ import { stateLanding, suburbLanding, locationMeta, STATE_NAME } from "@/lib/lan
 import { listRestaurants, suburbFacets } from "@/lib/queries";
 import { suburbSlug } from "@/lib/format";
 
-// No `revalidate` export: cached indefinitely (Next's default) until a
-// redeploy. See the same note on app/restaurant/[slug]/page.tsx.
+// Every state + suburb page is built on deploy; anything else is a 404 with no
+// DB hit. No `revalidate`: cached until the next deploy.
+export const dynamicParams = false;
 const CAP = 30;
 
 const STATE_CODE: Record<string, string> = {
@@ -42,10 +43,10 @@ const load = cache(async (location: string) => {
 
 export async function generateStaticParams() {
   const states = Object.keys(STATE_CODE).map((location) => ({ location }));
+  // Every suburb with a spot, 1-spot ones included (the title drops the count
+  // below COUNT_MIN, and they catch "nepali restaurant <suburb>" searches).
   const subs = await suburbFacets();
-  const suburbs = subs
-    .filter((s) => s.count >= 2)
-    .map((s) => ({ location: suburbSlug(s.value, s.state) }));
+  const suburbs = subs.map((s) => ({ location: suburbSlug(s.value, s.state) }));
   return [...states, ...suburbs];
 }
 

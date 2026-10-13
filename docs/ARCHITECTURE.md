@@ -246,6 +246,16 @@ these surfaces:
   generateStaticParams and the sitemap, so they can't disagree (the old
   DISH_COPY-only gate silently noindexed every momo x state page). Every
   link to a state page uses the route's >= 5 MIN_RENDER bar.
+- **All landing pages are built on deploy, never on visit (2026-10-14).**
+  `dynamicParams = false` on `/nepali-restaurants/[location]` (+ its OG
+  image), `/nepali-food/[slug]` and `/nepali-food/[slug]/[state]`; anything
+  not in `generateStaticParams` is a 404 with no DB hit. The page list is
+  one set of rules in `lib/landing.ts` (`dishPageSlugs` = dishes with
+  >= `DISH_PAGE_MIN` 3 spots + DISH_COPY; `hasStatePage` + `STATE_PAGE_MIN` 5;
+  every suburb incl. 1-spot ones), read by the routes, the sitemap and every
+  internal link, so built = linked = sitemapped (530 = 530 at the time).
+  All of them are indexable, write-up or not (Abhishesh's call).
+  `/nepali-food/momo` is a permanent redirect to `/momo` in next.config.
   Plan + checklist: `docs/LAUNCH.md` §4a.
 
 - **Home:** featured + popular rows are state-scoped (IP-geo -> state, default

@@ -345,10 +345,9 @@ export function stateLanding(state: string, list: Restaurant[]): LandingContent 
     `Every kitchen, cafe and takeaway serving Nepali food across ${name}. Momo, Thakali dal bhat, Newari plates and more, gathered in one place.`,
   ];
 
-  // Same >= 2 bar as generateStaticParams + the sitemap, so every suburb page
-  // that exists is linked and no link points at a page that doesn't.
+  // Every suburb has a page (built on deploy), so link them all: internal
+  // links are how Google finds the suburb pages.
   const suburbLinks: AreaLink[] = suburbs
-    .filter((s) => s.count >= 2)
     .map((s) => ({
       label: s.value,
       href: `/nepali-restaurants/${suburbSlug(s.value, state)}`,
@@ -495,8 +494,10 @@ export function tagLanding(
     dishPageLinks(isMomo ? "momo" : tag),
     cuisineLinks(tag),
   ];
-  // Same >= 5 bar as the state route's MIN_RENDER, so no link 404s.
-  const topicStates = isStateTopic(tag) ? (stateCounts ?? []).filter((c) => c.n >= 5) : [];
+  // Same bar as the state route's page list, so no link 404s.
+  const topicStates = isStateTopic(tag)
+    ? (stateCounts ?? []).filter((c) => c.n >= STATE_PAGE_MIN)
+    : [];
   if (topicStates.length) {
     const name = STATE_TOPIC_NAME[tag];
     crossLinks.unshift({
@@ -720,6 +721,29 @@ export function isStateTopic(slug: string): boolean {
   return slug in DISH_COPY || slug in STATE_TOPIC_NAME;
 }
 
+// Which dish/cuisine pages exist. Every landing page is built on deploy
+// (dynamicParams = false), so these rules ARE the page list: the routes'
+// generateStaticParams, the sitemap and every internal link read them.
+export const DISH_PAGE_MIN = 3; // national dish page: spots with it on the menu
+export const STATE_PAGE_MIN = 5; // dish/cuisine x state page
+
+// Any dish or preparation gets state pages; cuisines only when enabled above.
+export function hasStatePage(c: { slug: string; kind: string }): boolean {
+  if (c.kind === "dish" || c.kind === "preparation") return true;
+  return c.kind === "style" && c.slug in STATE_TOPIC_NAME;
+}
+
+// National dish pages from dishGeoCounts() rows: every dish with enough spots
+// nationally, plus the bespoke ones. momo is excluded: its hub is /momo.
+export function dishPageSlugs(counts: { slug: string; n: number }[]): string[] {
+  const total = new Map<string, number>();
+  for (const c of counts) total.set(c.slug, (total.get(c.slug) ?? 0) + c.n);
+  const slugs = new Set(Object.keys(DISH_COPY));
+  for (const [slug, n] of total) if (n >= DISH_PAGE_MIN) slugs.add(slug);
+  slugs.delete("momo");
+  return [...slugs];
+}
+
 function topicCopy(slug: string): DishCopy | TagCopy | undefined {
   return DISH_COPY[slug] ?? (slug in STATE_TOPIC_NAME ? TAG_COPY[slug] : undefined);
 }
@@ -823,9 +847,9 @@ export function dishLanding(
   if (!state && states.length) {
     crossLinks.push({
       heading: `${name} by state`,
-      // Same >= 5 bar as the state route's MIN_RENDER, so no link 404s.
+      // Same bar as the state route's page list, so no link 404s.
       links: states
-        .filter((s) => s.count >= 5)
+        .filter((s) => s.count >= STATE_PAGE_MIN)
         .slice(0, 8)
         .map((s) => ({
           label: `${name} in ${metroFromState(s.value)}`,

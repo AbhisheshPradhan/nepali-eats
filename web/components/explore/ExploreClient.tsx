@@ -314,16 +314,24 @@ export function ExploreClient() {
 					(!fixed.state || s.state === fixed.state) &&
 					(!suburb || s.suburb?.toLowerCase() === suburb),
 			);
-			if (matching.length) {
-				const lats = matching.map((s) => s.lat);
-				const lngs = matching.map((s) => s.lng);
+			// Australia-wide links (tag/venue, no state or suburb) would frame
+			// Perth to Cairns and centre the map on the outback. Frame the NSW
+			// matches instead (most spots live there); the list still shows all.
+			const nsw =
+				!fixed.state && !fixed.suburb
+					? matching.filter((s) => s.state === "NSW")
+					: [];
+			const framed = nsw.length > 1 ? nsw : matching;
+			if (framed.length) {
+				const lats = framed.map((s) => s.lat);
+				const lngs = framed.map((s) => s.lng);
 				const minLat = Math.min(...lats);
 				const maxLat = Math.max(...lats);
 				const minLng = Math.min(...lngs);
 				const maxLng = Math.max(...lngs);
 				center = [(minLat + maxLat) / 2, (minLng + maxLng) / 2];
 				zoom = zoomForSpan(Math.max(maxLat - minLat, maxLng - minLng));
-				if (matching.length > 1) bounds = [[minLng, minLat], [maxLng, maxLat]];
+				if (framed.length > 1) bounds = [[minLng, minLat], [maxLng, maxLat]];
 			}
 			areaLabel = fixed.suburb
 				? `in ${fixed.suburb}`
