@@ -240,9 +240,10 @@ export function PlaceCard({
 				{/* dish-search matches: the items that made this spot a result */}
 				{pills && pills.length > 0 && (
 					<div className="flex flex-wrap gap-1.5">
-						{pills.slice(0, MAX_PILLS).map((p) => (
+						{pills.slice(0, MAX_PILLS).map((p, i) => (
 							<span
-								key={p.label}
+								// a menu can list the same item twice (one per section)
+								key={`${i}-${p.label}`}
 								className="inline-flex items-center gap-1 max-w-full font-body font-semibold text-[0.78rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
 							>
 								<span className="truncate min-w-0">

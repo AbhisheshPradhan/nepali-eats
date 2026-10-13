@@ -281,6 +281,9 @@ export function ExploreClient() {
 		let focusId: number | undefined;
 		let userLoc: [number, number] | undefined;
 		let autoLocate = false;
+		// extent of a seeded area (?state/suburb/tag), framed by MapView against
+		// the real viewport; see frameBounds there.
+		let bounds: [[number, number], [number, number]] | null = null;
 
 		if (focused) {
 			// searching a restaurant centres the map on it and pins it to the top
@@ -320,6 +323,7 @@ export function ExploreClient() {
 				const maxLng = Math.max(...lngs);
 				center = [(minLat + maxLat) / 2, (minLng + maxLng) / 2];
 				zoom = zoomForSpan(Math.max(maxLat - minLat, maxLng - minLng));
+				if (matching.length > 1) bounds = [[minLng, minLat], [maxLng, maxLat]];
 			}
 			areaLabel = fixed.suburb
 				? `in ${fixed.suburb}`
@@ -362,7 +366,7 @@ export function ExploreClient() {
 		// props directly. Only a real bucket change or camera change re-syncs the view.
 		const viewKey = currentParams.dish ? `${cameraKey}+dish:${dish ?? currentParams.dish}` : cameraKey;
 
-		return { center, zoom, areaLabel, focusId, userLoc, autoLocate, cameraKey, viewKey };
+		return { center, zoom, bounds, areaLabel, focusId, userLoc, autoLocate, cameraKey, viewKey };
 	}, [spots, currentParams, tag, fixed, dish]);
 
 	// The filter catalog: every Category cuisine → its served dish-type / protein
@@ -460,7 +464,12 @@ export function ExploreClient() {
 
 	const [hovered, setHovered] = useState<number | null>(null);
 	const [selected, setSelected] = useState<number | null>(null);
-	const [viewMode, setViewMode] = useState<"map" | "list">("list");
+	// Mobile list/map toggle. ?view=map (the landing pages' "on the map"
+	// buttons) opens on the map; like `tag` it's entry-only, in neither key list
+	// of lib/explore-url, so the first filter change sheds it.
+	const [viewMode, setViewMode] = useState<"map" | "list">(() =>
+		searchParams.get("view") === "map" ? "map" : "list",
+	);
 	// null until resolvedView lands (see the apply-view effect below) — the map
 	// stays unmounted until then, so it never flashes a default camera before
 	// snapping to the right place.
@@ -485,6 +494,11 @@ export function ExploreClient() {
 	// hand-rolled span→zoom table underestimated and cropped both endpoints
 	// out of the frame — 2026-07-08 QA).
 	const [fitBounds, setFitBounds] = useState<
+		[[number, number], [number, number]] | null
+	>(null);
+	// The seeded area's extent, re-set only when the LOCATION part of the view
+	// changes (so its identity is stable for MapView's frame-once check).
+	const [frameBounds, setFrameBounds] = useState<
 		[[number, number], [number, number]] | null
 	>(null);
 	const enterAreaMode = (clearBox = false) => {
@@ -625,6 +639,7 @@ export function ExploreClient() {
 			setAreaScoped(false);
 			setMapTouched(false); // a new seeded view = a fresh, untouched frame
 			setFitBounds(null);
+			setFrameBounds(resolvedView.bounds);
 		}
 		setSelected(resolvedView.focusId ?? null);
 		setBoxKey((k) => k + 1);
@@ -740,9 +755,13 @@ export function ExploreClient() {
 		);
 	}, [spots, focusId, dish, dishItems, selectedFacets, fixed.tag, fixed.venue, fixed.state, fixed.suburb, flags, openOnly, areaScoped]);
 
-	// only list spots whose pin is in the current viewport (matches what's on the map)
+	// only list spots whose pin is in the current viewport (matches what's on the map).
+	// Exception: a seeded area (?state/suburb/tag link) the visitor hasn't moved
+	// lists ALL its matches. `matches` is already scoped to that area, and on
+	// mobile the map is hidden behind the list, so its viewport is not what the
+	// visitor is looking at ("See all 184 on the map" once showed 9).
 	const inView = useMemo(() => {
-		if (!viewBbox) return matches;
+		if (!viewBbox || (frameBounds && !mapTouched && !areaScoped)) return matches;
 		return matches.filter(
 			(s) =>
 				s.lng >= viewBbox.w &&
@@ -750,7 +769,7 @@ export function ExploreClient() {
 				s.lat >= viewBbox.s &&
 				s.lat <= viewBbox.n,
 		);
-	}, [matches, viewBbox]);
+	}, [matches, viewBbox, frameBounds, mapTouched, areaScoped]);
 
 	const sorted = useMemo(() => {
 		// "nearest" sorts by distance from the visitor's location (shared, else
@@ -1674,6 +1693,7 @@ export function ExploreClient() {
 							focusId={focusId}
 							userLoc={userLoc}
 							fitBounds={fitBounds}
+							frameBounds={frameBounds}
 						/>
 					) : (
 						<div className="absolute inset-0 grid place-items-center bg-paper-100 text-ink-500">

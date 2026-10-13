@@ -470,7 +470,12 @@ export function groupByState(
     .sort((a, b) => b.total - a.total);
 }
 
-export function tagLanding(tag: string, list: Restaurant[]): LandingContent {
+export function tagLanding(
+  tag: string,
+  list: Restaurant[],
+  // dishStateCounts(tag): links down to the state pages for enabled topics.
+  stateCounts?: { state: string; n: number }[],
+): LandingContent {
   const label = tagLabel(tag);
   const copy = TAG_COPY[tag];
   const states = topBy(list, "state");
@@ -490,6 +495,18 @@ export function tagLanding(tag: string, list: Restaurant[]): LandingContent {
     dishPageLinks(isMomo ? "momo" : tag),
     cuisineLinks(tag),
   ];
+  // Same >= 5 bar as the state route's MIN_RENDER, so no link 404s.
+  const topicStates = isStateTopic(tag) ? (stateCounts ?? []).filter((c) => c.n >= 5) : [];
+  if (topicStates.length) {
+    const name = STATE_TOPIC_NAME[tag];
+    crossLinks.unshift({
+      heading: `${name} by state`,
+      links: topicStates.map((c) => ({
+        label: `${name} in ${metroFromState(c.state)}`,
+        href: `/nepali-food/${tag}/${c.state.toLowerCase()}`,
+      })),
+    });
+  }
 
   return {
     breadcrumbs: [
@@ -686,17 +703,77 @@ export const DISH_COPY: Record<string, DishCopy> = {
   },
 };
 
+// Food groups + cuisines that get state pages ("Momo in Sydney", "Newari food
+// in Sydney") on top of the specific dishes in DISH_COPY. Their national copy
+// lives in TAG_COPY. Thakali and Nepali-Indian are left out on purpose: their
+// menu tags are too loose today (Nepali-Indian matches little beyond pani puri,
+// Thakali includes Chitwan taas sets). Add them here once the tags are fixed.
+const STATE_TOPIC_NAME: Record<string, string> = {
+  momo: "Momo",
+  newari: "Newari food",
+  tibetan: "Tibetan food",
+};
+
+// A slug with a state page we want indexed: a dish with bespoke copy, or a
+// food group/cuisine above.
+export function isStateTopic(slug: string): boolean {
+  return slug in DISH_COPY || slug in STATE_TOPIC_NAME;
+}
+
+function topicCopy(slug: string): DishCopy | TagCopy | undefined {
+  return DISH_COPY[slug] ?? (slug in STATE_TOPIC_NAME ? TAG_COPY[slug] : undefined);
+}
+
+// Explore filters cuisines by tag, dishes (momo included) by menu.
+function exploreTopic(dish: { slug: string; kind: string }): string {
+  return dish.kind === "style" ? `tag=${dish.slug}` : `dish=${dish.slug}`;
+}
+
 // Dish name in house casing. Taxonomy names are title-cased ("Jhol Momo");
 // the bespoke national title carries the spelling we want everywhere.
 export function dishDisplayName(dish: { slug: string; name: string }): string {
-  return DISH_COPY[dish.slug]?.title?.replace(/ in Australia$/, "") ?? dish.name;
+  return (
+    DISH_COPY[dish.slug]?.title?.replace(/ in Australia$/, "") ??
+    STATE_TOPIC_NAME[dish.slug] ??
+    dish.name
+  );
 }
+
+// The name mid-sentence: "jhol momo", but cuisines are proper nouns
+// ("Newari food") so they keep their capital.
+function inlineName(dish: { slug: string; name: string; kind?: string }): string {
+  const name = dishDisplayName(dish);
+  return dish.kind === "style" ? name : name.charAt(0).toLowerCase() + name.slice(1);
+}
+
+// First full sentence of a lead paragraph, inline links stripped.
+function firstSentence(text?: string): string | undefined {
+  return text ? stripInline(text).match(/^.+?[.!?](?=\s|$)/)?.[0] : undefined;
+}
+
+// Hand-written city paragraphs for the biggest state pages, keyed
+// "<slug>:<STATE>". Every dish and spot named here is on that spot's seeded
+// menu (checked against Neon 2026-10-14); re-check when menus are reseeded.
+const CITY_INTRO: Record<string, string> = {
+  "momo:NSW":
+    "In Sydney the momo trail starts in the city. [The Momos Hub](/restaurant/the-momos-hub-townhall-sydney) and [Falcha](/restaurant/falcha-town-hall-sydney) at Town Hall both do jhol, C-momo and sandheko, and [Chulho](/restaurant/chulho-harris-park-harris-park) in Harris Park adds kothey and Kathmandu-style momo. Out in the suburbs, Granville and Rockdale have more momo menus than anywhere else.",
+  "momo:VIC":
+    "Melbourne's momo lives in the CBD. [Chilli Everest](/restaurant/chilli-everest) and [Momo Central](/restaurant/momo-central-little-collins-st) on Little Collins Street are the most reviewed, and both do tapari momo. Head west to [Magic Momo Kafe](/restaurant/magic-momo-kafe-west-footscray) in West Footscray for jhaneko and gravy momo, or north to Glenroy, Brunswick and Coburg.",
+  "newari:NSW":
+    "Sydney's Newari table is fullest in Rockdale, where [Heshela Newa Khaja Ghar](/restaurant/heshela-newa-khaja-ghar-rockdale-rockdale) does bara, chatamari, choila and a samay baji set. In the city, [Falcha](/restaurant/falcha-town-hall-sydney) makes yomari and a Newari khaja set, and [The Momos Hub](/restaurant/the-momos-hub-townhall-sydney) and [Chulho](/restaurant/chulho-harris-park-harris-park) both serve choila and sukuti.",
+  "newari:VIC":
+    "Most of Melbourne's Newari cooking sits in the CBD. [Momo Central](/restaurant/momo-central-little-collins-st) on Little Collins Street does bara and choila, [Old Durbar](/restaurant/old-durbar-nepalese-indian-restaurant-in-flinders-melbourne) runs choila sets with a veg version, and [Magic Momo Kafe](/restaurant/magic-momo-kafe-west-footscray) in West Footscray serves a full Newari set.",
+  "tibetan:NSW":
+    "Start with a bowl of thukpa. [Falcha](/restaurant/falcha-town-hall-sydney) at Town Hall also does laphing, cold and garlicky, and [Heshela](/restaurant/heshela-newa-khaja-ghar-rockdale-rockdale) in Rockdale makes a thukpa momo, dumplings dropped into the noodle soup.",
+  "tibetan:VIC":
+    "Melbourne's Tibetan bowls are split between the CBD and the inner north. [Chilli Everest](/restaurant/chilli-everest) does laphing as well as thukpa, and [Momo Central](/restaurant/momo-central-little-collins-st) and its [Brunswick](/restaurant/momo-central-brunswick) sister both keep thukpa on the menu.",
+};
 
 // Dish first, count after, brand appended by the root title template:
 // "Sandheko momo in Australia: 48 spots". The description is the first full
 // sentence of the lead (never a mid-sentence cut) plus the count and the map.
 export function dishMeta(
-  dish: { slug: string; name: string },
+  dish: { slug: string; name: string; kind?: string },
   count: number,
   place: string
 ): LandingMeta {
@@ -709,11 +786,10 @@ export function dishMeta(
   // Google cuts descriptions around 155 chars. Use the lead's first sentence;
   // if that runs long, end it at its colon ("Dal bhat is the meal Nepal runs
   // on."); if still long, fall back to a plain opener.
-  const lead = DISH_COPY[dish.slug]?.lead[0];
-  const sentence = lead ? stripInline(lead).match(/^.+?[.!?](?=\s|$)/)?.[0] : undefined;
+  const sentence = firstSentence(topicCopy(dish.slug)?.lead[0]);
   const clause = sentence?.includes(":") ? `${sentence.split(":")[0]}.` : undefined;
   const fits = (s?: string) => !!s && s.length + 1 + tail.length <= META_MAX;
-  const opener = [sentence, clause].find(fits) ?? `Where to eat ${name.toLowerCase()}${where || " in Australia"}.`;
+  const opener = [sentence, clause].find(fits) ?? `Where to eat ${inlineName(dish)}${where || " in Australia"}.`;
   return {
     title: `${name} in ${place}: ${count} ${count === 1 ? "spot" : "spots"}`,
     description: `${opener} ${tail}`,
@@ -725,39 +801,35 @@ export function dishLanding(
   restaurants: Restaurant[],
   state?: string,
 ): LandingContent {
-  const copy = DISH_COPY[dish.slug];
+  const copy = topicCopy(dish.slug);
   const name = dishDisplayName(dish);
-  const selfHref = `/nepali-food/${dish.slug}`;
+  // momo's national hub is /momo (/nepali-food/momo redirects there).
+  const selfHref = dish.slug === "momo" ? "/momo" : `/nepali-food/${dish.slug}`;
   const stateName = state ? STATE_NAME[state] ?? state : null;
   const metro = state ? metroFromState(state) : null;
+  const count = restaurants.length;
   const title = state
     ? `${name} in ${metro}`
     : copy?.title ?? `${name} in Australia`;
 
   const states = topBy(restaurants, "state");
   const suburbs = topBy(restaurants, "suburb");
-  const dataSentence = state
-    ? suburbs.length
-      ? `We have mapped ${restaurants.length} spots for ${name.toLowerCase()} in ${stateName}, with the most around ${proseList(suburbs.slice(0, 3).map((s) => s.value))}.`
-      : `We have mapped ${restaurants.length} spots for ${name.toLowerCase()} in ${stateName}.`
-    : states.length
-      ? `We have mapped ${restaurants.length} spots serving it, most across ${proseList(states.slice(0, 3).map((s) => STATE_NAME[s.value] ?? s.value))}.`
-      : `We have mapped ${restaurants.length} spots serving it across Australia.`;
-
-  const lead = copy?.lead ?? [
-    `The kitchens serving ${name.toLowerCase()} ${state ? `in ${metro} and ${stateName}` : "across Australia"}, gathered in one place.`,
-  ];
+  // The CBD suburb shares the city's name ("Sydney" on a "... in Sydney" page).
+  const topSuburbs = suburbs
+    .slice(0, 3)
+    .map((s) => (s.value === metro ? "the CBD" : s.value));
 
   const crossLinks: CrossLinkGroup[] = [];
   if (!state && states.length) {
     crossLinks.push({
       heading: `${name} by state`,
+      // Same >= 5 bar as the state route's MIN_RENDER, so no link 404s.
       links: states
-        .filter((s) => s.count >= 3)
+        .filter((s) => s.count >= 5)
         .slice(0, 8)
         .map((s) => ({
           label: `${name} in ${metroFromState(s.value)}`,
-          href: `${selfHref}/${s.value.toLowerCase()}`,
+          href: `/nepali-food/${dish.slug}/${s.value.toLowerCase()}`,
         })),
     });
   }
@@ -781,20 +853,56 @@ export function dishLanding(
     { label: name, href: selfHref },
   ];
   if (state)
-    breadcrumbs.push({ label: stateName!, href: `${selfHref}/${state.toLowerCase()}` });
+    breadcrumbs.push({ label: stateName!, href: `/nepali-food/${dish.slug}/${state.toLowerCase()}` });
+
+  let intro: string[];
+  let faq = copy?.faq;
+  if (state) {
+    // State pages get their own words (the national lead and FAQ would make
+    // every state a near-copy): one line on the dish, the local facts, the
+    // hand-written city paragraph where one exists, and a FAQ built from data.
+    const lower = inlineName(dish);
+    const where = topSuburbs.length ? `, most of them in ${proseList(topSuburbs)}` : "";
+    intro = [
+      [firstSentence(copy?.lead[0]), `${count} spots across ${stateName} have ${lower} on the menu${where}.`]
+        .filter(Boolean)
+        .join(" "),
+      ...(CITY_INTRO[`${dish.slug}:${state}`] ? [CITY_INTRO[`${dish.slug}:${state}`]] : []),
+    ];
+    const topSpots = restaurants
+      .slice(0, 3)
+      .map((r) => `[${r.name}](/restaurant/${r.slug})`);
+    faq = [
+      {
+        q: `Where can I get ${lower} in ${metro}?`,
+        a: `${count} spots across ${stateName} have it on the menu${where}. The most reviewed are ${proseList(topSpots)}.`,
+      },
+      {
+        q: `Can I see the menu before I go?`,
+        a: `Yes. Every spot on this page has its menu on NepaliEats, so you can check what they serve and what it costs before you head out.`,
+      },
+    ];
+  } else {
+    intro = [
+      ...(copy?.lead ?? [`The kitchens serving ${name.toLowerCase()} across Australia, gathered in one place.`]),
+      states.length
+        ? `We have mapped ${count} spots serving it, most across ${proseList(states.slice(0, 3).map((s) => STATE_NAME[s.value] ?? s.value))}.`
+        : `We have mapped ${count} spots serving it across Australia.`,
+    ];
+  }
 
   return {
     breadcrumbs,
     eyebrow: state ? `${name} · ${state}` : "Find your dish",
     title,
-    intro: [...lead, dataSentence],
+    intro,
     whatToOrder: copy?.whatToOrder,
-    faq: copy?.faq,
+    faq,
     crossLinks,
     exploreHref: state
-      ? `/explore?dish=${dish.slug}&state=${state}`
-      : `/explore?dish=${dish.slug}`,
-    exploreLabel: mapLabel(restaurants.length),
+      ? `/explore?${exploreTopic(dish)}&state=${state}`
+      : `/explore?${exploreTopic(dish)}`,
+    exploreLabel: mapLabel(count),
     collectionName: title,
   };
 }

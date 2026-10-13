@@ -110,9 +110,10 @@ export function ExploreListCard({
 			    carousel of the matched items. */}
 			{pills && pills.length > 0 && (
 				<div className="mt-2 flex gap-1.5 flex-nowrap overflow-x-auto scrollbar-hide">
-					{pills.map((p) => (
+					{pills.map((p, i) => (
 						<span
-							key={p.label}
+							// a menu can list the same item twice (one per section)
+							key={`${i}-${p.label}`}
 							className="shrink-0 whitespace-nowrap inline-flex items-center gap-1 font-body font-semibold text-[0.76rem] text-marigold-700 bg-marigold-100 px-2 py-0.5 rounded-full"
 						>
 							{p.label}

@@ -3,7 +3,7 @@ import { cache } from "react";
 import { notFound, redirect } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
 import { DishStateFilter } from "@/components/DishStateFilter";
-import { tagLanding, dishLanding, dishMeta, DISH_COPY, TAG_COPY } from "@/lib/landing";
+import { tagLanding, dishLanding, dishMeta, isStateTopic, DISH_COPY, TAG_COPY } from "@/lib/landing";
 import {
   listRestaurants,
   tagFacets,
@@ -114,17 +114,24 @@ export default async function NepaliFoodPage({
 
   // Cuisine / dietary / tag page (broad, tag-derived). "vegetarian" is not a
   // tag; it filters on the serves_vegetarian attribute flag instead.
-  const list = await listRestaurants(
-    slug === "vegetarian" ? { veg: true, limit: 500 } : { tag: slug, limit: 500 }
-  );
+  const topic = isStateTopic(slug);
+  const [list, stateCounts] = await Promise.all([
+    listRestaurants(
+      slug === "vegetarian" ? { veg: true, limit: 500 } : { tag: slug, limit: 500 }
+    ),
+    topic ? dishStateCounts(slug) : Promise.resolve([]),
+  ]);
   if (list.length === 0) notFound();
   return (
     <LandingPage
-      content={tagLanding(slug, list)}
+      content={tagLanding(slug, list, stateCounts)}
       restaurants={list.slice(0, CAP)}
       total={list.length}
       heroImage={foodImage(slug)}
       gallery={foodGallery(slug)}
+      stateFilter={
+        topic ? <DishStateFilter slug={slug} counts={stateCounts} /> : undefined
+      }
     />
   );
 }

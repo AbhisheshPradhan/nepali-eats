@@ -275,16 +275,24 @@ These target the strongest commercial terms but have almost no unique content.
 - [x] National + state dish pages: "Jhol momo in Sydney: 42 spots" titles,
       full-sentence descriptions <= 155 chars (`dishMeta`), house casing via
       `dishDisplayName`, map button with the count. (2026-10-14)
-- [ ] **Momo x state is noindexed** (found 2026-10-14): `/nepali-food/momo/nsw`
-      ("Momo in Sydney") carries `noindex` and is absent from the sitemap,
-      because the dish route indexes only slugs with `DISH_COPY` and momo's copy
-      lives in `TAG_COPY` (/momo). Fix with the cuisine x state template below.
-- [ ] State dish pages (49): count in title, own intro + city FAQ built from
-      data (today they reuse the national lead/FAQ verbatim).
-- [ ] Cuisine x state pages (19, >= 5 spots): Newari/Tibetan/Nepali-Indian/
-      Thakali, e.g. "Newari food in Sydney: 45 spots". Cards show that
-      cuisine's dishes as pills. Aasha writes intros for the Sydney + Melbourne
-      big four.
+- [x] **Momo x state was noindexed** (found 2026-10-14; `/nepali-food/momo/nsw`
+      had `noindex` and no sitemap entry because only `DISH_COPY` slugs were
+      index-ready). Fixed by `isStateTopic()`: `DISH_COPY` dishes plus
+      `STATE_TOPIC_NAME` (momo, Newari, Tibetan) are indexed + in the sitemap.
+- [x] State pages (dish, momo, cuisine) get their own words (2026-10-14): first
+      sentence of the national lead + a local count/suburbs line, a
+      hand-written `CITY_INTRO` for momo/Newari/Tibetan in Sydney + Melbourne
+      (every claim checked against seeded menus), and a data-built city FAQ in
+      place of the national FAQ. "What to order" stays (below the listing).
+- [x] Cuisine x state pages live for **Newari + Tibetan** (menu-derived, cards
+      show that cuisine's dishes as pills). National /momo, /nepali-food/newari
+      and /tibetan link down to their state pages (>= 5 spots).
+- [ ] **Thakali + Nepali-Indian x state: held back** on data quality. Their
+      menu tags are loose: Nepali-Indian matches little beyond pani puri;
+      Thakali includes Chitwan taas sets. Fix the tags, then add both to
+      `STATE_TOPIC_NAME` in `lib/landing.ts`.
+- [x] National dish pages linked states with >= 3 spots while state pages need
+      >= 5 (3-4 spot states linked to a 404). Now >= 5 everywhere.
 
 **Round 3: Nearby + suburb expansion.**
 

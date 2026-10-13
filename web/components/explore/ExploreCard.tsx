@@ -162,8 +162,9 @@ export function ExploreCard({
 			    sub-line), overflow folded into "+N more". */}
 			{pills && pills.length > 0 && (
 				<div className="mt-2.5 rounded-lg bg-paper-100 px-3 py-2 flex flex-col gap-1 min-w-0">
-					{pills.slice(0, SHOWN).map((p) => (
-						<div key={p.label} className="min-w-0">
+					{pills.slice(0, SHOWN).map((p, i) => (
+						// a menu can list the same item twice (one per section)
+						<div key={`${i}-${p.label}`} className="min-w-0">
 							<div className="flex items-baseline gap-2 min-w-0 text-[0.85rem]">
 								<span className="truncate min-w-0 font-body font-semibold text-ink-800">
 									{p.label}

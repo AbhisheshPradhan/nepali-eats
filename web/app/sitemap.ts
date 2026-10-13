@@ -7,7 +7,7 @@ import {
   dishGeoCounts,
 } from "@/lib/queries";
 import { STORIES } from "@/lib/stories";
-import { DISH_COPY } from "@/lib/landing";
+import { DISH_COPY, isStateTopic } from "@/lib/landing";
 import { suburbSlug } from "@/lib/format";
 
 import { SITE } from "@/lib/site";
@@ -17,19 +17,19 @@ const STATE_SLUG: Record<string, string> = {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [restaurants, suburbs, states, tags, dishCounts] = await Promise.all([
+  const [restaurants, suburbs, states, tags, dishCounts, topicCounts] = await Promise.all([
     restaurantSitemapEntries(),
     suburbFacets(),
     stateFacets(),
     tagFacets(),
     dishGeoCounts(),
+    dishGeoCounts(["dish", "preparation", "style"]),
   ]);
 
-  // Index-ready dish pages: those with bespoke copy (national), and their state
-  // variants that clear the venue-count gate.
-  const dishSlugs = new Set(Object.keys(DISH_COPY));
-  const dishStateUrls = dishCounts.filter(
-    (c) => dishSlugs.has(c.slug) && c.n >= 8,
+  // State pages: bespoke dishes plus the enabled food groups/cuisines (momo,
+  // Newari, Tibetan), same >= 8 gate as the route's MIN_INDEX.
+  const dishStateUrls = topicCounts.filter(
+    (c) => isStateTopic(c.slug) && c.n >= 8,
   );
   // Any dish/preparation slug renders as a dish page, which is noindexed until
   // it has bespoke copy. Keep those out of the tag URLs below so the sitemap

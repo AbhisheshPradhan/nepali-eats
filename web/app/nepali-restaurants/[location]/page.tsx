@@ -83,7 +83,6 @@ export default async function LocationPage({
         content={stateLanding(r.state, list)}
         restaurants={list.slice(0, CAP)}
         total={list.length}
-        mapPill
       />
     );
   }
@@ -93,7 +92,6 @@ export default async function LocationPage({
       content={suburbLanding(r.suburb, r.state, list)}
       restaurants={list.slice(0, CAP)}
       total={list.length}
-      mapPill
     />
   );
 }

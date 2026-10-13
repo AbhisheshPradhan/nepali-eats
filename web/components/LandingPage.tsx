@@ -30,7 +30,6 @@ export function LandingPage({
   heroImage,
   gallery,
   stateFilter,
-  mapPill = false,
 }: {
   content: LandingContent;
   restaurants: LandingRestaurant[];
@@ -46,9 +45,6 @@ export function LandingPage({
   // Optional row of filter chips rendered directly above the results grid
   // (dish pages pass a state filter; most pages pass nothing).
   stateFilter?: React.ReactNode;
-  // Mobile floating map pill once the hero map button scrolls away
-  // (location pages; the map is the reason to pick us over a list).
-  mapPill?: boolean;
 }) {
   const {
     breadcrumbs,
@@ -63,6 +59,10 @@ export function LandingPage({
     areas,
     collectionName,
   } = content;
+  // Every "on the map" link opens Explore on the map, not its mobile list.
+  const mapHref = exploreHref
+    ? `${exploreHref}${exploreHref.includes("?") ? "&" : "?"}view=map`
+    : undefined;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -156,12 +156,14 @@ export function LandingPage({
           {exploreHref && (
             <div className="mt-5">
               <Button
-                href={exploreHref}
+                href={mapHref}
                 iconLeft={<MapTrifold size={18} weight="fill" />}
               >
                 {exploreLabel}
               </Button>
-              {mapPill && <MapPill href={exploreHref} label="See the map" />}
+              {/* mobile floating pill once this button scrolls away: the map
+                  is the reason to pick us over a list, on every landing page */}
+              <MapPill href={mapHref!} label="See the map" />
             </div>
           )}
         </div>
@@ -237,11 +239,11 @@ export function LandingPage({
               <PlaceCard key={r.id} r={r} pills={r.matches} surface="landing" />
             ))}
           </div>
-          {total != null && total > restaurants.length && content.exploreHref && (
+          {total != null && total > restaurants.length && mapHref && (
             <p className="text-ink-500 text-center mt-6">
               Showing the top {restaurants.length}.{" "}
               <Link
-                href={content.exploreHref}
+                href={mapHref}
                 className="text-chili-600 font-semibold hover:text-chili-700"
               >
                 See all {total} on the map

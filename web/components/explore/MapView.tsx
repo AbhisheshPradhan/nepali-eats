@@ -92,6 +92,7 @@ export default function MapView({
   focusId,
   userLoc,
   fitBounds,
+  frameBounds,
 }: {
   pins: ExploreSpot[];
   hoveredId: number | null;
@@ -125,6 +126,11 @@ export default function MapView({
   // One-shot bounds-fit request ([[swLng,swLat],[neLng,neLat]]): the
   // zero-results zoom-out. Mapbox picks the zoom for the real viewport.
   fitBounds?: [[number, number], [number, number]] | null;
+  // The seeded area's extent (?state/suburb/tag links), [[W,S],[E,N]]: framed
+  // once per area against the REAL container, so the whole result set is in
+  // view. Waits while the map is hidden (mobile list mode, 0x0 container) and
+  // never overrides a visitor who has already panned/zoomed.
+  frameBounds?: [[number, number], [number, number]] | null;
   // On mobile the map is display:none while the list is showing, so Mapbox
   // measures a zero-size container. When it becomes visible we must resize, or
   // the canvas keeps its old (short) height and tiles only cover part of it.
@@ -304,6 +310,28 @@ export default function MapView({
     return () => cancelAnimationFrame(id);
   }, [active]);
 
+  // Seeded-area framing (see the frameBounds prop). Re-checked when the map is
+  // shown, since a hidden container would make Mapbox fit against 0x0.
+  const frameRef = useRef(frameBounds);
+  frameRef.current = frameBounds;
+  const framedRef = useRef<typeof frameBounds>(null);
+  const frameSeeded = () => {
+    const m = mapRef.current;
+    const b = frameRef.current;
+    if (!m || !b || framedRef.current === b || userMovedRef.current) return;
+    const el = m.getContainer();
+    if (!el.clientWidth || !el.clientHeight) return;
+    const first = framedRef.current === null;
+    framedRef.current = b;
+    m.resize();
+    m.fitBounds(b, { padding: 40, maxZoom: 13, duration: first ? 0 : 800 });
+  };
+  useEffect(() => {
+    const id = requestAnimationFrame(frameSeeded);
+    return () => cancelAnimationFrame(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [frameBounds, active]);
+
   const onClick = (e: MapMouseEvent) => {
     const f = e.features?.[0];
     if (!f) {
@@ -414,6 +442,7 @@ export default function MapView({
       interactiveLayerIds={["clusters", "points"]}
       cursor={cursor}
       onLoad={(e) => {
+        frameSeeded();
         // reduce map noise: hide Mapbox POI/transit labels, keep streets + place names.
         // NOTE: exclude our own layers ("points" contains "poi" as a substring!).
         const map = e.target;

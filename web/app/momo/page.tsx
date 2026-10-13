@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { LandingPage } from "@/components/LandingPage";
 import { tagLanding, groupByState } from "@/lib/landing";
-import { listRestaurants } from "@/lib/queries";
+import { listRestaurants, dishStateCounts } from "@/lib/queries";
 import { foodImage } from "@/lib/food";
 
 // No `revalidate` export: cached indefinitely (Next's default) until a
@@ -17,11 +17,14 @@ export const metadata: Metadata = {
 export default async function MomoPage() {
   // Ordered best-first (listRestaurants default), so each state block takes the
   // top spots. The full list still drives the intro count + JSON-LD.
-  const list = await listRestaurants({ tag: "momo", limit: 1000 });
+  const [list, stateCounts] = await Promise.all([
+    listRestaurants({ tag: "momo", limit: 1000 }),
+    dishStateCounts("momo"),
+  ]);
   const groups = groupByState(list, "momo", 6);
   return (
     <LandingPage
-      content={tagLanding("momo", list)}
+      content={tagLanding("momo", list, stateCounts)}
       restaurants={list}
       groups={groups}
       groupLabel="momo"

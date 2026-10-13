@@ -146,6 +146,21 @@ to your IP metro.
 Initial centre priority: `?focus=<slug>` > `?lat&lng` > `?state/suburb/tag`
 extent > IP-geo state capital > Sydney.
 
+**Seeded-area links frame by bounds, and list everything until touched
+(2026-10-14).** For `?state/suburb/tag` links, `resolvedView.bounds` (the
+matches' extent) goes to MapView's `frameBounds`, which Mapbox fits against
+the REAL container once per area, waiting while the map is hidden (mobile list
+mode is `display:none`, 0x0). Until the visitor pans/zooms (`mapTouched`) or
+Near me (`areaScoped`), the list is NOT clipped to the viewport: `matches` is
+already scoped to the area. Why: `zoomForSpan` (256px-tile maths on 512px
+Mapbox tiles, one level too tight) plus the hidden mobile map made "See all
+184 on the map" show 9 spots on phones, `?tag=momo&state=NSW` 1 on desktop.
+
+**`?view=map` opens the mobile map instead of the list (2026-10-14).** Every
+landing-page "on the map" link (hero button, MapPill, "See all N on the map")
+appends it, so the label tells the truth on phones. Entry-only like `tag`: in
+neither key list of `lib/explore-url`, so the first filter change sheds it.
+
 ### Search box is transient (decided with `5cfb3a8`)
 
 The box is an entry point, not a state display: it always starts empty and
@@ -225,6 +240,12 @@ these surfaces:
   page (same >= 2 bar as `generateStaticParams` + sitemap; an unlinked suburb
   page lost "hornsby" to the NSW page). Page hierarchy: specific dish at
   state level, cuisine at state level, suburb = Nepali restaurants only.
+  State pages are index-ready when `isStateTopic(slug)`: a `DISH_COPY` dish
+  or a `STATE_TOPIC_NAME` food group/cuisine (momo, newari, tibetan; Thakali
+  and Nepali-Indian held back for loose menu tags). One gate drives robots,
+  generateStaticParams and the sitemap, so they can't disagree (the old
+  DISH_COPY-only gate silently noindexed every momo x state page). Every
+  link to a state page uses the route's >= 5 MIN_RENDER bar.
   Plan + checklist: `docs/LAUNCH.md` §4a.
 
 - **Home:** featured + popular rows are state-scoped (IP-geo -> state, default
