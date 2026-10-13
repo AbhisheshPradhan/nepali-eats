@@ -294,13 +294,18 @@ These target the strongest commercial terms but have almost no unique content.
 - [x] National dish pages linked states with >= 3 spots while state pages need
       >= 5 (3-4 spot states linked to a 404). Now >= 5 everywhere.
 
-**Round 3: Nearby + suburb expansion.**
-
-- Suburb page exists when own spots + spots within **5 km** >= **3**. 65 -> ~154
-  pages (3 km gives 112, 10 km gives 189 but stretches "near" too far).
-- "Nearby" section: sorted by distance, km shown, <= 12 cards.
-- **Title rule (in vs near):** own >= 3 -> "24 Nepali restaurants in Auburn";
-  own < 3 -> "8 Nepali restaurants near Harris Park" (own + nearby).
+**Round 3: Nearby on suburb pages: DONE 2026-10-14.** Every suburb has a
+page (1-spot ones included, built on deploy). Suburbs with < 5 spots of
+their own list spots from other suburbs within `NEARBY_KM` (5 km) of the
+suburb's centroid, nearest first, <= 12 cards, distance from the suburb
+(`suburbNearby`); no section when nothing is within 5 km. Separately, EVERY
+suburb page links "Suburbs nearby" (neighbours with spots within 5 km, <= 8,
+labelled with their page's count), falling back to the state's biggest
+suburbs when none. Titles
+(`suburbTitle`): own >= 3 -> "24 Nepali restaurants in Auburn"; own < 3 but
+own + nearby >= 3 -> "6 Nepali restaurants near Adelaide" (120 suburbs); else
+plain. "near" pages open the map on a camera link around the suburb. At build:
+120 near / 43 in-with-count / 72 plain.
 
 **Parked:** hero images on location pages (Google currently uses a restaurant
 logo as the NSW thumbnail); static map preview (Mapbox Static Images, ~free if

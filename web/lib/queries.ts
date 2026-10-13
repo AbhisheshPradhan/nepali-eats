@@ -468,6 +468,37 @@ export async function brandSiblings(
 	return rows.map(mapRow);
 }
 
+// Spots within `km` of a suburb, from OTHER suburbs, nearest first: the
+// "Nearby" section on suburb pages and their in/near title count (so it is
+// uncapped; callers slice the cards). Measured from the centroid of the
+// suburb's own spots; geography casts make the radius real metres. Runs once
+// per suburb page at build (the pages are static).
+export async function suburbNearby(
+	suburb: string,
+	state: string,
+	km: number,
+): Promise<{ origin: [number, number] | null; restaurants: Restaurant[] }> {
+	const rows = await query(
+		`WITH c AS (
+		   SELECT ST_Centroid(ST_Collect(r.geom)) AS g FROM restaurants r
+		    WHERE r.${NOT_CLOSED} AND r.is_nepali IS NOT FALSE
+		      AND r.state = $2 AND lower(r.suburb) = lower($1)
+		 )
+		 SELECT ${COLS}, ST_Y(c.g) AS origin_lat, ST_X(c.g) AS origin_lng
+		   FROM restaurants r, c
+		  WHERE c.g IS NOT NULL AND r.${NOT_CLOSED} AND r.is_nepali IS NOT FALSE
+		    AND r.geom IS NOT NULL
+		    AND NOT (r.state = $2 AND lower(r.suburb) = lower($1))
+		    AND ST_DWithin(r.geom::geography, c.g::geography, $3)
+		  ORDER BY ST_Distance(r.geom::geography, c.g::geography)`,
+		[suburb, state, km * 1000],
+	);
+	return {
+		origin: rows[0] ? [Number(rows[0].origin_lat), Number(rows[0].origin_lng)] : null,
+		restaurants: rows.map(mapRow),
+	};
+}
+
 // Nearest OTHER Nepali spots to a restaurant, within maxKm, nearest first. Powers
 // the "Other Nepali spots nearby" internal-linking block. Excludes self, closed,
 // non-Nepali, and (when the current spot has a brand) its own brand siblings —

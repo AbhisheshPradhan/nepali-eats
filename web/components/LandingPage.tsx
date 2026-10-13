@@ -57,6 +57,7 @@ export function LandingPage({
     exploreHref,
     exploreLabel = "View on map",
     areas,
+    nearby,
     collectionName,
   } = content;
   // Every "on the map" link opens Explore on the map, not its mobile list.
@@ -252,6 +253,20 @@ export function LandingPage({
             </p>
           )}
         </>
+      )}
+
+      {nearby && nearby.restaurants.length > 0 && (
+        <section className="mt-12">
+          <h2 className="font-display font-extrabold text-[1.5rem] text-ink-900 mb-4">
+            {nearby.heading}
+          </h2>
+          <div className={GRID}>
+            {nearby.restaurants.map((r) => (
+              // distance reads from the suburb unless the visitor shared theirs
+              <PlaceCard key={r.id} r={r} fallbackOrigin={nearby.origin} surface="landing" />
+            ))}
+          </div>
+        </section>
       )}
 
       {areas && areas.links.length > 0 && (

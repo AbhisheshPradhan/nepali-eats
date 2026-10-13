@@ -256,6 +256,13 @@ these surfaces:
   internal link, so built = linked = sitemapped (530 = 530 at the time).
   All of them are indexable, write-up or not (Abhishesh's call).
   `/nepali-food/momo` is a permanent redirect to `/momo` in next.config.
+- **Suburb pages: in vs near (2026-10-14).** `suburbNearby` (PostGIS
+  ST_DWithin 5 km from the centroid of the suburb's own spots, other suburbs
+  only) feeds the "More within 5 km" cards (only when the suburb has < 5 of
+  its own), the "Suburbs nearby" links (every suburb page) and the title: "in" with the own
+  count at >= 3, "near" with own + nearby when only the neighbours get it to 3
+  ("in" would be false), plain otherwise. "near" pages' map link is a camera
+  position (clat/clng/zoom 12), since a suburb filter would show 1 or 2 spots.
   Plan + checklist: `docs/LAUNCH.md` §4a.
 
 - **Home:** featured + popular rows are state-scoped (IP-geo -> state, default

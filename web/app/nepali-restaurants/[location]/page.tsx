@@ -2,8 +2,16 @@ import type { Metadata } from "next";
 import { cache } from "react";
 import { notFound } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
-import { stateLanding, suburbLanding, locationMeta, STATE_NAME } from "@/lib/landing";
-import { listRestaurants, suburbFacets } from "@/lib/queries";
+import {
+  stateLanding,
+  suburbLanding,
+  locationMeta,
+  locationTitle,
+  suburbTitle,
+  NEARBY_KM,
+  STATE_NAME,
+} from "@/lib/landing";
+import { listRestaurants, suburbFacets, suburbNearby } from "@/lib/queries";
 import { suburbSlug } from "@/lib/format";
 
 // Every state + suburb page is built on deploy; anything else is a 404 with no
@@ -34,11 +42,16 @@ async function resolve(location: string): Promise<Resolved> {
 const load = cache(async (location: string) => {
   const r = await resolve(location);
   if (!r) return null;
-  const list =
-    r.type === "state"
-      ? await listRestaurants({ state: r.state, limit: 500 })
-      : await listRestaurants({ suburb: r.suburb, state: r.state, limit: 200 });
-  return { r, list };
+  if (r.type === "state") {
+    const list = await listRestaurants({ state: r.state, limit: 500 });
+    return { r, list, near: undefined, subs: undefined };
+  }
+  const [list, near, subs] = await Promise.all([
+    listRestaurants({ suburb: r.suburb, state: r.state, limit: 200 }),
+    suburbNearby(r.suburb, r.state, NEARBY_KM),
+    suburbFacets(),
+  ]);
+  return { r, list, near, subs };
 });
 
 export async function generateStaticParams() {
@@ -58,10 +71,12 @@ export async function generateMetadata({
   const { location } = await params;
   const loaded = await load(location);
   if (!loaded) return { title: "Not found" };
-  const { r, list } = loaded;
-  const place =
-    r.type === "state" ? STATE_NAME[r.state] ?? r.state : `${r.suburb}, ${r.state}`;
-  const meta = locationMeta(place, list.length);
+  const { r, list, near } = loaded;
+  const meta = locationMeta(
+    r.type === "state"
+      ? locationTitle(list.length, STATE_NAME[r.state] ?? r.state)
+      : suburbTitle(list.length, near?.restaurants.length ?? 0, `${r.suburb}, ${r.state}`)
+  );
   return {
     ...meta,
     alternates: { canonical: `/nepali-restaurants/${location}` },
@@ -76,7 +91,7 @@ export default async function LocationPage({
   const { location } = await params;
   const loaded = await load(location);
   if (!loaded) notFound();
-  const { r, list } = loaded;
+  const { r, list, near, subs } = loaded;
 
   if (r.type === "state") {
     return (
@@ -90,7 +105,7 @@ export default async function LocationPage({
 
   return (
     <LandingPage
-      content={suburbLanding(r.suburb, r.state, list)}
+      content={suburbLanding(r.suburb, r.state, list, near, subs)}
       restaurants={list.slice(0, CAP)}
       total={list.length}
     />

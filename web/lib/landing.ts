@@ -37,6 +37,9 @@ export interface LandingContent {
   // Every suburb page in this area, rendered as its own section under the
   // listing (state pages). Internal links are how Google finds them.
   areas?: { heading: string; links: AreaLink[] };
+  // Spots from OTHER suburbs within NEARBY_KM (suburb pages), nearest first,
+  // with the point distances are measured from.
+  nearby?: { heading: string; restaurants: Restaurant[]; origin: [number, number] };
   // Label for the hero map button; LandingPage falls back to "View on map".
   exploreLabel?: string;
   collectionName: string;
@@ -45,9 +48,13 @@ export interface LandingContent {
 // Location pages lead with the count once it reads as a real number: a "2" in
 // a title makes the page look empty.
 export const COUNT_MIN = 3;
+// Suburb pages also list (and count in "near" titles) spots this close.
+export const NEARBY_KM = 5;
+// Only thin suburbs get the Nearby cards; busier ones already answer the search.
+const NEARBY_BELOW = 5;
 const META_MAX = 155;
 
-function locationTitle(count: number, place: string): string {
+export function locationTitle(count: number, place: string): string {
   return count >= COUNT_MIN
     ? `${count} Nepali restaurants in ${place}`
     : `Nepali restaurants in ${place}`;
@@ -63,9 +70,17 @@ export interface LandingMeta {
   description: string;
 }
 
+// Suburb title: "24 Nepali restaurants in Auburn" when the suburb has enough
+// of its own; "50 Nepali restaurants near Harris Park" when it only gets there
+// with the spots within NEARBY_KM ("in" would be false); plain otherwise.
+export function suburbTitle(own: number, nearby: number, place: string): string {
+  if (own < COUNT_MIN && own + nearby >= COUNT_MIN)
+    return `${own + nearby} Nepali restaurants near ${place}`;
+  return locationTitle(own, place);
+}
+
 // One meta pattern for every state and suburb page.
-export function locationMeta(place: string, count: number): LandingMeta {
-  const title = locationTitle(count, place);
+export function locationMeta(title: string): LandingMeta {
   return {
     title,
     description: `${title}, all on one map. Search by dish or cuisine to find momo, dal bhat and more near you.`,
@@ -398,10 +413,53 @@ export function stateLanding(state: string, list: Restaurant[]): LandingContent 
 export function suburbLanding(
   suburb: string,
   state: string,
-  list: Restaurant[]
+  list: Restaurant[],
+  near: { origin: [number, number] | null; restaurants: Restaurant[] } = {
+    origin: null,
+    restaurants: [],
+  },
+  // suburbFacets() rows: every suburb with a page, for the neighbour links.
+  allSuburbs: { value: string; state: string; count: number }[] = []
 ): LandingContent {
   const name = STATE_NAME[state] ?? state;
   const count = list.length;
+  // Nearby cards only for thin suburbs (and only when something is close).
+  const showNearby = count < NEARBY_BELOW && near.restaurants.length > 0;
+  const nearCount = showNearby ? near.restaurants.length : 0;
+
+  // Interlinking (separate from the cards, on every suburb page): neighbouring
+  // suburbs with spots within NEARBY_KM, nearest first, labelled with their
+  // own page's count; else the state's biggest suburbs so no page dead-ends.
+  const pageCount = new Map(allSuburbs.map((s) => [`${s.value}|${s.state}`, s.count]));
+  const self = `${suburb}|${state}`.toLowerCase();
+  const neighbours: string[] = [];
+  for (const r of near.restaurants) {
+    if (r.suburb && r.state && !neighbours.includes(`${r.suburb}|${r.state}`))
+      neighbours.push(`${r.suburb}|${r.state}`);
+  }
+  const linkKeys = (
+    neighbours.length
+      ? neighbours
+      : allSuburbs
+          .filter((s) => s.state === state)
+          .sort((a, b) => b.count - a.count)
+          .map((s) => `${s.value}|${s.state}`)
+  )
+    .filter((k) => k.toLowerCase() !== self && pageCount.has(k))
+    .slice(0, 8);
+  const suburbLinks: Crumb[] = linkKeys.map((k) => {
+    const [sub, st] = k.split("|");
+    return {
+      label: `${sub} (${pageCount.get(k)})`,
+      href: `/nepali-restaurants/${suburbSlug(sub, st)}`,
+    };
+  });
+  // "near" pages lean on the neighbours, so the map opens on the area around
+  // the suburb (a camera link) instead of filtering to its own one or two.
+  const nearPage = count < COUNT_MIN && nearCount > 0 && near.origin;
+  const more = nearCount
+    ? ` ${nearCount === 1 ? "One more is" : `${nearCount} more are`} within ${NEARBY_KM} km, listed below.`
+    : "";
   return {
     breadcrumbs: [
       { label: "Home", href: "/" },
@@ -409,19 +467,28 @@ export function suburbLanding(
       { label: suburb, href: `/nepali-restaurants/${suburbSlug(suburb, state)}` },
     ],
     eyebrow: `${suburb}, ${state}`,
-    title: locationTitle(count, suburb),
+    title: suburbTitle(count, nearCount, suburb),
     intro: [
       `The kitchens, cafes and takeaways serving Nepali food in ${suburb}, ${state}. Momo, Thakali dal bhat and more, all close to home.`,
       count >= COUNT_MIN
-        ? `Sort by rating to find the local favourite, or open the map for the closest plate.`
-        : count > 0
-          ? `We have ${count} Nepali ${count === 1 ? "spot" : "spots"} mapped in ${suburb}. Sort by rating to find the local favourite, or open the map for the closest plate.`
-          : `Open the map to find Nepali food near ${suburb}.`,
+        ? `Tap any spot for its hours and directions, or open the map for the closest plate.${more}`
+        : `${count === 1 ? "There is one Nepali spot" : `There are ${count} Nepali spots`} in ${suburb}.${more} Open the map for the closest plate.`,
     ],
+    nearby:
+      showNearby && near.origin
+        ? {
+            heading: `More within ${NEARBY_KM} km of ${suburb}`,
+            restaurants: near.restaurants.slice(0, 12),
+            origin: near.origin,
+          }
+        : undefined,
     whatToOrder: NEPALI_CLASSICS,
     crossLinks: [
+      ...(suburbLinks.length
+        ? [{ heading: neighbours.length ? "Suburbs nearby" : `More suburbs in ${name}`, links: suburbLinks }]
+        : []),
       {
-        heading: "Nearby",
+        heading: `More in ${name}`,
         links: [
           { label: `All of ${name}`, href: `/nepali-restaurants/${state.toLowerCase()}` },
         ],
@@ -430,8 +497,10 @@ export function suburbLanding(
       cuisineLinks(),
     ],
     // state disambiguates cross-state suburb name collisions (Claremont TAS/WA)
-    exploreHref: `/explore?suburb=${encodeURIComponent(suburb)}&state=${state}`,
-    exploreLabel: mapLabel(count),
+    exploreHref: nearPage
+      ? `/explore?clat=${near.origin![0].toFixed(5)}&clng=${near.origin![1].toFixed(5)}&zoom=12`
+      : `/explore?suburb=${encodeURIComponent(suburb)}&state=${state}`,
+    exploreLabel: nearPage ? "See them on the map" : mapLabel(count),
     collectionName: `Nepali restaurants in ${suburb}, ${state}`,
   };
 }
