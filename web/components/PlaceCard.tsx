@@ -185,6 +185,7 @@ export function PlaceCard({
 					/>
 				) : img ? (
 					<Image
+						unoptimized
 						src={img}
 						alt={r.name}
 						fill

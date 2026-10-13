@@ -57,6 +57,7 @@ export function CardCarousel({
 						)}
 					>
 						<Image
+							unoptimized
 							src={url}
 							alt={alt}
 							fill

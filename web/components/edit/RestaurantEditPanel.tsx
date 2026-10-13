@@ -1024,6 +1024,7 @@ export function RestaurantEditPanel({
 											{logo && mediaUrl(logo) ? (
 												<div className="relative w-16 h-16 rounded-full overflow-hidden bg-muted border border-border">
 													<Image
+														unoptimized
 														src={mediaUrl(logo)!}
 														alt="Logo"
 														fill
@@ -1066,6 +1067,7 @@ export function RestaurantEditPanel({
 											<div className="relative h-44 rounded-lg overflow-hidden bg-muted">
 												{mediaUrl(cover) && (
 													<Image
+														unoptimized
 														src={mediaUrl(cover)!}
 														alt="Cover"
 														fill
@@ -1125,6 +1127,7 @@ export function RestaurantEditPanel({
 															<div className="relative h-28 w-36 rounded-lg overflow-hidden bg-muted border border-border">
 																{url && (
 																	<Image
+																		unoptimized
 																		src={
 																			url
 																		}

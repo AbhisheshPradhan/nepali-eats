@@ -68,6 +68,7 @@ export default async function MyRestaurantsPage() {
 								<div className="relative w-14 h-14 shrink-0 rounded-lg overflow-hidden bg-paper-200">
 									{img && (
 										<Image
+											unoptimized
 											src={img}
 											alt={r.name}
 											fill

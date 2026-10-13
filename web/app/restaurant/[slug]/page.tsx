@@ -419,6 +419,7 @@ export default async function VenuePage({
 				>
 					{hero ? (
 						<Image
+							unoptimized
 							src={hero}
 							alt={r.name}
 							fill
@@ -546,6 +547,7 @@ export default async function VenuePage({
 												className="relative aspect-[4/3] rounded-md overflow-hidden bg-paper-200"
 											>
 												<Image
+													unoptimized
 													src={g}
 													alt={`${r.name} photo ${i + 2}`}
 													fill

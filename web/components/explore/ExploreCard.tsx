@@ -138,6 +138,7 @@ export function ExploreCard({
 				<div className="relative w-[92px] h-[92px] @md:w-[110px] @md:h-[110px] shrink-0 rounded-lg overflow-hidden bg-paper-200">
 					{img ? (
 						<Image
+							unoptimized
 							src={img}
 							alt={r.name}
 							fill

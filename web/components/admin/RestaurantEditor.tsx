@@ -492,7 +492,7 @@ export function RestaurantEditor({
             return (
               <div key={p.id} className="relative w-28">
                 <div className="relative h-24 w-28 rounded-md overflow-hidden bg-paper-100 border border-ink-100">
-                  {url && <Image src={url} alt="" fill className="object-cover" sizes="112px" />}
+                  {url && <Image unoptimized src={url} alt="" fill className="object-cover" sizes="112px" />}
                 </div>
                 {p.isPrimary && (
                   <span className="absolute top-1 left-1 bg-marigold-500 text-ink-900 text-[10px] font-bold px-1.5 py-0.5 rounded">
@@ -558,6 +558,7 @@ export function RestaurantEditor({
           <div className="relative h-[90px] w-[120px] rounded-lg overflow-hidden bg-paper-100 border border-ink-100 grid place-items-center shrink-0">
             {cover ? (
               <Image
+                unoptimized
                 src={mediaUrl(cover) || ""}
                 alt="cover"
                 fill
